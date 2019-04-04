@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\Validation.Abstractions\Validation.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
