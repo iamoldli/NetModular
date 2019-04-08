@@ -1,5 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using NetModular.Lib.Data.Core;
+using NetModular.Lib.Data.Core.Internal;
 
 namespace NetModular.Lib.Data.SqlServer
 {
@@ -54,6 +56,11 @@ namespace NetModular.Lib.Data.SqlServer
             }
 
             return sqlBuilder.ToString();
+        }
+
+        public override Guid GenerateSequentialGuid()
+        {
+            return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAtEnd);
         }
     }
 }

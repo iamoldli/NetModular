@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Core;
+using NetModular.Lib.Data.Core.Internal;
 
 namespace NetModular.Lib.Data.SQLite
 {
@@ -50,5 +52,9 @@ namespace NetModular.Lib.Data.SQLite
             return GeneratePagingSql(select, table, where, sort, 0, 1);
         }
 
+        public override Guid GenerateSequentialGuid()
+        {
+            return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
+        }
     }
 }

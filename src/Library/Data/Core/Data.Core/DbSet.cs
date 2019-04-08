@@ -82,7 +82,7 @@ namespace NetModular.Lib.Data.Core
             {
                 var id = (Guid)EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                 if (id == Guid.Empty)
-                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, GuidHelper.GenerateSequentialGuid());
+                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, _sqlAdapter.GenerateSequentialGuid());
                 return Execute(_sql.Insert, entity) > 0;
             }
             else
@@ -129,7 +129,7 @@ namespace NetModular.Lib.Data.Core
             {
                 var id = (Guid)EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                 if (id == Guid.Empty)
-                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, GuidHelper.GenerateSequentialGuid());
+                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, _sqlAdapter.GenerateSequentialGuid());
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", _sql.Insert, id);
 
@@ -175,7 +175,7 @@ namespace NetModular.Lib.Data.Core
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
                             {
-                                value = GuidHelper.GenerateSequentialGuid();
+                                value = _sqlAdapter.GenerateSequentialGuid();
                                 EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, value);
                             }
                         });
@@ -214,7 +214,7 @@ namespace NetModular.Lib.Data.Core
                             {
                                 if ((Guid)value == Guid.Empty)
                                 {
-                                    value = GuidHelper.GenerateSequentialGuid();
+                                    value = _sqlAdapter.GenerateSequentialGuid();
                                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, value);
                                 }
                             }
@@ -280,7 +280,7 @@ namespace NetModular.Lib.Data.Core
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
                             {
-                                value = GuidHelper.GenerateSequentialGuid();
+                                value = _sqlAdapter.GenerateSequentialGuid();
                                 EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, value);
                             }
                         });
@@ -318,7 +318,7 @@ namespace NetModular.Lib.Data.Core
                             {
                                 if ((Guid)value == Guid.Empty)
                                 {
-                                    value = GuidHelper.GenerateSequentialGuid();
+                                    value = _sqlAdapter.GenerateSequentialGuid();
                                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, value);
                                 }
                             }

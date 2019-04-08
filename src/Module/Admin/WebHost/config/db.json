@@ -4,11 +4,11 @@
       //模块名称
       "Name": "Admin",
       //数据库名称
-      "Database": "NM_Admin",
+      "Database": "Td_Admin",
       //数据库类型
       "Dialect": 0,
       //链接字符串
-      "ConnString": "Server=.;Database=NM_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+      "ConnString": "Server=.;Database=Td_Admin;Uid=sa;Pwd=tdkj!@#123;MultipleActiveResultSets=true;"
     }
   ]
 }

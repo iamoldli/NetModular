@@ -1,34 +1,78 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace NetModular.Lib.Data.Core.Internal
 {
     /// <summary>
+    /// 有序Guid类型
+    /// </summary>
+    public enum SequentialGuidType
+    {
+        SequentialAsString,
+        SequentialAsBinary,
+        SequentialAtEnd
+    }
+
+
+    /// <summary>
     /// Guid帮助类
     /// </summary>
-    internal class GuidHelper
+    public class GuidHelper
     {
+        private static readonly RNGCryptoServiceProvider Rng = new RNGCryptoServiceProvider();
+
+        /*
+         * Database 	GUID Column 	  SequentialGuidType  Value 
+         * SQL Server   uniqueidentifier 	SequentialAtEnd
+         * MySQL 	    char(36) 	        SequentialAsString 
+         * Oracle 	    raw(16) 	        SequentialAsBinary 
+         * PostgreSQL 	uuid 	            SequentialAsString 
+         * SQLite  	    varies  	        varies 
+         */
+
         /// <summary>
-        /// 生成有序的Guid(根据日期排序)
+        /// 生成有序Guid
         /// </summary>
+        /// <param name="guidType"></param>
         /// <returns></returns>
-        public static Guid GenerateSequentialGuid()
+        public static Guid NewSequentialGuid(SequentialGuidType guidType)
         {
-            var guidArray = Guid.NewGuid().ToByteArray();
+            var randomBytes = new byte[10];
+            Rng.GetBytes(randomBytes);
 
-            var baseDate = new DateTime(1900, 1, 1);
-            var now = DateTime.Now;
-            var days = new TimeSpan(now.Ticks - baseDate.Ticks);
+            var timestamp = DateTime.UtcNow.Ticks / 10000L;
+            var timestampBytes = BitConverter.GetBytes(timestamp);
 
-            var daysArray = BitConverter.GetBytes(days.Days);
-            var msecsArray = BitConverter.GetBytes((long)(now.TimeOfDay.TotalMilliseconds / 3.333333));
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(timestampBytes);
+            }
 
-            Array.Reverse(daysArray);
-            Array.Reverse(msecsArray);
+            var guidBytes = new byte[16];
 
-            Array.Copy(daysArray, daysArray.Length - 2, guidArray, guidArray.Length - 6, 2);
-            Array.Copy(msecsArray, msecsArray.Length - 4, guidArray, guidArray.Length - 4, 4);
+            switch (guidType)
+            {
+                case SequentialGuidType.SequentialAsString:
+                case SequentialGuidType.SequentialAsBinary:
+                    Buffer.BlockCopy(timestampBytes, 2, guidBytes, 0, 6);
+                    Buffer.BlockCopy(randomBytes, 0, guidBytes, 6, 10);
 
-            return new Guid(guidArray);
+                    // If formatting as a string, we have to reverse the order
+                    // of the Data1 and Data2 blocks on little-endian systems.
+                    if (guidType == SequentialGuidType.SequentialAsString && BitConverter.IsLittleEndian)
+                    {
+                        Array.Reverse(guidBytes, 0, 4);
+                        Array.Reverse(guidBytes, 4, 2);
+                    }
+                    break;
+
+                case SequentialGuidType.SequentialAtEnd:
+                    Buffer.BlockCopy(randomBytes, 0, guidBytes, 0, 10);
+                    Buffer.BlockCopy(timestampBytes, 2, guidBytes, 10, 6);
+                    break;
+            }
+
+            return new Guid(guidBytes);
         }
     }
 }

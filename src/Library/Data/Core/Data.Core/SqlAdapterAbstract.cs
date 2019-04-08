@@ -14,7 +14,7 @@ namespace NetModular.Lib.Data.Core
 
         protected readonly string _database;
 
-        public abstract string Database {  get; }
+        public abstract string Database { get; }
 
         public virtual SqlDialect SqlDialect => SqlDialect.SqlServer;
 
@@ -131,5 +131,7 @@ namespace NetModular.Lib.Data.Core
         public abstract string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take);
 
         public abstract string GenerateFirstSql(string select, string table, string where, string sort);
+
+        public abstract Guid GenerateSequentialGuid();
     }
 }

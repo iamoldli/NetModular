@@ -34,13 +34,10 @@ namespace NetModular.Lib.Utils.Core.Encrypt
             if (source == null)
                 return null;
 
-            var result = new StringBuilder();
-            using (var md5 = new MD5CryptoServiceProvider())
+            using (var md5Hash = MD5.Create())
             {
-                md5.ComputeHash(source).ToHex(lowerCase);
+                return md5Hash.ComputeHash(source).ToHex(lowerCase);
             }
-
-            return result.ToString();
         }
     }
 }

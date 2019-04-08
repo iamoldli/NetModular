@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using NetModular.Lib.Data.Abstractions.Enums;
 
 namespace NetModular.Lib.Data.Abstractions
@@ -141,6 +142,12 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="sort"></param>
         /// <returns></returns>
         string GenerateFirstSql(string select, string table, string where, string sort);
+
+        /// <summary>
+        /// 生成有序Guid
+        /// </summary>
+        /// <returns></returns>
+        Guid GenerateSequentialGuid();
 
         #endregion
     }
