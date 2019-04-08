@@ -1,0 +1,42 @@
+{
+    "name": "nm-module-admin",
+    "version": "1.0.0",
+    "description": "NetModular前端Admin模块组件",
+    "author": "Oldli",
+    "license": "ISC",
+    "main": "src/index.js",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "dev": "cd ../../WebHost && dotnet watch run",
+        "prev": "cd ./dist && http-server -o -p 15220"
+    },
+    "dependencies": {
+        "@babel/polyfill": "^7.4.3",
+        "nm-lib-skins": "^1.0.0"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.5.5",
+        "@vue/cli-plugin-eslint": "^3.5.1",
+        "@vue/cli-service": "^3.5.3",
+        "@vue/eslint-config-standard": "^4.0.0",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.16.0",
+        "eslint-config-elemefe": "^0.3.0",
+        "eslint-plugin-html": "^5.0.3",
+        "eslint-plugin-json": "^1.4.0",
+        "eslint-plugin-vue": "^5.2.2",
+        "fibers": "^3.1.1",
+        "http-server": "^0.11.1",
+        "rimraf": "^2.6.3",
+        "sass": "^1.17.4",
+        "sass-loader": "^7.1.0",
+        "uglifyjs-webpack-plugin": "^2.1.2",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/iamoldli/NetModular"
+    }
+}

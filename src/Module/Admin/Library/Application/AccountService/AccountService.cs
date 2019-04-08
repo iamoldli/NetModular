@@ -89,7 +89,7 @@ namespace NetModular.Module.Admin.Application.AccountService
                 return result.Failed(msg);
             }
 
-            var password = EncryptPassword(account.UserName.ToLower(), model.Password);
+            var password = EncryptPassword(model.UserName.ToLower(), model.Password);
             if (!account.Password.Equals(password))
                 return result.Failed("密码错误");
 
