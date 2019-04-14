@@ -1,5 +1,7 @@
 ## .Net Core 模块化的前后端分离的快速开发框架
 
+![架构图](./docs/image/Architecture.png)
+
 ### 使用方法
 
 #### 1、还原数据库(data\Admin\Mn_Admin_SqlServer.sql)
