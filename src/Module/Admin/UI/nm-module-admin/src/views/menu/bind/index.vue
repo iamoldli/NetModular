@@ -2,7 +2,7 @@
   <nm-split v-model="split">
     <template v-slot:left>
       <nm-box page header title="菜单树" type="success" icon="menu" :toolbar="null">
-        <menu-tree ref="tree" v-model="menuId" show-checkbox :checked-keys="checkedKeys" @check="onMneuCheck" @select-change="onTreeSelectChange"/>
+        <menu-tree ref="tree" v-model="menuId" v-bind="menuTree" v-on="treeOn"/>
       </nm-box>
     </template>
     <template v-slot:right>
@@ -36,7 +36,12 @@ export default {
       buttons: [],
       checkAll: false,
       isIndeterminate: false,
-      buttonChecked: []
+      buttonChecked: [],
+      treeOn: {
+        check: this.onTreeCheck,
+        'select-change': this.onTreeSelectChange,
+        'check-change': this.onTreeCheckChange
+      }
     }
   },
   props: {
@@ -67,31 +72,33 @@ export default {
     }
   },
   computed: {
-    // 判断是否选中了菜单
-    hasMenu () {
-      return this.menuId
+    menuTree () {
+      return {
+        'show-checkbox': true,
+        'checked-keys': this.checkedKeys
+      }
     },
     // 是否显示右侧的按钮选择
     showButtonBox () {
-      return this.hasMenu && this.buttons.length > 0
+      return this.menuId && this.buttons.length > 0
     },
     // 判断选中的菜单是否被选择
     isMenuChecked () {
-      return this.hasMenu && this.currentMenu && this.currentMenu.checked
+      return this.menuId && this.currentMenu && this.currentMenu.checked
     }
   },
   methods: {
     queryMenus () {
       this.menuQueryAction().then(data => {
         this.checkedKeys = data
-        this.$refs.tree.refresh()
+        this.queryButtons()
       })
     },
     // 查询按钮信息
     queryButtons () {
       this.buttons = []
       this.buttonChecked = []
-      if (this.hasMenu) {
+      if (this.menuId) {
         this.buttonQueryAction(this.menuId).then(data => {
           this.buttons = data
           this.buttons.map(b => {
@@ -104,8 +111,18 @@ export default {
       }
     },
     // 菜单选择事件
-    onMneuCheck (selection) {
+    onTreeCheck (selection) {
       this.menuUpdateAction(selection.map(m => m.id))
+    },
+    onTreeCheckChange (data, checked) {
+      if (data.menu.id === this.menuId) {
+        this.currentMenu.checked = checked
+      }
+    },
+    // 菜单树选中事件
+    onTreeSelectChange (menu) {
+      this.currentMenu = menu
+      this.queryButtons()
     },
     // 按钮全选事件
     onButtonCheckAllChange (val) {
@@ -122,11 +139,6 @@ export default {
     // 按钮单个更改事件
     onButtonChange (id, checked) {
       this.buttonUpdateAction({ menuId: this.currentMenu.id, buttonId: id, checked })
-    },
-    // 菜单树选中事件
-    onTreeSelectChange (menu) {
-      this.currentMenu = menu
-      this.queryButtons()
     }
   },
   created () {

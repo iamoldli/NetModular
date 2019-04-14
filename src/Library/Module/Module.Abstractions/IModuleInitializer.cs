@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace NetModular.Lib.Module.Abstractions
@@ -28,5 +29,12 @@ namespace NetModular.Lib.Module.Abstractions
         /// </summary>
         /// <param name="mvcOptions"></param>
         void ConfigureMvc(MvcOptions mvcOptions);
+
+        /// <summary>
+        /// 配置选项
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        void ConfigOptions(IServiceCollection services, IConfiguration configuration);
     }
 }

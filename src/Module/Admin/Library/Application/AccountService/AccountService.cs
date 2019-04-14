@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Query;
@@ -47,8 +48,10 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly IRoleRepository _roleRepository;
         private readonly IButtonRepository _buttonRepository;
         private readonly IPermissionRepository _permissionRepository;
+        private readonly DrawingHelper _drawingHelper;
+        private readonly ILogger _logger;
 
-        public AccountService(LoginInfo loginInfo, IMemoryCache cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository)
+        public AccountService(LoginInfo loginInfo, IMemoryCache cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger)
         {
             _loginInfo = loginInfo;
             _cache = cache;
@@ -60,6 +63,8 @@ namespace NetModular.Module.Admin.Application.AccountService
             _roleRepository = roleRepository;
             _buttonRepository = buttonRepository;
             _permissionRepository = permissionRepository;
+            _drawingHelper = drawingHelper;
+            _logger = logger;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -67,7 +72,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             var verifyCodeModel = new VerifyCodeResultModel
             {
                 Id = Guid.NewGuid().ToString("N"),
-                Base64String = DrawingHelper.DrawVerifyCodeBase64String(out string code, length)
+                Base64String = _drawingHelper.DrawVerifyCodeBase64String(out string code, length)
             };
 
             //把验证码放到内存缓存中，有效期10分钟
@@ -89,7 +94,7 @@ namespace NetModular.Module.Admin.Application.AccountService
                 return result.Failed(msg);
             }
 
-            var password = EncryptPassword(model.UserName.ToLower(), model.Password);
+            var password = EncryptPassword(account.UserName.ToLower(), model.Password);
             if (!account.Password.Equals(password))
                 return result.Failed("密码错误");
 
@@ -213,17 +218,16 @@ namespace NetModular.Module.Admin.Application.AccountService
         {
             var result = new QueryResultModel<AccountQueryResultModel>();
             var paging = model.Paging();
+
             var list = await _accountRepository.Query(paging, model.UserName, model.Name, model.Phone, model.Email);
-
-
             result.Rows = _mapper.Map<List<AccountQueryResultModel>>(list);
             result.Total = paging.TotalCount;
 
-            Parallel.ForEach(result.Rows, async item =>
-               {
-                   var roles = await _accountRoleRepository.QueryRole(item.Id);
-                   item.Roles = roles.Select(r => new OptionResultModel { Label = r.Name, Value = r.Id }).ToList();
-               });
+            foreach (var item in result.Rows)
+            {
+                var roles = await _accountRoleRepository.QueryRole(item.Id);
+                item.Roles = roles.Select(r => new OptionResultModel { Label = r.Name, Value = r.Id }).ToList();
+            }
 
             return ResultModel.Success(result);
         }
@@ -241,7 +245,9 @@ namespace NetModular.Module.Admin.Application.AccountService
 
             //设置默认密码
             if (account.Password.IsNull())
-                account.Password = EncryptPassword(account.UserName.ToLower(), DefaultPassword);
+                account.Password = DefaultPassword;
+
+            account.Password = EncryptPassword(account.UserName.ToLower(), account.Password);
 
             _uow.BeginTransaction();
             var result = await _accountRepository.AddAsync(account);

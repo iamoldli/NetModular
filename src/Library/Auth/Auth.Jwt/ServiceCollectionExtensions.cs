@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
 namespace NetModular.Lib.Auth.Jwt
 {
@@ -18,7 +18,8 @@ namespace NetModular.Lib.Auth.Jwt
         /// <param name="env"></param>
         public static IServiceCollection AddJwtAuth(this IServiceCollection services, IHostingEnvironment env)
         {
-            var jwtOptions = ConfigurationExtensions.Get<JwtOptions>("Jwt", env.EnvironmentName);
+            var cfgHelper = new ConfigurationHelper();
+            var jwtOptions = cfgHelper.Get<JwtOptions>("Jwt", env.EnvironmentName);
 
             services.AddSingleton(jwtOptions);
             services.TryAddSingleton(typeof(ILoginHandler), typeof(JwtLoginHandler));

@@ -27,5 +27,12 @@ namespace NetModular.Module.Admin.Domain.ModuleInfo
         /// <param name="id">模块编号</param>
         /// <returns></returns>
         Task<bool> Exists(string code, Guid? id = null);
+
+        /// <summary>
+        /// 根据编码更新实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<bool> UpdateByCode(ModuleInfo entity);
     }
 }

@@ -35,5 +35,15 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
+
+        public Task<bool> UpdateByCode(ModuleInfo entity)
+        {
+            return Db.Find().Where(m => m.Code == entity.Code).UpdateAsync(m => new ModuleInfo
+            {
+                Name = entity.Name,
+                Version = entity.Version,
+                Remarks = entity.Remarks
+            });
+        }
     }
 }

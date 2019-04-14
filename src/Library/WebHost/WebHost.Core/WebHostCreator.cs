@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using NetModular.Lib.Logging.Serilog;
 using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Lib.WebHost.Core.Options;
 
 namespace NetModular.Lib.WebHost.Core
@@ -17,8 +18,9 @@ namespace NetModular.Lib.WebHost.Core
         /// <param name="args">启动参数</param>
         public static void Run<TStartup>(string[] args) where TStartup : StartupAbstract
         {
+            var cfgHelper = new ConfigurationHelper();
             //加载主机配置项
-            var hostOptions = ConfigurationExtensions.Get<HostOptions>("Host");
+            var hostOptions = cfgHelper.Get<HostOptions>("Host");
 
             if (hostOptions.Urls.IsNull())
                 hostOptions.Urls = "http://*:5000";

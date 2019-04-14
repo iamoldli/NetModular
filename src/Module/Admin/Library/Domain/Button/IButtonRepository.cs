@@ -47,5 +47,12 @@ namespace NetModular.Module.Admin.Domain.Button
         /// <param name="menuId"></param>
         /// <returns></returns>
         Task<bool> DeleteByMenu(Guid menuId);
+
+        /// <summary>
+        /// 同步操作更新按钮信息
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        Task<bool> UpdateForSync(Button button);
     }
 }

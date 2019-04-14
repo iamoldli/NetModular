@@ -106,5 +106,11 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 
             return list;
         }
+
+        public Task<bool> UpdateForSync(Permission permission)
+        {
+            return Db.Find(m => m.ModuleCode == permission.ModuleCode && m.Controller == permission.Controller && m.Action == permission.Action)
+                .UpdateAsync(m => new Permission { Name = permission.Name });
+        }
     }
 }

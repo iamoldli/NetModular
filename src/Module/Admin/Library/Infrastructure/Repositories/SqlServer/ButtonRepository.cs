@@ -50,5 +50,11 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             return Db.Find(m => m.MenuId == menuId).DeleteAsync();
         }
+
+        public Task<bool> UpdateForSync(Button button)
+        {
+            return Db.Find(m => m.MenuId == button.MenuId && m.Code == button.Code)
+                .UpdateAsync(m => new Button { Icon = button.Icon, Name = button.Name });
+        }
     }
 }

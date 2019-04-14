@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.Helpers
@@ -9,10 +10,18 @@ namespace NetModular.Lib.Utils.Core.Helpers
     /// <summary>
     /// 绘图帮助类
     /// </summary>
+    [Singleton]
     public class DrawingHelper
     {
         //颜色列表，用于验证码、噪线、噪点 
-        private static readonly Color[] Colors = new[] { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.Brown, Color.DarkBlue };
+        private readonly Color[] _colors = new[] { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.Brown, Color.DarkBlue };
+
+        private readonly StringHelper _stringHelper;
+
+        public DrawingHelper(StringHelper stringHelper)
+        {
+            _stringHelper = stringHelper;
+        }
 
         /// <summary>
         /// 绘制验证码图片，返回图片的字节数组
@@ -20,9 +29,9 @@ namespace NetModular.Lib.Utils.Core.Helpers
         /// <param name="code"></param>
         /// <param name="length">验证码长度</param>
         /// <returns></returns>
-        public static byte[] DrawVerifyCode(out string code, int length = 6)
+        public byte[] DrawVerifyCode(out string code, int length = 6)
         {
-            code = StringHelper.GenerateRandomNumber(length);
+            code = _stringHelper.GenerateRandomNumber(length);
             //创建画布
             var bmp = new Bitmap(4 + 16 * code.Length, 40);
             //字体
@@ -39,13 +48,13 @@ namespace NetModular.Lib.Utils.Core.Helpers
                 int y1 = r.Next(bmp.Height);
                 int x2 = r.Next(bmp.Width);
                 int y2 = r.Next(bmp.Height);
-                g.DrawLine(new Pen(Colors.RandomGet()), x1, y1, x2, y2);
+                g.DrawLine(new Pen(_colors.RandomGet()), x1, y1, x2, y2);
             }
 
             //画验证码字符串 
             for (int i = 0; i < code.Length; i++)
             {
-                g.DrawString(code[i].ToString(), font, new SolidBrush(Colors.RandomGet()), (float)i * 16 + 2, 8);
+                g.DrawString(code[i].ToString(), font, new SolidBrush(_colors.RandomGet()), (float)i * 16 + 2, 8);
             }
 
             //将验证码图片写入内存流，并将其以 "image/Png" 格式输出 
@@ -72,7 +81,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
         /// <param name="code"></param>
         /// <param name="length">验证码长度</param>
         /// <returns></returns>
-        public static string DrawVerifyCodeBase64String(out string code, int length = 6)
+        public string DrawVerifyCodeBase64String(out string code, int length = 6)
         {
             var bytes = DrawVerifyCode(out code, length);
 

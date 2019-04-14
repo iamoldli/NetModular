@@ -272,7 +272,7 @@ namespace NetModular.Module.Admin.Application.RoleService
             {
                 foreach (var relation in relationList)
                 {
-                    _accountService.ClearPermissionListCache(relation.RoleId);
+                    _accountService.ClearPermissionListCache(relation.AccountId);
                 }
             }
         }

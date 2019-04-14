@@ -63,5 +63,12 @@ namespace NetModular.Module.Admin.Domain.Permission
         /// <param name="accountId"></param>
         /// <returns></returns>
         Task<IList<Permission>> QueryByAccount(Guid accountId);
+
+        /// <summary>
+        /// 修改同步信息
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        Task<bool> UpdateForSync(Permission permission);
     }
 }

@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NetModular.Lib.Module.Abstractions.Attributes;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AuditInfoService;
 using NetModular.Module.Admin.Application.AuditInfoService.ViewModels;
-using NetModular.Module.Admin.Web.Attributes;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {

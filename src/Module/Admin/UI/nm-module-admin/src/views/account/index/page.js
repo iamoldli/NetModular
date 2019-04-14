@@ -1,4 +1,4 @@
-﻿/** 页面信息 */
+/** 页面信息 */
 const page = new function () {
   this.title = '账户管理'
   this.name = 'admin_account'
@@ -6,7 +6,8 @@ const page = new function () {
   this.buttons = {
     add: {
       text: '添加',
-      code: `${this.name}_add`
+      code: `${this.name}_add`,
+      icon: 'add'
     },
     edit: {
       text: '编辑',

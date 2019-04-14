@@ -45,7 +45,8 @@ export default baseUrl => {
       error => {
         const $router = routerConfig.$router
         let currentRoute = $router.currentRoute
-        let redirect = currentRoute.name !== 'Login' ? currentRoute.fullPath : '/' // 跳转页面
+        let redirect =
+          currentRoute.name !== 'Login' ? currentRoute.fullPath : '/' // 跳转页面
 
         if (error && error.response) {
           switch (error.response.status) {
@@ -60,13 +61,18 @@ export default baseUrl => {
               })
               break
             case 403:
-              store.dispatch('app/page/close', {
-                fullPath: currentRoute.path,
-                router: $router,
-                to: {
-                  name: 'Error403'
-                }
-              }, { root: true })
+              console.log(1)
+              store.dispatch(
+                'app/page/close',
+                {
+                  fullPath: currentRoute.path,
+                  router: $router,
+                  to: {
+                    name: 'Error403'
+                  }
+                },
+                { root: true }
+              )
               break
             default:
               Message.error({

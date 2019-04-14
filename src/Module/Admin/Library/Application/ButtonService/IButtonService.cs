@@ -18,25 +18,10 @@ namespace NetModular.Module.Admin.Application.ButtonService
         Task<IResultModel> Query(ButtonQueryModel model);
 
         /// <summary>
-        /// 添加
+        /// 同步
         /// </summary>
-        /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(ButtonAddModel model);
-
-        /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task<IResultModel> Update(ButtonUpdateModel model);
+        Task<IResultModel> Sync(ButtonSyncModel model);
 
         /// <summary>
         /// 删除

@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Jwt;
 using NetModular.Lib.Data.AspNetCore;
@@ -9,9 +7,10 @@ using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.Core;
 using NetModular.Lib.Swagger;
 using NetModular.Lib.Swagger.Conventions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Mvc;
 using NetModular.Lib.Validation.FluentValidation;
 using NetModular.Lib.WebHost.Core.Options;
-using ConfigurationExtensions = NetModular.Lib.Utils.Core.Extensions.ConfigurationExtensions;
 
 namespace NetModular.Lib.WebHost.Core
 {
@@ -21,20 +20,19 @@ namespace NetModular.Lib.WebHost.Core
         /// 添加WebHost
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="cfg">配置项</param>
+        /// <param name="hostOptions"></param>
         /// <param name="env">环境</param>
-        /// <param name="hostSetupAction">修改主机配置</param>
         /// <returns></returns>
-        public static IServiceCollection AddWebHost(this IServiceCollection services, IConfiguration cfg, IHostingEnvironment env, Action<HostOptions> hostSetupAction = null)
+        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostingEnvironment env)
         {
-            //加载主机配置项
-            var hostOptions = ConfigurationExtensions.Get<HostOptions>("Host");
-
-            hostSetupAction?.Invoke(hostOptions);
             services.AddSingleton(hostOptions);
 
+            services.AddUtils();
+
+            services.AddUtilsMvc();
+
             //加载模块
-            var modules = services.AddModules();
+            var modules = services.AddModules(env);
 
             //添加对象映射
             services.AddMappers(modules);
@@ -57,7 +55,7 @@ namespace NetModular.Lib.WebHost.Core
                 if (env.IsDevelopment())
                 {
                     //API分组约定
-                    c.Conventions.Add(new ApiExplorerGroupConvention()); 
+                    c.Conventions.Add(new ApiExplorerGroupConvention());
                 }
 
                 //模块中的MVC配置

@@ -10,7 +10,6 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
-using NetModular.Lib.Data.Core.Options;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
@@ -27,39 +26,40 @@ namespace NetModular.Lib.Data.AspNetCore
         /// <param name="modules"></param>
         public static void AddDb(this IServiceCollection services, IHostingEnvironment env, IModuleCollection modules)
         {
-            var cfg = ConfigurationExtensions.Load("Db", env.EnvironmentName);
-            var optionsCollection = cfg.Get<DbConnectionOptionsCollection>("Connections");
+            var cfgHelper = new ConfigurationHelper();
+            var dbOptions = cfgHelper.Get<DbOptions>("Db", env.EnvironmentName);
 
-            if (!optionsCollection.Any() || !modules.Any())
+            if (!dbOptions.Connections.Any() || !modules.Any())
                 return;
 
-            services.AddSingleton<IDbConnectionOptionsCollection>(optionsCollection);
+            services.AddSingleton(dbOptions);
 
-            foreach (var options in optionsCollection)
+            foreach (var options in dbOptions.Connections)
             {
                 var module = modules.FirstOrDefault(m => m.Id.Equals(options.Name, StringComparison.OrdinalIgnoreCase));
 
                 LoadEntityTypes(module, options);
 
-                services.AddDbContext(module, options);
+                services.AddDbContext(module, options, dbOptions);
             }
         }
 
         /// <summary>
         /// 添加数据库上下文
         /// </summary>
-        private static void AddDbContext(this IServiceCollection services, ModuleInfo module, DbConnectionOptions options)
+        private static void AddDbContext(this IServiceCollection services, ModuleInfo module, DbConnectionOptions options, DbOptions dbOptions)
         {
             var dbContextType = module.AssembliesInfo.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
             if (dbContextType != null)
             {
-                var dbContextOptionsAssemblyName = AssemblyHelper.GetCurrentAssemblyName().Replace("AspNetCore", "") + options.Dialect;
+                var assemblyHelper = new AssemblyHelper();
+                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("AspNetCore", "") + options.Dialect;
                 var dbContextOptionsTypeName = options.Dialect + "DbContextOptions";
 
                 var dbContextOptionsType = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(dbContextOptionsAssemblyName)).GetType($"{dbContextOptionsAssemblyName}.{dbContextOptionsTypeName}");
 
                 //日志工厂
-                var loggerFactory = services.BuildServiceProvider().GetService<ILoggerFactory>();
+                var loggerFactory = dbOptions.Logging ? services.BuildServiceProvider().GetService<ILoggerFactory>() : null;
                 //请求上下文访问器
                 var httpContextAccessor = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
 

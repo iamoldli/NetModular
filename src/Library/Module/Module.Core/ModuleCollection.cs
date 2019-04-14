@@ -91,14 +91,14 @@ namespace NetModular.Lib.Module.Core
                     //判断是否已存在
                     if (_moduleInfos.Any(m => m.Name.Equals(moduleInfo.Name)))
                         continue;
-
+                    var assemblyHelper = new AssemblyHelper();
                     //此处默认模块命名空间前缀与当前项目相同
                     moduleInfo.AssembliesInfo = new ModuleAssembliesInfo
                     {
-                        Domain = AssemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Domain")).FirstOrDefault(),
-                        Infrastructure = AssemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Infrastructure")).FirstOrDefault(),
-                        Application = AssemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Application")).FirstOrDefault(),
-                        Web = AssemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Web")).FirstOrDefault(),
+                        Domain = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Domain")).FirstOrDefault(),
+                        Infrastructure = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Infrastructure")).FirstOrDefault(),
+                        Application = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Application")).FirstOrDefault(),
+                        Web = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleInfo.Id + ".Web")).FirstOrDefault(),
                     };
 
                     Check.NotNull(moduleInfo.AssembliesInfo.Domain, moduleInfo.Id + "模块的Domain程序集未发现");

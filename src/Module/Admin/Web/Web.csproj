@@ -8,6 +8,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\..\Library\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Library\Utils\Utils.Mvc\Utils.Mvc.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />
   </ItemGroup>
     

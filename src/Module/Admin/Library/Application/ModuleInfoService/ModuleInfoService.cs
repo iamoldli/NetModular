@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Query;
+using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ModuleInfoService.ViewModels;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.ModuleInfo;
 using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Infrastructure.Repositories;
+using ModuleInfo = NetModular.Module.Admin.Domain.ModuleInfo.ModuleInfo;
 
 namespace NetModular.Module.Admin.Application.ModuleInfoService
 {
     public class ModuleInfoService : IModuleInfoService
     {
-        private readonly IMapper _mapper;
         private readonly IModuleInfoRepository _repository;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IMenuRepository _menuRepository;
+        private readonly IUnitOfWork _uow;
+        private readonly IModuleCollection _moduleCollection;
 
-        public ModuleInfoService(IMapper mapper, IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository)
+        public ModuleInfoService(IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository, IUnitOfWork<AdminDbContext> uow, IModuleCollection moduleCollection)
         {
-            _mapper = mapper;
             _repository = repository;
             _permissionRepository = permissionRepository;
             _menuRepository = menuRepository;
+            _uow = uow;
+            _moduleCollection = moduleCollection;
         }
 
         public async Task<IResultModel> Query(ModuleInfoQueryModel model)
@@ -35,16 +40,40 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
             return ResultModel.Success(result);
         }
 
-        public async Task<IResultModel> Add(ModuleInfoAddModel model)
+        public async Task<IResultModel> Sync()
         {
-            if (await _repository.Exists(model.Code.ToLower()))
-                return ResultModel.HasExists;
+            var modules = _moduleCollection.Select(m => new ModuleInfo
+            {
+                Name = m.Name,
+                Code = m.Id,
+                Version = m.Version
+            });
 
-            var moduleInfo = _mapper.Map<ModuleInfo>(model);
+            _uow.BeginTransaction();
 
-            var result = await _repository.AddAsync(moduleInfo);
+            foreach (var moduleInfo in modules)
+            {
+                if (!await _repository.Exists(moduleInfo.Code))
+                {
+                    if (!await _repository.AddAsync(moduleInfo))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed();
+                    }
+                }
+                else
+                {
+                    if (!await _repository.UpdateByCode(moduleInfo))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed();
+                    }
+                }
+            }
 
-            return ResultModel.Result(result);
+            _uow.Commit();
+
+            return ResultModel.Success();
         }
 
         public async Task<IResultModel> Delete(Guid id)
@@ -65,29 +94,6 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> Edit(Guid id)
-        {
-            var entity = await _repository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.NotExists;
-
-            var model = _mapper.Map<ModuleInfoUpdateModel>(entity);
-            return ResultModel.Success(model);
-        }
-
-        public async Task<IResultModel> Update(ModuleInfoUpdateModel model)
-        {
-            if (await _repository.Exists(model.Code.ToLower(), model.Id))
-                return ResultModel.HasExists;
-
-            var moduleInfo = await _repository.GetAsync(model.Id);
-            _mapper.Map(model, moduleInfo);
-
-            var result = await _repository.UpdateAsync(moduleInfo);
-
-            return ResultModel.Result(result);
-        }
-
         public async Task<IResultModel> Select()
         {
             var all = await _repository.GetAllAsync();
@@ -98,5 +104,6 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
             }).ToList();
             return ResultModel.Success(list);
         }
+
     }
 }

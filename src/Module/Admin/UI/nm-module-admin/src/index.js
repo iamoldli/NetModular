@@ -1,10 +1,10 @@
-import '@babel/polyfill'
 import http from './extensions/http'
 import routerConfig from './router/'
 import store from './store/'
 import Skins from 'nm-lib-skins'
-import configApi from './api/config'
+import systemApi from './api/system'
 import api from './api/account'
+import admin from './module'
 
 // 要注册的全局组件列表
 let globalComponents = []
@@ -31,7 +31,8 @@ const injectRoutes = moduleInfo => {
  */
 const injectStore = moduleInfo => {
   if (moduleInfo.store) {
-    storeConfig.modules.module.modules[moduleInfo.name] = moduleInfo.store
+    storeConfig.modules.module.modules[moduleInfo.module.code] =
+      moduleInfo.store
   }
 }
 
@@ -52,17 +53,17 @@ const injectModule = () => {
 
 export default {
   /**
-     * @description 添加模块
-     * @param {Object} moduleInfo 模块信息
-     */
+   * @description 添加模块
+   * @param {Object} moduleInfo 模块信息
+   */
   addModule (moduleInfo) {
     if (moduleInfo) {
       modules.push(moduleInfo)
     }
   },
   /**
-     * @description 启动
-     */
+   * @description 启动
+   */
   async start (config) {
     // 接口请求地址
     http(config.baseUrl)
@@ -71,7 +72,13 @@ export default {
     injectModule()
 
     // 获取系统信息
-    const system = await configApi.getSystemConfig()
+    const system = await systemApi.getConfig()
+
+    // 模块列表
+    system.modules = [admin]
+    modules.map(m => {
+      system.modules.push(m.module)
+    })
 
     // 退出方法
     system.logout = () => {
@@ -83,7 +90,12 @@ export default {
 
     // 设置个时间，防止等待页面闪烁
     setTimeout(() => {
-      Skins.use({ system, routerConfig, storeConfig, globalComponents })
+      Skins.use({
+        system,
+        routerConfig,
+        storeConfig,
+        globalComponents
+      })
     }, 1000)
   }
 }

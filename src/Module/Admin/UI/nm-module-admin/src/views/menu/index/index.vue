@@ -10,12 +10,18 @@
         <nm-list ref="list" :title="title" v-bind="list">
           <!--查询条件-->
           <template v-slot:querybar>
-            <el-form-item label="名称：" prop="name">
-              <el-input clearable v-model="list.conditions.name"/>
-            </el-form-item>
-            <el-form-item label="编码：" prop="code">
-              <el-input clearable v-model="list.conditions.code"/>
-            </el-form-item>
+            <el-row :gutter="20">
+              <el-col :span="11" :offset="1">
+                <el-form-item label="名称：" prop="name">
+                  <el-input v-model="list.conditions.name" clearable/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11">
+                <el-form-item label="编码：" prop="code">
+                  <el-input v-model="list.conditions.code" clearable/>
+                </el-form-item>
+              </el-col>
+            </el-row>
           </template>
 
           <!--按钮-->
@@ -32,6 +38,7 @@
           <template v-slot:col-typeName="{row}">
             <el-tag type="success" v-if="row.type===0">{{row.typeName}}</el-tag>
             <el-tag type="warning" v-if="row.type===1">{{row.typeName}}</el-tag>
+            <el-tag v-if="row.type===2">{{row.typeName}}</el-tag>
           </template>
 
           <!--图标-->
@@ -72,15 +79,15 @@
           </template>
 
           <!--菜单详情-->
-          <details-page :id="previewPage.id" :visible.sync="previewPage.visible"/>
+          <details-page :id="currentMenu.id" :visible.sync="dialog.prev"/>
           <!--添加菜单-->
-          <add-page :parent="menu" :sort="addPage.sort" :visible.sync="addPage.visible" @success="refresh(true)"/>
+          <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)"/>
           <!--编辑菜单-->
-          <edit-page :id="editPage.id" :parent="menu" :visible.sync="editPage.visible" @success="refresh(true)"/>
+          <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)"/>
           <!--按钮绑定-->
-          <button-bind-page :visible.sync="buttonBindPage"/>
+          <button-bind-page :menu="currentMenu" :visible.sync="dialog.btnBind"/>
           <!--权限绑定-->
-          <permission-bind-page :visible.sync="permissionBindPage"/>
+          <permission-bind-page v-bind="currentMenu" :visible.sync="dialog.perBind"/>
         </nm-list>
       </template>
     </nm-split>
@@ -105,9 +112,9 @@ export default {
     return {
       split: 0.2,
       list: {
-        multiple: true,
         cols,
         action: api.query,
+        labelWidth: '60px',
         conditions: {
           parentId: '',
           name: '',
@@ -115,32 +122,32 @@ export default {
         }
       },
       remove: api.remove,
-      addPage: {
-        visible: false,
-        sort: ''
+      // 当前数量
+      total: 0,
+      // 弹出框
+      dialog: {
+        add: false,
+        edit: false,
+        // 预览
+        prev: false,
+        // 按钮绑定
+        btnBind: false,
+        // 权限绑定
+        perBind: false
       },
-      editPage: {
-        visible: false,
-        id: ''
+      // 当前要操作的菜单
+      currentMenu: {},
+      // 左侧菜单树选择的菜单
+      menu: {
+        id: '',
+        name: '',
+        path: ''
       },
-      previewPage: {
-        visible: false,
-        id: ''
-      },
-      buttonBindPage: false,
-      permissionBindPage: false,
-      // 选择的菜单
-      menu: { id: '', name: '' },
       buttons: page.buttons
     }
   },
   computed: {
-    title () {
-      return '菜单列表—' + this.menu.name
-    }
-  },
-  mounted () {
-    this.refreshTree()
+    title () { return '菜单列表—' + this.menu.name }
   },
   methods: {
     ...mapMutations('module/admin', ['setCurrentMenu']),
@@ -153,30 +160,31 @@ export default {
     refreshTree () {
       this.$refs.tree.refresh()
     },
-    onTreeSelectChange (data) {
-      this.menu.id = data.id
-      this.menu.name = data.menu.name
+    onTreeSelectChange ({ menu, path }) {
+      this.menu.id = menu.id
+      this.menu.name = menu.name
+      this.menu.path = path
       this.refresh()
     },
     add (total) {
-      this.addPage.sort = total
-      this.addPage.visible = true
+      this.total = total
+      this.dialog.add = true
     },
     edit (row) {
-      this.editPage.id = row.id
-      this.editPage.visible = true
+      this.currentMenu = row
+      this.dialog.edit = true
     },
     preview (row) {
-      this.previewPage.id = row.id
-      this.previewPage.visible = true
+      this.currentMenu = row
+      this.dialog.prev = true
     },
     bindButton (row) {
-      this.setCurrentMenu(row)
-      this.buttonBindPage = true
+      this.currentMenu = row
+      this.dialog.btnBind = true
     },
     bindPermission (row) {
-      this.setCurrentMenu(row)
-      this.permissionBindPage = true
+      this.currentMenu = row
+      this.dialog.perBind = true
     }
   }
 }

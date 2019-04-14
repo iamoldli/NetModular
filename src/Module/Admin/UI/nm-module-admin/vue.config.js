@@ -14,38 +14,40 @@ module.exports = {
   configureWebpack: {
     plugins: [
       // 复制nm-lib-skins/public目录下的文件到输出目录
-      new CopyWebpackPlugin([{
-        from: path.join(__dirname, 'node_modules/nm-lib-skins/public'),
-        to: path.join(__dirname, 'dist'),
-        ignore: ['index.html']
-      }])
+      new CopyWebpackPlugin([
+        {
+          from: path.join(__dirname, 'node_modules/nm-lib-skins/public'),
+          to: path.join(__dirname, 'dist'),
+          ignore: ['index.html']
+        }
+      ])
     ]
   },
   chainWebpack: config => {
     /**
-         * 删除懒加载模块的 prefetch preload，降低带宽压力
-         * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
-         * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
-         * 而且预渲染时生成的 prefetch 标签是 modern 版本的，低版本浏览器是不需要的
-         */
+     * 删除懒加载模块的 prefetch preload，降低带宽压力
+     * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
+     * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
+     * 而且预渲染时生成的 prefetch 标签是 modern 版本的，低版本浏览器是不需要的
+     */
     config.plugins.delete('prefetch').delete('preload')
 
     /**
-         * 设置index.html模板路径，使用nm-lib-skins/public中的模板
-         */
+     * 设置index.html模板路径，使用nm-lib-skins/public中的模板
+     */
     config.plugin('html').tap(args => {
       args[0].template = './node_modules/nm-lib-skins/public/index.html'
       return args
     })
 
     config
-    // 开发环境
+      // 开发环境
       .when(
         isDev,
         // sourcemap不包含列信息
         config => config.devtool('cheap-source-map')
       )
-    // 非开发环境
+      // 非开发环境
       .when(!isDev, config => {
         config.optimization.minimizer([
           new UglifyJsPlugin({
@@ -61,6 +63,27 @@ module.exports = {
             }
           })
         ])
+
+        // 拆分
+        config.optimization.splitChunks({
+          chunks: 'all',
+          cacheGroups: {
+            elementUI: {
+              name: 'chunk-element-ui',
+              priority: 20,
+              test: /[\\/]node_modules[\\/]element-ui(.*)/
+            },
+            skins: {
+              name: 'chunk-skins',
+              priority: 10,
+              test: /[\\/]node_modules[\\/]nm-lib-skins(.*)/
+            }
+          }
+        })
+
+        config.optimization.runtimeChunk({
+          name: 'manifest'
+        })
       })
   }
 }

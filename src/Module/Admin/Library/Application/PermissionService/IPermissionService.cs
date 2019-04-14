@@ -20,24 +20,10 @@ namespace NetModular.Module.Admin.Application.PermissionService
         Task<IResultModel> Query(PermissionQueryModel model);
 
         /// <summary>
-        /// 新增
+        /// 同步
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> Add(PermissionAddModel model);
-
-        /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task<IResultModel> Update(PermissionUpdateModel model);
+        Task<IResultModel> Sync(List<Permission> permissions);
 
         /// <summary>
         /// 删除
@@ -45,13 +31,5 @@ namespace NetModular.Module.Admin.Application.PermissionService
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IResultModel> Delete(Guid id);
-
-        /// <summary>
-        /// 获取指定控制器的权限列表
-        /// </summary>
-        /// <param name="moduleCode"></param>
-        /// <param name="controller"></param>
-        /// <returns></returns>
-        Task<List<Permission>> QueryControllerActions(string moduleCode, string controller);
     }
 }

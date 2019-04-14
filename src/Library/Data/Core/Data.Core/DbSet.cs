@@ -610,7 +610,7 @@ namespace NetModular.Lib.Data.Core
         /// <param name="entity"></param>
         private void SetCreatedBy(TEntity entity)
         {
-            if (EntityDescriptor.IsEntityBase)
+            if (EntityDescriptor.IsEntityBase && DbContext.AccountId != null)
             {
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
@@ -638,7 +638,7 @@ namespace NetModular.Lib.Data.Core
         /// <param name="entity"></param>
         private void SetModifiedBy(TEntity entity)
         {
-            if (EntityDescriptor.IsEntityBase)
+            if (EntityDescriptor.IsEntityBase && DbContext.AccountId != null)
             {
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)

@@ -7,10 +7,11 @@
     highlight-current
     :data="tree"
     :show-checkbox="showCheckbox"
-    :current-node-key="currentNodeKey"
+    :current-node-key="this.current.id"
     :expand-on-click-node="false"
     @current-change="onSelectChange"
     @check="onCheck"
+    @check-change="onCheckChange"
   >
     <div class="nm-menu-tree-node" slot-scope="{ node, data }">
       <div class="nm-menu-tree-node-label">
@@ -31,12 +32,16 @@ export default {
       tree: [],
       /** 菜单列表 */
       menus: [],
-      // 当前点击的菜单信息
+      // 当前选中的节点
       current: {
-        id: '',
+        id: this.value || '',
         checked: false,
+        // 菜单对象
         menu: null,
-        node: null
+        // 节点对象
+        node: null,
+        // 路径
+        path: ''
       }
     }
   },
@@ -49,32 +54,39 @@ export default {
       type: Boolean,
       default: true
     },
-    /** 默认选择节点 */
+    /** 默认选择的节点Key */
     checkedKeys: Array,
-    /** 当前选择节点 */
-    currentNodeKey: {
+    /** 菜单路径的分隔符 */
+    pathSeparator: {
       type: String,
-      default: ''
+      default: '/'
     }
   },
   computed: {
-    ...mapState('app/system', { systemTitle: 'title' })
+    ...mapState('app/system', { systemTitle: 'title' }),
+    rootMenu () {
+      return {
+        id: '',
+        label: this.systemTitle,
+        children: [],
+        menu: {
+          id: '',
+          name: this.systemTitle,
+          icon: 'system'
+        }
+      }
+    }
+
   },
   methods: {
     // 刷新菜单树
     refresh () {
       // 树根节点
-      const root = { id: '', label: this.systemTitle, children: [], menu: { id: '', name: this.systemTitle, icon: 'system' } }
-
       api.getTree().then(data => {
-        root.children = this.menus2Tree(data)
-        this.tree = [root]
-        this.current.id = ''
+        this.rootMenu.children = this.menus2Tree(data)
+        this.tree = [this.rootMenu]
         this.setCheckedKeys()
-        this.$nextTick(() => {
-          const rootNode = this.$refs.tree.getNode('')
-          this.onSelectChange(rootNode.data, rootNode)
-        })
+        this.setCurrentKey()
       })
     },
     // 菜单转换为树形结构
@@ -100,12 +112,16 @@ export default {
       return nodes
     },
     // 设置选中的节点
+    setCurrentKey (key) {
+      this.$nextTick(() => {
+        this.$refs.tree.setCurrentKey(key || this.current.id)
+      })
+    },
+    // 设置选中的节点
     setCheckedKeys () {
       if (this.checkedKeys) {
         this.$nextTick(() => {
-          console.log(this.checkedKeys)
           this.$refs.tree.setCheckedKeys(this.checkedKeys)
-          this.$refs.tree.setCurrentKey('')
         })
       }
     },
@@ -113,10 +129,17 @@ export default {
     onSelectChange (data, node) {
       if (!this.current.id || data.menu.id !== this.current.id) {
         this.current.id = data.menu.id
-        this.current.checked = node.checked
         this.current.menu = data.menu
-        this.current.node = node
+        let path = this.getFullPath(node)
+        if (path) {
+          path = path.substring(0, path.length - 2)
+        }
+        this.current.path = path
 
+        if (node) {
+          this.current.checked = node.checked
+          this.current.node = node
+        }
         this.$emit('input', this.current.id)
         this.$emit('select-change', this.current)
       }
@@ -131,6 +154,26 @@ export default {
         if (m.menu.id) { selection.push(m.menu) }
       })
       this.$emit('check', selection)
+    },
+    onCheckChange (data, checked, indeterminate) {
+      this.$emit('check-change', data, checked, indeterminate)
+    },
+    getFullPath (node, path) {
+      if (!path) { path = '' }
+      if (node && typeof node.key !== 'undefined') {
+        path = `${node.label} ${this.pathSeparator} ${path}`
+        path = this.getFullPath(node.parent, path)
+      }
+      return path
+    }
+  },
+  mounted () {
+    this.refresh()
+    this.onSelectChange(this.rootMenu, this.current.node)
+  },
+  watch: {
+    checkedKeys () {
+      this.setCheckedKeys()
     }
   }
 }

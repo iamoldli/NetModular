@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetModular.Lib.Utils.Core.Helpers;
+using NetModular.Lib.WebHost.Core.Options;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace NetModular.Lib.WebHost.Core
 {
     public abstract class StartupAbstract
     {
-        private readonly IConfiguration _cfg;
+        private readonly HostOptions _hostOptions;
         private readonly IHostingEnvironment _env;
 
-        protected StartupAbstract(IConfiguration cfg, IHostingEnvironment env)
+        protected StartupAbstract(IHostingEnvironment env)
         {
-            _cfg = cfg;
             _env = env;
+            var cfgHelper = new ConfigurationHelper();
+            //加载主机配置项
+            _hostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName);
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddWebHost(_cfg, _env);
+            services.AddWebHost(_hostOptions, _env);
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseWebHost(_env);
+            app.UseWebHost(_hostOptions, _env);
         }
     }
 }

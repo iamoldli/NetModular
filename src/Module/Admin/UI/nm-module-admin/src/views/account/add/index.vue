@@ -1,23 +1,23 @@
 <template>
   <nm-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
-      <el-col :span="20" :offset="2">
-        <el-form-item label="用户名" prop="userName">
+      <el-col :span="20" :offset="1">
+        <el-form-item label="用户名：" prop="userName">
           <el-input v-model="form.model.userName"/>
         </el-form-item>
-        <el-form-item label="角色" prop="roles">
+        <el-form-item label="角色：" prop="roles">
           <role-select ref="roles" multiple v-model="form.model.roles" :clearable="false"/>
         </el-form-item>
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="名称：" prop="name">
           <el-input v-model="form.model.name"/>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
+        <el-form-item label="密码：" prop="password">
           <el-input v-model="form.model.password" placeholder="默认密码123456" clearable/>
         </el-form-item>
-        <el-form-item label="手机" prop="phone">
+        <el-form-item label="手机：" prop="phone">
           <el-input type="number" v-model="form.model.phone" clearable/>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱：" prop="email">
           <el-input type="email" v-model="form.model.email" clearable/>
         </el-form-item>
       </el-col>

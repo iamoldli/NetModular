@@ -1,30 +1,47 @@
 <template>
-  <nm-dialog no-footer :title="title" icon="bind" width="70%" height="70%" no-scrollbar :visible.sync="visible_" show-fullscreen show-refresh @refresh="refresh">
-    <bind-page ref="permission" :id="button.id" :query="query" :action="action"/>
+  <nm-dialog v-bind="dialog" :visible.sync="visible_" @open="onOpen">
+    <bind-page ref="bind" :query="query" :action="action"/>
   </nm-dialog>
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
 import BindPage from '../../permission/bind'
-import api from '../../../api/button.js'
+import api from '../../../api/button'
 export default {
   mixins: [mixins.dialog],
   components: { BindPage },
   data () {
     return {
-      query: api.getPermissionList,
-      action: api.bindPermission
+      id_: ''
     }
   },
-  props: ['button'],
+  props: ['id', 'name'],
   computed: {
-    title () {
-      return `权限绑定(${this.button.name})`
+    dialog () {
+      return {
+        noScrollbar: true,
+        noFooter: true,
+        title: `权限绑定(${this.name})`,
+        icon: 'bind',
+        width: '70%',
+        height: '70%'
+      }
     }
   },
   methods: {
-    refresh () {
-      this.$refs.permission.querySelection()
+    query () {
+      return api.getPermissionList(this.id)
+    },
+    action (list) {
+      return api.bindPermission({ id: this.id, permissionList: list })
+    },
+    onOpen () {
+      if (this.id && this.id !== this.id_) {
+        this.$nextTick(() => {
+          this.$refs.bind.refresh()
+        })
+      }
+      this.id_ = this.id
     }
   }
 }

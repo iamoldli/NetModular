@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Query;
+using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.ButtonService.ViewModels;
@@ -53,44 +54,56 @@ namespace NetModular.Module.Admin.Application.ButtonService
             return ResultModel.Success(result);
         }
 
-        public async Task<IResultModel> Add(ButtonAddModel model)
+        public async Task<IResultModel> Sync(ButtonSyncModel model)
         {
+            if (model.Buttons == null || !model.Buttons.Any())
+                return ResultModel.Failed("请选择按钮");
+
             var menu = await _menuRepository.GetAsync(model.MenuId);
             if (menu == null)
                 return ResultModel.Failed("菜单不存在");
 
-            if (await _buttonRepository.Exists(model.Code))
-                return ResultModel.Failed("编码已存在");
+            foreach (var info in model.Buttons)
+            {
+                if (info.Name.IsNull())
+                {
+                    return ResultModel.Failed("按钮名称不能为空");
+                }
 
-            var button = _mapper.Map<Button>(model);
-            button.Code = button.Code.ToLower();
-            var result = await _buttonRepository.AddAsync(button);
-            return ResultModel.Result(result);
-        }
+                if (info.Code.IsNull())
+                {
+                    return ResultModel.Failed($"按钮({info.Name})编码不能为空");
+                }
+            }
 
-        public async Task<IResultModel> Edit(Guid id)
-        {
-            var entity = await _buttonRepository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.NotExists;
+            _uow.BeginTransaction();
 
-            var model = _mapper.Map<ButtonUpdateModel>(entity);
-            return ResultModel.Success(model);
-        }
+            foreach (var button in model.Buttons)
+            {
+                button.MenuId = model.MenuId;
+                button.Code = button.Code.ToLower();
 
-        public async Task<IResultModel> Update(ButtonUpdateModel model)
-        {
-            var entity = await _buttonRepository.GetAsync(model.Id);
-            if (entity == null)
-                return ResultModel.NotExists;
+                if (!await _buttonRepository.Exists(button.Code))
+                {
+                    if (!await _buttonRepository.AddAsync(button))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed("同步失败");
+                    }
+                }
+                else
+                {
+                    if (!await _buttonRepository.UpdateForSync(button))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed("同步失败");
+                    }
+                }
+            }
 
-            if (await _buttonRepository.Exists(model.Code, model.Id))
-                return ResultModel.Failed("编码已存在");
+            _uow.Commit();
 
-            _mapper.Map(model, entity);
-            entity.Code = entity.Code.ToLower();
-            var result = await _buttonRepository.UpdateAsync(entity);
-            return ResultModel.Result(result);
+            return ResultModel.Success();
         }
 
         public async Task<IResultModel> Delete(Guid id)
@@ -162,7 +175,7 @@ namespace NetModular.Module.Admin.Application.ButtonService
             {
                 foreach (var relation in relationList)
                 {
-                    _accountService.ClearPermissionListCache(relation.RoleId);
+                    _accountService.ClearPermissionListCache(relation.AccountId);
                 }
             }
         }

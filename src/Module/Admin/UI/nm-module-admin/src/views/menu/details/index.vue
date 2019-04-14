@@ -38,8 +38,8 @@
   </nm-details-dialog>
 </template>
 <script>
-import api from '../../../api/menu'
 import { mixins } from 'nm-lib-skins'
+import api from '../../../api/menu'
 import TargetSelect from '../target-select'
 export default {
   components: { TargetSelect },

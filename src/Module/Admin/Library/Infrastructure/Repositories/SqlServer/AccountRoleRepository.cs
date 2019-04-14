@@ -22,7 +22,6 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.AccountId == accountId && m.RoleId == roleId).DeleteAsync();
         }
 
-
         public Task<bool> DeleteByAccount(Guid accountId)
         {
             return Db.Find(m => m.AccountId == accountId).DeleteAsync();

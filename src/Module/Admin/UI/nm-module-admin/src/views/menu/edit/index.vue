@@ -38,9 +38,6 @@ export default {
     }
   },
   props: ['parent', 'id'],
-  computed: {
-
-  },
   methods: {
     async edit () {
       if (this.id === '') {

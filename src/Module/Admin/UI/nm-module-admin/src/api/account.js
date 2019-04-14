@@ -60,4 +60,13 @@ const resetPassword = id => {
   return http.post(urls.resetPassword + '?id=' + id)
 }
 
-export default { ...crud, getVerifyCode, login, logout, updatePassword, getLoginInfo, bindRole, resetPassword }
+export default {
+  ...crud,
+  getVerifyCode,
+  login,
+  logout,
+  updatePassword,
+  getLoginInfo,
+  bindRole,
+  resetPassword
+}

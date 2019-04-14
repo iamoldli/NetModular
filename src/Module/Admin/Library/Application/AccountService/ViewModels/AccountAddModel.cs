@@ -26,12 +26,12 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
         /// <summary>
         /// 手机号
         /// </summary>
-        public string Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         /// <summary>
         /// 绑定角色列表

@@ -3,9 +3,30 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
-        <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.conditions.name" clearable/>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="11" :offset="1">
+            <el-form-item label="用户名：" prop="userName">
+              <el-input v-model="list.conditions.userName" clearable/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="名称：" prop="name">
+              <el-input v-model="list.conditions.name" clearable/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="11" :offset="1">
+            <el-form-item label="手机号：" prop="phone">
+              <el-input v-model="list.conditions.phone" clearable/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="邮箱：" prop="email">
+              <el-input v-model="list.conditions.name" clearable/>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </template>
 
       <!--按钮-->
@@ -81,7 +102,10 @@ export default {
         cols,
         action: api.query,
         conditions: {
-          name: ''
+          userName: '',
+          name: '',
+          phone: '',
+          email: ''
         }
       },
       addPage: {

@@ -8,7 +8,7 @@ import { mixins } from 'nm-lib-skins'
 import RoleCheckbox from '../../role/checkbox'
 export default {
   components: { RoleCheckbox },
-  mixins: [mixins],
+  mixins: [mixins.dialog],
   data () {
     return {
       checked: []

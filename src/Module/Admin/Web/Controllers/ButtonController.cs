@@ -27,24 +27,10 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpPost]
-        [Description("添加")]
-        public Task<IResultModel> Add(ButtonAddModel model)
+        [Description("同步")]
+        public Task<IResultModel> Sync(ButtonSyncModel model)
         {
-            return _service.Add(model);
-        }
-
-        [HttpGet]
-        [Description("编辑")]
-        public Task<IResultModel> Edit([BindRequired]Guid id)
-        {
-            return _service.Edit(id);
-        }
-
-        [HttpPost]
-        [Description("更新")]
-        public Task<IResultModel> Update(ButtonUpdateModel model)
-        {
-            return _service.Update(model);
+            return _service.Sync(model);
         }
 
         [HttpDelete]

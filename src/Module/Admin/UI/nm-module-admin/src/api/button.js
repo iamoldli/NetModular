@@ -1,11 +1,10 @@
-import {
-  http
-} from 'nm-lib-utils'
+import { http } from 'nm-lib-utils'
 const root = 'admin/button/'
 const crud = http.crud(root)
 const urls = {
   getPermissionList: root + 'PermissionList',
-  bindPermission: root + 'bindPermission'
+  bindPermission: root + 'bindPermission',
+  sync: root + 'sync'
 }
 
 /**
@@ -24,8 +23,16 @@ const bindPermission = params => {
   return http.post(urls.bindPermission, params)
 }
 
+/**
+ * @description 同步
+ */
+const sync = params => {
+  return http.post(urls.sync, params)
+}
+
 export default {
   ...crud,
   getPermissionList,
-  bindPermission
+  bindPermission,
+  sync
 }

@@ -49,6 +49,7 @@ namespace NetModular.Lib.Swagger
                 //链接转小写过滤器
                 c.DocumentFilter<LowercaseDocumentFilter>();
 
+                //描述信息处理
                 c.DocumentFilter<DescriptionDocumentFilter>();
 
                 //隐藏属性

@@ -3,23 +3,47 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
-        <el-form-item label="模块：" prop="moduleCode">
-          <module-info-select v-model="list.conditions.moduleCode" show-refresh/>
-        </el-form-item>
-        <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.conditions.name" clearable/>
-        </el-form-item>
-        <el-form-item label="控制器：" prop="controller">
-          <el-input v-model="list.conditions.controller" clearable/>
-        </el-form-item>
-        <el-form-item label="方法：" prop="action">
-          <el-input v-model="list.conditions.action" clearable/>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="11" :offset="1">
+            <el-form-item label="名称：" prop="name">
+              <el-input v-model="list.conditions.name" clearable/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="模块：" prop="moduleCode">
+              <module-info-select v-model="list.conditions.moduleCode" @change="onModuleChange"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="11" :offset="1">
+            <el-form-item label="控制器：" prop="controller">
+              <nm-select ref="controllerSelect" :method="getAllControllerAction" v-model="list.conditions.controller" @change="onControllerChange">
+                <template v-slot:default="{options}">
+                  <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
+                    <span>{{option.label}}({{option.value}})</span>
+                  </el-option>
+                </template>
+              </nm-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="11">
+            <el-form-item label="方法：" prop="action">
+              <nm-select ref="actionSelect" :method="getAllAction" v-model="list.conditions.action">
+                <template v-slot:default="{options}">
+                  <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
+                    <span>{{option.label}}({{option.value}})</span>
+                  </el-option>
+                </template>
+              </nm-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </template>
 
       <!--工具栏-->
       <template v-slot:toolbar>
-        <nm-button text="添加" icon="add" @click="addPage.visible=true" v-nm-has="buttons.add"/>
+        <nm-button :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
       </template>
 
       <template v-slot:col-moduleName="{row}">
@@ -28,50 +52,34 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
         <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
       </template>
     </nm-list>
-
-    <!--添加页-->
-    <add-page :visible.sync="addPage.visible" @success="refresh"/>
-    <!--编辑页-->
-    <edit-page :id="editPage.id" :visible.sync="editPage.visible" @success="refresh"/>
   </nm-container>
 </template>
 <script>
 import api from '../../../api/permission'
+import systemApi from '../../../api/system'
 import page from './page'
 import cols from './cols'
 import ModuleInfoSelect from '../../moduleInfo/select/'
-import AddPage from '../add/'
-import EditPage from '../edit/'
 
 export default {
   name: page.name,
-  components: { ModuleInfoSelect, AddPage, EditPage },
+  components: { ModuleInfoSelect },
   data () {
     return {
       list: {
         title: page.title,
         cols,
+        labelWidth: '70px',
         action: api.query,
-        search: {
-          width: '210px'
-        },
         conditions: {
           moduleCode: '',
           name: '',
           controller: '',
           action: ''
         }
-      },
-      addPage: {
-        visible: false
-      },
-      editPage: {
-        visible: false,
-        id: ''
       },
       removeAction: api.remove,
       buttons: page.buttons
@@ -81,11 +89,26 @@ export default {
     refresh () {
       this.$refs.list.refresh()
     },
-    edit (row) {
-      this.editPage = {
-        id: row.id,
-        visible: true
-      }
+    sync () {
+      this._confirm('您确认要同步权限信息吗', '同步权限信息').then(() => {
+        api.sync().then(data => {
+          this._success('同步成功')
+          this.refresh()
+        })
+      })
+    },
+    getAllControllerAction () {
+      return systemApi.getAllController({ module: this.list.conditions.moduleCode })
+    },
+    getAllAction () {
+      const con = this.list.conditions
+      return systemApi.getAllAction({ module: con.moduleCode, controller: con.controller })
+    },
+    onModuleChange () {
+      this.$refs.controllerSelect.refresh()
+    },
+    onControllerChange () {
+      this.$refs.actionSelect.refresh()
     }
   }
 }

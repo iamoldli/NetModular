@@ -2,32 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Query;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.PermissionService.ViewModels;
 using NetModular.Module.Admin.Domain.ButtonPermission;
 using NetModular.Module.Admin.Domain.MenuPermission;
 using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.PermissionService
 {
     public class PermissionService : IPermissionService
     {
-        private readonly LoginInfo _loginInfo;
-        private readonly IMapper _mapper;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IMenuPermissionRepository _menuPermissionRepository;
         private readonly IButtonPermissionRepository _buttonPermissionRepository;
+        private readonly IUnitOfWork _uow;
 
-        public PermissionService(LoginInfo loginInfo, IMapper mapper, IPermissionRepository permissionRepository, IMenuPermissionRepository menuPermissionRepository, IButtonPermissionRepository buttonPermissionRepository)
+        public PermissionService(IPermissionRepository permissionRepository, IMenuPermissionRepository menuPermissionRepository, IButtonPermissionRepository buttonPermissionRepository, IUnitOfWork<AdminDbContext> uow)
         {
-            _loginInfo = loginInfo;
-            _mapper = mapper;
             _permissionRepository = permissionRepository;
             _menuPermissionRepository = menuPermissionRepository;
             _buttonPermissionRepository = buttonPermissionRepository;
+            _uow = uow;
         }
 
         public async Task<IResultModel> Query(PermissionQueryModel model)
@@ -40,56 +38,36 @@ namespace NetModular.Module.Admin.Application.PermissionService
             return ResultModel.Success(queryResult);
         }
 
-        public async Task<IResultModel> Add(PermissionAddModel model)
+        public async Task<IResultModel> Sync(List<Permission> permissions)
         {
-            var list = new List<Permission>();
+            if (permissions == null || !permissions.Any())
+                return ResultModel.Failed("未找到权限信息");
 
-            foreach (var action in model.Actions)
+            _uow.BeginTransaction();
+
+            foreach (var permission in permissions)
             {
-                var entity = new Permission
+                if (!await _permissionRepository.Exists(permission))
                 {
-                    Name = $"{model.ControllerName}-{action.Value}",
-                    ModuleCode = model.ModuleCode.ToLower(),
-                    Controller = model.Controller.ToLower(),
-                    Action = action.Key.ToLower(),
-                    CreatedBy = _loginInfo.AccountId
-                };
-
-                if (await _permissionRepository.Exists(entity))
-                    return ResultModel.Failed($"{action}操作已存在~");
-
-                list.Add(entity);
+                    if (!await _permissionRepository.AddAsync(permission))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed("同步失败");
+                    }
+                }
+                else
+                {
+                    if (!await _permissionRepository.UpdateForSync(permission))
+                    {
+                        _uow.Rollback();
+                        return ResultModel.Failed("同步失败");
+                    }
+                }
             }
 
-            var result = await _permissionRepository.AddAsync(list);
+            _uow.Commit();
 
-            return ResultModel.Result(result);
-        }
-
-        public async Task<IResultModel> Edit(Guid id)
-        {
-            var entity = await _permissionRepository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.Failed("模块不存在");
-
-            var model = _mapper.Map<PermissionUpdateModel>(entity);
-            return ResultModel.Success(model);
-        }
-
-        public async Task<IResultModel> Update(PermissionUpdateModel model)
-        {
-            var entity = _mapper.Map<Permission>(model);
-            if (await _permissionRepository.Exists(entity))
-                return ResultModel.HasExists;
-
-            entity = await _permissionRepository.GetAsync(model.Id);
-            if (entity == null)
-                return ResultModel.NotExists;
-
-            entity = _mapper.Map(model, entity);
-
-            var result = await _permissionRepository.UpdateAsync(entity);
-            return ResultModel.Result(result);
+            return ResultModel.Success();
         }
 
         public async Task<IResultModel> Delete(Guid id)
@@ -105,22 +83,6 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
             var result = await _permissionRepository.DeleteAsync(id);
             return ResultModel.Result(result);
-        }
-
-        public async Task<List<Permission>> QueryControllerActions(string moduleCode, string controller)
-        {
-            var model = new PermissionQueryModel
-            {
-                ModuleCode = moduleCode,
-                Controller = controller,
-                Page = new QueryPagingModel
-                {
-                    Index = 1,
-                    Size = 1000
-                }
-            };
-            var paging = model.Paging();
-            return (await _permissionRepository.Query(paging, model.ModuleCode, model.Name, model.Controller, model.Action)).ToList();
         }
     }
 }

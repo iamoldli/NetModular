@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Abstractions.Attributes;
+using NetModular.Lib.Module.Abstractions.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.MenuService;
 using NetModular.Module.Admin.Application.MenuService.ViewModels;
 using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Web.Attributes;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {

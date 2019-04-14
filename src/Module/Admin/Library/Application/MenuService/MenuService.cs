@@ -120,6 +120,9 @@ namespace NetModular.Module.Admin.Application.MenuService
 
                 menu.RouteName = menu.RouteName?.ToLower();
 
+                if (menu.Type == MenuType.Node)
+                    menu.Target = MenuTarget.UnKnown;
+
                 if (await _menuRepository.AddAsync(menu))
                 {
                     _uow.Commit();
@@ -279,7 +282,7 @@ namespace NetModular.Module.Admin.Application.MenuService
             {
                 foreach (var relation in relationList)
                 {
-                    _accountService.ClearPermissionListCache(relation.RoleId);
+                    _accountService.ClearPermissionListCache(relation.AccountId);
                 }
             }
         }

@@ -18,11 +18,10 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
         Task<IResultModel> Query(ModuleInfoQueryModel model);
 
         /// <summary>
-        /// 创建
+        /// 同步模块信息
         /// </summary>
-        /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(ModuleInfoAddModel model);
+        Task<IResultModel> Sync();
 
         /// <summary>
         /// 删除
@@ -30,20 +29,6 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
         /// <param name="id">编号</param>
         /// <returns></returns>
         Task<IResultModel> Delete(Guid id);
-
-        /// <summary>
-        /// 编辑
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task<IResultModel> Update(ModuleInfoUpdateModel model);
 
         /// <summary>
         /// 下拉框

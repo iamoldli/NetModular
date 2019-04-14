@@ -36,6 +36,7 @@ namespace NetModular.Lib.Data.Core
         public void Dispose()
         {
             _transaction?.Dispose();
+            _dbContext.Connection.Close();
         }
     }
 

@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Abstractions.Attributes;
+using NetModular.Lib.Module.Abstractions.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
-using NetModular.Module.Admin.Web.Attributes;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -54,7 +54,6 @@ namespace NetModular.Module.Admin.Web.Controllers
                     new Claim("id",account.Id.ToString()),
                     new Claim("pf",model.Platform.ToInt().ToString()),
                 };
-
                 return _loginHandler.Hand(claims);
             }
 

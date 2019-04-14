@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using Microsoft.Extensions.Logging;
+using System.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace NetModular.Lib.Data.Abstractions
 {

@@ -13,16 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="config\logging.Development.json">
-      <Pack>False</Pack>
-      <DependentUpon>config\logging.json</DependentUpon>
-    </Content>
-    <Content Include="config\logging.json">
-      <Pack>False</Pack>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
   </ItemGroup>
   

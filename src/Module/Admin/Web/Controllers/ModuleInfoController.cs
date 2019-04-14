@@ -27,10 +27,10 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpPost]
-        [Description("添加")]
-        public Task<IResultModel> Add(ModuleInfoAddModel model)
+        [Description("同步模块数据")]
+        public Task<IResultModel> Sync()
         {
-            return _service.Add(model);
+            return _service.Sync();
         }
 
         [HttpDelete]
@@ -41,24 +41,11 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
-        [Description("编辑")]
-        public Task<IResultModel> Edit([BindRequired]Guid id)
-        {
-            return _service.Edit(id);
-        }
-
-        [HttpPost]
-        [Description("修改")]
-        public Task<IResultModel> Update(ModuleInfoUpdateModel model)
-        {
-            return _service.Update(model);
-        }
-
-        [HttpGet]
         [Description("下拉列表数据")]
         public Task<IResultModel> Select()
         {
             return _service.Select();
         }
+
     }
 }

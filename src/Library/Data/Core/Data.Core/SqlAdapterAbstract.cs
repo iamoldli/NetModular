@@ -14,7 +14,7 @@ namespace NetModular.Lib.Data.Core
 
         protected readonly string _database;
 
-        public abstract string Database { get; }
+        public abstract string Database {  get; }
 
         public virtual SqlDialect SqlDialect => SqlDialect.SqlServer;
 

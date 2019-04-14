@@ -3,11 +3,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Options;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Module.Abstractions.Attributes;
 using NetModular.Lib.Utils.Core.Enums;
 using NetModular.Module.Admin.Application.AuditInfoService;
 using NetModular.Module.Admin.Domain.AuditInfo;
-using NetModular.Module.Admin.Web.Attributes;
 using Newtonsoft.Json;
 
 namespace NetModular.Module.Admin.Web.Filters
@@ -17,18 +18,20 @@ namespace NetModular.Module.Admin.Web.Filters
     /// </summary>
     public class AuditingFilter : IAsyncActionFilter
     {
+        private readonly AdminOptions _options;
         private readonly LoginInfo _loginInfo;
         private readonly IAuditInfoService _auditInfoService;
 
-        public AuditingFilter(IAuditInfoService auditInfoService, LoginInfo loginInfo)
+        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, LoginInfo loginInfo)
         {
+            _options = optionsAccessor.CurrentValue;
             _auditInfoService = auditInfoService;
             _loginInfo = loginInfo;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (CheckDisabled(context))
+            if (!_options.Auditing || CheckDisabled(context))
             {
                 return next();
             }

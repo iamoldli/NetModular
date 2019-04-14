@@ -4,13 +4,10 @@ const page = new function () {
   this.name = 'admin_permission'
   this.path = '/admin/permission'
   this.buttons = {
-    add: {
-      text: '添加',
-      code: `${this.name}_add`
-    },
-    edit: {
-      text: '编辑',
-      code: `${this.name}_edit`
+    sync: {
+      text: '同步',
+      code: `${this.name}_sync`,
+      icon: 'refresh'
     },
     del: {
       text: '删除',

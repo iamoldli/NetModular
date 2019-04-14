@@ -20,7 +20,7 @@ const select = () => {
  * @description 获取绑定的菜单列表
  * @param {*} id 角色编号
  */
-const menuList = (id) => {
+const menuList = id => {
   return http.get(urls.menuList, { id })
 }
 

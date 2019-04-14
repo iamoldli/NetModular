@@ -2,10 +2,10 @@
   <nm-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
       <el-col :span="20" :offset="2">
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="名称：" prop="name">
           <el-input v-model="form.model.name"/>
         </el-form-item>
-        <el-form-item label="备注" prop="remarks">
+        <el-form-item label="备注：" prop="remarks">
           <el-input type="textarea" v-model="form.model.remarks"></el-input>
         </el-form-item>
       </el-col>
