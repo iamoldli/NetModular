@@ -8,7 +8,7 @@
 
 进入`src\WebHost\config`，修改数据库配置文件`db.Development.json`
 
-进入`src\Admin\WebHost`，启动命令行，使用 dotnet watch run 命令运行
+进入`src\WebHost`，启动命令行，使用 dotnet watch run 命令运行
 
 #### 3、启动前端
 
