@@ -1,32 +1,30 @@
 <template>
-  <nm-container>
-    <nm-list ref="list" v-bind="list">
-      <!--工具栏-->
-      <template v-slot:toolbar>
-        <nm-button text="添加" icon="add" @click="addPage.visible=true" v-nm-has="buttons.add"/>
-      </template>
+  <nm-list ref="list" v-bind="list">
+    <!--工具栏-->
+    <template v-slot:toolbar>
+      <nm-button text="添加" icon="add" @click="addPage.visible=true" v-nm-has="buttons.add"/>
+    </template>
 
-      <!--操作列-->
-      <template v-slot:col-operation="{row}">
-        <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
-            操作
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
-            <el-dropdown-item>
-              <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button text="菜单" icon="bind" type="text" @click="bindMenu(row)" v-nm-has="buttons.bindMenu"/>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </template>
-    </nm-list>
+    <!--操作列-->
+    <template v-slot:col-operation="{row}">
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          操作
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
+          <el-dropdown-item>
+            <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <nm-button text="菜单" icon="bind" type="text" @click="bindMenu(row)" v-nm-has="buttons.bindMenu"/>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </template>
 
     <!--添加页-->
     <add-page :visible.sync="addPage.visible" @success="refresh"/>
@@ -34,7 +32,7 @@
     <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh"/>
     <!--绑定菜单-->
     <bind-menu-page :id="bindMenuDialog.id" :visible.sync="bindMenuDialog.visible"/>
-  </nm-container>
+  </nm-list>
 </template>
 <script>
 import api from '../../../api/role'

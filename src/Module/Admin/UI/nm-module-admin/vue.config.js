@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     port: 5220
   },
-  transpileDependencies: ['nm-lib-.*', 'nm-module-.*', 'element-ui'],
+  transpileDependencies: ['nm-.*', 'element-ui'],
   configureWebpack: {
     plugins: [
       // 复制nm-lib-skins/public目录下的文件到输出目录

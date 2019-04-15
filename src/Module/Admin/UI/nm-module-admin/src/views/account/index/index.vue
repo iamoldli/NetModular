@@ -1,89 +1,87 @@
 <template>
-  <nm-container>
-    <nm-list ref="list" v-bind="list">
-      <!--查询条件-->
-      <template v-slot:querybar>
-        <el-row :gutter="20">
-          <el-col :span="11" :offset="1">
-            <el-form-item label="用户名：" prop="userName">
-              <el-input v-model="list.conditions.userName" clearable/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="名称：" prop="name">
-              <el-input v-model="list.conditions.name" clearable/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="11" :offset="1">
-            <el-form-item label="手机号：" prop="phone">
-              <el-input v-model="list.conditions.phone" clearable/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item label="邮箱：" prop="email">
-              <el-input v-model="list.conditions.name" clearable/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </template>
+  <nm-list ref="list" v-bind="list">
+    <!--查询条件-->
+    <template v-slot:querybar>
+      <el-row :gutter="20">
+        <el-col :span="11" :offset="1">
+          <el-form-item label="用户名：" prop="userName">
+            <el-input v-model="list.conditions.userName" clearable/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="名称：" prop="name">
+            <el-input v-model="list.conditions.name" clearable/>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="11" :offset="1">
+          <el-form-item label="手机号：" prop="phone">
+            <el-input v-model="list.conditions.phone" clearable/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="邮箱：" prop="email">
+            <el-input v-model="list.conditions.name" clearable/>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </template>
 
-      <!--按钮-->
-      <template v-slot:toolbar="{total}">
-        <nm-button text="添加" icon="add" @click="add(total)" v-nm-has="buttons.add"/>
-      </template>
+    <!--按钮-->
+    <template v-slot:toolbar="{total}">
+      <nm-button text="添加" icon="add" @click="add(total)" v-nm-has="buttons.add"/>
+    </template>
 
-      <!--角色-->
-      <template v-slot:col-roles="{row}">
-        <template v-if="row.roles&&row.roles.length>0">
-          <template v-for="(role,index) in row.roles">
-            <nm-button type="text" :key="role.value" :text="role.label"/>
-            <template v-if="index < row.roles.length - 1">、</template>
-          </template>
+    <!--角色-->
+    <template v-slot:col-roles="{row}">
+      <template v-if="row.roles&&row.roles.length>0">
+        <template v-for="(role,index) in row.roles">
+          <nm-button type="text" :key="role.value" :text="role.label"/>
+          <template v-if="index < row.roles.length - 1">、</template>
         </template>
-        <span v-else>未绑定</span>
       </template>
+      <span v-else>未绑定</span>
+    </template>
 
-      <!--状态-->
-      <template v-slot:col-status="{row}">
-        <el-tag v-if="row.status===0" type="info">未激活</el-tag>
-        <el-tag v-else-if="row.status===1" type="success">正常</el-tag>
-        <el-tag v-else-if="row.status===2" type="warning">禁用</el-tag>
-        <el-tag v-else-if="row.status===3" type="danger">注销</el-tag>
-      </template>
+    <!--状态-->
+    <template v-slot:col-status="{row}">
+      <el-tag v-if="row.status===0" type="info">未激活</el-tag>
+      <el-tag v-else-if="row.status===1" type="success">正常</el-tag>
+      <el-tag v-else-if="row.status===2" type="warning">禁用</el-tag>
+      <el-tag v-else-if="row.status===3" type="danger">注销</el-tag>
+    </template>
 
-      <!--登录时间-->
-      <template v-slot:col-loginTime="{row}">{{row.status===0?'未登录':row.loginTime}}</template>
-      <template v-slot:col-loginIP="{row}">{{row.status===0?'未登录':row.loginIP}}</template>
+    <!--登录时间-->
+    <template v-slot:col-loginTime="{row}">{{row.status===0?'未登录':row.loginTime}}</template>
+    <template v-slot:col-loginIP="{row}">{{row.status===0?'未登录':row.loginIP}}</template>
 
-      <!--操作列-->
-      <template v-slot:col-operation="{row}">
-        <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
-            操作
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
-            <el-dropdown-item>
-              <nm-button text="编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button text="重置密码" icon="refresh" type="text" @click="resetPassword(row)" v-nm-has="buttons.resetPassword"/>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button-delete text="删&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除" :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </template>
-    </nm-list>
+    <!--操作列-->
+    <template v-slot:col-operation="{row}">
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          操作
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
+          <el-dropdown-item>
+            <nm-button text="编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <nm-button text="重置密码" icon="refresh" type="text" @click="resetPassword(row)" v-nm-has="buttons.resetPassword"/>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <nm-button-delete text="删&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除" :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </template>
 
     <!--添加-->
     <add-page :visible.sync="addPage.visible" :sort="addPage.sort" @success="refresh"/>
     <!--编辑-->
     <edit-page :visible.sync="editPage.visible" :id="editPage.id" @success="refresh"/>
-  </nm-container>
+  </nm-list>
 </template>
 <script>
 import api from '../../../api/account.js'

@@ -1,20 +1,18 @@
 <template>
-  <nm-container>
-    <nm-list ref="list" v-bind="list">
-      <!--按钮-->
-      <template v-slot:toolbar>
-        <nm-button :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
-      </template>
+  <nm-list ref="list" v-bind="list">
+    <!--按钮-->
+    <template v-slot:toolbar>
+      <nm-button :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
+    </template>
 
-      <!--是否显示-->
-      <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
+    <!--是否显示-->
+    <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
 
-      <!--操作列-->
-      <template v-slot:col-operation="{row}">
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
-      </template>
-    </nm-list>
-  </nm-container>
+    <!--操作列-->
+    <template v-slot:col-operation="{row}">
+      <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+    </template>
+  </nm-list>
 </template>
 <script>
 import api from '../../../api/moduleInfo.js'
