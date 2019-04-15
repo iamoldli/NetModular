@@ -1,0 +1,21 @@
+{
+    "name": "nm-lib-icon",
+    "version": "1.0.2",
+    "description": "NetModular前端图标库",
+    "main": "index.js",
+    "dependencies": {
+        "vue": "^2.6.9"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "icon"
+    ],
+    "author": "Oldli",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/iamoldli/NetModular"
+    }
+}
