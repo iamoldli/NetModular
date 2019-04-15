@@ -1,0 +1,59 @@
+@import './variables';
+
+//列表
+#{$prefix}-listbox {
+    #{$prefix}-box-body {
+        padding: 0 !important;
+    }
+
+    .el-scrollbar__view {
+        padding: 0 !important;
+    }
+
+    &-count {
+        position: absolute;
+        right: $listbox-count-right;
+        color: $listbox-count-color;
+    }
+
+    &-item {
+        position: relative;
+        padding: $listbox-item-padding;
+        box-sizing: border-box;
+        @include vertical-center($listbox-item-height);
+        border-bottom: 1px dashed $border-color4;
+        font-size: $listbox-item-font-size;
+        cursor: pointer;
+        user-select: none;
+        border-left: 2px solid $listbox-item-border-left-color;
+        text-align: right;
+
+        &-text {
+            display: inline-block;
+            padding-right: 20px;
+            text-align: left;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+        }
+
+        &:hover {
+            background-color: $listbox-item-hover-background-color;
+        }
+
+        #{$prefix}-button {
+            position: absolute;
+            right: 5px;
+            top: 6px;
+            padding: 6px !important;
+        }
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 30px 0;
+    }
+}

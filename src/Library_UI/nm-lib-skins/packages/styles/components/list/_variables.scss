@@ -1,0 +1,29 @@
+$list-border-radius: 3px;
+$list-background-color: #fff;
+$list-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+$list-header-padding: 0 5px;
+$list-header-height: 40px;
+
+$list-header-icon-padding: 0 5px 0 0;
+$list-header-icon-width: $list-header-height - 10;
+$list-header-icon-font-size: 1.5rem;
+
+$list-header-title-font-size: 16px;
+$list-header-title-font-weight: 400;
+
+$list-header-tool-padding: 10px 7px;
+
+$list-toolbar-padding:$list-header-padding;
+$list-toolbar-height:50px;
+
+$list-footer-padding: $list-header-padding;
+$list-footer-height: 40px;
+
+$list-table-header-color:#666;
+
+//small
+$list-small-toolbar-height:40px;
+
+//mini
+$list-mini-toolbar-height:35px;

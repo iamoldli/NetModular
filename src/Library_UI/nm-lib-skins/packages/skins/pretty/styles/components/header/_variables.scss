@@ -1,0 +1,26 @@
+$header-height: $logo-box-height;
+$header-padding-right: 20px;
+$header-background: $theme-background-color;
+$header-color:#fff;
+
+//工具栏按钮样式
+$header-toolbar-btn-item-margin-top: 5px;
+$header-toolbar-btn-item-height: 40px;
+$header-toolbar-btn-item-width: $header-toolbar-btn-item-height;
+$header-toolbar-btn-item-font-size: 23px;
+$header-toolbar-btn-item-hover-color: #e6a23c;
+$header-toolbar-btn-item-hover-border-color: #dcdfe6;
+
+//面包屑
+$header-breadcrumb-color:#e4e7ed;
+$header-breadcrumb-separator-color:#dcdfe6;
+$header-breadcrumb-link-color:#fff;
+
+/*侧边栏切换按钮*/
+$sidebar-toggle-btn-height: $header-height;
+$sidebar-toggle-btn-width: 50px;
+$sidebar-toggle-btn-font-size: 25px;
+$sidebar-toggle-btn-color: $header-color;
+
+$header-userinfo-dropdown-color:$header-color;
+$header-userinfo-dropdown-font-size: 15px;

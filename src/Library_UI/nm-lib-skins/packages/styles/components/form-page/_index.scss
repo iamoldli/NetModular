@@ -1,0 +1,45 @@
+@import './variables';
+
+//容器
+#{$prefix}-form-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  #{$prefix}-box-content {
+    overflow: hidden;
+    padding: 0;
+  }
+  &-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    &-scrollbar {
+      position: absolute;
+      padding: 10px 0;
+      width: 100%;
+      height: 100%;
+      .el-scrollbar__wrap {
+        overflow-x: hidden;
+      }
+    }
+  }
+  &-main {
+    padding: $nm-form-main-padding;
+  }
+  &-footer {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    &-left {
+      flex-grow: 1;
+    }
+    &-right {
+      padding-left: 10px;
+      flex-shrink: 0;
+    }
+  }
+}

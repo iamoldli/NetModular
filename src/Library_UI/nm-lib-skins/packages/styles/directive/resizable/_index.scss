@@ -1,0 +1,105 @@
+#{$prefix}-resizable {
+  /**此光标指示矩形框的边缘可被向上（北）移动。**/
+  & {
+    position: absolute;
+    z-index: 99999;
+    float: left;
+  }
+  &-n {
+    cursor: n-resize;
+    bottom: 0;
+    left: 0;
+    height: 5px !important;
+    width: 100%;
+  }
+  /**此光标指示矩形框的边缘可被向下移动（南）**/
+  &-s {
+    cursor: s-resize;
+    top: 0;
+    left: 0;
+    height: 5px !important;
+    width: 100%;
+  }
+  /**此光标指示矩形框的边缘可被向右（东）移动。**/
+  &-e {
+    cursor: e-resize;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px !important;
+  }
+  /**	此光标指示矩形框的边缘可被向左移动（西）。**/
+  &-w {
+    cursor: w-resize;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 5px !important;
+  }
+  /**	此光标指示矩形框的边缘可被向上及向右移动（北/东）**/
+  &-ne {
+    cursor: ne-resize;
+    left: 0;
+    bottom: 0;
+    height: 12px !important;
+    width: 12px !important;
+  }
+  /**	此光标指示矩形框的边缘可被向上及向左移动（北/西）**/
+  &-nw {
+    cursor: nw-resize;
+    right: 0;
+    bottom: 0;
+    height: 12px !important;
+    width: 12px !important;
+  }
+  /**	此光标指示矩形框的边缘可被向下及向右移动（南/东）**/
+  &-se {
+    cursor: se-resize;
+    top: 0;
+    left: 0;
+    height: 12px !important;
+    width: 12px !important;
+  }
+  /**	此光标指示矩形框的边缘可被向下及向左移动（南/西）**/
+  &-sw {
+    cursor: sw-resize;
+    top: 0;
+    right: 0;
+    height: 12px !important;
+    width: 12px !important;
+  }
+}
+
+#{$prefix}-resizable-move-trigger {
+  position: absolute;
+  top: 50%;
+  height: 100px;
+  width: 8px;
+  background: #f3f3f3;
+  transform: translate(-50%, -50%);
+  border-radius: 4px/6px;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  line-height: 100px;
+  cursor: col-resize;
+  &-left {
+    right: -5px;
+  }
+  &-right {
+    left: -1px;
+  }
+}
+#{$prefix}-drop-move,
+#{$prefix}-resizable-move {
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#{$prefix}-resizable-move-point {
+  display: inline-block;
+  width: 50%;
+  transform: translateX(50%);
+  i {
+    display: block;
+    border-bottom: 1px solid silver;
+    padding-bottom: 2px;
+  }
+}

@@ -1,0 +1,24 @@
+@import 'variables';
+
+#{$prefix}-toolbar {
+  height: $toolbar-height;
+  overflow: hidden;
+
+  &-item {
+    position: relative;
+    display: inline-block;
+    @include hover-border();
+  }
+
+  &-button {
+    margin-left: 0 !important;
+    height: $toolbar-item-height;
+    width: $toolbar-item-width;
+    font-size: $toolbar-font-size;
+    color: #fff;
+
+    #{$prefix}-icon {
+      padding-right: 0;
+    }
+  }
+}

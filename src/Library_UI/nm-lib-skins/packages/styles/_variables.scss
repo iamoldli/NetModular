@@ -1,0 +1,35 @@
+/*前缀*/
+$prefix: '.nm';
+
+/***************************颜色 Start*********************/
+$color: #333;
+$color-info: #909399;
+$color-primary: #409eff;
+$color-success: #67c23a;
+$color-warning: #e6a23c;
+$color-danger: #f56c6c;
+/***************************颜色 End*********************/
+
+/***************************文本颜色 Start*********************/
+$text-color1: #303133;
+$text-color2: #606266;
+$text-color3: #909399;
+$text-color4: #c0c4cc;
+/***************************边框颜色 End*********************/
+
+/***************************边框颜色 Start*********************/
+$border-color1: #dcdfe6;
+$border-color2: #e4e7ed;
+$border-color3: #ebeef5;
+$border-color4: #f2f6fc;
+/***************************边框颜色 End*********************/
+
+/***************************z-index*************************/
+$z-index-box-fullscreen:1800;
+
+$z-index-drawer-modal:1802;
+$z-index-drawer-dialog:1804;
+
+$z-index-query-box:1806;
+$z-index-query-advanced:1808;
+$z-index-query-fullscreen:1810;

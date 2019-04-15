@@ -1,0 +1,64 @@
+#{$prefix}-icon-picker {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+
+    &-input {
+        flex-grow: 1;
+
+        .el-input-group__prepend {
+            padding: 0 10px;
+        }
+    }
+
+    &-button {
+        flex-shrink: 0;
+        padding-left: 3px;
+
+        #{$prefix}-button {
+            padding-left: 10px;
+            padding-right: 10px;
+
+            #{$prefix}-icon {
+                padding: 0;
+            }
+        }
+    }
+
+    &-panel {
+        &-filter {
+            margin-right: 15px;
+            width: auto;
+
+            .el-input__inner {
+                height: 28px;
+                line-height: 28px;
+            }
+        }
+
+        &-item {
+            margin: 5px;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 30px;
+            background-color: #e1e1e1;
+            border-radius: 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            color: $text-color3;
+            transition: all 0.2s ease-in;
+
+            &:hover {
+                background-color: $color-warning;
+                color: #fff;
+                transform: scale(1.2);
+            }
+
+
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@import 'variables';
+
+/*侧边栏*/
+#{$prefix}-sidebar {
+    position: relative;
+    display: flex;
+    width: $sidebar-width;
+    align-items: stretch;
+    flex-direction: column;
+    flex-shrink: 0;
+    background-color: $sidebar-background-color;
+    transition: all 0.3s ease-in-out;
+
+    /*logo*/
+    #{$prefix}-logo {
+        &-box {
+            display: flex;
+            height: $logo-box-height;
+            flex-shrink: 0;
+            background-color: $logo-box-background-color;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &-img {
+            margin: $logo-img-margin;
+            width: $logo-img-width;
+            height: $logo-img-height;
+        }
+
+        &-text {
+            text-align: center;
+            height: $logo-text-height;
+            line-height: $logo-text-height;
+            font-size: $logo-text-font-size;
+            color: $logo-text-color;
+            white-space: nowrap;
+        }
+    }
+
+    #{$prefix}-menu-wapper {
+        position: relative;
+        flex-grow: 1;
+
+        @import '../menus/index';
+    }
+
+    &.collapse {
+        width: $sidebar-hide-width;
+
+        /*logo*/
+        #{$prefix}-logo {
+            &-text {
+                display: none;
+            }
+        }
+    }
+}

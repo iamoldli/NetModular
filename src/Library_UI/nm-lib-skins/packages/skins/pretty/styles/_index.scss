@@ -1,0 +1,27 @@
+@import './variables';
+//工具栏
+
+#{$prefix}-skin-pretty {
+    #{$prefix}-wrapper {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: stretch;
+    }
+
+
+    @import './themes/default';
+    @import './themes/config/index';
+
+    #{$prefix}-header-userinfo-dropdown {
+        #{$prefix}-button {
+            padding: 6px 0;
+            font-size: 13px;
+
+            #{$prefix}-icon {
+                font-size: 1.5em;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+$drawer-background-color: #fff;
+
+//header
+$drawer-header-padding: 0 10px;
+$drawer-header-height: 40px;
+$drawer-header-border-bottom-color: $border-color1;
+
+//header-icon
+$drawer-header-icon-padding: 0 5px 0 0;
+$drawer-header-icon-width: $drawer-header-height - 10;
+$drawer-header-icon-font-size: 1.5rem;
+
+//header-title
+$drawer-header-title-font-size: 16px;
+$drawer-header-title-font-weight: 400;
+
+//header-button
+$drawer-header-button-padding:5px;
+$drawer-header-button-font-size:20px;
+
+//body
+$drawer-body-padding: 0;
+
+//footer
+$drawer-footer-padding: 0 10px;
+$drawer-footer-height: 50px;
+$drawer-footer-border-top-color: $drawer-header-border-bottom-color;

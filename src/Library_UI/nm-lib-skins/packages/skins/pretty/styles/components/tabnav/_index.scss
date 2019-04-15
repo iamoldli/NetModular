@@ -1,0 +1,25 @@
+@import 'variables';
+
+#{$prefix}-tabnav {
+    &-tabs {
+        background: $nm-tabnav-background;
+
+        .el-tabs__nav {
+            border-color: #cfd7e5;
+
+            .el-tabs__item {
+                color: #606266;
+                border-left: 1px solid #cfd7e5;
+
+                &.is-active {
+                    background: #fff;
+                    color: #2f74ff;
+                }
+            }
+        }
+    }
+
+    &-control {
+        &-btn {}
+    }
+}

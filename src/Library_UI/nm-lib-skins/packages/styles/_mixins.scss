@@ -1,0 +1,17 @@
+/*垂直居中*/
+@mixin vertical-center($height) {
+  height: $height;
+  line-height: $height;
+}
+
+@mixin flex-row() {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}

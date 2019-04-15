@@ -1,0 +1,90 @@
+@import 'variables';
+
+@mixin hover-border() {
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #000;
+        transition: all .25s ease-in-out;
+    }
+
+    &:hover {
+        &::before {
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+
+#{$prefix}-header {
+    padding-right: $header-padding-right;
+    display: flex;
+    flex-shrink: 0;
+    height: $header-height;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: $header-background;
+
+    &-left {
+        position: relative;
+        padding-left: $sidebar-toggle-btn-width;
+        flex-shrink: 0;
+        overflow: hidden;
+
+        /*侧边栏隐藏切换按钮*/
+        #{$prefix}-sidebar-toggle-btn {
+            position: absolute;
+            left: 0;
+            @include vertical-center($sidebar-toggle-btn-height);
+            width: $sidebar-toggle-btn-width;
+            font-size: $sidebar-toggle-btn-font-size;
+            color: $sidebar-toggle-btn-color;
+            text-align: center;
+            cursor: pointer;
+
+            @include hover-border();
+        }
+
+        #{$prefix}-breadcrumb {
+            @include vertical-center($header-height);
+
+            .el-breadcrumb__item {
+                .el-breadcrumb__inner {
+                    color: $header-breadcrumb-color;
+
+                    &.is-link {
+                        color: $header-breadcrumb-link-color;
+                    }
+                }
+
+                .el-breadcrumb__separator {
+                    color: $header-breadcrumb-separator-color;
+                }
+            }
+        }
+    }
+
+    &-right {
+        display: flex;
+        flex-grow: 1;
+        @include vertical-center($header-height);
+        flex-direction: row-reverse;
+
+        >div {
+            margin-left: 10px;
+        }
+    }
+
+    &-userinfo {
+        position: relative;
+        cursor: pointer;
+        @include hover-border();
+
+        .el-dropdown {
+            color: $header-userinfo-dropdown-color;
+        }
+    }
+}

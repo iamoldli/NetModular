@@ -1,0 +1,76 @@
+//重置element样式
+.el-message {
+    top: 200px;
+    z-index: 99999 !important;
+}
+
+.el-icon--right {
+    margin-left: 0;
+}
+
+//解决element-ui的table表格无法对齐的问题
+body {
+    .el-table {
+
+        th.gutter,
+        colgroup.gutter {
+            display: table-cell !important;
+        }
+    }
+}
+
+.el-dropdown {
+    span.el-dropdown-link {
+        display: block;
+        height: 100%;
+    }
+}
+
+.el-dropdown-menu {
+    .el-dropdown-menu__item {
+        .el-checkbox {
+            width: 100%;
+        }
+    }
+}
+
+.el-select {
+    width: 100%;
+}
+
+// .el-form-item__label {
+//     position: relative;
+//     text-align: justify;
+//     text-justify: inter-ideograph;
+//     height: 40px;
+
+//     &:before {
+//         position: absolute;
+//         left: -10px;
+//         top: 3px;
+//     }
+
+//     &:after {
+//         content: " ";
+//         display: inline-block;
+//         width: 100%;
+//     }
+// }
+
+// .el-form-item--medium {
+//     .el-form-item__label {
+//         height: 36px;
+//     }
+// }
+
+// .el-form-item--small {
+//     .el-form-item__label {
+//         height: 32px;
+//     }
+// }
+
+// .el-form-item--small {
+//     .el-form-item__label {
+//         height: 28px;
+//     }
+// }

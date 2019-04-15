@@ -1,0 +1,116 @@
+#{$prefix}-divider {
+    background: #e8eaec;
+
+    &.reset-component {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #515a6e;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &,
+    &-vertical {
+        margin: 0 8px;
+        display: inline-block;
+        height: 0.9em;
+        width: 1px;
+        vertical-align: middle;
+        position: relative;
+        top: -0.06em;
+    }
+
+    &-horizontal {
+        display: block;
+        height: 1px;
+        width: 100%;
+        min-width: 100%;
+        margin: 24px 0;
+        clear: both;
+    }
+
+    &-horizontal#{&}-with-text-center,
+    &-horizontal#{&}-with-text-left,
+    &-horizontal#{&}-with-text-right {
+        display: table;
+        white-space: nowrap;
+        text-align: center;
+        background: transparent;
+        font-weight: 500;
+        font-size: 16px;
+        margin: 16px 0;
+
+        &:before,
+        &:after {
+            content: '';
+            display: table-cell;
+            position: relative;
+            top: 50%;
+            width: 50%;
+            border-top: 1px solid;
+            transform: translateY(50%);
+        }
+    }
+
+    &-horizontal#{&}-small#{&}-with-text-center,
+    &-horizontal#{&}-small#{&}-with-text-left,
+    &-horizontal#{&}-small#{&}-with-text-right {
+        font-size: 14px;
+        margin: 8px 0;
+    }
+
+    &-horizontal#{&}-with-text-left,
+    &-horizontal#{&}-with-text-right {
+        #{$prefix}-inner-text {
+            display: inline-block;
+            padding: 0 10px;
+        }
+    }
+
+    &-horizontal#{&}-with-text-left {
+        &:before {
+            top: 50%;
+            width: 5%;
+        }
+
+        &:after {
+            top: 50%;
+            width: 95%;
+        }
+    }
+
+    &-horizontal#{&}-with-text-right {
+        &:before {
+            top: 50%;
+            width: 95%;
+        }
+
+        &:after {
+            top: 50%;
+            width: 5%;
+        }
+    }
+
+    &-inner-text {
+        display: inline-block;
+        padding: 0 24px;
+    }
+
+    &-dashed {
+        background: none;
+        border-top: 1px dashed #e8eaec;
+    }
+
+    &-horizontal#{&}-with-text#{&}-dashed,
+    &-horizontal#{&}-with-text-left#{&}-dashed,
+    &-horizontal#{&}-with-text-right#{&}-dashed {
+        border-top: 0;
+
+        &:before,
+        &:after {
+            border-style: dashed none none;
+        }
+    }
+}

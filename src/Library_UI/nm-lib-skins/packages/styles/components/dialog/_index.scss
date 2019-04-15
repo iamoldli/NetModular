@@ -1,0 +1,136 @@
+@import './variables';
+
+//容器
+#{$prefix}-dialog {
+
+    >.el-dialog {
+        @include flex-column();
+
+        >.el-dialog__header {
+            padding: 0;
+            @include flex-row();
+            flex-shrink: 0;
+            @include vertical-center($dialog-header-height);
+            box-sizing: border-box;
+            background-color: $dialog-header-background-color;
+            border-bottom: 1px solid #eee;
+
+            #{$prefix}-dialog-icon {
+                padding: $dialog-icon-padding;
+                flex-shrink: 0;
+                font-size: $dialog-icon-font-size;
+            }
+
+            #{$prefix}-dialog-title {
+                flex-grow: 1;
+            }
+
+            #{$prefix}-dialog-toolbar {
+                position: relative;
+                padding-right: 10px;
+                flex-shrink: 0;
+
+                #{$prefix}-button {
+                    padding: 0;
+                    margin-left: 5px;
+                    background: 0 0;
+                    border: none;
+                    outline: 0;
+                    cursor: pointer;
+                    font-size: $dialog-toolbar-font-size;
+
+                    &:hover {
+                        color: $text-color1;
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+
+        >.el-dialog__body {
+            position: relative;
+            flex-grow: 1;
+            overflow: hidden;
+            padding: 0;
+
+            >#{$prefix}-dialog-body {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                @include flex-column();
+
+                >#{$prefix}-dialog-content {
+                    position: relative;
+                    flex-grow: 1;
+
+                    >#{$prefix}-dialog-main {
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+
+                        >#{$prefix}-scrollbar {
+                            >.el-scrollbar__wrap {
+                                >.el-scrollbar__view {
+                                    padding: 10px 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                >#{$prefix}-dialog-footer {
+                    padding: $dialog-footer-padding;
+                    flex-shrink: 0;
+                    text-align: right;
+                }
+            }
+        }
+
+        &.is-fullscreen {
+            margin-left: 0 !important;
+            margin-top: 0 !important;
+            left: 0 !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            margin-bottom: 0 !important;
+            margin-right: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+
+            >.el-dialog__body {
+                >#{$prefix}-dialog-body {
+                    position: absolute !important;
+                    height: 100% !important;
+                    width: 100% !important;
+                }
+            }
+        }
+
+    }
+
+    // 拖拽模式
+    &.draggable {
+        >.el-dialog {
+            margin: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+
+    &-tabs {
+        .el-tabs__item {
+            #{$prefix}-icon {
+                position: relative;
+                margin-right: 3px;
+                font-size: 20px;
+                top: 2px;
+            }
+        }
+    }
+}
+
+#{$prefix}-dialog-resizable-handle {
+    position: absolute;
+    z-index: 90;
+}

@@ -1,0 +1,326 @@
+@import './variables';
+
+#{$prefix}-list {
+    box-shadow: $list-box-shadow;
+    @include flex-column();
+    box-sizing: border-box;
+    border-radius: $list-border-radius;
+    overflow: hidden;
+    height: 100%;
+    background-color: #fff;
+
+    //头部
+    &-header {
+        padding: $list-header-padding;
+        background-color: $list-background-color;
+        display: flex;
+        align-items: stretch;
+        flex-shrink: 0;
+        @include vertical-center($list-header-height);
+        box-sizing: border-box;
+
+        //工具栏
+        &-toolbar {
+            position: relative;
+            flex-shrink: 0;
+            margin-left: 15px;
+
+            #{$prefix}-button {
+                margin-left: 0;
+                padding: 0;
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+                padding: $list-header-tool-padding;
+                color: $text-color3;
+                user-select: none;
+                outline: none;
+                transition: all 0.2s ease-in-out;
+                font-size: 16px;
+                width: 30px;
+                height: 30px;
+
+                &:hover {
+                    color: $text-color1;
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        &-button {
+            padding-left: 10px;
+
+            #{$prefix}-button {
+                padding: 7px 10px;
+            }
+        }
+    }
+
+    //图标
+    &-icon {
+        padding: $list-header-icon-padding;
+        width: $list-header-icon-width;
+        font-size: $list-header-icon-font-size;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    //标题
+    &-title {
+        flex-grow: 1;
+        font-size: $list-header-title-font-size;
+        font-weight: $list-header-title-font-weight;
+    }
+
+    &-search {
+        position: relative;
+
+        &-input {
+            @include vertical-center(30px);
+
+            .el-input__inner {
+                padding: 0 15px 0 0;
+                border: 0;
+                border-bottom: 1px solid $border-color1;
+                border-radius: 0;
+                @include vertical-center(30px);
+
+                &:focus {
+                    border-bottom: 1px solid $color-primary;
+                }
+            }
+
+            .el-input__suffix {
+                right: 0;
+
+                i {
+                    width: 15px;
+                }
+            }
+        }
+
+        &-box {
+            position: absolute;
+            top: 37px;
+            right: 0;
+            min-width: 100%;
+            background-color: #fff;
+            border: 1px solid $border-color1;
+            border-radius: 3px;
+            z-index: $z-index-query-box;
+
+            &-body {
+                .no-data {
+                    display: block;
+                    font-size: 14px;
+                    font-weight: 400;
+                    text-align: center;
+                    user-select: none;
+                }
+            }
+
+            &-footer {
+                padding: 5px;
+                border-top: 1px solid $border-color1;
+                text-align: right;
+            }
+        }
+
+        &-list {
+            font-size: 14px;
+
+            li {
+                padding: 0 20px;
+                cursor: pointer;
+
+                span {
+                    white-space: nowrap;
+                }
+
+                &:hover {
+                    background-color: rgba(200, 200, 200, 0.2);
+                }
+            }
+        }
+
+        &-advanced {
+            position: absolute;
+            top: 47px;
+            right: 0;
+            box-shadow: 0 0 5px #2ebcfc;
+            border-color: #03a9f4;
+            border-radius: 3px;
+            z-index: $z-index-query-advanced;
+
+            .el-scrollbar__view {
+                padding-top: 18px !important;
+                padding-bottom: 0 !important;
+            }
+
+            .advanced-arrow {
+                position: absolute;
+                display: block;
+                top: -20px;
+                right: 15px;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-top-width: 0;
+                border-bottom-color: rgba(46, 188, 252, 0.7);
+                border-width: 10px;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 1px;
+                    left: -10px;
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border-color: transparent;
+                    border-style: solid;
+                    border-width: 10px;
+                    border-bottom-color: #fff;
+                    border-top-width: 0;
+                }
+            }
+        }
+    }
+
+    &-toolbar {
+        padding: $list-toolbar-padding;
+        height: $list-toolbar-height;
+        line-height: $list-toolbar-height - 1;
+        border-top: 1px solid $border-color3;
+        @include flex-row();
+
+        &-left {
+            flex-grow: 1;
+        }
+
+        &-right {
+            flex-shrink: 0;
+        }
+    }
+
+    &-body {
+        position: relative;
+        flex-grow: 1;
+
+        &-table {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            &-header {
+                font-weight: 700;
+                color: $list-table-header-color;
+            }
+        }
+    }
+
+    &-footer {
+        padding: $list-footer-padding;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        @include vertical-center($list-footer-height);
+
+        &-left {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        &-right {
+            flex-shrink: 0;
+
+            .el-pagination {
+                margin-top: 4px;
+                display: inline-block;
+            }
+        }
+
+        &.reverse {
+            #{$prefix}-list-footer-left {
+                order: 1;
+                text-align: right;
+            }
+        }
+    }
+
+    &.fullscreen {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: $z-index-query-fullscreen;
+    }
+
+    //选择列按钮样式
+    &-select-column {
+        margin-left: 10px;
+        top: -6px;
+        cursor: pointer;
+
+        >span {
+            display: inline-block;
+            padding: 0 15px;
+            border: 1px solid $border-color1;
+            border-radius: 4px;
+            color: $color;
+            font-size: 13px;
+            @include vertical-center(28px);
+            box-sizing: border-box;
+
+            &:focus {
+                border-color: $color-primary;
+            }
+        }
+    }
+
+    //操作列
+    &-operation {
+        .el-button--text {
+            &:hover {
+                color: $color-warning;
+            }
+        }
+
+        .el-dropdown {
+            color: #409eff;
+            cursor: pointer;
+
+            &:hover {
+                color: $color-warning;
+            }
+        }
+    }
+
+    &-operation-dropdown {
+        .el-dropdown-menu__item {
+            padding: 0;
+        }
+
+        .el-button {
+            padding: 12px 20px;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    &-small {
+        #{$prefix}-list-toolbar {
+            height: $list-small-toolbar-height;
+            line-height: $list-small-toolbar-height - 2.2;
+        }
+    }
+
+    &-mini {
+        #{$prefix}-list-toolbar {
+            height: $list-mini-toolbar-height;
+            line-height: $list-mini-toolbar-height - 2.2;
+        }
+    }
+}

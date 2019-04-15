@@ -1,0 +1,17 @@
+@import 'variables';
+
+#{$prefix}-main {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: hidden;
+
+    @import '../header/index';
+
+    #{$prefix}-content {
+        position: relative;
+        flex-grow: 1;
+        background: $main-background-color;
+    }
+}
