@@ -41,7 +41,7 @@ namespace NetModular.Lib.Data.MySql
                 sqlBuilder.AppendFormat(" WHERE {0}", where);
 
             if (!string.IsNullOrWhiteSpace(sort))
-                sqlBuilder.AppendFormat("ORDER BY {0}", sort);
+                sqlBuilder.AppendFormat(" ORDER BY {0}", sort);
 
             sqlBuilder.AppendFormat(" LIMIT {0},{1}", skip, take);
             return sqlBuilder.ToString();

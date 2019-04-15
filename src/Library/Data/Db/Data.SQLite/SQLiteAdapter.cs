@@ -41,7 +41,7 @@ namespace NetModular.Lib.Data.SQLite
                 sqlBuilder.AppendFormat(" WHERE {0}", where);
 
             if (!string.IsNullOrWhiteSpace(sort))
-                sqlBuilder.AppendFormat("ORDER BY {0}", sort);
+                sqlBuilder.AppendFormat(" ORDER BY {0}", sort);
 
             sqlBuilder.AppendFormat(" LIMIT {0} OFFSET {1};", take, skip);
             return sqlBuilder.ToString();
