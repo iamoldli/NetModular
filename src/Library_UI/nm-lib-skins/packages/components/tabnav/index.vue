@@ -3,7 +3,7 @@
     <div class="nm-tabnav-tabs">
       <el-tabs :value="current" type="card" :closable="true" @tab-click="click" @edit="edit">
         <el-tab-pane label="首页" name="/"></el-tab-pane>
-        <el-tab-pane v-for="item in opened" :key="item.fullPath" :label="item.meta.title || '未命名'" :name="item.fullPath"/>
+        <el-tab-pane v-for="item in opened" :key="item.fullPath" :label="item.tabName || '未命名'" :name="item.fullPath"/>
       </el-tabs>
     </div>
     <div class="nm-tabnav-control">

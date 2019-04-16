@@ -1,5 +1,5 @@
 import { db } from 'nm-lib-utils'
-
+import { oneOf } from 'nm-lib-utils/src/utils/assist'
 // 默认页路径列表
 let defaultPageList = ['/', '/default', '/default/']
 
@@ -59,23 +59,6 @@ export default {
     async load({ rootState, commit, dispatch }) {
       let opened = await dispatch('cacheLoad')
 
-      // #region ==测试多标签==
-      // if (opened.length < 10) {
-      //   for (var i = 0; i < 25; i++) {
-      //     opened.push({
-      //       name: '测试页面' + i,
-      //       path: '/demo',
-      //       fullPath: '/demo:' + i,
-      //       meta: {
-      //         title: '测试页面' + i
-      //       },
-      //       query: {},
-      //       params: {}
-      //     })
-      //   }
-      // }
-      // #endregion
-
       // 初始
       if (opened) {
         commit('init', opened)
@@ -113,11 +96,12 @@ export default {
         fullPath: route.fullPath,
         meta: route.meta,
         query: route.query,
-        params: route.params
+        params: route.params,
+        tabName: route.params._tn || route.meta.title
       }
 
       // 内嵌链接
-      if (route.name === 'iframe') {
+      if (route.name === '_iframe') {
         page.meta = { title: route.query.title }
       }
 
@@ -128,6 +112,14 @@ export default {
         if (isCache(page)) commit('keepAlivePush', page.name)
 
         dispatch('cacheInsert')
+      }
+
+       // 判断父级路由是否需要缓存
+      if (route.matched.length > 1) {
+        for (let i = 0; i < route.matched.length - 1; i++) {
+          const matched = route.matched[i]
+          if (isCache(matched)) commit('keepAlivePush', matched.name)
+        }
       }
       commit('currentSet', route.fullPath)
     },
@@ -243,6 +235,7 @@ export default {
     closeAll({ state, commit, dispatch }, { router }) {
       commit('init', [])
       commit('keepAliveClean')
+       dispatch('cacheInsert')
       // 跳转到首页
       router.push('/')
     },
@@ -336,7 +329,9 @@ export default {
      * @param {String} name name
      */
     keepAlivePush(state, name) {
-      state.keepAlive.push(name)
+       if (!oneOf(state.keepAlive, name)) {
+        state.keepAlive.push(name)
+      }
     },
     /**
      * @description 清空页面缓存设置

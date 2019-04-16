@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'iframe',
+  name: '_iframe',
   computed: {
     url () {
       return this.$route.query.url
