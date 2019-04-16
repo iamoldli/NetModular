@@ -163,6 +163,8 @@ export default {
       if (node && typeof node.key !== 'undefined') {
         path = `${node.label} ${this.pathSeparator} ${path}`
         path = this.getFullPath(node.parent, path)
+      } else {
+        path = this.systemTitle + '/ '
       }
       return path
     }

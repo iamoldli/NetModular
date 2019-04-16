@@ -152,6 +152,11 @@ namespace NetModular.Module.Admin.Application.AccountService.ResultModels
         public int Sort { get; set; }
 
         /// <summary>
+        /// 是否显示
+        /// </summary>
+        public bool Show { get; set; }
+        
+        /// <summary>
         /// 子菜单
         /// </summary>
         public List<AccountMenuItem> Children { get; set; }
