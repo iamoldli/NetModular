@@ -21,16 +21,29 @@ const resolveBreadcrumb = (page, parent) => {
   page.meta.breadcrumb = bc
 }
 
+// 解析路径
+const resolvePath = (page, parent) => {
+  if (!page.path.trim().startsWith('/') && parent) {
+    let parentPath = parent.path.trim()
+    let path = page.path.trim()
+    if (parentPath.endsWith('/')) {
+      parentPath = parentPath.substring(0, parentPath.length - 2)
+    }
+    page.path = `${parentPath}/${path}`
+  }
+}
+
 // 递归解析嵌套路由
 const resolveNestedRoute = (page, pages, parent) => {
   resolveBreadcrumb(page, parent)
+  resolvePath(page, parent)
+
   page.children = []
   pages.map(p => {
-    if (p.parent === page.name) {
+    if (p.meta.parent === page.name) {
       page.children.push(resolveNestedRoute(p, pages, page))
     }
   })
-  delete page.parent
   return page
 }
 
@@ -38,12 +51,11 @@ const resolveNestedRoute = (page, pages, parent) => {
  * 单个页面配置信息转为路由信息
  * @param {Object} config 配置信息
  */
-export const page2Router = config => {
+export const loadPage = config => {
   const { page, component } = config
   return {
     path: page.path,
     name: page.name,
-    parent: page.parent,
     component: component,
     props: true,
     meta: {
@@ -51,7 +63,8 @@ export const page2Router = config => {
       frameIn: page.frameIn,
       cache: page.cache,
       breadcrumb: page.breadcrumb,
-      buttons: page.buttons
+      buttons: page.buttons,
+      parent: page.parent
     }
   }
 }
@@ -69,12 +82,12 @@ export const pages2Routes = (module, pages) => {
   })
 
   const routes = pages
-    .filter(p => !p.parent)
+    .filter(p => !p.meta.parent)
     .map(page => resolveNestedRoute(page, pages))
   return routes
 }
 
 export default {
-  page2Router,
+  loadPage,
   pages2Routes
 }

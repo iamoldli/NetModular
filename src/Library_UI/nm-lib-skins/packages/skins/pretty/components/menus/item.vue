@@ -40,7 +40,7 @@ export default {
     },
     // 打开路由菜单
     openRoute (menu) {
-      this.$router.push({ name: menu.routeName })
+      this.$router.push({ name: menu.routeName, params: { tn_: menu.name } })
     },
     // 打开链接菜单
     openLink (menu) {

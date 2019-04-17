@@ -3,7 +3,7 @@
     <div class="nm-tabnav-tabs">
       <el-tabs :value="current" type="card" :closable="true" @tab-click="click" @edit="edit">
         <el-tab-pane label="首页" name="/"></el-tab-pane>
-        <el-tab-pane v-for="item in opened" :key="item.fullPath" :label="item.tabName || '未命名'" :name="item.fullPath"/>
+        <el-tab-pane v-for="item in opened" :key="item.path" :label="item.tabName || '未命名'" :name="item.path"/>
       </el-tabs>
     </div>
     <div class="nm-tabnav-control">
@@ -43,14 +43,14 @@ export default {
         this.$router.push('/')
         return
       }
-      const page = this.opened.find(page => page.fullPath === tab.name)
+      const page = this.opened.find(page => page.path === tab.name)
       if (page) {
         const { name, params, query } = page
         this.$router.push({ name, params, query })
       }
     },
     edit (tabName) {
-      this.close({ fullPath: tabName, router: this.$router })
+      this.close({ path: tabName, router: this.$router })
     },
     /**
      * @description 处理关闭标签下拉菜单命令
@@ -58,7 +58,7 @@ export default {
      * @param {String} tagName 选择的标签名称
      */
     handleCommand (cmd, tagName = null) {
-      const params = { fullPath: tagName, router: this.$router }
+      const params = { path: tagName, router: this.$router }
       switch (cmd) {
         case 'left': this.closeLeft(params); break
         case 'right': this.closeRight(params); break

@@ -1,18 +1,19 @@
 import { db } from 'nm-lib-utils'
 import { oneOf } from 'nm-lib-utils/src/utils/assist'
+
 // 默认页路径列表
 let defaultPageList = ['/', '/default', '/default/']
 
 /**
  * @description 根据路径查询页面信息以及下标
  * @param {Array} opened vuex
- * @param {String} fullPath 路径
+ * @param {String} path 路径
  */
-const getPage = (fullPath, opened) => {
+const getPage = (path, opened) => {
   let index = -1
   let page
   opened.every((p, i) => {
-    if (p.fullPath === fullPath) {
+    if (p.path === path) {
       index = i
       page = p
       return false
@@ -97,7 +98,7 @@ export default {
         meta: route.meta,
         query: route.query,
         params: route.params,
-        tabName: route.params._tn || route.meta.title
+        tabName: route.params.tn_ || route.meta.title
       }
 
       // 内嵌链接
@@ -105,36 +106,56 @@ export default {
         page.meta = { title: route.query.title }
       }
 
+      // 如果是子路由，计算出他的父级的路径
+      if (route.meta.parent) {
+        page.path = ''
+        let len = route.matched[0].path.split('/').length
+        let arr = route.path.split('/')
+        for (let i = 0; i < len; i++) {
+          page.path += arr[i] + '/'
+        }
+
+        if (page.path) {
+          page.path = page.path.substring(0, page.path.length - 1)
+        }
+      }
+      console.log(page.path)
       // 如果当前页面是未打开,加入已打开列表
-      if (state.opened.every(p => p.fullPath !== page.fullPath)) {
+      if (state.opened.every(p => p.path !== page.path)) {
+        // 已打开列表
         commit('add', page)
         // 判断是否缓存
         if (isCache(page)) commit('keepAlivePush', page.name)
 
         dispatch('cacheInsert')
+      } else if (route.meta.parent) {
+        // 更新子路由对应的父路由标签
+        commit('update', page)
+
+        dispatch('cacheInsert')
       }
 
-       // 判断父级路由是否需要缓存
-      if (route.matched.length > 1) {
+      // 判断父级路由是否需要缓存
+      if (route.meta.parent) {
         for (let i = 0; i < route.matched.length - 1; i++) {
           const matched = route.matched[i]
           if (isCache(matched)) commit('keepAlivePush', matched.name)
         }
       }
-      commit('currentSet', route.fullPath)
+      commit('currentSet', page.path)
     },
     /**
      * @description 关闭标签
-     * @param {String} fullPath 页面的路径
+     * @param {String} path 页面的路径
      * @param {Object} router 路由对象
      */
-    async close({ state, commit, dispatch }, { fullPath, router, to }) {
+    async close({ state, commit, dispatch }, { path, router, to }) {
       let newPage = to || '/'
-      let { index, page } = getPage(fullPath, state.opened)
+      let { index, page } = getPage(path, state.opened)
       if (index > -1) {
         if (!to) {
           // 如果关闭的页面就是当前显示的页面
-          if (state.current === page.fullPath) {
+          if (state.current === page.path) {
             // 打开一个新的页面
             if (index > 0) {
               newPage = state.opened[index - 1]
@@ -152,12 +173,12 @@ export default {
     },
     /**
      * @description 关闭左侧标签
-     * @param {String} fullPath 选择的页面路径
+     * @param {String} path 选择的页面路径
      * @param {Object} router 路由对象
      */
-    closeLeft({ state, commit, dispatch }, { fullPath, router }) {
-      fullPath = fullPath || state.current
-      let { index, page } = getPage(fullPath, state.opened)
+    closeLeft({ state, commit, dispatch }, { path, router }) {
+      path = path || state.current
+      let { index, page } = getPage(path, state.opened)
       if (index > 0) {
         state.opened.splice(0, index).forEach(item => {
           if (isCache(item) === true) commit('keepAliveRemove', item.name)
@@ -165,7 +186,7 @@ export default {
 
         dispatch('cacheInsert')
         // 如果选择的页面不是当前页面，则跳转一下
-        if (fullPath !== state.current) {
+        if (path !== state.current) {
           router.push({
             path: page.path,
             query: page.query,
@@ -176,19 +197,19 @@ export default {
     },
     /**
      * @description 关闭右侧标签
-     * @param {String} fullPath 选择的页面路径
+     * @param {String} path 选择的页面路径
      * @param {Object} router 路由对象
      */
-    closeRight({ state, commit, dispatch }, { fullPath, router }) {
-      fullPath = fullPath || state.current
-      let { index, page } = getPage(fullPath, state.opened)
+    closeRight({ state, commit, dispatch }, { path, router }) {
+      path = path || state.current
+      let { index, page } = getPage(path, state.opened)
       if (index < state.opened.length - 1) {
         state.opened.splice(index + 1).forEach(item => {
           if (isCache(item) === true) commit('keepAliveRemove', item.name)
         })
         dispatch('cacheInsert')
         // 如果选择的页面不是当前页面，则跳转一下
-        if (fullPath !== state.current) {
+        if (path !== state.current) {
           router.push({
             path: page.path,
             query: page.query,
@@ -199,12 +220,12 @@ export default {
     },
     /**
      * @description 关闭其它标签
-     * @param {String} fullPath 选择的页面路径
+     * @param {String} path 选择的页面路径
      * @param {Object} router 路由对象
      */
-    closeOther({ state, commit, dispatch }, { fullPath, router }) {
-      fullPath = fullPath || state.current
-      let { index, page } = getPage(fullPath, state.opened)
+    closeOther({ state, commit, dispatch }, { path, router }) {
+      path = path || state.current
+      let { index, page } = getPage(path, state.opened)
       if (index > -1) {
         // 删除右侧
         state.opened.splice(index + 1).forEach(item => {
@@ -216,7 +237,7 @@ export default {
         })
         dispatch('cacheInsert')
         // 如果选择的页面不是当前页面，则跳转一下
-        if (fullPath !== state.current) {
+        if (path !== state.current) {
           router.push({
             path: page.path,
             query: page.query,
@@ -229,13 +250,13 @@ export default {
     },
     /**
      * @description 关闭所有标签
-     * @param {String} fullPath 选择的页面路径
+     * @param {String} path 选择的页面路径
      * @param {Object} router 路由对象
      */
     closeAll({ state, commit, dispatch }, { router }) {
       commit('init', [])
       commit('keepAliveClean')
-       dispatch('cacheInsert')
+      dispatch('cacheInsert')
       // 跳转到首页
       router.push('/')
     },
@@ -294,6 +315,23 @@ export default {
       state.opened.push(page)
     },
     /**
+     * @description 更新一个页面，针对子路由
+     */
+    update(state, page) {
+      for (var i = 0; i < state.opened.length; i++) {
+        let p = state.opened[i]
+        if (p.path === page.path && p.fullPath !== page.fullPath) {
+          const { fullPath, name, params, query, meta } = page
+          p.fullPath = fullPath
+          p.name = name
+          p.params = params
+          p.query = query
+          p.meta = meta
+          break
+        }
+      }
+    },
+    /**
      * @description 删除一个页面
      * @param {Number} index 下标
      */
@@ -329,7 +367,7 @@ export default {
      * @param {String} name name
      */
     keepAlivePush(state, name) {
-       if (!oneOf(state.keepAlive, name)) {
+      if (!oneOf(state.keepAlive, name)) {
         state.keepAlive.push(name)
       }
     },

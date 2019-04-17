@@ -11,7 +11,7 @@ export default {
     breadcrumb () {
       if (this.$route.meta.breadcrumb) {
         let breadcrumb = [...this.$route.meta.breadcrumb]
-        const bc = this.$route.params._bc
+        const bc = this.$route.params.bc_
         if (bc) {
           breadcrumb.push({
             title: bc,

@@ -54,7 +54,6 @@ export default {
     refresh () {
       this.$slots.default.map(slot => {
         if (slot.componentOptions.tag === 'nm-list') {
-          console.log(1)
           slot.componentInstance.refresh()
         }
       })

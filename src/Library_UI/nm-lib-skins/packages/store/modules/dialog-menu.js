@@ -25,24 +25,22 @@ export default {
     /**
      * @description 打开
      */
-    open ({ commit }, options) {
-      console.log(options)
-
+    open({ commit }, options) {
       commit('set', options)
     },
     /**
      * @description 打开
      */
-    close ({ commit }, options) {
+    close({ commit }, options) {
       commit('reset', options)
     }
   },
   mutations: {
-    set (state, options) {
+    set(state, options) {
       Object.assign(state, options)
       state.visible = true
     },
-    reset (state) {
+    reset(state) {
       Object.assign(state, defaultOptions)
       state.visible = false
     }
