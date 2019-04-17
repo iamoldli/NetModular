@@ -5,7 +5,9 @@
       <nm-icon :name="menu.icon" class="nm-menus-icon" :style="{color:menu.iconColor}"/>
       <span>{{ menu.name }}</span>
     </template>
-    <menu-item v-for="item in menu.children" :key="item.id" :menu="item" :parent-index="menu.id"/>
+    <template v-for="item in menu.children">
+      <menu-item v-if="item.show" :key="item.id" :menu="item" :parent-index="menu.id"/>
+    </template>
   </el-submenu>
 
   <!--链接菜单-->

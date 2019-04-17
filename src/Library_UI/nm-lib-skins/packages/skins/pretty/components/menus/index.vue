@@ -2,7 +2,9 @@
   <section class="nm-menus">
     <el-scrollbar>
       <el-menu :default-active="active" :collapse="collapse" :collapse-transition="false">
-        <menu-item v-for="item in menus" :key="item.id" :menu="item"/>
+        <template v-for="item in menus">
+          <menu-item v-if="item.show" :key="item.id" :menu="item"/>
+        </template>
       </el-menu>
     </el-scrollbar>
   </section>

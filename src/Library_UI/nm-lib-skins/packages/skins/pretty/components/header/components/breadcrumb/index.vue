@@ -11,10 +11,13 @@ export default {
     breadcrumb () {
       if (this.$route.meta.breadcrumb) {
         let breadcrumb = [...this.$route.meta.breadcrumb]
-        breadcrumb.push({
-          title: this.$route.meta.title,
-          path: ''
-        })
+        const bc = this.$route.params._bc
+        if (bc) {
+          breadcrumb.push({
+            title: bc,
+            path: ''
+          })
+        }
         return breadcrumb
       } else {
         return [{
