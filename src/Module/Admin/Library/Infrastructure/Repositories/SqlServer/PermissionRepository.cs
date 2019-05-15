@@ -17,15 +17,18 @@ using NetModular.Module.Admin.Domain.RoleMenuButton;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class PermissionRepository : RepositoryAbstract<Permission>, IPermissionRepository
+    public class PermissionRepository : RepositoryAbstract<PermissionEntity>, IPermissionRepository
     {
         public PermissionRepository(IDbContext dbContext) : base(dbContext)
         {
         }
 
-        public Task<bool> Exists(Permission entity)
+        public Task<bool> Exists(PermissionEntity entity)
         {
-            var query = Db.Find(m => m.ModuleCode.Equals(entity.ModuleCode) && m.Controller.Equals(entity.Controller) && m.Action.Equals(entity.Action));
+            var query = Db.Find(m => m.ModuleCode.Equals(entity.ModuleCode));
+            query.Where(m => m.Controller.Equals(entity.Controller));
+            query.Where(m => m.Action.Equals(entity.Action));
+            query.Where(m => m.HttpMethod.Equals(entity.HttpMethod));
 
             query.WhereIf(entity.Id != Guid.Empty, m => m.Id != entity.Id);
             return query.ExistsAsync();
@@ -41,7 +44,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return ExistsAsync(m => m.ModuleCode.Equals(moduleCode));
         }
 
-        public Task<IList<Permission>> Query(Paging paging, string moduleCode, string name, string controller, string action)
+        public Task<IList<PermissionEntity>> Query(Paging paging, string moduleCode, string name, string controller, string action)
         {
             var query = Db.Find();
 
@@ -55,34 +58,34 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                 query.OrderByDescending(m => m.Id);
             }
 
-            return query.LeftJoin<ModuleInfo>((x, y) => x.ModuleCode == y.Code)
-                 .LeftJoin<Account>((x, y, z) => x.CreatedBy.Equals(z.Id))
+            return query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
+                 .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id))
                  .Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name }).PaginationAsync(paging);
         }
 
-        public Task<IList<Permission>> QueryByMenu(Guid menuId)
+        public Task<IList<PermissionEntity>> QueryByMenu(Guid menuId)
         {
-            return Db.Find().InnerJoin<MenuPermission>((p, m) => p.Id == m.PermissionId).Where((p, m) => m.MenuId == menuId)
+            return Db.Find().InnerJoin<MenuPermissionEntity>((p, m) => p.Id == m.PermissionId).Where((p, m) => m.MenuId == menuId)
                 .ToListAsync();
         }
 
-        public Task<IList<Permission>> QueryByButton(Guid buttonId)
+        public Task<IList<PermissionEntity>> QueryByButton(Guid buttonId)
         {
-            return Db.Find().InnerJoin<ButtonPermission>((p, m) => p.Id == m.PermissionId).Where((p, m) => m.ButtonId == buttonId)
+            return Db.Find().InnerJoin<ButtonPermissionEntity>((p, m) => p.Id == m.PermissionId).Where((p, m) => m.ButtonId == buttonId)
                 .ToListAsync();
         }
 
-        public async Task<IList<Permission>> QueryByAccount(Guid accountId)
+        public async Task<IList<PermissionEntity>> QueryByAccount(Guid accountId)
         {
-            var list = new List<Permission>();
-            var menuPermissionListTask = Db.Find().InnerJoin<MenuPermission>((x, y) => x.Id == y.PermissionId)
-                .InnerJoin<RoleMenu>((x, y, z) => y.MenuId == z.MenuId)
-                .InnerJoin<AccountRole>((x, y, z, m) => z.RoleId == m.RoleId && m.AccountId == accountId)
+            var list = new List<PermissionEntity>();
+            var menuPermissionListTask = Db.Find().InnerJoin<MenuPermissionEntity>((x, y) => x.Id == y.PermissionId)
+                .InnerJoin<RoleMenuEntity>((x, y, z) => y.MenuId == z.MenuId)
+                .InnerJoin<AccountRoleEntity>((x, y, z, m) => z.RoleId == m.RoleId && m.AccountId == accountId)
                 .ToListAsync();
 
-            var btnPermissionListTask = Db.Find().InnerJoin<ButtonPermission>((x, y) => x.Id == y.PermissionId)
-                .InnerJoin<RoleMenuButton>((x, y, z) => y.ButtonId == z.ButtonId)
-                .InnerJoin<AccountRole>((x, y, z, m) => z.RoleId == m.RoleId && m.AccountId == accountId)
+            var btnPermissionListTask = Db.Find().InnerJoin<ButtonPermissionEntity>((x, y) => x.Id == y.PermissionId)
+                .InnerJoin<RoleMenuButtonEntity>((x, y, z) => y.ButtonId == z.ButtonId)
+                .InnerJoin<AccountRoleEntity>((x, y, z, m) => z.RoleId == m.RoleId && m.AccountId == accountId)
                 .ToListAsync();
 
             var menuPermissionList = await menuPermissionListTask;
@@ -107,10 +110,10 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> UpdateForSync(Permission permission)
+        public Task<bool> UpdateForSync(PermissionEntity entity)
         {
-            return Db.Find(m => m.ModuleCode == permission.ModuleCode && m.Controller == permission.Controller && m.Action == permission.Action)
-                .UpdateAsync(m => new Permission { Name = permission.Name });
+            return Db.Find(m => m.ModuleCode == entity.ModuleCode && m.Controller == entity.Controller && m.Action == entity.Action)
+                .UpdateAsync(m => new PermissionEntity { Name = entity.Name});
         }
     }
 }

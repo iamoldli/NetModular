@@ -25,7 +25,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<ResultModel<Account>> Login(LoginModel model);
+        Task<ResultModel<AccountEntity>> Login(LoginModel model);
 
         /// <summary>
         /// 获取登录信息
@@ -92,7 +92,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// 查询指定账户的权限列表
         /// </summary>
         /// <returns></returns>
-        Task<List<Permission>> QueryPermissionList(Guid id);
+        Task<List<PermissionEntity>> QueryPermissionList(Guid id);
 
         /// <summary>
         /// 清除指定账户的缓存数据

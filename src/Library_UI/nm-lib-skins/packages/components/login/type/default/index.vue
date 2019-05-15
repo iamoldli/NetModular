@@ -1,5 +1,5 @@
 <template>
-  <div class="nm-login nm-login-container">
+  <div class="nm-login nm-login-container default">
     <div class="nm-login-bg"/>
     <div class="nm-login-box">
       <div class="nm-login-content">
@@ -10,28 +10,34 @@
         <el-form ref="form" :model="form" :rules="rules">
           <el-form-item prop="userName">
             <el-input v-model="form.userName" placeholder="用户名">
-              <nm-icon v-slot:prefix name="user"></nm-icon>
+              <template v-slot:prefix>
+                <nm-icon name="user"></nm-icon>
+              </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input type="password" v-model="form.password" autocomplete="off" placeholder="密码">
-              <nm-icon v-slot:prefix name="password"></nm-icon>
+              <template v-slot:prefix>
+                <nm-icon name="password"></nm-icon>
+              </template>
             </el-input>
           </el-form-item>
-          <el-row :gutter="20">
-            <el-col :span="15">
+          <div v-if="loginVerifyCode" class="verifycode">
+            <div class="verifycode-input">
               <el-form-item prop="code">
                 <el-input v-model="form.code" autocomplete="off" placeholder="验证码">
-                  <nm-icon v-slot:prefix name="verifycode"></nm-icon>
+                  <template v-slot:prefix>
+                    <nm-icon name="verifycode"></nm-icon>
+                  </template>
                 </el-input>
               </el-form-item>
-            </el-col>
-            <el-col :span="5">
-              <img class="verifycode" title="点击刷新" :src="verifyCodeUrl" @click="refreshVierifyCode">
-            </el-col>
-          </el-row>
+            </div>
+            <div class="verifycode-img">
+              <img title="点击刷新" :src="verifyCodeUrl" @click="refreshVierifyCode">
+            </div>
+          </div>
           <el-form-item style="text-align:right;">
-            <el-button :loading="loading" class="btnLogin" type="primary" @click="tryLogin">登录</el-button>
+            <el-button :loading="loading" class="btn-login" type="primary" @click="tryLogin">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -41,7 +47,8 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  data () {
+  data() {
+    const _this = this
     return {
       verifyCodeUrl: '',
       form: {
@@ -61,9 +68,13 @@ export default {
           message: '请输入密码',
           trigger: 'blur'
         }],
-        code: [{
-          required: true,
-          message: '请输入验证码',
+        code: [{          validator(rule, value, callback) {
+            if (_this.loginVerifyCode && value === '') {
+              callback(new Error('请输入验证码'))
+            } else {
+              callback()
+            }
+          },
           trigger: 'blur'
         }]
       },
@@ -74,15 +85,15 @@ export default {
     actions: Object
   },
   computed: {
-    ...mapState('app/system', ['title', 'logo']),
-    getVerifyCode () {
+    ...mapState('app/system', ['title', 'logo', 'loginVerifyCode']),
+    getVerifyCode() {
       return this.actions.getVerifyCode
     },
-    login () {
+    login() {
       return this.actions.login
     }
   },
-  mounted () {
+  mounted() {
     this.refreshVierifyCode()
     document.addEventListener('keydown', e => {
       if (e.keyCode === 13) {
@@ -92,13 +103,13 @@ export default {
   },
   methods: {
     // 刷新验证码
-    async refreshVierifyCode () {
+    async refreshVierifyCode() {
       let data = await this.getVerifyCode()
       this.verifyCodeUrl = data.base64String
       this.form.pictureId = data.id
     },
     // 登录
-    tryLogin () {
+    tryLogin() {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.loading = true
@@ -124,16 +135,16 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.nm-login {
-  &-container {
+<style lang="scss">
+.nm-login.default {
+  .nm-login-container {
     position: absolute;
     padding: 0;
     height: 100%;
     width: 100%;
   }
 
-  &-bg {
+  .nm-login-bg {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -148,32 +159,48 @@ export default {
     z-index: -1;
   }
 
-  &-box {
+  .nm-login-box {
     margin: 0 auto;
-    margin-top: 200px;
+    padding: 5px 15px;
+    margin-top: 10%;
+    border-radius: 5px;
     text-align: center;
+    width: 350px;
+    background: rgba(255, 255, 255, 0.7);
+  }
 
-    .btnLogin {
-      margin-top: 10px;
+  .nm-login-content {
+    .verifycode {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+
+      &-input {
+        padding-right: 10px;
+        flex-grow: 1;
+      }
+
+      &-img {
+        flex-shrink: 0;
+        img {
+          margin-top: 1px;
+          height: 38px;
+          cursor: pointer;
+        }
+      }
+    }
+    .btn-login {
       width: 100%;
     }
   }
 
-  &-content {
-    padding: 0 15px;
-    border-radius: 5px;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.8);
-
-    .verifycode {
-      cursor: pointer;
-    }
-  }
-
-  &-logo {
-    padding: 10px 0;
+  .nm-login-logo {
+    position: relative;
+    padding: 10px 0 10px 85px;
 
     &-img {
+      position: absolute;
+      left: 0;
       padding: 5px;
       box-sizing: border-box;
       height: 80px;
@@ -185,12 +212,17 @@ export default {
       padding: 0;
       height: 80px;
       line-height: 80px;
-      display: inline-block;
+      font-size: 40px;
+      text-align: left;
     }
   }
 
-  .icon {
-    font-size: 1.2rem;
+  .nm-icon {
+    padding-top: 5px;
+    font-size: 2em;
+  }
+  .el-input__inner {
+    padding-left: 35px !important;
   }
 }
 </style>

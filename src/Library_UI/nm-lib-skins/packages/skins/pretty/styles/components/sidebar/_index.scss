@@ -38,13 +38,6 @@
         }
     }
 
-    #{$prefix}-menu-wapper {
-        position: relative;
-        flex-grow: 1;
-
-        @import '../menus/index';
-    }
-
     &.collapse {
         width: $sidebar-hide-width;
 
@@ -56,3 +49,11 @@
         }
     }
 }
+
+#{$prefix}-menu-wapper {
+    position: relative;
+    flex-grow: 1;
+
+}
+
+@import '../menus/index';

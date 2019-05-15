@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using NetModular.Lib.Auth.Abstractions.Attributes;
@@ -22,9 +23,9 @@ namespace NetModular.Module.Admin.Web.Core
         /// 获取权限列表
         /// </summary>
         /// <returns></returns>
-        public List<Permission> GetAllPermission()
+        public List<PermissionEntity> GetAllPermission()
         {
-            var list = new List<Permission>();
+            var list = new List<PermissionEntity>();
             var actions = _mvcHelper.GetAllAction();
 
             foreach (var action in actions)
@@ -33,7 +34,7 @@ namespace NetModular.Module.Admin.Web.Core
                 if (action.MethodInfo.CustomAttributes.Any(m => m.AttributeType == typeof(AllowAnonymousAttribute) || m.AttributeType == typeof(CommonAttribute)))
                     continue;
 
-                var p = new Permission
+                var p = new PermissionEntity
                 {
                     ModuleCode = action.Controller.Area,
                     Controller = action.Controller.Name,
@@ -41,8 +42,17 @@ namespace NetModular.Module.Admin.Web.Core
                     Name = action.Controller.Description ?? action.Controller.Name
                 };
 
-                p.Name += "_" + (action.Description ?? action.Name);
-                list.Add(p);
+                var httpMethodAttr =
+                    action.MethodInfo.CustomAttributes.FirstOrDefault(m => m.AttributeType.Name.StartsWith("Http"));
+
+                if (httpMethodAttr != null)
+                {
+                    var httpMethodName = httpMethodAttr.AttributeType.Name.Replace("Http", "").Replace("Attribute", "").ToUpper();
+
+                    p.HttpMethod = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), httpMethodName);
+                    p.Name += "_" + (action.Description ?? action.Name);
+                    list.Add(p);
+                }
             }
 
             return list;

@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
     {
         public void Bind(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<AuditInfo, AuditInfoQueryResultModel>();
+            cfg.CreateMap<AuditInfoEntity, AuditInfoQueryResultModel>();
         }
     }
 }

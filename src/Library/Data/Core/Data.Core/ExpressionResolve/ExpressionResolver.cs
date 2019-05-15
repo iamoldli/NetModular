@@ -664,6 +664,10 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                 {
                     MemberAccessResolve(arg);
                 }
+                else if (arg.NodeType == ExpressionType.Convert)
+                {
+                    UnaryResolve(arg);
+                }
                 else
                 {
                     AppendValue(DynamicInvoke(arg).ToString());

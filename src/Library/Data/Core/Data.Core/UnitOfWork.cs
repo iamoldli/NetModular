@@ -14,7 +14,12 @@ namespace NetModular.Lib.Data.Core
             _dbContext = dbContext;
         }
 
-        public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public void BeginTransaction()
+        {
+            _transaction = _dbContext.BeginTransaction();
+        }
+
+        public void BeginTransaction(IsolationLevel isolationLevel)
         {
             _transaction = _dbContext.BeginTransaction(isolationLevel);
         }
@@ -23,14 +28,12 @@ namespace NetModular.Lib.Data.Core
         {
             _transaction?.Commit();
             _transaction = null;
-            _dbContext.Transaction = null;
         }
 
         public void Rollback()
         {
             _transaction?.Rollback();
             _transaction = null;
-            _dbContext.Transaction = null;
         }
 
         public void Dispose()

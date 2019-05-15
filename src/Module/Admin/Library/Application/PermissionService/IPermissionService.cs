@@ -23,7 +23,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
         /// 同步
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> Sync(List<Permission> permissions);
+        Task<IResultModel> Sync(List<PermissionEntity> permissions);
 
         /// <summary>
         /// 删除

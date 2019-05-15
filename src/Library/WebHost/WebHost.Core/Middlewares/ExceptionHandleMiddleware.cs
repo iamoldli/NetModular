@@ -7,7 +7,6 @@ using NetModular.Lib.Utils.Core.Result;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-// ReSharper disable once IdentifierTypo
 namespace NetModular.Lib.WebHost.Core.Middlewares
 {
     public class ExceptionHandleMiddleware

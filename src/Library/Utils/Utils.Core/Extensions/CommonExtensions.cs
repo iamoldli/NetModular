@@ -82,40 +82,56 @@ namespace NetModular.Lib.Utils.Core.Extensions
         /// 转换成Float/Single
         /// </summary>
         /// <param name="s"></param>
+        /// <param name="decimals">小数位数</param>
         /// <returns></returns>
-        public static float ToFloat(this object s)
+        public static float ToFloat(this object s, int? decimals = null)
         {
             if (s == null || s == DBNull.Value)
                 return 0f;
 
             float.TryParse(s.ToString(), out float result);
-            return result;
+
+            if (decimals == null)
+                return result;
+
+            return (float)Math.Round(result, decimals.Value);
         }
 
         /// <summary>
         /// 转换成Double/Single
         /// </summary>
         /// <param name="s"></param>
+        /// <param name="digits">小数位数</param>
         /// <returns></returns>
-        public static double ToDouble(this object s)
+        public static double ToDouble(this object s, int? digits = null)
         {
             if (s == null || s == DBNull.Value)
                 return 0d;
 
             double.TryParse(s.ToString(), out double result);
-            return result;
+
+            if (digits == null)
+                return result;
+
+            return Math.Round(result, digits.Value);
         }
 
         /// <summary>
         /// 转换成Decimal
         /// </summary>
         /// <param name="s"></param>
+        /// <param name="decimals">小数位数</param>
         /// <returns></returns>
-        public static decimal ToDecimal(this object s)
+        public static decimal ToDecimal(this object s, int? decimals = null)
         {
             if (s == null || s == DBNull.Value) return 0m;
-            Decimal.TryParse(s.ToString(), out decimal result);
-            return result;
+
+            decimal.TryParse(s.ToString(), out decimal result);
+
+            if (decimals == null)
+                return result;
+
+            return Math.Round(result, decimals.Value);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace NetModular.Lib.Data.SQLite
     /// </summary>
     public class SQLiteDbContextOptions : DbContextOptionsAbstract
     {
-        public SQLiteDbContextOptions(DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(options, new SQLiteAdapter(options.Database), loggerFactory, httpContextAccessor)
+        public SQLiteDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(dbOptions, options, new SQLiteAdapter(options.Database), loggerFactory, httpContextAccessor)
         {
         }
 

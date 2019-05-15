@@ -12,7 +12,7 @@ namespace NetModular.Lib.Data.SqlServer
     /// </summary>
     public class SqlServerDbContextOptions : DbContextOptionsAbstract
     {
-        public SqlServerDbContextOptions(DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(options, new SqlServerAdapter(options.Database), loggerFactory, httpContextAccessor)
+        public SqlServerDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(dbOptions, options, new SqlServerAdapter(options.Database), loggerFactory, httpContextAccessor)
         {
         }
 

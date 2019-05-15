@@ -18,7 +18,7 @@ import Panel from './panel'
 export default {
   name: 'IconPicker',
   components: { Panel },
-  data () {
+  data() {
     return {
       icon: this.value,
       panelVisible: false
@@ -26,16 +26,13 @@ export default {
   },
   props: {
     value: String,
-    placeholder: {
-      type: String,
-      default: '请选择图标'
-    }
+    placeholder: String
   },
   methods: {
-    onChange (val) {
+    onChange(val) {
       this.$emit('input', val)
     },
-    onSelect (icon) {
+    onSelect(icon) {
       if (icon !== '') {
         this.icon = icon
         this.onChange(icon)
@@ -43,7 +40,7 @@ export default {
     }
   },
   watch: {
-    value () {
+    value() {
       this.icon = this.value
     }
   }

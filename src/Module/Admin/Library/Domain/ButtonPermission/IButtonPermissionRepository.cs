@@ -7,7 +7,7 @@ namespace NetModular.Module.Admin.Domain.ButtonPermission
     /// <summary>
     /// 按钮权限仓储
     /// </summary>
-    public interface IButtonPermissionRepository : IRepository<ButtonPermission>
+    public interface IButtonPermissionRepository : IRepository<ButtonPermissionEntity>
     {
         /// <summary>
         /// 判断是否存在绑定了指定权限的按钮

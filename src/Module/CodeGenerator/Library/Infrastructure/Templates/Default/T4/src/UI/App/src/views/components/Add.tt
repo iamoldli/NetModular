@@ -1,0 +1,52 @@
+<#@ template language="C#" #>
+<template>
+  <td-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
+    <el-row>
+      <el-col :span="20" :offset="1">
+<#    foreach(var p in _class.AddModelPropertyList){ #>
+        <el-form-item label="<#= p.Remarks #>：" prop="<#= p.CamelName #>">
+          <el-input v-model="list.model.<#= p.CamelName #>" clearable/>
+        </el-form-item>
+<#    } #>
+      </el-col>
+    </el-row>
+  </td-form-dialog>
+</template>
+<script>
+import api from '../../../../api/<#= _class.Name #>'
+import { mixins } from '<#= _prefix.ToLower() #>-lib-skins'
+export default {
+  mixins: [mixins.dialog],
+  data () {
+    return {
+      form: {
+        title: '添加<#= _class.Remarks #>',
+        icon: 'add',
+        action: api.add,
+        model: {
+<#    for(var i = 0;i < _class.AddModelPropertyList.Count;i++){ var p=_class.AddModelPropertyList[i]; #>
+          /** <#= p.Remarks #> */
+          <#= p.CamelName #>: ''<#=i < _class.AddModelPropertyList.Count-1 ? "," : "" #>
+<#    } #>
+        },
+        rules: {
+        }
+      },
+      on: {
+        success: this.onSuccess,
+        open: this.onOpen
+      }
+    }
+  },
+  methods: {
+    onSuccess () {
+      this.$emit('success')
+    },
+    onOpen () {
+      this.$nextTick(() => {
+        this.$refs.form.reset()
+      })
+    }
+  }
+}
+</script>

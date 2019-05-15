@@ -33,12 +33,6 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
         /// <summary>
         /// 验证码
         /// </summary>
-        [Required(ErrorMessage = "请输入验证码")]
         public string Code { get; set; }
-
-        /// <summary>
-        /// 回调地址
-        /// </summary>
-        public string ReturlUrl { get; set; }
     }
 }

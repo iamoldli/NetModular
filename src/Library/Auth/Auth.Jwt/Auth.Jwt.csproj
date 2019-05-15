@@ -14,14 +14,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Auth.Abstractions\Auth.Abstractions.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="config\jwt.Development.json">
-      <Pack>False</Pack>
-      <DependentUpon>jwt.json</DependentUpon>
-    </Content>
-    <Content Include="config\jwt.json">
-      <Pack>False</Pack>
-    </Content>
-  </ItemGroup>
 </Project>

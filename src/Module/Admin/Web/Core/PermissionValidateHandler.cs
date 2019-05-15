@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Module.Admin.Application.AccountService;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Infrastructure.Options;
 
 namespace NetModular.Module.Admin.Web.Core
 {
@@ -34,8 +37,8 @@ namespace NetModular.Module.Admin.Web.Core
             var area = routeValues["area"];
             var controller = routeValues["controller"];
             var action = routeValues["action"];
-
-            return permissions.Any(m => m.ModuleCode.EqualsIgnoreCase(area) && m.Controller.EqualsIgnoreCase(controller) && m.Action.EqualsIgnoreCase(action));
+            var httpMethod = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), context.HttpContext.Request.Method);
+            return permissions.Any(m => m.ModuleCode.EqualsIgnoreCase(area) && m.Controller.EqualsIgnoreCase(controller) && m.Action.EqualsIgnoreCase(action) && m.HttpMethod == httpMethod);
         }
     }
 }

@@ -76,12 +76,30 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 查询第一条数据，不存在返回默认值
         /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        dynamic QueryFirstOrDefault(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 查询第一条数据，不存在返回默认值
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <param name="commandType">命令类型</param>
         /// <returns></returns>
         T QueryFirstOrDefault<T>(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 查询第一条数据，不存在返回默认值
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, CommandType? commandType = null);
 
         /// <summary>
         /// 查询第一条数据，不存在返回默认值
@@ -100,12 +118,30 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 查询单条记录，不存在返回默认值，如果存在多条记录则抛出异常
         /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        dynamic QuerySingleOrDefault(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 查询单条记录，不存在返回默认值，如果存在多条记录则抛出异常
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql语句</param>
         /// <param name="param">参数</param>
         /// <param name="commandType">命令类型</param>
         /// <returns></returns>
         T QuerySingleOrDefault<T>(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 查询单条记录，不存在返回默认值，如果存在多条记录则抛出异常
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, CommandType? commandType = null);
 
         /// <summary>
         /// 查询单条记录，不存在返回默认值，如果存在多条记录则抛出异常
@@ -122,6 +158,15 @@ namespace NetModular.Lib.Data.Abstractions
         #region ==Query==
 
         /// <summary>
+        /// 查询数据，返回匿名对象
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        IEnumerable<dynamic> Query(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
         /// 查询数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -130,6 +175,15 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="commandType">命令类型</param>
         /// <returns></returns>
         IEnumerable<T> Query<T>(string sql, object param = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// 查询数据，返回匿名数据
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, CommandType? commandType = null);
 
         /// <summary>
         /// 查询数据

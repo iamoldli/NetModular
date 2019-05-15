@@ -1,14 +1,15 @@
 import logo from '../../packages/assets/logo.png'
 import token from './token'
 import routeConfig from '../router'
+import accountApi from './account'
 const get = () => {
   return {
     /** 标题 */
-    title: 'Vue.js快速开发框架',
+    title: '腾迪后台管理系统',
     /** logo */
     logo,
     /** 默认页 */
-    default: '/demo', // 退出方法
+    home: '', // 退出方法
     logout () {
       token.remove()
       routeConfig.$router.push({ name: 'login' })
@@ -18,7 +19,8 @@ const get = () => {
       return new Promise((resolve, reject) => {
         resolve()
       })
-    }
+    },
+    getLoginInfo: accountApi.get
   }
 }
 

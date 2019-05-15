@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Data;
+﻿using System.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using NetModular.Lib.Data.Abstractions.Options;
 
 namespace NetModular.Lib.Data.Abstractions
 {
@@ -39,5 +40,10 @@ namespace NetModular.Lib.Data.Abstractions
         /// Http上下文访问器
         /// </summary>
         IHttpContextAccessor HttpContextAccessor { get; }
+
+        /// <summary>
+        /// 所有数据库配置信息
+        /// </summary>
+        DbOptions DbOptions { get; }
     }
 }

@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" #>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="<#= _prefix #>.Lib.Data.AspNetCore" Version="1.2.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Data.SqlServer" Version="1.2.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.WebHost.Core" Version="1.2.0" />
+    <PackageReference Include="<#= _prefix #>.Module.Admin.Web" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Web\Web.csproj" />
+  </ItemGroup>
+
+  <!--复制配置文件到输出目录-->
+  <ItemGroup>
+    <Content Update="config\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

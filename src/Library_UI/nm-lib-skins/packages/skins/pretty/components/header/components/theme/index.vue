@@ -15,7 +15,7 @@
 import list from './list'
 import { mapState, mapMutations } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       list
     }
@@ -24,9 +24,9 @@ export default {
     ...mapState('app/skins', ['current'])
   },
   methods:
-    {
-      ...mapMutations('app/skins', ['themeChange'])
-    }
+  {
+    ...mapMutations('app/skins', ['themeChange'])
+  }
 }
 </script>
 <style>

@@ -1,0 +1,38 @@
+<#@ template language="C#" #>
+<template>
+  <td-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
+    <el-row>
+      <el-col :span="20" :offset="1">
+<#    foreach(var p in _class.EditModelPropertyList){ #>
+        <el-form-item label="<#= p.Remarks #>：" prop="<#= p.CamelName #>">
+          <el-input v-model="list.model.<#= p.CamelName #>" clearable/>
+        </el-form-item>
+<#    } #>
+      </el-col>
+    </el-row>
+  </td-form-dialog>
+</template>
+<script>
+import api from '../../../../api/<#= _class.Name #>'
+import { mixins } from '<#= _prefix.ToLower() #>-lib-skins'
+export default {
+  mixins: [mixins.formDialogEdit],
+  data () {
+    return {
+      api,
+      form: {
+        title: '编辑<#= _class.Remarks #>',
+        action: api.update,
+        model: {
+<#    for(var i = 0;i < _class.EditModelPropertyList.Count;i++){ var p = _class.EditModelPropertyList[i]; #>
+          /** <#= p.Remarks #> */
+          <#= p.CamelName #>: ''<#=i < _class.EditModelPropertyList.Count-1 ? "," : "" #>
+<#    } #>
+        },
+        rules: {
+        }
+      }
+    }
+  }
+}
+</script>

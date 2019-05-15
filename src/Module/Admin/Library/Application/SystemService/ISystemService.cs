@@ -13,7 +13,7 @@ namespace NetModular.Module.Admin.Application.SystemService
         /// 获取系统配置信息
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> GetConfig(string host);
+        Task<IResultModel<SystemConfigModel>> GetConfig(string host = null);
 
         /// <summary>
         /// 更改系统配置

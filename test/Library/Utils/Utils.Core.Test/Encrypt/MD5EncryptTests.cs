@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NetModular.Lib.Utils.Core.Encrypt;
+﻿using NetModular.Lib.Utils.Core.Encrypt;
 using Xunit;
 
 namespace Utils.Core.Test.Encrypt

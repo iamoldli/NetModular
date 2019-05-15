@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+using <#= _prefix #>.Lib.WebHost.Core;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.WebHost
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            WebHostCreator.Run<Startup>(args);
+        }
+    }
+}

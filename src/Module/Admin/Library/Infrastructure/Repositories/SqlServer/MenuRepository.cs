@@ -13,15 +13,15 @@ using NetModular.Module.Admin.Domain.RoleMenu;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class MenuRepository : RepositoryAbstract<Menu>, IMenuRepository
+    public class MenuRepository : RepositoryAbstract<MenuEntity>, IMenuRepository
     {
         public MenuRepository(IDbContext dbContext) : base(dbContext)
         {
         }
 
-        public Task<IList<Menu>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null)
+        public Task<IList<MenuEntity>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null)
         {
-            var query = Db.Find().LeftJoin<Account>((x, y) => x.CreatedBy == y.Id);
+            var query = Db.Find().LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
 
             query.WhereIf(name.NotNull(), (x, y) => x.Name.Contains(name));
             query.WhereIf(code.NotNull(), (x, y) => x.RouteName.Contains(code));
@@ -55,20 +55,20 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return ExistsAsync(e => e.ModuleCode == moduleCode);
         }
 
-        public Task<Menu> GetAsync(Guid id)
+        public Task<MenuEntity> GetAsync(Guid id)
         {
-            var query = Db.Find().LeftJoin<Menu>((x, y) => x.ParentId == y.Id)
-                .LeftJoin<Account>((x, y, z) => x.CreatedBy == z.Id)
+            var query = Db.Find().LeftJoin<MenuEntity>((x, y) => x.ParentId == y.Id)
+                .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy == z.Id)
                 .Where((x, y, z) => x.Id == id)
                 .Select((m, n, o) => new { m, ParentName = n.Name, });
 
-            return query.FirstAsync<Menu>();
+            return query.FirstAsync<MenuEntity>();
         }
 
-        public Task<IList<Menu>> GetByAccount(Guid accountId)
+        public Task<IList<MenuEntity>> GetByAccount(Guid accountId)
         {
-            return Db.Find().InnerJoin<RoleMenu>((x, y) => x.Id == y.MenuId)
-                 .InnerJoin<AccountRole>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
+            return Db.Find().InnerJoin<RoleMenuEntity>((x, y) => x.Id == y.MenuId)
+                 .InnerJoin<AccountRoleEntity>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
                  .Select((x, y, z) => new { x })
                  .ToListAsync();
         }

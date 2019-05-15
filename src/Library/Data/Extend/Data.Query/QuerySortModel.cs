@@ -1,4 +1,5 @@
-﻿using NetModular.Lib.Data.Abstractions.Enums;
+﻿
+using NetModular.Lib.Data.Abstractions.Enums;
 
 namespace NetModular.Lib.Data.Query
 {

@@ -15,11 +15,12 @@ namespace NetModular.Lib.Data.Core
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="dbOptions"></param>
         /// <param name="options"></param>
         /// <param name="sqlAdapter">数据库适配器</param>
         /// <param name="loggerFactory">日志工厂</param>
         /// <param name="httpContextAccessor"></param>
-        protected DbContextOptionsAbstract(DbConnectionOptions options, ISqlAdapter sqlAdapter, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
+        protected DbContextOptionsAbstract(DbOptions dbOptions, DbConnectionOptions options, ISqlAdapter sqlAdapter, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
         {
             if (options.Name.IsNull())
                 throw new ArgumentNullException(nameof(options.Name), "数据库连接名称未配置");
@@ -27,6 +28,7 @@ namespace NetModular.Lib.Data.Core
             if (options.ConnString.IsNull())
                 throw new ArgumentNullException(nameof(options.ConnString), "数据库连接字符串未配置");
 
+            DbOptions = dbOptions;
             Name = options.Name;
             ConnectionString = options.ConnString;
             SqlAdapter = sqlAdapter;
@@ -50,5 +52,6 @@ namespace NetModular.Lib.Data.Core
         public ILoggerFactory LoggerFactory { get; }
 
         public IHttpContextAccessor HttpContextAccessor { get; }
+        public DbOptions DbOptions { get; }
     }
 }

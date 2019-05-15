@@ -1,4 +1,24 @@
 import { db } from 'nm-lib-utils'
+
+// 解析路由菜单和面包屑信息
+let routeMenus = new Map()
+const resolveRouteMenus = (menu, bc) => {
+  let bc_ = Object.assign([], bc)
+  if (menu.type === 1) {
+    bc_.push({
+      title: menu.name,
+      route: ''
+    })
+    routeMenus.set(menu.routeName, { menu, breadcrumb: bc_ })
+  } else if (menu.type === 0) {
+    bc_.push({
+      title: menu.name,
+      route: ''
+    })
+    menu.children.map(m => resolveRouteMenus(m, bc_))
+  }
+}
+
 export default {
   namespaced: true,
   state: {
@@ -22,7 +42,9 @@ export default {
       theme: '',
       /** 字号 medium/small/mini */
       fontSize: ''
-    }
+    },
+    /** 路由菜单集合 */
+    routeMenus: null
   },
   getters: {
     // 当前账户拥有菜单对应的路由列表
@@ -31,13 +53,20 @@ export default {
   actions: {
     /**
      * @description 初始化
-     * @param {*} account 账户信息
      */
-    async init({ commit, dispatch }, account) {
+    async init({ state, rootState, commit, dispatch }) {
+      if (state.id) return
+
+      let account = await rootState.app.system.getLoginInfo()
+
       // 设置皮肤
       dispatch('app/skins/init', account.skin, { root: true })
 
+      // 初始化
       commit('init', account)
+
+      // 初始化路由菜单数组
+      dispatch('initRouteMenus', account)
 
       const accountId = await dispatch('cacheGet')
 
@@ -59,11 +88,19 @@ export default {
     },
     cacheSet({ state }) {
       db.set('accountId', state.id)
+    },
+    /** 初始化路由菜单数组 */
+    initRouteMenus({ commit }, account) {
+      account.menus.map(m => resolveRouteMenus(m))
+      commit('initRouteMenus', routeMenus)
     }
   },
   mutations: {
     init(state, account) {
       Object.assign(state, account)
+    },
+    initRouteMenus(state, routeMenus) {
+      state.routeMenus = routeMenus
     },
     reset(state) {
       state.id = ''

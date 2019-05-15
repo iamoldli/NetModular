@@ -1,0 +1,11 @@
+<#@ template language="C#" #>
+{
+//秘钥
+  "Key": "twAJ$j5##pVc5*y&",
+  //发行商
+  "Issuer": "http://www.iamoldli.com",
+  //订阅者
+  "Audience": "http://www.iamoldli.com",
+  //有效期(分钟)
+  "Expires": 120
+}

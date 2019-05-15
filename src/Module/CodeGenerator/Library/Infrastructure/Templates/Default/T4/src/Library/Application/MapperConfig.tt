@@ -1,0 +1,18 @@
+﻿<#@ template language="C#" #>
+using AutoMapper;
+using <#= _prefix #>.Lib.Mapper;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service.ViewModels;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service
+{
+    public class MapperConfig : IMapperConfig
+    {
+        public void Bind(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<<#= _class.Name #>AddModel, <#= _class.Name #>Entity>();
+            cfg.CreateMap<<#= _class.Name #>Entity, <#= _class.Name #>UpdateModel>();
+            cfg.CreateMap<<#= _class.Name #>UpdateModel, <#= _class.Name #>Entity>();
+        }
+    }
+}

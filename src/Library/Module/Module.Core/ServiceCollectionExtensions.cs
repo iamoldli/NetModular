@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Utils.Core.Options;
 
 namespace NetModular.Lib.Module.Core
 {
@@ -23,6 +24,9 @@ namespace NetModular.Lib.Module.Core
 
             var cfgHelper = new ConfigurationHelper();
             var cfg = cfgHelper.Load("module", env.EnvironmentName, true);
+
+            //通用配置
+            services.Configure<ModuleCommonOptions>(cfg);
 
             foreach (var module in modules)
             {

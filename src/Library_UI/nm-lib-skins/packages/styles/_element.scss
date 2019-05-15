@@ -34,43 +34,21 @@ body {
     }
 }
 
-.el-select {
-    width: 100%;
+.el-select,
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+    width: 100% !important;
 }
 
-// .el-form-item__label {
-//     position: relative;
-//     text-align: justify;
-//     text-justify: inter-ideograph;
-//     height: 40px;
+.el-message {
+    top: 5px !important;
+}
 
-//     &:before {
-//         position: absolute;
-//         left: -10px;
-//         top: 3px;
-//     }
-
-//     &:after {
-//         content: " ";
-//         display: inline-block;
-//         width: 100%;
-//     }
-// }
-
-// .el-form-item--medium {
-//     .el-form-item__label {
-//         height: 36px;
-//     }
-// }
-
-// .el-form-item--small {
-//     .el-form-item__label {
-//         height: 32px;
-//     }
-// }
-
-// .el-form-item--small {
-//     .el-form-item__label {
-//         height: 28px;
-//     }
-// }
+.el-tabs__item {
+    #{$prefix}-icon {
+        position: relative;
+        top: 2px;
+        padding-right: 2px;
+        font-size: 1.4em;
+    }
+}

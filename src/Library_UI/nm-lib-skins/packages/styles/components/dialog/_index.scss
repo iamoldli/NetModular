@@ -67,14 +67,6 @@
                         position: absolute;
                         height: 100%;
                         width: 100%;
-
-                        >#{$prefix}-scrollbar {
-                            >.el-scrollbar__wrap {
-                                >.el-scrollbar__view {
-                                    padding: 10px 0;
-                                }
-                            }
-                        }
                     }
                 }
 
@@ -82,6 +74,7 @@
                     padding: $dialog-footer-padding;
                     flex-shrink: 0;
                     text-align: right;
+                    z-index: 1;
                 }
             }
         }

@@ -1,0 +1,18 @@
+<#@ template language="C#" #>
+{
+  "Logging": false,
+  "Connections": [
+    {
+      "Name": "Admin",
+      "Dialect": 0,
+      "Database": "{数据库名称}",
+      "ConnString": "Server={数据库地址};Database=<#= _prefix #>_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+    },
+    {
+      "Name": "<#= _model.Project.Code #>",
+      "Dialect": 0,
+      "Database": "{数据库名称}",
+      "ConnString": "Server={数据库地址};Database=<#= _prefix #>_<#= _model.Project.Code #>;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+    }
+  ]
+}

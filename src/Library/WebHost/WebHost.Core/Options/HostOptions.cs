@@ -14,10 +14,5 @@
         /// 开启Swagger
         /// </summary>
         public bool Swagger { get; set; }
-
-        /// <summary>
-        /// 文件上传路径
-        /// </summary>
-        public string UploadPath { get; set; }
     }
 }

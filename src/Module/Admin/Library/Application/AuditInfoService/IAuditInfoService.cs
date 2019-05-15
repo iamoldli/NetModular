@@ -15,7 +15,7 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(AuditInfo info);
+        Task<IResultModel> Add(AuditInfoEntity info);
 
         /// <summary>
         /// 查询

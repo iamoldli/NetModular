@@ -8,11 +8,8 @@
       <breadcrumb/>
     </section>
     <section class="nm-header-right">
-      <!--用户信息-->
-      <user-info/>
-      <!-- <theme/> -->
+      <!--工具栏-->
       <div class="nm-header-toolbar">
-        <!--工具栏-->
         <nm-toolbar/>
       </div>
     </section>
@@ -20,12 +17,12 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import UserInfo from './components/userinfo'
 import Breadcrumb from './components/breadcrumb'
 export default {
-  components: { UserInfo, Breadcrumb },
+  components: { Breadcrumb },
   computed: {
-    ...mapState('app/skins/pretty/sidebar', { sidebarCollapse: 'collapse' })
+    ...mapState('app/skins/pretty/sidebar', { sidebarCollapse: 'collapse' }),
+    ...mapState('app/system', ['toolbar'])
   },
   methods: {
     ...mapActions('app/skins/pretty/sidebar', { sidebarToggle: 'toggle' })

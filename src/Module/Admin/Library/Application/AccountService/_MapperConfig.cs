@@ -11,11 +11,11 @@ namespace NetModular.Module.Admin.Application.AccountService
     {
         public void Bind(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Account, AccountQueryResultModel>();
-            cfg.CreateMap<Menu, AccountMenuItem>();
-            cfg.CreateMap<AccountAddModel, Account>();
-            cfg.CreateMap<Account, AccountUpdateModel>();
-            cfg.CreateMap<AccountUpdateModel, Account>();
+            cfg.CreateMap<AccountEntity, AccountQueryResultModel>();
+            cfg.CreateMap<MenuEntity, AccountMenuItem>();
+            cfg.CreateMap<AccountAddModel, AccountEntity>();
+            cfg.CreateMap<AccountEntity, AccountUpdateModel>();
+            cfg.CreateMap<AccountUpdateModel, AccountEntity>();
         }
     }
 }

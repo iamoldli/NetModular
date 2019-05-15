@@ -7,6 +7,6 @@
     {
         TKey Key { get; }
 
-        int Count();
+        long Count();
     }
 }

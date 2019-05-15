@@ -20,7 +20,7 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
             _mapper = mapper;
         }
 
-        public async Task<IResultModel> Add(AuditInfo info)
+        public async Task<IResultModel> Add(AuditInfoEntity info)
         {
             if (info == null)
                 return ResultModel.Failed();
@@ -33,7 +33,7 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
         {
             var result = new QueryResultModel<AuditInfoQueryResultModel>();
             var paging = model.Paging();
-            var list = await _repository.Query(paging, model.AccountId, model.ModuleCode, model.Controller, model.Action, model.StartTime, model.EndTime);
+            var list = await _repository.Query(paging, model.ModuleCode, model.Controller, model.Action, model.StartTime, model.EndTime);
 
             result.Rows = _mapper.Map<List<AuditInfoQueryResultModel>>(list);
             result.Total = paging.TotalCount;

@@ -12,17 +12,16 @@ using NetModular.Module.Admin.Domain.ModuleInfo;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class AuditInfoRepository : RepositoryAbstract<AuditInfo>, IAuditInfoRepository
+    public class AuditInfoRepository : RepositoryAbstract<AuditInfoEntity>, IAuditInfoRepository
     {
         public AuditInfoRepository(IDbContext context) : base(context)
         {
         }
 
-        public Task<IList<AuditInfo>> Query(Paging paging, Guid? accountId, string moduleCode, string controller, string action, DateTime? startTime,
+        public Task<IList<AuditInfoEntity>> Query(Paging paging, string moduleCode, string controller, string action, DateTime? startTime,
             DateTime? endTime)
         {
             var query = Db.Find();
-            query.WhereIf(accountId != null, m => m.AccountId == accountId);
             query.WhereIf(moduleCode.NotNull(), m => m.Area == moduleCode);
             query.WhereIf(controller.NotNull(), m => m.Controller == controller);
             query.WhereIf(action.NotNull(), m => m.Action == action);
@@ -33,8 +32,8 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             {
                 query.OrderByDescending(m => m.Id);
             }
-            return query.LeftJoin<Account>((x, y) => x.AccountId == y.Id)
-                .LeftJoin<ModuleInfo>((x, y, z) => x.Area == z.Code)
+            return query.LeftJoin<AccountEntity>((x, y) => x.AccountId == y.Id)
+                .LeftJoin<ModuleInfoEntity>((x, y, z) => x.Area == z.Code)
                 .Select((x, y, z) => new
                 {
                     x.Id,
@@ -52,17 +51,17 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                 .PaginationAsync(paging);
         }
 
-        public Task<AuditInfo> Details(int id)
+        public Task<AuditInfoEntity> Details(int id)
         {
             return Db.Find(m => m.Id == id)
-                .LeftJoin<Account>((x, y) => x.AccountId == y.Id)
-                .LeftJoin<ModuleInfo>((x, y, z) => x.Area == z.Code)
+                .LeftJoin<AccountEntity>((x, y) => x.AccountId == y.Id)
+                .LeftJoin<ModuleInfoEntity>((x, y, z) => x.Area == z.Code)
                 .Select((x, y, z) => new
                 {
                     x,
                     Creator = y.Name,
                     ModuleName = z.Name
-                }).FirstAsync<AuditInfo>();
+                }).FirstAsync<AuditInfoEntity>();
         }
     }
 }

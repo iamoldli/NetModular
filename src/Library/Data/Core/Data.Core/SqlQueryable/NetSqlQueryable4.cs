@@ -151,30 +151,41 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             return base.AvgAsync<TResult>(expression);
         }
+        
+        public IGroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TResult>> expression)
+        {
+            return new GroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4>(Db, QueryBody, QueryBuilder, expression);
+        }
 
-        public IList<TEntity> ToList()
+
+        public new IList<TEntity> ToList()
         {
             return ToList<TEntity>();
         }
 
-        public Task<IList<TEntity>> ToListAsync()
+        public new Task<IList<TEntity>> ToListAsync()
         {
             return ToListAsync<TEntity>();
         }
 
-        public IList<TEntity> Pagination(Paging paging = null)
+        public new IList<TEntity> Pagination(Paging paging = null)
         {
             return Pagination<TEntity>(paging);
         }
 
-        public Task<IList<TEntity>> PaginationAsync(Paging paging = null)
+        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null)
         {
             return PaginationAsync<TEntity>(paging);
         }
 
-        public IGroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TResult>> expression)
+        public new TEntity First()
         {
-            return new GroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4>(Db, QueryBody, QueryBuilder, expression);
+            return First<TEntity>();
+        }
+
+        public new Task<TEntity> FirstAsync()
+        {
+            return FirstAsync<TEntity>();
         }
     }
 }

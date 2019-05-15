@@ -47,7 +47,7 @@ export default {
     }
   },
   watch: {
-    visible_ () {
+    visible_() {
       if (this.visible_) {
         this.$nextTick(() => {
           this.$refs.details.query()

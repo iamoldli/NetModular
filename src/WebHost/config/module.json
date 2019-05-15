@@ -1,10 +1,16 @@
 ﻿{
+  //文件上传路径
+  "UploadPath": "",
+  //临时文件路径
+  "TempPath": "",
   "Admin": {
     //是否开启审计功能
     "Auditing": true,
     //是否开启权限验证
-    "PermissionValidate": true,
-    //文件上传路径
-    "UploadPath": ""
+    "PermissionValidate": true
+  },
+  "CodeGenerator": {
+    //生成代码存储路径(相对于临时目录的路径)
+    "BuildCodePath": "CodeGenerator\\BuildCode"
   }
 }

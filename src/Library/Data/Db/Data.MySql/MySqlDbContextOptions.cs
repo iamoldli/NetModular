@@ -15,10 +15,11 @@ namespace NetModular.Lib.Data.MySql
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="dbOptions"></param>
         /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="httpContextAccessor"></param>
-        public MySqlDbContextOptions(DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(options, new MySqlAdapter(options.Database), loggerFactory, httpContextAccessor)
+        public MySqlDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(dbOptions, options, new MySqlAdapter(options.Database), loggerFactory, httpContextAccessor)
         {
         }
 

@@ -4,7 +4,6 @@ process.env.VUE_APP_VERSION = require('./package.json').version
 
 const path = require('path')
 module.exports = {
-  publicPath: '/nm-lib-skins/',
   devServer: {
     port: 6220
   },
@@ -15,7 +14,8 @@ module.exports = {
       alias: {
         '@': path.resolve(__dirname, './src'),
         '@api': path.resolve(__dirname, './src/api'),
-        '@views': path.resolve(__dirname, './src/views')
+        '@views': path.resolve(__dirname, './src/views'),
+        vue$: 'vue/dist/vue.common'
       }
     }
   },

@@ -9,9 +9,9 @@ namespace NetModular.Module.Admin.Application.PermissionService
     {
         public void Bind(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<PermissionAddModel, Permission>();
-            cfg.CreateMap<PermissionUpdateModel, Permission>();
-            cfg.CreateMap<Permission, PermissionUpdateModel>();
+            cfg.CreateMap<PermissionAddModel, PermissionEntity>();
+            cfg.CreateMap<PermissionUpdateModel, PermissionEntity>();
+            cfg.CreateMap<PermissionEntity, PermissionUpdateModel>();
         }
     }
 }

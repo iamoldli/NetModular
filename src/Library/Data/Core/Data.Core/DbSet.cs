@@ -172,6 +172,7 @@ namespace NetModular.Lib.Data.Core
                         entityList.ForEach(entity =>
                         {
                             SetCreatedBy(entity);
+
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
                             {
@@ -277,6 +278,8 @@ namespace NetModular.Lib.Data.Core
                     {
                         entityList.ForEach(entity =>
                         {
+                            SetCreatedBy(entity);
+
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
                             {
@@ -306,6 +309,9 @@ namespace NetModular.Lib.Data.Core
                         }
 
                         var entity = entityList[t];
+
+                        SetCreatedBy(entity);
+
                         sqlBuilder.Append("(");
                         for (var i = 0; i < _sql.BatchInsertColumnList.Count; i++)
                         {
@@ -516,9 +522,19 @@ namespace NetModular.Lib.Data.Core
 
         #region ==QueryFirstOrDefault==
 
+        public dynamic QueryFirstOrDefault(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().QueryFirstOrDefault(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
         public T QueryFirstOrDefault<T>(string sql, object param = null, CommandType? commandType = null)
         {
             return DbContext.Open().QueryFirstOrDefault<T>(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
+        public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().QueryFirstOrDefaultAsync(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
         public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, CommandType? commandType = null)
@@ -526,13 +542,24 @@ namespace NetModular.Lib.Data.Core
             return DbContext.Open().QueryFirstOrDefaultAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
+
         #endregion
 
         #region ==QuerySingleOrDefault==
 
+        public dynamic QuerySingleOrDefault(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().QuerySingleOrDefault(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
         public T QuerySingleOrDefault<T>(string sql, object param = null, CommandType? commandType = null)
         {
             return DbContext.Open().QuerySingleOrDefault<T>(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
+        public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().QuerySingleOrDefaultAsync(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
         public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, CommandType? commandType = null)
@@ -544,9 +571,19 @@ namespace NetModular.Lib.Data.Core
 
         #region ==Query==
 
+        public IEnumerable<dynamic> Query(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().Query(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
         public IEnumerable<T> Query<T>(string sql, object param = null, CommandType? commandType = null)
         {
             return DbContext.Open().Query<T>(sql, param, DbContext.Transaction, commandType: commandType);
+        }
+
+        public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, CommandType? commandType = null)
+        {
+            return DbContext.Open().QueryAsync(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, CommandType? commandType = null)

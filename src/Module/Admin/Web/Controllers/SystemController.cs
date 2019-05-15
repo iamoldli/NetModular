@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using NetModular.Lib.Auth.Abstractions.Attributes;
 using NetModular.Lib.Module.Abstractions.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Options;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Lib.Utils.Mvc.Extensions;
 using NetModular.Lib.Utils.Mvc.Helpers;
@@ -22,13 +23,13 @@ namespace NetModular.Module.Admin.Web.Controllers
     [Description("系统")]
     public class SystemController : ModuleController
     {
-        private readonly AdminOptions _options;
+        private readonly ModuleCommonOptions _options;
         private readonly ISystemService _systemService;
         private readonly FileUploadHelper _fileUploadHelper;
         private readonly PermissionHelper _permissionHelper;
         private readonly MvcHelper _mvcHelper;
 
-        public SystemController(ISystemService systemService, IOptionsMonitor<AdminOptions> optionsMonitor, FileUploadHelper fileUploadHelper, PermissionHelper permissionHelper, MvcHelper mvcHelper)
+        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, PermissionHelper permissionHelper, MvcHelper mvcHelper)
         {
             _systemService = systemService;
             _fileUploadHelper = fileUploadHelper;
@@ -41,7 +42,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         [AllowAnonymous]
         [DisableAuditing]
         [Description("获取系统配置信息")]
-        public Task<IResultModel> Config()
+        public Task<IResultModel<SystemConfigModel>> Config()
         {
             return _systemService.GetConfig(Request.GetHost());
         }
@@ -61,8 +62,9 @@ namespace NetModular.Module.Admin.Web.Controllers
             {
                 Request = Request,
                 FormFile = formFile,
-                Group = "Logo",
-                RootPath = _options.UploadPath
+                RootPath = _options.UploadPath,
+                Module = "Admin",
+                Group = "Logo"
             };
 
             var result = await _fileUploadHelper.Upload(model);
@@ -71,7 +73,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             {
                 var file = result.Data;
 
-                file.Url = new Uri(Request.GetHost($"/upload/admin/{file.Path}")).ToString().ToLower();
+                file.Url = new Uri(Request.GetHost($"/upload/admin/{file.FullPath.ToLower()}")).ToString().ToLower();
 
                 return ResultModel.Success(file);
             }

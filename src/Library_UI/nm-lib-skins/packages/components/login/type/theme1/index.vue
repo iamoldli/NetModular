@@ -1,6 +1,6 @@
 <template>
   <div class="anim_fade">
-    <div class="nm-login nm-login-container">
+    <div class="nm-login nm-login-container theme1">
       <div class="nm-login-bg"/>
       <div class="nm-login-box">
         <div class="nm-login-content">
@@ -69,7 +69,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       verifycodeShow: false,
       verifyCodeUrl: '',
@@ -88,14 +88,14 @@ export default {
   },
   computed: {
     ...mapState('app/system', ['title', 'logo']),
-    getVerifyCode () {
+    getVerifyCode() {
       return this.actions.getVerifyCode
     },
-    login () {
+    login() {
       return this.actions.login
     }
   },
-  mounted () {
+  mounted() {
     this.refreshVierifyCode()
     document.addEventListener('keydown', e => {
       if (e.keyCode === 13) {
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     // 刷新验证码
-    async refreshVierifyCode () {
+    async refreshVierifyCode() {
       this.verifycodeShow = false
       let data = await this.getVerifyCode()
 
@@ -116,7 +116,7 @@ export default {
       }, 100)
     },
     // 登录
-    tryLogin () {
+    tryLogin() {
       if (this.form.userName && this.form.password && this.form.password) {
         this.$refs['form'].validate(async valid => {
           if (valid) {
@@ -143,7 +143,7 @@ export default {
         this.showErr = true
       }
     },
-    reset () {
+    reset() {
       this.form.userName = null
       this.form.password = null
       this.form.code = null
@@ -171,7 +171,7 @@ $lonin-info: #409eff;
   top: 13px;
   right: 10px;
 }
-.nm-login {
+.nm-login.theme1 {
   &-container {
     padding: 0;
     height: 100%;

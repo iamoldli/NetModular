@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'FormPage',
-  data () {
+  data() {
     return {
       loading: false,
       formOn: {
@@ -98,10 +98,12 @@ export default {
     fullscreen: {
       type: Boolean,
       default: true
-    }
+    },
+    /** 禁用表单 */
+    disabled: Boolean
   },
   computed: {
-    box () {
+    box() {
       return {
         page: true,
         title: this.title,
@@ -112,7 +114,7 @@ export default {
         loading: this.loading
       }
     },
-    form () {
+    form() {
       return {
         noLoading: true,
         model: this.model,
@@ -121,10 +123,11 @@ export default {
         labelWidth: this.labelWidth,
         validate: this.validate,
         successMsg: this.successMsg,
-        successMsgText: this.successMsgText
+        successMsgText: this.successMsgText,
+        disabled: this.disabled
       }
     },
-    toolbar () {
+    toolbar() {
       let toolbar = []
       if (this.fullscreen === true) {
         toolbar.push('fullscreen')
@@ -134,34 +137,40 @@ export default {
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.loading = true
       this.$refs.form.submit()
     },
     /** 重置 */
-    reset () {
+    reset() {
       this.$refs.form.reset()
     },
+    /** 清除验证信息 */
+    clearValidate() {
+      this.$refs.form.clearValidate()
+    },
     /** 打开loading */
-    openLoading () {
+    openLoading() {
       this.loading = true
       this.$refs.form.openLoading()
     },
     /** 关闭loading */
-    closeLoading () {
+    closeLoading() {
       this.loading = false
       this.$refs.form.closeLoading()
     },
     // 成功
-    onSuccess (data) {
+    onSuccess(data) {
       this.loading = false
       this.$emit('success', data)
     },
-    onError () {
+    onError() {
       this.loading = false
+      this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.loading = false
+      this.$emit('validate-error')
     }
   }
 }

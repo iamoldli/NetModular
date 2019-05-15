@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Library\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />
     <ProjectReference Include="..\Library\WebHost\WebHost.Core\WebHost.Core.csproj" />
     <ProjectReference Include="..\Module\Admin\Web\Web.csproj" />
+    <ProjectReference Include="..\Module\CodeGenerator\Web\Web.csproj" />
   </ItemGroup>
 
   <!--复制配置文件到输出目录-->

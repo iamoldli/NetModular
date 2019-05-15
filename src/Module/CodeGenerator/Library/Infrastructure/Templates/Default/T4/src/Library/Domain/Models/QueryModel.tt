@@ -1,0 +1,19 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="NetModular.Lib.Utils.Extensions" #>
+<#@ import namespace="NetModular.Module.CodeGenerator.Domain.Property" #>
+using System;
+using  <#= _prefix #>.Lib.Data.Query;
+
+namespace  <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>.Models
+{
+    public class <#= _class.Name #>QueryModel : QueryModel
+    {
+<#  foreach(var property in _propertyList){ #>
+        /// <summary>
+        /// <#= property.Remarks #>
+        /// </summary>
+        public <#= property.Type == PropertyType.Enum ? property.Enum.Name : property.Type.ToDescription() #><#= property.Nullable && property.Type == PropertyType.String ? "?" : "" #> <#= property.Name #> { get; set; }
+
+<# } #>
+    }
+}

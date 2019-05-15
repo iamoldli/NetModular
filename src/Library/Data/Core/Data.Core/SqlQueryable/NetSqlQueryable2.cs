@@ -149,24 +149,34 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return base.AvgAsync<TResult>(expression);
         }
 
-        public IList<TEntity> ToList()
+        public new IList<TEntity> ToList()
         {
             return ToList<TEntity>();
         }
 
-        public Task<IList<TEntity>> ToListAsync()
+        public new Task<IList<TEntity>> ToListAsync()
         {
             return ToListAsync<TEntity>();
         }
 
-        public IList<TEntity> Pagination(Paging paging = null)
+        public new IList<TEntity> Pagination(Paging paging = null)
         {
             return Pagination<TEntity>(paging);
         }
 
-        public Task<IList<TEntity>> PaginationAsync(Paging paging = null)
+        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null)
         {
             return PaginationAsync<TEntity>(paging);
+        }
+
+        public new TEntity First()
+        {
+            return First<TEntity>();
+        }
+
+        public new Task<TEntity> FirstAsync()
+        {
+            return FirstAsync<TEntity>();
         }
 
         public IGroupByQueryable2<TResult, TEntity, TEntity2> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TResult>> expression)

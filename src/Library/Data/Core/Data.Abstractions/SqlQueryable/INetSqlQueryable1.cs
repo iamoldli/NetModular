@@ -132,22 +132,6 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 
         #endregion
 
-        #region ==First==
-
-        /// <summary>
-        /// 查询第一条数据
-        /// </summary>
-        /// <returns></returns>
-        TEntity First();
-
-        /// <summary>
-        /// 查询第一条数据
-        /// </summary>
-        /// <returns></returns>
-        Task<TEntity> FirstAsync();
-
-        #endregion
-
         #region ==Delete==
 
         /// <summary>
@@ -324,40 +308,6 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 
         #endregion
 
-        #region ==ToList==
-
-        /// <summary>
-        /// 查询实体列表
-        /// </summary>
-        /// <returns></returns>
-        IList<TEntity> ToList();
-
-        /// <summary>
-        /// 查询实体列表
-        /// </summary>
-        /// <returns></returns>
-        Task<IList<TEntity>> ToListAsync();
-
-        #endregion
-
-        #region ==Pagination==
-
-        /// <summary>
-        /// 分页查询实体列表
-        /// </summary>
-        /// <param name="paging"></param>
-        /// <returns></returns>
-        IList<TEntity> Pagination(Paging paging = null);
-
-        /// <summary>
-        /// 分页查询实体列表
-        /// </summary>
-        /// <param name="paging"></param>
-        /// <returns></returns>
-        Task<IList<TEntity>> PaginationAsync(Paging paging = null);
-
-        #endregion
-
         #region ==GroupBy==
 
         /// <summary>
@@ -365,6 +315,56 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <returns></returns>
         IGroupByQueryable1<TResult, TEntity> GroupBy<TResult>(Expression<Func<TEntity, TResult>> expression);
+
+        #endregion
+
+        #region ==ToList==
+
+        /// <summary>
+        /// 查询列表，返回指定类型
+        /// </summary>
+        /// <returns></returns>
+        new IList<TEntity> ToList();
+
+        /// <summary>
+        /// 查询列表，返回指定类型
+        /// </summary>
+        /// <returns></returns>
+        new Task<IList<TEntity>> ToListAsync();
+
+        #endregion
+
+        #region ==Pagination==
+
+        /// <summary>
+        /// 分页查询，返回实体类型
+        /// </summary>
+        /// <param name="paging"></param>
+        /// <returns></returns>
+        new IList<TEntity> Pagination(Paging paging = null);
+
+        /// <summary>
+        /// 分页查询，返回实体类型
+        /// </summary>
+        /// <param name="paging"></param>
+        /// <returns></returns>
+        new Task<IList<TEntity>> PaginationAsync(Paging paging = null);
+
+        #endregion
+
+        #region ==First==
+
+        /// <summary>
+        /// 查询第一条数据，返回指定类型
+        /// </summary>
+        /// <returns></returns>
+        new TEntity First();
+
+        /// <summary>
+        /// 查询第一条数据，返回指定类型
+        /// </summary>
+        /// <returns></returns>
+        new Task<TEntity> FirstAsync();
 
         #endregion
     }

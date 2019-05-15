@@ -1,4 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Text;
+using Dapper;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -44,8 +47,20 @@ namespace NetModular.Lib.Data.Core
 
         #region ==方法==
 
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public IDbTransaction BeginTransaction()
         {
+            if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                return null;
+
+            Open();
+            return Transaction = Transaction ?? Connection.BeginTransaction();
+        }
+
+        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                return null;
+
             Open();
             return Transaction = Transaction ?? Connection.BeginTransaction(isolationLevel);
         }
@@ -59,7 +74,33 @@ namespace NetModular.Lib.Data.Core
                 Connection = Options.OpenConnection();
 
             if (Connection.State != ConnectionState.Open)
+            {
                 Connection.Open();
+
+                //SQLite跨数据库访问需要附加
+                if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                {
+                    var sql = new StringBuilder();
+                    foreach (var conn in Options.DbOptions.Connections)
+                    {
+                        var connString = "";
+                        foreach (var param in conn.ConnString.Split(';'))
+                        {
+                            var temp = param.Split('=');
+                            var key = temp[0];
+                            if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
+                            {
+                                connString = temp[1];
+                                break;
+                            }
+                        }
+
+                        sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
+                    }
+
+                    Connection.ExecuteAsync(sql.ToString());
+                }
+            }
 
             return Connection;
         }
@@ -73,8 +114,8 @@ namespace NetModular.Lib.Data.Core
 
         public void Dispose()
         {
-            Connection?.Dispose();
             Transaction?.Dispose();
+            Connection?.Dispose();
         }
     }
 }

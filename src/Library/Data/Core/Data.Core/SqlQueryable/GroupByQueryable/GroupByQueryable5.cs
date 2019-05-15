@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
@@ -53,16 +51,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
         {
             SetSelect(expression);
             return this;
-        }
-
-        public IList<TEntity> ToList()
-        {
-            return ToList<TEntity>();
-        }
-
-        public Task<IList<TEntity>> ToListAsync()
-        {
-            return ToListAsync<TEntity>();
         }
     }
 }

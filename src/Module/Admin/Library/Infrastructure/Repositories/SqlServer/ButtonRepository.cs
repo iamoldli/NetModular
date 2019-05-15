@@ -12,16 +12,16 @@ using NetModular.Module.Admin.Domain.RoleMenuButton;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class ButtonRepository : RepositoryAbstract<Button>, IButtonRepository
+    public class ButtonRepository : RepositoryAbstract<ButtonEntity>, IButtonRepository
     {
         public ButtonRepository(IDbContext context) : base(context)
         {
         }
 
-        public Task<IList<Button>> Query(Paging paging, Guid menuId, string name = null)
+        public Task<IList<ButtonEntity>> Query(Paging paging, Guid menuId, string name = null)
         {
             var query = Db.Find(m => m.MenuId == menuId).WhereIf(name.NotNull(), m => m.Name.Contains(name));
-            return query.LeftJoin<Account>((x, y) => x.CreatedBy == y.Id).Select((x, y) => new { x, Creator = y.Name })
+            return query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id).Select((x, y) => new { x, Creator = y.Name })
                 .PaginationAsync(paging);
         }
 
@@ -32,7 +32,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.ExistsAsync();
         }
 
-        public Task<IList<Button>> QueryByMenu(Guid menuId)
+        public Task<IList<ButtonEntity>> QueryByMenu(Guid menuId)
         {
             return Db.Find(m => m.MenuId == menuId).ToListAsync();
         }
@@ -40,8 +40,8 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<IList<string>> QueryCodeByAccount(Guid accountId)
         {
             return Db.Find()
-                .InnerJoin<RoleMenuButton>((x, y) => x.Id == y.ButtonId)
-                .InnerJoin<AccountRole>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
+                .InnerJoin<RoleMenuButtonEntity>((x, y) => x.Id == y.ButtonId)
+                .InnerJoin<AccountRoleEntity>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
                 .Select((x, y, z) => x.Code)
                 .ToListAsync<string>();
         }
@@ -51,10 +51,10 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.MenuId == menuId).DeleteAsync();
         }
 
-        public Task<bool> UpdateForSync(Button button)
+        public Task<bool> UpdateForSync(ButtonEntity button)
         {
             return Db.Find(m => m.MenuId == button.MenuId && m.Code == button.Code)
-                .UpdateAsync(m => new Button { Icon = button.Icon, Name = button.Name });
+                .UpdateAsync(m => new ButtonEntity { Icon = button.Icon, Name = button.Name });
         }
     }
 }

@@ -10,6 +10,12 @@
       "Dialect": 0,
       //Á´½Ó×Ö·û´®
       "ConnString": "Server=.;Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+    },
+    {
+      "Name": "CodeGenerator",
+      "Database": "Nm_CodeGenerator",
+      "Dialect": 0,
+      "ConnString": "Server=.;Database=Nm_CodeGenerator;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
     }
   ]
 }

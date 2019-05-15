@@ -24,10 +24,7 @@ namespace NetModular.Lib.Auth.Abstractions
         {
             get
             {
-                if (_contextAccessor == null)
-                    return Guid.Empty;
-
-                var accountId = _contextAccessor.HttpContext.User.FindFirst("id");
+                var accountId = _contextAccessor?.HttpContext.User.FindFirst("id");
 
                 if (accountId != null && accountId.Value.NotNull())
                 {

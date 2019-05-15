@@ -24,7 +24,13 @@ namespace NetModular.Lib.WebHost.Core
             //加载模块
             app.UseModules(env);
 
-            //启用静态文件
+            //设置默认文档
+            var defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear();
+            defaultFilesOptions.DefaultFileNames.Add("index.html");
+            app.UseDefaultFiles(defaultFilesOptions);
+
+            //启用静态资源访问
             app.UseStaticFiles();
 
             //身份认证

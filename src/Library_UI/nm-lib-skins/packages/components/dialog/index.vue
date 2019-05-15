@@ -62,7 +62,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'Dialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       id: '',
       // 全屏
@@ -98,7 +98,7 @@ export default {
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
-      default: true
+      default: false
     },
     /** 是否显示关闭按钮 */
     showClose: {
@@ -131,23 +131,23 @@ export default {
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    elScrollbarViewEl () {
+    elScrollbarViewEl() {
       return this.$refs.dialog.$el.querySelector('.el-scrollbar__view')
     },
-    class_ () {
+    class_() {
       return ['nm-dialog', this.draggableOption_.enabled ? 'draggable' : '']
     },
     /** 可以拖动时，点击空白处不可关闭**/
-    closeOnClickModal_ () {
+    closeOnClickModal_() {
       return !this.draggable && this.closeOnClickModal
     },
-    modal_ () {
+    modal_() {
       return !this.draggable && this.modal
     },
-    width_ () {
+    width_() {
       return typeof this.width === 'number' ? this.width > 0 ? this.width + 'px' : '50%' : this.width
     },
-    draggableOption_ () {
+    draggableOption_() {
       return {
         // 是否启用
         enabled: this.fullscreen_ ? false : this.draggable,
@@ -157,7 +157,7 @@ export default {
         limitNode: this.dragContainer
       }
     },
-    resizableOption_ () {
+    resizableOption_() {
       return {
         // 是否启用
         enabled: this.fullscreen_ ? false : this.draggable,
@@ -175,23 +175,23 @@ export default {
   methods: {
     ...mapActions('app/dialog', ['open']),
     /** 全屏切换 */
-    toggerFullscreen () {
+    toggerFullscreen() {
       this.fullscreen_ = !this.fullscreen_
     },
     /** 开启全屏 */
-    openFullscreen () {
+    openFullscreen() {
       this.fullscreen_ = true
     },
     /** 关闭全屏 */
-    closeFullscreen () {
+    closeFullscreen() {
       this.fullscreen_ = false
     },
     /** 关闭对话框 */
-    close () {
+    close() {
       this.hide()
     },
     /** 保存样式 */
-    saveStyle () {
+    saveStyle() {
       // 缓存参数
       let elem = this.$refs.dialog.$el
       if (elem.style.width === '') { return }
@@ -204,7 +204,7 @@ export default {
     /**
     * 调整高度
     */
-    resize () {
+    resize() {
       this.saveStyle()
       // 对话框高度
       const dialogHeight = this.getDialogHeight()
@@ -246,7 +246,7 @@ export default {
       }
     },
     // 获取对话框的高度信息
-    getDialogHeight () {
+    getDialogHeight() {
       const el = this.$refs.dialog.$el
       const header = el.querySelector('.el-dialog__header')
       const h = header ? header.offsetHeight : 0
@@ -271,7 +271,7 @@ export default {
 
       return { h, b, f, full: full }
     },
-    onOpen () {
+    onOpen() {
       this.$nextTick(() => {
         window.addEventListener('resize', this.resize)
         this.resize()
@@ -279,27 +279,27 @@ export default {
       })
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.saveStyle()
       window.removeEventListener('resize', this.resize)
       if (!this.noScrollbar) { removeResizeListener(this.elScrollbarViewEl, this.resize) }
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   },
-  mounted () {
+  mounted() {
     // 打开对话框
     this.open().then(id => {
       this.id = 'nm-dialog-' + id
     })
   },
   watch: {
-    draggableOption_ () {
+    draggableOption_() {
       if (!this.draggableOption_.enabled && this.visible) {
         // 缓存参数
         this.saveStyle()

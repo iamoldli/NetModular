@@ -46,7 +46,7 @@ namespace NetModular.Module.Admin.Application.ButtonService
 
         public async Task<IResultModel> Query(ButtonQueryModel model)
         {
-            var result = new QueryResultModel<Button>();
+            var result = new QueryResultModel<ButtonEntity>();
             var paging = model.Paging();
             result.Rows = await _buttonRepository.Query(paging, model.MenuId, model.Name);
             result.Total = paging.TotalCount;
@@ -147,10 +147,10 @@ namespace NetModular.Module.Admin.Application.ButtonService
                 }
 
                 //添加新数据
-                var entityList = new List<ButtonPermission>();
+                var entityList = new List<ButtonPermissionEntity>();
                 model.PermissionList.ForEach(p =>
                 {
-                    entityList.Add(new ButtonPermission { ButtonId = model.Id, PermissionId = p });
+                    entityList.Add(new ButtonPermissionEntity { ButtonId = model.Id, PermissionId = p });
                 });
                 if (await _buttonPermissionRepository.AddAsync(entityList))
                 {

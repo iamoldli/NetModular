@@ -1,0 +1,79 @@
+﻿<#@ template language="C#" #>
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using <#= _prefix #>.Lib.Utils.Result;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service.ViewModels;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>.Models;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service
+{
+    public class <#= _class.Name #>Service : I<#= _class.Name #>Service
+    {
+        private readonly IMapper _mapper;
+        private readonly I<#= _class.Name #>Repository _repository;
+        public <#= _class.Name #>Service(IMapper mapper, I<#= _class.Name #>Repository repository)
+        {
+            _mapper = mapper;
+            _repository = repository;
+        }
+
+        public async Task<IResultModel> Query(<#= _class.Name #>QueryModel model)
+        {
+            var result = new QueryResultModel<<#= _class.Name #>Entity>
+            {
+                Rows = await _repository.Query(model),
+                Total = model.TotalCount
+            };
+            return ResultModel.Success(result);
+        }
+
+        public async Task<IResultModel> Add(<#= _class.Name #>AddModel model)
+        {
+            var entity = _mapper.Map<<#= _class.Name #>Entity>(model);
+            //if (await _repository.Exists(entity))
+            //{
+                //return ResultModel.HasExists;
+            //}
+
+            var result = await _repository.AddAsync(entity);
+            return ResultModel.Result(result);
+        }
+
+        public async Task<IResultModel> Delete(<#= _class.PrimaryKeyTypeName #> id)
+        {
+            var result = await _repository.DeleteAsync(id);
+            return ResultModel.Result(result);
+        }
+
+        public async Task<IResultModel> Edit(<#= _class.PrimaryKeyTypeName #> id)
+        {
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            var model = _mapper.Map<<#= _class.Name #>UpdateModel>(entity);
+            return ResultModel.Success(model);
+        }
+
+        public async Task<IResultModel> Update(<#= _class.Name #>UpdateModel model)
+        {
+            var entity = await _repository.GetAsync(model.Id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            _mapper.Map(model, entity);
+
+            //if (await _repository.Exists(entity))
+            //{
+                //return ResultModel.HasExists;
+            //}
+
+            var result = await _repository.UpdateAsync(entity);
+
+            return ResultModel.Result(result);
+        }
+    }
+}

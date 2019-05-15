@@ -11,6 +11,7 @@ using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 
@@ -32,6 +33,8 @@ namespace NetModular.Lib.Data.AspNetCore
             if (!dbOptions.Connections.Any() || !modules.Any())
                 return;
 
+
+
             services.AddSingleton(dbOptions);
 
             foreach (var options in dbOptions.Connections)
@@ -41,6 +44,19 @@ namespace NetModular.Lib.Data.AspNetCore
                 LoadEntityTypes(module, options);
 
                 services.AddDbContext(module, options, dbOptions);
+            }
+        }
+
+        private static void CheckOptions(DbOptions options)
+        {
+            foreach (var dbConnectionOptions in options.Connections)
+            {
+                Check.NotNull(dbConnectionOptions.Name, "dbConnectionOptions.Name", "数据库配置项名称不能为空");
+                Check.NotNull(dbConnectionOptions.ConnString, "dbConnectionOptions.ConnString", "数据库配置项连接字符串不能为空");
+                if (dbConnectionOptions.Database.IsNull())
+                {
+                    dbConnectionOptions.Database = dbConnectionOptions.Name;
+                }
             }
         }
 
@@ -63,7 +79,7 @@ namespace NetModular.Lib.Data.AspNetCore
                 //请求上下文访问器
                 var httpContextAccessor = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
 
-                var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, options, loggerFactory, httpContextAccessor);
+                var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, httpContextAccessor);
 
                 services.AddScoped(typeof(IDbContext), sp => Activator.CreateInstance(dbContextType, contextOptions));
                 services.AddUnitOfWork(dbContextType);

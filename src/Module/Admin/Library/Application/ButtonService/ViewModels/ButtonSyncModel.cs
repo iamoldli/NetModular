@@ -16,6 +16,6 @@ namespace NetModular.Module.Admin.Application.ButtonService.ViewModels
         /// <summary>
         /// 按钮列表
         /// </summary>
-        public List<Button> Buttons { get; set; }
+        public List<ButtonEntity> Buttons { get; set; }
     }
 }

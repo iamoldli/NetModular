@@ -124,7 +124,7 @@ namespace NetModular.Lib.Data.Core
 
         protected virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> @where)
         {
-            return Db.Find(where).FirstAsync();
+            return Db.Find(where).FirstAsync<TEntity>();
         }
 
         #endregion
@@ -133,12 +133,12 @@ namespace NetModular.Lib.Data.Core
 
         public virtual IList<TEntity> GetAll()
         {
-            return Db.Find().ToList();
+            return Db.Find().ToList<TEntity>();
         }
 
         public virtual Task<IList<TEntity>> GetAllAsync()
         {
-            return Db.Find().ToListAsync();
+            return Db.Find().ToListAsync<TEntity>();
         }
 
         #endregion

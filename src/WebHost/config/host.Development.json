@@ -1,8 +1,4 @@
 ﻿{
-  //地址
-  "Urls": "http://*:6220",
   //开启Swagger
-  "Swagger": true,
-  //文件上传路径
-  "UploadPath": ""
+  "Swagger": true
 }

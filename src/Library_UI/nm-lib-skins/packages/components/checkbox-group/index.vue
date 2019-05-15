@@ -1,9 +1,9 @@
 <template>
   <nm-box header class="nm-checkbox-group">
     <template v-slot:header>
-      <el-checkbox :indeterminate="isIndeterminate" :disabled="disabledCheckAll" v-model="checkAll" @change="onCheckAllChange" :size="fontSize">全选</el-checkbox>
+      <el-checkbox v-model="checkAll" :size="size_" :indeterminate="isIndeterminate" :disabled="disabledCheckAll" @change="onCheckAllChange">全选</el-checkbox>
     </template>
-    <el-checkbox-group v-model="value_" :size="fontSize">
+    <el-checkbox-group v-model="value_" :size="size_">
       <el-checkbox v-for="item in options" :key="item.value" :label="item.value" :disabled="item.disabled" :border="border">
         <slot :option="item">{{ item.label }}</slot>
       </el-checkbox>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'CheckboxGroup',
-  data () {
+  data() {
     return {
       value_: this.value,
       checkAll: false,
@@ -24,7 +24,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -39,10 +39,10 @@ export default {
     action: Function
   },
   computed: {
-    disabledCheckAll () {
+    disabledCheckAll() {
       return !this.options || this.options.length < 1 || !this.options.every(o => !o.disabled)
     },
-    selection () {
+    selection() {
       let list = []
       if (this.value_) {
         this.value_.forEach(item => {
@@ -57,17 +57,20 @@ export default {
       }
 
       return list
+    },
+    size_() {
+      return this.size || this.fontSize
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.action().then(options => {
         this.options = options
         this.setCheckAll()
       })
     },
     // 设置全选状态
-    setCheckAll () {
+    setCheckAll() {
       if (this.value_) {
         let selectionCount = this.value_.length
         this.checkAll = selectionCount === this.options.length
@@ -77,23 +80,23 @@ export default {
       }
     },
     // 处理全选按钮事件
-    onCheckAllChange (val) {
+    onCheckAllChange(val) {
       this.value_ = val ? this.options.map(m => m.value) : []
       this.isIndeterminate = false
     },
     // 清楚已选项
-    clear () {
+    clear() {
       this.value_ = this.value
     }
   },
-  created () {
+  created() {
     this.refresh()
   },
   watch: {
-    value (val) {
+    value(val) {
       this.value_ = this.value
     },
-    value_ (val) {
+    value_(val) {
       this.setCheckAll()
       this.$emit('input', val)
       this.$emit('change', val, this.selection, this.options)

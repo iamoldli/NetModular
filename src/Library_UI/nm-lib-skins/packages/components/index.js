@@ -1,3 +1,5 @@
+import lib from '../library'
+
 let components = []
 const requireComponent = require.context('../components', true, /\.js|.vue$/)
 requireComponent
@@ -9,11 +11,8 @@ requireComponent
       components.push(componentConfig.default)
     }
   })
-export default function(Vue) {
-  // 前缀
-  const prefix = 'Nm'
-
+export default function (Vue) {
   components.forEach(component => {
-    Vue.component(`${prefix}${component.name}`, component)
+    Vue.component(`${lib.prefix}${component.name}`, component)
   })
 }

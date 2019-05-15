@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿
 
-// ReSharper disable once IdentifierTypo
+using Microsoft.AspNetCore.Builder;
+
 namespace NetModular.Lib.WebHost.Core.Middlewares
 {
     public static class ExceptionHandleMiddlewareExtensions

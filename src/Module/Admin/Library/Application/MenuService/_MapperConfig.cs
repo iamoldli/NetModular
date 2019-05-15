@@ -10,9 +10,9 @@ namespace NetModular.Module.Admin.Application.MenuService
     {
         public void Bind(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<MenuAddModel, Menu>();
-            cfg.CreateMap<MenuUpdateModel, Menu>();
-            cfg.CreateMap<Menu, MenuTreeResultModel>();
+            cfg.CreateMap<MenuAddModel, MenuEntity>();
+            cfg.CreateMap<MenuUpdateModel, MenuEntity>();
+            cfg.CreateMap<MenuEntity, MenuTreeResultModel>();
         }
     }
 }

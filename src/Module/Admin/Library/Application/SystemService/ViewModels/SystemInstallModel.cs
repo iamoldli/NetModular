@@ -5,6 +5,6 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
 {
     public class SystemInstallModel
     {
-        public List<Permission> Permissions { get; set; }
+        public List<PermissionEntity> Permissions { get; set; }
     }
 }

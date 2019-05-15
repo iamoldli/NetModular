@@ -11,13 +11,13 @@ using NetModular.Module.Admin.Domain.ModuleInfo;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class ModuleInfoRepository : RepositoryAbstract<ModuleInfo>, IModuleInfoRepository
+    public class ModuleInfoRepository : RepositoryAbstract<ModuleInfoEntity>, IModuleInfoRepository
     {
         public ModuleInfoRepository(IDbContext context) : base(context)
         {
         }
 
-        public Task<IList<ModuleInfo>> Query(Paging paging, string name = null, string code = null)
+        public Task<IList<ModuleInfoEntity>> Query(Paging paging, string name = null, string code = null)
         {
             var query = Db.Find();
             query.WhereIf(name.NotNull(), m => m.Name.Contains(name));
@@ -26,7 +26,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             if (!paging.OrderBy.Any())
                 query.OrderByDescending(m => m.Id);
 
-            return query.LeftJoin<Account>((x, y) => x.CreatedBy == y.Id).Select((x, y) => new { x, Creator = y.Name }).PaginationAsync(paging);
+            return query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id).Select((x, y) => new { x, Creator = y.Name }).PaginationAsync(paging);
         }
 
         public Task<bool> Exists(string code, Guid? id = null)
@@ -36,9 +36,9 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.ExistsAsync();
         }
 
-        public Task<bool> UpdateByCode(ModuleInfo entity)
+        public Task<bool> UpdateByCode(ModuleInfoEntity entity)
         {
-            return Db.Find().Where(m => m.Code == entity.Code).UpdateAsync(m => new ModuleInfo
+            return Db.Find().Where(m => m.Code == entity.Code).UpdateAsync(m => new ModuleInfoEntity
             {
                 Name = entity.Name,
                 Version = entity.Version,

@@ -32,13 +32,20 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 开启事务
         /// </summary>
+        /// <returns></returns>
+        IDbTransaction BeginTransaction();
+
+        /// <summary>
+        /// 开启事务
+        /// </summary>
         /// <param name="isolationLevel">隔离级别</param>
         /// <returns></returns>
-        IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
 
         /// <summary>
         /// 打开连接
         /// </summary>
+        /// <returns></returns>
         IDbConnection Open();
 
         /// <summary>

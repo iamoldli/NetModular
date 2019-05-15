@@ -329,6 +329,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         sqlBuilder.Append(" LEFT ");
                         break;
                 }
+
                 sqlBuilder.AppendFormat("JOIN {0}{1} AS {2} ON ", descriptor.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.TableName), _sqlAdapter.AppendQuote(descriptor.Alias));
 
                 sqlBuilder.Append(_resolver.Resolve(descriptor.On, parameters));
@@ -700,8 +701,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     havingSql.Append(" AND ");
                 }
             }
-
-            sqlBuilder.AppendFormat(" HAVING {0} ", havingSql);
+            if (havingSql.Length > 0)
+                sqlBuilder.AppendFormat(" HAVING {0} ", havingSql);
         }
         #endregion
 

@@ -8,8 +8,17 @@ namespace NetModular.Lib.Data.Core.Internal
     /// </summary>
     public enum SequentialGuidType
     {
+        /// <summary>
+        /// MySQL、PostgreSQL、SQLite使用
+        /// </summary>
         SequentialAsString,
+        /// <summary>
+        /// Oracle使用
+        /// </summary>
         SequentialAsBinary,
+        /// <summary>
+        /// SQL Server使用
+        /// </summary>
         SequentialAtEnd
     }
 

@@ -1,0 +1,50 @@
+﻿<#@ template language="C#" #>
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using <#= _prefix #>.Lib.Data.Abstractions;
+using <#= _prefix #>.Lib.Data.Core;
+using <#= _prefix #>.Lib.Data.Query;
+<# if(_class.IsEntityBase){ #>
+using <#= _prefix #>.Module.Admin.Domain.Account;
+<# } #>
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>.Models;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Repositories.SqlServer
+{
+    public class <#= _class.Name #>Repository : RepositoryAbstract<<#= _class.Name #>Entity>, I<#= _class.Name #>Repository
+    {
+        public <#= _class.Name #>Repository(IDbContext context) : base(context)
+        {
+        }
+
+        public async Task<IList<<#= _class.Name #>Entity>> Query(<#= _class.Name #>QueryModel model)
+        {
+            var paging = model.Paging();
+
+<# if(_class.IsSoftDelete){ #>
+            var query = Db.Find(m => m.Deleted == false);
+<# }else{ #>
+            var query = Db.Find();
+<# } #>
+
+            if (!paging.OrderBy.Any())
+            {
+                query.OrderByDescending(m => m.Id);
+            }
+
+<# if(_class.IsEntityBase){ #>
+            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .Select((x, y) => new { x, Creator = y.Name })
+                .PaginationAsync(paging);
+<# } else {#>
+            var result = await query.PaginationAsync(paging);
+<# } #>
+
+            model.TotalCount = paging.TotalCount;
+
+            return result;
+        }
+    }
+}

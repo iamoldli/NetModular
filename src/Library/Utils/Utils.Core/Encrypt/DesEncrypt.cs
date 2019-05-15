@@ -11,7 +11,7 @@ namespace NetModular.Lib.Utils.Core.Encrypt
     /// </summary>
     public class DesEncrypt
     {
-        private const string Key = "oldli!@#";
+        private const string Key = "tdkj.!@#";
 
         /// <summary>
         /// DES+Base64加密

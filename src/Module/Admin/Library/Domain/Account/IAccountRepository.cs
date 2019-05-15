@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.Account
     /// <summary>
     /// 账户仓储
     /// </summary>
-    public interface IAccountRepository : IRepository<Account>
+    public interface IAccountRepository : IRepository<AccountEntity>
     {
         /// <summary>
         /// 修改密码
@@ -24,7 +24,7 @@ namespace NetModular.Module.Admin.Domain.Account
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        Task<Account> GetByUserName(string userName);
+        Task<AccountEntity> GetByUserName(string userName);
 
         /// <summary>
         /// 修改登录信息
@@ -44,7 +44,7 @@ namespace NetModular.Module.Admin.Domain.Account
         /// <param name="phone"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        Task<IList<Account>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null);
+        Task<IList<AccountEntity>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null);
 
         /// <summary>
         /// 用户名是否存在

@@ -1,5 +1,5 @@
 <template>
-  <section :class="class_" v-loading="loading" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
+  <section :class="class_" v-loading="showLoading" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
     <!--header-->
     <query-header v-if="!noHeader" :title="title" :icon="icon" :no-fullscreen="noFullscreen" :fullscreen.sync="fullscreen" :no-refresh="noRefresh">
       <template v-slot:toolbar>
@@ -7,19 +7,18 @@
       </template>
     </query-header>
 
-    <!--工具栏-->
-    <query-toolbar v-if="!noToolbar" v-model="filter" :search="search" :columns="columns">
-      <template v-slot:toolbar>
-        <slot name="toolbar" :total="total" :selection="selection"/>
+    <!--查询栏-->
+    <querybar ref="querybar" v-if="!noQuerybar" v-bind="querybar">
+      <template v-slot>
+        <slot name="querybar"/>
       </template>
-
-      <!--高级查询条件-->
-      <template v-slot:querybar>
-        <nm-form ref="queryForm" :model="conditions" :rules="conditionsRules" :label-width="labelWidth">
-          <slot name="querybar"/>
-        </nm-form>
+      <template v-slot:buttons>
+        <slot name="querybar-buttons" :total="total" :selection="selection"/>
       </template>
-    </query-toolbar>
+      <template v-slot:advanced>
+        <slot name="querybar-advanced"/>
+      </template>
+    </querybar>
 
     <section class="nm-list-body">
       <query-table ref="table" :rows="rows" :cols="cols" :span-method="spanMethod" :selection.sync="selection">
@@ -27,9 +26,9 @@
         <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55"/>
 
         <!-- 序号 -->
-        <el-table-column v-if="showNo" fixed="left" align="center" label="序号" type="index" :index="getNo">
+        <el-table-column v-if="showNo" fixed="left" align="center" type="index" :index="getNo">
           <template v-slot:header>
-            <slot name="col-no-header">#</slot>
+            <slot name="col-no-header">序号</slot>
           </template>
           <template slot-scope="{row,$index}">
             <div class="nm-list-no">
@@ -81,7 +80,7 @@
     </section>
 
     <!--footer-->
-    <query-footer v-model="page" :total="total" :columns.sync="columns" :no-select-column="noSelectColumn" :reverse="footerReverse">
+    <query-footer v-if="!noFooter" v-model="page" :total="total" :columns.sync="columns" :no-select-column="noSelectColumn" :reverse="footerReverse">
       <slot name="footer" :total="total" :selection="selection"/>
     </query-footer>
     <slot/>
@@ -89,9 +88,8 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { oneOf } from 'nm-lib-utils/src/utils/assist'
 import QueryHeader from './components/header'
-import QueryToolbar from './components/toolbar'
+import Querybar from './components/querybar'
 import QueryTable from './components/table'
 import QueryFooter from './components/footer'
 
@@ -116,15 +114,11 @@ const defaultColumnInfo = {
 }
 export default {
   name: 'List',
-  components: { QueryHeader, QueryToolbar, QueryTable, QueryFooter },
-  data () {
+  components: { QueryHeader, Querybar, QueryTable, QueryFooter },
+  data() {
     return {
-      loading: false,
+      loading_: false,
       fullscreen: false,
-      filter: {
-        prop: '',
-        keyword: ''
-      },
       // 分页数据
       page: {
         index: 1,
@@ -146,110 +140,124 @@ export default {
     title: String,
     /** 图标 */
     icon: String,
-    /** 搜索设置 */
-    search: {
-      type: Object
-    },
-    /** 高级查询中的表单文本宽度 */
-    labelWidth: {
-      type: String,
-      default: '80px'
-    },
     // 查询方法
     action: {
       type: Function,
       required: true
     },
-    // 条件
-    conditions: Object,
-    // 条件验证
-    conditionsRules: Object,
+    /** 查询表单输入框宽度 */
+    inputWidth: String,
+    // 模型
+    model: Object,
+    /** 模型验证规则 */
+    rules: Object,
+    /** 高级查询 */
+    advanced: Object,
     // 列数组
     cols: Array,
     /** 多选 */
     multiple: Boolean,
     /** 显示序号 */
-    showNo: Boolean,
+    showNo: {
+      type: Boolean,
+      default: true
+    },
     /** 不显示操作列 */
     noOperation: Boolean,
     /** 操作列宽度 */
-    operationWidth: {
-      type: String
-    },
+    operationWidth: [String, Number],
     /** 不显示选择列按钮 */
     noSelectColumn: Boolean,
-    /** 不显示工具栏 */
-    noToolbar: Boolean,
-    /** 工具栏对齐方式 */
-    toolbarAlign: {
-      type: String,
-      default: 'left',
-      validator (value) {
-        return oneOf(value, ['right', 'left'])
-      }
-    },
+    /** 不显示查询栏 */
+    noQuerybar: Boolean,
     /** 不显示全屏按钮 */
     noFullscreen: Boolean,
     /** 不显示刷新按钮 */
     noRefresh: Boolean,
     /** 不显示头部 */
     noHeader: Boolean,
+    /** 不显示底部 */
+    noFooter: Boolean,
+    /** 不包含搜索功能 */
+    noSearch: Boolean,
+    /** 不显示查询按钮图标 */
+    noSearchButtonIcon: Boolean,
     /** 底部反转 */
     footerReverse: Boolean,
     /** 合并行列的方法 */
-    spanMethod: Function
+    spanMethod: Function,
+    /** 加载中动画 */
+    loading: Boolean,
+    /** 创建后执行一次查询 */
+    queryOnCreated: {
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    class_ () {
+    class_() {
       return ['nm-list',
         this.fontSize ? `nm-list-${this.fontSize}` : '',
         this.fullscreen ? 'fullscreen' : '']
+    },
+    querybar() {
+      return {
+        model: this.model,
+        rules: this.rules,
+        inputWidth: this.inputWidth,
+        advanced: this.advanced,
+        noSearch: this.noSearch,
+        noSearchButtonIcon: this.noSearchButtonIcon
+      }
+    },
+    showLoading() {
+      return this.loading || this.loading_
     }
   },
   methods: {
     /** 查询方法 */
-    query () {
-      if (this.loading) { return }
+    query() {
+      if (this.loading_) { return }
 
-      this.loading = true
-      let fullConditions = Object.assign({}, this.conditions)
+      this.loading_ = true
+      let fullModel = Object.assign({}, this.model)
 
       // 设置分页
-      fullConditions.page = this.page
+      fullModel.page = this.page
 
-      // 设置关键字
-      if (this.filter.keyword) {
-        fullConditions[this.filter.prop] = this.filter.keyword
-      }
-      this.action(fullConditions).then(data => {
+      this.action(fullModel).then(data => {
         this.rows = data.rows
         this.total = data.total
         this.$refs.table.scrollTop()
-        this.loading = false
+        this.loading_ = false
       }).catch(() => {
-        this.loading = false
+        this.loading_ = false
       })
     },
     /** 刷新 */
-    refresh () {
+    refresh() {
       this.page.index = 1
       this.query()
     },
     /** 查询表单重置 */
-    reset () {
-      this.$refs.queryForm.reset()
-      this.$refs.table.clearSort()
-      this.page.index = 1
-      this.query()
+    reset(from) {
+      if (!from) {
+        this.$refs.querybar.reset()
+      } else {
+        this.$refs.table.clearSort()
+        this.page.index = 1
+      }
     },
     /** 获取序号 */
-    getNo (index) {
+    getNo(index) {
       return (this.page.index - 1) * this.page.size + index + 1
     }
   },
-  created () {
-    this.query()
+  created() {
+    if (this.queryOnCreated) {
+      this.query()
+    }
   }
 }
 </script>

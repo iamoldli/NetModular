@@ -1,25 +1,5 @@
 @import 'variables';
 
-@mixin hover-border() {
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background: #000;
-        transition: all .25s ease-in-out;
-    }
-
-    &:hover {
-        &::before {
-            left: 0;
-            width: 100%;
-        }
-    }
-}
-
 #{$prefix}-header {
     padding-right: $header-padding-right;
     display: flex;
@@ -45,7 +25,7 @@
             text-align: center;
             cursor: pointer;
 
-            @include hover-border();
+            @include toolbar-hover-border();
         }
 
         #{$prefix}-breadcrumb {
@@ -71,17 +51,14 @@
         display: flex;
         flex-grow: 1;
         @include vertical-center($header-height);
-        flex-direction: row-reverse;
-
-        >div {
-            margin-left: 10px;
-        }
+        justify-content: flex-end;
     }
 
     &-userinfo {
+        margin: 0 10px 0 5px;
         position: relative;
         cursor: pointer;
-        @include hover-border();
+        @include toolbar-hover-border();
 
         .el-dropdown {
             color: $header-userinfo-dropdown-color;

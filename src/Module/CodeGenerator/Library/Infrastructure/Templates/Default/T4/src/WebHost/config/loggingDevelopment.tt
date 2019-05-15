@@ -1,0 +1,12 @@
+<#@ template language="C#" #>
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "Microsoft": "Debug",
+        "System": "Debug"
+      }
+    }
+  }
+}

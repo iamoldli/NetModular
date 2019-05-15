@@ -18,6 +18,17 @@ namespace NetModular.Lib.WebHost.Core
         /// <param name="args">启动参数</param>
         public static void Run<TStartup>(string[] args) where TStartup : StartupAbstract
         {
+            CreateBuilder<TStartup>(args).Build().Run();
+        }
+
+        /// <summary>
+        /// 创建主机生成器
+        /// </summary>
+        /// <typeparam name="TStartup"></typeparam>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static IWebHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
+        {
             var cfgHelper = new ConfigurationHelper();
             //加载主机配置项
             var hostOptions = cfgHelper.Get<HostOptions>("Host");
@@ -25,12 +36,10 @@ namespace NetModular.Lib.WebHost.Core
             if (hostOptions.Urls.IsNull())
                 hostOptions.Urls = "http://*:5000";
 
-            Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
+            return Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<TStartup>()
                 .UseLogging()
-                .UseUrls(hostOptions.Urls)
-                .Build()
-                .Run();
+                .UseUrls(hostOptions.Urls);
         }
     }
 }

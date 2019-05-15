@@ -1,0 +1,5 @@
+﻿<#@ template language="C#" #>
+{
+  //开启Swagger
+  "Swagger": true
+}

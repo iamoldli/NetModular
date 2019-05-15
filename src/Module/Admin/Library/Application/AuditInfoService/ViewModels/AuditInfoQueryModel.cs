@@ -6,11 +6,6 @@ namespace NetModular.Module.Admin.Application.AuditInfoService.ViewModels
     public class AuditInfoQueryModel : QueryModel
     {
         /// <summary>
-        /// 账户编号
-        /// </summary>
-        public Guid? AccountId { get; set; }
-
-        /// <summary>
         /// 模块
         /// </summary>
         public string ModuleCode { get; set; }

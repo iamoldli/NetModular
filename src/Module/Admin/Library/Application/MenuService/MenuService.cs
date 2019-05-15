@@ -69,7 +69,7 @@ namespace NetModular.Module.Admin.Application.MenuService
         /// <param name="all"></param>
         /// <param name="menu"></param>
         /// <returns></returns>
-        private MenuTreeResultModel Menu2TreeModel(IList<Menu> all, Menu menu)
+        private MenuTreeResultModel Menu2TreeModel(IList<MenuEntity> all, MenuEntity menu)
         {
             var model = _mapper.Map<MenuTreeResultModel>(menu);
 
@@ -93,7 +93,7 @@ namespace NetModular.Module.Admin.Application.MenuService
 
         public async Task<IResultModel> Add(MenuAddModel model)
         {
-            var menu = _mapper.Map<Menu>(model);
+            var menu = _mapper.Map<MenuEntity>(model);
 
             try
             {
@@ -199,7 +199,7 @@ namespace NetModular.Module.Admin.Application.MenuService
 
         public async Task<IResultModel> Query(MenuQueryModel model)
         {
-            var queryResult = new QueryResultModel<Menu>();
+            var queryResult = new QueryResultModel<MenuEntity>();
 
             var paging = model.Paging();
 
@@ -243,10 +243,10 @@ namespace NetModular.Module.Admin.Application.MenuService
                 }
 
                 //添加新数据
-                var entityList = new List<MenuPermission>();
+                var entityList = new List<MenuPermissionEntity>();
                 model.PermissionList.ForEach(p =>
                 {
-                    entityList.Add(new MenuPermission { MenuId = model.Id, PermissionId = p });
+                    entityList.Add(new MenuPermissionEntity { MenuId = model.Id, PermissionId = p });
                 });
                 if (await _menuPermissionRepository.AddAsync(entityList))
                 {

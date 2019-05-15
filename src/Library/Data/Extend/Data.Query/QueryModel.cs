@@ -9,5 +9,10 @@
         /// 分页信息
         /// </summary>
         public QueryPagingModel Page { get; set; } = new QueryPagingModel();
+
+        /// <summary>
+        /// 总数
+        /// </summary>
+        public long TotalCount { get; set; }
     }
 }

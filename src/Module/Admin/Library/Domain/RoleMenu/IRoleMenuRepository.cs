@@ -8,14 +8,14 @@ namespace NetModular.Module.Admin.Domain.RoleMenu
     /// <summary>
     /// 角色菜单仓储
     /// </summary>
-    public interface IRoleMenuRepository : IRepository<RoleMenu>
+    public interface IRoleMenuRepository : IRepository<RoleMenuEntity>
     {
         /// <summary>
         /// 根据角色查询关联列表
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
-        Task<IList<RoleMenu>> GetByRoleId(Guid roleId);
+        Task<IList<RoleMenuEntity>> GetByRoleId(Guid roleId);
 
         /// <summary>
         /// 根据角色编号删除对应关联信息

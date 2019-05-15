@@ -13,64 +13,100 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
 {
     internal abstract class GroupByQueryableAbstract : IGroupByQueryable
     {
-        protected readonly IDbSet _db;
-        protected readonly QueryBody _queryBody;
-        protected readonly QueryBuilder _queryBuilder;
+        protected readonly IDbSet Db;
+        protected readonly QueryBody QueryBody;
+        protected readonly QueryBuilder QueryBuilder;
 
         protected GroupByQueryableAbstract(IDbSet db, QueryBody queryBody, QueryBuilder queryBuilder, Expression expression)
         {
-            _db = db;
-            _queryBody = queryBody;
-            _queryBuilder = queryBuilder;
-            _queryBody.SetGroupBy(expression);
+            Db = db;
+            QueryBody = queryBody;
+            QueryBuilder = queryBuilder;
+            QueryBody.SetGroupBy(expression);
         }
 
         protected void SetHaving(LambdaExpression expression)
         {
             if (expression != null)
-                _queryBody.Having.Add(expression);
+                QueryBody.Having.Add(expression);
         }
 
         public void SetOrderBy(string customOrderBy)
         {
             if (customOrderBy.NotNull())
-                _queryBody.SetOrderBy(new Sort(customOrderBy));
+                QueryBody.SetOrderBy(new Sort(customOrderBy));
         }
 
         public void SetOrderByDescending(string customOrderBy)
         {
             if (customOrderBy.NotNull())
-                _queryBody.SetOrderBy(new Sort(customOrderBy, SortType.Desc));
+                QueryBody.SetOrderBy(new Sort(customOrderBy, SortType.Desc));
         }
 
         public void SetOrderBy(LambdaExpression expression)
         {
             if (expression != null)
-                _queryBody.SetOrderBy(expression);
+                QueryBody.SetOrderBy(expression);
         }
 
         public void SetOrderByDescending(LambdaExpression expression)
         {
             if (expression != null)
-                _queryBody.SetOrderBy(expression, SortType.Desc);
+                QueryBody.SetOrderBy(expression, SortType.Desc);
         }
 
         public void SetSelect(LambdaExpression expression)
         {
             if (expression != null)
-                _queryBody.Select = expression;
+                QueryBody.Select = expression;
+        }
+
+        public IList<dynamic> ToList()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.Query(sql, parameters.Parse()).ToList();
         }
 
         public IList<TResult> ToList<TResult>()
         {
-            var sql = _queryBuilder.GroupBySqlBuild(out QueryParameters parameters);
-            return _db.Query<TResult>(sql, parameters.Parse()).ToList();
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.Query<TResult>(sql, parameters.Parse()).ToList();
+        }
+
+        public async Task<IList<dynamic>> ToListAsync()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return (await Db.QueryAsync(sql, parameters.Parse())).ToList();
         }
 
         public async Task<IList<TResult>> ToListAsync<TResult>()
         {
-            var sql = _queryBuilder.GroupBySqlBuild(out QueryParameters parameters);
-            return (await _db.QueryAsync<TResult>(sql, parameters.Parse())).ToList();
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return (await Db.QueryAsync<TResult>(sql, parameters.Parse())).ToList();
+        }
+
+        public dynamic First()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.QueryFirstOrDefault(sql, parameters.Parse());
+        }
+
+        public TResult First<TResult>()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.QueryFirstOrDefault<TResult>(sql, parameters.Parse());
+        }
+
+        public Task<dynamic> FirstAsync()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.QueryFirstOrDefaultAsync(sql, parameters.Parse());
+        }
+
+        public Task<TResult> FirstAsync<TResult>()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            return Db.QueryFirstOrDefaultAsync<TResult>(sql, parameters.Parse());
         }
     }
 }

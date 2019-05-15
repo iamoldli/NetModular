@@ -11,7 +11,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState('app/fullscreen', ['active']),
-    icon () {
+    icon() {
       return this.active ? 'fullscreen-c' : 'fullscreen-o'
     }
   },

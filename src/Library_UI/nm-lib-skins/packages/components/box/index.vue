@@ -52,7 +52,7 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Box',
-  data () {
+  data() {
     return {
       collapse_: false,
       fullscreen_: false
@@ -80,12 +80,14 @@ export default {
     /** 是否显示全屏按钮 */
     fullscreen: Boolean,
     /** 是否显示折叠按钮 */
-    collapse: Boolean
+    collapse: Boolean,
+    /** 是否显示滚动条 */
+    noScrollbar: Boolean
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
     /** 生成class */
-    class_ () {
+    class_() {
       return [
         this.fontSize,
         this.fullscreen_ ? 'fullscreen' : '',
@@ -93,33 +95,51 @@ export default {
         this.page ? 'page' : '']
     },
     /** 是否有滚动条 */
-    hasScrollbar () {
-      return this.height || this.page
+    hasScrollbar() {
+      return !this.noScrollbar && (this.height || this.page)
+    },
+    /** 是否可以折叠 */
+    isCollapse() {
+      return this.collapse && !this.page
     }
   },
   methods: {
     /** 开启全屏 */
-    openFullscreen () {
+    openFullscreen() {
       this.fullscreen_ = true
+      // 全屏事件
+      this.$emit('fullscreen-change', this.fullscreen_)
     },
     /** 关闭全屏 */
-    closeFullscreen () {
+    closeFullscreen() {
       this.fullscreen_ = false
+      // 全屏事件
+      this.$emit('fullscreen-change', this.fullscreen_)
     },
-    onCollapse () {
+    /** 滚动条重置 */
+    scrollbarResize() {
+      if (this.hasScrollbar) {
+        this.$refs.scrollbar.update()
+      }
+    },
+    /** 折叠事件 */
+    onCollapse() {
       // 如果设置了自定义折叠事件，则覆盖默认的
       if (this.customCollapseEvent) {
         this.collapse_ = this.customCollapseEvent()
       } else if (this.isCollapse) {
         this.collapse_ = !this.collapse_
       }
+      // 折叠事件
+      this.$emit('collapse-change', this.collapse_)
     },
-    onFullscreen () {
-      if (this.fullscreen) this.fullscreen_ = !this.fullscreen_
-    },
-    scrollbarResize () {
-      if (this.hasScrollbar) {
-        this.$refs.scrollbar.update()
+    /** 全屏事件 */
+    onFullscreen() {
+      if (this.fullscreen) {
+        this.fullscreen_ = !this.fullscreen_
+
+        // 全屏事件
+        this.$emit('fullscreen-change', this.fullscreen_)
       }
     }
   }

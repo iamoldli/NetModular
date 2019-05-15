@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+using Microsoft.AspNetCore.Hosting;
+using <#= _prefix #>.Lib.WebHost.Core;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.WebHost
+{
+    public class Startup : StartupAbstract
+    {
+        public Startup(IHostingEnvironment env) : base(env)
+        {
+        }
+    }
+}

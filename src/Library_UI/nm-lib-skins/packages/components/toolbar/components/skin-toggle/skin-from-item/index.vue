@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       collapsed: false
     }
@@ -23,25 +23,25 @@ export default {
     // 是否显示头部
     header: {
       type: Boolean,
-      default () {
+      default() {
         return true
       }
     },
     skinName:
-      {
-        type: String,
-        default () {
-          return ''
-        }
+    {
+      type: String,
+      default() {
+        return ''
+      }
 
-      },
+    },
     isActiveSkin: {
       type: Function
     },
     /** 是否选中 */
     isActive: {
       type: Boolean,
-      default () {
+      default() {
         return false
       }
 

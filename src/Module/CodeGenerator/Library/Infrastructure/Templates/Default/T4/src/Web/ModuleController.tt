@@ -1,0 +1,12 @@
+﻿<#@ template language="C#" #>
+using Microsoft.AspNetCore.Mvc;
+using <#= _prefix #>.Lib.Module.Abstractions;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web
+{
+    [Area("<#= _model.Project.Code.ToLower() #>")]
+    public abstract class ModuleController : ModuleControllerAbstract
+    {
+
+    }
+}

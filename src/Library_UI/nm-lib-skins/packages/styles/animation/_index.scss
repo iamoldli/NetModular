@@ -31,3 +31,7 @@
 @import './move.scss';
 @import './fade.scss';
 @import './breadcrumb.scss';
+
+.flip-list-move {
+    transition: transform 0.4s;
+}

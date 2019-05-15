@@ -30,7 +30,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
         public async Task<IResultModel> Query(PermissionQueryModel model)
         {
-            var queryResult = new QueryResultModel<Permission>();
+            var queryResult = new QueryResultModel<PermissionEntity>();
             var paging = model.Paging();
             queryResult.Rows = await _permissionRepository.Query(paging, model.ModuleCode, model.Name, model.Controller, model.Action);
             queryResult.Total = paging.TotalCount;
@@ -38,7 +38,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
             return ResultModel.Success(queryResult);
         }
 
-        public async Task<IResultModel> Sync(List<Permission> permissions)
+        public async Task<IResultModel> Sync(List<PermissionEntity> permissions)
         {
             if (permissions == null || !permissions.Any())
                 return ResultModel.Failed("未找到权限信息");

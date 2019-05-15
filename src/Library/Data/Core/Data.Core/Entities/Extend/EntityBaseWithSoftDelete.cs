@@ -1,4 +1,5 @@
 ﻿using System;
+using NetModular.Lib.Data.Abstractions.Attributes;
 
 namespace NetModular.Lib.Data.Core.Entities.Extend
 {
@@ -23,6 +24,18 @@ namespace NetModular.Lib.Data.Core.Entities.Extend
         /// 修改人
         /// </summary>
         public Guid ModifiedBy { get; set; }
+
+        /// <summary>
+        /// 创建人名称
+        /// </summary>
+        [Ignore]
+        public string Creator { get; set; }
+
+        /// <summary>
+        /// 修改人
+        /// </summary>
+        [Ignore]
+        public string Modifier { get; set; }
     }
 
     /// <summary>

@@ -155,7 +155,7 @@ namespace NetModular.Module.Admin.Application.AccountService.ResultModels
         /// 是否显示
         /// </summary>
         public bool Show { get; set; }
-        
+
         /// <summary>
         /// 子菜单
         /// </summary>

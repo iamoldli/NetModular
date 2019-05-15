@@ -1,4 +1,5 @@
 ﻿using System;
+using NetModular.Lib.Data.Abstractions.Attributes;
 
 namespace NetModular.Lib.Data.Core.Entities.Extend
 {
@@ -24,6 +25,12 @@ namespace NetModular.Lib.Data.Core.Entities.Extend
         /// 删除人
         /// </summary>
         public TDeletedByKey DeletedBy { get; set; } = default(TDeletedByKey);
+
+        /// <summary>
+        /// 删除人名称
+        /// </summary>
+        [Ignore]
+        public string Deleter { get; set; }
     }
 
     /// <summary>

@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="NetModular.Lib.Utils.Extensions" #>
+<#@ import namespace="NetModular.Module.CodeGenerator.Domain.Property" #>
+using System;
+using System.ComponentModel.DataAnnotations;
+using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service.ViewModels
+{
+    /// <summary>
+    /// <#= _class.Remarks #>添加模型
+    /// </summary>
+    public class <#= _class.Name #>UpdateModel
+    {
+        [Required(ErrorMessage = "请选择要修改的<#= _class.Remarks #>")]
+        public <#= _class.PrimaryKeyTypeName #> Id { get; set; }
+
+    <# foreach(var p in _class.AddModelPropertyList){ #>
+        /// <summary>
+        /// <#= p.Remarks #>
+        /// </summary>
+        public <#= p.Type == PropertyType.Enum ? p.Enum.Name : p.Type.ToDescription() #> <#= p.Name #> { get; set; }
+
+    <# } #>
+
+    }
+}

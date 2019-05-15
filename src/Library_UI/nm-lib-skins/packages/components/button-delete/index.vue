@@ -58,12 +58,12 @@ export default {
     msg: String
   },
   computed: {
-    getSize () {
+    getSize() {
       return this.size || this.fontSize
     }
   },
   methods: {
-    async remove () {
+    async remove() {
       this._delete(async () => {
         await this.action(this.id)
         this.$emit('success')

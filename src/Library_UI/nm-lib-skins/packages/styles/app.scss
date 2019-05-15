@@ -13,6 +13,8 @@
 
 //盒子
 @import './components/box/index';
+//盒子行
+@import './components/box-row/index';
 //按钮
 @import './components/button/index';
 //Checkbox
@@ -27,6 +29,10 @@
 @import './components/details-dialog/index';
 //对话框
 @import './components/dialog/index';
+//拖拽排序
+@import './components/drag-sort/index';
+//拖拽排序对话框
+@import './components/drag-sort-dialog/index';
 //分割线
 @import './components/divider/index';
 //抽屉
@@ -49,6 +55,14 @@
 @import './components/split/index';
 //标签导航
 @import './components/tabnav/index';
+//工具栏
+@import './components/toolbar/index';
+//多文件上传
+@import './components/upload-multiple/index';
+//单文件上传
+@import './components/upload-single/index';
+//文件上传对话框模式
+@import './components/upload-dialog/index';
 
 /*********************组件 End************************/
 /*********************指令 Begin**********************/

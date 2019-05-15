@@ -5,14 +5,36 @@
     "prettier.singleQuote": true,
     "prettier.semi": false,
     "eslint.autoFixOnSave": true,
+    "vetur.format.defaultFormatter.html": "prettyhtml",
     "vetur.format.defaultFormatter.js": "vscode-typescript",
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "vetur.format.defaultFormatterOptions": {
+        "prettyhtml": {
+            "printWidth": 180,
+            "singleQuote": false,
+            "wrapAttributes": false,
+            "sortAttributes": false
+        }
+    },
     "eslint.validate": [
         "javascript",
         "javascriptreact",
         {
             "language": "vue",
             "autoFix": true
+        },
+        {
+            "language": "js",
+            "autoFix": true
+        },
+        {
+            "language": "react",
+            "autoFix": true
         }
-    ]
+    ],
+    "beautify.config": {
+        "brace_style": "collapse,preserve-inline"
+    },
+    "files.associations": {
+        "*.js": "javascriptreact"
+    }
 }

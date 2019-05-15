@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Module.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Enums;
 using NetModular.Module.Admin.Application.AuditInfoService;
+using NetModular.Module.Admin.Application.SystemService;
 using NetModular.Module.Admin.Domain.AuditInfo;
-using Newtonsoft.Json;
+using NetModular.Module.Admin.Infrastructure.Options;
+using NetModular.Lib.Utils.Core.Enums;
 
 namespace NetModular.Module.Admin.Web.Filters
 {
@@ -21,17 +23,20 @@ namespace NetModular.Module.Admin.Web.Filters
         private readonly AdminOptions _options;
         private readonly LoginInfo _loginInfo;
         private readonly IAuditInfoService _auditInfoService;
+        private readonly ISystemService _systemService;
 
-        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, LoginInfo loginInfo)
+        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, LoginInfo loginInfo, ISystemService systemService)
         {
             _options = optionsAccessor.CurrentValue;
             _auditInfoService = auditInfoService;
             _loginInfo = loginInfo;
+            _systemService = systemService;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (!_options.Auditing || CheckDisabled(context))
+            var cfg = _systemService.GetConfig().Result;
+            if (!cfg.Data.Auditing || !_options.Auditing || CheckDisabled(context))
             {
                 return next();
             }
@@ -64,10 +69,10 @@ namespace NetModular.Module.Admin.Web.Filters
             await _auditInfoService.Add(auditInfo);
         }
 
-        private AuditInfo CreateAuditInfo(ActionExecutingContext context)
+        private AuditInfoEntity CreateAuditInfo(ActionExecutingContext context)
         {
             var routeValues = context.ActionDescriptor.RouteValues;
-            var auditInfo = new AuditInfo
+            var auditInfo = new AuditInfoEntity
             {
                 AccountId = _loginInfo.AccountId,
                 Area = routeValues["area"],

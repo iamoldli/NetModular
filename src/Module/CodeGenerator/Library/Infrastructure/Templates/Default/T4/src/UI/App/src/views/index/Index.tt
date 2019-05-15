@@ -1,0 +1,84 @@
+<#@ template language="C#" #>
+<template>
+  <td-container>
+    <td-list ref="list" v-bind="list">
+      <!--查询条件-->
+      <template v-slot:querybar>
+<#    foreach(var p in _class.QueryModelPropertyList){ #>
+        <el-form-item label="<#= p.Remarks #>：" prop="<#= p.CamelName #>">
+          <el-input v-model="list.model.<#= p.CamelName #>" clearable/>
+        </el-form-item>
+<#    } #>
+      </template>
+
+      <!--按钮-->
+      <template v-slot:querybar-buttons>
+        <td-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-td-has="buttons.add"/>
+      </template>
+
+      <!--自定义列-->
+      <!-- <template v-slot:col-name="{row}">
+        <td-button :text="row.name" type="text" />
+      </template> -->
+
+      <!--操作列-->
+      <template v-slot:col-operation="{row}">
+        <td-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-td-has="buttons.edit"/>
+        <td-button-delete :id="row.id" :action="removeAction" @success="refresh" v-td-has="buttons.del"/>
+      </template>
+    </td-list>
+
+    <!--添加-->
+    <add-page :visible.sync="dialog.add" @success="refresh"/>
+    <!--编辑-->
+    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
+    <!--类管理-->
+    <class-page :project="curr" :visible.sync="dialog.class"/>
+  </td-container>
+</template>
+<script>
+import api from '../../../api/<#= _class.Name #>'
+import page from './page'
+import cols from './cols'
+import AddPage from '../components/add'
+import EditPage from '../components/edit'
+
+export default {
+  name: page.name,
+  components: { AddPage, EditPage },
+  data () {
+    return {
+      curr: { id: '' },
+      list: {
+        title: page.title,
+        cols,
+        action: api.query,
+        model: {
+<#    for(var i=0;i<_class.QueryModelPropertyList.Count;i++){ var p=_class.QueryModelPropertyList[i]; #>
+          /** <#= p.Remarks #> */
+          <#= p.CamelName #>: ''<#=i < _class.QueryModelPropertyList.Count-1 ? "," : "" #>
+<#    } #>
+        }
+      },
+      removeAction: api.remove,
+      dialog: {
+        add: false,
+        edit: false
+      },
+      buttons: page.buttons
+    }
+  },
+  methods: {
+    refresh () {
+      this.$refs.list.refresh()
+    },
+    add () {
+      this.dialog.add = true
+    },
+    edit (row) {
+      this.curr = row
+      this.dialog.edit = true
+    }
+  }
+}
+</script>

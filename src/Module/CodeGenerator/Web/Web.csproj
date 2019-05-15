@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\..\..\..\build\web.build.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Library\Utils\Utils.Mvc\Utils.Mvc.csproj" />
+    <ProjectReference Include="..\Library\Application\Application.csproj" />
+  </ItemGroup>
+
+</Project>

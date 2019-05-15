@@ -1,0 +1,12 @@
+﻿using <#= _prefix #>.Lib.Data.Abstractions;
+using <#= _prefix #>.Lib.Data.Core;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Repositories
+{
+    public class <#= _model.Project.Code #>DbContext : DbContext
+    {
+        public <#= _model.Project.Code #>DbContext(IDbContextOptions options) : base(options)
+        {
+        }
+    }
+}

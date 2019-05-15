@@ -1,10 +1,14 @@
-import dialog from './components/dialog'
-import formLoading from './components/formLoading'
+// 全局混入
 import message from './global/message'
 import fontSize from './global/fontSize'
+import setTabName from './global/setTabName'
+
+// 局部混入
+import dialog from './components/dialog'
 import select from './components/select'
-import emitter from './components/emitter'
 import drawer from './components/drawer'
+import formDialogEdit from './components/form-dialog-edit'
+import loading from './components/loading'
 
 export default {
   global (Vue) {
@@ -13,12 +17,15 @@ export default {
 
     // 字号
     Vue.mixin(fontSize)
+
+    // 设置标签页名称
+    Vue.mixin(setTabName)
   },
   components: {
     dialog,
-    formLoading,
     select,
-    emitter,
-    drawer
+    drawer,
+    formDialogEdit,
+    loading
   }
 }

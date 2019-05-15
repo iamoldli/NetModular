@@ -10,7 +10,7 @@ using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.ModuleInfo;
 using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Infrastructure.Repositories;
-using ModuleInfo = NetModular.Module.Admin.Domain.ModuleInfo.ModuleInfo;
+using ModuleInfoEntity = NetModular.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
 namespace NetModular.Module.Admin.Application.ModuleInfoService
 {
@@ -33,7 +33,7 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
 
         public async Task<IResultModel> Query(ModuleInfoQueryModel model)
         {
-            var result = new QueryResultModel<ModuleInfo>();
+            var result = new QueryResultModel<ModuleInfoEntity>();
             var paging = model.Paging();
             result.Rows = await _repository.Query(paging, model.Name, model.Code);
             result.Total = paging.TotalCount;
@@ -42,7 +42,7 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
 
         public async Task<IResultModel> Sync()
         {
-            var modules = _moduleCollection.Select(m => new ModuleInfo
+            var modules = _moduleCollection.Select(m => new ModuleInfoEntity
             {
                 Name = m.Name,
                 Code = m.Id,

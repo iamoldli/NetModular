@@ -1,7 +1,7 @@
 export default [
   {
     // 默认页
-    path: '/default',
+    path: '/',
     name: 'Default',
     component: () =>
       import(/* webpackChunkName: "default" */ '../page/default/'),
@@ -12,8 +12,8 @@ export default [
   },
   {
     // 内嵌页面
-    path: '/iframe',
-    name: 'iframe',
+    path: '/iframe/:url',
+    name: 'Iframe',
     component: () => import(/* webpackChunkName: "frame" */ '../page/iframe/')
   },
   {

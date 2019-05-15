@@ -12,7 +12,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'ListDialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       on: {
         open: this.onOpen,
@@ -28,17 +28,33 @@ export default {
     /** 图标 */
     icon: String,
     /** Dialog 的宽度 */
-    width: String,
+    width: {
+      type: String,
+      default: '60%'
+    },
     /** Dialog 的高度 */
-    height: [Number, String],
+    height: {
+      type: [Number, String],
+      default: '80%'
+    },
     /** 是否显示全屏按钮 */
     fullscreen: {
       type: Boolean,
       default: true
+    },
+    /** 是否可以通过点击 modal 关闭 Dialog */
+    closeOnClickModal: {
+      type: Boolean,
+      default: false
+    },
+    /** 是否可拖拽 */
+    draggable: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         noFooter: true,
         noScrollbar: true,
@@ -46,28 +62,29 @@ export default {
         icon: this.icon,
         width: this.width,
         height: this.height,
-        fullscreen: this.fullscreen
+        fullscreen: this.fullscreen,
+        closeOnClickModal: this.closeOnClickModal
       }
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$slots.default.map(slot => {
         if (slot.componentOptions.tag === 'nm-list') {
           slot.componentInstance.refresh()
         }
       })
     },
-    onOpen () {
+    onOpen() {
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   }

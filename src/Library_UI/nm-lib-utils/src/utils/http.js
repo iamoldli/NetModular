@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-function Http () {
+function Http() {
   this.axios = axios
 }
 
@@ -12,12 +12,12 @@ Http.prototype.init = action => {
   action(axios)
 }
 
-Http.prototype.post = (url, params) => {
-  return axios.post(url, params)
+Http.prototype.post = (url, params, config) => {
+  return axios.post(url, params, config)
 }
 
-Http.prototype.get = (url, params) => {
-  return axios.get(url, {
+Http.prototype.get = (url, params, config) => {
+  const config_ = Object.assign({}, config, {
     // 参数
     params,
     // 修改参数序列化方法
@@ -28,10 +28,11 @@ Http.prototype.get = (url, params) => {
       })
     }
   })
+  return axios.get(url, config_)
 }
 
-Http.prototype.delete = (url, params) => {
-  return axios.delete(url, {
+Http.prototype.delete = (url, params, config) => {
+  const config_ = Object.assign({}, config, {
     // 参数
     params,
     // 修改参数序列化方法
@@ -42,10 +43,11 @@ Http.prototype.delete = (url, params) => {
       })
     }
   })
+  return axios.delete(url, config_)
 }
 
-Http.prototype.put = (url, params) => {
-  return axios.put(url, params)
+Http.prototype.put = (url, params, config) => {
+  return axios.put(url, params, config)
 }
 
 // 通用CRUD接口地址
@@ -54,19 +56,19 @@ Http.prototype.crud = root => {
     root += '/'
   }
   return {
-    query (params) {
+    query(params) {
       return http.get(`${root}query`, params)
     },
-    add (params) {
+    add(params) {
       return http.post(`${root}add`, params)
     },
-    remove (id) {
+    remove(id) {
       return http.delete(`${root}delete`, { id })
     },
-    edit (id) {
+    edit(id) {
       return http.get(`${root}edit`, { id })
     },
-    update (params) {
+    update(params) {
       return http.post(`${root}update`, params)
     }
   }

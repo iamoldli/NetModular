@@ -12,4 +12,8 @@
     .el-checkbox.is-bordered+.el-checkbox.is-bordered {
         margin-left: 0 !important;
     }
+
+    #{$prefix}-box-content {
+        padding: 10px !important;
+    }
 }

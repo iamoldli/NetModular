@@ -8,7 +8,7 @@ namespace NetModular.Module.Admin.Domain.AccountRole
     /// <summary>
     /// 账户角色关联仓储
     /// </summary>
-    public interface IAccountRoleRepository : IRepository<AccountRole>
+    public interface IAccountRoleRepository : IRepository<AccountRoleEntity>
     {
         /// <summary>
         /// 删除账户绑定的指定角色信息
@@ -37,25 +37,25 @@ namespace NetModular.Module.Admin.Domain.AccountRole
         /// 查询指定账户关联的角色列表
         /// </summary>
         /// <returns></returns>
-        Task<IList<Role.Role>> QueryRole(Guid accountId);
+        Task<IList<Role.RoleEntity>> QueryRole(Guid accountId);
 
         /// <summary>
         /// 查询指定角色的关联列表
         /// </summary>
         /// <returns></returns>
-        Task<IList<AccountRole>> QueryByRole(Guid roleId);
+        Task<IList<AccountRoleEntity>> QueryByRole(Guid roleId);
 
         /// <summary>
         /// 查询指定菜单的关联列表
         /// </summary>
         /// <returns></returns>
-        Task<IList<AccountRole>> QueryByMenu(Guid menuId);
+        Task<IList<AccountRoleEntity>> QueryByMenu(Guid menuId);
 
         /// <summary>
         /// 查询指定按钮的关联列表
         /// </summary>
         /// <returns></returns>
-        Task<IList<AccountRole>> QueryByButton(Guid buttonId);
+        Task<IList<AccountRoleEntity>> QueryByButton(Guid buttonId);
 
         /// <summary>
         /// 判断指定的角色是否有绑定关系

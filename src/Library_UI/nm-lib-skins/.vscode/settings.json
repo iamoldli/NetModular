@@ -15,7 +15,6 @@
             "sortAttributes": false
         }
     },
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
     "eslint.validate": [
         "javascript",
         "javascriptreact",

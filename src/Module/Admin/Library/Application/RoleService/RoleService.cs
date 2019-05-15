@@ -44,7 +44,7 @@ namespace NetModular.Module.Admin.Application.RoleService
 
         public async Task<IResultModel> Query(RoleQueryModel model)
         {
-            var result = new QueryResultModel<Role>();
+            var result = new QueryResultModel<RoleEntity>();
             var paging = model.Paging();
             result.Rows = await _repository.Query(paging, model.Name);
             result.Total = paging.TotalCount;
@@ -56,7 +56,7 @@ namespace NetModular.Module.Admin.Application.RoleService
             if (await _repository.Exists(model.Name))
                 return ResultModel.HasExists;
 
-            var moduleInfo = _mapper.Map<Role>(model);
+            var moduleInfo = _mapper.Map<RoleEntity>(model);
 
             var result = await _repository.AddAsync(moduleInfo);
 
@@ -116,10 +116,10 @@ namespace NetModular.Module.Admin.Application.RoleService
             if (!exists)
                 return ResultModel.NotExists;
 
-            List<RoleMenu> entityList = null;
+            List<RoleMenuEntity> entityList = null;
             if (model.Menus != null && model.Menus.Any())
             {
-                entityList = model.Menus.Select(m => new RoleMenu { RoleId = model.Id, MenuId = m }).ToList();
+                entityList = model.Menus.Select(m => new RoleMenuEntity { RoleId = model.Id, MenuId = m }).ToList();
             }
 
             /*
@@ -181,7 +181,7 @@ namespace NetModular.Module.Admin.Application.RoleService
             {
                 #region ==单个按钮==
 
-                var entity = _mapper.Map<RoleMenuButton>(model);
+                var entity = _mapper.Map<RoleMenuButtonEntity>(model);
                 //如果已存在
                 if (await _roleMenuButtonRepository.Exists(entity))
                 {
@@ -219,7 +219,7 @@ namespace NetModular.Module.Admin.Application.RoleService
                 if (model.Checked)
                 {
                     var buttons = await _buttonRepository.QueryByMenu(model.MenuId);
-                    var entities = buttons.Select(m => new RoleMenuButton
+                    var entities = buttons.Select(m => new RoleMenuButtonEntity
                     {
                         RoleId = model.RoleId,
                         MenuId = model.MenuId,

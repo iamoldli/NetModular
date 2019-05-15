@@ -1,41 +1,44 @@
 // 消息提示
-const duration = 1500
+const duration = 2500
 export default {
   methods: {
     /**
      * @description 成功消息
      * @param {String} msg 消息内容
      */
-    async _success (msg) {
+    async _success (msg, onClose) {
       await this.$message({
         message: msg,
         showClose: true,
         type: 'success',
-        duration
+        duration,
+        onClose
       })
     },
     /**
      * @description 警告消息
      * @param {String} msg 消息内容
      */
-    async _warning (msg) {
+    async _warning (msg, onClose) {
       await this.$message({
         message: msg,
         showClose: true,
         type: 'warning',
-        duration
+        duration,
+        onClose
       })
     },
     /**
      * @description 错误消息
      * @param {String} msg 消息内容
      */
-    async _error (msg) {
+    async _error (msg, onClose) {
       await this.$message({
         message: msg,
         showClose: true,
         type: 'error',
-        duration
+        duration,
+        onClose
       })
     },
     /** 二次确认 */

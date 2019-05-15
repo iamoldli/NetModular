@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.Role
     /// <summary>
     /// 角色仓储
     /// </summary>
-    public interface IRoleRepository : IRepository<Role>
+    public interface IRoleRepository : IRepository<RoleEntity>
     {
         /// <summary>
         /// 判断角色是否存在
@@ -19,6 +19,6 @@ namespace NetModular.Module.Admin.Domain.Role
         /// <returns></returns>
         Task<bool> Exists(string name, Guid? id = null);
 
-        Task<IList<Role>> Query(Paging paging, string name = null);
+        Task<IList<RoleEntity>> Query(Paging paging, string name = null);
     }
 }

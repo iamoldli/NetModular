@@ -11,16 +11,16 @@ export default {
   props: {
     mode: String
   },
-  data () {
+  data() {
     return {
       initOffset: 0
     }
   },
   computed: {
-    isVertical () {
+    isVertical() {
       return this.mode === 'vertical'
     },
-    classes () {
+    classes() {
       return [
         'nm-split-trigger',
         this.isVertical ? `nm-split-trigger-vertical` : `nm-split-trigger-horizontal`

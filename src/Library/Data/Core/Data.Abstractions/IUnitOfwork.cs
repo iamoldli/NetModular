@@ -10,8 +10,13 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 开启事务
         /// </summary>
+        void BeginTransaction();
+
+        /// <summary>
+        /// 开启事务
+        /// </summary>
         /// <param name="isolationLevel">隔离级别</param>
-        void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        void BeginTransaction(IsolationLevel isolationLevel);
 
         /// <summary>
         /// 提交

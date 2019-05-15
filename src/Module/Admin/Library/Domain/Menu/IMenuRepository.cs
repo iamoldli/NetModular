@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.Menu
     /// <summary>
     /// 菜单仓储
     /// </summary>
-    public interface IMenuRepository : IRepository<Menu>
+    public interface IMenuRepository : IRepository<MenuEntity>
     {
         /// <summary>
         /// 查询菜单列表
@@ -19,7 +19,7 @@ namespace NetModular.Module.Admin.Domain.Menu
         /// <param name="code">编码</param>
         /// <param name="parentId">父节点编号</param>
         /// <returns></returns>
-        Task<IList<Menu>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null);
+        Task<IList<MenuEntity>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null);
 
         /// <summary>
         /// 判断该节点是否存在子节点
@@ -49,13 +49,13 @@ namespace NetModular.Module.Admin.Domain.Menu
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Menu> GetAsync(Guid id);
+        Task<MenuEntity> GetAsync(Guid id);
 
         /// <summary>
         /// 获取指定账户的菜单列表
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        Task<IList<Menu>> GetByAccount(Guid accountId);
+        Task<IList<MenuEntity>> GetByAccount(Guid accountId);
     }
 }

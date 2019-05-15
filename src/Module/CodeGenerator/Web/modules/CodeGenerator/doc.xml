@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetModular.Module.CodeGenerator.Web</name>
+    </assembly>
+    <members>
+        <member name="M:NetModular.Module.CodeGenerator.Web.ModuleInitializer.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注入服务
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:NetModular.Module.CodeGenerator.Web.ModuleInitializer.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            配置中间件
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:NetModular.Module.CodeGenerator.Web.ModuleInitializer.ConfigureMvc(Microsoft.AspNetCore.Mvc.MvcOptions)">
+            <summary>
+            配置MVC功能
+            </summary>
+            <param name="mvcOptions"></param>
+        </member>
+        <member name="M:NetModular.Module.CodeGenerator.Web.ModuleInitializer.ConfigOptions(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置配置项
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+    </members>
+</doc>

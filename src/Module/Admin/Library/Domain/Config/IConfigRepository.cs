@@ -7,7 +7,7 @@ namespace NetModular.Module.Admin.Domain.Config
     /// <summary>
     /// 配置项仓储
     /// </summary>
-    public interface IConfigRepository : IRepository<Config>
+    public interface IConfigRepository : IRepository<ConfigEntity>
     {
         /// <summary>
         /// 验证键值是否存在
@@ -21,6 +21,6 @@ namespace NetModular.Module.Admin.Domain.Config
         /// </summary>
         /// <param name="prefix"></param>
         /// <returns></returns>
-        Task<IList<Config>> QueryByPrefix(string prefix);
+        Task<IList<ConfigEntity>> QueryByPrefix(string prefix);
     }
 }

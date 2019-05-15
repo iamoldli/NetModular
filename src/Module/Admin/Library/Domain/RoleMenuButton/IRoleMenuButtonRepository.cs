@@ -5,7 +5,7 @@ using NetModular.Lib.Data.Abstractions;
 
 namespace NetModular.Module.Admin.Domain.RoleMenuButton
 {
-    public interface IRoleMenuButtonRepository : IRepository<RoleMenuButton>
+    public interface IRoleMenuButtonRepository : IRepository<RoleMenuButtonEntity>
     {
         /// <summary>
         /// 根据角色删除
@@ -34,21 +34,21 @@ namespace NetModular.Module.Admin.Domain.RoleMenuButton
         /// <param name="roleId"></param>
         /// <param name="menuId"></param>
         /// <returns></returns>
-        Task<IList<Button.Button>> Query(Guid roleId, Guid menuId);
+        Task<IList<Button.ButtonEntity>> Query(Guid roleId, Guid menuId);
 
         /// <summary>
         /// 判断是否存在
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<bool> Exists(RoleMenuButton entity);
+        Task<bool> Exists(RoleMenuButtonEntity entity);
 
         /// <summary>
         /// 根据实体删除单个数据
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<bool> Delete(RoleMenuButton entity);
+        Task<bool> Delete(RoleMenuButtonEntity entity);
 
         /// <summary>
         /// 根据角色和菜单删除所有关联的按钮

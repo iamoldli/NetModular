@@ -1,0 +1,4 @@
+<#@ template language="C#" #>
+{
+    "Logging": true,
+}

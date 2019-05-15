@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Jwt;
@@ -75,6 +76,13 @@ namespace NetModular.Lib.WebHost.Core
 
             //添加数据库
             services.AddDb(env, modules);
+
+            //解决Multipart body length limit 134217728 exceeded
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = int.MaxValue;
+            });
 
             return services;
         }

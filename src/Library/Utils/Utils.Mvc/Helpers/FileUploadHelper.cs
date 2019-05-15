@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Encrypt;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
+using FileInfo = NetModular.Lib.Utils.Core.Files.FileInfo;
 
 namespace NetModular.Lib.Utils.Mvc.Helpers
 {
@@ -19,14 +19,14 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
     public class FileUploadHelper
     {
         /// <summary>
-        /// 文件上传
+        /// 单文件文件上传
         /// </summary>
         /// <param name="model"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IResultModel<FileUploadResultModel>> Upload(FileUploadModel model, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IResultModel<FileInfo>> Upload(FileUploadModel model, CancellationToken cancellationToken = default)
         {
-            var result = new ResultModel<FileUploadResultModel>();
+            var result = new ResultModel<FileInfo>();
 
             if (model.FormFile == null || model.FormFile.Length < 1)
             {
@@ -39,38 +39,111 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
             if (model.FormFile == null || model.FormFile.Length < 1)
                 return result.Failed("请选择文件!");
 
-            var resultModel = new FileUploadResultModel();
-            var date = DateTime.Now;
+            var resultModel = await UploadSave(model.FormFile, model.RelativePath, model.RootPath, cancellationToken);
 
-            resultModel.Name = model.FormFile.FileName;
-            resultModel.Ext = Path.GetExtension(model.FormFile.FileName) ?? string.Empty;
-            resultModel.Path = Path.Combine(model.Group, date.ToString("yyyyMMdd"));
-            resultModel.FileName = $"{date:yyyyMMddHHmmssfff}{resultModel.Ext}";
-            resultModel.Size = model.FormFile.Length;
+            return result.Success(resultModel);
+        }
 
-            //删除后缀名的点
-            if (resultModel.Ext.NotNull())
+        /// <summary>
+        /// 多文件上传
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<IResultModel<IList<FileInfo>>> Upload(FileUploadMultipleModel model, CancellationToken cancellationToken = default)
+        {
+            var result = new ResultModel<IList<FileInfo>>();
+
+            if (model.FormFiles == null || !model.FormFiles.Any())
             {
-                resultModel.Ext = resultModel.Ext.Replace(".", "");
+                if (model.Request.Form.Files != null && model.Request.Form.Files.Any())
+                {
+                    model.FormFiles = model.Request.Form.Files.ToList();
+                }
             }
 
-            var fullDir = Path.Combine(model.RootPath, resultModel.Path);
+            if (model.FormFiles == null || !model.FormFiles.Any())
+                return result.Failed("请选择文件!");
+
+            var tasks = new List<Task<FileInfo>>();
+            foreach (var formFile in model.FormFiles)
+            {
+                tasks.Add(UploadSave(formFile, model.RelativePath, model.RootPath, cancellationToken));
+            }
+
+            var list = await Task.WhenAll(tasks);
+
+            return result.Success(list);
+        }
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="formFile">文件</param>
+        /// <param name="relativePath">相对目录</param>
+        /// <param name="rootPath">根目录</param>
+        /// <param name="cancellationToken">取消token</param>
+        /// <returns></returns>
+        private async Task<FileInfo> UploadSave(IFormFile formFile, string relativePath, string rootPath, CancellationToken cancellationToken = default)
+        {
+            var date = DateTime.Now;
+
+            var name = formFile.FileName;
+            var size = formFile.Length;
+            var fileInfo = new FileInfo(name, size)
+            {
+                Path = Path.Combine(relativePath, date.ToString("yyyy"), date.ToString("MM"), date.ToString("dd")),
+            };
+
+            fileInfo.SaveName = $"{Guid.NewGuid().ToString().Replace("-", "")}.{fileInfo.Ext}";
+
+            var fullDir = Path.Combine(rootPath, fileInfo.Path);
             if (!Directory.Exists(fullDir))
             {
                 Directory.CreateDirectory(fullDir);
             }
 
-            resultModel.Path = Path.Combine(resultModel.Path, resultModel.FileName);
-
             //写入
-            var fullPath = Path.Combine(fullDir, resultModel.FileName);
-            using (var stream = new FileStream(fullPath, FileMode.Create))
+            var fullPath = Path.Combine(fullDir, fileInfo.SaveName);
+            fileInfo.Md5 = await SaveWidthMd5(formFile, fullPath, cancellationToken);
+
+            return fileInfo;
+        }
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <param name="savePath"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task Save(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
+        {
+            //写入
+            using (var stream = new FileStream(savePath, FileMode.Create))
             {
-                resultModel.Md5 = Md5Encrypt.Encrypt(stream);
-                await model.FormFile.CopyToAsync(stream, cancellationToken);
+                await formFile.CopyToAsync(stream, cancellationToken);
+            }
+        }
+
+        /// <summary>
+        /// 保存文件，返回文件的MD5值
+        /// </summary>
+        /// <param name="formFile">文件</param>
+        /// <param name="savePath">保存路径</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns></returns>
+        public async Task<string> SaveWidthMd5(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
+        {
+            string md5;
+            //写入
+            using (var stream = new FileStream(savePath, FileMode.Create))
+            {
+                md5 = Md5Encrypt.Encrypt(stream);
+                await formFile.CopyToAsync(stream, cancellationToken);
             }
 
-            return result.Success(resultModel);
+            return md5;
         }
     }
 
@@ -95,9 +168,24 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         public string RootPath { get; set; }
 
         /// <summary>
+        /// 模块名称
+        /// </summary>
+        public string Module { get; set; }
+
+        /// <summary>
         /// 分组
         /// </summary>
         public string Group { get; set; }
+
+        /// <summary>
+        /// 完整目录
+        /// </summary>
+        public string FullPath => Path.Combine(RootPath, Module, Group);
+
+        /// <summary>
+        /// 相对目录
+        /// </summary>
+        public string RelativePath => Path.Combine(Module, Group);
     }
 
     /// <summary>
@@ -113,7 +201,7 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <summary>
         /// 上传的文件对象
         /// </summary>
-        public List<IFormFile> FormFiles { get; set; }
+        public IList<IFormFile> FormFiles { get; set; }
 
         /// <summary>
         /// 存储根路径
@@ -121,49 +209,23 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         public string RootPath { get; set; }
 
         /// <summary>
+        /// 模块名称
+        /// </summary>
+        public string Module { get; set; }
+
+        /// <summary>
         /// 分组
         /// </summary>
         public string Group { get; set; }
-    }
-
-    /// <summary>
-    /// 文件上传返回模型
-    /// </summary>
-    public struct FileUploadResultModel
-    {
-        /// <summary>
-        /// 原始文件名
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
-        /// 存储文件名
+        /// 完整目录
         /// </summary>
-        public string FileName { get; set; }
+        public string FullPath => Path.Combine(RootPath, Module, Group);
 
         /// <summary>
-        /// 扩展名
+        /// 相对目录
         /// </summary>
-        public string Ext { get; set; }
-
-        /// <summary>
-        /// 路径
-        /// </summary>
-        public string Path { get; set; }
-
-        /// <summary>
-        /// 文件大小
-        /// </summary>
-        public long Size { get; set; }
-
-        /// <summary>
-        /// 文件的MD5值
-        /// </summary>
-        public string Md5 { get; set; }
-
-        /// <summary>
-        /// 访问地址
-        /// </summary>
-        public string Url { get; set; }
+        public string RelativePath => Path.Combine(Module, Group);
     }
 }

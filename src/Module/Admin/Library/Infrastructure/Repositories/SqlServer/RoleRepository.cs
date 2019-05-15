@@ -10,7 +10,7 @@ using NetModular.Module.Admin.Domain.Role;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class RoleRepository : RepositoryAbstract<Role>, IRoleRepository
+    public class RoleRepository : RepositoryAbstract<RoleEntity>, IRoleRepository
     {
         public RoleRepository(IDbContext dbContext) : base(dbContext)
         {
@@ -24,15 +24,15 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.ExistsAsync();
         }
 
-        public Task<IList<Role>> Query(Paging paging, string name = null)
+        public Task<IList<RoleEntity>> Query(Paging paging, string name = null)
         {
-            var query = Db.Find(m => m.Deleted == false).LeftJoin<Account>((x, y) => x.CreatedBy == y.Id);
+            var query = Db.Find(m => m.Deleted == false).LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
             query.WhereIf(name.NotNull(), (x, y) => x.Name.Contains(name));
             query.Select((x, y) => new { x, Creator = y.Name });
             return query.PaginationAsync(paging);
         }
 
-        public override Task<IList<Role>> GetAllAsync()
+        public override Task<IList<RoleEntity>> GetAllAsync()
         {
             return Db.Find(m => m.Deleted == false).ToListAsync();
         }

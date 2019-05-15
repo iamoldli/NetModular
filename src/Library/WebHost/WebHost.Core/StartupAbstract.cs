@@ -19,12 +19,12 @@ namespace NetModular.Lib.WebHost.Core
             _hostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName);
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddWebHost(_hostOptions, _env);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public virtual void Configure(IApplicationBuilder app)
         {
             app.UseWebHost(_hostOptions, _env);
         }

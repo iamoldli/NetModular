@@ -38,19 +38,19 @@ export default {
     reverse: Boolean
   },
   methods: {
-    onSizeChange (size) {
+    onSizeChange(size) {
       const page = Object.assign({}, this.value, { size })
       this.$emit('input', page)
       this.$parent.query()
       this.$parent.$emit('size-change', size)
     },
-    onIndexChange (index) {
+    onIndexChange(index) {
       const page = Object.assign({}, this.value, { index })
       this.$emit('input', page)
       this.$parent.query()
       this.$parent.$emit('index-change', index)
     },
-    onSelectColumnChange (columns) {
+    onSelectColumnChange(columns) {
       this.$emit('update:columns', columns)
     }
   }

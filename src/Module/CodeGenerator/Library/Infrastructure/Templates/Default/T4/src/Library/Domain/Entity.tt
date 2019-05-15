@@ -1,0 +1,24 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="NetModular.Lib.Utils.Extensions" #>
+<#@ import namespace="NetModular.Module.CodeGenerator.Domain.Property" #>
+using System;
+using <#= _prefix #>.Lib.Data.Abstractions.Attributes;
+using <#= _prefix #>.Lib.Data.Core.Entities.Extend;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>
+{
+    /// <summary>
+    /// <#= _class.Remarks #>
+    /// </summary>
+    [Table("<#= _class.TableName #>")]
+    public partial class <#= _class.Name #>Entity : <#= _baseEntityName #>
+    {
+<#  foreach(var property in _propertyList){ if(property.IsInherit) continue;#>
+        /// <summary>
+        /// <#= property.Remarks #>
+        /// </summary>
+        public <#= property.Type == PropertyType.Enum ? property.Enum.Name : property.Type.ToDescription() #> <#= property.Name #> { get; set; }
+
+<# } #>
+    }
+}

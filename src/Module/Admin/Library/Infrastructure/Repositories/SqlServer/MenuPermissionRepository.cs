@@ -7,7 +7,7 @@ using NetModular.Module.Admin.Domain.MenuPermission;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class MenuPermissionRepository : RepositoryAbstract<MenuPermission>, IMenuPermissionRepository
+    public class MenuPermissionRepository : RepositoryAbstract<MenuPermissionEntity>, IMenuPermissionRepository
     {
         public MenuPermissionRepository(IDbContext dbContext) : base(dbContext)
         {
@@ -28,7 +28,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(e => e.MenuId == menuId).DeleteAsync();
         }
 
-        public Task<IList<MenuPermission>> GetListByMenuId(Guid menuId)
+        public Task<IList<MenuPermissionEntity>> GetListByMenuId(Guid menuId)
         {
             return Db.Find(e => e.MenuId == menuId).ToListAsync();
         }

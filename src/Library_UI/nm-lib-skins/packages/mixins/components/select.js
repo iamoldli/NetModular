@@ -18,10 +18,20 @@ export default {
     clearable: Boolean,
     // 禁用
     disabled: Boolean,
-    // 过滤
+    // 是否可搜索
     filterable: Boolean,
     // 显示刷新按钮
-    showRefresh: Boolean
+    showRefresh: Boolean,
+    /** 多选时用户最多可以选择的项目数，为 0 则不限制 */
+    multipleLimit: {
+      type: Number,
+      default: 0
+    },
+    /** 占位符 */
+    placeholder: {
+      type: String,
+      default: '请选择'
+    }
   },
   computed: {
     selection() {
@@ -55,9 +65,6 @@ export default {
     this.refresh()
   },
   methods: {
-    change(val) {
-      this.value_ = val
-    },
     // 刷新
     refresh() {
       this.loading = true
@@ -65,6 +72,24 @@ export default {
         this.options = options
         this.loading = false
       })
+    },
+    onChange(val) {
+      this.value_ = val
+    },
+    onVisibleChange(val) {
+      this.$emit('visible-change', val)
+    },
+    onRemoveTag(tag) {
+      this.$emit('remove-tag', tag)
+    },
+    onClear() {
+      this.$emit('clear')
+    },
+    onBlur(event) {
+      this.$emit('blur', event)
+    },
+    onFocus(event) {
+      this.$emit('focus', event)
     }
   },
   watch: {
@@ -92,7 +117,14 @@ export default {
             disabled={this.disabled}
             size={this.fontSize}
             filterable={this.filterable}
-            vOn:change={this.change}
+            multipleLimit={this.multipleLimit}
+            placeholder={this.placeholder}
+            vOn:change={this.onChange}
+            vOn:visible-change={this.onVisibleChange}
+            vOn:remove-tag={this.onRemoveTag}
+            vOn:clear={this.onClear}
+            vOn:blur={this.onBlur}
+            vOn:focus={this.onFocus}
           >
             {this.$scopedSlots.default
               ? this.$scopedSlots.default({ options: this.options })

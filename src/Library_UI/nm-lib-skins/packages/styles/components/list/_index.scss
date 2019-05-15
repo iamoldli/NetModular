@@ -8,6 +8,9 @@
     overflow: hidden;
     height: 100%;
     background-color: #fff;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: $border-color2;
 
     //头部
     &-header {
@@ -18,6 +21,8 @@
         flex-shrink: 0;
         @include vertical-center($list-header-height);
         box-sizing: border-box;
+        border-top: 1px solid $border-color2;
+        border-bottom: 1px solid $border-color3;
 
         //工具栏
         &-toolbar {
@@ -72,135 +77,67 @@
         font-weight: $list-header-title-font-weight;
     }
 
-    &-search {
-        position: relative;
+    &-querybar {
 
-        &-input {
-            @include vertical-center(30px);
+        >#{$prefix}-form {
+            padding-bottom: 0 !important;
 
-            .el-input__inner {
-                padding: 0 15px 0 0;
-                border: 0;
-                border-bottom: 1px solid $border-color1;
-                border-radius: 0;
-                @include vertical-center(30px);
-
-                &:focus {
-                    border-bottom: 1px solid $color-primary;
-                }
-            }
-
-            .el-input__suffix {
-                right: 0;
-
-                i {
-                    width: 15px;
-                }
+            >.el-form-item {
+                margin-bottom: 10px !important;
             }
         }
 
-        &-box {
-            position: absolute;
-            top: 37px;
-            right: 0;
-            min-width: 100%;
-            background-color: #fff;
-            border: 1px solid $border-color1;
-            border-radius: 3px;
-            z-index: $z-index-query-box;
-
-            &-body {
-                .no-data {
-                    display: block;
-                    font-size: 14px;
-                    font-weight: 400;
-                    text-align: center;
-                    user-select: none;
-                }
-            }
-
-            &-footer {
-                padding: 5px;
-                border-top: 1px solid $border-color1;
-                text-align: right;
-            }
-        }
-
-        &-list {
-            font-size: 14px;
-
-            li {
-                padding: 0 20px;
-                cursor: pointer;
-
-                span {
-                    white-space: nowrap;
-                }
-
-                &:hover {
-                    background-color: rgba(200, 200, 200, 0.2);
-                }
-            }
-        }
-
-        &-advanced {
-            position: absolute;
-            top: 47px;
-            right: 0;
-            box-shadow: 0 0 5px #2ebcfc;
-            border-color: #03a9f4;
-            border-radius: 3px;
-            z-index: $z-index-query-advanced;
-
-            .el-scrollbar__view {
-                padding-top: 18px !important;
-                padding-bottom: 0 !important;
-            }
-
-            .advanced-arrow {
-                position: absolute;
-                display: block;
-                top: -20px;
-                right: 15px;
-                width: 0;
-                height: 0;
-                border-color: transparent;
-                border-style: solid;
-                border-top-width: 0;
-                border-bottom-color: rgba(46, 188, 252, 0.7);
-                border-width: 10px;
-
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: 1px;
-                    left: -10px;
-                    display: block;
-                    width: 0;
-                    height: 0;
-                    border-color: transparent;
-                    border-style: solid;
-                    border-width: 10px;
-                    border-bottom-color: #fff;
-                    border-top-width: 0;
-                }
+        &-normal {
+            .el-form-item__label {
+                padding: 0 !important;
+                width: auto !important;
             }
         }
     }
 
-    &-toolbar {
-        padding: $list-toolbar-padding;
-        height: $list-toolbar-height;
-        line-height: $list-toolbar-height - 1;
-        border-top: 1px solid $border-color3;
-        @include flex-row();
+    &-querybar-advanced {
+        position: fixed;
+        background: #fff;
+        box-shadow: 0 0 5px #2ebcfc;
+        border-color: #03a9f4;
+        border-radius: 3px;
+        z-index: $z-index-query-advanced;
 
-        &-left {
-            flex-grow: 1;
+        .el-scrollbar__view {
+            padding-top: 18px !important;
+            padding-bottom: 0 !important;
+
+            #{$prefix}-form {
+                padding: 0 !important;
+            }
         }
 
-        &-right {
-            flex-shrink: 0;
+        .advanced-arrow {
+            position: absolute;
+            display: block;
+            top: -20px;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-top-width: 0;
+            border-bottom-color: rgba(46, 188, 252, 0.7);
+            border-width: 10px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 1px;
+                left: -10px;
+                display: block;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 10px;
+                border-bottom-color: #fff;
+                border-top-width: 0;
+            }
         }
     }
 

@@ -43,7 +43,7 @@ export default {
     // 文本
     text: {
       type: String,
-      default: '删除'
+      default: '批量删除'
     },
     // 删除方法
     action: {
@@ -58,12 +58,12 @@ export default {
     noIcon: Boolean
   },
   computed: {
-    getSize () {
+    getSize() {
       return this.size || this.fontSize
     }
   },
   methods: {
-    async remove () {
+    async remove() {
       if (!this.selection || this.selection.length < 1) {
         this._error('请选择要删除的数据~')
         return

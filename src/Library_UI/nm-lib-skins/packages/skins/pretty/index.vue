@@ -12,21 +12,21 @@ export default {
   components: { NmSidebar, NmMain },
   computed: {
     ...mapState('app/skins', ['current']),
-    themeClass () {
+    themeClass() {
       return this.current.theme
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       this.setbodyClass()
     })
   },
   methods:
   {
-    setbodyClass () { this.$nextTick(() => { document.body.className = 'nm-skin-pretty ' + this.current.theme }) }
+    setbodyClass() { this.$nextTick(() => { document.body.className = 'nm-skin-pretty ' + this.current.theme }) }
   },
   watch: {
-    themeClass (val) {
+    themeClass(val) {
       this.setbodyClass()
     }
   }

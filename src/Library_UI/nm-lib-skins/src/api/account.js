@@ -1,6 +1,6 @@
 import menus from '../menus'
 import token from './token'
-export const login = params => {
+const login = params => {
   return new Promise((resolve, reject) => {
     if (params.userName === 'admin' && params.password === 'admin') {
       token.set(
@@ -16,7 +16,7 @@ export const login = params => {
 /**
  * @description 获取账户信息
  */
-export const get = () => {
+const get = () => {
   return {
     /** 账户编号 */
     id: 1,
@@ -39,3 +39,5 @@ export const get = () => {
     }
   }
 }
+
+export default { login, get }

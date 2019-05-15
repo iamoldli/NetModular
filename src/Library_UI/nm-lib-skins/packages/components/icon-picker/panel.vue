@@ -15,7 +15,7 @@ import dialog from '../../mixins/components/dialog.js'
 import { iconData } from 'nm-lib-icon'
 export default {
   mixins: [dialog],
-  data () {
+  data() {
     return {
       filter: '',
       dialog: {
@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    iconList () {
+    iconList() {
       if (!this.filter) { return iconData }
 
       let list = []
@@ -45,20 +45,20 @@ export default {
     }
   },
   methods: {
-    onSelect (icon) {
+    onSelect(icon) {
       this.$emit('success', icon.code)
       this.hide()
     },
-    onOpen () {
+    onOpen() {
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   }

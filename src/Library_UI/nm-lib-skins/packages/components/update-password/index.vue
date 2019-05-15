@@ -35,7 +35,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'UpdatePassword',
   mixins: [dialog],
-  data () {
+  data() {
     // 密码验证
     const validator = (rule, value, callback) => {
       if (value === '') {
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     ...mapActions('app/system', ['logout']),
-    success () {
+    success() {
       this.logout()
     }
   }

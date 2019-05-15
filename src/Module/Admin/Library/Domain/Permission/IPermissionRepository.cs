@@ -9,14 +9,14 @@ namespace NetModular.Module.Admin.Domain.Permission
     /// <summary>
     /// 权限仓储
     /// </summary>
-    public interface IPermissionRepository : IRepository<Permission>
+    public interface IPermissionRepository : IRepository<PermissionEntity>
     {
         /// <summary>
         /// 判断是否存在
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<bool> Exists(Permission entity);
+        Task<bool> Exists(PermissionEntity entity);
 
         /// <summary>
         /// 判断是否存在
@@ -41,34 +41,34 @@ namespace NetModular.Module.Admin.Domain.Permission
         /// <param name="controller"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        Task<IList<Permission>> Query(Paging paging, string moduleCode, string name = null, string controller = null, string action = null);
+        Task<IList<PermissionEntity>> Query(Paging paging, string moduleCode, string name = null, string controller = null, string action = null);
 
         /// <summary>
         /// 通过菜单编号查找对应权限列表
         /// </summary>
         /// <param name="menuId"></param>
         /// <returns></returns>
-        Task<IList<Permission>> QueryByMenu(Guid menuId);
+        Task<IList<PermissionEntity>> QueryByMenu(Guid menuId);
 
         /// <summary>
         /// 通过按钮编号查找对应权限列表
         /// </summary>
         /// <param name="buttonId"></param>
         /// <returns></returns>
-        Task<IList<Permission>> QueryByButton(Guid buttonId);
+        Task<IList<PermissionEntity>> QueryByButton(Guid buttonId);
 
         /// <summary>
         /// 查询指定账户的权限列表
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        Task<IList<Permission>> QueryByAccount(Guid accountId);
+        Task<IList<PermissionEntity>> QueryByAccount(Guid accountId);
 
         /// <summary>
         /// 修改同步信息
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        Task<bool> UpdateForSync(Permission permission);
+        Task<bool> UpdateForSync(PermissionEntity permission);
     }
 }

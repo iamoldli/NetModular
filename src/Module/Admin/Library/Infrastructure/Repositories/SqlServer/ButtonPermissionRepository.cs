@@ -6,7 +6,7 @@ using NetModular.Module.Admin.Domain.ButtonPermission;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class ButtonPermissionRepository : RepositoryAbstract<ButtonPermission>, IButtonPermissionRepository
+    public class ButtonPermissionRepository : RepositoryAbstract<ButtonPermissionEntity>, IButtonPermissionRepository
     {
         public ButtonPermissionRepository(IDbContext context) : base(context)
         {

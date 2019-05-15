@@ -17,10 +17,11 @@
   </el-form>
 </template>
 <script>
-import { mapState } from 'vuex'
+import loading from '../../mixins/components/loading'
 export default {
   name: 'Form',
-  data () {
+  mixins: [loading],
+  data() {
     return {
       loading_: false
     }
@@ -33,10 +34,10 @@ export default {
     },
     /** 验证规则 */
     rules: Object,
-    /** 行内表单模式 */
-    inline: Boolean,
     /** 提交请求 */
     action: Function,
+    /** 行内表单模式 */
+    inline: Boolean,
     /** 是否显示成功提示消息 */
     successMsg: {
       type: Boolean,
@@ -62,14 +63,13 @@ export default {
     noLoading: Boolean
   },
   computed: {
-    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    showLoading () {
+    showLoading() {
       return !this.noLoading && (this.loading_ || this.loading)
     }
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           // 自定义验证
@@ -96,19 +96,19 @@ export default {
       })
     },
     /** 重置 */
-    reset () {
+    reset() {
       this.$refs.form.resetFields()
     },
     /** 清除验证结果 */
-    clearValidate (props) {
+    clearValidate(props) {
       this.$refs.form.clearValidate(props)
     },
     /** 打开加载中 */
-    openLoading () {
+    openLoading() {
       if (!this.noLoading) { this.loading_ = true }
     },
     /** 关闭加载中 */
-    closeLoading () {
+    closeLoading() {
       if (!this.noLoading) { this.loading_ = false }
     }
   }

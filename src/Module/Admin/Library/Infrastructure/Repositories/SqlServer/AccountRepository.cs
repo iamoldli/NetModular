@@ -10,7 +10,7 @@ using NetModular.Module.Admin.Domain.Account;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
-    public class AccountRepository : RepositoryAbstract<Account>, IAccountRepository
+    public class AccountRepository : RepositoryAbstract<AccountEntity>, IAccountRepository
     {
         public AccountRepository(IDbContext dbContext) : base(dbContext)
         {
@@ -18,10 +18,10 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> UpdatePassword(Guid id, string password)
         {
-            return Db.Find(m => m.Id == id).UpdateAsync(m => new Account { Password = password });
+            return Db.Find(m => m.Id == id).UpdateAsync(m => new AccountEntity { Password = password });
         }
 
-        public Task<Account> GetByUserName(string userName)
+        public Task<AccountEntity> GetByUserName(string userName)
         {
             return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName));
         }
@@ -31,13 +31,13 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             var query = Db.Find(m => m.Id == id);
             if (status != AccountStatus.UnKnown)
             {
-                return query.UpdateAsync(m => new Account { LoginIP = ip, LoginTime = DateTime.Now, Status = status }, false);
+                return query.UpdateAsync(m => new AccountEntity { LoginIP = ip, LoginTime = DateTime.Now, Status = status }, false);
             }
 
-            return query.UpdateAsync(m => new Account { LoginIP = ip, LoginTime = DateTime.Now }, false);
+            return query.UpdateAsync(m => new AccountEntity { LoginIP = ip, LoginTime = DateTime.Now }, false);
         }
 
-        public Task<IList<Account>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null)
+        public Task<IList<AccountEntity>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null)
         {
             var query = Db.Find(m => m.Deleted == false);
             query.WhereIf(userName.NotNull(), m => m.UserName.Contains(userName));

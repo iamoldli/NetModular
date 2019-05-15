@@ -14,6 +14,7 @@ using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService.ResultModels;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using NetModular.Module.Admin.Application.SystemService;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Button;
@@ -49,9 +50,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly IButtonRepository _buttonRepository;
         private readonly IPermissionRepository _permissionRepository;
         private readonly DrawingHelper _drawingHelper;
-        private readonly ILogger _logger;
+        private readonly ISystemService _systemService;
 
-        public AccountService(LoginInfo loginInfo, IMemoryCache cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger)
+        public AccountService(LoginInfo loginInfo, IMemoryCache cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
         {
             _loginInfo = loginInfo;
             _cache = cache;
@@ -64,7 +65,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             _buttonRepository = buttonRepository;
             _permissionRepository = permissionRepository;
             _drawingHelper = drawingHelper;
-            _logger = logger;
+            _systemService = systemService;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -81,12 +82,20 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Success(verifyCodeModel);
         }
 
-        public async Task<ResultModel<Account>> Login(LoginModel model)
+        public async Task<ResultModel<AccountEntity>> Login(LoginModel model)
         {
-            var result = new ResultModel<Account>();
+            var result = new ResultModel<AccountEntity>();
+
             var verifyCodeKey = VerifyCodeKey + model.PictureId;
-            if (model.PictureId.IsNull() || !model.Code.Equals(_cache.Get(verifyCodeKey)))
-                return result.Failed("验证码有误");
+            var systemConfig = (await _systemService.GetConfig()).Data;
+            if (systemConfig.LoginVerifyCode)
+            {
+                if (model.Code.IsNull())
+                    return result.Failed("请输入验证码");
+
+                if (model.PictureId.IsNull() || !model.Code.Equals(_cache.Get(verifyCodeKey)))
+                    return result.Failed("验证码有误");
+            }
 
             var account = await _accountRepository.GetByUserName(model.UserName);
             if (!CheckAccount(account, out string msg))
@@ -145,7 +154,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// 检测账户
         /// </summary>
         /// <returns></returns>
-        private bool CheckAccount(Account account, out string msg)
+        private bool CheckAccount(AccountEntity account, out string msg)
         {
             msg = "";
             if (account == null || account.Deleted)
@@ -200,7 +209,7 @@ namespace NetModular.Module.Admin.Application.AccountService
                 exists = await _accountRoleRepository.Exists(model.AccountId, model.RoleId);
                 if (!exists)
                 {
-                    var result = await _accountRoleRepository.AddAsync(new AccountRole { AccountId = model.AccountId, RoleId = model.RoleId });
+                    var result = await _accountRoleRepository.AddAsync(new AccountRoleEntity { AccountId = model.AccountId, RoleId = model.RoleId });
                     return ResultModel.Result(result);
                 }
 
@@ -234,7 +243,7 @@ namespace NetModular.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> Add(AccountAddModel model)
         {
-            var account = _mapper.Map<Account>(model);
+            var account = _mapper.Map<AccountEntity>(model);
 
             var exists = await Exists(account);
             if (!exists.Successful)
@@ -255,7 +264,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             {
                 if (model.Roles != null && model.Roles.Any())
                 {
-                    var accountRoleList = model.Roles.Select(m => new AccountRole { AccountId = account.Id, RoleId = m }).ToList();
+                    var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
                     if (await _accountRoleRepository.AddAsync(accountRoleList))
                     {
                         _uow.Commit();
@@ -305,7 +314,7 @@ namespace NetModular.Module.Admin.Application.AccountService
                 {
                     if (model.Roles != null && model.Roles.Any())
                     {
-                        var accountRoleList = model.Roles.Select(m => new AccountRole { AccountId = account.Id, RoleId = m }).ToList();
+                        var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
                         if (await _accountRoleRepository.AddAsync(accountRoleList))
                         {
                             _uow.Commit();
@@ -348,15 +357,15 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Result(result);
         }
 
-        public async Task<List<Permission>> QueryPermissionList(Guid id)
+        public async Task<List<PermissionEntity>> QueryPermissionList(Guid id)
         {
             var entity = await _accountRepository.GetAsync(id);
             if (entity == null)
-                return new List<Permission>();
+                return new List<PermissionEntity>();
 
             var key = AccountPermissionListKey + id;
             //TODO:清除账户权限的缓存
-            if (!_cache.TryGetValue(key, out List<Permission> list))
+            if (!_cache.TryGetValue(key, out List<PermissionEntity> list))
             {
                 list = (await _permissionRepository.QueryByAccount(id)).ToList();
                 _cache.Set(key, list);
@@ -412,7 +421,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        private async Task<IResultModel> Exists(Account entity)
+        private async Task<IResultModel> Exists(AccountEntity entity)
         {
             if (await _accountRepository.ExistsUserName(entity.UserName, entity.Id))
                 return ResultModel.Failed("用户名已存在");
@@ -437,9 +446,9 @@ namespace NetModular.Module.Admin.Application.AccountService
     /// <summary>
     /// 菜单比较器
     /// </summary>
-    public class MenuComparer : IEqualityComparer<Menu>
+    public class MenuComparer : IEqualityComparer<MenuEntity>
     {
-        public bool Equals(Menu x, Menu y)
+        public bool Equals(MenuEntity x, MenuEntity y)
         {
             if (x == null || y == null)
                 return false;
@@ -447,7 +456,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             return x.Id == y.Id;
         }
 
-        public int GetHashCode(Menu obj)
+        public int GetHashCode(MenuEntity obj)
         {
             return 1;
         }

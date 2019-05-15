@@ -9,10 +9,10 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
     /// <summary>
     /// 审计信息仓储
     /// </summary>
-    public interface IAuditInfoRepository : IRepository<AuditInfo>
+    public interface IAuditInfoRepository : IRepository<AuditInfoEntity>
     {
-        Task<IList<AuditInfo>> Query(Paging paging, Guid? accountId, string moduleCode, string controller, string action, DateTime? startTime, DateTime? endTime);
+        Task<IList<AuditInfoEntity>> Query(Paging paging, string moduleCode, string controller, string action, DateTime? startTime, DateTime? endTime);
 
-        Task<AuditInfo> Details(int id);
+        Task<AuditInfoEntity> Details(int id);
     }
 }

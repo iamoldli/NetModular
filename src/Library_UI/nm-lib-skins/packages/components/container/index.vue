@@ -13,10 +13,7 @@ export default {
   name: 'Container',
   props: {
     /** 滚动条 */
-    scrollbar: {
-      type: Boolean,
-      default: false
-    },
+    scrollbar: Boolean,
     /** 是否显示水平滚动条 */
     horizontal: Boolean
   }

@@ -9,8 +9,17 @@ namespace NetModular.Lib.Utils.Core.Helpers
     /// </summary>
     public enum SequentialGuidType
     {
+        /// <summary>
+        /// MySQL、PostgreSQL、SQLite使用
+        /// </summary>
         SequentialAsString,
+        /// <summary>
+        /// Oracle使用
+        /// </summary>
         SequentialAsBinary,
+        /// <summary>
+        /// SQL Server使用
+        /// </summary>
         SequentialAtEnd
     }
 
@@ -29,7 +38,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
          * MySQL 	    char(36) 	        SequentialAsString 
          * Oracle 	    raw(16) 	        SequentialAsBinary 
          * PostgreSQL 	uuid 	            SequentialAsString 
-         * SQLite  	    varies  	        varies 
+         * SQLite  	    varies  	        SequentialAsString 
          */
 
         /// <summary>

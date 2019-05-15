@@ -123,20 +123,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #endregion
 
-        #region ==First==
-
-        public TEntity First()
-        {
-            return First<TEntity>();
-        }
-
-        public Task<TEntity> FirstAsync()
-        {
-            return FirstAsync<TEntity>();
-        }
-
-        #endregion
-
         #region ==Delete==
 
         public bool Delete()
@@ -280,14 +266,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #endregion
 
+        #region ==GroupBy==
+
+        public IGroupByQueryable1<TResult, TEntity> GroupBy<TResult>(Expression<Func<TEntity, TResult>> expression)
+        {
+            return new GroupByQueryable1<TResult, TEntity>(Db, QueryBody, QueryBuilder, expression);
+        }
+
+        #endregion
+
         #region ==ToList==
 
-        public IList<TEntity> ToList()
+        public new IList<TEntity> ToList()
         {
             return ToList<TEntity>();
         }
 
-        public Task<IList<TEntity>> ToListAsync()
+        public new Task<IList<TEntity>> ToListAsync()
         {
             return ToListAsync<TEntity>();
         }
@@ -296,23 +291,28 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #region ==Pagination==
 
-        public IList<TEntity> Pagination(Paging paging = null)
+        public new IList<TEntity> Pagination(Paging paging = null)
         {
             return Pagination<TEntity>(paging);
         }
 
-        public Task<IList<TEntity>> PaginationAsync(Paging paging = null)
+        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null)
         {
             return PaginationAsync<TEntity>(paging);
         }
 
         #endregion
 
-        #region ==GroupBy==
+        #region ==First==
 
-        public IGroupByQueryable1<TResult, TEntity> GroupBy<TResult>(Expression<Func<TEntity, TResult>> expression)
+        public new TEntity First()
         {
-            return new GroupByQueryable1<TResult, TEntity>(Db, QueryBody, QueryBuilder, expression);
+            return First<TEntity>();
+        }
+
+        public new Task<TEntity> FirstAsync()
+        {
+            return FirstAsync<TEntity>();
         }
 
         #endregion

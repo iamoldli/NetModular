@@ -1,3 +1,4 @@
+import _ from 'lodash'
 export default {
   namespaced: true,
   state: {
@@ -12,14 +13,25 @@ export default {
       // 全屏
       fullscreen: true,
       // 皮肤切换
-      skin: true
+      skin: true,
+      // 退出
+      logout: true,
+      // 用户信息
+      userInfo: true
     },
     // 是否启用按钮权限
     ButtonPermission: true,
+    /** 菜单只能打开一个 */
+    menuUniqueOpened: true,
+    /// //////////////////////////////////////////////////////////
+    /** 上面的属性是可在管理平台配置的， 下面的属性都是系统代码内去设置的 */
+    /// //////////////////////////////////////////////////////////
     /** 退出方法 */
     logout: null,
     /** 修改密码方法 */
     updatePassword: null,
+    /** 查询登录信息方法 */
+    getLoginInfo: null,
     /** 模块列表 */
     modules: []
   },
@@ -42,7 +54,7 @@ export default {
   },
   mutations: {
     init (state, { system }) {
-      Object.assign(state, system)
+      _.merge(state, system)
       state.logo = state.logoUrl
       if (!state.logo) {
         state.logo = './images/logo.png'

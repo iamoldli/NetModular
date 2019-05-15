@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+using <#= _prefix #>.Lib.Utils.Options;
+
+namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Options
+{
+    /// <summary>
+    /// <#= _model.Project.Name #>配置项
+    /// </summary>
+    public class <#= _model.Project.Code #>Options : IModuleOptions
+    {
+
+    }
+}

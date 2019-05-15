@@ -9,37 +9,11 @@ Vue.use(VueRouter)
 // 进度条初始值
 NProgress.configure({ minimum: 0.2 })
 
-/**
- * @description 获取根路径
- * @param {Object} system 系统配置信息
- */
-const getRootPage = system => {
-  let rootPage = {
-    path: '/',
-    redirect: '/default'
-  }
-  const def = system.default
-  if (def) {
-    if (def.startsWith('http://') || def.startsWith('https://')) {
-      rootPage.beforeEnter = () => {
-        location.href = def
-      }
-    } else {
-      rootPage.redirect = def
-    }
-  }
-  return rootPage
-}
-
 /** 路由扩展 */
 export default (routerConfig, store, system) => {
-  const rootPage = getRootPage(system)
-
   routerConfig.routes = routerConfig.routes || []
 
-  routerConfig.routes = routerConfig.routes
-    .concat([rootPage])
-    .concat(SkinsRoutes)
+  routerConfig.routes = routerConfig.routes.concat(SkinsRoutes)
 
   const router = new VueRouter({ routes: routerConfig.routes })
 
@@ -47,19 +21,27 @@ export default (routerConfig, store, system) => {
   router.beforeEach((to, from, next) => {
     // 开始进度条
     NProgress.start()
+    // 默认页
+    const homeRoute = system.home
+    if (homeRoute && (to.path === '/' || to.path === '/default')) {
+      if (homeRoute.startsWith('http://') || homeRoute.startsWith('https://')) {
+        next({ name: 'Iframe', params: { url: homeRoute, tn_: '首页' } })
+      } else {
+        next(homeRoute)
+      }
 
+      // 关闭进度条
+      NProgress.done()
+      return
+    }
     // 打开页面
-    store.dispatch('app/page/open', to, { root: true })
+    store.dispatch('app/page/open', to, { root: true }).then(() => {
+      next()
 
-    // 设置标题
-    document.title = system.title
-
-    next()
-
-    // 关闭进度条
-    NProgress.done()
+      // 关闭进度条
+      NProgress.done()
+    })
   })
-
   // 自定义事件
   if (routerConfig.before) {
     routerConfig.before({ router, store })
