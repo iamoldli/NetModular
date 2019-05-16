@@ -10,10 +10,11 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "dev": "cd ../../WebHost && dotnet watch run",
-        "prev": "cd ./dist && http-server -o -p 15220"
+        "cm": "rimraf node_modules",
+        "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-skins": "^1.0.2"
+        "nm-lib-skins": "^1.0.5"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.6.0",

@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       split: 0.3,
       split1: 0.3

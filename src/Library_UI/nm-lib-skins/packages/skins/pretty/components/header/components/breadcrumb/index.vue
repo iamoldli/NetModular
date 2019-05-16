@@ -11,7 +11,7 @@ export default {
   computed: {
     ...mapState('app/account', ['routeMenus']),
     ...mapState('app/page', ['default']),
-    breadcrumb() {
+    breadcrumb () {
       let route = this.$route
       let bc = [{
         title: '首页',

@@ -24,14 +24,14 @@ export default {
     ...mapState('app/skins', ['current']),
     ...mapState('app/dialog-menu', { dialogMenu: state => state }),
     // 是否在框架中显示
-    inFrame() {
+    inFrame () {
       return !this.$route.meta || this.$route.meta.frameIn !== false
     },
     dialogNemuVisible: {
-      get() {
+      get () {
         return this.dialogMenu.visible
       },
-      set() {
+      set () {
         this.dialogMenuClose()
       }
     }

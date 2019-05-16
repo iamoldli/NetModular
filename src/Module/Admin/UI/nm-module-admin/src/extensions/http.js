@@ -15,14 +15,14 @@ export default baseUrl => {
 
     // 拦截请求
     axios.interceptors.request.use(
-      function (config) {
+      function(config) {
         let t = token.get()
         if (t && t.accessToken) {
           config.headers.Authorization = 'Bearer ' + t.accessToken
         }
         return config
       },
-      function (error) {
+      function(error) {
         return Promise.reject(error)
       }
     )
@@ -30,6 +30,11 @@ export default baseUrl => {
     // 响应前拦截器
     axios.interceptors.response.use(
       response => {
+        // 文件下载
+        if (response.request.responseType.toLowerCase() === 'blob') {
+          return response.data
+        }
+
         if (response.data.code === 1) {
           return response.data.data
         } else {
@@ -61,7 +66,6 @@ export default baseUrl => {
               })
               break
             case 403:
-              console.log(1)
               store.dispatch(
                 'app/page/close',
                 {

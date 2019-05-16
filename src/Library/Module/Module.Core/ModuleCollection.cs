@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 using Newtonsoft.Json;
 
@@ -84,7 +83,6 @@ namespace NetModular.Lib.Module.Core
 
             foreach (var file in moduleJsonFiles)
             {
-                var path = Path.GetDirectoryName(file);
                 var moduleInfo = JsonConvert.DeserializeObject<ModuleInfo>(File.ReadAllText(file));
                 if (moduleInfo != null)
                 {
@@ -112,9 +110,6 @@ namespace NetModular.Lib.Module.Core
                     {
                         moduleInfo.Initializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
                     }
-
-                    if (path.NotNull())
-                        moduleInfo.DocPath = Path.Combine(path, "doc.xml");
 
                     Add(moduleInfo);
                 }

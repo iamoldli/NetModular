@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       box: {
         header: true,
@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    onClick() {
+    onClick () {
       this._success('我是自定义工具栏按钮')
     }
   }

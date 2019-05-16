@@ -32,16 +32,16 @@ export default {
   },
   methods: {
 
-    onFullscreenClict() {
+    onFullscreenClict () {
       this.$emit('update:fullscreen', !this.fullscreen)
     },
-    query() {
+    query () {
       this.$parent.query()
     },
-    reset() {
+    reset () {
       this.$parent.reset()
     },
-    refresh() {
+    refresh () {
       this.$parent.refresh()
     }
   }

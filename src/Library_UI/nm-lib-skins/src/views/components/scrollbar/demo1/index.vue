@@ -1,4 +1,4 @@
-s<template>
+<template>
   <nm-container>
     <demo/>
     <nm-code-preview :code="code"/>
@@ -11,7 +11,7 @@ import code from '!!raw-loader!./demo'
 export default {
   name: page.name,
   components: { Demo },
-  data() {
+  data () {
     return {
       timer: null,
       code

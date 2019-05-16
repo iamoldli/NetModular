@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '角色管理'
   this.name = 'admin_role'
   this.path = '/admin/role'

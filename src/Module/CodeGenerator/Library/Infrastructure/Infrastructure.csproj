@@ -278,6 +278,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>settings.cs</LastGenOutput>
     </None>
+    <None Update="Templates\Default\T4\src\Web\modules\Module.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Module.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -615,23 +619,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Main.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\Web\modules\Module.*">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Module.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Templates\Default\T4\data\SchemaSqlServer.cs">
+    <Compile Update="Templates\Default\T4\build\WebBuildTargets.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>SchemaSqlServer.tt</DependentUpon>
+      <DependentUpon>WebBuildTargets.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\Library\Application\ViewModels\AddModel.cs">
+    <Compile Update="Templates\Default\T4\src\Web\Csproj.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AddModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\WebHost\config\jwt.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>jwt.tt</DependentUpon>
+      <DependentUpon>Csproj.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -19,7 +19,7 @@
 <script>
 export default {
   name: 'UserAdd',
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit () {
     }
   }
 }

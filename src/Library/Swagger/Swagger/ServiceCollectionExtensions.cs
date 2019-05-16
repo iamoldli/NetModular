@@ -28,8 +28,6 @@ namespace NetModular.Lib.Swagger
                             Title = moduleInfo.Name,
                             Version = moduleInfo.Version
                         });
-
-                        c.IncludeXmlComments(moduleInfo.DocPath);
                     }
                 }
 
@@ -42,6 +40,7 @@ namespace NetModular.Lib.Swagger
                     Type = "apiKey"
                 });
 
+                //添加Jwt验证设置
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
                     { "Bearer", Enumerable.Empty<string>() },
                 });

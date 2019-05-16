@@ -1,12 +1,16 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const isDev = process.env.NODE_ENV === 'development' // 开发环境
+// 开发环境
+const isDev = process.env.NODE_ENV === 'development'
+// 打包输出路径
+const outputDir = '../../WebHost/wwwroot'
 
 // 增加环境变量
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
 
 module.exports = {
+  outputDir: outputDir,
   devServer: {
     port: 5220
   },
@@ -17,7 +21,7 @@ module.exports = {
       new CopyWebpackPlugin([
         {
           from: path.join(__dirname, 'node_modules/nm-lib-skins/public'),
-          to: path.join(__dirname, 'dist'),
+          to: path.join(__dirname, outputDir),
           ignore: ['index.html']
         }
       ])

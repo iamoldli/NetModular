@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       box: {
         page: true,
@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    onClick() {
+    onClick () {
       this._success('保存成功')
     }
   }

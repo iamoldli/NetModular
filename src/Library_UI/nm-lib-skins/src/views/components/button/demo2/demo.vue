@@ -27,7 +27,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: {
         title: '批量删除示例',
@@ -47,17 +47,17 @@ export default {
     }
   },
   methods: {
-    remove() {
+    remove () {
       return new Promise(resolve => {
         resolve({ code: 1 })
       })
     },
-    query() {
+    query () {
       return new Promise(resolve => {
         resolve({ rows: [{ id: 1, name: '张三' }, { id: 2, name: '李四' }], total: 2 })
       })
     },
-    onSuccess() {
+    onSuccess () {
       this._success('删除成功了')
     }
   }

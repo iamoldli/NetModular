@@ -9,7 +9,7 @@ import events from './data/events.js'
 import methods from './data/methods.js'
 export default {
   name: page.name,
-  data() {
+  data () {
     return {
       tmpl: {
         title: '多选框(nm-checkbox-group)',
@@ -21,7 +21,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.setTabName(this.tmpl.title)
   }
 }

@@ -191,6 +191,7 @@ export default {
     }
     .btn-login {
       width: 100%;
+      cursor: pointer;
     }
   }
 
@@ -200,11 +201,14 @@ export default {
 
     &-img {
       position: absolute;
-      left: 0;
+      left: 5px;
+      top: 20px;
       padding: 5px;
+      -webkit-box-sizing: border-box;
       box-sizing: border-box;
-      height: 80px;
+      height: 61px;
       float: left;
+      background: #409eff;
     }
 
     &-title {
@@ -212,7 +216,7 @@ export default {
       padding: 0;
       height: 80px;
       line-height: 80px;
-      font-size: 40px;
+      font-size: 33px;
       text-align: left;
     }
   }

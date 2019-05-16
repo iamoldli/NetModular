@@ -70,7 +70,7 @@ export default {
       const sys = rootState.app.system
 
       // 设置默认页以及当前页为默认页
-      let defaultPage = '/default'
+      let defaultPage = '/'
       // 自定义的默认页添加到默认页路径列表中
       if (sys.home) {
         defaultPage = sys.home

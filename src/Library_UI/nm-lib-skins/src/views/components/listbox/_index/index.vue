@@ -8,7 +8,7 @@ import slots from './data/slots.js'
 import events from './data/events.js'
 export default {
   name: page.name,
-  data() {
+  data () {
     return {
       val: '',
       tmpl: {
@@ -20,7 +20,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.setTabName(this.tmpl.title)
   }
 }

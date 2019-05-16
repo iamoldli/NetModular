@@ -41,7 +41,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       model: {
         name: '',
@@ -54,20 +54,20 @@ export default {
     }
   },
   computed: {
-    modelStr() {
+    modelStr () {
       return '当前模型：' + JSON.stringify(this.model)
     },
-    modelStr1() {
+    modelStr1 () {
       return '当前模型：' + JSON.stringify(this.model1)
     }
   },
   methods: {
-    query() {
+    query () {
       return new Promise(resolve => {
         resolve([{ label: '南京', value: 'nj' }, { label: '江苏', value: 'js' }])
       })
     },
-    query1() {
+    query1 () {
       return new Promise(resolve => {
         resolve([{ label: '南京', value: 'nj', disabled: true }, { label: '江苏', value: 'js' }])
       })

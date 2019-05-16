@@ -6,7 +6,7 @@ import page from './page.js'
 import attrs from './data/attrs.js'
 export default {
   name: page.name,
-  data() {
+  data () {
     return {
       tmpl: {
         title: '抽屉(nm-drawer)',
@@ -15,7 +15,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.setTabName(this.tmpl.title)
   }
 }

@@ -1,21 +1,30 @@
 <template>
-  <nm-list ref="list" v-bind="list">
-    <!--按钮-->
-    <template v-slot:toolbar>
-      <nm-button :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
-    </template>
+  <nm-container>
+    <nm-list ref="list" v-bind="list">
+      <!--查询-->
+      <template v-slot:querybar>
+        <el-form-item label="名称：" prop="name">
+          <el-input v-model="list.model.name" clearable></el-input>
+        </el-form-item>
+      </template>
 
-    <!--是否显示-->
-    <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
+      <!--按钮-->
+      <template v-slot:querybar-buttons>
+        <nm-button type="success" :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
+      </template>
 
-    <!--操作列-->
-    <template v-slot:col-operation="{row}">
-      <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
-    </template>
-  </nm-list>
+      <!--是否显示-->
+      <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
+
+      <!--操作列-->
+      <template v-slot:col-operation="{row}">
+        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+      </template>
+    </nm-list>
+  </nm-container>
 </template>
 <script>
-import api from '../../../api/moduleInfo.js'
+import api from '../../../api/moduleInfo'
 import page from './page'
 import cols from './cols'
 
@@ -27,12 +36,7 @@ export default {
         title: page.title,
         cols,
         action: api.query,
-        search: {
-          advanced: {
-            enabled: false
-          }
-        },
-        conditions: {
+        model: {
           name: ''
         }
       },

@@ -46,7 +46,7 @@ export default {
     text: String
   },
   computed: {
-    getSize() {
+    getSize () {
       return this.size || this.fontSize
     }
   }

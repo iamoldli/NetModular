@@ -1,7 +1,6 @@
 import token from '../extensions/token'
-import api from '../api/account'
 import routes from './routes'
-
+console.log(routes)
 /** 路由实例 */
 var $router = null
 
@@ -16,16 +15,11 @@ const before = ({ router, store }) => {
       if (to.name === 'Login') {
         next()
       } else {
-        const account = store.state.app.account
-        if (!account || account.id === '') {
-          // 获取账户登录信息
-          api.getLoginInfo().then(account => {
-            store.dispatch('app/account/init', account, { root: true })
-            next()
-          })
-        } else {
-          next()
-        }
+        // 加载账户信息，内部会做是否已加载判断
+        store.dispatch('app/account/init', null, {
+          root: true
+        })
+        next()
       }
     }
   })

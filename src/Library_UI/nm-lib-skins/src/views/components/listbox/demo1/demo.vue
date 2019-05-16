@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       split: 0.3,
       listbox: [],
@@ -49,7 +49,7 @@ export default {
     }
   },
   methods: {
-    query() {
+    query () {
       const rows = [{ id: 1, name: '张三', age: 22 }, { id: 2, name: '李四', age: 26 }, { id: 3, name: '王五', age: 26 }]
       return new Promise(resolve => {
         resolve({
@@ -58,7 +58,7 @@ export default {
         })
       })
     },
-    onSelect(row) {
+    onSelect (row) {
       this.listbox.push({
         label: row.name,
         value: row.id

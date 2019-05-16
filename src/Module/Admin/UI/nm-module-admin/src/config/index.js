@@ -1,7 +1,7 @@
 const isDev = process.env.NODE_ENV !== 'production'
 
 const config = {
-  baseUrl: ''
+  baseUrl: '/api/'
 }
 
 // 开发模式

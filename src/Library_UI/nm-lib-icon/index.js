@@ -3,7 +3,7 @@ import iconData from './src/icon-data'
 import Icon from './src/Icon'
 
 Icon.install = function (Vue) {
-  Vue.component('td-icon', Icon)
+  Vue.component('nm-icon', Icon)
 }
 
 export default Icon

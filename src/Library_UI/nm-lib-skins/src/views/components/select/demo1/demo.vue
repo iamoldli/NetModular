@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         title: '简单下拉列表',
@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    queryOptions() {
+    queryOptions () {
       return new Promise(resolve => {
         resolve([{
           label: '南京',
@@ -47,7 +47,7 @@ export default {
         }])
       })
     },
-    submit() {
+    submit () {
       return new Promise(resolve => {
         resolve()
       })

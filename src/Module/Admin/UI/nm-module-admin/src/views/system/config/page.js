@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '系统配置'
   this.name = 'admin_system_config'
   this.path = '/admin/system/config'

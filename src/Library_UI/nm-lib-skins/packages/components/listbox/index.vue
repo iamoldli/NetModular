@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'Listbox',
-  data() {
+  data () {
     return {
       value_: this.value,
       resizeing: false
@@ -47,12 +47,12 @@ export default {
     noCount: Boolean
   },
   methods: {
-    remove(v) {
+    remove (v) {
       this.value_.splice(this.value_.findIndex(item => item.value === v), 1)
       this.$emit('input', this.value_)
       this.$emit('remove', v, this.value_)
     },
-    scrollbarResize() {
+    scrollbarResize () {
       if (!this.resizeing) {
         this.resizeing = true
         setTimeout(() => {
@@ -65,7 +65,7 @@ export default {
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       this.value_ = val
       this.scrollbarResize()
     }

@@ -7,6 +7,7 @@ module.exports = {
   devServer: {
     port: 6220
   },
+  publicPath: './',
   transpileDependencies: ['nm-lib-.*', 'element-ui'],
   configureWebpack: {
     resolve: {

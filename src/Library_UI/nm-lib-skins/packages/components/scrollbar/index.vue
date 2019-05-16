@@ -11,7 +11,7 @@ export default {
     horizontal: Boolean
   },
   methods: {
-    update() {
+    update () {
       this.$refs.bar.update()
     }
   }

@@ -115,7 +115,7 @@ const defaultColumnInfo = {
 export default {
   name: 'List',
   components: { QueryHeader, Querybar, QueryTable, QueryFooter },
-  data() {
+  data () {
     return {
       loading_: false,
       fullscreen: false,
@@ -196,12 +196,12 @@ export default {
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    class_() {
+    class_ () {
       return ['nm-list',
         this.fontSize ? `nm-list-${this.fontSize}` : '',
         this.fullscreen ? 'fullscreen' : '']
     },
-    querybar() {
+    querybar () {
       return {
         model: this.model,
         rules: this.rules,
@@ -211,13 +211,13 @@ export default {
         noSearchButtonIcon: this.noSearchButtonIcon
       }
     },
-    showLoading() {
+    showLoading () {
       return this.loading || this.loading_
     }
   },
   methods: {
     /** 查询方法 */
-    query() {
+    query () {
       if (this.loading_) { return }
 
       this.loading_ = true
@@ -236,12 +236,12 @@ export default {
       })
     },
     /** 刷新 */
-    refresh() {
+    refresh () {
       this.page.index = 1
       this.query()
     },
     /** 查询表单重置 */
-    reset(from) {
+    reset (from) {
       if (!from) {
         this.$refs.querybar.reset()
       } else {
@@ -250,11 +250,11 @@ export default {
       }
     },
     /** 获取序号 */
-    getNo(index) {
+    getNo (index) {
       return (this.page.index - 1) * this.page.size + index + 1
     }
   },
-  created() {
+  created () {
     if (this.queryOnCreated) {
       this.query()
     }

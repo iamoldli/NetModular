@@ -14,7 +14,7 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Details',
-  data() {
+  data () {
     return {
       /** 表单模型 */
       loading: {},
@@ -37,7 +37,7 @@ export default {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' })
   },
   methods: {
-    query() {
+    query () {
       this.loading = true
       this.action().then(model => {
         this.model = model
@@ -47,7 +47,7 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.$nextTick(() => {
       const labels = this.$refs.details.querySelectorAll('.nm-details-label')
       labels.forEach(element => {

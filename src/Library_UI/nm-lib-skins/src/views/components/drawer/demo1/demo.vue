@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer1: false,
       drawer2: false,

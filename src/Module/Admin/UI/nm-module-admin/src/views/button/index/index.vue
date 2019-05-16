@@ -1,9 +1,16 @@
 <template>
   <nm-list-dialog v-bind="dialog_" @open="onOpen" :visible.sync="visible_">
     <nm-list ref="list" v-bind="list">
-      <!--工具栏-->
-      <template v-slot:toolbar>
-        <nm-button text="同步" icon="refresh" @click="sync"/>
+      <!--查询条件-->
+      <template v-slot:querybar>
+        <el-form-item label="名称：" prop="name">
+          <el-input v-model="list.model.name" clearable/>
+        </el-form-item>
+      </template>
+
+      <!--按钮-->
+      <template v-slot:querybar-buttons>
+        <nm-button type="success" text="同步" icon="refresh" @click="sync"/>
       </template>
 
       <!--操作列-->
@@ -29,11 +36,8 @@ export default {
     return {
       list: {
         noHeader: true,
-        search: {
-          advanced: { enabled: false }
-        },
         action: api.query,
-        conditions: {
+        model: {
           menuId: '',
           name: ''
         },
@@ -74,7 +78,7 @@ export default {
       if (this.$refs.list) { this.$refs.list.refresh() }
     },
     sync () {
-      this._confirm('您确认要同步模块信息吗', '同步模块信息').then(() => {
+      this._confirm('您确认要同步按钮信息吗', '同步按钮信息').then(() => {
         const model = { menuId: this.menu.id, buttons: [] }
         this.buttons.map(item => {
           model.buttons.push({ name: item.text, code: item.code, icon: item.icon })
@@ -90,9 +94,9 @@ export default {
       this.dialog.perBind = true
     },
     onOpen () {
-      const hasChange = this.list.conditions.menuId !== this.menu.id
-      this.list.conditions.menuId = this.menu.id
-      if (this.list.conditions.menuId && hasChange) {
+      const hasChange = this.list.model.menuId !== this.menu.id
+      this.list.model.menuId = this.menu.id
+      if (this.list.model.menuId && hasChange) {
         this.refresh()
       }
     }

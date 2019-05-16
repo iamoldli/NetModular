@@ -1,3 +1,4 @@
+import token from './modules/token'
 export default {
   namespaced: true,
   state: {
@@ -9,5 +10,8 @@ export default {
     setCurrentMenu (state, menu) {
       state.currentMenu = menu
     }
+  },
+  modules: {
+    token
   }
 }

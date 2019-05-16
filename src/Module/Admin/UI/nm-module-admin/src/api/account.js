@@ -28,6 +28,7 @@ const login = async params => {
   if (data) {
     token.set(data)
   }
+  return data
 }
 
 /** 退出 */

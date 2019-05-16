@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '模块管理'
   this.name = 'admin_moduleinfo'
   this.path = '/admin/moduleinfo'

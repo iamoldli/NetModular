@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         header: true,
@@ -29,7 +29,7 @@ export default {
         rules: {
           name: [{ required: true, message: '请输入姓名' }]
         },
-        action() {
+        action () {
           return new Promise(resolve => {
             resolve()
           })

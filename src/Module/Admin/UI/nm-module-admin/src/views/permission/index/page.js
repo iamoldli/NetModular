@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '权限管理'
   this.name = 'admin_permission'
   this.path = '/admin/permission'

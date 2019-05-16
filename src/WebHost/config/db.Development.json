@@ -4,11 +4,17 @@
       //模块名称
       "Name": "Admin",
       //数据库名称
-      "Database": "Nm_Admin",
+      "Database": "Td_CodeGenerator_Admin",
       //数据库类型
       "Dialect": 0,
       //链接字符串
-      "ConnString": "Server=.;Database=Nm_Admin;Uid=sa;Pwd=oldli!@#123;MultipleActiveResultSets=true;"
+      "ConnString": "Server=.;Database=Td_CodeGenerator_Admin;Uid=sa;Pwd=oldli!@#123;MultipleActiveResultSets=true;"
+    },
+    {
+      "Name": "CodeGenerator",
+      "Database": "Td_CodeGenerator",
+      "Dialect": 0,
+      "ConnString": "Server=.;Database=Td_CodeGenerator;Uid=sa;Pwd=oldli!@#123;MultipleActiveResultSets=true;"
     }
   ]
 }

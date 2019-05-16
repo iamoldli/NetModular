@@ -7,7 +7,7 @@
 export default {
   name: '_iframe',
   computed: {
-    url() {
+    url () {
       return decodeURI(this.$route.params.url)
     }
   }

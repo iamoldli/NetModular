@@ -20,7 +20,7 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'MenuItem',
-  data() { return {} },
+  data () { return {} },
   props: {
     parentIndex: {
       type: String,
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     ...mapActions('app/dialog-menu', { dialogMenuOpen: 'open' }),
-    go(menu) {
+    go (menu) {
       // 1、站内路由 2、站外链接
       if (menu.type === 1) {
         this.openRoute(menu)
@@ -39,11 +39,11 @@ export default {
       }
     },
     // 打开路由菜单
-    openRoute(menu) {
+    openRoute (menu) {
       this.$router.push({ name: menu.routeName, params: { tn_: menu.name } })
     },
     // 打开链接菜单
-    openLink(menu) {
+    openLink (menu) {
       const target = menu.target
       if (!target || target === 0) {
         window.open(menu.url, '_blank')
@@ -64,7 +64,7 @@ export default {
         this.$router.push({ name: 'Iframe', params: { url: encodeURI(menu.url), tn_: menu.name } })
       }
     },
-    getIndex(index) {
+    getIndex (index) {
       if (this.parentIndex === 0) { return index + '' }
       return this.parentIndex + '-' + index
     }

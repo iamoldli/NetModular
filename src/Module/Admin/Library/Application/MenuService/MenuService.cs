@@ -118,8 +118,6 @@ namespace NetModular.Module.Admin.Application.MenuService
                     menu.Level = parentMenu.Level + 1;
                 }
 
-                menu.RouteName = menu.RouteName?.ToLower();
-
                 if (menu.Type == MenuType.Node)
                     menu.Target = MenuTarget.UnKnown;
 
@@ -192,7 +190,6 @@ namespace NetModular.Module.Admin.Application.MenuService
 
             entity = _mapper.Map(model, entity);
 
-            entity.RouteName = entity.RouteName.ToLower();
             var result = await _menuRepository.UpdateAsync(entity);
             return ResultModel.Result(result);
         }

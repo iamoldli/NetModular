@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       visible: false,
       drawer: {
@@ -26,10 +26,10 @@ export default {
   },
   props: ['code'],
   methods: {
-    onCBtnlick() {
+    onCBtnlick () {
       this.visible = !this.visible
     },
-    run() {
+    run () {
       window.addEventListener('message', this.receiveMessage, false)
       const runUrl = window.location.href.split('#')[0] + '#/run'
       const runWindow = window.open(runUrl, '_blank')
@@ -37,7 +37,7 @@ export default {
         runWindow.postMessage(this.code, runUrl)
       }, 300)
     },
-    receiveMessage(event) {
+    receiveMessage (event) {
       if (this.timer && event.origin === window.location.origin) {
         clearInterval(this.timer)
       }

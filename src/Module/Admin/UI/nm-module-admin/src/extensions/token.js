@@ -5,20 +5,20 @@ export default {
   /**
    * 获取令牌
    */
-  get () {
+  get() {
     return db.get(TokenKey)
   },
   /**
    * 设置令牌
    * @param {String} token 令牌
    */
-  set (token) {
+  set(token) {
     db.set(TokenKey, token)
   },
   /**
    * 删除令牌
    */
-  remove () {
+  remove() {
     db.set(TokenKey)
   }
 }

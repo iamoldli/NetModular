@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       show: false,
       dialog: {
@@ -52,7 +52,7 @@ export default {
     }
   },
   methods: {
-    query() {
+    query () {
       const rows = [{ id: 1, name: '张三', age: 22 }, { id: 2, name: '李四', age: 26 }, { id: 3, name: '王五', age: 26 }]
       return new Promise(resolve => {
         resolve({
@@ -61,8 +61,8 @@ export default {
         })
       })
     },
-    remove() { },
-    onSuccess() {
+    remove () { },
+    onSuccess () {
       this.query()
     }
   }

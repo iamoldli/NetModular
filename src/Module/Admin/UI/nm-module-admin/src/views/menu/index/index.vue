@@ -1,107 +1,103 @@
 <template>
-  <nm-split v-model="split">
-    <template v-slot:left>
-      <nm-box page header title="菜单树" type="success" icon="menu" :toolbar="null">
-        <menu-tree ref="tree" @select-change="onTreeSelectChange"/>
-      </nm-box>
-    </template>
-    <template v-slot:right>
-      <nm-list ref="list" :title="title" v-bind="list">
-        <!--查询条件-->
-        <template v-slot:querybar>
-          <el-row :gutter="20">
-            <el-col :span="11" :offset="1">
-              <el-form-item label="名称：" prop="name">
-                <el-input v-model="list.conditions.name" clearable/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="11">
-              <el-form-item label="编码：" prop="code">
-                <el-input v-model="list.conditions.code" clearable/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </template>
+  <nm-container>
+    <nm-split v-model="split">
+      <template v-slot:left>
+        <nm-box page header title="菜单树" type="success" icon="menu" :toolbar="null">
+          <menu-tree ref="tree" @select-change="onTreeSelectChange"/>
+        </nm-box>
+      </template>
+      <template v-slot:right>
+        <nm-list ref="list" :title="title" v-bind="list">
+          <!--查询条件-->
+          <template v-slot:querybar>
+            <el-form-item label="名称：" prop="name">
+              <el-input v-model="list.model.name" clearable/>
+            </el-form-item>
+            <el-form-item label="编码：" prop="code">
+              <el-input v-model="list.model.code" clearable/>
+            </el-form-item>
+          </template>
 
-        <!--按钮-->
-        <template v-slot:toolbar="{total}">
-          <nm-button @click="add(total)" icon="add" text="添加" v-nm-has="buttons.add"/>
-        </template>
+          <!--按钮-->
+          <template v-slot:querybar-buttons="{total}">
+            <nm-button type="success" @click="add(total)" icon="add" text="添加" v-nm-has="buttons.add"/>
+          </template>
 
-        <!--名称-->
-        <template v-slot:col-name="{row}">
-          <nm-button :text="row.name" @click="preview(row)" type="text"/>
-        </template>
+          <!--名称-->
+          <template v-slot:col-name="{row}">
+            <nm-button :text="row.name" @click="preview(row)" type="text"/>
+          </template>
 
-        <!--类型-->
-        <template v-slot:col-typeName="{row}">
-          <el-tag type="success" v-if="row.type===0">{{row.typeName}}</el-tag>
-          <el-tag type="warning" v-if="row.type===1">{{row.typeName}}</el-tag>
-          <el-tag v-if="row.type===2">{{row.typeName}}</el-tag>
-        </template>
+          <!--类型-->
+          <template v-slot:col-typeName="{row}">
+            <el-tag type="success" v-if="row.type===0">{{row.typeName}}</el-tag>
+            <el-tag type="warning" v-if="row.type===1">{{row.typeName}}</el-tag>
+            <el-tag v-if="row.type===2">{{row.typeName}}</el-tag>
+          </template>
 
-        <!--图标-->
-        <template v-slot:col-icon="{row}">
-          <el-tooltip :content="row.icon" effect="dark" placement="right" v-if="row.icon">
-            <label>
-              <nm-icon :name="row.icon" size="20px"/>
-            </label>
-          </el-tooltip>
-          <label v-else>无</label>
-        </template>
+          <!--图标-->
+          <template v-slot:col-icon="{row}">
+            <el-tooltip :content="row.icon" effect="dark" placement="right" v-if="row.icon">
+              <label>
+                <nm-icon :name="row.icon" size="20px"/>
+              </label>
+            </el-tooltip>
+            <label v-else>无</label>
+          </template>
 
-        <!--是否显示-->
-        <template v-slot:col-show="{row}">{{row.show?'是':'否'}}</template>
+          <!--是否显示-->
+          <template v-slot:col-show="{row}">{{row.show?'是':'否'}}</template>
 
-        <!--操作列-->
-        <template v-slot:col-operation="{row}">
-          <el-dropdown trigger="click">
-            <span class="el-dropdown-link">
-              操作
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
-              <el-dropdown-item>
-                <nm-button @click="edit(row)" icon="edit" text="编辑" type="text" v-nm-has="buttons.edit"/>
-              </el-dropdown-item>
-              <el-dropdown-item v-if="row.type===1">
-                <nm-button :id="row.id" @click="bindPermission(row)" icon="bind" text="权限" type="text" v-nm-has="buttons.bindPermission"/>
-              </el-dropdown-item>
-              <el-dropdown-item v-if="row.type===1">
-                <nm-button @click="bindButton(row)" icon="bind" text="按钮" type="text" v-nm-has="buttons.bindButton"/>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <nm-button-delete :action="remove" :id="row.id" @success="refresh(true)" v-nm-has="buttons.del"/>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
+          <!--操作列-->
+          <template v-slot:col-operation="{row}">
+            <el-dropdown trigger="click">
+              <span class="el-dropdown-link">
+                操作
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
+                <el-dropdown-item>
+                  <nm-button @click="edit(row)" icon="edit" text="编辑" type="text" v-nm-has="buttons.edit"/>
+                </el-dropdown-item>
+                <el-dropdown-item v-if="row.type===1">
+                  <nm-button :id="row.id" @click="bindPermission(row)" icon="bind" text="权限" type="text" v-nm-has="buttons.bindPermission"/>
+                </el-dropdown-item>
+                <el-dropdown-item v-if="row.type===1">
+                  <nm-button @click="bindButton(row)" icon="bind" text="按钮" type="text" v-nm-has="buttons.bindButton"/>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <nm-button-delete :action="remove" :id="row.id" @success="refresh(true)" v-nm-has="buttons.del"/>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </template>
+        </nm-list>
+      </template>
+    </nm-split>
 
-        <!--菜单详情-->
-        <details-page :id="currentMenu.id" :visible.sync="dialog.prev"/>
-        <!--添加菜单-->
-        <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)"/>
-        <!--编辑菜单-->
-        <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)"/>
-        <!--按钮绑定-->
-        <button-bind-page :menu="currentMenu" :visible.sync="dialog.btnBind"/>
-        <!--权限绑定-->
-        <permission-bind-page v-bind="currentMenu" :visible.sync="dialog.perBind"/>
-      </nm-list>
-    </template>
-  </nm-split>
+    <!--菜单详情-->
+    <details-page :id="currentMenu.id" :visible.sync="dialog.prev"/>
+    <!--添加菜单-->
+    <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)"/>
+    <!--编辑菜单-->
+    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)"/>
+    <!--按钮绑定-->
+    <button-bind-page :menu="currentMenu" :visible.sync="dialog.btnBind"/>
+    <!--权限绑定-->
+    <permission-bind-page v-bind="currentMenu" :visible.sync="dialog.perBind"/>
+  </nm-container>
 </template>
 <script>
 import { mapMutations } from 'vuex'
 import page from './page'
 import api from '../../../api/menu'
 import cols from './cols.js'
-import AddPage from '../add'
-import DetailsPage from '../details'
-import EditPage from '../edit'
+import AddPage from '../components/add'
+import DetailsPage from '../components/details'
+import EditPage from '../components/edit'
 import ButtonBindPage from '../../button/index'
-import PermissionBindPage from '../premission-bind'
-import MenuTree from '../tree'
+import PermissionBindPage from '../components/premission-bind'
+import MenuTree from '../components/tree'
 
 export default {
   name: page.name,
@@ -113,7 +109,7 @@ export default {
         cols,
         action: api.query,
         labelWidth: '60px',
-        conditions: {
+        model: {
           parentId: '',
           name: '',
           code: ''
@@ -150,7 +146,7 @@ export default {
   methods: {
     ...mapMutations('module/admin', ['setCurrentMenu']),
     refresh (refreshTree) {
-      this.list.conditions.parentId = this.menu.id
+      this.list.model.parentId = this.menu.id
       this.$refs.list.refresh()
       // 刷新菜单树
       if (refreshTree) { this.refreshTree() }

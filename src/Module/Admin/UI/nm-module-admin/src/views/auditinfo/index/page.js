@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '审计日志'
   this.name = 'admin_auditinfo'
   this.path = '/admin/auditinfo'

@@ -5,7 +5,7 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import BindPage from '../../permission/bind'
+import BindPage from '../../permission/components/bind'
 import api from '../../../api/button'
 export default {
   mixins: [mixins.dialog],

@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       template: '',
       show: false,
@@ -21,7 +21,7 @@ export default {
     }
   },
   methods: {
-    receiveMessage(event) {
+    receiveMessage (event) {
       if (typeof event.data === 'string') {
         this.template = event.data.replace('export default {', 'module.exports = {')
         this.show = true
@@ -30,11 +30,11 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     window.addEventListener('message', this.receiveMessage, false)
   },
   watch: {
-    slider(val) {
+    slider (val) {
       this.$refs.vuep.$el.querySelector('.vuep-editor').style.width = val + '%'
       this.$refs.vuep.$el.querySelector('.vuep-preview').style.width = 100 - val + '%'
     }

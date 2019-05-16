@@ -10,7 +10,7 @@ import methods from './data/methods'
 import events from './data/events.js'
 export default {
   name: page.name,
-  data() {
+  data () {
     return {
       tmpl: {
         title: '页表单(nm-form-page)',
@@ -21,7 +21,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.setTabName(this.tmpl.title)
   }
 }

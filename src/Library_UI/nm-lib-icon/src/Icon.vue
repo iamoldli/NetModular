@@ -1,5 +1,5 @@
 <template>
-  <svg class="td-icon" :class="iconClass" aria-hidden="true">
+  <svg class="nm-icon" :class="iconClass" aria-hidden="true">
     <use :xlink:href="Name"></use>
   </svg>
 </template>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style>
-.td-icon {
+.nm-icon {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;

@@ -9,7 +9,7 @@ import attrs from './data/attrs.js'
 import slots from './data/slots.js'
 export default {
   name: page.name,
-  data() {
+  data () {
     return {
       val: '',
       tmpl: {
@@ -20,7 +20,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.setTabName(this.tmpl.title)
   }
 }

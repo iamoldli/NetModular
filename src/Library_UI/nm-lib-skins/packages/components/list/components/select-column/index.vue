@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       checkAll: false,
       isIndeterminate: true,
@@ -29,24 +29,24 @@ export default {
   },
   props: ['columns'],
   methods: {
-    change() {
+    change () {
       let checkedCount = this.selection.length
       this.checkAll = checkedCount === this.columns_.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.columns_.length
       this.handleEvent()
     },
-    handleCheckAllChange(val) {
+    handleCheckAllChange (val) {
       this.selection = val ? this.columns_.map(item => item.name) : []
       this.isIndeterminate = false
       this.handleEvent()
     },
-    handleEvent() {
+    handleEvent () {
       this.columns_.map(col => {
         col.show = !this.selection.every(name => name !== col.name)
       })
       this.$emit('change', this.columns_)
     },
-    onVisible(visible) {
+    onVisible (visible) {
       this.visible = visible
     }
   }

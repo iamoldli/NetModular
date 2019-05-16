@@ -26,11 +26,6 @@
         public IModuleInitializer Initializer { get; set; }
 
         /// <summary>
-        /// 注释文档路径
-        /// </summary>
-        public string DocPath { get; set; }
-
-        /// <summary>
         /// 程序集信息
         /// </summary>
         public ModuleAssembliesInfo AssembliesInfo { get; set; }

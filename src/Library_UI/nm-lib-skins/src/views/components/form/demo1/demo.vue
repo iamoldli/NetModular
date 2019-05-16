@@ -49,7 +49,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer1: false,
       drawer2: false,
@@ -63,7 +63,7 @@ export default {
         rules: {
           name: [{ required: true, message: '请输入姓名' }]
         },
-        action() {
+        action () {
           return new Promise(resolve => {
             resolve()
           })
@@ -77,7 +77,7 @@ export default {
         rules: {
           name: [{ required: true, message: '请输入姓名' }]
         },
-        action() {
+        action () {
           return new Promise(resolve => {
             resolve()
           })

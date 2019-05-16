@@ -50,9 +50,6 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.bu
     <!--生成module.json文件，Note：项目需要生成两次，否则Nuget包中的文件不是最新的-->
     <WriteLinesToFile File=""$(ModulesDir)\module.json"" Overwrite=""true"" Lines=""$(ModuleInfo)"" />
     
-    <!--复制注释文档-->
-    <Copy SourceFiles=""$(OutputPath)\$(AssemblyName).xml"" DestinationFiles=""$(ModulesDir)\doc.xml"" />
-
   </Target>
 
 </Project>

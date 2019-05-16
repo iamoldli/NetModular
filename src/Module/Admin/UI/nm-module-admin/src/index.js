@@ -8,9 +8,14 @@ import admin from './module'
 
 // 要注册的全局组件列表
 let globalComponents = []
+
+// 回调方法列表
+let callbacks = []
+
 // 模块列表
-let modules = []
-// 设置状态，默认导入admin模块
+let modules = [admin]
+
+// 设置模块状态，默认导入admin模块
 const storeConfig = {
   modules: { module: { namespaced: true, modules: { admin: store } } }
 }
@@ -37,12 +42,22 @@ const injectStore = moduleInfo => {
 }
 
 /**
+ * @description 注入回调方法
+ * @param {Object} moduleInfo 模块信息
+ */
+const injectCallback = moduleInfo => {
+  if (moduleInfo.callback) {
+    callbacks.push(moduleInfo.callback)
+  }
+}
+/**
  * @description 注入模块
  */
 const injectModule = () => {
   modules.forEach(m => {
     injectRoutes(m)
     injectStore(m)
+    injectCallback(m)
 
     // 添加全局组件
     if (m.components) {
@@ -51,12 +66,35 @@ const injectModule = () => {
   })
 }
 
+/**
+ * @description 获取系统信息
+ */
+const getSystem = async () => {
+  // 获取系统信息
+  const system = await systemApi.getConfig()
+
+  // 模块列表
+  system.modules = modules
+
+  // 退出方法
+  system.logout = () => {
+    api.logout()
+    routerConfig.$router.push({ name: 'Login' })
+  }
+  // 查询登陆信息方法
+  system.getLoginInfo = api.getLoginInfo
+  // 修改密码方法
+  system.updatePassword = api.updatePassword
+
+  return system
+}
+
 export default {
   /**
    * @description 添加模块
    * @param {Object} moduleInfo 模块信息
    */
-  addModule (moduleInfo) {
+  addModule(moduleInfo) {
     if (moduleInfo) {
       modules.push(moduleInfo)
     }
@@ -64,29 +102,19 @@ export default {
   /**
    * @description 启动
    */
-  async start (config) {
+  async start(config) {
     // 接口请求地址
     http(config.baseUrl)
+
+    // 加载本地token
+    callbacks.push((vm, store, router) => {
+      store.dispatch('module/admin/token/load', null, { root: true })
+    })
 
     // 注入模块
     injectModule()
 
-    // 获取系统信息
-    const system = await systemApi.getConfig()
-
-    // 模块列表
-    system.modules = [admin]
-    modules.map(m => {
-      system.modules.push(m.module)
-    })
-
-    // 退出方法
-    system.logout = () => {
-      api.logout()
-      routerConfig.$router.push({ name: 'Login' })
-    }
-    // 修改密码
-    system.updatePassword = api.updatePassword
+    const system = await getSystem()
 
     // 设置个时间，防止等待页面闪烁
     setTimeout(() => {
@@ -94,7 +122,8 @@ export default {
         system,
         routerConfig,
         storeConfig,
-        globalComponents
+        globalComponents,
+        callbacks
       })
     }, 1000)
   }

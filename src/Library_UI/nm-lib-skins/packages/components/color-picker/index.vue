@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'ColorPicker',
-  data() {
+  data () {
     return {
       color: this.value
     }
@@ -48,13 +48,13 @@ export default {
     predefine: Array
   },
   methods: {
-    onChange(val) {
+    onChange (val) {
       this.$emit('input', val)
       this.$emit('change', val)
     }
   },
   watch: {
-    value() {
+    value () {
       this.color = this.value
     }
   }
