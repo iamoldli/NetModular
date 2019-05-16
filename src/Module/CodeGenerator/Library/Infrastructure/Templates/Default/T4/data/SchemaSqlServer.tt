@@ -5,11 +5,13 @@
 <# foreach(var c in _model.Project.ClassList){ #>
 /**************************<#= c.Remarks #>*****************************/
 CREATE TABLE [dbo].[<#= c.TableName #>](
-<# foreach(var p in c.PropertyList){ #>
-    [<#= p.Name #>] <#= Property2Column(p) #> <#= p.IsPrimaryKey ? "PRIMARY KEY" : "" #> <#= p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "IDENTITY(1,1)" : "" #> <#= p.Nullable ? "":"NOT NULL" #>,
-<#} #>
+<# for(var i = 0;i < c.PropertyList.Count;i++){ #>
+<# var p = c.PropertyList[i]; #>
+    [<#= p.Name #>] <#= Property2Column(p) #> <#= p.IsPrimaryKey ? "PRIMARY KEY" : "" #> <#= p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "IDENTITY(1,1)" : "" #> <#= p.Nullable ? "":"NOT NULL" #><#= i<c.PropertyList.Count-1?",":"" #>
+<#            } #>
 )
 GO
+
 <# foreach(var p in c.PropertyList){ #>
 <# if(p.Type == PropertyType.DateTime){ #>
 ALTER TABLE [dbo].[<#= c.TableName #>] ADD CONSTRAINT [DF_<#= c.TableName #>_<#= p.Name #>]  DEFAULT (GETDATE()) FOR [<#= p.Name #>]

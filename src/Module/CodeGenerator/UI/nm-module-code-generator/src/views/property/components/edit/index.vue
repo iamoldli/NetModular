@@ -17,18 +17,33 @@
         <el-form-item v-show="showPrecision" label="精度：" prop="precision">
           <el-input v-model.number="form.model.precision"/>
         </el-form-item>
-        <el-form-item v-show="showPrecision" label="刻度：" prop="scale">
+        <el-form-item v-show="showScale" label="刻度：" prop="scale">
           <el-input v-model.number="form.model.scale"/>
         </el-form-item>
         <el-form-item v-show="showEnum" label="枚举：" prop="enumId">
           <enum-select v-model="form.model.enumId"/>
         </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="6" :offset="1">
         <el-form-item label="可空：" prop="nullable">
           <el-switch v-model="form.model.nullable"/>
         </el-form-item>
+      </el-col>
+      <el-col :span="7">
         <el-form-item label="列表显示：" prop="showInList">
           <el-switch v-model="form.model.showInList"/>
         </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item label="包含默认值：" prop="hasDefaultValue">
+          <el-switch v-model="form.model.hasDefaultValue"/>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="20" :offset="1">
         <el-form-item label="备注：" prop="remarks">
           <el-input v-model="form.model.remarks"/>
         </el-form-item>
@@ -48,7 +63,7 @@ import EnumSelect from '../../../enum/components/select'
 export default {
   mixins: [mixins.formDialogEdit],
   components: { TypeSelect, EnumSelect },
-  data () {
+  data() {
     // 验证字符串长度
     const validateLength = (rule, value, callback) => {
       if (this.showLength) {
@@ -123,7 +138,8 @@ export default {
           nullable: false,
           remarks: '',
           sort: 0,
-          showInList: true
+          showInList: true,
+          hasDefaultValue: false
         },
         rules: {
           classId: [
@@ -152,23 +168,23 @@ export default {
     }
   },
   computed: {
-    showLength () {
+    showLength() {
       return this.form.model.type === 0
     },
-    showPrecision () {
+    showPrecision() {
       return this.form.model.type > 4 && this.form.model.type < 8
     },
-    showEnum () {
+    showEnum() {
       return this.form.model.type === 11
     }
   },
   methods: {
-    getEnumSelect () {
+    getEnumSelect() {
       return enumApi.select()
     }
   },
   watch: {
-    'form.model.type' () {
+    'form.model.type'() {
       if (!this.showLength) {
         this.form.model.length = 0
       }

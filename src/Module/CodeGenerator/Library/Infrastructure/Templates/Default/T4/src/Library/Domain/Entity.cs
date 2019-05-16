@@ -7,13 +7,9 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.CodeGenerator.Domain.Property;
-
 namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
 {
-    using NetModular.Lib.Utils.Core.Extensions;
+    using NetModular.Lib.Utils.Extensions;
     using NetModular.Module.CodeGenerator.Domain.Property;
     using System;
     
@@ -97,32 +93,39 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             this.Write("\r\n    {\r\n");
             
             #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
-  foreach(var property in _propertyList){ if(property.IsInherit) continue;
+  foreach(var p in _propertyList){ if(p.IsInherit) continue;
             
             #line default
             #line hidden
             this.Write("        /// <summary>\r\n        /// ");
             
             #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Remarks));
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
             this.Write("\r\n        /// </summary>\r\n        public ");
             
             #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Type == PropertyType.Enum ? property.Enum.Name : property.Type.ToDescription()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Type == PropertyType.Enum ? p.Enum.Name : p.Type.ToDescription()));
             
             #line default
             #line hidden
             this.Write(" ");
             
             #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
-            this.Write(" { get; set; }\r\n\r\n");
+            this.Write(" { get; set; }");
+            
+            #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetDefaultValue(p)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\r\n");
             
             #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
  } 

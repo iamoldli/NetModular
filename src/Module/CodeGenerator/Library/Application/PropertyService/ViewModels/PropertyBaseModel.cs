@@ -58,5 +58,10 @@ namespace NetModular.Module.CodeGenerator.Application.PropertyService.ViewModels
         /// 是否在列表页中显示
         /// </summary>
         public bool ShowInList { get; set; }
+
+        /// <summary>
+        /// 启用默认值
+        /// </summary>
+        public bool HasDefaultValue { get; set; }
     }
 }

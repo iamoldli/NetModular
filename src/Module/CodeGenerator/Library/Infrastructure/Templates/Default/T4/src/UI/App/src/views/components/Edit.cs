@@ -47,7 +47,7 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             
             #line default
             #line hidden
-            this.Write("\">\r\n          <el-input v-model=\"list.model.");
+            this.Write("\">\r\n          <el-input v-model=\"form.model.");
             
             #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Edit.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));

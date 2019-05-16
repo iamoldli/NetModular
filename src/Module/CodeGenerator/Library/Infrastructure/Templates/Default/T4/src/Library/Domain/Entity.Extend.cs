@@ -73,5 +73,23 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
                 }
             }
         }
+
+
+        /// <summary>
+        /// 获取默认值
+        /// </summary>
+        /// <returns></returns>
+        public string GetDefaultValue(PropertyBuildModel property)
+        {
+            if (!property.HasDefaultValue)
+                return string.Empty;
+
+            if (property.Type == PropertyType.DateTime)
+                return " = DateTime.Now;";
+            if (property.Type == PropertyType.String)
+                return " = string.Empty;";
+
+            return string.Empty;
+        }
     }
 }

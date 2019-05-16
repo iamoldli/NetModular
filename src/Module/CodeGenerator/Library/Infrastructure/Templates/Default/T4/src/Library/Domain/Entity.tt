@@ -13,11 +13,11 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Nam
     [Table("<#= _class.TableName #>")]
     public partial class <#= _class.Name #>Entity : <#= _baseEntityName #>
     {
-<#  foreach(var property in _propertyList){ if(property.IsInherit) continue;#>
+<#  foreach(var p in _propertyList){ if(p.IsInherit) continue;#>
         /// <summary>
-        /// <#= property.Remarks #>
+        /// <#= p.Remarks #>
         /// </summary>
-        public <#= property.Type == PropertyType.Enum ? property.Enum.Name : property.Type.ToDescription() #> <#= property.Name #> { get; set; }
+        public <#= p.Type == PropertyType.Enum ? p.Enum.Name : p.Type.ToDescription() #> <#= p.Name #> { get; set; }<#= GetDefaultValue(p) #>
 
 <# } #>
     }

@@ -7,17 +7,19 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
+namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
+    using System.Linq;
+    using NetModular.Module.CodeGenerator.Domain.Property;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class Add : AddBase
+    public partial class SchemaMySql : SchemaMySqlBase
     {
 #line hidden
         /// <summary>
@@ -25,123 +27,116 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<template>\r\n  <td-form-dialog ref=\"form\" v-bind=\"form\" v-on=\"on\" :visible.sync=\"v" +
-                    "isible_\">\r\n    <el-row>\r\n      <el-col :span=\"20\" :offset=\"1\">\r\n");
+            this.Write("\r\n");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-    foreach(var p in _class.AddModelPropertyList){ 
+            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             
             #line default
             #line hidden
-            this.Write("        <el-form-item label=\"");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+ foreach(var c in _model.Project.ClassList){ 
+            
+            #line default
+            #line hidden
+            this.Write("-- ----------------------------\r\n-- ");
+            
+            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(c.Remarks));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n-- ----------------------------\r\nCREATE TABLE `");
+            
+            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(c.Name));
+            
+            #line default
+            #line hidden
+            this.Write("`  (\r\n");
+            
+            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+ for(var i = 0;i < c.PropertyList.Count;i++){ 
+            
+            #line default
+            #line hidden
+            
+            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+ var p = c.PropertyList[i]; 
+            
+            #line default
+            #line hidden
+            this.Write("  `");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
+            
+            #line default
+            #line hidden
+            this.Write("` ");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Property2Column(p)));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey ? "PRIMARY KEY" : ""));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Nullable ? "":"NOT NULL"));
+            
+            #line default
+            #line hidden
+            this.Write("  ");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "AUTO_INCREMENT" : ""));
+            
+            #line default
+            #line hidden
+            this.Write(" COMMENT \'");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
-            this.Write("：\" prop=\"");
+            this.Write("\'");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
-            
-            #line default
-            #line hidden
-            this.Write("\">\r\n          <el-input v-model=\"form.model.");
-            
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
-            
-            #line default
-            #line hidden
-            this.Write("\" clearable/>\r\n        </el-form-item>\r\n");
-            
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-    } 
-            
-            #line default
-            #line hidden
-            this.Write("      </el-col>\r\n    </el-row>\r\n  </td-form-dialog>\r\n</template>\r\n<script>\r\nimpor" +
-                    "t api from \'../../../../api/");
-            
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\'\r\nimport { mixins } from \'");
-            
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix.ToLower()));
-            
-            #line default
-            #line hidden
-            this.Write("-lib-skins\'\r\nexport default {\r\n  mixins: [mixins.dialog],\r\n  data () {\r\n    retur" +
-                    "n {\r\n      form: {\r\n        title: \'添加");
-            
-            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Remarks));
-            
-            #line default
-            #line hidden
-            this.Write("\',\r\n        icon: \'add\',\r\n        action: api.add,\r\n        model: {\r\n");
-            
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-    for(var i = 0;i < _class.AddModelPropertyList.Count;i++){ var p=_class.AddModelPropertyList[i]; 
-            
-            #line default
-            #line hidden
-            this.Write("          /** ");
-            
-            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
-            
-            #line default
-            #line hidden
-            this.Write(" */\r\n          ");
-            
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
-            
-            #line default
-            #line hidden
-            this.Write(": \'\'");
-            
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(i < _class.AddModelPropertyList.Count-1 ? "," : ""));
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(i<c.PropertyList.Count-1?",":""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-    } 
+            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+} 
             
             #line default
             #line hidden
-            this.Write(@"        },
-        rules: {
-        }
-      },
-      on: {
-        success: this.onSuccess,
-        open: this.onOpen
-      }
-    }
-  },
-  methods: {
-    onSuccess () {
-      this.$emit('success')
-    },
-    onOpen () {
-      this.$nextTick(() => {
-        this.$refs.form.reset()
-      })
-    }
-  }
-}
-</script>
-");
+            this.Write(") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT" +
+                    " = Dynamic;\r\n\r\n");
+            
+            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+} 
+            
+            #line default
+            #line hidden
+            
+            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
+} 
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -153,7 +148,7 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class AddBase
+    public class SchemaMySqlBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

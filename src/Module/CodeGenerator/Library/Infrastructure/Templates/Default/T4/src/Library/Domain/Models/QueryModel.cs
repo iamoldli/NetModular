@@ -7,13 +7,9 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.CodeGenerator.Domain.Property;
-
 namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
 {
-    using NetModular.Lib.Utils.Core.Extensions;
+    using NetModular.Lib.Utils.Extensions;
     using NetModular.Module.CodeGenerator.Domain.Property;
     using System;
     
@@ -89,7 +85,7 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             #line hidden
             
             #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Models\QueryModel.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Nullable && property.Type == PropertyType.String ? "?" : ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Nullable && property.Type != PropertyType.String ? "?" : ""));
             
             #line default
             #line hidden

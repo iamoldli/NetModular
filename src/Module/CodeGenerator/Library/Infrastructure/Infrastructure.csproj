@@ -14,6 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Templates\Default\T4\data\SchemaSQLite.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SchemaSQLite.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Default\T4\data\SchemaMySql.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SchemaMySql.cs</LastGenOutput>
+    </None>
     <None Update="Templates\Default\T4\src\UI\App\src\Module.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Module.cs</LastGenOutput>
@@ -624,18 +632,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Module.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Templates\Default\T4\build\WebBuildTargets.cs">
+    <Compile Update="Templates\Default\T4\data\SchemaMySql.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WebBuildTargets.tt</DependentUpon>
+      <DependentUpon>SchemaMySql.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\Web\Csproj.cs">
+    <Compile Update="Templates\Default\T4\data\SchemaSQLite.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Csproj.tt</DependentUpon>
+      <DependentUpon>SchemaSQLite.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

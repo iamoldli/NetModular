@@ -64,6 +64,11 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Models
         public bool ShowInList { get; set; }
 
         /// <summary>
+        /// 启用默认值
+        /// </summary>
+        public bool HasDefaultValue { get; set; }
+
+        /// <summary>
         /// 小驼峰名称
         /// </summary>
         public string CamelName => Name.First().ToString().ToLower() + Name.Substring(1);

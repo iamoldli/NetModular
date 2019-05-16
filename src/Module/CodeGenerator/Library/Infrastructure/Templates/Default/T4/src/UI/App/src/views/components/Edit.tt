@@ -5,7 +5,7 @@
       <el-col :span="20" :offset="1">
 <#    foreach(var p in _class.EditModelPropertyList){ #>
         <el-form-item label="<#= p.Remarks #>：" prop="<#= p.CamelName #>">
-          <el-input v-model="list.model.<#= p.CamelName #>" clearable/>
+          <el-input v-model="form.model.<#= p.CamelName #>" clearable/>
         </el-form-item>
 <#    } #>
       </el-col>

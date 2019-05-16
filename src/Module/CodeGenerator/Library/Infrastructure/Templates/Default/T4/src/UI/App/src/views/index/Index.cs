@@ -84,14 +84,13 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
     <add-page :visible.sync=""dialog.add"" @success=""refresh""/>
     <!--±à¼­-->
     <edit-page :id=""curr.id"" :visible.sync=""dialog.edit"" @success=""refresh""/>
-    <!--Àà¹ÜÀí-->
-    <class-page :project=""curr"" :visible.sync=""dialog.class""/>
+
   </td-container>
 </template>
 <script>
 import api from '../../../api/");
             
-            #line 40 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 39 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
@@ -115,35 +114,35 @@ export default {
         model: {
 ");
             
-            #line 57 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 56 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
     for(var i=0;i<_class.QueryModelPropertyList.Count;i++){ var p=_class.QueryModelPropertyList[i]; 
             
             #line default
             #line hidden
             this.Write("          /** ");
             
-            #line 58 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 57 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
             this.Write(" */\r\n          ");
             
-            #line 59 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 58 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
             
             #line default
             #line hidden
             this.Write(": \'\'");
             
-            #line 59 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 58 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i < _class.QueryModelPropertyList.Count-1 ? "," : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 60 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
+            #line 59 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
     } 
             
             #line default

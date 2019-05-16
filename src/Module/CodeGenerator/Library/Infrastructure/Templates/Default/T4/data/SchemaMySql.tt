@@ -1,0 +1,18 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Td.Module.CodeGenerator.Domain.Property" #>
+
+<#if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {#>
+<# foreach(var c in _model.Project.ClassList){ #>
+-- ----------------------------
+-- <#= c.Remarks #>
+-- ----------------------------
+CREATE TABLE `<#= c.Name #>`  (
+<# for(var i = 0;i < c.PropertyList.Count;i++){ #>
+<# var p = c.PropertyList[i]; #>
+  `<#= p.Name #>` <#= Property2Column(p) #> <#= p.IsPrimaryKey ? "PRIMARY KEY" : "" #> <#= p.Nullable ? "":"NOT NULL" #>  <#= p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "AUTO_INCREMENT" : "" #> COMMENT '<#= p.Remarks #>'<#= i<c.PropertyList.Count-1?",":"" #>
+<#} #>
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+<#} #>
+<#} #>

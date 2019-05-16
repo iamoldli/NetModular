@@ -32,8 +32,7 @@
     <add-page :visible.sync="dialog.add" @success="refresh"/>
     <!--编辑-->
     <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
-    <!--类管理-->
-    <class-page :project="curr" :visible.sync="dialog.class"/>
+
   </td-container>
 </template>
 <script>
