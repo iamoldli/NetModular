@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using NetModular.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Enums;
 
-namespace NetModular.Lib.Data.Abstractions.Options
+namespace Nm.Lib.Data.Abstractions.Options
 {
     public class DbConnectionOptions
     {

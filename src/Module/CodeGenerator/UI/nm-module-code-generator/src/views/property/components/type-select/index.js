@@ -18,9 +18,9 @@ const options = typeArr.map(item => {
 })
 export default {
   mixins: [mixins.select],
-  data() {
+  data () {
     return {
-      action() {
+      action () {
         return new Promise(resolve => {
           resolve(options)
         })

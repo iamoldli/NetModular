@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.RoleService;
-using NetModular.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.RoleService;
+using Nm.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Module.Admin.Domain.Role.Models;
 
-namespace NetModular.Module.Admin.Web.Controllers
+namespace Nm.Module.Admin.Web.Controllers
 {
     [Description("角色管理")]
     public class RoleController : ModuleController

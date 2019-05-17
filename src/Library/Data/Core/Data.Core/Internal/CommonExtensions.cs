@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Data.Core.Internal
+namespace Nm.Lib.Data.Core.Internal
 {
     /// <summary>
     /// 通用扩展方法

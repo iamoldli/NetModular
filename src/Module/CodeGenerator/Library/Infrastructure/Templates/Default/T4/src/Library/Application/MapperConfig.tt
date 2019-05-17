@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" #>
 using AutoMapper;
-using <#= _prefix #>.Lib.Mapper;
+using <#= _prefix #>.Lib.Mapper.AutoMapper;
 using <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service.ViewModels;
 using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
 

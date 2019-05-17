@@ -1,7 +1,7 @@
 const isDev = process.env.NODE_ENV !== 'production'
 
 const config = {
-  baseUrl: 'http://localhost:6221/api/'
+  baseUrl: ''
 }
 
 // 开发模式

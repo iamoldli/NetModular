@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
     public partial class db : ITemplateHandler
     {

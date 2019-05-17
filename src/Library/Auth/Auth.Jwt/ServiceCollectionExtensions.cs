@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Utils.Core.Helpers;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Utils.Core.Helpers;
 
-namespace NetModular.Lib.Auth.Jwt
+namespace Nm.Lib.Auth.Jwt
 {
     public static class ServiceCollectionExtensions
     {

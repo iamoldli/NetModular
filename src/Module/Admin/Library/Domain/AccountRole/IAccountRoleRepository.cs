@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Domain.AccountRole
+namespace Nm.Module.Admin.Domain.AccountRole
 {
     /// <summary>
     /// 账户角色关联仓储

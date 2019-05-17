@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace NetModular.Lib.Swagger.Conventions
+namespace Nm.Lib.Swagger.Conventions
 {
     /// <summary>
     /// API分组约定

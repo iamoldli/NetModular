@@ -1,8 +1,8 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities;
 
-namespace NetModular.Module.CodeGenerator.Domain.EnumItem
+namespace Nm.Module.CodeGenerator.Domain.EnumItem
 {
     /// <summary>
     /// 枚举项实体

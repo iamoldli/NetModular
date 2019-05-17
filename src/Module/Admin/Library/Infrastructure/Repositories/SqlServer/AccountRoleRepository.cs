@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Core;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Domain.RoleMenu;
+using Nm.Module.Admin.Domain.RoleMenuButton;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AccountRoleRepository : RepositoryAbstract<AccountRoleEntity>, IAccountRoleRepository
     {

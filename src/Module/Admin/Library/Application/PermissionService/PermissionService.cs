@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.PermissionService.ViewModels;
-using NetModular.Module.Admin.Domain.ButtonPermission;
-using NetModular.Module.Admin.Domain.MenuPermission;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Domain.ButtonPermission;
+using Nm.Module.Admin.Domain.MenuPermission;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Domain.Permission.Models;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.PermissionService
+namespace Nm.Module.Admin.Application.PermissionService
 {
     public class PermissionService : IPermissionService
     {
@@ -30,10 +29,11 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
         public async Task<IResultModel> Query(PermissionQueryModel model)
         {
-            var queryResult = new QueryResultModel<PermissionEntity>();
-            var paging = model.Paging();
-            queryResult.Rows = await _permissionRepository.Query(paging, model.ModuleCode, model.Name, model.Controller, model.Action);
-            queryResult.Total = paging.TotalCount;
+            var queryResult = new QueryResultModel<PermissionEntity>
+            {
+                Rows = await _permissionRepository.Query(model),
+                Total = model.TotalCount
+            };
 
             return ResultModel.Success(queryResult);
         }

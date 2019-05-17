@@ -1,7 +1,7 @@
 <#@ template language="C#" #>
 <template>
-  <td-container>
-    <td-list ref="list" v-bind="list">
+  <<#= _prefix #>-container>
+    <<#= _prefix #>-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
 <#    foreach(var p in _class.QueryModelPropertyList){ #>
@@ -13,27 +13,26 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <td-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-td-has="buttons.add"/>
+        <<#= _prefix #>-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-<#= _prefix #>-has="buttons.add"/>
       </template>
 
       <!--自定义列-->
       <!-- <template v-slot:col-name="{row}">
-        <td-button :text="row.name" type="text" />
+        <<#= _prefix #>-button :text="row.name" type="text" />
       </template> -->
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <td-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-td-has="buttons.edit"/>
-        <td-button-delete :id="row.id" :action="removeAction" @success="refresh" v-td-has="buttons.del"/>
+        <<#= _prefix #>-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-<#= _prefix #>-has="buttons.edit"/>
+        <<#= _prefix #>-button-delete :id="row.id" :action="removeAction" @success="refresh" v-<#= _prefix #>-has="buttons.del"/>
       </template>
-    </td-list>
+    </<#= _prefix #>-list>
 
     <!--添加-->
     <add-page :visible.sync="dialog.add" @success="refresh"/>
     <!--编辑-->
     <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
-
-  </td-container>
+  </<#= _prefix #>-container>
 </template>
 <script>
 import api from '../../../api/<#= _class.Name #>'

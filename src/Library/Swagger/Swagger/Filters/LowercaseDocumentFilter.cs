@@ -2,7 +2,7 @@
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace NetModular.Lib.Swagger.Filters
+namespace Nm.Lib.Swagger.Filters
 {
     /// <summary>
     /// 把接口地址转换为小写

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.Entities;
 
-namespace NetModular.Lib.Data.Abstractions
+namespace Nm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 泛型仓储接口

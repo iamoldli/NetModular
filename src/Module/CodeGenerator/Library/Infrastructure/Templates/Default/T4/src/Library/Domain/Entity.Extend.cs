@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
 {
     public partial class Entity : ITemplateHandler
     {
@@ -73,7 +73,6 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
                 }
             }
         }
-
 
         /// <summary>
         /// 获取默认值

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
+namespace Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
 {
     public class ModelPropertyAddModel : ModelPropertyBaseModel
     {

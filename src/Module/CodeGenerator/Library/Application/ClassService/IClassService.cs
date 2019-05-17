@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.ClassService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Class.Models;
 
-namespace NetModular.Module.CodeGenerator.Application.ClassService
+namespace Nm.Module.CodeGenerator.Application.ClassService
 {
     /// <summary>
     /// 类服务

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using NetModular.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Enums;
 
-namespace NetModular.Lib.Data.Abstractions
+namespace Nm.Lib.Data.Abstractions
 {
     public interface ISqlAdapter
     {

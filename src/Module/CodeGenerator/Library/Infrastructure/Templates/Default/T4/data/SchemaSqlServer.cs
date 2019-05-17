@@ -7,10 +7,12 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+
+using Nm.Module.CodeGenerator.Domain.Property;
+
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     using System.Linq;
-    using NetModular.Module.CodeGenerator.Domain.Property;
     using System;
     
     /// <summary>
@@ -114,48 +116,54 @@ if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             
             #line default
             #line hidden
-            this.Write(")\r\nGO\r\n\r\n");
+            this.Write(")\r\nGO\r\n");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
  foreach(var p in c.PropertyList){ 
             
             #line default
             #line hidden
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
  if(p.Type == PropertyType.DateTime){ 
             
             #line default
             #line hidden
             this.Write("ALTER TABLE [dbo].[");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("] ADD CONSTRAINT [DF_");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("_");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("]  DEFAULT (GETDATE()) FOR [");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("]\r\nGO\r\n\r\n");
+            
+            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+} 
+            
+            #line default
+            #line hidden
             
             #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
 } 
@@ -164,19 +172,13 @@ if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             #line hidden
             
             #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
-} 
-            
-            #line default
-            #line hidden
-            
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
  foreach(var p in c.PropertyList){ 
             
             #line default
             #line hidden
             this.Write("EXEC sys.sp_addextendedproperty @name=N\'MS_Description\', @value=N\'");
             
-            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
@@ -184,34 +186,34 @@ if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             this.Write("\' , @level0type=N\'SCHEMA\',@level0name=N\'dbo\', @level1type=N\'TABLE\',@level1name=N\'" +
                     "");
             
-            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("\', @level2type=N\'COLUMN\',@level2name=N\'");
             
-            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("\'\r\nGO\r\n");
             
-            #line 25 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
+            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSqlServer.tt"
 } 
             
             #line default

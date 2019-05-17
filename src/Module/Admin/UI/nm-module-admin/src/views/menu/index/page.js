@@ -23,6 +23,10 @@ const page = new function() {
     bindButton: {
       text: '绑定按钮',
       code: `${this.name}_bind_button`
+    },
+    sort: {
+      text: '排序',
+      code: `${this.name}_sort`
     }
   }
 }()

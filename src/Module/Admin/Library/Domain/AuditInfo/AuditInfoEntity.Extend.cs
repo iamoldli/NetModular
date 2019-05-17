@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
 
-namespace NetModular.Module.Admin.Domain.AuditInfo
+namespace Nm.Module.Admin.Domain.AuditInfo
 {
     public partial class AuditInfoEntity
     {

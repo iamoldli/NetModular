@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.WebHost.Core.Options
+﻿namespace Nm.Lib.WebHost.Core.Options
 {
     /// <summary>
     /// 主机配置项

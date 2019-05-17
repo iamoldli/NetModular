@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NetModular.Module.Admin.Domain.Permission
+namespace Nm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 请求方法类型

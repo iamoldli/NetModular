@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NetModular.Lib.Data.Abstractions.Entities
+namespace Nm.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 实体的SQL语句

@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using <#= _prefix #>.Lib.Utils.Result;
+using <#= _prefix #>.Lib.Utils.Core.Result;
 using <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _class.Name #>Service.ViewModels;
 using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>;
 using <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>.Models;

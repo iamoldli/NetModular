@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.ModelProperty.Models;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
 
-namespace NetModular.Module.CodeGenerator.Application.ModelPropertyService
+namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
 {
     public interface IModelPropertyService
     {

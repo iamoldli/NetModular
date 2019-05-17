@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using NetModular.Lib.Mapper.AutoMapper;
-using NetModular.Module.Admin.Application.RoleService.ViewModels;
-using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
+using Nm.Lib.Mapper.AutoMapper;
+using Nm.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Domain.RoleMenuButton;
 
-namespace NetModular.Module.Admin.Application.RoleService
+namespace Nm.Module.Admin.Application.RoleService
 {
     public class MapperConfig : IMapperConfig
     {

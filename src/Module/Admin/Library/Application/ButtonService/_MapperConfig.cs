@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using NetModular.Lib.Mapper.AutoMapper;
+using Nm.Lib.Mapper.AutoMapper;
 
-namespace NetModular.Module.Admin.Application.ButtonService
+namespace Nm.Module.Admin.Application.ButtonService
 {
     public class MapperConfig : IMapperConfig
     {

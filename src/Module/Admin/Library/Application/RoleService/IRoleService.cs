@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Module.Admin.Domain.Role.Models;
 
-namespace NetModular.Module.Admin.Application.RoleService
+namespace Nm.Module.Admin.Application.RoleService
 {
     public interface IRoleService
     {

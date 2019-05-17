@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Domain.Config
+namespace Nm.Module.Admin.Domain.Config
 {
     /// <summary>
     /// 配置项仓储

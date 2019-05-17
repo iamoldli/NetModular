@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Auth.Abstractions.Attributes
+namespace Nm.Lib.Auth.Abstractions.Attributes
 {
     /// <summary>
     /// 通用权限(只要登录即可访问，不需要授权)

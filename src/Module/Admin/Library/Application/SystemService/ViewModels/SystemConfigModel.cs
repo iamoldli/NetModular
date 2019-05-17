@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.Admin.Application.SystemService.ViewModels
+namespace Nm.Module.Admin.Application.SystemService.ViewModels
 {
     public class SystemConfigModel
     {

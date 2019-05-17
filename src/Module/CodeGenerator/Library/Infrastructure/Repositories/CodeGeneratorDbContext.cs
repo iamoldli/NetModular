@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Core;
+﻿using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Repositories
+namespace Nm.Module.CodeGenerator.Infrastructure.Repositories
 {
     public class CodeGeneratorDbContext : DbContext
     {

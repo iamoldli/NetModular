@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Class;
-using NetModular.Module.CodeGenerator.Domain.ModelProperty;
-using NetModular.Module.CodeGenerator.Domain.ModelProperty.Models;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
-namespace NetModular.Module.CodeGenerator.Application.ModelPropertyService
+namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
 {
     public class ModelPropertyService : IModelPropertyService
     {

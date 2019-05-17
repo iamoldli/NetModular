@@ -5,12 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Data.Core.Internal;
-using NetModular.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace NetModular.Lib.Data.Core.ExpressionResolve
+namespace Nm.Lib.Data.Core.ExpressionResolve
 {
     internal class ExpressionResolver
     {

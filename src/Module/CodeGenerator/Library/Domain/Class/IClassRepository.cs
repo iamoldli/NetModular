@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.CodeGenerator.Domain.Class.Models;
 
-namespace NetModular.Module.CodeGenerator.Domain.Class
+namespace Nm.Module.CodeGenerator.Domain.Class
 {
     /// <summary>
     /// 实体信息仓储

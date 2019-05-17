@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Application.MenuService.ResultModels;
-using NetModular.Module.Admin.Application.MenuService.ViewModels;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Button;
-using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Domain.MenuPermission;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService;
+using Nm.Module.Admin.Application.MenuService.ResultModels;
+using Nm.Module.Admin.Application.MenuService.ViewModels;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Menu.Models;
+using Nm.Module.Admin.Domain.MenuPermission;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Domain.RoleMenu;
+using Nm.Module.Admin.Domain.RoleMenuButton;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.MenuService
+namespace Nm.Module.Admin.Application.MenuService
 {
     public class MenuService : IMenuService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork<AdminDbContext> _uow;
+        private readonly IUnitOfWork _uow;
         private readonly IMenuRepository _menuRepository;
         private readonly IMenuPermissionRepository _menuPermissionRepository;
         private readonly IRoleMenuRepository _roleMenuRepository;
@@ -196,22 +197,13 @@ namespace NetModular.Module.Admin.Application.MenuService
 
         public async Task<IResultModel> Query(MenuQueryModel model)
         {
-            var queryResult = new QueryResultModel<MenuEntity>();
+            var queryResult = new QueryResultModel<MenuEntity>
+            {
+                Rows = await _menuRepository.Query(model),
+                Total = model.TotalCount
+            };
 
-            var paging = model.Paging();
-
-            queryResult.Rows = await _menuRepository.Query(paging, model.Name, model.RouteName, model.ParentId);
-            queryResult.Total = paging.TotalCount;
             return ResultModel.Success(queryResult);
-        }
-
-        public async Task<IResultModel> Details(Guid id)
-        {
-            var entity = await _menuRepository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.Failed("菜单不存在");
-
-            return ResultModel.Success(entity);
         }
 
         public async Task<IResultModel> PermissionList(Guid id)
@@ -266,6 +258,50 @@ namespace NetModular.Module.Admin.Application.MenuService
 
             var list = await _buttonRepository.QueryByMenu(id);
             return ResultModel.Success(list);
+        }
+
+        public async Task<IResultModel> QuerySortList(Guid parentId)
+        {
+            var model = new SortUpdateModel<Guid>();
+            var all = await _menuRepository.QueryChildren(parentId);
+            model.Options = all.Select(m => new SortOptionModel<Guid>()
+            {
+                Id = m.Id,
+                Label = m.Name,
+                Sort = m.Sort
+            }).ToList();
+
+            return ResultModel.Success(model);
+        }
+
+        public async Task<IResultModel> UpdateSortList(SortUpdateModel<Guid> model)
+        {
+            if (model.Options == null || !model.Options.Any())
+            {
+                return ResultModel.Failed("不包含数据");
+            }
+
+            _uow.BeginTransaction();
+
+            foreach (var option in model.Options)
+            {
+                var entity = await _menuRepository.GetAsync(option.Id);
+                if (entity == null)
+                {
+                    _uow.Rollback();
+                    return ResultModel.Failed();
+                }
+
+                entity.Sort = option.Sort;
+                if (!await _menuRepository.UpdateAsync(entity))
+                {
+                    _uow.Rollback();
+                    return ResultModel.Failed();
+                }
+            }
+
+            _uow.Commit();
+            return ResultModel.Success();
         }
 
         /// <summary>

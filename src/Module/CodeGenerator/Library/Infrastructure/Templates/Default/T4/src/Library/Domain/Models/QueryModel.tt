@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" #>
-<#@ import namespace="NetModular.Lib.Utils.Extensions" #>
-<#@ import namespace="NetModular.Module.CodeGenerator.Domain.Property" #>
+<#@ import namespace="Nm.Lib.Utils.Core.Extensions" #>
+<#@ import namespace="Nm.Module.CodeGenerator.Domain.Property" #>
 using System;
 using  <#= _prefix #>.Lib.Data.Query;
 

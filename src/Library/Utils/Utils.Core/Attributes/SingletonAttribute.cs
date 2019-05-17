@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Utils.Core.Attributes
+namespace Nm.Lib.Utils.Core.Attributes
 {
     /// <summary>
     /// 单例注入

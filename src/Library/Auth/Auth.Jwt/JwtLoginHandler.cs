@@ -4,10 +4,10 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Utils.Core.Result;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Utils.Core.Result;
 
-namespace NetModular.Lib.Auth.Jwt
+namespace Nm.Lib.Auth.Jwt
 {
     public class JwtLoginHandler : ILoginHandler
     {

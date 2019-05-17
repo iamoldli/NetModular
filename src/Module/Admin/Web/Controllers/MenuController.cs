@@ -3,15 +3,17 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Auth.Abstractions.Attributes;
-using NetModular.Lib.Module.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.MenuService;
-using NetModular.Module.Admin.Application.MenuService.ViewModels;
-using NetModular.Module.Admin.Domain.Menu;
+using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.MenuService;
+using Nm.Module.Admin.Application.MenuService.ViewModels;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Menu.Models;
 
-namespace NetModular.Module.Admin.Web.Controllers
+namespace Nm.Module.Admin.Web.Controllers
 {
     [Description("菜单管理")]
     public class MenuController : ModuleController
@@ -75,13 +77,6 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
-        [Description("详情")]
-        public Task<IResultModel> Details([BindRequired]Guid id)
-        {
-            return _service.Details(id);
-        }
-
-        [HttpGet]
         [Description("获取菜单的权限列表")]
         public Task<IResultModel> PermissionList([BindRequired]Guid id)
         {
@@ -100,6 +95,20 @@ namespace NetModular.Module.Admin.Web.Controllers
         public Task<IResultModel> ButtonList([BindRequired]Guid id)
         {
             return _service.ButtonList(id);
+        }
+
+        [HttpGet]
+        [Description("获取排序信息")]
+        public Task<IResultModel> Sort(Guid? parentId)
+        {
+            return _service.QuerySortList(parentId ?? Guid.Empty);
+        }
+
+        [HttpPost]
+        [Description("更新排序信息")]
+        public Task<IResultModel> Sort(SortUpdateModel<Guid> model)
+        {
+            return _service.UpdateSortList(model);
         }
     }
 }

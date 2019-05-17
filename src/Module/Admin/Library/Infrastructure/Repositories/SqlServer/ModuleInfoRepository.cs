@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.ModuleInfo;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.ModuleInfo;
+using Nm.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class ModuleInfoRepository : RepositoryAbstract<ModuleInfoEntity>, IModuleInfoRepository
     {
@@ -17,16 +18,21 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<IList<ModuleInfoEntity>> Query(Paging paging, string name = null, string code = null)
+        public async Task<IList<ModuleInfoEntity>> Query(ModuleInfoQueryModel model)
         {
+            var paging = model.Paging();
             var query = Db.Find();
-            query.WhereIf(name.NotNull(), m => m.Name.Contains(name));
-            query.WhereIf(code.NotNull(), m => m.Code.Contains(code));
+            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.Code.NotNull(), m => m.Code.Contains(model.Code));
 
             if (!paging.OrderBy.Any())
                 query.OrderByDescending(m => m.Id);
 
-            return query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id).Select((x, y) => new { x, Creator = y.Name }).PaginationAsync(paging);
+            var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .Select((x, y) => new { x, Creator = y.Name })
+                .PaginationAsync(paging);
+            model.TotalCount = paging.TotalCount;
+            return list;
         }
 
         public Task<bool> Exists(string code, Guid? id = null)

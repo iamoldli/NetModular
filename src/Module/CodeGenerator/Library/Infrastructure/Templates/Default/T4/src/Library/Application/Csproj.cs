@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
 {
     using System;
     
@@ -41,7 +41,7 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             
             #line default
             #line hidden
-            this.Write(".Lib.Mapper\" Version=\"1.2.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Mapper.AutoMapper\" Version=\"1.2.0\" />\r\n    <PackageReference Include=\"");
             
             #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));

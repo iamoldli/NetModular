@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
 {
     public partial class QueryModel : ITemplateHandler
     {
@@ -31,14 +32,14 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
                         Directory.CreateDirectory(dir);
 
                     _propertyList = classModel.ModelPropertyList
-                        .Where(m => m.ModelType == CodeGenerator.Domain.ModelProperty.ModelType.Query).ToList();
+                        .Where(m => m.ModelType == ModelType.Query).ToList();
 
                     //清空
                     GenerationEnvironment.Clear();
 
                     var content = TransformText();
 
-                    var filePath = Path.Combine(dir, $"I{_class.Name}QueryModel.cs");
+                    var filePath = Path.Combine(dir, $"{_class.Name}QueryModel.cs");
                     File.WriteAllText(filePath, content);
                 }
             }

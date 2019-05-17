@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     public partial class SchemaSQLite : ITemplateHandler
     {

@@ -4,10 +4,10 @@ const crud = http.crud(root)
 const urls = {
   getTree: root + 'tree',
   getTargetSelect: root + 'targetselect',
-  details: root + 'details',
   permissionList: root + 'PermissionList',
   bindPermission: root + 'bindPermission',
-  buttonList: root + 'buttonlist'
+  buttonList: root + 'buttonlist',
+  sort: root + 'sort'
 }
 
 /**
@@ -22,13 +22,6 @@ const getTree = () => {
  */
 const getTargetSelect = () => {
   return http.get(urls.getTargetSelect)
-}
-
-/**
- * @description 详情
- */
-const details = id => {
-  return http.get(urls.details, { id })
 }
 
 /**
@@ -52,12 +45,21 @@ const buttonList = id => {
   return http.get(urls.buttonList, { id })
 }
 
+const querySortList = parentId => {
+  return http.get(urls.sort, { parentId })
+}
+
+const updateSortList = params => {
+  return http.post(urls.sort, params)
+}
+
 export default {
   ...crud,
   getTree,
   getTargetSelect,
-  details,
   permissionList,
   bindPermission,
-  buttonList
+  buttonList,
+  querySortList,
+  updateSortList
 }

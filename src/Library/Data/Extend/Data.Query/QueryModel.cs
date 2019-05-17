@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Data.Query
+﻿namespace Nm.Lib.Data.Query
 {
     /// <summary>
     /// 查询抽象

@@ -1,6 +1,6 @@
 <#@ template language="C#" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="NetModular.Module.CodeGenerator.Domain.Property" #>
+<#@ import namespace="Nm.Module.CodeGenerator.Domain.Property" #>
 <#if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {#>
 <# foreach(var c in _model.Project.ClassList){ #>
 /**************************<#= c.Remarks #>*****************************/
@@ -11,7 +11,6 @@ CREATE TABLE [dbo].[<#= c.TableName #>](
 <#            } #>
 )
 GO
-
 <# foreach(var p in c.PropertyList){ #>
 <# if(p.Type == PropertyType.DateTime){ #>
 ALTER TABLE [dbo].[<#= c.TableName #>] ADD CONSTRAINT [DF_<#= c.TableName #>_<#= p.Name #>]  DEFAULT (GETDATE()) FOR [<#= p.Name #>]

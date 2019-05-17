@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetModular.Lib.Module.Abstractions;
+using Nm.Lib.Module.Abstractions;
 
-namespace NetModular.Module.Admin.Web
+namespace Nm.Module.Admin.Web
 {
     [Area("Admin")]
     public abstract class ModuleController : ModuleControllerAbstract

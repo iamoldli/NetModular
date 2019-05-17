@@ -1,6 +1,6 @@
-﻿using NetModular.Lib.Data.Abstractions;
+﻿using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.MySql
+namespace Nm.Module.Admin.Infrastructure.Repositories.MySql
 {
     public class ConfigRepository : SqlServer.ConfigRepository
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Data.Abstractions.Attributes
+namespace Nm.Lib.Data.Abstractions.Attributes
 {
     /// <summary>
     /// 主键

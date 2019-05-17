@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Data.Abstractions.SqlQueryable;
-using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
-using NetModular.Lib.Data.Core.Internal;
-using NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable;
-using NetModular.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions.SqlQueryable;
+using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
+using Nm.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace NetModular.Lib.Data.Core.SqlQueryable
+namespace Nm.Lib.Data.Core.SqlQueryable
 {
     internal class NetSqlQueryable<TEntity, TEntity2, TEntity3> : NetSqlQueryableAbstract, INetSqlQueryable<TEntity, TEntity2, TEntity3>
         where TEntity : IEntity, new()

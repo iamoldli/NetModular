@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Dapper;
 
-namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
+namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 参数集合

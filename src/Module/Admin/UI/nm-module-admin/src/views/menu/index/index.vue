@@ -21,11 +21,7 @@
           <!--按钮-->
           <template v-slot:querybar-buttons="{total}">
             <nm-button type="success" @click="add(total)" icon="add" text="添加" v-nm-has="buttons.add"/>
-          </template>
-
-          <!--名称-->
-          <template v-slot:col-name="{row}">
-            <nm-button :text="row.name" @click="preview(row)" type="text"/>
+            <nm-button type="warning" text="排序" icon="sort" @click="openSort" v-nm-has="buttons.sort"/>
           </template>
 
           <!--类型-->
@@ -75,8 +71,6 @@
       </template>
     </nm-split>
 
-    <!--菜单详情-->
-    <details-page :id="currentMenu.id" :visible.sync="dialog.prev"/>
     <!--添加菜单-->
     <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)"/>
     <!--编辑菜单-->
@@ -85,6 +79,8 @@
     <button-bind-page :menu="currentMenu" :visible.sync="dialog.btnBind"/>
     <!--权限绑定-->
     <permission-bind-page v-bind="currentMenu" :visible.sync="dialog.perBind"/>
+    <!--排序-->
+    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh(true)"/>
   </nm-container>
 </template>
 <script>
@@ -93,7 +89,6 @@ import page from './page'
 import api from '../../../api/menu'
 import cols from './cols.js'
 import AddPage from '../components/add'
-import DetailsPage from '../components/details'
 import EditPage from '../components/edit'
 import ButtonBindPage from '../../button/index'
 import PermissionBindPage from '../components/premission-bind'
@@ -101,8 +96,8 @@ import MenuTree from '../components/tree'
 
 export default {
   name: page.name,
-  components: { MenuTree, AddPage, DetailsPage, EditPage, ButtonBindPage, PermissionBindPage },
-  data () {
+  components: { MenuTree, AddPage, EditPage, ButtonBindPage, PermissionBindPage },
+  data() {
     return {
       split: 0.2,
       list: {
@@ -127,7 +122,9 @@ export default {
         // 按钮绑定
         btnBind: false,
         // 权限绑定
-        perBind: false
+        perBind: false,
+        // 排序
+        sort: false
       },
       // 当前要操作的菜单
       currentMenu: {},
@@ -141,44 +138,52 @@ export default {
     }
   },
   computed: {
-    title () { return '菜单列表—' + this.menu.name }
+    title() { return '菜单列表—' + this.menu.name },
+    dragSort() {
+      return {
+        queryAction: this.querySortList,
+        updateAction: api.updateSortList
+      }
+    }
   },
   methods: {
     ...mapMutations('module/admin', ['setCurrentMenu']),
-    refresh (refreshTree) {
+    refresh(refreshTree) {
       this.list.model.parentId = this.menu.id
       this.$refs.list.refresh()
       // 刷新菜单树
       if (refreshTree) { this.refreshTree() }
     },
-    refreshTree () {
+    refreshTree() {
       this.$refs.tree.refresh()
     },
-    onTreeSelectChange ({ menu, path }) {
+    onTreeSelectChange({ menu, path }) {
       this.menu.id = menu.id
       this.menu.name = menu.name
       this.menu.path = path
       this.refresh()
     },
-    add (total) {
+    add(total) {
       this.total = total
       this.dialog.add = true
     },
-    edit (row) {
+    edit(row) {
       this.currentMenu = row
       this.dialog.edit = true
     },
-    preview (row) {
-      this.currentMenu = row
-      this.dialog.prev = true
-    },
-    bindButton (row) {
+    bindButton(row) {
       this.currentMenu = row
       this.dialog.btnBind = true
     },
-    bindPermission (row) {
+    bindPermission(row) {
       this.currentMenu = row
       this.dialog.perBind = true
+    },
+    querySortList() {
+      return api.querySortList(this.menu.id)
+    },
+    openSort() {
+      this.dialog.sort = true
     }
   }
 }

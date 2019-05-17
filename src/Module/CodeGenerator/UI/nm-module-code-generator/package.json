@@ -1,9 +1,11 @@
 {
     "name": "nm-module-code-generator",
-    "version": "1.0.0",
+    "version": "1.1.0",
+    "author": "Oldli",
+    "license": "ISC",
     "code": "CodeGenerator",
     "title": "代码生成器",
-    "description": "代码生成器",
+    "description": "NetModular代码生成器前端模块组件",
     "main": "src/index.js",
     "scripts": {
         "serve": "vue-cli-service serve",
@@ -14,9 +16,9 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-icon": "^1.0.4",
-        "nm-lib-skins": "^1.0.5",
-        "nm-module-admin": "^1.0.0"
+        "nm-lib-icon": "^1.1.0",
+        "nm-lib-skins": "^1.1.0",
+        "nm-module-admin": "^1.1.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.7.0",

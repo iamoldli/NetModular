@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Module.CodeGenerator.Domain.EnumItem.Models;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.CodeGenerator.Domain.EnumItem.Models;
 
-namespace NetModular.Module.CodeGenerator.Domain.EnumItem
+namespace Nm.Module.CodeGenerator.Domain.EnumItem
 {
     /// <summary>
     /// 枚举项仓储

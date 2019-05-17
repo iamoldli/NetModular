@@ -1,4 +1,4 @@
-﻿namespace NetModular.Module.CodeGenerator.Domain.Project
+﻿namespace Nm.Module.CodeGenerator.Domain.Project
 {
     public partial class ProjectEntity
     {

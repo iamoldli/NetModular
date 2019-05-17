@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.EnumItemService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.EnumItem.Models;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.EnumItemService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.EnumItem.Models;
 
-namespace NetModular.Module.CodeGenerator.Application.EnumItemService
+namespace Nm.Module.CodeGenerator.Application.EnumItemService
 {
     public interface IEnumItemService
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Permission.Models;
 
-namespace NetModular.Module.Admin.Domain.Permission
+namespace Nm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限仓储
@@ -35,13 +35,8 @@ namespace NetModular.Module.Admin.Domain.Permission
         /// <summary>
         /// 查询
         /// </summary>
-        /// <param name="paging"></param>
-        /// <param name="moduleCode"></param>
-        /// <param name="name"></param>
-        /// <param name="controller"></param>
-        /// <param name="action"></param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> Query(Paging paging, string moduleCode, string name = null, string controller = null, string action = null);
+        Task<IList<PermissionEntity>> Query(PermissionQueryModel model);
 
         /// <summary>
         /// 通过菜单编号查找对应权限列表

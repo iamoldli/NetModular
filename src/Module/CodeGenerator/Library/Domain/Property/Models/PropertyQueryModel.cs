@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using NetModular.Lib.Data.Query;
+using Nm.Lib.Data.Query;
 
-namespace NetModular.Module.CodeGenerator.Domain.Property.Models
+namespace Nm.Module.CodeGenerator.Domain.Property.Models
 {
     public class PropertyQueryModel : QueryModel
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
-using NetModular.Lib.Utils.Core.Attributes;
+using Nm.Lib.Utils.Core.Attributes;
 
-namespace NetModular.Lib.Utils.Core.Helpers
+namespace Nm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 程序集操作帮助类

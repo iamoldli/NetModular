@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+namespace Nm.Lib.Utils.Core.Extensions
 {
     /// <summary>
     /// 通用扩展方法

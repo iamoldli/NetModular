@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Swagger.Attributes
+namespace Nm.Lib.Swagger.Attributes
 {
     /// <summary>
     /// Swagger：隐藏属性

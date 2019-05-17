@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Data.Abstractions.Enums
+﻿namespace Nm.Lib.Data.Abstractions.Enums
 {
     /// <summary>
     /// 连接类型

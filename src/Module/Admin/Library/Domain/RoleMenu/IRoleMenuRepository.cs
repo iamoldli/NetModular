@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Domain.RoleMenu
+namespace Nm.Module.Admin.Domain.RoleMenu
 {
     /// <summary>
     /// 角色菜单仓储

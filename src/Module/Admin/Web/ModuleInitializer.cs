@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Module.Admin.Infrastructure.Options;
-using NetModular.Module.Admin.Web.Core;
-using NetModular.Module.Admin.Web.Filters;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Module.Abstractions;
+using Nm.Module.Admin.Infrastructure.Options;
+using Nm.Module.Admin.Web.Core;
+using Nm.Module.Admin.Web.Filters;
 
-namespace NetModular.Module.Admin.Web
+namespace Nm.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {

@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
 
-namespace NetModular.Module.CodeGenerator.Domain.Class
+namespace Nm.Module.CodeGenerator.Domain.Class
 {
     public partial class ClassEntity
     {

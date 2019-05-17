@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NetModular.Module.CodeGenerator.Domain.Property
+namespace Nm.Module.CodeGenerator.Domain.Property
 {
     public enum PropertyType
     {

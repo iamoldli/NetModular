@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using NetModular.Lib.Utils.Core.Result;
+using Nm.Lib.Utils.Core.Result;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+namespace Nm.Lib.Utils.Core.Extensions
 {
     public static class EnumExtensions
     {

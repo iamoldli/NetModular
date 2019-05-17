@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Module.Abstractions.Attributes;
-using NetModular.Module.Admin.Application.AuditInfoService;
-using NetModular.Module.Admin.Application.SystemService;
-using NetModular.Module.Admin.Domain.AuditInfo;
-using NetModular.Module.Admin.Infrastructure.Options;
-using NetModular.Lib.Utils.Core.Enums;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Enums;
+using Nm.Module.Admin.Application.AuditInfoService;
+using Nm.Module.Admin.Application.SystemService;
+using Nm.Module.Admin.Domain.AuditInfo;
+using Nm.Module.Admin.Infrastructure.Options;
 
-namespace NetModular.Module.Admin.Web.Filters
+namespace Nm.Module.Admin.Web.Filters
 {
     /// <summary>
     /// 审计过滤器

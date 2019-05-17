@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Role.Models;
 
-namespace NetModular.Module.Admin.Domain.Role
+namespace Nm.Module.Admin.Domain.Role
 {
     /// <summary>
     /// 角色仓储
@@ -19,6 +19,6 @@ namespace NetModular.Module.Admin.Domain.Role
         /// <returns></returns>
         Task<bool> Exists(string name, Guid? id = null);
 
-        Task<IList<RoleEntity>> Query(Paging paging, string name = null);
+        Task<IList<RoleEntity>> Query(RoleQueryModel model);
     }
 }

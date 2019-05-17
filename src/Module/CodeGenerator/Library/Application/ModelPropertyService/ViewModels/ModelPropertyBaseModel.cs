@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using NetModular.Module.CodeGenerator.Domain.ModelProperty;
-using NetModular.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Nm.Module.CodeGenerator.Domain.Property;
 
-namespace NetModular.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
+namespace Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
 {
     public class ModelPropertyBaseModel
     {

@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Data.Core.Internal
+﻿namespace Nm.Lib.Data.Core.Internal
 {
     internal static class StringExtensions
     {

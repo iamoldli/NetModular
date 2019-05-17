@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
 {
     public partial class SQLiteRepository : ITemplateHandler
     {

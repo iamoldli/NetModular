@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
 {
     using System;
     
@@ -25,8 +25,15 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<template>\r\n  <td-form-dialog ref=\"form\" v-bind=\"form\" v-on=\"on\" :visible.sync=\"v" +
-                    "isible_\">\r\n    <el-row>\r\n      <el-col :span=\"20\" :offset=\"1\">\r\n");
+            this.Write("<template>\r\n  <");
+            
+            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Edit.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write("-form-dialog ref=\"form\" v-bind=\"form\" v-on=\"on\" :visible.sync=\"visible_\">\r\n    <e" +
+                    "l-row>\r\n      <el-col :span=\"20\" :offset=\"1\">\r\n");
             
             #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Edit.tt"
     foreach(var p in _class.EditModelPropertyList){ 
@@ -61,8 +68,14 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             
             #line default
             #line hidden
-            this.Write("      </el-col>\r\n    </el-row>\r\n  </td-form-dialog>\r\n</template>\r\n<script>\r\nimpor" +
-                    "t api from \'../../../../api/");
+            this.Write("      </el-col>\r\n    </el-row>\r\n  </");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Edit.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write("-form-dialog>\r\n</template>\r\n<script>\r\nimport api from \'../../../../api/");
             
             #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Edit.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));

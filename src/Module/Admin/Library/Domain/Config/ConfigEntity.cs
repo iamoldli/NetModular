@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities.Extend;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities.Extend;
 
-namespace NetModular.Module.Admin.Domain.Config
+namespace Nm.Module.Admin.Domain.Config
 {
     /// <summary>
     /// 配置项

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using NetModular.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Menu;
 
-namespace NetModular.Module.Admin.Application.AccountService.ResultModels
+namespace Nm.Module.Admin.Application.AccountService.ResultModels
 {
     /// <summary>
     /// 账户登录信息

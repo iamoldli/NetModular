@@ -1,8 +1,8 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities;
 
-namespace NetModular.Module.Admin.Domain.MenuPermission
+namespace Nm.Module.Admin.Domain.MenuPermission
 {
     /// <summary>
     /// 菜单权限

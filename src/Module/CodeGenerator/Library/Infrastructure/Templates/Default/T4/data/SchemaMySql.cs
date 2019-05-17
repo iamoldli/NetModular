@@ -7,10 +7,12 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+
+using Nm.Module.CodeGenerator.Domain.Property;
+
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     using System.Linq;
-    using NetModular.Module.CodeGenerator.Domain.Property;
     using System;
     
     /// <summary>

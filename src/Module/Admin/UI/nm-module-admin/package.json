@@ -1,6 +1,6 @@
 {
     "name": "nm-module-admin",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "NetModular前端Admin模块组件",
     "author": "Oldli",
     "license": "ISC",
@@ -14,7 +14,7 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-skins": "^1.0.5"
+        "nm-lib-skins": "^1.1.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.6.0",

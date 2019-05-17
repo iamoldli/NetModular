@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Auth.Jwt
+﻿namespace Nm.Lib.Auth.Jwt
 {
     /// <summary>
     /// Jwt配置项

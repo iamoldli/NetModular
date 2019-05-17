@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.CodeGenerator.Application.EnumItemService.ViewModels
+namespace Nm.Module.CodeGenerator.Application.EnumItemService.ViewModels
 {
     public class EnumItemUpdateModel
     {

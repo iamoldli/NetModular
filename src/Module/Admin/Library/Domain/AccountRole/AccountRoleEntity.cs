@@ -1,8 +1,8 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities;
 
-namespace NetModular.Module.Admin.Domain.AccountRole
+namespace Nm.Module.Admin.Domain.AccountRole
 {
     /// <summary>
     /// 账户角色

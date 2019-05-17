@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace NetModular.Lib.Mapper.AutoMapper
+namespace Nm.Lib.Mapper.AutoMapper
 {
     /// <summary>
     /// 对象映射绑定

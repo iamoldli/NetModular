@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService.ViewModels;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.Permission;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.Account.Models;
+using Nm.Module.Admin.Domain.Permission;
 
-namespace NetModular.Module.Admin.Application.AccountService
+namespace Nm.Module.Admin.Application.AccountService
 {
     /// <summary>
     /// 账户服务

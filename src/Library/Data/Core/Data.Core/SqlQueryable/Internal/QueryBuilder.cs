@@ -3,12 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Data.Core.ExpressionResolve;
-using NetModular.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Core.ExpressionResolve;
+using Nm.Lib.Data.Core.Internal;
 
-namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
+namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
     internal class QueryBuilder
     {

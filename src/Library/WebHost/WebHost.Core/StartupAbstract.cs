@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NetModular.Lib.Utils.Core.Helpers;
-using NetModular.Lib.WebHost.Core.Options;
+using Nm.Lib.Utils.Core.Helpers;
+using Nm.Lib.WebHost.Core.Options;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
-namespace NetModular.Lib.WebHost.Core
+namespace Nm.Lib.WebHost.Core
 {
     public abstract class StartupAbstract
     {

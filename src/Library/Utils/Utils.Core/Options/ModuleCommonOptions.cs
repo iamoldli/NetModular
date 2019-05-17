@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Utils.Core.Options
+﻿namespace Nm.Lib.Utils.Core.Options
 {
     /// <summary>
     /// 模块通用配置项

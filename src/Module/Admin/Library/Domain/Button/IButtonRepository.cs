@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Button.Models;
 
-namespace NetModular.Module.Admin.Domain.Button
+namespace Nm.Module.Admin.Domain.Button
 {
     /// <summary>
     /// 按钮仓储
@@ -14,11 +14,8 @@ namespace NetModular.Module.Admin.Domain.Button
         /// <summary>
         /// 查询按钮列表
         /// </summary>
-        /// <param name="paging">分页</param>
-        /// <param name="menuId">管理菜单id</param>
-        /// <param name="name">名称</param>
         /// <returns></returns>
-        Task<IList<ButtonEntity>> Query(Paging paging, Guid menuId, string name = null);
+        Task<IList<ButtonEntity>> Query(ButtonQueryModel model);
 
         /// <summary>
         /// 判断是否存在

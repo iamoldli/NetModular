@@ -15,14 +15,14 @@ export default baseUrl => {
 
     // 拦截请求
     axios.interceptors.request.use(
-      function(config) {
+      function (config) {
         let t = token.get()
         if (t && t.accessToken) {
           config.headers.Authorization = 'Bearer ' + t.accessToken
         }
         return config
       },
-      function(error) {
+      function (error) {
         return Promise.reject(error)
       }
     )

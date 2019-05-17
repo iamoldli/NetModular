@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Domain.RoleMenuButton
+namespace Nm.Module.Admin.Domain.RoleMenuButton
 {
     public interface IRoleMenuButtonRepository : IRepository<RoleMenuButtonEntity>
     {

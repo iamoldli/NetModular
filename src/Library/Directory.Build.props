@@ -12,7 +12,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Company></Company>
     <Copyright></Copyright>
-    <RootNamespacePrefix>NetModular.Lib</RootNamespacePrefix>
+    <RootNamespacePrefix>Nm.Lib</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <PackageProjectUrl>https://github.com/iamoldli/NetModular</PackageProjectUrl>

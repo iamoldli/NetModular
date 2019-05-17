@@ -1,8 +1,8 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities.Extend;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities.Extend;
 
-namespace NetModular.Module.CodeGenerator.Domain.Class
+namespace Nm.Module.CodeGenerator.Domain.Class
 {
     /// <summary>
     /// 类信息

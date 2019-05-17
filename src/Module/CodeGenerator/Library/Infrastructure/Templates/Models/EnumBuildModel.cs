@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Models
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 枚举生成模型

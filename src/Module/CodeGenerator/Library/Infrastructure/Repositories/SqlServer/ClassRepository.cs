@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.CodeGenerator.Domain.Class;
-using NetModular.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.Class.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
 {
     public class ClassRepository : RepositoryAbstract<ClassEntity>, IClassRepository
     {

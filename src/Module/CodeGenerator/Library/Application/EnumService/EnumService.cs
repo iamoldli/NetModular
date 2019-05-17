@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.EnumService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Enum;
-using NetModular.Module.CodeGenerator.Domain.Enum.Models;
-using NetModular.Module.CodeGenerator.Domain.Property;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.EnumService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Enum;
+using Nm.Module.CodeGenerator.Domain.Enum.Models;
+using Nm.Module.CodeGenerator.Domain.Property;
 
-namespace NetModular.Module.CodeGenerator.Application.EnumService
+namespace Nm.Module.CodeGenerator.Application.EnumService
 {
     public class EnumService : IEnumService
     {

@@ -1,4 +1,4 @@
-﻿namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Models
+﻿namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 枚举项生成模型

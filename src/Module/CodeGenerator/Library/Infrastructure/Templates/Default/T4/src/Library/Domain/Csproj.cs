@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
 {
     using System;
     
@@ -48,7 +48,7 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             
             #line default
             #line hidden
-            this.Write(".Lib.Utils\" Version=\"1.2.0\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n\r\n");
+            this.Write(".Lib.Utils.Core\" Version=\"1.2.0\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

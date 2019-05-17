@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Domain.Account;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.Account.Models;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AccountRepository : RepositoryAbstract<AccountEntity>, IAccountRepository
     {
@@ -37,20 +38,23 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.UpdateAsync(m => new AccountEntity { LoginIP = ip, LoginTime = DateTime.Now }, false);
         }
 
-        public Task<IList<AccountEntity>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null)
+        public async Task<IList<AccountEntity>> Query(AccountQueryModel model)
         {
+            var paging = model.Paging();
             var query = Db.Find(m => m.Deleted == false);
-            query.WhereIf(userName.NotNull(), m => m.UserName.Contains(userName));
-            query.WhereIf(name.NotNull(), m => m.Name.Contains(name));
-            query.WhereIf(phone.NotNull(), m => m.Phone == phone);
-            query.WhereIf(email.NotNull(), m => m.Email == email);
+            query.WhereIf(model.UserName.NotNull(), m => m.UserName.Contains(model.UserName));
+            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.Phone.NotNull(), m => m.Phone == model.Phone);
+            query.WhereIf(model.Email.NotNull(), m => m.Email == model.Email);
 
             if (!paging.OrderBy.Any())
             {
                 query.OrderByDescending(m => m.Id);
             }
 
-            return query.PaginationAsync(paging);
+            var list = await query.PaginationAsync(paging);
+            model.TotalCount = paging.TotalCount;
+            return list;
         }
 
         public Task<bool> ExistsUserName(string userName, Guid? id)
@@ -73,6 +77,5 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
-
     }
 }

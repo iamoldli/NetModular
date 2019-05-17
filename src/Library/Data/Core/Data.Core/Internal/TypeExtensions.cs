@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace NetModular.Lib.Data.Core.Internal
+namespace Nm.Lib.Data.Core.Internal
 {
     /// <summary>
     /// 类型扩展

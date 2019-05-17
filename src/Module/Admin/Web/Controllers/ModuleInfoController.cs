@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.ModuleInfoService;
-using NetModular.Module.Admin.Application.ModuleInfoService.ViewModels;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.ModuleInfoService;
+using Nm.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace NetModular.Module.Admin.Web.Controllers
+namespace Nm.Module.Admin.Web.Controllers
 {
     [Description("模块信息")]
     public class ModuleInfoController : ModuleController

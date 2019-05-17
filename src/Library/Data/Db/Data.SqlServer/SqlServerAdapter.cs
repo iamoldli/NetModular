@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Core.Internal;
 
-namespace NetModular.Lib.Data.SqlServer
+namespace Nm.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {

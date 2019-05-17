@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Helpers;
 using Newtonsoft.Json;
+using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Utils.Core;
+using Nm.Lib.Utils.Core.Helpers;
 
-namespace NetModular.Lib.Module.Core
+namespace Nm.Lib.Module.Core
 {
     public class ModuleCollection : IModuleCollection
     {
@@ -79,7 +79,7 @@ namespace NetModular.Lib.Module.Core
         /// </summary>
         public ModuleCollection()
         {
-            var moduleJsonFiles = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "Modules"), "module.json", SearchOption.AllDirectories);
+            var moduleJsonFiles = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "modules"), "module.json", SearchOption.AllDirectories);
 
             foreach (var file in moduleJsonFiles)
             {

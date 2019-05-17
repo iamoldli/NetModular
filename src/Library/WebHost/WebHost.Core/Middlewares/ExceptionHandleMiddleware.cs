@@ -3,11 +3,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using NetModular.Lib.Utils.Core.Result;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Nm.Lib.Utils.Core.Result;
 
-namespace NetModular.Lib.WebHost.Core.Middlewares
+namespace Nm.Lib.WebHost.Core.Middlewares
 {
     public class ExceptionHandleMiddleware
     {

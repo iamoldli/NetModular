@@ -1,7 +1,7 @@
 ﻿using System.Data;
-using NetModular.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Lib.Data.Core
+namespace Nm.Lib.Data.Core
 {
     public class UnitOfWork : IUnitOfWork
     {

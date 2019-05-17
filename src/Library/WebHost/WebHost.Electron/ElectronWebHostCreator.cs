@@ -2,10 +2,10 @@
 using System.Linq;
 using ElectronNET.API;
 using Microsoft.AspNetCore.Hosting;
-using NetModular.Lib.Logging.Serilog;
-using NetModular.Lib.WebHost.Core;
+using Nm.Lib.Logging.Serilog;
+using Nm.Lib.WebHost.Core;
 
-namespace NetModular.Lib.WebHost.Electron
+namespace Nm.Lib.WebHost.Electron
 {
     public class ElectronWebHostCreator
     {

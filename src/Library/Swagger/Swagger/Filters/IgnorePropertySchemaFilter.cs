@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Reflection;
-using NetModular.Lib.Swagger.Attributes;
+using Nm.Lib.Swagger.Attributes;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace NetModular.Lib.Swagger.Filters
+namespace Nm.Lib.Swagger.Filters
 {
     public class IgnorePropertySchemaFilter : ISchemaFilter
     {

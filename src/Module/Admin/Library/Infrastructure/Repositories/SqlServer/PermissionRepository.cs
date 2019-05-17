@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.ButtonPermission;
-using NetModular.Module.Admin.Domain.MenuPermission;
-using NetModular.Module.Admin.Domain.ModuleInfo;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.ButtonPermission;
+using Nm.Module.Admin.Domain.MenuPermission;
+using Nm.Module.Admin.Domain.ModuleInfo;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Domain.Permission.Models;
+using Nm.Module.Admin.Domain.RoleMenu;
+using Nm.Module.Admin.Domain.RoleMenuButton;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class PermissionRepository : RepositoryAbstract<PermissionEntity>, IPermissionRepository
     {
@@ -44,23 +45,26 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return ExistsAsync(m => m.ModuleCode.Equals(moduleCode));
         }
 
-        public Task<IList<PermissionEntity>> Query(Paging paging, string moduleCode, string name, string controller, string action)
+        public async Task<IList<PermissionEntity>> Query(PermissionQueryModel model)
         {
+            var paging = model.Paging();
             var query = Db.Find();
 
-            query.WhereIf(moduleCode.NotNull(), m => m.ModuleCode.Equals(moduleCode));
-            query.WhereIf(name.NotNull(), m => m.Name.Contains(name));
-            query.WhereIf(controller.NotNull(), m => m.Controller.Equals(controller));
-            query.WhereIf(action.NotNull(), m => m.Action.Equals(action));
+            query.WhereIf(model.ModuleCode.NotNull(), m => m.ModuleCode.Equals(model.ModuleCode));
+            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.Controller.NotNull(), m => m.Controller.Equals(model.Controller));
+            query.WhereIf(model.Action.NotNull(), m => m.Action.Equals(model.Action));
 
             if (!paging.OrderBy.Any())
             {
                 query.OrderByDescending(m => m.Id);
             }
 
-            return query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
+            var list = await query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
                  .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id))
                  .Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name }).PaginationAsync(paging);
+            model.TotalCount = paging.TotalCount;
+            return list;
         }
 
         public Task<IList<PermissionEntity>> QueryByMenu(Guid menuId)
@@ -113,7 +117,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<bool> UpdateForSync(PermissionEntity entity)
         {
             return Db.Find(m => m.ModuleCode == entity.ModuleCode && m.Controller == entity.Controller && m.Action == entity.Action)
-                .UpdateAsync(m => new PermissionEntity { Name = entity.Name});
+                .UpdateAsync(m => new PermissionEntity { Name = entity.Name });
         }
     }
 }

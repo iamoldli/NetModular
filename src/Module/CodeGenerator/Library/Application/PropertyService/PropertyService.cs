@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.PropertyService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Class;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Domain.Property.Models;
-using NetModular.Module.CodeGenerator.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Domain.Property.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
-namespace NetModular.Module.CodeGenerator.Application.PropertyService
+namespace Nm.Module.CodeGenerator.Application.PropertyService
 {
     public class PropertyService : IPropertyService
     {

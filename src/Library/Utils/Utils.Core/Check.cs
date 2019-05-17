@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NetModular.Lib.Utils.Core
+namespace Nm.Lib.Utils.Core
 {
     /// <summary>
     /// 

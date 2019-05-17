@@ -15,9 +15,9 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "<#= _prefix #>-lib-icon": "^1.1.5",
-        "<#= _prefix #>-lib-skins": "^1.5.4",
-        "<#= _prefix #>-module-admin": "^1.4.5"
+        "<#= _prefix #>-lib-icon": "^1.0.0",
+        "<#= _prefix #>-lib-skins": "^1.0.0",
+        "<#= _prefix #>-module-admin": "^1.0.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.7.0",

@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Core.Internal;
+﻿using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Core.Internal;
 
-namespace NetModular.Lib.Data.Core.Entities
+namespace Nm.Lib.Data.Core.Entities
 {
     /// <summary>
     /// 列信息集合

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NetModular.Lib.Data.Abstractions.Options
+namespace Nm.Lib.Data.Abstractions.Options
 {
     /// <summary>
     /// 数据库配置项

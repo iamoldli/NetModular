@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace NetModular.Lib.Auth.Abstractions
+namespace Nm.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 权限验证处理接口

@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.ModuleInfoService;
-using NetModular.Module.Admin.Application.PermissionService;
-using NetModular.Module.Admin.Application.SystemService.ViewModels;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Config;
-using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.ModuleInfoService;
+using Nm.Module.Admin.Application.PermissionService;
+using Nm.Module.Admin.Application.SystemService.ViewModels;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Config;
+using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.SystemService
+namespace Nm.Module.Admin.Application.SystemService
 {
     public class SystemService : ISystemService
     {

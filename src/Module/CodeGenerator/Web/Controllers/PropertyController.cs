@@ -3,16 +3,16 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Auth.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.PropertyService;
-using NetModular.Module.CodeGenerator.Application.PropertyService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Domain.Property.Models;
+using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.PropertyService;
+using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Domain.Property.Models;
 
-namespace NetModular.Module.CodeGenerator.Web.Controllers
+namespace Nm.Module.CodeGenerator.Web.Controllers
 {
     [Description("实体属性管理")]
     public class PropertyController : ModuleController

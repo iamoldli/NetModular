@@ -2,13 +2,13 @@
 using System.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.Core.Entities;
-using NetModular.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.Options;
+using Nm.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Core.Internal;
 
-namespace NetModular.Lib.Data.Core
+namespace Nm.Lib.Data.Core
 {
     public abstract class DbContextOptionsAbstract : IDbContextOptions
     {

@@ -1,6 +1,6 @@
-﻿using NetModular.Lib.Utils.Core.Options;
+﻿using Nm.Lib.Utils.Core.Options;
 
-namespace NetModular.Module.Admin.Infrastructure.Options
+namespace Nm.Module.Admin.Infrastructure.Options
 {
     /// <summary>
     /// 权限管理配置项

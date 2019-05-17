@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.vscode
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.vscode
 {
     using System;
     

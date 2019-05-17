@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NetModular.Lib.Utils.Core.Enums
+namespace Nm.Lib.Utils.Core.Enums
 {
     /// <summary>
     /// 是否

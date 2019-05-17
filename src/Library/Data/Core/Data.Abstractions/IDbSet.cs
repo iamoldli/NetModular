@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.SqlQueryable;
+using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.SqlQueryable;
 
-namespace NetModular.Lib.Data.Abstractions
+namespace Nm.Lib.Data.Abstractions
 {
     public interface IDbSet
     {

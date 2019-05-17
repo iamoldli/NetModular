@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Module.Admin.Domain.Button;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.RoleMenuButton;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SQLite
+namespace Nm.Module.Admin.Infrastructure.Repositories.SQLite
 {
     public class RoleMenuButtonRepository : SqlServer.RoleMenuButtonRepository
     {

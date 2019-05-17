@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using NetModular.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Menu;
 
-namespace NetModular.Module.Admin.Application.MenuService.ViewModels
+namespace Nm.Module.Admin.Application.MenuService.ViewModels
 {
     /// <summary>
     /// 新增菜单

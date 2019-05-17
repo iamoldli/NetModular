@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetModular.Lib.Module.Abstractions;
+using Nm.Lib.Module.Abstractions;
 
-namespace NetModular.Module.CodeGenerator.Web
+namespace Nm.Module.CodeGenerator.Web
 {
-    [Area("CodeGenerator")]
+    [Area("codegenerator")]
     public abstract class ModuleController : ModuleControllerAbstract
     {
 

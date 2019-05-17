@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Application.AccountService.ViewModels;
 
-namespace NetModular.Module.Admin.Application.AccountService.Validators
+namespace Nm.Module.Admin.Application.AccountService.Validators
 {
     public class AccountAddValidator : AbstractValidator<AccountAddModel>
     {

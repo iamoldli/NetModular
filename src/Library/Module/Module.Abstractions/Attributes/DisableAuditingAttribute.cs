@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Module.Abstractions.Attributes
+namespace Nm.Lib.Module.Abstractions.Attributes
 {
     /// <summary>
     /// 禁用审计功能

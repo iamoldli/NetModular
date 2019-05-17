@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Menu.Models;
 
-namespace NetModular.Module.Admin.Domain.Menu
+namespace Nm.Module.Admin.Domain.Menu
 {
     /// <summary>
     /// 菜单仓储
@@ -14,12 +14,14 @@ namespace NetModular.Module.Admin.Domain.Menu
         /// <summary>
         /// 查询菜单列表
         /// </summary>
-        /// <param name="paging">分页</param>
-        /// <param name="name">名称</param>
-        /// <param name="code">编码</param>
-        /// <param name="parentId">父节点编号</param>
         /// <returns></returns>
-        Task<IList<MenuEntity>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null);
+        Task<IList<MenuEntity>> Query(MenuQueryModel model);
+
+        /// <summary>
+        /// 查询指定菜单的子菜单
+        /// </summary>
+        /// <returns></returns>
+        Task<IList<MenuEntity>> QueryChildren(Guid parentId);
 
         /// <summary>
         /// 判断该节点是否存在子节点

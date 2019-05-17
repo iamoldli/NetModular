@@ -2,13 +2,13 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Infrastructure.Options;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Application.AccountService;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Infrastructure.Options;
 
-namespace NetModular.Module.Admin.Web.Core
+namespace Nm.Module.Admin.Web.Core
 {
     /// <summary>
     /// 权限验证

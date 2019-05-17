@@ -6,7 +6,7 @@ export default []
 //
 // export default [{
 /// /组件名称
-// name: 'td-dictionary-select',
+// name: '<#= _prefix #>-dictionary-select',
 /// /组件对象
 // component: DictionarySelect
 // }

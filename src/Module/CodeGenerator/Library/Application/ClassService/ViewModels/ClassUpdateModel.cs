@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.CodeGenerator.Application.ClassService.ViewModels
+namespace Nm.Module.CodeGenerator.Application.ClassService.ViewModels
 {
     public class ClassUpdateModel
     {

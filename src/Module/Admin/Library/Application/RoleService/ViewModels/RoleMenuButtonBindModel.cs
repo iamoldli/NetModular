@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.Admin.Application.RoleService.ViewModels
+namespace Nm.Module.Admin.Application.RoleService.ViewModels
 {
     /// <summary>
     /// 角色菜单按钮绑定模型

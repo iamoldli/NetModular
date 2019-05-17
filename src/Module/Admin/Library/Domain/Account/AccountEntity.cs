@@ -1,14 +1,14 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities.Extend;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities.Extend;
 
-namespace NetModular.Module.Admin.Domain.Account
+namespace Nm.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户
     /// </summary>
     [Table("Account")]
-    public class AccountEntity : EntityBaseWithSoftDelete
+    public partial class AccountEntity : EntityBaseWithSoftDelete
     {
         /// <summary>
         /// 用户名

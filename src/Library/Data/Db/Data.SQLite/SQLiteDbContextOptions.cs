@@ -2,10 +2,10 @@
 using System.Data.SQLite;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.Core;
+using Nm.Lib.Data.Abstractions.Options;
+using Nm.Lib.Data.Core;
 
-namespace NetModular.Lib.Data.SQLite
+namespace Nm.Lib.Data.SQLite
 {
     /// <summary>
     /// SQLite数据库上下文配置项

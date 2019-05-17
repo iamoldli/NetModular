@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NetModular.Lib.Auth.Abstractions.Attributes
+namespace Nm.Lib.Auth.Abstractions.Attributes
 {
     /// <summary>
     /// 权限验证

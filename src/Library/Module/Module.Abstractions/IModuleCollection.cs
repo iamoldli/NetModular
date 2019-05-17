@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NetModular.Lib.Module.Abstractions
+namespace Nm.Lib.Module.Abstractions
 {
     /// <summary>
     /// 模块集合

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NetModular.Lib.Module.Abstractions
+namespace Nm.Lib.Module.Abstractions
 {
     /// <summary>
     /// 模块初始化器接口

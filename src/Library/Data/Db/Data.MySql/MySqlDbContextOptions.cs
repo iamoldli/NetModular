@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
-using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.Core;
+using Nm.Lib.Data.Abstractions.Options;
+using Nm.Lib.Data.Core;
 
-namespace NetModular.Lib.Data.MySql
+namespace Nm.Lib.Data.MySql
 {
     /// <summary>
     /// MySql数据库上下文配置项

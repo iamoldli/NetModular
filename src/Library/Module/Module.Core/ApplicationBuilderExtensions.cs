@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Options;
+using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Options;
 
-namespace NetModular.Lib.Module.Core
+namespace Nm.Lib.Module.Core
 {
     public static class ApplicationBuilderExtensions
     {

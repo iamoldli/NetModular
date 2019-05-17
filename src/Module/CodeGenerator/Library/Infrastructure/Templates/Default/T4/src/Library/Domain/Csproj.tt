@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="<#= _prefix #>.Lib.Data.Core" Version="1.2.0" />
     <PackageReference Include="<#= _prefix #>.Lib.Data.Query" Version="1.2.0" />
-    <PackageReference Include="<#= _prefix #>.Lib.Utils" Version="1.2.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Utils.Core" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

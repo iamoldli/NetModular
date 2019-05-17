@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.Admin.Application.RoleService.ViewModels
+namespace Nm.Module.Admin.Application.RoleService.ViewModels
 {
     public class RoleMenuBindModel
     {

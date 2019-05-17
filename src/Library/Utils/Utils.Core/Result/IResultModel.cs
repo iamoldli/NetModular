@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NetModular.Lib.Utils.Core.Result
+namespace Nm.Lib.Utils.Core.Result
 {
     /// <summary>
     /// 返回结果模型接口

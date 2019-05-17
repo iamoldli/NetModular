@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.MenuService.ViewModels;
+using Nm.Lib.Utils.Core.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.MenuService.ViewModels;
+using Nm.Module.Admin.Domain.Menu.Models;
 
-namespace NetModular.Module.Admin.Application.MenuService
+namespace Nm.Module.Admin.Application.MenuService
 {
     /// <summary>
     /// 菜单服务
@@ -50,13 +52,6 @@ namespace NetModular.Module.Admin.Application.MenuService
         Task<IResultModel> Query(MenuQueryModel model);
 
         /// <summary>
-        /// 详情
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<IResultModel> Details(Guid id);
-
-        /// <summary>
         /// 查询菜单的权限列表
         /// </summary>
         /// <returns></returns>
@@ -74,5 +69,19 @@ namespace NetModular.Module.Admin.Application.MenuService
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IResultModel> ButtonList(Guid id);
+
+        /// <summary>
+        /// 查询排序列表
+        /// </summary>
+        /// <param name="parentId">父节点</param>
+        /// <returns></returns>
+        Task<IResultModel> QuerySortList(Guid parentId);
+
+        /// <summary>
+        /// 更新排序信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> UpdateSortList(SortUpdateModel<Guid> model);
     }
 }

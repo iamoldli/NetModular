@@ -1,17 +1,19 @@
 ﻿using System.IO;
 using System.Linq;
-using NetModular.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
 {
     public partial class Index : ITemplateHandler
     {
         private readonly TemplateBuildModel _model;
         private ClassBuildModel _class;
+        private readonly string _prefix;
 
         public Index(TemplateBuildModel model)
         {
             _model = model;
+            _prefix = _model.Project.Prefix.ToLower();
         }
 
         public void Save()

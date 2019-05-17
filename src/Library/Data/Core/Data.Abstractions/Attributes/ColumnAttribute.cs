@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Lib.Data.Abstractions.Attributes
+namespace Nm.Lib.Data.Abstractions.Attributes
 {
     /// <summary>
     /// 列名，指定实体属性在表中对应的列名

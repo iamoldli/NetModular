@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Helpers;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.Options;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Utils.Core;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Helpers;
 
-namespace NetModular.Lib.Data.AspNetCore
+namespace Nm.Lib.Data.AspNetCore
 {
     public static class ServiceCollectionExtensions
     {

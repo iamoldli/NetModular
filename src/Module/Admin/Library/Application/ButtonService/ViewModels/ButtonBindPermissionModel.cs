@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.Admin.Application.ButtonService.ViewModels
+namespace Nm.Module.Admin.Application.ButtonService.ViewModels
 {
     public class ButtonBindPermissionModel
     {

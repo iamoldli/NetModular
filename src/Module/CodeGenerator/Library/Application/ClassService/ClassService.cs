@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.ClassService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Class;
-using NetModular.Module.CodeGenerator.Domain.Class.Models;
-using NetModular.Module.CodeGenerator.Domain.Property;
-using NetModular.Module.CodeGenerator.Infrastructure;
-using NetModular.Module.CodeGenerator.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Module.CodeGenerator.Domain.Property;
+using Nm.Module.CodeGenerator.Infrastructure;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
-namespace NetModular.Module.CodeGenerator.Application.ClassService
+namespace Nm.Module.CodeGenerator.Application.ClassService
 {
     public class ClassService : IClassService
     {

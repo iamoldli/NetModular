@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.CodeGenerator.Application.EnumService;
-using NetModular.Module.CodeGenerator.Application.EnumService.ViewModels;
-using NetModular.Module.CodeGenerator.Domain.Enum.Models;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.CodeGenerator.Application.EnumService;
+using Nm.Module.CodeGenerator.Application.EnumService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Enum.Models;
 
-namespace NetModular.Module.CodeGenerator.Web.Controllers
+namespace Nm.Module.CodeGenerator.Web.Controllers
 {
     [Description("枚举管理")]
     public class EnumController : ModuleController

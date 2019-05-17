@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NetModular.Lib.Utils.Core.Enums;
+using Nm.Lib.Utils.Core.Enums;
 
-namespace NetModular.Module.Admin.Application.AccountService.ViewModels
+namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {
     /// <summary>
     /// 登录模型

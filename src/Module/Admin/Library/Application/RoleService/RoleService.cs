@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Application.RoleService.ResultModels;
-using NetModular.Module.Admin.Application.RoleService.ViewModels;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Button;
-using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService;
+using Nm.Module.Admin.Application.RoleService.ResultModels;
+using Nm.Module.Admin.Application.RoleService.ViewModels;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Domain.Role.Models;
+using Nm.Module.Admin.Domain.RoleMenu;
+using Nm.Module.Admin.Domain.RoleMenuButton;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.RoleService
+namespace Nm.Module.Admin.Application.RoleService
 {
     public class RoleService : IRoleService
     {
@@ -44,10 +44,11 @@ namespace NetModular.Module.Admin.Application.RoleService
 
         public async Task<IResultModel> Query(RoleQueryModel model)
         {
-            var result = new QueryResultModel<RoleEntity>();
-            var paging = model.Paging();
-            result.Rows = await _repository.Query(paging, model.Name);
-            result.Total = paging.TotalCount;
+            var result = new QueryResultModel<RoleEntity>
+            {
+                Rows = await _repository.Query(model),
+                Total = model.TotalCount
+            };
             return ResultModel.Success(result);
         }
 

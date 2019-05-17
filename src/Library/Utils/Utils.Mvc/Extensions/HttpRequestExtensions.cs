@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace NetModular.Lib.Utils.Mvc.Extensions
+namespace Nm.Lib.Utils.Mvc.Extensions
 {
     public static class HttpRequestExtensions
     {

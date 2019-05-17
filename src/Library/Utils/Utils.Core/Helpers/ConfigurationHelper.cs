@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
 
-namespace NetModular.Lib.Utils.Core.Helpers
+namespace Nm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 配置帮助类
@@ -23,11 +23,11 @@ namespace NetModular.Lib.Utils.Core.Helpers
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(AppContext.BaseDirectory, "config"))
-                .AddJsonFile(configFileName + ".json", true, reloadOnChange);
+                .AddJsonFile(configFileName.ToLower() + ".json", true, reloadOnChange);
 
             if (environmentName.NotNull())
             {
-                builder.AddJsonFile(configFileName + "." + environmentName + ".json", true, reloadOnChange);
+                builder.AddJsonFile(configFileName.ToLower() + "." + environmentName + ".json", true, reloadOnChange);
             }
 
             return builder.Build();

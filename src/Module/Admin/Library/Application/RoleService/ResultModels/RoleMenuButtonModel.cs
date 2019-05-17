@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetModular.Module.Admin.Application.RoleService.ResultModels
+namespace Nm.Module.Admin.Application.RoleService.ResultModels
 {
     /// <summary>
     /// 角色菜单的按钮信息

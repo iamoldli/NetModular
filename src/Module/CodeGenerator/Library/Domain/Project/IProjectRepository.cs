@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Module.CodeGenerator.Domain.Project.Models;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.CodeGenerator.Domain.Project.Models;
 
-namespace NetModular.Module.CodeGenerator.Domain.Project
+namespace Nm.Module.CodeGenerator.Domain.Project
 {
     /// <summary>
     /// 项目仓储

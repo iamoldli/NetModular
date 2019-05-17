@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions;
+using Nm.Module.Admin.Domain.Account.Models;
 
-namespace NetModular.Module.Admin.Domain.Account
+namespace Nm.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户仓储
@@ -38,13 +38,8 @@ namespace NetModular.Module.Admin.Domain.Account
         /// <summary>
         /// 查询账户列表
         /// </summary>
-        /// <param name="paging"></param>
-        /// <param name="userName"></param>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        /// <param name="email"></param>
         /// <returns></returns>
-        Task<IList<AccountEntity>> Query(Paging paging, string userName = null, string name = null, string phone = null, string email = null);
+        Task<IList<AccountEntity>> Query(AccountQueryModel model);
 
         /// <summary>
         /// 用户名是否存在

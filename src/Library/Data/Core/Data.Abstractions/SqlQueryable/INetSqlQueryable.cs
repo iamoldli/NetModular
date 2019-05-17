@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions.Pagination;
 
-namespace NetModular.Lib.Data.Abstractions.SqlQueryable
+namespace Nm.Lib.Data.Abstractions.SqlQueryable
 {
     public interface INetSqlQueryable
     {

@@ -5,25 +5,25 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Encrypt;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Helpers;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService.ResultModels;
-using NetModular.Module.Admin.Application.AccountService.ViewModels;
-using NetModular.Module.Admin.Application.SystemService;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Button;
-using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Encrypt;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Helpers;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService.ResultModels;
+using Nm.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Module.Admin.Application.SystemService;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.Account.Models;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.AccountService
+namespace Nm.Module.Admin.Application.AccountService
 {
     public class AccountService : IAccountService
     {
@@ -225,12 +225,11 @@ namespace NetModular.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> Query(AccountQueryModel model)
         {
-            var result = new QueryResultModel<AccountQueryResultModel>();
-            var paging = model.Paging();
-
-            var list = await _accountRepository.Query(paging, model.UserName, model.Name, model.Phone, model.Email);
-            result.Rows = _mapper.Map<List<AccountQueryResultModel>>(list);
-            result.Total = paging.TotalCount;
+            var result = new QueryResultModel<AccountEntity>
+            {
+                Rows = await _accountRepository.Query(model),
+                Total = model.TotalCount
+            };
 
             foreach (var item in result.Rows)
             {

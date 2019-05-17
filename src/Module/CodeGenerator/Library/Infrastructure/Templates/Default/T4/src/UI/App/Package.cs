@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 {
     using System;
     
@@ -71,21 +71,21 @@ namespace NetModular.Module.CodeGenerator.Infrastructure.Templates.Default.T4.sr
             
             #line default
             #line hidden
-            this.Write("-lib-icon\": \"^1.1.5\",\r\n        \"");
+            this.Write("-lib-icon\": \"^1.0.0\",\r\n        \"");
             
             #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write("-lib-skins\": \"^1.5.4\",\r\n        \"");
+            this.Write("-lib-skins\": \"^1.0.0\",\r\n        \"");
             
             #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(@"-module-admin"": ""^1.4.5""
+            this.Write(@"-module-admin"": ""^1.0.0""
     },
     ""devDependencies"": {
         ""@vue/cli-plugin-babel"": ""^3.7.0"",

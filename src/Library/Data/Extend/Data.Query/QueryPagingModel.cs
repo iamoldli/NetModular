@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NetModular.Lib.Data.Query
+namespace Nm.Lib.Data.Query
 {
     /// <summary>
     /// 查询分页模型

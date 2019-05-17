@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Application.ButtonService.ViewModels;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Button;
-using NetModular.Module.Admin.Domain.ButtonPermission;
-using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
-using NetModular.Module.Admin.Infrastructure.Repositories;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService;
+using Nm.Module.Admin.Application.ButtonService.ViewModels;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Button.Models;
+using Nm.Module.Admin.Domain.ButtonPermission;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Domain.RoleMenuButton;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
-namespace NetModular.Module.Admin.Application.ButtonService
+namespace Nm.Module.Admin.Application.ButtonService
 {
     public class ButtonService : IButtonService
     {
-        private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
         private readonly IButtonRepository _buttonRepository;
         private readonly IMenuRepository _menuRepository;
@@ -33,7 +32,6 @@ namespace NetModular.Module.Admin.Application.ButtonService
 
         public ButtonService(IMapper mapper, IUnitOfWork<AdminDbContext> uow, IButtonRepository buttonRepository, IMenuRepository menuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IPermissionRepository permissionRepository, IButtonPermissionRepository buttonPermissionRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
         {
-            _mapper = mapper;
             _uow = uow;
             _buttonRepository = buttonRepository;
             _menuRepository = menuRepository;
@@ -46,10 +44,11 @@ namespace NetModular.Module.Admin.Application.ButtonService
 
         public async Task<IResultModel> Query(ButtonQueryModel model)
         {
-            var result = new QueryResultModel<ButtonEntity>();
-            var paging = model.Paging();
-            result.Rows = await _buttonRepository.Query(paging, model.MenuId, model.Name);
-            result.Total = paging.TotalCount;
+            var result = new QueryResultModel<ButtonEntity>
+            {
+                Rows = await _buttonRepository.Query(model),
+                Total = model.TotalCount
+            };
 
             return ResultModel.Success(result);
         }

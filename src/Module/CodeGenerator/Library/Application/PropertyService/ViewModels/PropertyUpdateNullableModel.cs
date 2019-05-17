@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.CodeGenerator.Application.PropertyService.ViewModels
+namespace Nm.Module.CodeGenerator.Application.PropertyService.ViewModels
 {
     public class PropertyUpdateNullableModel
     {

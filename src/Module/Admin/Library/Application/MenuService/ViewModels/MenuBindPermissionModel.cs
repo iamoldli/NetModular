@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NetModular.Module.Admin.Application.MenuService.ViewModels
+namespace Nm.Module.Admin.Application.MenuService.ViewModels
 {
     public class MenuBindPermissionModel
     {

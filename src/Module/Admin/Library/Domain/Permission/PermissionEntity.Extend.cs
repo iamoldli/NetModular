@@ -1,7 +1,7 @@
-﻿using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
 
-namespace NetModular.Module.Admin.Domain.Permission
+namespace Nm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限扩展属性

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.ModuleInfoService.ViewModels;
-using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Domain.ModuleInfo;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Infrastructure.Repositories;
-using ModuleInfoEntity = NetModular.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.ModuleInfo;
+using Nm.Module.Admin.Domain.ModuleInfo.Models;
+using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Infrastructure.Repositories;
+using ModuleInfoEntity = Nm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
-namespace NetModular.Module.Admin.Application.ModuleInfoService
+namespace Nm.Module.Admin.Application.ModuleInfoService
 {
     public class ModuleInfoService : IModuleInfoService
     {
@@ -33,10 +32,11 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
 
         public async Task<IResultModel> Query(ModuleInfoQueryModel model)
         {
-            var result = new QueryResultModel<ModuleInfoEntity>();
-            var paging = model.Paging();
-            result.Rows = await _repository.Query(paging, model.Name, model.Code);
-            result.Total = paging.TotalCount;
+            var result = new QueryResultModel<ModuleInfoEntity>
+            {
+                Rows = await _repository.Query(model),
+                Total = model.TotalCount
+            };
             return ResultModel.Success(result);
         }
 

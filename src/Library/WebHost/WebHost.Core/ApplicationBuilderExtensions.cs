@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using NetModular.Lib.Module.Core;
-using NetModular.Lib.Swagger;
-using NetModular.Lib.WebHost.Core.Middlewares;
-using NetModular.Lib.WebHost.Core.Options;
+using Nm.Lib.Module.Core;
+using Nm.Lib.Swagger;
+using Nm.Lib.WebHost.Core.Middlewares;
+using Nm.Lib.WebHost.Core.Options;
 
-namespace NetModular.Lib.WebHost.Core
+namespace Nm.Lib.WebHost.Core
 {
     public static class ApplicationBuilderExtensions
     {

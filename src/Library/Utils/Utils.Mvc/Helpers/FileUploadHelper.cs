@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Lib.Utils.Core.Encrypt;
-using NetModular.Lib.Utils.Core.Result;
-using FileInfo = NetModular.Lib.Utils.Core.Files.FileInfo;
+using Nm.Lib.Utils.Core.Attributes;
+using Nm.Lib.Utils.Core.Encrypt;
+using Nm.Lib.Utils.Core.Result;
+using FileInfo = Nm.Lib.Utils.Core.Files.FileInfo;
 
-namespace NetModular.Lib.Utils.Mvc.Helpers
+namespace Nm.Lib.Utils.Mvc.Helpers
 {
     /// <summary>
     /// 文件上传帮助类

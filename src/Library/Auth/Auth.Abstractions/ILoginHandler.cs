@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using NetModular.Lib.Utils.Core.Result;
+using Nm.Lib.Utils.Core.Result;
 
-namespace NetModular.Lib.Auth.Abstractions
+namespace Nm.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 登录处理

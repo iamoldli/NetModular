@@ -1,4 +1,4 @@
-﻿namespace NetModular.Module.CodeGenerator.Infrastructure.Templates
+﻿namespace Nm.Module.CodeGenerator.Infrastructure.Templates
 {
     /// <summary>
     /// 模板处理

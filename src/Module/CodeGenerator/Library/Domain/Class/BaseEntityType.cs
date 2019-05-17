@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NetModular.Module.CodeGenerator.Domain.Class
+namespace Nm.Module.CodeGenerator.Domain.Class
 {
     /// <summary>
     /// 基类实体类型

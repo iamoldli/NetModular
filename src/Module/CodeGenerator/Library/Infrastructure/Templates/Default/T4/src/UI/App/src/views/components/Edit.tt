@@ -1,6 +1,6 @@
 <#@ template language="C#" #>
 <template>
-  <td-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
+  <<#= _prefix #>-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
       <el-col :span="20" :offset="1">
 <#    foreach(var p in _class.EditModelPropertyList){ #>
@@ -10,7 +10,7 @@
 <#    } #>
       </el-col>
     </el-row>
-  </td-form-dialog>
+  </<#= _prefix #>-form-dialog>
 </template>
 <script>
 import api from '../../../../api/<#= _class.Name #>'

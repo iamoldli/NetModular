@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
-using NetModular.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using Nm.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
+namespace Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable
 {
     internal class GroupByQueryable4<TKey, TEntity, TEntity2, TEntity3, TEntity4> : GroupByQueryableAbstract, IGroupByQueryable4<TKey, TEntity, TEntity2, TEntity3, TEntity4>
         where TEntity : IEntity, new()

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Xml;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NetModular.Lib.Module.Abstractions;
+using Nm.Lib.Module.Abstractions;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace NetModular.Lib.Swagger
+namespace Nm.Lib.Swagger
 {
     public static class ApplicationBuilderExtensions
     {

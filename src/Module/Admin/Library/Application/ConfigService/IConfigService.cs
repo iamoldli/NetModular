@@ -1,4 +1,4 @@
-﻿namespace NetModular.Module.Admin.Application.ConfigService
+﻿namespace Nm.Module.Admin.Application.ConfigService
 {
     /// <summary>
     /// 配置项服务

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using NetModular.Lib.Utils.Core;
+using Nm.Lib.Utils.Core;
 
-namespace NetModular.Lib.Utils.Mvc
+namespace Nm.Lib.Utils.Mvc
 {
     public static class ServiceCollectionExtensions
     {

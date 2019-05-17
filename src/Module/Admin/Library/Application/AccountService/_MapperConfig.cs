@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using NetModular.Lib.Mapper.AutoMapper;
-using NetModular.Module.Admin.Application.AccountService.ResultModels;
-using NetModular.Module.Admin.Application.AccountService.ViewModels;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.Menu;
+using Nm.Lib.Mapper.AutoMapper;
+using Nm.Module.Admin.Application.AccountService.ResultModels;
+using Nm.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.Menu;
 
-namespace NetModular.Module.Admin.Application.AccountService
+namespace Nm.Module.Admin.Application.AccountService
 {
     public class MapperConfig : IMapperConfig
     {
         public void Bind(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<AccountEntity, AccountQueryResultModel>();
             cfg.CreateMap<MenuEntity, AccountMenuItem>();
             cfg.CreateMap<AccountAddModel, AccountEntity>();
             cfg.CreateMap<AccountEntity, AccountUpdateModel>();

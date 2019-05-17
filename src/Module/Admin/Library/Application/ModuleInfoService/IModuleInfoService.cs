@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.ModuleInfoService.ViewModels;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace NetModular.Module.Admin.Application.ModuleInfoService
+namespace Nm.Module.Admin.Application.ModuleInfoService
 {
     /// <summary>
     /// 模块服务

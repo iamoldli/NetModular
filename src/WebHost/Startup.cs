@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using NetModular.Lib.WebHost.Core;
+using Nm.Lib.WebHost.Core;
 
 namespace NetModular.WebHost
 {

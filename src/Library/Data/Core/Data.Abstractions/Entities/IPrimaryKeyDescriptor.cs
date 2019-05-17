@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using NetModular.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Enums;
 
-namespace NetModular.Lib.Data.Abstractions.Entities
+namespace Nm.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 主键信息

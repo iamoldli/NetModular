@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
-using NetModular.Lib.Data.Query;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AuditInfoService.ResultModels;
-using NetModular.Module.Admin.Application.AuditInfoService.ViewModels;
-using NetModular.Module.Admin.Domain.AuditInfo;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Domain.AuditInfo;
+using Nm.Module.Admin.Domain.AuditInfo.Models;
 
-namespace NetModular.Module.Admin.Application.AuditInfoService
+namespace Nm.Module.Admin.Application.AuditInfoService
 {
     public class AuditInfoService : IAuditInfoService
     {
@@ -31,12 +28,11 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
 
         public async Task<IResultModel> Query(AuditInfoQueryModel model)
         {
-            var result = new QueryResultModel<AuditInfoQueryResultModel>();
-            var paging = model.Paging();
-            var list = await _repository.Query(paging, model.ModuleCode, model.Controller, model.Action, model.StartTime, model.EndTime);
-
-            result.Rows = _mapper.Map<List<AuditInfoQueryResultModel>>(list);
-            result.Total = paging.TotalCount;
+            var result = new QueryResultModel<AuditInfoEntity>
+            {
+                Rows = await _repository.Query(model),
+                Total = model.TotalCount
+            };
 
             return ResultModel.Success(result);
         }

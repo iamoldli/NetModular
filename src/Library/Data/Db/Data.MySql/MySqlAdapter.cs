@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Data.Core.Internal;
+using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Core.Internal;
 
-namespace NetModular.Lib.Data.MySql
+namespace Nm.Lib.Data.MySql
 {
     internal class MySqlAdapter : SqlAdapterAbstract
     {

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Module.Admin.Domain.Account;
-using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Menu;
-using NetModular.Module.Admin.Domain.RoleMenu;
+using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Core;
+using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Admin.Domain.Account;
+using Nm.Module.Admin.Domain.AccountRole;
+using Nm.Module.Admin.Domain.Menu;
+using Nm.Module.Admin.Domain.Menu.Models;
+using Nm.Module.Admin.Domain.RoleMenu;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class MenuRepository : RepositoryAbstract<MenuEntity>, IMenuRepository
     {
@@ -19,25 +20,32 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<IList<MenuEntity>> Query(Paging paging, string name = null, string code = null, Guid? parentId = null)
+        public async Task<IList<MenuEntity>> Query(MenuQueryModel model)
         {
-            var query = Db.Find().LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
+            var paging = model.Paging();
+            var query = Db.Find();
+            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.RouteName.NotNull(), m => m.RouteName.Contains(model.RouteName));
 
-            query.WhereIf(name.NotNull(), (x, y) => x.Name.Contains(name));
-            query.WhereIf(code.NotNull(), (x, y) => x.RouteName.Contains(code));
-
-            if (parentId == null)
-                parentId = Guid.Empty;
-            query.Where((x, y) => x.ParentId == parentId);
+            if (model.ParentId == null)
+                model.ParentId = Guid.Empty;
+            query.Where(m => m.ParentId == model.ParentId);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderBy((x, y) => x.Sort);
+                query.OrderBy(m => m.Sort);
             }
 
-            query.Select((x, y) => new { x, CreatorName = y.Name });
+            var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .Select((x, y) => new { x, CreatorName = y.Name })
+                .PaginationAsync(paging);
+            model.TotalCount = paging.TotalCount;
+            return list;
+        }
 
-            return query.PaginationAsync(paging);
+        public Task<IList<MenuEntity>> QueryChildren(Guid parentId)
+        {
+            return Db.Find(m => m.ParentId == parentId).OrderBy(m => m.Sort).ToListAsync();
         }
 
         public Task<bool> ExistsChild(Guid id)

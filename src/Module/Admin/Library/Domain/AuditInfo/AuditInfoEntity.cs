@@ -1,9 +1,9 @@
 ﻿using System;
-using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities;
-using NetModular.Lib.Utils.Core.Enums;
+using Nm.Lib.Data.Abstractions.Attributes;
+using Nm.Lib.Data.Core.Entities;
+using Nm.Lib.Utils.Core.Enums;
 
-namespace NetModular.Module.Admin.Domain.AuditInfo
+namespace Nm.Module.Admin.Domain.AuditInfo
 {
     /// <summary>
     /// 审计信息

@@ -1,6 +1,6 @@
-﻿using NetModular.Lib.Data.Abstractions;
+﻿using Nm.Lib.Data.Abstractions;
 
-namespace NetModular.Module.Admin.Infrastructure.Repositories.SQLite
+namespace Nm.Module.Admin.Infrastructure.Repositories.SQLite
 {
     public class ButtonRepository : SqlServer.ButtonRepository
     {

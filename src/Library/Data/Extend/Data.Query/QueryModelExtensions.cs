@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using NetModular.Lib.Data.Abstractions.Pagination;
+using Nm.Lib.Data.Abstractions.Pagination;
 
-namespace NetModular.Lib.Data.Query
+namespace Nm.Lib.Data.Query
 {
     public static class QueryModelExtensions
     {

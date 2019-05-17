@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Auth.Abstractions.Attributes;
-using NetModular.Lib.Module.Abstractions.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Result;
+using Nm.Module.Admin.Application.AccountService;
+using Nm.Module.Admin.Application.AccountService.ViewModels;
+using Nm.Module.Admin.Domain.Account.Models;
 
-namespace NetModular.Module.Admin.Web.Controllers
+namespace Nm.Module.Admin.Web.Controllers
 {
     [Description("账户管理")]
     public class AccountController : ModuleController

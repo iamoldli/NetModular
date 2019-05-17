@@ -1,4 +1,4 @@
-﻿namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
+﻿namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
     internal class GroupByJoinDescriptor
     {

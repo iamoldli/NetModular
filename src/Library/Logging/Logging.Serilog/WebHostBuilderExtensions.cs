@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using NetModular.Lib.Utils.Core.Helpers;
+using Nm.Lib.Utils.Core.Helpers;
 using Serilog;
 
-namespace NetModular.Lib.Logging.Serilog
+namespace Nm.Lib.Logging.Serilog
 {
     public static class WebHostBuilderExtensions
     {

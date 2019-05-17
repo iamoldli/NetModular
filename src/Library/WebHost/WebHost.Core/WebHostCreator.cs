@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using NetModular.Lib.Logging.Serilog;
-using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Helpers;
-using NetModular.Lib.WebHost.Core.Options;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
+using Nm.Lib.Logging.Serilog;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Helpers;
+using Nm.Lib.WebHost.Core.Options;
 
-namespace NetModular.Lib.WebHost.Core
+namespace Nm.Lib.WebHost.Core
 {
     /// <summary>
     /// WebHost构造器
@@ -30,6 +31,7 @@ namespace NetModular.Lib.WebHost.Core
         public static IWebHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
             var cfgHelper = new ConfigurationHelper();
+
             //加载主机配置项
             var hostOptions = cfgHelper.Get<HostOptions>("Host");
 

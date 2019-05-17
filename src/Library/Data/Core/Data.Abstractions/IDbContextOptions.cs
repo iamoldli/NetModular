@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Data.Abstractions.Options;
+using Nm.Lib.Data.Abstractions.Options;
 
-namespace NetModular.Lib.Data.Abstractions
+namespace Nm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 数据库配置项

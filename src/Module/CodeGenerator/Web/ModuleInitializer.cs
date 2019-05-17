@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetModular.Lib.Module.Abstractions;
-using NetModular.Module.CodeGenerator.Infrastructure.Options;
+using Nm.Lib.Module.Abstractions;
+using Nm.Module.CodeGenerator.Infrastructure.Options;
 
-namespace NetModular.Module.CodeGenerator.Web
+namespace Nm.Module.CodeGenerator.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {
