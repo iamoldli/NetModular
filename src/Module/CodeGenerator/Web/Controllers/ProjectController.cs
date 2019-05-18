@@ -70,13 +70,7 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
         {
             var result = await _service.BuildCode(model);
             var path = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath, result.Data.Id + ".zip");
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
-            return File(memory, "application/octet-stream", result.Data.Name + ".zip");
+            return PhysicalFile(path, "application/octet-stream", result.Data.Name + ".zip");
         }
     }
 }

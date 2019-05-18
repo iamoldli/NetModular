@@ -4,7 +4,7 @@
     {
         public CodeGeneratorOptions()
         {
-            BuildCodePath = "CodeGenerator\\BuildCode";
+            BuildCodePath = "CodeGenerator/BuildCode";
         }
 
         /// <summary>
