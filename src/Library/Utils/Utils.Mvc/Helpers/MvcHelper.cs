@@ -48,7 +48,6 @@ namespace Nm.Lib.Utils.Mvc.Helpers
                     if (typeInfo.IsAbstract)
                         continue;
 
-
                     var controller = new ControllerDescriptor
                     {
                         Name = typeInfo.Name.Replace("Controller", ""),

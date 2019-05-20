@@ -34,7 +34,7 @@ namespace Nm.Lib.WebHost.Core
 
             //加载模块
             var modules = services.AddModules(env);
-
+            
             //添加对象映射
             services.AddMappers(modules);
 

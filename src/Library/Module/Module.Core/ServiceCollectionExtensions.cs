@@ -40,8 +40,6 @@ namespace Nm.Lib.Module.Core
                     module.Initializer.ConfigureServices(services);
 
                     module.Initializer.ConfigOptions(services, cfg.GetSection(module.Id));
-
-                    services.AddSingleton(module);
                 }
             }
 

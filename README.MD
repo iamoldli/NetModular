@@ -6,7 +6,7 @@
 账户：admin  
 密码：admin
 
-### 前端框架Demo
+### 前端框架Demo(临时)
 地址：[http://progqx5cu.bkt.clouddn.com/skins/index.html#/](http://progqx5cu.bkt.clouddn.com/skins/index.html#/)  
 账户：admin  
 密码：admin

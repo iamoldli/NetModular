@@ -33,8 +33,6 @@ namespace Nm.Lib.Data.AspNetCore
             if (!dbOptions.Connections.Any() || !modules.Any())
                 return;
 
-
-
             services.AddSingleton(dbOptions);
 
             foreach (var options in dbOptions.Connections)

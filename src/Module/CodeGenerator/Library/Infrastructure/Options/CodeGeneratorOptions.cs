@@ -1,10 +1,12 @@
-﻿namespace Nm.Module.CodeGenerator.Infrastructure.Options
+﻿using System.IO;
+
+namespace Nm.Module.CodeGenerator.Infrastructure.Options
 {
     public class CodeGeneratorOptions
     {
         public CodeGeneratorOptions()
         {
-            BuildCodePath = "CodeGenerator/BuildCode";
+            BuildCodePath = Path.Combine("CodeGenerator", "BuildCode");
         }
 
         /// <summary>
