@@ -7,10 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="<#= _prefix #>.Lib.Data.AspNetCore" Version="1.2.0" />
-    <PackageReference Include="<#= _prefix #>.Lib.Data.SqlServer" Version="1.2.0" />
-    <PackageReference Include="<#= _prefix #>.Lib.WebHost.Core" Version="1.2.0" />
-    <PackageReference Include="<#= _prefix #>.Module.Admin.Web" Version="1.4.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Data.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Data.SqlServer" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.WebHost.Core" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Module.Admin.Web" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

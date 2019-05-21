@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
@@ -64,13 +63,12 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Description("生成代码")]
         public async Task<IActionResult> BuildCode(ProjectBuildCodeModel model)
         {
             var result = await _service.BuildCode(model);
             var path = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath, result.Data.Id + ".zip");
-            return PhysicalFile(path, "application/octet-stream", result.Data.Name + ".zip");
+            return PhysicalFile(path, "application/octet-stream", result.Data.Name, true);
         }
     }
 }

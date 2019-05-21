@@ -34,21 +34,21 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write(".Lib.Data.Core\" Version=\"1.2.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Data.Core\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.Data.Query\" Version=\"1.2.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Data.Query\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.Utils.Core\" Version=\"1.2.0\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n\r\n");
+            this.Write(".Lib.Utils.Core\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

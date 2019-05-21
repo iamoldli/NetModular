@@ -22,6 +22,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SchemaMySql.cs</LastGenOutput>
     </None>
+    <None Update="Templates\Default\T4\PublishScript.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PublishScript.cs</LastGenOutput>
+    </None>
     <None Update="Templates\Default\T4\src\UI\App\src\Module.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Module.cs</LastGenOutput>
@@ -642,6 +646,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SchemaSQLite.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\PublishScript.*">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PublishScript.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Templates\Default\T4\PublishScript.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PublishScript.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -34,7 +34,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write(".Module.Admin.Domain\" Version=\"1.4.0\" />\r\n  </ItemGroup>\r\n \r\n  <ItemGroup>\r\n    <" +
+            this.Write(".Module.Admin.Domain\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n \r\n  <ItemGroup>\r\n    <" +
                     "ProjectReference Include=\"..\\Domain\\Domain.csproj\" />\r\n  </ItemGroup>\r\n\r\n</Proje" +
                     "ct>\r\n");
             return this.GenerationEnvironment.ToString();
