@@ -50,7 +50,7 @@ IDE：vscode
       //连接字符串
       "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
       //SqlServer连接字符串需要配置MultipleActiveResultSets=true
-      //"ConnString": "Server=10.32.8.8;Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+      //"ConnString": "Server=.;Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
     },
     {
       "Name": "CodeGenerator",
