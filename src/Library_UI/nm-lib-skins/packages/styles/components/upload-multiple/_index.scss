@@ -1,0 +1,29 @@
+#{$prefix}-upload-multiple {
+    box-shadow: none;
+
+    #{$prefix}-box-content {
+        padding: 0 !important;
+
+        .el-upload {
+            width: 100%;
+
+            .el-upload-dragger {
+                width: 100%;
+                height: auto;
+                border: none;
+
+                .el-icon-upload {
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+
+    &-tip {
+        color: $color-warning;
+
+        >i {
+            margin-right: 5px;
+        }
+    }
+}

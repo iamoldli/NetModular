@@ -1,0 +1,23 @@
+#{$prefix}-upload-single {
+    width: 100%;
+    @include flex-row();
+
+    >.input {
+        padding-right: 5px;
+        flex-grow: 1;
+    }
+
+    >.button {
+        flex-shrink: 0;
+    }
+}
+
+.is-error {
+    #{$prefix}-upload-single {
+        >.input {
+            .el-input__inner {
+                border-color: #F56C6C;
+            }
+        }
+    }
+}
