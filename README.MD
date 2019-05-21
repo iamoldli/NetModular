@@ -72,7 +72,9 @@ IDE：vscode
 
 ![启动后端](./docs/image/20190521153845.png)
 
-4、进入 `sample/Blog/src/UI/nm-module-blog` 目录，执行以下命令启动前端
+4、在WebHost项目的wwwroot目录中已经包含了前端打包后的资源文件，如果不需要调试前端代码，可以直接访问`http://localhost:6220/`
+
+如果想调试前端代码的话，进入 `sample/Blog/src/UI/nm-module-blog` 目录，执行以下命令启动前端
 
 ```js
 npm update  
@@ -81,8 +83,8 @@ npm run serve
 
 ![启动前端](./docs/image/20190521154155.png)
 
-5、打开浏览器，输入`http://localhost:5220/`进行浏览
+然后打开浏览器，输入`http://localhost:5220/`进行浏览
 
-
+5、可访问 `http://localhost:6220/swagger/index.html` 查看接口文档
 
 
