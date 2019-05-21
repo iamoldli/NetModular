@@ -31,7 +31,6 @@ IDE：vscode
 
 ### 运行方式
 
-#### 创建数据
 1、找到`sample/Blog/data`目录，按需要创建对应数据库(目前只上传了SqlServer和MySql)  
     需要注意的时，在linux的docker中mysql默认启用了区分大小写，需要关闭
 
@@ -73,7 +72,7 @@ IDE：vscode
 
 ![启动后端](./docs/image/20190521153845.png)
 
-4、进入 `sample/Blog/src/UI/nm-module-blog` 目录，执行一下命令启动前端
+4、进入 `sample/Blog/src/UI/nm-module-blog` 目录，执行以下命令启动前端
 
 ```js
 npm update  
