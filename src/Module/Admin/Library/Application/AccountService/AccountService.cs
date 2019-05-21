@@ -337,8 +337,11 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            if (!await _accountRepository.ExistsAsync(id))
+            var entity = await _accountRepository.GetAsync(id);
+            if (entity == null)
                 return ResultModel.NotExists;
+            if (entity.Id == _loginInfo.AccountId)
+                return ResultModel.Failed("不允许删除自己的账户");
 
             var result = await _accountRepository.SoftDeleteAsync(id);
             return ResultModel.Result(result);

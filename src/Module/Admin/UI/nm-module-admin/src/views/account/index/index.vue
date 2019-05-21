@@ -68,7 +68,14 @@
               <nm-button text="重置密码" icon="refresh" type="text" @click="resetPassword(row)" v-nm-has="buttons.resetPassword"/>
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button-delete text="删&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除" :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+              <nm-button-delete
+                :disabled="row.id===accountId"
+                text="删&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除"
+                :action="removeAction"
+                :id="row.id"
+                @success="refresh"
+                v-nm-has="buttons.del"
+              />
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -82,6 +89,7 @@
   </nm-container>
 </template>
 <script>
+import { mapState } from 'vuex'
 import api from '../../../api/account.js'
 import page from './page'
 import cols from './cols'
@@ -91,7 +99,7 @@ import EditPage from '../components/edit'
 export default {
   name: page.name,
   components: { AddPage, EditPage },
-  data () {
+  data() {
     return {
       list: {
         title: page.title,
@@ -120,21 +128,24 @@ export default {
       buttons: page.buttons
     }
   },
+  computed: {
+    ...mapState('app/account', { accountId: 'id' })
+  },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    add (total) {
+    add(total) {
       this.addPage.sort = total
       this.addPage.visible = true
     },
-    edit (row) {
+    edit(row) {
       this.editPage = {
         id: row.id,
         visible: true
       }
     },
-    resetPassword (row) {
+    resetPassword(row) {
       this._confirm(`您确定要重置账户(${row.name})的密码吗？`).then(() => {
         api.resetPassword(row.id).then(data => {
           this._success('已重置')
