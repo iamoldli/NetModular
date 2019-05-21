@@ -179,6 +179,9 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> UpdatePassword(UpdatePasswordModel model)
         {
+            return ResultModel.Failed("演示地址，禁止修改密码");
+
+
             var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
             if (account == null || account.Deleted)
                 return ResultModel.Failed("账户不存在");
