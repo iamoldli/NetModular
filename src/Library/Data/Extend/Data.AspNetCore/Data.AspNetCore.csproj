@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Description>NetModular数据访问AspNetCore集成扩展库</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

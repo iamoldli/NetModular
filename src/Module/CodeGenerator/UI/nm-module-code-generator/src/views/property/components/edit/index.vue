@@ -172,10 +172,13 @@ export default {
       return this.form.model.type === 0
     },
     showPrecision() {
-      return this.form.model.type > 4 && this.form.model.type < 8
+      return this.form.model.type === 5 || this.form.model.type === 6
+    },
+    showScale() {
+      return this.form.model.type === 6
     },
     showEnum() {
-      return this.form.model.type === 11
+      return this.form.model.type === 10
     }
   },
   methods: {

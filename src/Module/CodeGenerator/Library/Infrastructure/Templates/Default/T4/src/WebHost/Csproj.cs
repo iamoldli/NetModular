@@ -35,7 +35,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             
             #line default
             #line hidden
-            this.Write(".Lib.Data.AspNetCore\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Data.AspNetCore\" Version=\"1.0.1\" />\r\n    <PackageReference Include=\"");
             
             #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -49,9 +49,23 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             
             #line default
             #line hidden
-            this.Write(".Lib.WebHost.Core\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Data.MySql\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Data.SQLite\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.WebHost.Core\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

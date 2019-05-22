@@ -184,7 +184,7 @@ export default {
       return this.form.model.type === 6
     },
     showEnum() {
-      return this.form.model.type === 11
+      return this.form.model.type === 10
     }
   },
   methods: {

@@ -1,0 +1,35 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Error",
+      "Override": {
+        "Microsoft": "Error",
+        "System": "Error"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          //文件路径
+          "path": "log/log.log",
+          //文件滚动方式
+          "rollingInterval": "Day",
+          //消息输出格式
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+          //文件数量
+          "retainedFileCountLimit": 60,
+          //使用缓冲，提高写入效率
+          "buffered": false
+        }
+      }
+    ]
+  }
+}

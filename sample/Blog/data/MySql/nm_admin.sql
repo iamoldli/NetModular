@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 17/05/2019 15:35:33
+ Date: 22/05/2019 13:13:54
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `account`  (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-05-17 15:15:38', '0.0.0.1', 1, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', 0, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
+INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-05-22 10:51:10', '0.0.0.1', 1, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', 0, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
 
 -- ----------------------------
 -- Table structure for account_role
@@ -57,7 +57,7 @@ CREATE TABLE `account_role`  (
   `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户编号',
   `RoleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of account_role
@@ -69,7 +69,7 @@ INSERT INTO `account_role` VALUES (2, '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '1
 -- ----------------------------
 DROP TABLE IF EXISTS `auditinfo`;
 CREATE TABLE `auditinfo`  (
-  `Id` bigint(20) NOT NULL,
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
   `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '账户编号',
   `Area` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区域',
   `Controller` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '控制器',
@@ -82,7 +82,7 @@ CREATE TABLE `auditinfo`  (
   `Platform` smallint(6) NOT NULL COMMENT '平台',
   `IP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for button
@@ -149,7 +149,7 @@ CREATE TABLE `button_permission`  (
   `ButtonId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '按钮编号',
   `PermissionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of button_permission
@@ -290,6 +290,7 @@ INSERT INTO `menu` VALUES ('39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '', 0, '00000
 INSERT INTO `menu` VALUES ('39edd6dc-1ae4-116a-bffc-d59bf483ba2f', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '文章列表', 'Blog_Article', '', '', 'edit', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:26:21', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:26:21', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('39edd6dc-9361-a471-ec2f-06c962dad5cd', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '分类列表', 'Blog_Category', '', '', 'open', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:26:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:26:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('39edd6dc-b30d-c207-6967-0586c4785fe0', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '标签列表', 'Blog_Tag', '', '', 'tag', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:27:00', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:27:00', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39edef2c-6153-c935-1660-4823c692e142', '', 2, '00000000-0000-0000-0000-000000000000', '前端框架文档', '', '', '', 'attachment', '', 'http://progqx5cu.bkt.clouddn.com/skins/index.html', 0, 1, 3, 0, '', '', 1, '', '2019-05-22 08:44:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 08:44:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('601D5926-CF2A-EA30-B3CC-39EDD647ECD8', '', 0, '00000000-0000-0000-0000-000000000000', '开发工具', '', '', '', 'develop', '', '', 0, 1, 1, -1, '', '', 1, '', '2019-05-17 12:44:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:24:39', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('64BB88F0-AE8D-EFF9-C537-39ED22096F9B', 'Admin', 1, '214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '账户管理', 'admin_account', '', '', 'user', '', '', 1, 1, 4, 0, '', '', 1, '', '2019-04-12 12:44:36', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:09:12', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `menu` VALUES ('7F9DCB98-20B2-3556-A850-39ED2209AB84', 'Admin', 1, '214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '系统配置', 'admin_system_config', '', '', 'system', '', '', 1, 1, 6, 0, '', '', 1, '', '2019-04-12 12:44:51', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:09:12', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
@@ -310,7 +311,7 @@ CREATE TABLE `menu_permission`  (
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单编号',
   `PermissionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 246 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_permission
@@ -333,35 +334,36 @@ INSERT INTO `menu_permission` VALUES (185, 'F2155B1A-D222-8786-E9D7-39EDD6492774
 INSERT INTO `menu_permission` VALUES (186, 'F2155B1A-D222-8786-E9D7-39EDD6492774', 'A8D12A71-6045-356A-56E1-39EDD646F25E');
 INSERT INTO `menu_permission` VALUES (187, 'F2155B1A-D222-8786-E9D7-39EDD6492774', 'D327A892-61F1-5DBF-DA86-39EDD646F266');
 INSERT INTO `menu_permission` VALUES (188, 'F2155B1A-D222-8786-E9D7-39EDD6492774', '821D172A-AADD-8516-CA9F-39EDD646F26E');
-INSERT INTO `menu_permission` VALUES (190, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '70EA1FA1-1B84-C6B7-1C5B-39EDD646F2BE');
-INSERT INTO `menu_permission` VALUES (191, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'EEC8C8D7-6F42-4CC3-1E27-39EDD646F20F');
-INSERT INTO `menu_permission` VALUES (192, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'C0944193-D0C2-8040-91E5-39EDD646F207');
-INSERT INTO `menu_permission` VALUES (193, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '8563A927-BB00-0D98-5B42-39EDD646F203');
-INSERT INTO `menu_permission` VALUES (194, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '31F87F68-25D2-DD70-2821-39EDD646F1FD');
-INSERT INTO `menu_permission` VALUES (195, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '0A4360F5-7FDE-6CF6-88F0-39EDD646F1EF');
-INSERT INTO `menu_permission` VALUES (196, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'E181E108-3A6D-EBB5-8F53-39EDD646F31D');
-INSERT INTO `menu_permission` VALUES (197, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '92BA26A7-C033-58D3-6A10-39EDD646F318');
-INSERT INTO `menu_permission` VALUES (198, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '4E0EE58F-9BF6-14E4-0874-39EDD646F312');
-INSERT INTO `menu_permission` VALUES (199, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'D7948BC2-C6D0-F501-8BF5-39EDD646F30D');
-INSERT INTO `menu_permission` VALUES (200, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'CC325B48-B557-0635-D042-39EDD646F306');
-INSERT INTO `menu_permission` VALUES (201, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'ED24644B-5857-C37F-4DF3-39EDD646F2FE');
-INSERT INTO `menu_permission` VALUES (202, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '9AB67430-412E-0CA0-0635-39EDD646F2F2');
-INSERT INTO `menu_permission` VALUES (203, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '60DBF5CE-FF5F-88D6-FF9F-39EDD646F2EE');
-INSERT INTO `menu_permission` VALUES (204, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '3B70252C-0225-EFDC-9F04-39EDD646F2E8');
-INSERT INTO `menu_permission` VALUES (205, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '837C460D-4A4B-C720-97EF-39EDD646F2E1');
-INSERT INTO `menu_permission` VALUES (206, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '45C2B872-D473-C1C7-43F0-39EDD646F2B8');
-INSERT INTO `menu_permission` VALUES (207, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'DB2E0A42-417D-98F3-9D03-39EDD646F2B0');
-INSERT INTO `menu_permission` VALUES (208, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '594A2AE3-56A8-D255-CB55-39EDD646F2AB');
-INSERT INTO `menu_permission` VALUES (209, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'EFBC6833-809E-9270-8898-39EDD646F2A1');
-INSERT INTO `menu_permission` VALUES (210, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '8DCEC627-A20B-20EA-C4EF-39EDD646F299');
-INSERT INTO `menu_permission` VALUES (211, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'EC812192-F175-6415-67E9-39EDD646F292');
-INSERT INTO `menu_permission` VALUES (212, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'C87C85E6-E85E-ECE1-CDB4-39EDD646F28C');
-INSERT INTO `menu_permission` VALUES (213, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '370D8236-6B26-A615-2D9F-39EDD646F284');
-INSERT INTO `menu_permission` VALUES (214, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'E4D3CC7F-8017-3A34-D296-39EDD646F27C');
-INSERT INTO `menu_permission` VALUES (215, '90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'E528D8AC-9704-607D-0D76-39EDD646F275');
 INSERT INTO `menu_permission` VALUES (216, '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '39edd6d6-d229-d0e9-de04-5d2aa1868cb9');
 INSERT INTO `menu_permission` VALUES (217, '39edd6dc-9361-a471-ec2f-06c962dad5cd', '39edd6d6-d252-9409-d281-5db7742f782c');
 INSERT INTO `menu_permission` VALUES (218, '39edd6dc-b30d-c207-6967-0586c4785fe0', '39edd6d6-d276-7d4f-fb86-9d405fe0cb1d');
+INSERT INTO `menu_permission` VALUES (219, '90fe5cac-952b-8919-59be-39edd648fab5', '70ea1fa1-1b84-c6b7-1c5b-39edd646f2be');
+INSERT INTO `menu_permission` VALUES (220, '90fe5cac-952b-8919-59be-39edd648fab5', 'eec8c8d7-6f42-4cc3-1e27-39edd646f20f');
+INSERT INTO `menu_permission` VALUES (221, '90fe5cac-952b-8919-59be-39edd648fab5', 'c0944193-d0c2-8040-91e5-39edd646f207');
+INSERT INTO `menu_permission` VALUES (222, '90fe5cac-952b-8919-59be-39edd648fab5', '8563a927-bb00-0d98-5b42-39edd646f203');
+INSERT INTO `menu_permission` VALUES (223, '90fe5cac-952b-8919-59be-39edd648fab5', '31f87f68-25d2-dd70-2821-39edd646f1fd');
+INSERT INTO `menu_permission` VALUES (224, '90fe5cac-952b-8919-59be-39edd648fab5', '0a4360f5-7fde-6cf6-88f0-39edd646f1ef');
+INSERT INTO `menu_permission` VALUES (225, '90fe5cac-952b-8919-59be-39edd648fab5', 'e181e108-3a6d-ebb5-8f53-39edd646f31d');
+INSERT INTO `menu_permission` VALUES (226, '90fe5cac-952b-8919-59be-39edd648fab5', '92ba26a7-c033-58d3-6a10-39edd646f318');
+INSERT INTO `menu_permission` VALUES (227, '90fe5cac-952b-8919-59be-39edd648fab5', '4e0ee58f-9bf6-14e4-0874-39edd646f312');
+INSERT INTO `menu_permission` VALUES (228, '90fe5cac-952b-8919-59be-39edd648fab5', 'd7948bc2-c6d0-f501-8bf5-39edd646f30d');
+INSERT INTO `menu_permission` VALUES (229, '90fe5cac-952b-8919-59be-39edd648fab5', 'cc325b48-b557-0635-d042-39edd646f306');
+INSERT INTO `menu_permission` VALUES (230, '90fe5cac-952b-8919-59be-39edd648fab5', 'ed24644b-5857-c37f-4df3-39edd646f2fe');
+INSERT INTO `menu_permission` VALUES (231, '90fe5cac-952b-8919-59be-39edd648fab5', '9ab67430-412e-0ca0-0635-39edd646f2f2');
+INSERT INTO `menu_permission` VALUES (232, '90fe5cac-952b-8919-59be-39edd648fab5', '60dbf5ce-ff5f-88d6-ff9f-39edd646f2ee');
+INSERT INTO `menu_permission` VALUES (233, '90fe5cac-952b-8919-59be-39edd648fab5', '3b70252c-0225-efdc-9f04-39edd646f2e8');
+INSERT INTO `menu_permission` VALUES (234, '90fe5cac-952b-8919-59be-39edd648fab5', '837c460d-4a4b-c720-97ef-39edd646f2e1');
+INSERT INTO `menu_permission` VALUES (235, '90fe5cac-952b-8919-59be-39edd648fab5', '45c2b872-d473-c1c7-43f0-39edd646f2b8');
+INSERT INTO `menu_permission` VALUES (236, '90fe5cac-952b-8919-59be-39edd648fab5', 'db2e0a42-417d-98f3-9d03-39edd646f2b0');
+INSERT INTO `menu_permission` VALUES (237, '90fe5cac-952b-8919-59be-39edd648fab5', '594a2ae3-56a8-d255-cb55-39edd646f2ab');
+INSERT INTO `menu_permission` VALUES (238, '90fe5cac-952b-8919-59be-39edd648fab5', 'efbc6833-809e-9270-8898-39edd646f2a1');
+INSERT INTO `menu_permission` VALUES (239, '90fe5cac-952b-8919-59be-39edd648fab5', '8dcec627-a20b-20ea-c4ef-39edd646f299');
+INSERT INTO `menu_permission` VALUES (240, '90fe5cac-952b-8919-59be-39edd648fab5', 'ec812192-f175-6415-67e9-39edd646f292');
+INSERT INTO `menu_permission` VALUES (241, '90fe5cac-952b-8919-59be-39edd648fab5', 'c87c85e6-e85e-ece1-cdb4-39edd646f28c');
+INSERT INTO `menu_permission` VALUES (242, '90fe5cac-952b-8919-59be-39edd648fab5', '370d8236-6b26-a615-2d9f-39edd646f284');
+INSERT INTO `menu_permission` VALUES (243, '90fe5cac-952b-8919-59be-39edd648fab5', 'e4d3cc7f-8017-3a34-d296-39edd646f27c');
+INSERT INTO `menu_permission` VALUES (244, '90fe5cac-952b-8919-59be-39edd648fab5', 'e528d8ac-9704-607d-0d76-39edd646f275');
+INSERT INTO `menu_permission` VALUES (245, '90fe5cac-952b-8919-59be-39edd648fab5', '0bbb7988-4e4b-073e-b94e-39edd646f23c');
 
 -- ----------------------------
 -- Table structure for moduleinfo
@@ -547,27 +549,28 @@ CREATE TABLE `role_menu`  (
   `RoleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色编号',
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
-INSERT INTO `role_menu` VALUES (85, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93');
-INSERT INTO `role_menu` VALUES (86, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f');
-INSERT INTO `role_menu` VALUES (87, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd');
-INSERT INTO `role_menu` VALUES (88, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0');
-INSERT INTO `role_menu` VALUES (89, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '601d5926-cf2a-ea30-b3cc-39edd647ecd8');
-INSERT INTO `role_menu` VALUES (90, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'aca98589-c672-4c78-8831-39edd648acbb');
-INSERT INTO `role_menu` VALUES (91, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '90fe5cac-952b-8919-59be-39edd648fab5');
-INSERT INTO `role_menu` VALUES (92, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'f2155b1a-d222-8786-e9d7-39edd6492774');
-INSERT INTO `role_menu` VALUES (93, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '214e8c1a-6a87-c214-7ff9-39ed21e7cc27');
-INSERT INTO `role_menu` VALUES (94, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '0404f457-1c32-ba61-8fad-39ed2208bcd9');
-INSERT INTO `role_menu` VALUES (95, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a74578da-7b3b-8a7c-e54c-39ed22090f48');
-INSERT INTO `role_menu` VALUES (96, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a9105ca0-722c-66f5-844b-39ed220926a0');
-INSERT INTO `role_menu` VALUES (97, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'e38b0e46-a755-ff0f-012c-39ed2209462a');
-INSERT INTO `role_menu` VALUES (98, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '64bb88f0-ae8d-eff9-c537-39ed22096f9b');
-INSERT INTO `role_menu` VALUES (99, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'b09aac3d-43b4-3327-9f05-39ed22098f00');
-INSERT INTO `role_menu` VALUES (100, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '7f9dcb98-20b2-3556-a850-39ed2209ab84');
+INSERT INTO `role_menu` VALUES (101, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93');
+INSERT INTO `role_menu` VALUES (102, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f');
+INSERT INTO `role_menu` VALUES (103, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd');
+INSERT INTO `role_menu` VALUES (104, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0');
+INSERT INTO `role_menu` VALUES (105, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '601d5926-cf2a-ea30-b3cc-39edd647ecd8');
+INSERT INTO `role_menu` VALUES (106, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'aca98589-c672-4c78-8831-39edd648acbb');
+INSERT INTO `role_menu` VALUES (107, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '90fe5cac-952b-8919-59be-39edd648fab5');
+INSERT INTO `role_menu` VALUES (108, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'f2155b1a-d222-8786-e9d7-39edd6492774');
+INSERT INTO `role_menu` VALUES (109, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '214e8c1a-6a87-c214-7ff9-39ed21e7cc27');
+INSERT INTO `role_menu` VALUES (110, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '0404f457-1c32-ba61-8fad-39ed2208bcd9');
+INSERT INTO `role_menu` VALUES (111, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a74578da-7b3b-8a7c-e54c-39ed22090f48');
+INSERT INTO `role_menu` VALUES (112, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a9105ca0-722c-66f5-844b-39ed220926a0');
+INSERT INTO `role_menu` VALUES (113, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'e38b0e46-a755-ff0f-012c-39ed2209462a');
+INSERT INTO `role_menu` VALUES (114, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '64bb88f0-ae8d-eff9-c537-39ed22096f9b');
+INSERT INTO `role_menu` VALUES (115, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'b09aac3d-43b4-3327-9f05-39ed22098f00');
+INSERT INTO `role_menu` VALUES (116, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '7f9dcb98-20b2-3556-a850-39ed2209ab84');
+INSERT INTO `role_menu` VALUES (117, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edef2c-6153-c935-1660-4823c692e142');
 
 -- ----------------------------
 -- Table structure for role_menu_button
@@ -579,7 +582,7 @@ CREATE TABLE `role_menu_button`  (
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ButtonId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu_button

@@ -33,15 +33,19 @@ namespace Nm.Lib.Data.AspNetCore
             if (!dbOptions.Connections.Any() || !modules.Any())
                 return;
 
+            CheckOptions(dbOptions);
+
             services.AddSingleton(dbOptions);
 
             foreach (var options in dbOptions.Connections)
             {
                 var module = modules.FirstOrDefault(m => m.Id.Equals(options.Name, StringComparison.OrdinalIgnoreCase));
+                if (module != null)
+                {
+                    LoadEntityTypes(module, options);
 
-                LoadEntityTypes(module, options);
-
-                services.AddDbContext(module, options, dbOptions);
+                    services.AddDbContext(module, options, dbOptions);
+                }
             }
         }
 

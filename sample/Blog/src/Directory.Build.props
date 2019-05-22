@@ -6,7 +6,6 @@
     <Version>1.0.0</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <!--设置打包路径-->
     <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>

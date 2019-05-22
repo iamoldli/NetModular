@@ -7,7 +7,7 @@
 4、异步到底
 
 ### Demo
-地址：[http://118.24.75.170:6220/](http://118.24.75.170:6220/)
+地址：[http://129.211.40.240:6220/](http://129.211.40.240:6220/)
 
 账户：admin  
 密码：admin
@@ -31,8 +31,9 @@ IDE：vscode
 
 ### 运行方式
 
-1、找到`sample/Blog/data`目录，按需要创建对应数据库(目前只上传了SqlServer和MySql)  
-    需要注意的时，在linux的docker中mysql默认启用了区分大小写，需要关闭
+1、找到`sample/Blog/data`目录，按需要创建对应数据库(目前只上传了SqlServer和MySql，建议使用MySql)  
+
+> > 需要注意的时，在linux的docker中mysql默认启用了区分大小写，需要关闭
 
 2、打开`sample/Blog/src/WebHost/conifg/db.json`文件，配置数据库连接
 ```json

@@ -137,6 +137,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "sample\Blog\src\Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "sample\Blog\src\WebHost\WebHost.csproj", "{92E85E34-39DB-41C4-966A-FF5DCD7FFEA4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost.Electron", "sample\Blog\src\WebHost.Electron\WebHost.Electron.csproj", "{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,10 @@ Global
 		{92E85E34-39DB-41C4-966A-FF5DCD7FFEA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E85E34-39DB-41C4-966A-FF5DCD7FFEA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E85E34-39DB-41C4-966A-FF5DCD7FFEA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -342,6 +348,7 @@ Global
 		{DDDA6A6C-72EE-4DCF-B7F6-8829BC939196} = {86407099-45FE-4DF4-A574-EF0BDCB6AEA8}
 		{2BB9AF0F-6399-4756-A3A4-E27FB62C3A9A} = {7FDD7267-5858-4F22-8D3D-70589F4470A2}
 		{92E85E34-39DB-41C4-966A-FF5DCD7FFEA4} = {7FDD7267-5858-4F22-8D3D-70589F4470A2}
+		{7F4460FA-0F8F-42D6-8A1B-DF4295FF6A63} = {7FDD7267-5858-4F22-8D3D-70589F4470A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}
