@@ -659,5 +659,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PublishScript.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Csproj.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

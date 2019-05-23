@@ -7,6 +7,7 @@
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <!--设置打包路径-->
     <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
     <!--取消生成目录附加目标框架目录-->

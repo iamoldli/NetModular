@@ -46,6 +46,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <!--设置打包路径-->
     <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
     <!--取消生成目录附加目标框架目录-->
@@ -54,7 +55,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <Copyright></Copyright>
     <RootNamespacePrefix>");
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
+            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
