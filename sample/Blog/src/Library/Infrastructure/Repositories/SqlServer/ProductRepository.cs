@@ -59,7 +59,7 @@ namespace Nm.Module.Blog.Infrastructure.Repositories.SqlServer
         /// <returns></returns>
         public Task<bool> Delete(string title)
         {
-            Db.Find().GroupBy(m => new { m.Status }).Select(m => new { m.Key.Status, Count = m.Count() });
+            return Db.Find(m => m.Title.Contains(title)).DeleteAsync();
         }
     }
 }
