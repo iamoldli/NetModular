@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {

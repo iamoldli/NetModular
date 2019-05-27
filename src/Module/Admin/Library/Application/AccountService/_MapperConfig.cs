@@ -12,9 +12,9 @@ namespace Nm.Module.Admin.Application.AccountService
         public void Bind(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<MenuEntity, AccountMenuItem>();
-            cfg.CreateMap<AccountAddModel, AccountEntity>();
+            cfg.CreateMap<AccountAddModel, AccountEntity>().ForMember(m => m.Roles, opt => opt.Ignore());
             cfg.CreateMap<AccountEntity, AccountUpdateModel>();
-            cfg.CreateMap<AccountUpdateModel, AccountEntity>();
+            cfg.CreateMap<AccountUpdateModel, AccountEntity>().ForMember(m => m.Roles, opt => opt.Ignore());
         }
     }
 }
