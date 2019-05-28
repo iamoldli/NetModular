@@ -8,25 +8,25 @@ namespace Nm.Lib.WebHost.Core
 {
     public abstract class StartupAbstract
     {
-        private readonly HostOptions _hostOptions;
-        private readonly IHostingEnvironment _env;
+        protected readonly HostOptions HostOptions;
+        protected readonly IHostingEnvironment Env;
 
         protected StartupAbstract(IHostingEnvironment env)
         {
-            _env = env;
+            Env = env;
             var cfgHelper = new ConfigurationHelper();
             //加载主机配置项
-            _hostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName);
+            HostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName);
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddWebHost(_hostOptions, _env);
+            services.AddWebHost(HostOptions, Env);
         }
 
         public virtual void Configure(IApplicationBuilder app)
         {
-            app.UseWebHost(_hostOptions, _env);
+            app.UseWebHost(HostOptions, Env);
         }
     }
 }
