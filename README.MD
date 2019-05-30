@@ -21,7 +21,8 @@
 
 > [1、开篇](https://www.cnblogs.com/oldli/p/10895001.html)  
 > [2、快速创建一个业务模块](https://www.cnblogs.com/oldli/p/10905415.html)  
-> [3、数据访问模块介绍](https://www.cnblogs.com/oldli/p/10910247.html)
+> [3、数据访问模块介绍](https://www.cnblogs.com/oldli/p/10910247.html)  
+> [4、模块化实现思路](https://www.cnblogs.com/oldli/p/10945137.html)
 
 ### 开发环境
 
