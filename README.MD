@@ -85,7 +85,8 @@ IDE：vscode
 如果想调试前端代码的话，进入 `sample/Blog/src/UI/nm-module-blog` 目录，执行以下命令启动前端
 
 ```js
-npm update  
+npm i  
+npm update 
 npm run serve
 ```
 
