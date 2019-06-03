@@ -14,6 +14,12 @@
         <el-form-item label="备注：" prop="remarks">
           <el-input v-model="form.model.remarks"/>
         </el-form-item>
+        <el-form-item label="基础方法：" prop="method">
+          <el-checkbox v-model="form.model.method.add">Add</el-checkbox>
+          <el-checkbox v-model="form.model.method.delete">Delete</el-checkbox>
+          <el-checkbox v-model="form.model.method.edit">Edit</el-checkbox>
+          <el-checkbox v-model="form.model.method.query">Query</el-checkbox>
+        </el-form-item>
       </el-col>
     </el-row>
   </nm-form-dialog>
@@ -23,7 +29,7 @@ import api from '../../../../api/class.js'
 import { mixins } from 'nm-lib-skins'
 export default {
   mixins: [mixins.formDialogEdit],
-  data () {
+  data() {
     return {
       api,
       form: {
@@ -34,7 +40,13 @@ export default {
           id: '',
           name: '',
           tableName: '',
-          remarks: ''
+          remarks: '',
+          method: {
+            query: true,
+            add: true,
+            delete: true,
+            edit: true
+          }
         },
         rules: {
           name: [

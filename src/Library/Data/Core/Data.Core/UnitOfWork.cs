@@ -38,6 +38,9 @@ namespace Nm.Lib.Data.Core
 
         public void Dispose()
         {
+            //如果不是null，则表示未提交或者出现异常，需要回滚
+            _transaction?.Rollback();
+
             _transaction?.Dispose();
             _dbContext.Connection.Close();
         }

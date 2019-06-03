@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 22/05/2019 13:15:06
+ Date: 03/06/2019 13:59:56
 */
 
 SET NAMES utf8mb4;
@@ -38,9 +38,34 @@ CREATE TABLE `class`  (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES ('39edefa3-4e1d-26d3-2e75-bb328f811cb4', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Article', 'Article', 6, '文章', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `class` VALUES ('39edefa3-8052-72c5-f5b4-fc5437e82252', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Category', 'Category', 6, '文章分类', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `class` VALUES ('39edefa3-a948-15e6-5b54-78fcfb9ebb8f', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Tag', 'Tag', 6, '文章标签', '2019-05-22 10:55:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `class` VALUES ('39edefa3-4e1d-26d3-2e75-bb328f811cb4', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Article', 'Article', 6, '文章', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:42:33', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `class` VALUES ('39ee2dfd-f422-523b-a225-0ea038951ffc', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Category', 'Category', 6, '分类', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `class` VALUES ('39ee2e01-e091-7ada-59d1-efb5a4feb961', '39edefa3-0000-8361-e658-6bbf1f77e3f1', 'Tag', 'Tag', 6, '标签', '2019-06-03 13:34:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:35:47', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+
+-- ----------------------------
+-- Table structure for class_method
+-- ----------------------------
+DROP TABLE IF EXISTS `class_method`;
+CREATE TABLE `class_method`  (
+  `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ClassId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '实体编号',
+  `Query` tinyint(1) NOT NULL DEFAULT 1 COMMENT '查询列表',
+  `Add` tinyint(1) NOT NULL DEFAULT 1 COMMENT '添加',
+  `Delete` tinyint(1) NOT NULL DEFAULT 1 COMMENT '删除',
+  `Edit` tinyint(1) NOT NULL DEFAULT 1 COMMENT '编辑',
+  `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
+  `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
+  `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of class_method
+-- ----------------------------
+INSERT INTO `class_method` VALUES ('39ee2dfd-f427-6c9f-48db-8c19a9d1fdb0', '39ee2dfd-f422-523b-a225-0ea038951ffc', 1, 1, 1, 1, '2019-06-03 13:30:18', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:18', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `class_method` VALUES ('39ee2e01-e0bf-c4a2-0f09-f8993f5b3bb8', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 1, 1, 1, 1, '2019-06-03 13:34:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:35:47', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `class_method` VALUES ('39ee2e09-2c77-4acb-287b-c292afc10a5f', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 0, 1, 1, 0, '2019-06-03 13:42:33', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:42:33', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 
 -- ----------------------------
 -- Table structure for enum
@@ -167,18 +192,20 @@ INSERT INTO `property` VALUES ('39edefa3-4e2e-4560-12fc-ddc9c4865ce1', '39edefa3
 INSERT INTO `property` VALUES ('39edefa3-4e2e-a25d-dc7c-49ca76373246', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'ModifiedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改时间', 1003, '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `property` VALUES ('39edefa3-4e2e-babc-7728-235031ebeea2', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'ModifiedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改人', 1002, '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `property` VALUES ('39edefa3-4e2e-cb39-340a-ee696625e7e2', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'Id', 1, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '主键', 0, '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:54:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-805f-a14a-5c86-adf32ec6dc82', '39edefa3-8052-72c5-f5b4-fc5437e82252', 'CreatedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建时间', 1001, '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-805f-c84e-beb8-15c4ce852d82', '39edefa3-8052-72c5-f5b4-fc5437e82252', 'Id', 1, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '主键', 0, '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-805f-fff2-8184-80884726e264', '39edefa3-8052-72c5-f5b4-fc5437e82252', 'CreatedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建人', 1000, '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-8060-2a22-b235-02b8e1a9692e', '39edefa3-8052-72c5-f5b4-fc5437e82252', 'ModifiedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改人', 1002, '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-8060-5efa-f96a-3794c91ca327', '39edefa3-8052-72c5-f5b4-fc5437e82252', 'ModifiedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改时间', 1003, '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:02', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-a95a-3fa9-c2ef-3205da03745d', '39edefa3-a948-15e6-5b54-78fcfb9ebb8f', 'CreatedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建时间', 1001, '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-a95a-5f06-2264-ab57b1177280', '39edefa3-a948-15e6-5b54-78fcfb9ebb8f', 'ModifiedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改人', 1002, '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-a95a-c75e-fee9-80082c90b373', '39edefa3-a948-15e6-5b54-78fcfb9ebb8f', 'CreatedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建人', 1000, '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-a95a-fbe1-ba98-be2eea48f2eb', '39edefa3-a948-15e6-5b54-78fcfb9ebb8f', 'Id', 1, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '主键', 0, '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefa3-a95a-fff0-910b-0f1d59b7a06f', '39edefa3-a948-15e6-5b54-78fcfb9ebb8f', 'ModifiedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改时间', 1003, '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 10:55:12', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefb4-afea-2a6f-d942-a8c808319c7e', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'Title', 0, 0, 0, 300, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '标题', 5, '2019-05-22 11:13:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 11:13:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefb4-f408-057b-d8d5-0db948a3d603', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'MediaType', 0, 0, 10, 0, 0, 0, '39edefa0-a334-d7df-006b-f918392303f3', 0, 1, 0, '多媒体类型', 6, '2019-05-22 11:14:06', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 11:14:06', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `property` VALUES ('39edefb5-196f-a926-7b73-49e4255831a7', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'Body', 0, 0, 0, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '内容', 7, '2019-05-22 11:14:16', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 11:14:16', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39edefb4-afea-2a6f-d942-a8c808319c7e', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'Title', 0, 0, 0, 300, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '标题', 0, '2019-05-22 11:13:49', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:31:40', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39edefb4-f408-057b-d8d5-0db948a3d603', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'MediaType', 0, 0, 10, 0, 0, 0, '39edefa0-a334-d7df-006b-f918392303f3', 0, 1, 0, '多媒体类型', 2, '2019-05-22 11:14:06', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:31:40', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39edefb5-196f-a926-7b73-49e4255831a7', '39edefa3-4e1d-26d3-2e75-bb328f811cb4', 'Body', 0, 0, 0, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '内容', 1, '2019-05-22 11:14:16', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:31:40', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfd-f425-2fe2-6add-59b5a8ea6acb', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'CreatedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建时间', 1001, '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfd-f425-3da1-dd48-5fec762e47ff', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'Id', 1, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '主键', 0, '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfd-f425-77c3-5c3a-dd712edd5971', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'CreatedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建人', 1000, '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfd-f425-87eb-8e33-6714af4933a6', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'ModifiedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改时间', 1003, '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfd-f425-f29a-30cc-a6d2f1597d0e', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'ModifiedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改人', 1002, '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:30:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2dfe-de16-4545-eec5-5818a078a66d', '39ee2dfd-f422-523b-a225-0ea038951ffc', 'Name', 0, 0, 0, 100, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '名称', 0, '2019-06-03 13:31:17', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:31:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e01-e0b7-4231-fc56-74efdb6c7904', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'Id', 1, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '主键', 0, '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e01-e0b8-09a2-8dbb-13e9d7e7fa6f', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'ModifiedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改时间', 1003, '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e01-e0b8-1929-355c-f6a513d3e734', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'ModifiedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '修改人', 1002, '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e01-e0b8-8894-8ead-7a19d2168505', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'CreatedBy', 0, 1, 8, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建人', 1000, '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e01-e0b8-d4a2-9e5c-ced2ac415be1', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'CreatedTime', 0, 1, 9, 0, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 0, 0, '创建时间', 1001, '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:34:34', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `property` VALUES ('39ee2e02-3c3f-f56f-d1a8-d29f584c90e0', '39ee2e01-e091-7ada-59d1-efb5a4feb961', 'Name', 0, 0, 0, 100, 0, 0, '00000000-0000-0000-0000-000000000000', 0, 1, 0, '名称', 0, '2019-06-03 13:34:58', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-03 13:35:05', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 
 SET FOREIGN_KEY_CHECKS = 1;

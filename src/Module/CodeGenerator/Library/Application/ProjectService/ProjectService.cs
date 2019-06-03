@@ -11,6 +11,7 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.ClassMethod;
 using Nm.Module.CodeGenerator.Domain.Enum;
 using Nm.Module.CodeGenerator.Domain.EnumItem;
 using Nm.Module.CodeGenerator.Domain.ModelProperty;
@@ -34,7 +35,9 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         private readonly IEnumRepository _enumRepository;
         private readonly IEnumItemRepository _enumItemRepository;
         private readonly IModelPropertyRepository _modelPropertyRepository;
-        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions)
+        private readonly IClassMethodRepository _classMethodRepository;
+
+        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository)
         {
             _repository = repository;
             _mapper = mapper;
@@ -43,6 +46,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             _enumRepository = enumRepository;
             _enumItemRepository = enumItemRepository;
             _modelPropertyRepository = modelPropertyRepository;
+            _classMethodRepository = classMethodRepository;
             _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
             _commonOptions = optionsMonitor.CurrentValue;
         }
@@ -176,6 +180,8 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                         classBuildModel.ModelPropertyList.Add(modelPropertyBuildModel);
                     }
                 }
+
+                classBuildModel.Method = await _classMethodRepository.GetByClass(classEntity.Id);
 
                 projectBuildModel.ClassList.Add(classBuildModel);
             }

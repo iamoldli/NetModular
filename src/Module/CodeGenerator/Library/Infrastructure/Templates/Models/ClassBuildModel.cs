@@ -2,6 +2,7 @@
 using System.Linq;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.ClassMethod;
 using Nm.Module.CodeGenerator.Domain.ModelProperty;
 
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
@@ -112,5 +113,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
                 return ModelPropertyList.Where(m => m.ModelType == ModelType.Edit).ToList();
             }
         }
+
+        /// <summary>
+        /// 方法
+        /// </summary>
+        public ClassMethodEntity Method { get; set; }
     }
 }

@@ -659,10 +659,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PublishScript.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Application\ServiceImpl.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceImpl.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Application\ServiceInterface.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceInterface.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Csproj.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Web\Controllers\Controller.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Controller.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

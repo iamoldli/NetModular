@@ -25,5 +25,10 @@ namespace Nm.Module.CodeGenerator.Application.ClassService.ViewModels
         /// </summary>
         [Required(ErrorMessage = "请输入类名")]
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 方法
+        /// </summary>
+        public ClassMethodModel Method { get; set; }
     }
 }

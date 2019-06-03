@@ -84,7 +84,7 @@ namespace Nm.Lib.Data.AspNetCore
                 var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, httpContextAccessor);
 
                 services.AddScoped(typeof(IDbContext), sp => Activator.CreateInstance(dbContextType, contextOptions));
-                services.AddUnitOfWork(dbContextType);
+                services.AddUnitOfWork(dbContextType, options);
                 services.AddRepositories(module, options);
             }
         }
@@ -94,11 +94,15 @@ namespace Nm.Lib.Data.AspNetCore
         /// </summary>
         /// <param name="services"></param>
         /// <param name="dbContextType"></param>
-        private static void AddUnitOfWork(this IServiceCollection services, Type dbContextType)
+        private static void AddUnitOfWork(this IServiceCollection services, Type dbContextType, DbConnectionOptions options)
         {
             var serviceType = typeof(IUnitOfWork<>).MakeGenericType(dbContextType);
             var implementType = typeof(UnitOfWork<>).MakeGenericType(dbContextType);
-            services.AddScoped(serviceType, implementType);
+            services.AddScoped(serviceType, sp =>
+            {
+                var dbContext = sp.GetServices<IDbContext>().FirstOrDefault(m => m.Options.Name.Equals(options.Name));
+                return Activator.CreateInstance(implementType, dbContext);
+            });
         }
 
         /// <summary>

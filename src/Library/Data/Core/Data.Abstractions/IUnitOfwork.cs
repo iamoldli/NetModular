@@ -1,11 +1,12 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace Nm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 工作单元
     /// </summary>
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         /// <summary>
         /// 开启事务

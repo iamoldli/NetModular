@@ -55,4 +55,13 @@ namespace Nm.Lib.Data.Abstractions
         /// <returns></returns>
         IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new();
     }
+
+    /// <summary>
+    /// 泛型
+    /// </summary>
+    /// <typeparam name="TDbContext"></typeparam>
+    public interface IDbContext<TDbContext> : IDbContext where TDbContext : IDbContext
+    {
+
+    }
 }

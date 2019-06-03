@@ -27,6 +27,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
             if (!paging.OrderBy.Any())
             {
                 query.OrderBy(m => m.Sort);
+                query.OrderByDescending(m => m.IsInherit);
             }
 
             var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
