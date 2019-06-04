@@ -57,9 +57,9 @@ namespace Nm.Module.Admin.Application.RoleService
             if (await _repository.Exists(model.Name))
                 return ResultModel.HasExists;
 
-            var moduleInfo = _mapper.Map<RoleEntity>(model);
+            var entity = _mapper.Map<RoleEntity>(model);
 
-            var result = await _repository.AddAsync(moduleInfo);
+            var result = await _repository.AddAsync(entity);
 
             return ResultModel.Result(result);
         }

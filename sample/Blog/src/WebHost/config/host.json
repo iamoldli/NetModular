@@ -1,6 +1,8 @@
 {
-    //地址
-    "Urls": "http://*:6220",
-    //开启Swagger
-    "Swagger": false
+  //地址
+  "Urls": "http://*:6220",
+  //开启Swagger
+  "Swagger": false,
+  //代理
+  "Proxy": true
 }

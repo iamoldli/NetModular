@@ -1,4 +1,6 @@
 {
   //开启Swagger
-  "Swagger": true
+  "Swagger": true,
+  //代理
+  "Proxy": false
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Nm.Lib.Module.Core;
 using Nm.Lib.Swagger;
 using Nm.Lib.WebHost.Core.Middlewares;
@@ -32,6 +33,15 @@ namespace Nm.Lib.WebHost.Core
 
             //启用静态资源访问
             app.UseStaticFiles();
+
+            //反向代理
+            if (hostOptions.Proxy)
+            {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+            }
 
             //身份认证
             app.UseAuthentication();
