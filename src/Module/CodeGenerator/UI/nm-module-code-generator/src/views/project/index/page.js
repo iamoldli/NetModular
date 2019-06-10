@@ -27,7 +27,8 @@ const page = new function() {
 /** 路由信息 */
 export const route = {
   page,
-  component: () => import(/* webpackChunkName: "admin.moduleinfo" */ './index')
+  component: () =>
+    import(/* webpackChunkName: "codegenerator.project" */ './index')
 }
 
 export default page

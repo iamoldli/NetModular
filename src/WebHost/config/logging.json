@@ -9,18 +9,25 @@
     },
     "WriteTo": [
       {
+        "Name": "Console",
+        "Args": {
+          "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+        }
+      },
+      {
         "Name": "File",
         "Args": {
-          //ÎÄ¼şÂ·¾¶
+          //æ–‡ä»¶è·¯å¾„
           "path": "log/log.log",
-          //ÎÄ¼ş¹ö¶¯·½Ê½
+          //æ–‡ä»¶æ»šåŠ¨æ–¹å¼
           "rollingInterval": "Day",
-          //ÏûÏ¢Êä³ö¸ñÊ½
+          //æ¶ˆæ¯è¾“å‡ºæ ¼å¼
           "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-          //ÎÄ¼şÊıÁ¿
+          //æ–‡ä»¶æ•°é‡
           "retainedFileCountLimit": 60,
-          //Ê¹ÓÃ»º³å£¬Ìá¸ßĞ´ÈëĞ§ÂÊ
-          "buffered": true
+          //ä½¿ç”¨ç¼“å†²ï¼Œæé«˜å†™å…¥æ•ˆç‡
+          "buffered": false
         }
       }
     ]

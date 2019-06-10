@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <Id>Common</Id>
+    <Name>通用模块</Name>
+    <Authors>Oldli</Authors>
+    <Version>1.0.0</Version>
+    <Description>$(Name) - $(MSBuildProjectName)</Description>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <!--设置打包路径-->
+    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
+    <!--取消生成目录附加目标框架目录-->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Company></Company>
+    <Copyright></Copyright>
+    <RootNamespacePrefix>Nm.Module.$(Id)</RootNamespacePrefix>
+    <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <PackageProjectUrl>http://10.32.2.101/Net_Module/$(Id)</PackageProjectUrl>
+    <RepositoryUrl>http://10.32.2.101/Net_Module/$(Id)</RepositoryUrl>
+  </PropertyGroup>
+</Project>

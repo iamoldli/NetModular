@@ -659,6 +659,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PublishScript.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\DirectoryBuildProps.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DirectoryBuildProps.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\Library\Application\ServiceImpl.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -668,6 +673,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ServiceInterface.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Domain\Entity.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Page.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Page.tt</DependentUpon>
     </Compile>
     <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
       <DesignTime>True</DesignTime>

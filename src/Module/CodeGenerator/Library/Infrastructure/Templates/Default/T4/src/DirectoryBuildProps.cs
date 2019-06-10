@@ -48,7 +48,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <!--设置打包路径-->
-    <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
+    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
     <!--取消生成目录附加目标框架目录-->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Company></Company>

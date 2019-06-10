@@ -1,20 +1,23 @@
 {
+  "Logging": true,
   "Connections": [
     {
-      //模块名称
       "Name": "Admin",
-      //数据库名称
-      "Database": "Td_CodeGenerator_Admin",
-      //数据库类型
-      "Dialect": 0,
-      //链接字符串
-      "ConnString": "Server=.;Database=Td_CodeGenerator_Admin;Uid=sa;Pwd=oldli!@#123;MultipleActiveResultSets=true;"
+      "Dialect": 1,
+      "Database": "Nm_Admin",
+      "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
     },
     {
       "Name": "CodeGenerator",
-      "Database": "Td_CodeGenerator",
-      "Dialect": 0,
-      "ConnString": "Server=.;Database=Td_CodeGenerator;Uid=sa;Pwd=oldli!@#123;MultipleActiveResultSets=true;"
+      "Dialect": 1,
+      "Database": "Nm_CodeGenerator",
+      "ConnString": "Server=localhost;Database=nm_codegenerator;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
+    },
+    {
+      "Name": "Common",
+      "Dialect": 1,
+      "Database": "Nm_Common",
+      "ConnString": "Server=localhost;Database=nm_common;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
     }
   ]
 }
