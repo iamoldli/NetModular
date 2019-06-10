@@ -118,10 +118,22 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
         {
             try
             {
+                var isTown = false;
                 var html = GetResponse(BaseUrl + url).Result;
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
                 var nodeList = doc.DocumentNode.SelectNodes("//tr[@class='countytr']");
+                if (nodeList == null)
+                {
+                    nodeList = doc.DocumentNode.SelectNodes("//tr[@class='towntr']");
+                    isTown = true;
+                }
+
+                if (nodeList == null)
+                {
+                    _logger.LogDebug("没有数据");
+                    return;
+                }
                 foreach (var node in nodeList)
                 {
                     var codeNode = node.SelectSingleNode("td[1]/a");
@@ -147,11 +159,13 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
                     SetPinyin(model);
                     CrawlingCoord(model).ConfigureAwait(false);
 
-
-                    var hrefAttribute = codeNode.Attributes["href"];
-                    if (hrefAttribute != null)
+                    if (!isTown)
                     {
-                        CrawlingTown(model, hrefAttribute.Value, provinceCode);
+                        var hrefAttribute = codeNode.Attributes["href"];
+                        if (hrefAttribute != null)
+                        {
+                            CrawlingTown(model, hrefAttribute.Value, provinceCode);
+                        }
                     }
 
                     parent.Children.Add(model);
@@ -161,8 +175,9 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
             {
                 Thread.Sleep(10000);
                 parent.Children = new List<AreaCrawlingModel>();
+                _logger.LogError($"爬取{parent.Name}下的区县失败");
+                _logger.LogError(ex.Message);
                 CrawlingCounty(parent, url, provinceCode);
-                _logger.LogDebug(ex.Message);
             }
         }
 
@@ -203,9 +218,12 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
             }
             catch (Exception ex)
             {
-                parent.Children = new List<AreaCrawlingModel>();
-                CrawlingTown(parent, url, provinceCode);
+                _logger.LogError($"爬取{parent.FullName}城镇失败");
                 _logger.LogDebug(ex.Message);
+                parent.Children = new List<AreaCrawlingModel>();
+
+                Thread.Sleep(3000);
+                CrawlingTown(parent, url, provinceCode);
             }
         }
 
