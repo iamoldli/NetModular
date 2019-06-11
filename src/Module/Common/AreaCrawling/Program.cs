@@ -12,7 +12,6 @@ using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.MySql;
 using Nm.Lib.Logging.Serilog.GenericHost;
-using Nm.Lib.Mapper.AutoMapper;
 using Nm.Lib.Utils.Core.Helpers;
 using Nm.Module.Common.Application.AreaService;
 using Nm.Module.Common.Domain.Area;
@@ -24,7 +23,7 @@ namespace Nm.Module.Common.AreaCrawling
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -62,11 +61,17 @@ namespace Nm.Module.Common.AreaCrawling
                     services.AddSingleton(config.CreateMapper());
 
                     services.AddHostedService<Startup>();
+
+                    Console.WriteLine("注入服务完成");
                 })
                 .UseLogging()
                 .Build();
 
-            await host.StartAsync();
+            Console.WriteLine("准备启动");
+
+            host.Start();
+
+            host.WaitForShutdown();
         }
     }
 }

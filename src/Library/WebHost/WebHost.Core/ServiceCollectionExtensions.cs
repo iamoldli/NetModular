@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.Auth.Jwt;
+using Nm.Lib.Cache.Integration;
 using Nm.Lib.Data.AspNetCore;
 using Nm.Lib.Mapper.AutoMapper;
 using Nm.Lib.Module.Core;
@@ -33,13 +34,13 @@ namespace Nm.Lib.WebHost.Core
             services.AddUtilsMvc();
 
             //加载模块
-            var modules = services.AddModules(env);
-            
+            var modules = services.AddModules(env.EnvironmentName);
+
             //添加对象映射
             services.AddMappers(modules);
 
-            //添加内存缓存
-            services.AddMemoryCache();
+            //添加缓存
+            services.AddCache(env.EnvironmentName);
 
             //主动或者开发模式下开启Swagger
             if (hostOptions.Swagger || env.IsDevelopment())
@@ -48,7 +49,7 @@ namespace Nm.Lib.WebHost.Core
             }
 
             //Jwt身份认证
-            services.AddJwtAuth(env);
+            services.AddJwtAuth(env.EnvironmentName);
 
             //添加MVC功能
             services.AddMvc(c =>
@@ -75,7 +76,7 @@ namespace Nm.Lib.WebHost.Core
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //添加数据库
-            services.AddDb(env, modules);
+            services.AddDb(env.EnvironmentName, modules);
 
             //解决Multipart body length limit 134217728 exceeded
             services.Configure<FormOptions>(x =>

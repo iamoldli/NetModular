@@ -23,6 +23,11 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
         public string Pinyin { get; set; }
 
         /// <summary>
+        /// 简拼
+        /// </summary>
+        public string Jianpin { get; set; }
+
+        /// <summary>
         /// 精度
         /// </summary>
         public string Longitude { get; set; }

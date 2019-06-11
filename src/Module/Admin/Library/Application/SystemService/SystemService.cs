@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
@@ -32,9 +33,9 @@ namespace Nm.Module.Admin.Application.SystemService
         private readonly IAccountRepository _accountRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
-        private readonly IMemoryCache _cache;
+        private readonly ICacheHandler _cache;
 
-        public SystemService(IUnitOfWork<AdminDbContext> uow, IConfigRepository configRepository, IModuleInfoService moduleInfoService, IPermissionService permissionService, IRoleRepository roleRepository, IMemoryCache cache, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository)
+        public SystemService(IUnitOfWork<AdminDbContext> uow, IConfigRepository configRepository, IModuleInfoService moduleInfoService, IPermissionService permissionService, IRoleRepository roleRepository, ICacheHandler cache, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository)
         {
             _uow = uow;
             _configRepository = configRepository;
@@ -49,7 +50,7 @@ namespace Nm.Module.Admin.Application.SystemService
         public async Task<IResultModel<SystemConfigModel>> GetConfig(string host = null)
         {
             var result = new ResultModel<SystemConfigModel>();
-            if (_cache.TryGetValue(SystemConfigCacheKey, out SystemConfigModel model))
+            if (await _cache.TryGetValueAsync(SystemConfigCacheKey, out SystemConfigModel model))
             {
                 return result.Success(model);
             }
@@ -100,7 +101,7 @@ namespace Nm.Module.Admin.Application.SystemService
                 model.LogoUrl = new Uri($"{host}/upload/admin/{model.Logo}").ToString().ToLower();
             }
 
-            _cache.Set(SystemConfigCacheKey, model);
+            await _cache.SetAsync(SystemConfigCacheKey, model);
 
             return result.Success(model);
         }
@@ -179,7 +180,7 @@ namespace Nm.Module.Admin.Application.SystemService
 
             _uow.Commit();
 
-            _cache.Remove(SystemConfigCacheKey);
+            _cache.RemoveAsync(SystemConfigCacheKey).Wait();
 
             return ResultModel.Success();
         }

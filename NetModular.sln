@@ -128,15 +128,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Module\Common\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "src\WebHost\WebHost.csproj", "{5677F242-3AE7-47E1-808A-C0FECF8B8805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreaCrawling", "src\Module\Common\AreaCrawling\AreaCrawling.csproj", "{14FE755C-5753-4C1D-B8E1-9C808310628D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AreaCrawling", "src\Module\Common\AreaCrawling\AreaCrawling.csproj", "{14FE755C-5753-4C1D-B8E1-9C808310628D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GenericHost", "GenericHost", "{F137D102-1293-4095-AA98-4A6B006B1481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Core", "src\Library\GenericHost\GenericHost.Core\GenericHost.Core.csproj", "{FA619729-C85B-4528-A1F7-455B882EDB3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericHost.Core", "src\Library\GenericHost\GenericHost.Core\GenericHost.Core.csproj", "{FA619729-C85B-4528-A1F7-455B882EDB3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Serilog.GenericHost", "src\Library\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj", "{ADB6B804-063C-4718-B20A-A38D086B30C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Serilog.GenericHost", "src\Library\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj", "{ADB6B804-063C-4718-B20A-A38D086B30C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.GenericHost", "src\Library\Data\Extend\Data.GenericHost\Data.GenericHost.csproj", "{EE26EDB0-3811-4D54-9EF7-B3EC275750D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.GenericHost", "src\Library\Data\Extend\Data.GenericHost\Data.GenericHost.csproj", "{EE26EDB0-3811-4D54-9EF7-B3EC275750D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{07DFF9AB-0250-43B6-8B10-5C3F3F504C04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.Abstractions", "src\Library\Cache\Cache.Abstractions\Cache.Abstractions.csproj", "{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.MemoryCache", "src\Library\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj", "{77CE02D6-9C19-45B3-9F85-005959B3ECEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.Integration", "src\Library\Cache\Cache.Integration\Cache.Integration.csproj", "{FC472280-84BD-452A-9396-400D106DD5D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.Redis", "src\Library\Cache\Cache.Redis\Cache.Redis.csproj", "{7F42696B-8BB8-46B7-91EB-7D676FAA9B06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -296,6 +306,22 @@ Global
 		{EE26EDB0-3811-4D54-9EF7-B3EC275750D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE26EDB0-3811-4D54-9EF7-B3EC275750D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE26EDB0-3811-4D54-9EF7-B3EC275750D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77CE02D6-9C19-45B3-9F85-005959B3ECEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CE02D6-9C19-45B3-9F85-005959B3ECEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CE02D6-9C19-45B3-9F85-005959B3ECEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CE02D6-9C19-45B3-9F85-005959B3ECEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC472280-84BD-452A-9396-400D106DD5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC472280-84BD-452A-9396-400D106DD5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC472280-84BD-452A-9396-400D106DD5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC472280-84BD-452A-9396-400D106DD5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F42696B-8BB8-46B7-91EB-7D676FAA9B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F42696B-8BB8-46B7-91EB-7D676FAA9B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F42696B-8BB8-46B7-91EB-7D676FAA9B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F42696B-8BB8-46B7-91EB-7D676FAA9B06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -362,6 +388,11 @@ Global
 		{FA619729-C85B-4528-A1F7-455B882EDB3C} = {F137D102-1293-4095-AA98-4A6B006B1481}
 		{ADB6B804-063C-4718-B20A-A38D086B30C7} = {60FAC15D-B417-4B85-A123-C87C8BBC4D2E}
 		{EE26EDB0-3811-4D54-9EF7-B3EC275750D9} = {957CA2B2-5796-4CBD-9F1A-60EA45F002EB}
+		{07DFF9AB-0250-43B6-8B10-5C3F3F504C04} = {0A0A14BC-4569-4C5C-A100-63E5413698DF}
+		{A744B226-4D21-423C-ABD6-1DBD79D2A3E5} = {07DFF9AB-0250-43B6-8B10-5C3F3F504C04}
+		{77CE02D6-9C19-45B3-9F85-005959B3ECEF} = {07DFF9AB-0250-43B6-8B10-5C3F3F504C04}
+		{FC472280-84BD-452A-9396-400D106DD5D3} = {07DFF9AB-0250-43B6-8B10-5C3F3F504C04}
+		{7F42696B-8BB8-46B7-91EB-7D676FAA9B06} = {07DFF9AB-0250-43B6-8B10-5C3F3F504C04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

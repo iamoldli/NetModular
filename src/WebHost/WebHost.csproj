@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Library\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.MySql\Data.MySql.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.SQLite\Data.SQLite.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />

@@ -9,6 +9,6 @@ namespace Nm.Module.Common.Infrastructure.AreaCrawling
     /// </summary>
     public interface IAreaCrawlingHandler
     {
-        Task<IList<AreaCrawlingModel>> Crawling(int i);
+        Task<IList<AreaCrawlingModel>> Crawling();
     }
 }

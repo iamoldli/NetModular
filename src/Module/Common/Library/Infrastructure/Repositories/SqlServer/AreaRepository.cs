@@ -21,11 +21,6 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
 
             var query = Db.Find();
 
-            if (!paging.OrderBy.Any())
-            {
-                query.OrderByDescending(m => m.Id);
-            }
-
             var result = await query.PaginationAsync(paging);
 
             model.TotalCount = paging.TotalCount;

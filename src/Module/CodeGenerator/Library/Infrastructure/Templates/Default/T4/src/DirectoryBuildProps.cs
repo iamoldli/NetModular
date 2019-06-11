@@ -63,8 +63,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
             this.Write(@".Module.$(Id)</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <PackageProjectUrl>http://10.32.2.101/Net_Module/$(Id)</PackageProjectUrl>
-    <RepositoryUrl>http://10.32.2.101/Net_Module/$(Id)</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/iamoldli/NetModular</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
   </PropertyGroup>
 </Project>
 ");

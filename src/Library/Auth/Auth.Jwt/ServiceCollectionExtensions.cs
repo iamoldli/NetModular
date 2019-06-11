@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
@@ -15,11 +14,11 @@ namespace Nm.Lib.Auth.Jwt
         /// 添加Jwt认证
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="env"></param>
-        public static IServiceCollection AddJwtAuth(this IServiceCollection services, IHostingEnvironment env)
+        /// <param name="environmentName">环境名称</param>
+        public static IServiceCollection AddJwtAuth(this IServiceCollection services, string environmentName)
         {
             var cfgHelper = new ConfigurationHelper();
-            var jwtOptions = cfgHelper.Get<JwtOptions>("Jwt", env.EnvironmentName);
+            var jwtOptions = cfgHelper.Get<JwtOptions>("Jwt", environmentName);
 
             services.AddSingleton(jwtOptions);
             services.TryAddSingleton(typeof(ILoginHandler), typeof(JwtLoginHandler));

@@ -95,20 +95,17 @@ namespace Nm.Module.Common.Application.AreaService
 
         public async Task<IResultModel> Crawling()
         {
-            for (int i = 18; i < 31; i++)
+            var list = await _areaCrawlingHandler.Crawling();
+
+            _uow.BeginTransaction();
+
+            foreach (var m in list)
             {
-                var list = await _areaCrawlingHandler.Crawling(i);
-
-                _uow.BeginTransaction();
-
-                foreach (var m in list)
-                {
-                    var entity = _mapper.Map<AreaEntity>(m);
-                    await CrawlingInsert(entity, m.Children);
-                }
-
-                _uow.Commit();
+                var entity = _mapper.Map<AreaEntity>(m);
+                await CrawlingInsert(entity, m.Children);
             }
+
+            _uow.Commit();
 
             return ResultModel.Success();
         }

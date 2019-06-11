@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Nm.Module.Common.Application.AreaService;
+using Nm.Module.Common.Infrastructure.AreaCrawling;
 
 namespace Nm.Module.Common.AreaCrawling
 {
@@ -26,7 +27,11 @@ namespace Nm.Module.Common.AreaCrawling
             {
                 _logger.LogInformation("开始爬取区域代码数据");
 
-                await _service.Crawling();
+                for (int i = 0; i < 31; i++)
+                {
+                    AreaCrawlingHandler.Index = i;
+                    await _service.Crawling();
+                }
 
                 _logger.LogInformation("爬取结束");
             }
@@ -38,7 +43,7 @@ namespace Nm.Module.Common.AreaCrawling
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-           
+
         }
 
         public void Dispose()
