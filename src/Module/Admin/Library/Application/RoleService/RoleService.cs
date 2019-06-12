@@ -74,7 +74,20 @@ namespace Nm.Module.Admin.Application.RoleService
             if (exist)
                 return ResultModel.Failed("有账户绑定了该角色，请先删除对应绑定关系");
 
+            _uow.BeginTransaction();
             var result = await _repository.SoftDeleteAsync(id);
+            if (result)
+            {
+                result = await _roleMenuRepository.DeleteByRoleId(id);
+                if (result)
+                {
+                    result = await _roleMenuButtonRepository.DeleteByRole(id);
+                    if (result)
+                    {
+                        _uow.Commit();
+                    }
+                }
+            }
             return ResultModel.Result(result);
         }
 

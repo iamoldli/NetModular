@@ -8,7 +8,7 @@ namespace Nm.Module.Common.Domain.Dict
     /// 字典
     /// </summary>
     [Table("Dict")]
-    public partial class DictEntity : EntityBase
+    public partial class DictEntity : EntityBaseWithSoftDelete<int, Guid>
     {
         /// <summary>
         /// 父节点
@@ -29,6 +29,5 @@ namespace Nm.Module.Common.Domain.Dict
         /// 排序
         /// </summary>
         public int Sort { get; set; }
-
     }
 }
