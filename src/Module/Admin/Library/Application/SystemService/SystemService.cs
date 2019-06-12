@@ -50,7 +50,7 @@ namespace Nm.Module.Admin.Application.SystemService
         public async Task<IResultModel<SystemConfigModel>> GetConfig(string host = null)
         {
             var result = new ResultModel<SystemConfigModel>();
-            if (await _cache.TryGetValueAsync(SystemConfigCacheKey, out SystemConfigModel model))
+            if (_cache.TryGetValue(SystemConfigCacheKey, out SystemConfigModel model))
             {
                 return result.Success(model);
             }

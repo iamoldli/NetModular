@@ -1,3 +1,6 @@
 ﻿{
-  "Mode": 0
+  "Mode": 1,
+  "Redis": {
+    "ConnectionString": "127.0.0.1"
+  }
 }

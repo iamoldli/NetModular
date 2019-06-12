@@ -56,21 +56,12 @@ namespace Nm.Lib.Cache.Abstractions
         bool TryGetValue<T>(string key, out T value);
 
         /// <summary>
-        /// 尝试获取
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">返回值</param>
-        /// <returns></returns>
-        Task<bool> TryGetValueAsync(string key, out string value);
-
-        /// <summary>
-        /// 尝试获取
+        /// 设置
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key">键</param>
-        /// <param name="value">返回值</param>
-        /// <returns></returns>
-        Task<bool> TryGetValueAsync<T>(string key, out T value);
+        /// <param name="value">值</param>
+        void Set<T>(string key, T value);
 
         /// <summary>
         /// 设置
@@ -79,7 +70,16 @@ namespace Nm.Lib.Cache.Abstractions
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <param name="expires">有效期(分钟)</param>
-        void Set<T>(string key, T value, int expires = 120);
+        void Set<T>(string key, T value, int expires);
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <returns></returns>
+        Task SetAsync<T>(string key, T value);
 
         /// <summary>
         /// 设置
@@ -89,7 +89,7 @@ namespace Nm.Lib.Cache.Abstractions
         /// <param name="value">值</param>
         /// <param name="expires">有效期(分钟)</param>
         /// <returns></returns>
-        Task SetAsync<T>(string key, T value, int expires = 120);
+        Task SetAsync<T>(string key, T value, int expires);
 
         /// <summary>
         /// 删除
@@ -103,5 +103,19 @@ namespace Nm.Lib.Cache.Abstractions
         /// <param name="key"></param>
         /// <returns></returns>
         Task RemoveAsync(string key);
+
+        /// <summary>
+        /// 指定键是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool Exists(string key);
+
+        /// <summary>
+        /// 指定键是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> ExistsAsync(string key);
     }
 }

@@ -2,14 +2,22 @@
   <nm-container>
     <nm-split v-model="split">
       <template v-slot:left>
-        <!-- <el-tree ref="tree" class="nm-admin-menu-tree" node-key="id" default-expand-all highlight-current :data="tree" :show-checkbox="false" :expand-on-click-node="false">
-          <div class="nm-menu-tree-node" slot-scope="{ node, data }">
-            <div class="nm-menu-tree-node-label">
-              <nm-icon v-if="showIcon" :name="data.menu.icon"/>
-              {{ node.label }}
-            </div>
-          </div>
-        </el-tree>-->
+        <nm-box page header title="行政区划代码" type="success" icon="menu" :toolbar="null">
+          <el-tree
+            ref="tree"
+            node-key="id"
+            highlight-current
+            lazy
+            :data="tree"
+            :load="treeLoad"
+            :show-checkbox="false"
+            :expand-on-click-node="false"
+            :current-node-key="0"
+            :default-expanded-keys="[0]"
+            :props="{isLeaf:'leaf'}"
+            @current-change="onSelectChange"
+          ></el-tree>
+        </nm-box>
       </template>
       <template v-slot:right>
         <nm-list ref="list" v-bind="list">
@@ -23,7 +31,6 @@
           <!--按钮-->
           <template v-slot:querybar-buttons>
             <nm-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-nm-has="buttons.add"/>
-            <nm-button type="warning" :text="buttons.crawling.text" :icon="buttons.crawling.icon" @click="crawling" v-nm-has="buttons.crawling"/>
           </template>
 
           <!--操作列-->
@@ -35,9 +42,9 @@
       </template>
     </nm-split>
     <!--添加-->
-    <add-page :visible.sync="dialog.add" @success="refresh"/>
+    <add-page :parent-id="parent.id" :full-path="parent.fullPath" :visible.sync="dialog.add" @success="refresh"/>
     <!--编辑-->
-    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
+    <edit-page :id="curr.id" :full-path="parent.fullPath" :visible.sync="dialog.edit" @success="refresh"/>
   </nm-container>
 </template>
 <script>
@@ -46,7 +53,6 @@ import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
-
 export default {
   name: page.name,
   components: { AddPage, EditPage },
@@ -59,9 +65,11 @@ export default {
         cols,
         action: api.query,
         model: {
+          parentId: 0,
           /** 名称 */
           name: ''
         },
+        operationWidth: 130,
         loading: false,
         loadingText: '正在努力爬取区域数据，请稍后...'
       },
@@ -70,10 +78,31 @@ export default {
         add: false,
         edit: false
       },
-      buttons: page.buttons
+      buttons: page.buttons,
+      tree: [],
+      parent: {
+        id: 0,
+        fullPath: ''
+      }
     }
   },
   methods: {
+    async treeLoad(node, resolve) {
+      const id = node.data.id
+      if (id !== 0 && !id) {
+        resolve([{ id: 0, label: '行政区划代码' }])
+      } else {
+        const data = await api.queryChildren(id)
+        const children = data.map(item => {
+          return {
+            id: item.id,
+            label: item.name,
+            leaf: item.level === 3
+          }
+        })
+        resolve(children)
+      }
+    },
     refresh() {
       this.$refs.list.refresh()
     },
@@ -84,13 +113,19 @@ export default {
       this.curr = row
       this.dialog.edit = true
     },
-    crawling() {
-      this._confirm('爬取区域数据会清空现有的数据，您确定要爬取吗？').then(() => {
-        this.list.loading = true
-        api.crawling().then(() => {
-          this.list.loading = false
-        })
-      })
+    onSelectChange(data, node) {
+      this.parent.id = data.id
+      this.parent.fullPath = this.getFullPath(node)
+      this.list.model.parentId = data.id
+      this.refresh()
+    },
+    /**
+     * 获取节点的完整路径
+     */
+    getFullPath(node) {
+      if (node.parent === null || node.data.id === 0) { return '' }
+      const parentPath = this.getFullPath(node.parent)
+      if (parentPath === '') { return node.data.label } else { return parentPath + ' / ' + node.data.label }
     }
   }
 }

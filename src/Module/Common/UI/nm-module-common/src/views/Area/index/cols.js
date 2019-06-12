@@ -6,32 +6,19 @@ export default [
     show: false
   },
   {
-    name: 'parentId',
-    label: '父节点'
-  },
-  {
-    name: 'level',
-    label: '级别'
+    name: 'code',
+    label: '编码',
+    width: 120
   },
   {
     name: 'name',
-    label: '名称'
-  },
-  {
-    name: 'shortName',
-    label: '简称'
-  },
-  {
-    name: 'areaCode',
-    label: '区号'
-  },
-  {
-    name: 'zipCode',
-    label: '邮编'
+    label: '名称',
+    width: 200
   },
   {
     name: 'pinyin',
-    label: '拼音'
+    label: '拼音',
+    width: 200
   },
   {
     name: 'jianpin',
@@ -44,5 +31,18 @@ export default [
   {
     name: 'latitude',
     label: '纬度'
+  },
+  {
+    name: 'areaCode',
+    label: '区号'
+  },
+  {
+    name: 'zipCode',
+    label: '邮编'
+  },
+  {
+    name: 'level',
+    label: '级别',
+    width: 50
   }
 ]

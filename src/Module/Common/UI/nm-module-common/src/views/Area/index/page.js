@@ -18,11 +18,6 @@ const page = new function() {
       text: '删除',
       icon: 'delete',
       code: `${this.name}_del`
-    },
-    crawling: {
-      text: '爬取',
-      icon: 'download',
-      code: `${this.name}_crawling`
     }
   }
 }()

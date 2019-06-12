@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Module.Common.Domain.Area.Models;
 
 namespace Nm.Module.Common.Domain.Area
@@ -17,5 +16,19 @@ namespace Nm.Module.Common.Domain.Area
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IList<AreaEntity>> Query(AreaQueryModel model);
+
+        /// <summary>
+        /// 查询所有子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        Task<IList<AreaEntity>> QueryChildren(int parentId);
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<bool> Exists(AreaEntity entity);
     }
 }

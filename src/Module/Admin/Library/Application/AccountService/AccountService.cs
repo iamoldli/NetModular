@@ -371,10 +371,10 @@ namespace Nm.Module.Admin.Application.AccountService
 
             var key = AccountPermissionListKey + id;
             //TODO:清除账户权限的缓存
-            if (!await _cache.TryGetValueAsync(key, out List<PermissionEntity> list))
+            if (!_cache.TryGetValue(key, out List<PermissionEntity> list))
             {
                 list = (await _permissionRepository.QueryByAccount(id)).ToList();
-               await _cache.SetAsync(key, list);
+                await _cache.SetAsync(key, list);
             }
 
             return list;

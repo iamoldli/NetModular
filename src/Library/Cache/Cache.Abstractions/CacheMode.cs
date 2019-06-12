@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Cache.Integration
+﻿namespace Nm.Lib.Cache.Abstractions
 {
     /// <summary>
     /// 缓存方式

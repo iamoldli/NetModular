@@ -11,7 +11,8 @@ namespace Nm.Lib.Cache.Abstractions
         /// 配置服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="options">配置项</param>
         /// <returns></returns>
-        IServiceCollection Config(IServiceCollection services);
+        IServiceCollection Config(IServiceCollection services, CacheOptions options);
     }
 }

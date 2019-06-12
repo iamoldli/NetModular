@@ -18,7 +18,7 @@ namespace Nm.Module.Common.Application.AreaService.ResultModels
         public int ParentId { get; set; }
 
         /// <summary>
-        /// 代码
+        /// 编码
         /// </summary>
         public string Code { get; set; }
 

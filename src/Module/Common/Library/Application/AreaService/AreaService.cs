@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Newtonsoft.Json;
+using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AreaService.ViewModels;
 using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Area.Models;
-using Nm.Module.Common.Infrastructure;
 using Nm.Module.Common.Infrastructure.AreaCrawling;
 using Nm.Module.Common.Infrastructure.Repositories;
 
@@ -19,22 +14,20 @@ namespace Nm.Module.Common.Application.AreaService
 {
     public class AreaService : IAreaService
     {
+        private const string AreaCacheKey = "COMMON_AREA_";
+        private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IAreaRepository _repository;
         private readonly IAreaCrawlingHandler _areaCrawlingHandler;
         private readonly IUnitOfWork _uow;
 
-        public AreaService(IMapper mapper, IAreaRepository repository, IAreaCrawlingHandler areaCrawlingHandler, IUnitOfWork<CommonDbContext> uow)
+        public AreaService(IMapper mapper, IAreaRepository repository, IAreaCrawlingHandler areaCrawlingHandler, IUnitOfWork<CommonDbContext> uow, ICacheHandler cache)
         {
             _mapper = mapper;
             _repository = repository;
             _areaCrawlingHandler = areaCrawlingHandler;
             _uow = uow;
-        }
-
-        public Task<IResultModel> GetTree()
-        {
-            throw new NotImplementedException();
+            _cache = cache;
         }
 
         public async Task<IResultModel> Query(AreaQueryModel model)
@@ -50,10 +43,13 @@ namespace Nm.Module.Common.Application.AreaService
         public async Task<IResultModel> Add(AreaAddModel model)
         {
             var entity = _mapper.Map<AreaEntity>(model);
-            //if (await _repository.Exists(entity))
-            //{
-            //return ResultModel.HasExists;
-            //}
+            if (await _repository.Exists(entity))
+            {
+                return ResultModel.HasExists;
+            }
+            
+            entity.Pinyin= NPinyin.Pinyin.GetPinyin(entity.Name);
+            entity.Jianpin= NPinyin.Pinyin.GetInitials(entity.Name);
 
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
@@ -83,10 +79,13 @@ namespace Nm.Module.Common.Application.AreaService
 
             _mapper.Map(model, entity);
 
-            //if (await _repository.Exists(entity))
-            //{
-            //return ResultModel.HasExists;
-            //}
+            if (await _repository.Exists(entity))
+            {
+                return ResultModel.HasExists;
+            }
+
+            entity.Pinyin = NPinyin.Pinyin.GetPinyin(entity.Name);
+            entity.Jianpin = NPinyin.Pinyin.GetInitials(entity.Name);
 
             var result = await _repository.UpdateAsync(entity);
 
@@ -110,6 +109,7 @@ namespace Nm.Module.Common.Application.AreaService
             return ResultModel.Success();
         }
 
+        //插入爬取的数据
         private async Task CrawlingInsert(AreaEntity entity, List<AreaCrawlingModel> children)
         {
             if (await _repository.AddAsync(entity))
@@ -122,6 +122,19 @@ namespace Nm.Module.Common.Application.AreaService
                     await CrawlingInsert(childEntity, child.Children);
                 }
             }
+        }
+
+        public async Task<IResultModel> QueryChildren(int parentId)
+        {
+            var cacheKey = AreaCacheKey + parentId;
+            if (!_cache.TryGetValue(cacheKey, out IList<AreaEntity> list))
+            {
+                list = await _repository.QueryChildren(parentId);
+
+                await _cache.SetAsync(cacheKey, list);
+            }
+
+            return ResultModel.Success(list);
         }
     }
 }

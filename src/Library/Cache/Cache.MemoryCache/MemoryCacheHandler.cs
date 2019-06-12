@@ -46,22 +46,22 @@ namespace Nm.Lib.Cache.MemoryCache
             return _cache.TryGetValue(key, out value);
         }
 
-        public Task<bool> TryGetValueAsync(string key, out string value)
+        public void Set<T>(string key, T value)
         {
-            return Task.FromResult(_cache.TryGetValue(key, out value));
+            _cache.Set(key, value);
         }
 
-        public Task<bool> TryGetValueAsync<T>(string key, out T value)
-        {
-            return Task.FromResult(_cache.TryGetValue(key, out value));
-        }
-
-        public void Set<T>(string key, T value, int expires = 120)
+        public void Set<T>(string key, T value, int expires)
         {
             _cache.Set(key, value, new TimeSpan(0, 0, expires, 0));
         }
 
-        public Task SetAsync<T>(string key, T value, int expires = 120)
+        public Task SetAsync<T>(string key, T value)
+        {
+            return Task.FromResult(_cache.Set(key, value));
+        }
+
+        public Task SetAsync<T>(string key, T value, int expires)
         {
             return Task.FromResult(_cache.Set(key, value, new TimeSpan(0, 0, expires, 0)));
         }
@@ -75,6 +75,16 @@ namespace Nm.Lib.Cache.MemoryCache
         {
             _cache.Remove(key);
             return Task.CompletedTask;
+        }
+
+        public bool Exists(string key)
+        {
+            return TryGetValue(key, out _);
+        }
+
+        public Task<bool> ExistsAsync(string key)
+        {
+            return Task.FromResult(TryGetValue(key, out _));
         }
     }
 }

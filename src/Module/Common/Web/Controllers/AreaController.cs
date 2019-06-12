@@ -54,12 +54,11 @@ namespace Nm.Module.Common.Web.Controllers
             return _service.Update(model);
         }
 
-        [HttpPost]
-        [Description("爬取数据")]
-        public Task<IResultModel> Crawling()
+        [HttpGet]
+        [Description("查询子节点")]
+        public Task<IResultModel> QueryChildren(int? parentId)
         {
-            return _service.Crawling();
+            return _service.QueryChildren(parentId ?? 0);
         }
-
     }
 }

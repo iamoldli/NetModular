@@ -11,14 +11,14 @@ namespace Nm.Module.Common.Domain.Dict
     public partial class DictEntity : EntityBase
     {
         /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// 父节点
         /// </summary>
         public Guid ParentId { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// 值

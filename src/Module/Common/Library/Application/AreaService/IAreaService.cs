@@ -11,12 +11,6 @@ namespace Nm.Module.Common.Application.AreaService
     public interface IAreaService
     {
         /// <summary>
-        /// 获取区域树形结构
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel> GetTree();
-
-        /// <summary>
         /// 查询
         /// </summary>
         /// <param name="model"></param>
@@ -57,5 +51,12 @@ namespace Nm.Module.Common.Application.AreaService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> Crawling();
+
+        /// <summary>
+        /// 查询子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        Task<IResultModel> QueryChildren(int parentId);
     }
 }

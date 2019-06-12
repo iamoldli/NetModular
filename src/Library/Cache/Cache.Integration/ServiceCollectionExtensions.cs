@@ -31,13 +31,13 @@ namespace Nm.Lib.Cache.Integration
             var assemblyHelper = new AssemblyHelper();
             var assembly = assemblyHelper.Load(m => m.Name.Equals(name)).FirstOrDefault();
 
-            Check.NotNull(assembly, "缓存实现程序集未找到");
+            Check.NotNull(assembly, cacheOptions.Mode + "缓存实现程序集未找到");
 
             var configType = assembly.GetTypes().FirstOrDefault(m => m.Name.Equals("ServiceCollectionConfig"));
             if (configType != null)
             {
                 var instance = (IServiceCollectionConfig)Activator.CreateInstance(configType);
-                instance.Config(services);
+                instance.Config(services, cacheOptions);
             }
 
             return services;

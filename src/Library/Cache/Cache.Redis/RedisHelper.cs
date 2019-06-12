@@ -1,4 +1,5 @@
-﻿using Nm.Lib.Utils.Core;
+﻿using Nm.Lib.Cache.Abstractions;
+using Nm.Lib.Utils.Core;
 using StackExchange.Redis;
 
 namespace Nm.Lib.Cache.Redis
@@ -7,16 +8,18 @@ namespace Nm.Lib.Cache.Redis
     {
         private readonly ConnectionMultiplexer _redis;
         private readonly IDatabase _db;
-        private readonly RedisOptions _options;
 
         public RedisHelper(RedisOptions options)
         {
-            Check.NotNull(options.ConnectionString, );
+            Check.NotNull(options.ConnectionString, nameof(RedisOptions), "未设置Redis连接信息");
 
-            _options = options;
-
-            _redis = ConnectionMultiplexer.Connect(_options.ConnectionString);
+            _redis = ConnectionMultiplexer.Connect(options.ConnectionString);
             _db = _redis.GetDatabase();
+        }
+
+        public IDatabase GetDb(int db = -1)
+        {
+            return _redis.GetDatabase(db);
         }
     }
 }

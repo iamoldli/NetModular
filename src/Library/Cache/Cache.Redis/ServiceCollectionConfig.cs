@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.Cache.Abstractions;
 
-namespace Nm.Lib.Cache.MemoryCache
+namespace Nm.Lib.Cache.Redis
 {
     public class ServiceCollectionConfig : IServiceCollectionConfig
     {
         public IServiceCollection Config(IServiceCollection services, CacheOptions options)
         {
-            services.AddMemoryCache();
-
-            services.AddSingleton<ICacheHandler, MemoryCacheHandler>();
+            var redisHelper = new RedisHelper(options.Redis);
+            services.AddSingleton(redisHelper);
+            services.AddSingleton<ICacheHandler, RedisCacheHandler>();
 
             return services;
         }

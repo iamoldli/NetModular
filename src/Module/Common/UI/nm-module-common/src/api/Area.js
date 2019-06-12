@@ -3,17 +3,17 @@ const root = 'Common/Area/'
 const crud = http.crud(root)
 
 const urls = {
-  crawling: root + 'Crawling'
+  queryChildren: root + 'QueryChildren'
 }
 
 /**
- * @description 爬取数据
+ * @description 查询子节点
  */
-const crawling = () => {
-  return http.post(urls.crawling)
+const queryChildren = parentId => {
+  return http.get(urls.queryChildren, { parentId })
 }
 
 export default {
   ...crud,
-  crawling
+  queryChildren
 }
