@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 22/05/2019 13:13:54
+ Date: 12/06/2019 18:32:39
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `account`  (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-05-22 10:51:10', '0.0.0.1', 1, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', 0, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
+INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-06-12 18:20:22', '0.0.0.1', 1, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', 0, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
 
 -- ----------------------------
 -- Table structure for account_role
@@ -57,7 +57,7 @@ CREATE TABLE `account_role`  (
   `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户编号',
   `RoleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of account_role
@@ -111,15 +111,9 @@ INSERT INTO `button` VALUES ('181F6B49-4E36-8620-DC51-39ED220DF287', '0404F457-1
 INSERT INTO `button` VALUES ('1AE9F5E5-B972-375F-D680-39EDD64A3703', 'F2155B1A-D222-8786-E9D7-39EDD6492774', '编辑', NULL, 'codegenerator_enum_edit', '2019-05-17 12:47:00', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 12:47:00', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `button` VALUES ('1FC9841E-CCBA-4B85-41C6-39ED2213BE42', 'A9105CA0-722C-66F5-844B-39ED220926A0', '删除', '', 'admin_menu_del', '2019-04-12 12:55:52', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:05:21', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `button` VALUES ('318C6F27-604E-AFC5-22BF-39EDD64D6330', '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '删除', NULL, 'codegenerator_project_del', '2019-05-17 12:50:28', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 12:50:28', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
-INSERT INTO `button` VALUES ('39edd6df-eb49-28de-df7d-04321fe64ab1', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '添加', 'add', 'blog_article_add', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6df-eb55-69ad-950d-7481583c9702', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '编辑', NULL, 'blog_article_edit', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6df-eb5b-9e4e-e2f6-fa54952c4bf6', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '删除', NULL, 'blog_article_del', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:30:31', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e0-80bb-21d3-322b-ee301b4383ad', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '添加', 'add', 'blog_category_add', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e0-80c3-cffa-2302-c96657e98a40', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '编辑', NULL, 'blog_category_edit', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e0-80cf-047c-46e4-b838eb0a7f6e', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '删除', NULL, 'blog_category_del', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:10', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e1-0870-acc4-7017-c12a7404284a', '39edd6dc-b30d-c207-6967-0586c4785fe0', '添加', 'add', 'blog_tag_add', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e1-087c-fb2f-30f2-e5c15368fc25', '39edd6dc-b30d-c207-6967-0586c4785fe0', '编辑', NULL, 'blog_tag_edit', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `button` VALUES ('39edd6e1-0883-aef2-e3ea-15a2de6c1a01', '39edd6dc-b30d-c207-6967-0586c4785fe0', '删除', NULL, 'blog_tag_del', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:31:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39ee389d-2c10-4e60-1cc8-2bc3ec58ee13', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '添加', 'add', 'common_area_add', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39ee389d-2c46-d0db-4f3a-85eb9afa97eb', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '编辑', 'edit', 'common_area_edit', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39ee389d-2c4c-017a-e05b-f26b5c6ad6de', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '删除', 'delete', 'common_area_del', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 15:00:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `button` VALUES ('40CCB97F-49B2-24AD-BFD7-39ED2238C653', '64BB88F0-AE8D-EFF9-C537-39ED22096F9B', '删除', NULL, 'admin_account_del', '2019-04-12 13:36:19', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 13:36:19', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `button` VALUES ('40F1BFDB-22BD-0DA1-3942-39ED220DF27F', '0404F457-1C32-BA61-8FAD-39ED2208BCD9', '同步', 'refresh', 'admin_moduleinfo_sync', '2019-04-12 12:49:32', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 12:49:32', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `button` VALUES ('577BEBF3-2408-9FA6-071A-39EDD64D6328', '90FE5CAC-952B-8919-59BE-39EDD648FAB5', '编辑', NULL, 'codegenerator_project_edit', '2019-05-17 12:50:28', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 12:50:28', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
@@ -149,7 +143,7 @@ CREATE TABLE `button_permission`  (
   `ButtonId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '按钮编号',
   `PermissionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of button_permission
@@ -207,18 +201,11 @@ INSERT INTO `button_permission` VALUES (85, '577BEBF3-2408-9FA6-071A-39EDD64D632
 INSERT INTO `button_permission` VALUES (86, '577BEBF3-2408-9FA6-071A-39EDD64D6328', '935B0BA6-4396-60EE-2AE7-39EDD646F2DB');
 INSERT INTO `button_permission` VALUES (87, '318C6F27-604E-AFC5-22BF-39EDD64D6330', '938F6B86-B398-EED9-970C-39EDD646F2D0');
 INSERT INTO `button_permission` VALUES (88, '8405FED8-E131-23AB-7740-39EDD64D6339', 'CDA73BA5-0ACA-C003-9E2E-39EDD64E7949');
-INSERT INTO `button_permission` VALUES (89, '39edd6df-eb49-28de-df7d-04321fe64ab1', '39edd6d6-d234-1cb0-8203-82a38c49443c');
-INSERT INTO `button_permission` VALUES (90, '39edd6df-eb55-69ad-950d-7481583c9702', '39edd6d6-d244-174d-9c4a-a55dd0a43685');
-INSERT INTO `button_permission` VALUES (91, '39edd6df-eb55-69ad-950d-7481583c9702', '39edd6d6-d24b-183c-dfa5-3a9819e81c52');
-INSERT INTO `button_permission` VALUES (92, '39edd6df-eb5b-9e4e-e2f6-fa54952c4bf6', '39edd6d6-d23c-af71-2178-ec84641eb117');
-INSERT INTO `button_permission` VALUES (98, '39edd6e1-0870-acc4-7017-c12a7404284a', '39edd6d6-d27e-3758-1b67-7b3e09859994');
-INSERT INTO `button_permission` VALUES (99, '39edd6e1-087c-fb2f-30f2-e5c15368fc25', '39edd6d6-d28e-713a-8b39-d25b52fa166e');
-INSERT INTO `button_permission` VALUES (100, '39edd6e1-087c-fb2f-30f2-e5c15368fc25', '39edd6d6-d295-6fac-6a0d-a205548351f3');
-INSERT INTO `button_permission` VALUES (101, '39edd6e1-0883-aef2-e3ea-15a2de6c1a01', '39edd6d6-d286-e917-85d9-c9a1441ce81f');
-INSERT INTO `button_permission` VALUES (102, '39edd6e0-80bb-21d3-322b-ee301b4383ad', '39edd6d6-d25a-3cdc-93e9-9151c985591e');
-INSERT INTO `button_permission` VALUES (103, '39edd6e0-80c3-cffa-2302-c96657e98a40', '39edd6d6-d269-d95a-43fb-55bfb34abd0e');
-INSERT INTO `button_permission` VALUES (104, '39edd6e0-80c3-cffa-2302-c96657e98a40', '39edd6d6-d270-70a0-6618-d96a88bdebf8');
-INSERT INTO `button_permission` VALUES (105, '39edd6e0-80cf-047c-46e4-b838eb0a7f6e', '39edd6d6-d261-70bf-aab8-1056cf7a5fd6');
+INSERT INTO `button_permission` VALUES (106, '39ee389d-2c4f-e08c-eee2-872eeb58551c', '39ee3895-3f19-9ada-8848-87979b8c4ed5');
+INSERT INTO `button_permission` VALUES (107, '39ee389d-2c10-4e60-1cc8-2bc3ec58ee13', '39ee3895-3ef0-a3a9-00a1-cfc9e8dc5467');
+INSERT INTO `button_permission` VALUES (109, '39ee389d-2c4c-017a-e05b-f26b5c6ad6de', '39ee3895-3ef8-b047-2be4-ea2c45dce1a8');
+INSERT INTO `button_permission` VALUES (110, '39ee389d-2c46-d0db-4f3a-85eb9afa97eb', '39ee3895-3f03-c7ee-5dff-2496ed3de5f4');
+INSERT INTO `button_permission` VALUES (111, '39ee389d-2c46-d0db-4f3a-85eb9afa97eb', '39ee3895-3f0f-9a9d-2966-044a39d4d5de');
 
 -- ----------------------------
 -- Table structure for config
@@ -249,6 +236,23 @@ INSERT INTO `config` VALUES (7, 'sys_home', '', '系统首页', '2019-04-12 11:3
 INSERT INTO `config` VALUES (8, 'sys_verify_code', 'False', '启用登录验证码功能', '2019-05-06 09:11:35', '39ED5AB3-0C91-A26C-2F8A-A3B723EF422A', '2019-05-16 16:04:24', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `config` VALUES (9, 'sys_toolbar_userinfo', 'True', '显示工具栏用户信息按钮', '2019-05-06 09:35:48', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-16 16:04:24', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `config` VALUES (10, 'sys_toolbar_logout', 'True', '显示工具栏退出按钮', '2019-05-06 09:35:48', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-16 16:04:24', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
+
+-- ----------------------------
+-- Table structure for department
+-- ----------------------------
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department`  (
+  `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '部门名称',
+  `ParentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '父级节点',
+  `Leader` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '负责人',
+  `Sort` int(255) NOT NULL DEFAULT 0 COMMENT '排序',
+  `CreatedTime` datetime(0) NOT NULL COMMENT '创建日期',
+  `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
+  `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for menu
@@ -285,13 +289,12 @@ CREATE TABLE `menu`  (
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('0404F457-1C32-BA61-8FAD-39ED2208BCD9', 'Admin', 1, '214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '模块管理', 'admin_moduleinfo', '', '', 'app', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-04-12 12:43:50', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:09:12', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
-INSERT INTO `menu` VALUES ('214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '', 0, '00000000-0000-0000-0000-000000000000', '权限管理', '', '', '', 'verifycode', '', '', 0, 1, 2, -1, '', '', 1, '', '2019-04-12 12:07:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:24:39', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '', 0, '00000000-0000-0000-0000-000000000000', '博客管理', '', '', '', 'detail', '', '', 0, 1, 0, -1, '', '', 1, '', '2019-05-17 15:21:23', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:24:39', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('39edd6dc-1ae4-116a-bffc-d59bf483ba2f', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '文章列表', 'Blog_Article', '', '', 'edit', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:26:21', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:26:21', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('39edd6dc-9361-a471-ec2f-06c962dad5cd', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '分类列表', 'Blog_Category', '', '', 'open', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:26:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:26:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('39edd6dc-b30d-c207-6967-0586c4785fe0', 'Blog', 1, '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93', '标签列表', 'Blog_Tag', '', '', 'tag', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-05-17 15:27:00', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:27:00', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('39edef2c-6153-c935-1660-4823c692e142', '', 2, '00000000-0000-0000-0000-000000000000', '前端框架文档', '', '', '', 'attachment', '', 'http://progqx5cu.bkt.clouddn.com/skins/index.html', 0, 1, 3, 0, '', '', 1, '', '2019-05-22 08:44:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-22 08:44:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `menu` VALUES ('601D5926-CF2A-EA30-B3CC-39EDD647ECD8', '', 0, '00000000-0000-0000-0000-000000000000', '开发工具', '', '', '', 'develop', '', '', 0, 1, 1, -1, '', '', 1, '', '2019-05-17 12:44:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:24:39', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '', 0, '00000000-0000-0000-0000-000000000000', '权限管理', '', '', '', 'verifycode', '', '', 0, 1, 2, -1, '', '', 1, '', '2019-04-12 12:07:52', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:48:14', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39edef2c-6153-c935-1660-4823c692e142', '', 2, '00000000-0000-0000-0000-000000000000', '前端框架文档', '', '', '', 'attachment', '', 'http://progqx5cu.bkt.clouddn.com/skins/index.html', 0, 1, 3, 0, '', '', 1, '', '2019-05-22 08:44:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:48:14', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39ee3891-d1bb-878e-698b-b2a9911c76e9', '', 0, '00000000-0000-0000-0000-000000000000', '通用模块', '', '', '', 'table', '', '', 0, 1, 0, -1, '', '', 1, '', '2019-06-05 14:48:00', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:48:14', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39ee3894-ab04-421c-a1f2-2abad6b24ca4', 'Common', 1, '39ee3891-d1bb-878e-698b-b2a9911c76e9', '区划代码列表', 'Common_Area', '', '', 'app', '', '', 1, 1, 0, 0, '', '', 1, '', '2019-06-05 14:51:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:51:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39ee5d50-9629-1e88-d03f-d74cf8497049', 'Common', 1, '39ee3891-d1bb-878e-698b-b2a9911c76e9', '区划代码组件示例', 'Common_Area_Demo', '', '', 'log', '', '', 1, 1, 1, 0, '', '', 1, '', '2019-06-12 18:02:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 18:02:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('601D5926-CF2A-EA30-B3CC-39EDD647ECD8', '', 0, '00000000-0000-0000-0000-000000000000', '开发工具', '', '', '', 'develop', '', '', 0, 1, 1, -1, '', '', 1, '', '2019-05-17 12:44:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:48:14', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('64BB88F0-AE8D-EFF9-C537-39ED22096F9B', 'Admin', 1, '214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '账户管理', 'admin_account', '', '', 'user', '', '', 1, 1, 4, 0, '', '', 1, '', '2019-04-12 12:44:36', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:09:12', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `menu` VALUES ('7F9DCB98-20B2-3556-A850-39ED2209AB84', 'Admin', 1, '214E8C1A-6A87-C214-7FF9-39ED21E7CC27', '系统配置', 'admin_system_config', '', '', 'system', '', '', 1, 1, 6, 0, '', '', 1, '', '2019-04-12 12:44:51', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:09:12', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
 INSERT INTO `menu` VALUES ('90FE5CAC-952B-8919-59BE-39EDD648FAB5', 'CodeGenerator', 1, 'ACA98589-C672-4C78-8831-39EDD648ACBB', '项目列表', 'codegenerator_project', '', '', 'project', '', '', 2, 1, 0, 0, '', '', 1, '', '2019-05-17 12:45:39', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 12:45:39', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
@@ -311,7 +314,7 @@ CREATE TABLE `menu_permission`  (
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单编号',
   `PermissionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 246 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 251 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_permission
@@ -334,9 +337,6 @@ INSERT INTO `menu_permission` VALUES (185, 'F2155B1A-D222-8786-E9D7-39EDD6492774
 INSERT INTO `menu_permission` VALUES (186, 'F2155B1A-D222-8786-E9D7-39EDD6492774', 'A8D12A71-6045-356A-56E1-39EDD646F25E');
 INSERT INTO `menu_permission` VALUES (187, 'F2155B1A-D222-8786-E9D7-39EDD6492774', 'D327A892-61F1-5DBF-DA86-39EDD646F266');
 INSERT INTO `menu_permission` VALUES (188, 'F2155B1A-D222-8786-E9D7-39EDD6492774', '821D172A-AADD-8516-CA9F-39EDD646F26E');
-INSERT INTO `menu_permission` VALUES (216, '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '39edd6d6-d229-d0e9-de04-5d2aa1868cb9');
-INSERT INTO `menu_permission` VALUES (217, '39edd6dc-9361-a471-ec2f-06c962dad5cd', '39edd6d6-d252-9409-d281-5db7742f782c');
-INSERT INTO `menu_permission` VALUES (218, '39edd6dc-b30d-c207-6967-0586c4785fe0', '39edd6d6-d276-7d4f-fb86-9d405fe0cb1d');
 INSERT INTO `menu_permission` VALUES (219, '90fe5cac-952b-8919-59be-39edd648fab5', '70ea1fa1-1b84-c6b7-1c5b-39edd646f2be');
 INSERT INTO `menu_permission` VALUES (220, '90fe5cac-952b-8919-59be-39edd648fab5', 'eec8c8d7-6f42-4cc3-1e27-39edd646f20f');
 INSERT INTO `menu_permission` VALUES (221, '90fe5cac-952b-8919-59be-39edd648fab5', 'c0944193-d0c2-8040-91e5-39edd646f207');
@@ -364,6 +364,8 @@ INSERT INTO `menu_permission` VALUES (242, '90fe5cac-952b-8919-59be-39edd648fab5
 INSERT INTO `menu_permission` VALUES (243, '90fe5cac-952b-8919-59be-39edd648fab5', 'e4d3cc7f-8017-3a34-d296-39edd646f27c');
 INSERT INTO `menu_permission` VALUES (244, '90fe5cac-952b-8919-59be-39edd648fab5', 'e528d8ac-9704-607d-0d76-39edd646f275');
 INSERT INTO `menu_permission` VALUES (245, '90fe5cac-952b-8919-59be-39edd648fab5', '0bbb7988-4e4b-073e-b94e-39edd646f23c');
+INSERT INTO `menu_permission` VALUES (249, '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '39ee3895-3ee8-6487-b58d-6dd60531970a');
+INSERT INTO `menu_permission` VALUES (250, '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '39ee5bf5-d134-5028-f3ea-45c65fa12650');
 
 -- ----------------------------
 -- Table structure for moduleinfo
@@ -385,9 +387,9 @@ CREATE TABLE `moduleinfo`  (
 -- ----------------------------
 -- Records of moduleinfo
 -- ----------------------------
-INSERT INTO `moduleinfo` VALUES ('39edd6d6-bcba-207d-c809-3f90a91802b0', '博客', 'Blog', '1.0.0', NULL, '2019-05-17 15:20:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `moduleinfo` VALUES ('4FE58AC7-506B-D100-C374-39EDD646CE70', '代码生成', 'CodeGenerator', '1.0.0', '', '2019-05-17 12:43:17', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `moduleinfo` VALUES ('D4F5F231-F698-F224-D587-39ED9D56BF37', '权限管理', 'Admin', '1.0.0', '', '2019-05-06 11:22:20', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:30', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('39ee3891-17c3-fbff-e0d9-7ccd77994e9a', '通用模块', 'Common', '1.0.0', '', '2019-06-05 14:47:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 10:58:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('4FE58AC7-506B-D100-C374-39EDD646CE70', '代码生成', 'CodeGenerator', '1.0.0', '', '2019-05-17 12:43:17', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 10:58:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('D4F5F231-F698-F224-D587-39ED9D56BF37', '权限管理', 'Admin', '1.0.0', '', '2019-05-06 11:22:20', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 10:58:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 
 -- ----------------------------
 -- Table structure for permission
@@ -410,112 +412,109 @@ CREATE TABLE `permission`  (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('024C22B5-DAC2-F91C-33D3-39ED221095F5', '角色管理_下拉列表数据', 'Admin', 'Role', 'Select', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('07B2C882-D6F8-E251-E5EC-39ED221095F6', '系统_修改系统配置', 'Admin', 'System', 'Config', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('0A4360F5-7FDE-6CF6-88F0-39EDD646F1EF', '实体管理_查询', 'codegenerator', 'Class', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('0BBB7988-4E4B-073E-B94E-39EDD646F23C', '枚举管理_下拉列表', 'codegenerator', 'Enum', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('0C882026-3B09-A715-698E-39ED221095C4', '模块信息_查询', 'Admin', 'ModuleInfo', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('103AD30B-F5CB-EC6B-2AAA-39EDD646F2C7', '项目管理_添加', 'codegenerator', 'Project', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('131F5777-26DA-9A17-15B6-39ED2210959D', '按钮管理_删除', 'Admin', 'Button', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('16C7E2BC-A808-55D1-64D6-39ED22109572', '账户管理_绑定角色', 'Admin', 'Account', 'BindRole', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('2073B60E-8AFD-4854-A206-39ED221095A4', '菜单管理_查询菜单列表', 'Admin', 'Menu', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('21194FEB-9C9F-3FC6-A27B-39ED221095A3', '菜单管理_菜单树', 'Admin', 'Menu', 'Tree', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('21CB159F-DDDD-9AAE-90EE-39ED221095E1', '角色管理_添加', 'Admin', 'Role', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('2BAA7B7D-94A9-9F13-D009-39ED22109581', '账户管理_编辑', 'Admin', 'Account', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('2F075121-FF29-B379-88E0-39ED221095FE', '系统_获取指定模块的Controller下拉列表', 'Admin', 'System', 'AllController', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('31F87F68-25D2-DD70-2821-39EDD646F1FD', '实体管理_添加', 'codegenerator', 'Class', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('336CF783-A167-8AA0-5065-39EDD5B5EEE0', '菜单管理_更新排序信息', 'Admin', 'Menu', 'Sort', 3, '2019-05-17 10:05:02', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('369CA0D5-73B1-5DFF-0306-39ED221095D3', '权限接口_查询', 'Admin', 'Permission', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('370D8236-6B26-A615-2D9F-39EDD646F284', '模型属性管理_删除', 'codegenerator', 'ModelProperty', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d229-d0e9-de04-5d2aa1868cb9', '文章管理_查询', 'blog', 'Article', 'Query', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d234-1cb0-8203-82a38c49443c', '文章管理_添加', 'blog', 'Article', 'Add', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d23c-af71-2178-ec84641eb117', '文章管理_删除', 'blog', 'Article', 'Delete', 4, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d244-174d-9c4a-a55dd0a43685', '文章管理_编辑', 'blog', 'Article', 'Edit', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d24b-183c-dfa5-3a9819e81c52', '文章管理_修改', 'blog', 'Article', 'Update', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d252-9409-d281-5db7742f782c', '分类管理_查询', 'blog', 'Category', 'Query', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d25a-3cdc-93e9-9151c985591e', '分类管理_添加', 'blog', 'Category', 'Add', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d261-70bf-aab8-1056cf7a5fd6', '分类管理_删除', 'blog', 'Category', 'Delete', 4, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d269-d95a-43fb-55bfb34abd0e', '分类管理_编辑', 'blog', 'Category', 'Edit', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d270-70a0-6618-d96a88bdebf8', '分类管理_修改', 'blog', 'Category', 'Update', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d276-7d4f-fb86-9d405fe0cb1d', '标签管理_查询', 'blog', 'Tag', 'Query', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d27e-3758-1b67-7b3e09859994', '标签管理_添加', 'blog', 'Tag', 'Add', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d286-e917-85d9-c9a1441ce81f', '标签管理_删除', 'blog', 'Tag', 'Delete', 4, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d28e-713a-8b39-d25b52fa166e', '标签管理_编辑', 'blog', 'Tag', 'Edit', 1, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('39edd6d6-d295-6fac-6a0d-a205548351f3', '标签管理_修改', 'blog', 'Tag', 'Update', 3, '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('3B70252C-0225-EFDC-9F04-39EDD646F2E8', '实体属性管理_添加', 'codegenerator', 'Property', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('3C8918F7-15CC-8493-F61B-39ED221095C2', '菜单管理_获取菜单的按钮列表', 'Admin', 'Menu', 'ButtonList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('3D58A917-A9E6-8FB4-AEF0-39ED22109590', '审计信息_查询', 'Admin', 'AuditInfo', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('3DE2E2DD-2E1A-BBCA-9162-39ED221095BF', '菜单管理_获取菜单的权限列表', 'Admin', 'Menu', 'PermissionList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('40A6A7CB-C7F2-3065-7640-39ED2210959F', '按钮管理_获取按钮绑定的权限列表', 'Admin', 'Button', 'PermissionList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('453FEF51-1D67-3C8D-10B5-39ED221095D6', '权限接口_删除', 'Admin', 'Permission', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('45C2B872-D473-C1C7-43F0-39EDD646F2B8', '模型属性管理_从实体中导入属性', 'codegenerator', 'ModelProperty', 'ImportFromEntity', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('46F7F154-2B89-3F80-CC18-39ED221095F1', '角色管理_获取角色关联的菜单按钮列表', 'Admin', 'Role', 'MenuButtonList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('479A4F27-08DB-C255-B993-39ED22109580', '账户管理_添加', 'Admin', 'Account', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('4888619B-5D4A-6430-AD3A-39ED2210957F', '账户管理_查询', 'Admin', 'Account', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('4B6EE44F-89F4-B657-2887-39ED221095ED', '角色管理_绑定菜单', 'Admin', 'Role', 'BindMenu', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('4E0EE58F-9BF6-14E4-0874-39EDD646F312', '实体属性管理_修改可空状态', 'codegenerator', 'Property', 'UpdateNullable', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('594A2AE3-56A8-D255-CB55-39EDD646F2AB', '模型属性管理_修改可空状态', 'codegenerator', 'ModelProperty', 'UpdateNullable', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('5A77EE39-3B26-088F-B0C4-39EDD646F216', '枚举管理_查询', 'codegenerator', 'Enum', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('5E13BBC7-40C0-78F0-9700-39ED2210958E', '账户管理_重置密码', 'Admin', 'Account', 'ResetPassword', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('60DBF5CE-FF5F-88D6-FF9F-39EDD646F2EE', '实体属性管理_删除', 'codegenerator', 'Property', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('60DE5DBA-7E79-658E-8A5F-39ED22109583', '账户管理_更新', 'Admin', 'Account', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('63237D43-54F2-5E06-2CEA-39ED221095B4', '菜单管理_更新', 'Admin', 'Menu', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('6528A89E-55E0-55E3-10AE-39ED221095AD', '菜单管理_添加', 'Admin', 'Menu', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('6E4BD745-6ADD-D321-03A3-39ED221095E4', '角色管理_编辑', 'Admin', 'Role', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('70581745-E062-DCD0-C19C-39ED221095C5', '模块信息_同步模块数据', 'Admin', 'ModuleInfo', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('70EA1FA1-1B84-C6B7-1C5B-39EDD646F2BE', '项目管理_查询', 'codegenerator', 'Project', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('753BC64A-A40C-E4C4-698D-39ED221095CC', '模块信息_删除', 'Admin', 'ModuleInfo', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('024C22B5-DAC2-F91C-33D3-39ED221095F5', '角色管理_下拉列表数据', 'Admin', 'Role', 'Select', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('07B2C882-D6F8-E251-E5EC-39ED221095F6', '系统_修改系统配置', 'Admin', 'System', 'Config', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('0A4360F5-7FDE-6CF6-88F0-39EDD646F1EF', '实体管理_查询', 'codegenerator', 'Class', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('0BBB7988-4E4B-073E-B94E-39EDD646F23C', '枚举管理_下拉列表', 'codegenerator', 'Enum', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('0C882026-3B09-A715-698E-39ED221095C4', '模块信息_查询', 'Admin', 'ModuleInfo', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('103AD30B-F5CB-EC6B-2AAA-39EDD646F2C7', '项目管理_添加', 'codegenerator', 'Project', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('131F5777-26DA-9A17-15B6-39ED2210959D', '按钮管理_删除', 'Admin', 'Button', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('16C7E2BC-A808-55D1-64D6-39ED22109572', '账户管理_绑定角色', 'Admin', 'Account', 'BindRole', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('2073B60E-8AFD-4854-A206-39ED221095A4', '菜单管理_查询菜单列表', 'Admin', 'Menu', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('21194FEB-9C9F-3FC6-A27B-39ED221095A3', '菜单管理_菜单树', 'Admin', 'Menu', 'Tree', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('21CB159F-DDDD-9AAE-90EE-39ED221095E1', '角色管理_添加', 'Admin', 'Role', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('2BAA7B7D-94A9-9F13-D009-39ED22109581', '账户管理_编辑', 'Admin', 'Account', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('2F075121-FF29-B379-88E0-39ED221095FE', '系统_获取指定模块的Controller下拉列表', 'Admin', 'System', 'AllController', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('31F87F68-25D2-DD70-2821-39EDD646F1FD', '实体管理_添加', 'codegenerator', 'Class', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('336CF783-A167-8AA0-5065-39EDD5B5EEE0', '菜单管理_更新排序信息', 'Admin', 'Menu', 'Sort', 3, '2019-05-17 10:05:02', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('369CA0D5-73B1-5DFF-0306-39ED221095D3', '权限接口_查询', 'Admin', 'Permission', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('370D8236-6B26-A615-2D9F-39EDD646F284', '模型属性管理_删除', 'codegenerator', 'ModelProperty', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3ee8-6487-b58d-6dd60531970a', '区划代码管理_查询', 'common', 'Area', 'Query', 1, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3ef0-a3a9-00a1-cfc9e8dc5467', '区划代码管理_添加', 'common', 'Area', 'Add', 3, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3ef8-b047-2be4-ea2c45dce1a8', '区划代码管理_删除', 'common', 'Area', 'Delete', 4, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f03-c7ee-5dff-2496ed3de5f4', '区划代码管理_编辑', 'common', 'Area', 'Edit', 1, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f0f-9a9d-2966-044a39d4d5de', '区划代码管理_修改', 'common', 'Area', 'Update', 3, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f19-9ada-8848-87979b8c4ed5', '区划代码管理_爬取数据', 'common', 'Area', 'Crawling', 3, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f23-3247-35b0-61dc02dedbcf', '字典管理_查询', 'common', 'Dict', 'Query', 1, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f2b-f57d-f420-e1c3735fa517', '字典管理_添加', 'common', 'Dict', 'Add', 3, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f31-c102-287c-ae3516f807be', '字典管理_删除', 'common', 'Dict', 'Delete', 4, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f43-a8c1-6b37-f0ec15bd05f4', '字典管理_编辑', 'common', 'Dict', 'Edit', 1, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee3895-3f4d-c48a-8400-d9996e4c3dad', '字典管理_修改', 'common', 'Dict', 'Update', 3, '2019-06-05 14:51:44', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('39ee5bf5-d134-5028-f3ea-45c65fa12650', '区划代码管理_查询子节点', 'common', 'Area', 'QueryChildren', 1, '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('3B70252C-0225-EFDC-9F04-39EDD646F2E8', '实体属性管理_添加', 'codegenerator', 'Property', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('3C8918F7-15CC-8493-F61B-39ED221095C2', '菜单管理_获取菜单的按钮列表', 'Admin', 'Menu', 'ButtonList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('3D58A917-A9E6-8FB4-AEF0-39ED22109590', '审计信息_查询', 'Admin', 'AuditInfo', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('3DE2E2DD-2E1A-BBCA-9162-39ED221095BF', '菜单管理_获取菜单的权限列表', 'Admin', 'Menu', 'PermissionList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('40A6A7CB-C7F2-3065-7640-39ED2210959F', '按钮管理_获取按钮绑定的权限列表', 'Admin', 'Button', 'PermissionList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('453FEF51-1D67-3C8D-10B5-39ED221095D6', '权限接口_删除', 'Admin', 'Permission', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('45C2B872-D473-C1C7-43F0-39EDD646F2B8', '模型属性管理_从实体中导入属性', 'codegenerator', 'ModelProperty', 'ImportFromEntity', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('46F7F154-2B89-3F80-CC18-39ED221095F1', '角色管理_获取角色关联的菜单按钮列表', 'Admin', 'Role', 'MenuButtonList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('479A4F27-08DB-C255-B993-39ED22109580', '账户管理_添加', 'Admin', 'Account', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('4888619B-5D4A-6430-AD3A-39ED2210957F', '账户管理_查询', 'Admin', 'Account', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('4B6EE44F-89F4-B657-2887-39ED221095ED', '角色管理_绑定菜单', 'Admin', 'Role', 'BindMenu', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('4E0EE58F-9BF6-14E4-0874-39EDD646F312', '实体属性管理_修改可空状态', 'codegenerator', 'Property', 'UpdateNullable', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('594A2AE3-56A8-D255-CB55-39EDD646F2AB', '模型属性管理_修改可空状态', 'codegenerator', 'ModelProperty', 'UpdateNullable', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('5A77EE39-3B26-088F-B0C4-39EDD646F216', '枚举管理_查询', 'codegenerator', 'Enum', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('5E13BBC7-40C0-78F0-9700-39ED2210958E', '账户管理_重置密码', 'Admin', 'Account', 'ResetPassword', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('60DBF5CE-FF5F-88D6-FF9F-39EDD646F2EE', '实体属性管理_删除', 'codegenerator', 'Property', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('60DE5DBA-7E79-658E-8A5F-39ED22109583', '账户管理_更新', 'Admin', 'Account', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('63237D43-54F2-5E06-2CEA-39ED221095B4', '菜单管理_更新', 'Admin', 'Menu', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('6528A89E-55E0-55E3-10AE-39ED221095AD', '菜单管理_添加', 'Admin', 'Menu', 'Add', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('6E4BD745-6ADD-D321-03A3-39ED221095E4', '角色管理_编辑', 'Admin', 'Role', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('70581745-E062-DCD0-C19C-39ED221095C5', '模块信息_同步模块数据', 'Admin', 'ModuleInfo', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('70EA1FA1-1B84-C6B7-1C5B-39EDD646F2BE', '项目管理_查询', 'codegenerator', 'Project', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('753BC64A-A40C-E4C4-698D-39ED221095CC', '模块信息_删除', 'Admin', 'ModuleInfo', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `permission` VALUES ('79429274-CFCF-30F1-2B1E-39ED221095BA', '菜单管理_详情', 'Admin', 'Menu', 'Details', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 10:05:02', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
-INSERT INTO `permission` VALUES ('7BD7741B-3653-BBA9-C13F-39EDD646F225', '枚举管理_删除', 'codegenerator', 'Enum', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('7E9A9372-B299-9F8E-155B-39EDD646F21F', '枚举管理_添加', 'codegenerator', 'Enum', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('821D172A-AADD-8516-CA9F-39EDD646F26E', '枚举项管理_更新排序信息', 'codegenerator', 'EnumItem', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('837C460D-4A4B-C720-97EF-39EDD646F2E1', '实体属性管理_查询', 'codegenerator', 'Property', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('8563A927-BB00-0D98-5B42-39EDD646F203', '实体管理_删除', 'codegenerator', 'Class', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('8DCEC627-A20B-20EA-C4EF-39EDD646F299', '模型属性管理_更新排序信息', 'codegenerator', 'ModelProperty', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('92BA26A7-C033-58D3-6A10-39EDD646F318', '实体属性管理_修改列表显示状态', 'codegenerator', 'Property', 'UpdateShowInList', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('935B0BA6-4396-60EE-2AE7-39EDD646F2DB', '项目管理_修改', 'codegenerator', 'Project', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('938F6B86-B398-EED9-970C-39EDD646F2D0', '项目管理_删除', 'codegenerator', 'Project', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('941B90CA-7BF7-FA66-21F4-39ED221095E5', '角色管理_修改', 'Admin', 'Role', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('9AB67430-412E-0CA0-0635-39EDD646F2F2', '实体属性管理_编辑', 'codegenerator', 'Property', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('A474FF49-B640-461A-E6FD-39EDD646F2D7', '项目管理_编辑', 'codegenerator', 'Project', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('A8D12A71-6045-356A-56E1-39EDD646F25E', '枚举项管理_修改', 'codegenerator', 'EnumItem', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('AC3C8201-D7D7-46D4-121B-39EDD646F22B', '枚举管理_编辑', 'codegenerator', 'Enum', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('AD112412-B385-A42E-9CB0-39EDD646F256', '枚举项管理_编辑', 'codegenerator', 'EnumItem', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('B93930AE-B840-D1A1-B19E-39ED221095D5', '权限接口_同步', 'Admin', 'Permission', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('BA54D018-0EB1-0683-8469-39EDD5B5EEBC', '菜单管理_更新排序信息', 'Admin', 'Menu', 'Sort', 1, '2019-05-17 10:05:02', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('BD77531E-9146-AC03-B2D0-39ED221095C1', '菜单管理_绑定权限', 'Admin', 'Menu', 'BindPermission', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('C0944193-D0C2-8040-91E5-39EDD646F207', '实体管理_编辑', 'codegenerator', 'Class', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('C1580441-4CC5-6733-E9DF-39ED221095B3', '菜单管理_编辑', 'Admin', 'Menu', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('C1699E04-4AD0-DF03-B375-39ED22109602', '系统_获取指定模块和Controller的Action下拉列表', 'Admin', 'System', 'AllAction', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('C26BB465-8C89-51F9-A71F-39ED22109597', '按钮管理_同步', 'Admin', 'Button', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('C87C85E6-E85E-ECE1-CDB4-39EDD646F28C', '模型属性管理_编辑', 'codegenerator', 'ModelProperty', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('CC325B48-B557-0635-D042-39EDD646F306', '实体属性管理_更新排序信息', 'codegenerator', 'Property', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('CDA73BA5-0ACA-C003-9E2E-39EDD64E7949', '项目管理_生成代码', 'codegenerator', 'Project', 'BuildCode', 3, '2019-05-17 12:51:38', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 12:51:38', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A');
-INSERT INTO `permission` VALUES ('CFD7E4EA-2592-3B9A-6780-39ED221095A1', '按钮管理_绑定权限', 'Admin', 'Button', 'BindPermission', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('D327A892-61F1-5DBF-DA86-39EDD646F266', '枚举项管理_更新排序信息', 'codegenerator', 'EnumItem', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('D4BD9D65-8540-9463-762F-39ED22109589', '账户管理_删除', 'Admin', 'Account', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('D533353C-A241-C4F5-82BD-39ED221095DD', '角色管理_查询', 'Admin', 'Role', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('D7948BC2-C6D0-F501-8BF5-39EDD646F30D', '实体属性管理_更新排序信息', 'codegenerator', 'Property', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DAD12ACD-CC26-AC17-4FF6-39ED221095E3', '角色管理_删除', 'Admin', 'Role', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DB2E0A42-417D-98F3-9D03-39EDD646F2B0', '模型属性管理_获取下拉列表', 'codegenerator', 'ModelProperty', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DBE09A62-04EA-257F-4BBF-39EDD646F243', '枚举项管理_查询', 'codegenerator', 'EnumItem', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DC464A46-960C-DD10-0713-39ED221095E7', '角色管理_获取角色的关联菜单列表', 'Admin', 'Role', 'MenuList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DD546001-8F04-1EC4-8515-39EDD646F235', '枚举管理_修改', 'codegenerator', 'Enum', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('DE8FC51B-88E7-553B-7773-39EDD646F24C', '枚举项管理_添加', 'codegenerator', 'EnumItem', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('E181E108-3A6D-EBB5-8F53-39EDD646F31D', '实体属性管理_获取下拉列表', 'codegenerator', 'Property', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('E1F86178-2204-72BD-8C55-39ED221095F3', '角色管理_绑定菜单按钮', 'Admin', 'Role', 'BindMenuButton', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('E4D3CC7F-8017-3A34-D296-39EDD646F27C', '模型属性管理_添加', 'codegenerator', 'ModelProperty', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('E528D8AC-9704-607D-0D76-39EDD646F275', '模型属性管理_查询', 'codegenerator', 'ModelProperty', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('E8080A42-912A-23F7-474A-39ED221095F8', '系统_上传Logo', 'Admin', 'System', 'UploadLogo', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('EA79DEDB-099C-3132-92C4-39EDD646F252', '枚举项管理_删除', 'codegenerator', 'EnumItem', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('EB48579B-94A3-2DC8-AE5E-39ED22109593', '按钮管理_查询', 'Admin', 'Button', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('EC812192-F175-6415-67E9-39EDD646F292', '模型属性管理_修改', 'codegenerator', 'ModelProperty', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('ED24644B-5857-C37F-4DF3-39EDD646F2FE', '实体属性管理_修改', 'codegenerator', 'Property', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:36', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('EEC8C8D7-6F42-4CC3-1E27-39EDD646F20F', '实体管理_修改', 'codegenerator', 'Class', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('EFBC6833-809E-9270-8898-39EDD646F2A1', '模型属性管理_更新排序信息', 'codegenerator', 'ModelProperty', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('F3959EB5-2CC2-AED6-67FC-39ED221095B0', '菜单管理_删除', 'Admin', 'Menu', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('F6B17ECC-900F-0547-F1E6-39ED22109591', '审计信息_详情', 'Admin', 'AuditInfo', 'Details', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
-INSERT INTO `permission` VALUES ('F9A16174-575B-6C3B-3F9D-39ED221095D1', '模块信息_下拉列表数据', 'Admin', 'ModuleInfo', 'Select', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-05-17 15:20:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('7BD7741B-3653-BBA9-C13F-39EDD646F225', '枚举管理_删除', 'codegenerator', 'Enum', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('7E9A9372-B299-9F8E-155B-39EDD646F21F', '枚举管理_添加', 'codegenerator', 'Enum', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('821D172A-AADD-8516-CA9F-39EDD646F26E', '枚举项管理_更新排序信息', 'codegenerator', 'EnumItem', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('837C460D-4A4B-C720-97EF-39EDD646F2E1', '实体属性管理_查询', 'codegenerator', 'Property', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('8563A927-BB00-0D98-5B42-39EDD646F203', '实体管理_删除', 'codegenerator', 'Class', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('8DCEC627-A20B-20EA-C4EF-39EDD646F299', '模型属性管理_更新排序信息', 'codegenerator', 'ModelProperty', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('92BA26A7-C033-58D3-6A10-39EDD646F318', '实体属性管理_修改列表显示状态', 'codegenerator', 'Property', 'UpdateShowInList', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('935B0BA6-4396-60EE-2AE7-39EDD646F2DB', '项目管理_修改', 'codegenerator', 'Project', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('938F6B86-B398-EED9-970C-39EDD646F2D0', '项目管理_删除', 'codegenerator', 'Project', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('941B90CA-7BF7-FA66-21F4-39ED221095E5', '角色管理_修改', 'Admin', 'Role', 'Update', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('9AB67430-412E-0CA0-0635-39EDD646F2F2', '实体属性管理_编辑', 'codegenerator', 'Property', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('A474FF49-B640-461A-E6FD-39EDD646F2D7', '项目管理_编辑', 'codegenerator', 'Project', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('A8D12A71-6045-356A-56E1-39EDD646F25E', '枚举项管理_修改', 'codegenerator', 'EnumItem', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('AC3C8201-D7D7-46D4-121B-39EDD646F22B', '枚举管理_编辑', 'codegenerator', 'Enum', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('AD112412-B385-A42E-9CB0-39EDD646F256', '枚举项管理_编辑', 'codegenerator', 'EnumItem', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('B93930AE-B840-D1A1-B19E-39ED221095D5', '权限接口_同步', 'Admin', 'Permission', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('BA54D018-0EB1-0683-8469-39EDD5B5EEBC', '菜单管理_更新排序信息', 'Admin', 'Menu', 'Sort', 1, '2019-05-17 10:05:02', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('BD77531E-9146-AC03-B2D0-39ED221095C1', '菜单管理_绑定权限', 'Admin', 'Menu', 'BindPermission', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('C0944193-D0C2-8040-91E5-39EDD646F207', '实体管理_编辑', 'codegenerator', 'Class', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('C1580441-4CC5-6733-E9DF-39ED221095B3', '菜单管理_编辑', 'Admin', 'Menu', 'Edit', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('C1699E04-4AD0-DF03-B375-39ED22109602', '系统_获取指定模块和Controller的Action下拉列表', 'Admin', 'System', 'AllAction', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('C26BB465-8C89-51F9-A71F-39ED22109597', '按钮管理_同步', 'Admin', 'Button', 'Sync', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('C87C85E6-E85E-ECE1-CDB4-39EDD646F28C', '模型属性管理_编辑', 'codegenerator', 'ModelProperty', 'Edit', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('CC325B48-B557-0635-D042-39EDD646F306', '实体属性管理_更新排序信息', 'codegenerator', 'Property', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('CDA73BA5-0ACA-C003-9E2E-39EDD64E7949', '项目管理_生成代码', 'codegenerator', 'Project', 'BuildCode', 3, '2019-05-17 12:51:38', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('CFD7E4EA-2592-3B9A-6780-39ED221095A1', '按钮管理_绑定权限', 'Admin', 'Button', 'BindPermission', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('D327A892-61F1-5DBF-DA86-39EDD646F266', '枚举项管理_更新排序信息', 'codegenerator', 'EnumItem', 'Sort', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('D4BD9D65-8540-9463-762F-39ED22109589', '账户管理_删除', 'Admin', 'Account', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:55', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('D533353C-A241-C4F5-82BD-39ED221095DD', '角色管理_查询', 'Admin', 'Role', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('D7948BC2-C6D0-F501-8BF5-39EDD646F30D', '实体属性管理_更新排序信息', 'codegenerator', 'Property', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DAD12ACD-CC26-AC17-4FF6-39ED221095E3', '角色管理_删除', 'Admin', 'Role', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DB2E0A42-417D-98F3-9D03-39EDD646F2B0', '模型属性管理_获取下拉列表', 'codegenerator', 'ModelProperty', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DBE09A62-04EA-257F-4BBF-39EDD646F243', '枚举项管理_查询', 'codegenerator', 'EnumItem', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DC464A46-960C-DD10-0713-39ED221095E7', '角色管理_获取角色的关联菜单列表', 'Admin', 'Role', 'MenuList', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DD546001-8F04-1EC4-8515-39EDD646F235', '枚举管理_修改', 'codegenerator', 'Enum', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('DE8FC51B-88E7-553B-7773-39EDD646F24C', '枚举项管理_添加', 'codegenerator', 'EnumItem', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('E181E108-3A6D-EBB5-8F53-39EDD646F31D', '实体属性管理_获取下拉列表', 'codegenerator', 'Property', 'Select', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('E1F86178-2204-72BD-8C55-39ED221095F3', '角色管理_绑定菜单按钮', 'Admin', 'Role', 'BindMenuButton', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('E4D3CC7F-8017-3A34-D296-39EDD646F27C', '模型属性管理_添加', 'codegenerator', 'ModelProperty', 'Add', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('E528D8AC-9704-607D-0D76-39EDD646F275', '模型属性管理_查询', 'codegenerator', 'ModelProperty', 'Query', 1, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('E8080A42-912A-23F7-474A-39ED221095F8', '系统_上传Logo', 'Admin', 'System', 'UploadLogo', 3, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('EA79DEDB-099C-3132-92C4-39EDD646F252', '枚举项管理_删除', 'codegenerator', 'EnumItem', 'Delete', 4, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('EB48579B-94A3-2DC8-AE5E-39ED22109593', '按钮管理_查询', 'Admin', 'Button', 'Query', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('EC812192-F175-6415-67E9-39EDD646F292', '模型属性管理_修改', 'codegenerator', 'ModelProperty', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('ED24644B-5857-C37F-4DF3-39EDD646F2FE', '实体属性管理_修改', 'codegenerator', 'Property', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('EEC8C8D7-6F42-4CC3-1E27-39EDD646F20F', '实体管理_修改', 'codegenerator', 'Class', 'Update', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('EFBC6833-809E-9270-8898-39EDD646F2A1', '模型属性管理_更新排序信息', 'codegenerator', 'ModelProperty', 'Sort', 3, '2019-05-17 12:43:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('F3959EB5-2CC2-AED6-67FC-39ED221095B0', '菜单管理_删除', 'Admin', 'Menu', 'Delete', 4, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('F6B17ECC-900F-0547-F1E6-39ED22109591', '审计信息_详情', 'Admin', 'AuditInfo', 'Details', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `permission` VALUES ('F9A16174-575B-6C3B-3F9D-39ED221095D1', '模块信息_下拉列表数据', 'Admin', 'ModuleInfo', 'Select', 1, '2019-04-12 12:52:25', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-06-12 11:43:56', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 
 -- ----------------------------
 -- Table structure for role
@@ -549,28 +548,27 @@ CREATE TABLE `role_menu`  (
   `RoleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色编号',
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单编号',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 163 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
-INSERT INTO `role_menu` VALUES (101, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6d7-8b8a-bfff-ac2e-f698f9fd9f93');
-INSERT INTO `role_menu` VALUES (102, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f');
-INSERT INTO `role_menu` VALUES (103, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd');
-INSERT INTO `role_menu` VALUES (104, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0');
-INSERT INTO `role_menu` VALUES (105, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '601d5926-cf2a-ea30-b3cc-39edd647ecd8');
-INSERT INTO `role_menu` VALUES (106, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'aca98589-c672-4c78-8831-39edd648acbb');
-INSERT INTO `role_menu` VALUES (107, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '90fe5cac-952b-8919-59be-39edd648fab5');
-INSERT INTO `role_menu` VALUES (108, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'f2155b1a-d222-8786-e9d7-39edd6492774');
-INSERT INTO `role_menu` VALUES (109, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '214e8c1a-6a87-c214-7ff9-39ed21e7cc27');
-INSERT INTO `role_menu` VALUES (110, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '0404f457-1c32-ba61-8fad-39ed2208bcd9');
-INSERT INTO `role_menu` VALUES (111, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a74578da-7b3b-8a7c-e54c-39ed22090f48');
-INSERT INTO `role_menu` VALUES (112, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a9105ca0-722c-66f5-844b-39ed220926a0');
-INSERT INTO `role_menu` VALUES (113, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'e38b0e46-a755-ff0f-012c-39ed2209462a');
-INSERT INTO `role_menu` VALUES (114, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '64bb88f0-ae8d-eff9-c537-39ed22096f9b');
-INSERT INTO `role_menu` VALUES (115, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'b09aac3d-43b4-3327-9f05-39ed22098f00');
-INSERT INTO `role_menu` VALUES (116, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '7f9dcb98-20b2-3556-a850-39ed2209ab84');
-INSERT INTO `role_menu` VALUES (117, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edef2c-6153-c935-1660-4823c692e142');
+INSERT INTO `role_menu` VALUES (147, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee3891-d1bb-878e-698b-b2a9911c76e9');
+INSERT INTO `role_menu` VALUES (148, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee3894-ab04-421c-a1f2-2abad6b24ca4');
+INSERT INTO `role_menu` VALUES (149, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee5d50-9629-1e88-d03f-d74cf8497049');
+INSERT INTO `role_menu` VALUES (150, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '601d5926-cf2a-ea30-b3cc-39edd647ecd8');
+INSERT INTO `role_menu` VALUES (151, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'aca98589-c672-4c78-8831-39edd648acbb');
+INSERT INTO `role_menu` VALUES (152, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '90fe5cac-952b-8919-59be-39edd648fab5');
+INSERT INTO `role_menu` VALUES (153, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'f2155b1a-d222-8786-e9d7-39edd6492774');
+INSERT INTO `role_menu` VALUES (154, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '214e8c1a-6a87-c214-7ff9-39ed21e7cc27');
+INSERT INTO `role_menu` VALUES (155, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '0404f457-1c32-ba61-8fad-39ed2208bcd9');
+INSERT INTO `role_menu` VALUES (156, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a74578da-7b3b-8a7c-e54c-39ed22090f48');
+INSERT INTO `role_menu` VALUES (157, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'a9105ca0-722c-66f5-844b-39ed220926a0');
+INSERT INTO `role_menu` VALUES (158, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'e38b0e46-a755-ff0f-012c-39ed2209462a');
+INSERT INTO `role_menu` VALUES (159, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '64bb88f0-ae8d-eff9-c537-39ed22096f9b');
+INSERT INTO `role_menu` VALUES (160, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', 'b09aac3d-43b4-3327-9f05-39ed22098f00');
+INSERT INTO `role_menu` VALUES (161, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '7f9dcb98-20b2-3556-a850-39ed2209ab84');
+INSERT INTO `role_menu` VALUES (162, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edef2c-6153-c935-1660-4823c692e142');
 
 -- ----------------------------
 -- Table structure for role_menu_button
@@ -582,7 +580,7 @@ CREATE TABLE `role_menu_button`  (
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ButtonId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu_button
@@ -613,14 +611,8 @@ INSERT INTO `role_menu_button` VALUES (38, '1CB0D69C-6373-3B46-51B8-39ED21CB6A2D
 INSERT INTO `role_menu_button` VALUES (39, '1CB0D69C-6373-3B46-51B8-39ED21CB6A2D', 'F2155B1A-D222-8786-E9D7-39EDD6492774', '161E3E65-A02E-8A59-8C3E-39EDD64A36E9');
 INSERT INTO `role_menu_button` VALUES (40, '1CB0D69C-6373-3B46-51B8-39ED21CB6A2D', 'F2155B1A-D222-8786-E9D7-39EDD6492774', '1AE9F5E5-B972-375F-D680-39EDD64A3703');
 INSERT INTO `role_menu_button` VALUES (41, '1CB0D69C-6373-3B46-51B8-39ED21CB6A2D', 'F2155B1A-D222-8786-E9D7-39EDD6492774', 'A7D396FB-BC36-EE11-A857-39EDD64A370A');
-INSERT INTO `role_menu_button` VALUES (42, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '39edd6df-eb49-28de-df7d-04321fe64ab1');
-INSERT INTO `role_menu_button` VALUES (43, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '39edd6df-eb55-69ad-950d-7481583c9702');
-INSERT INTO `role_menu_button` VALUES (44, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-1ae4-116a-bffc-d59bf483ba2f', '39edd6df-eb5b-9e4e-e2f6-fa54952c4bf6');
-INSERT INTO `role_menu_button` VALUES (45, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '39edd6e0-80bb-21d3-322b-ee301b4383ad');
-INSERT INTO `role_menu_button` VALUES (46, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '39edd6e0-80c3-cffa-2302-c96657e98a40');
-INSERT INTO `role_menu_button` VALUES (47, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-9361-a471-ec2f-06c962dad5cd', '39edd6e0-80cf-047c-46e4-b838eb0a7f6e');
-INSERT INTO `role_menu_button` VALUES (48, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0', '39edd6e1-0870-acc4-7017-c12a7404284a');
-INSERT INTO `role_menu_button` VALUES (49, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0', '39edd6e1-087c-fb2f-30f2-e5c15368fc25');
-INSERT INTO `role_menu_button` VALUES (50, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39edd6dc-b30d-c207-6967-0586c4785fe0', '39edd6e1-0883-aef2-e3ea-15a2de6c1a01');
+INSERT INTO `role_menu_button` VALUES (52, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '39ee389d-2c10-4e60-1cc8-2bc3ec58ee13');
+INSERT INTO `role_menu_button` VALUES (53, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '39ee389d-2c46-d0db-4f3a-85eb9afa97eb');
+INSERT INTO `role_menu_button` VALUES (54, '1cb0d69c-6373-3b46-51b8-39ed21cb6a2d', '39ee3894-ab04-421c-a1f2-2abad6b24ca4', '39ee389d-2c4c-017a-e05b-f26b5c6ad6de');
 
 SET FOREIGN_KEY_CHECKS = 1;
