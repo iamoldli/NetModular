@@ -340,3 +340,4 @@ ASALocalRun/
 /sample/Blog/src/WebHost/wwwroot
 /src/Library_UI/nm-lib-skins/dist
 /src/WebHost/wwwroot
+/src/Module/CodeGenerator/UI/nm-module-code-generator/package-lock.json

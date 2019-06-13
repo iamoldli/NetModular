@@ -18,6 +18,12 @@
       "Dialect": 1,
       "Database": "Nm_Common",
       "ConnString": "Server=localhost;Database=nm_common;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
+    },
+    {
+      "Name": "PersonnelFiles",
+      "Dialect": 1,
+      "Database": "Nm_PersonnelFiles",
+      "ConnString": "Server=localhost;Database=Nm_PersonnelFiles;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
     }
   ]
 }
