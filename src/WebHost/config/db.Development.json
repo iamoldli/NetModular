@@ -1,29 +1,3 @@
 {
-  "Logging": true,
-  "Connections": [
-    {
-      "Name": "Admin",
-      "Dialect": 1,
-      "Database": "Nm_Admin",
-      "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
-    },
-    {
-      "Name": "CodeGenerator",
-      "Dialect": 1,
-      "Database": "Nm_CodeGenerator",
-      "ConnString": "Server=localhost;Database=nm_codegenerator;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
-    },
-    {
-      "Name": "Common",
-      "Dialect": 1,
-      "Database": "Nm_Common",
-      "ConnString": "Server=localhost;Database=nm_common;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
-    },
-    {
-      "Name": "PersonnelFiles",
-      "Dialect": 1,
-      "Database": "Nm_PersonnelFiles",
-      "ConnString": "Server=localhost;Database=Nm_PersonnelFiles;Uid=root;Pwd=tdkj!@#123;Allow User Variables=True;charset=utf8;SslMode=none;"
-    }
-  ]
+
 }

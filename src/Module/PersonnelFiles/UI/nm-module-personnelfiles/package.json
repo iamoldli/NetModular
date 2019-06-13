@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "nm-lib-icon": "^1.0.0",
-        "nm-lib-skins": "^1.0.0",
+        "nm-lib-skins": "^1.1.4",
         "nm-module-admin": "^1.0.0",
         "nm-module-common": "^1.0.0"
     },
