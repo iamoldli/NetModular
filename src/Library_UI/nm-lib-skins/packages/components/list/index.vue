@@ -1,5 +1,11 @@
 <template>
-  <section :class="class_" v-loading="showLoading" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
+  <section
+    :class="class_"
+    v-loading="showLoading"
+    :element-loading-text="loadingText||loadingText_"
+    :element-loading-background="loadingBackground"
+    :element-loading-spinner="loadingSpinner"
+  >
     <!--header-->
     <query-header v-if="!noHeader" :title="title" :icon="icon" :no-fullscreen="noFullscreen" :fullscreen.sync="fullscreen" :no-refresh="noRefresh">
       <template v-slot:toolbar>
@@ -115,7 +121,7 @@ const defaultColumnInfo = {
 export default {
   name: 'List',
   components: { QueryHeader, Querybar, QueryTable, QueryFooter },
-  data () {
+  data() {
     return {
       loading_: false,
       fullscreen: false,
@@ -188,6 +194,8 @@ export default {
     spanMethod: Function,
     /** 加载中动画 */
     loading: Boolean,
+    /** 加载中文本 */
+    loadingText: String,
     /** 创建后执行一次查询 */
     queryOnCreated: {
       type: Boolean,
@@ -195,13 +203,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    class_ () {
+    ...mapState('app/loading', { loadingText_: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
+    class_() {
       return ['nm-list',
         this.fontSize ? `nm-list-${this.fontSize}` : '',
         this.fullscreen ? 'fullscreen' : '']
     },
-    querybar () {
+    querybar() {
       return {
         model: this.model,
         rules: this.rules,
@@ -211,13 +219,13 @@ export default {
         noSearchButtonIcon: this.noSearchButtonIcon
       }
     },
-    showLoading () {
+    showLoading() {
       return this.loading || this.loading_
     }
   },
   methods: {
     /** 查询方法 */
-    query () {
+    query() {
       if (this.loading_) { return }
 
       this.loading_ = true
@@ -236,12 +244,12 @@ export default {
       })
     },
     /** 刷新 */
-    refresh () {
+    refresh() {
       this.page.index = 1
       this.query()
     },
     /** 查询表单重置 */
-    reset (from) {
+    reset(from) {
       if (!from) {
         this.$refs.querybar.reset()
       } else {
@@ -250,11 +258,11 @@ export default {
       }
     },
     /** 获取序号 */
-    getNo (index) {
+    getNo(index) {
       return (this.page.index - 1) * this.page.size + index + 1
     }
   },
-  created () {
+  created() {
     if (this.queryOnCreated) {
       this.query()
     }

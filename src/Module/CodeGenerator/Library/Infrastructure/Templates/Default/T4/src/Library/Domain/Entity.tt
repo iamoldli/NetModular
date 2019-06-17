@@ -3,7 +3,11 @@
 <#@ import namespace="Nm.Module.CodeGenerator.Domain.Property" #>
 using System;
 using <#= _prefix #>.Lib.Data.Abstractions.Attributes;
+<# if(_baseEntityName=="_baseEntityName"||_baseEntityName.StartsWith("Entity<")){ #>
+using <#= _prefix #>.Lib.Data.Core.Entities;
+<#}else{ #>
 using <#= _prefix #>.Lib.Data.Core.Entities.Extend;
+<#} #>
 
 namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>
 {

@@ -15,15 +15,15 @@ namespace Nm.Lib.Module.Core
         /// 添加模块
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="env"></param>
+        /// <param name="environmentName">环境名称</param>
         /// <returns></returns>
-        public static IModuleCollection AddModules(this IServiceCollection services, IHostingEnvironment env)
+        public static IModuleCollection AddModules(this IServiceCollection services, string environmentName)
         {
             var modules = new ModuleCollection();
             services.AddSingleton<IModuleCollection>(modules);
 
             var cfgHelper = new ConfigurationHelper();
-            var cfg = cfgHelper.Load("module", env.EnvironmentName, true);
+            var cfg = cfgHelper.Load("module", environmentName, true);
 
             //通用配置
             services.Configure<ModuleCommonOptions>(cfg);

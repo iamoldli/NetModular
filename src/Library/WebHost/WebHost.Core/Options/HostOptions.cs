@@ -14,5 +14,10 @@
         /// 开启Swagger
         /// </summary>
         public bool Swagger { get; set; }
+
+        /// <summary>
+        /// 启用代理
+        /// </summary>
+        public bool Proxy { get; set; }
     }
 }

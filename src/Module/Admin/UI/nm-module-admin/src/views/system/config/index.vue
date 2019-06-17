@@ -20,6 +20,13 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row :gutter="20">
+        <el-col :span="10" :offset="1">
+          <el-form-item label="个人信息页：" prop="userInfoPage">
+            <el-input v-model="form.model.userInfoPage"/>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-divider content-position="left">登录控制</el-divider>
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
@@ -73,7 +80,7 @@ import api from '../../../api/system'
 import page from './page'
 export default {
   name: page.name,
-  data () {
+  data() {
     return {
       form: {
         title: page.title,
@@ -86,6 +93,7 @@ export default {
           logo: '',
           logoUrl: '',
           home: '',
+          userInfoPage: '',
           buttonPermission: false,
           auditing: false,
           loginVerifyCode: false,
@@ -101,7 +109,7 @@ export default {
   },
   computed: {
     ...mapState('module/admin/token', ['accessToken']),
-    logoUpload () {
+    logoUpload() {
       return {
         action: api.uploadLogoUrl(),
         headers: {
@@ -114,7 +122,7 @@ export default {
     }
   },
   methods: {
-    query () {
+    query() {
       api.getConfig().then(data => {
         this.form.model = data
         if (!this.form.model.logoUrl) {
@@ -122,12 +130,12 @@ export default {
         }
       })
     },
-    onSuccess () {
+    onSuccess() {
       this._confirm('需要刷新页面才可看到修改后的效果，是否刷新页面？', '修改成功', 'success').then(() => {
         window.location.reload()
       })
     },
-    beforeLogoUpload (file) {
+    beforeLogoUpload(file) {
       if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
         this._error('上传Logo图片只能是 JPG/PNG 格式!')
         return false
@@ -138,17 +146,17 @@ export default {
       }
       return true
     },
-    handleLogoSuccess (res, file) {
+    handleLogoSuccess(res, file) {
       if (res.code === 1) {
-        this.form.model.logo = res.data.path
+        this.form.model.logo = res.data.fullPath
         this.form.model.logoUrl = res.data.url
       }
     }
   },
-  created () {
+  created() {
     this.query()
   },
-  activated () {
+  activated() {
     this.query()
   }
 }

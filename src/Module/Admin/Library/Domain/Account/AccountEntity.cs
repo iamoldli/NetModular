@@ -28,12 +28,12 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 手机号
         /// </summary>
-        public string Phone { get; set; } = String.Empty;
+        public string Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; } = String.Empty;
+        public string Email { get; set; } = string.Empty;
 
         /// <summary>
         /// 最后登录时间
@@ -43,7 +43,7 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 最后登录IP
         /// </summary>
-        public string LoginIP { get; set; } = String.Empty;
+        public string LoginIP { get; set; } = string.Empty;
 
         /// <summary>
         /// 状态

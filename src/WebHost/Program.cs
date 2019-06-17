@@ -1,6 +1,6 @@
 ﻿using Nm.Lib.WebHost.Core;
 
-namespace NetModular.WebHost
+namespace Nm.WebHost
 {
     public class Program
     {

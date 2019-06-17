@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["frame"],{5489:function(e,t,r){"use strict";r.r(t);var n=function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("nm-container",[r("iframe",{staticStyle:{width:"100%",height:"100%"},attrs:{src:e.url}})])},a=[],u={name:"_iframe",computed:{url:function(){return decodeURI(this.$route.params.url)}}},c=u,i=r("2877"),l=Object(i["a"])(c,n,a,!1,null,null,null);t["default"]=l.exports}}]);
-//# sourceMappingURL=frame.b6656bed.js.map

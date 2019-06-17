@@ -44,7 +44,6 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
                     {
                         _baseEntityName = _baseEntityName.Replace("<Guid>", "");
                     }
-
                     _propertyList = _class.PropertyList ?? new List<PropertyBuildModel>();
 
                     //清空

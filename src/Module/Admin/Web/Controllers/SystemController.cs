@@ -73,7 +73,7 @@ namespace Nm.Module.Admin.Web.Controllers
             {
                 var file = result.Data;
 
-                file.Url = new Uri(Request.GetHost($"/upload/admin/{file.FullPath.ToLower()}")).ToString().ToLower();
+                file.Url = new Uri(Request.GetHost($"/upload/{file.FullPath.ToLower()}")).ToString().ToLower();
 
                 return ResultModel.Success(file);
             }

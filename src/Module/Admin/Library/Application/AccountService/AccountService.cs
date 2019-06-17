@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Encrypt;
 using Nm.Lib.Utils.Core.Extensions;
@@ -40,7 +40,7 @@ namespace Nm.Module.Admin.Application.AccountService
         //默认密码
         public const string DefaultPassword = "123456";
         private readonly LoginInfo _loginInfo;
-        private readonly IMemoryCache _cache;
+        private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
         private readonly IAccountRepository _accountRepository;
@@ -52,7 +52,7 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
 
-        public AccountService(LoginInfo loginInfo, IMemoryCache cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
+        public AccountService(LoginInfo loginInfo, ICacheHandler cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
         {
             _loginInfo = loginInfo;
             _cache = cache;
@@ -77,7 +77,7 @@ namespace Nm.Module.Admin.Application.AccountService
             };
 
             //把验证码放到内存缓存中，有效期10分钟
-            _cache.Set(VerifyCodeKey + verifyCodeModel.Id, code, new TimeSpan(0, 10, 0));
+            _cache.SetAsync(VerifyCodeKey + verifyCodeModel.Id, code, 10);
 
             return ResultModel.Success(verifyCodeModel);
         }
@@ -93,7 +93,8 @@ namespace Nm.Module.Admin.Application.AccountService
                 if (model.Code.IsNull())
                     return result.Failed("请输入验证码");
 
-                if (model.PictureId.IsNull() || !model.Code.Equals(_cache.Get(verifyCodeKey)))
+                var code = await _cache.GetAsync(verifyCodeKey);
+                if (model.PictureId.IsNull() || !model.Code.Equals(code))
                     return result.Failed("验证码有误");
             }
 
@@ -116,7 +117,7 @@ namespace Nm.Module.Admin.Application.AccountService
             #endregion
 
             //删除验证码缓存
-            _cache.Remove(verifyCodeKey);
+            await _cache.RemoveAsync(verifyCodeKey);
 
             return result.Success(account);
         }
@@ -179,9 +180,6 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> UpdatePassword(UpdatePasswordModel model)
         {
-            return ResultModel.Failed("演示地址，禁止修改密码");
-
-
             var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
             if (account == null || account.Deleted)
                 return ResultModel.Failed("账户不存在");
@@ -373,7 +371,7 @@ namespace Nm.Module.Admin.Application.AccountService
             if (!_cache.TryGetValue(key, out List<PermissionEntity> list))
             {
                 list = (await _permissionRepository.QueryByAccount(id)).ToList();
-                _cache.Set(key, list);
+                await _cache.SetAsync(key, list);
             }
 
             return list;
@@ -381,7 +379,7 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public void ClearPermissionListCache(Guid id)
         {
-            _cache.Remove(AccountPermissionListKey + id);
+            _cache.RemoveAsync(AccountPermissionListKey + id).Wait();
         }
 
         #region ==获取账户的菜单树==

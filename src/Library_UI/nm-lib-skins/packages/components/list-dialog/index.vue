@@ -12,7 +12,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'ListDialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       on: {
         open: this.onOpen,
@@ -45,7 +45,7 @@ export default {
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
-      default: false
+      default: true
     },
     /** 是否可拖拽 */
     draggable: {
@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         noFooter: true,
         noScrollbar: true,
@@ -68,23 +68,23 @@ export default {
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$slots.default.map(slot => {
         if (slot.componentOptions.tag === 'nm-list') {
           slot.componentInstance.refresh()
         }
       })
     },
-    onOpen () {
+    onOpen() {
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   }

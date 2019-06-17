@@ -1,6 +1,5 @@
 import token from '../extensions/token'
 import routes from './routes'
-console.log(routes)
 /** 路由实例 */
 var $router = null
 

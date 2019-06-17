@@ -26,7 +26,7 @@ import { mapState } from 'vuex'
 import api from '../../../../api/menu'
 
 export default {
-  data () {
+  data() {
     return {
       // 菜单树
       tree: [],
@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     ...mapState('app/system', { systemTitle: 'title' }),
-    rootMenu () {
+    rootMenu() {
       return {
         id: '',
         label: this.systemTitle,
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     // 刷新菜单树
-    refresh () {
+    refresh() {
       // 树根节点
       api.getTree().then(data => {
         this.rootMenu.children = this.menus2Tree(data)
@@ -90,7 +90,7 @@ export default {
       })
     },
     // 菜单转换为树形结构
-    menus2Tree (menus) {
+    menus2Tree(menus) {
       const nodes = []
       if (menus.length > 0) {
         menus.map(item => {
@@ -112,13 +112,13 @@ export default {
       return nodes
     },
     // 设置选中的节点
-    setCurrentKey (key) {
+    setCurrentKey(key) {
       this.$nextTick(() => {
         this.$refs.tree.setCurrentKey(key || this.current.id)
       })
     },
     // 设置选中的节点
-    setCheckedKeys () {
+    setCheckedKeys() {
       if (this.checkedKeys) {
         this.$nextTick(() => {
           this.$refs.tree.setCheckedKeys(this.checkedKeys)
@@ -126,7 +126,7 @@ export default {
       }
     },
     // 节点选中事件
-    onSelectChange (data, node) {
+    onSelectChange(data, node) {
       if (!this.current.id || data.menu.id !== this.current.id) {
         this.current.id = data.menu.id
         this.current.menu = data.menu
@@ -147,7 +147,7 @@ export default {
       }
     },
     // 节点checkbox选择事件
-    onCheck (data, options) {
+    onCheck(data, options) {
       let selection = []
       options.checkedNodes.map(m => {
         if (m.menu.id) { selection.push(m.menu) }
@@ -157,10 +157,10 @@ export default {
       })
       this.$emit('check', selection)
     },
-    onCheckChange (data, checked, indeterminate) {
+    onCheckChange(data, checked, indeterminate) {
       this.$emit('check-change', data, checked, indeterminate)
     },
-    getFullPath (node, path) {
+    getFullPath(node, path) {
       if (!path) { path = '' }
       if (node && typeof node.key !== 'undefined') {
         path = `${node.label} ${this.pathSeparator} ${path}`
@@ -169,12 +169,12 @@ export default {
       return path
     }
   },
-  mounted () {
+  mounted() {
     this.refresh()
     this.onSelectChange(this.rootMenu, this.current.node)
   },
   watch: {
-    checkedKeys () {
+    checkedKeys() {
       this.setCheckedKeys()
     }
   }

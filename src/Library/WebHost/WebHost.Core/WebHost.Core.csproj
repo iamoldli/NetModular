@@ -10,6 +10,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
+    <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.AspNetCore\Data.AspNetCore.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
     <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />

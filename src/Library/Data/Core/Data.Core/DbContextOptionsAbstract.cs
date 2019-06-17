@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Nm.Lib.Data.Abstractions;
@@ -35,9 +36,12 @@ namespace Nm.Lib.Data.Core
             LoggerFactory = loggerFactory;
             HttpContextAccessor = httpContextAccessor;
 
-            foreach (var entityType in options.EntityTypes)
+            if (options.EntityTypes != null && options.EntityTypes.Any())
             {
-                EntityDescriptorCollection.Add(new EntityDescriptor(entityType, sqlAdapter, new EntitySqlBuilder()));
+                foreach (var entityType in options.EntityTypes)
+                {
+                    EntityDescriptorCollection.Add(new EntityDescriptor(entityType, sqlAdapter, new EntitySqlBuilder()));
+                }
             }
         }
 

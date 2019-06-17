@@ -24,7 +24,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'FormDialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       loading_: false,
       formOn: {
@@ -52,7 +52,7 @@ export default {
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
-      default: false
+      default: true
     },
     /** 是否显示全屏按钮 */
     fullscreen: Boolean,
@@ -120,7 +120,7 @@ export default {
     }
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         title: this.title,
         icon: this.icon,
@@ -131,7 +131,7 @@ export default {
         loading: this.showLoading
       }
     },
-    form () {
+    form() {
       return {
         noLoading: true,
         model: this.model,
@@ -144,18 +144,18 @@ export default {
         disabled: this.disabled
       }
     },
-    showLoading () {
+    showLoading() {
       return !this.noLoading && (this.loading_ || this.loading)
     }
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.loading_ = true
       this.$refs.form.submit()
     },
     /** 重置 */
-    reset () {
+    reset() {
       if (this.customResetFunction) {
         this.customResetFunction()
       } else {
@@ -163,19 +163,19 @@ export default {
       }
     },
     /** 清除验证信息 */
-    clearValidate () {
+    clearValidate() {
       this.$refs.form.clearValidate()
     },
     /** 打开loading */
-    openLoading () {
+    openLoading() {
       this.loading_ = true
     },
     /** 关闭loading */
-    closeLoading () {
+    closeLoading() {
       this.loading = false
     },
     // 成功
-    onSuccess (data) {
+    onSuccess(data) {
       // 关闭对话框
       if (this.closeWhenSuccess) {
         setTimeout(this.hide, 800)
@@ -183,26 +183,35 @@ export default {
       this.loading_ = false
       this.$emit('success', data)
     },
-    onError () {
+    onError() {
       this.loading_ = false
       this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.loading_ = false
       this.$emit('validate-error')
     },
-    onOpen () {
+    onOpen() {
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.dialog.$el.addEventListener('keydown', e => {
+        if (e.keyCode === 13) {
+          this.submit()
+        }
+      })
+    })
   }
 }
 </script>

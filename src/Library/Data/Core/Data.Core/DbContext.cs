@@ -12,6 +12,8 @@ namespace Nm.Lib.Data.Core
     /// </summary>
     public abstract class DbContext : IDbContext
     {
+        private static object _lock = new object();
+
         #region ==属性==
 
         /// <summary>
@@ -70,39 +72,43 @@ namespace Nm.Lib.Data.Core
         /// </summary>
         public IDbConnection Open()
         {
-            if (Connection == null)
-                Connection = Options.OpenConnection();
-
-            if (Connection.State != ConnectionState.Open)
+            //加个锁，防止并发是异常
+            lock (_lock)
             {
-                Connection.Open();
+                if (Connection == null)
+                    Connection = Options.OpenConnection();
 
-                //SQLite跨数据库访问需要附加
-                if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                if (Connection.State != ConnectionState.Open)
                 {
-                    var sql = new StringBuilder();
-                    foreach (var conn in Options.DbOptions.Connections)
+                    Connection.Open();
+
+                    //SQLite跨数据库访问需要附加
+                    if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                     {
-                        var connString = "";
-                        foreach (var param in conn.ConnString.Split(';'))
+                        var sql = new StringBuilder();
+                        foreach (var conn in Options.DbOptions.Connections)
                         {
-                            var temp = param.Split('=');
-                            var key = temp[0];
-                            if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
+                            var connString = "";
+                            foreach (var param in conn.ConnString.Split(';'))
                             {
-                                connString = temp[1];
-                                break;
+                                var temp = param.Split('=');
+                                var key = temp[0];
+                                if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    connString = temp[1];
+                                    break;
+                                }
                             }
+
+                            sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
                         }
 
-                        sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
+                        Connection.ExecuteAsync(sql.ToString());
                     }
-
-                    Connection.ExecuteAsync(sql.ToString());
                 }
-            }
 
-            return Connection;
+                return Connection;
+            }
         }
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()

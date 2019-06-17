@@ -96,46 +96,35 @@ namespace Nm.Module.Admin.Application.MenuService
         {
             var menu = _mapper.Map<MenuEntity>(model);
 
-            try
+            _uow.BeginTransaction();
+
+            if (await _menuRepository.ExistsNameByParentId(menu.Name, menu.Id, menu.ParentId))
             {
-                _uow.BeginTransaction();
-
-                if (await _menuRepository.ExistsNameByParentId(menu.Name, menu.Id, menu.ParentId))
-                {
-                    _uow.Rollback();
-                    return ResultModel.Failed($"节点名称“{menu.Name}”已存在");
-                }
-
-                //根据父节点的等级+1设置当前菜单的等级
-                if (menu.ParentId != Guid.Empty)
-                {
-                    var parentMenu = await _menuRepository.GetAsync(model.ParentId);
-                    if (parentMenu == null)
-                    {
-                        _uow.Rollback();
-                        return ResultModel.Failed("父节点不存在");
-                    }
-
-                    menu.Level = parentMenu.Level + 1;
-                }
-
-                if (menu.Type == MenuType.Node)
-                    menu.Target = MenuTarget.UnKnown;
-
-                if (await _menuRepository.AddAsync(menu))
-                {
-                    _uow.Commit();
-                    return ResultModel.Success();
-                }
-
-                _uow.Rollback();
-                return ResultModel.Failed();
+                return ResultModel.Failed($"节点名称“{menu.Name}”已存在");
             }
-            catch
+
+            //根据父节点的等级+1设置当前菜单的等级
+            if (menu.ParentId != Guid.Empty)
             {
-                _uow.Rollback();
-                throw;
+                var parentMenu = await _menuRepository.GetAsync(model.ParentId);
+                if (parentMenu == null)
+                {
+                    return ResultModel.Failed("父节点不存在");
+                }
+
+                menu.Level = parentMenu.Level + 1;
             }
+
+            if (menu.Type == MenuType.Node)
+                menu.Target = MenuTarget.UnKnown;
+
+            if (await _menuRepository.AddAsync(menu))
+            {
+                _uow.Commit();
+                return ResultModel.Success();
+            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Delete(Guid id)
@@ -169,7 +158,6 @@ namespace Nm.Module.Admin.Application.MenuService
                 return ResultModel.Success();
             }
 
-            _uow.Rollback();
             return ResultModel.Failed();
         }
 
@@ -246,7 +234,6 @@ namespace Nm.Module.Admin.Application.MenuService
                 }
             }
 
-            _uow.Rollback();
             return ResultModel.Failed();
         }
 
@@ -288,14 +275,12 @@ namespace Nm.Module.Admin.Application.MenuService
                 var entity = await _menuRepository.GetAsync(option.Id);
                 if (entity == null)
                 {
-                    _uow.Rollback();
                     return ResultModel.Failed();
                 }
 
                 entity.Sort = option.Sort;
                 if (!await _menuRepository.UpdateAsync(entity))
                 {
-                    _uow.Rollback();
                     return ResultModel.Failed();
                 }
             }

@@ -7,7 +7,7 @@
 
       <el-dropdown-menu class="nm-header-userinfo-dropdown" slot="dropdown">
         <el-dropdown-item>
-          <nm-button type="text" text="个人信息" icon="user"/>
+          <nm-button type="text" text="个人信息" icon="user" @click="openUserInfo"/>
         </el-dropdown-item>
         <el-dropdown-item>
           <nm-button type="text" text="修改密码" icon="password" @click="updatePassword.visiable = true"/>
@@ -32,7 +32,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('app/account', { userName: 'name' })
+    ...mapState('app/account', { userName: 'name' }),
+    ...mapState('app/system', ['userInfoPage'])
+  },
+  methods: {
+    openUserInfo() {
+      this.$router.push({ name: this.userInfoPage, query: { tn_: '个人信息' } })
+    }
   }
 }
 </script>

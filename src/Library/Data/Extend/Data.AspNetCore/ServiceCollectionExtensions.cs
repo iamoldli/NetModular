@@ -23,12 +23,12 @@ namespace Nm.Lib.Data.AspNetCore
         /// 添加数据库
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="env"></param>
+        /// <param name="environmentName"></param>
         /// <param name="modules"></param>
-        public static void AddDb(this IServiceCollection services, IHostingEnvironment env, IModuleCollection modules)
+        public static void AddDb(this IServiceCollection services, string environmentName, IModuleCollection modules)
         {
             var cfgHelper = new ConfigurationHelper();
-            var dbOptions = cfgHelper.Get<DbOptions>("Db", env.EnvironmentName);
+            var dbOptions = cfgHelper.Get<DbOptions>("Db", environmentName);
 
             if (!dbOptions.Connections.Any() || !modules.Any())
                 return;

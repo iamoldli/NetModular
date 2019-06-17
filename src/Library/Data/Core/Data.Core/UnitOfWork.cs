@@ -5,8 +5,6 @@ namespace Nm.Lib.Data.Core
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IDbTransaction _transaction;
-
         private readonly IDbContext _dbContext;
 
         public UnitOfWork(IDbContext dbContext)
@@ -16,33 +14,38 @@ namespace Nm.Lib.Data.Core
 
         public void BeginTransaction()
         {
-            _transaction = _dbContext.BeginTransaction();
+            _dbContext.BeginTransaction();
         }
 
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
-            _transaction = _dbContext.BeginTransaction(isolationLevel);
+            _dbContext.BeginTransaction(isolationLevel);
         }
 
         public void Commit()
         {
-            _transaction?.Commit();
-            _transaction = null;
+            if (_dbContext.Transaction != null)
+            {
+                _dbContext.Transaction.Commit();
+                _dbContext.Transaction = null;
+            }
         }
 
         public void Rollback()
         {
-            _transaction?.Rollback();
-            _transaction = null;
+            if (_dbContext.Transaction != null)
+            {
+                _dbContext.Transaction.Rollback();
+                _dbContext.Transaction = null;
+            }
         }
 
         public void Dispose()
         {
             //如果不是null，则表示未提交或者出现异常，需要回滚
-            _transaction?.Rollback();
+            Rollback();
 
-            _transaction?.Dispose();
-            _dbContext.Connection.Close();
+            _dbContext.Connection?.Close();
         }
     }
 
