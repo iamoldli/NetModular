@@ -6,8 +6,8 @@ export default [
     show: false
   },
   {
-    name: 'departmentId',
-    label: '部门编码'
+    name: 'departmentName',
+    label: '部门'
   },
   {
     name: 'name',

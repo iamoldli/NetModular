@@ -11,6 +11,17 @@ export default [
     }
   },
   {
+    // 默认个人信息页
+    path: '/userinfo',
+    name: 'UserInfo',
+    component: () =>
+      import(/* webpackChunkName: "userinfo" */ '../page/userInfo/'),
+    meta: {
+      title: '个人信息',
+      cache: false
+    }
+  },
+  {
     // 内嵌页面
     path: '/iframe/:url',
     name: 'Iframe',

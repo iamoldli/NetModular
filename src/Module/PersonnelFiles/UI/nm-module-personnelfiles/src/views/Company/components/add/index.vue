@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name" clearable/>
+          <el-input v-model="form.model.name" autofocus clearable/>
         </el-form-item>
       </el-col>
     </el-row>

@@ -28,6 +28,7 @@
           <!--操作列-->
           <template v-slot:col-operation="{row}">
             <nm-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
+            <nm-button :text="buttons.position.text" :icon="buttons.position.icon" type="text" @click="position(row)" v-nm-has="buttons.position"/>
             <nm-button-delete :id="row.id" :action="removeAction" @success="onRemoveSuccess(row.id)" v-nm-has="buttons.del"/>
           </template>
         </nm-list>
@@ -38,6 +39,8 @@
     <add-page v-bind="saveProps" :visible.sync="dialog.add" @success="refreshAll"/>
     <!--编辑-->
     <edit-page :id="curr.id" v-bind="saveProps" :visible.sync="dialog.edit" @success="refreshAll"/>
+    <!--岗位设置-->
+    <position-page :department="curr" :visible.sync="dialog.position"/>
   </nm-container>
 </template>
 <script>
@@ -46,15 +49,16 @@ import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+import PositionPage from '../components/position'
 import CompanySelect from '../../Company/components/select'
 export default {
   name: page.name,
-  components: { AddPage, EditPage, CompanySelect },
+  components: { AddPage, EditPage, PositionPage, CompanySelect },
   data() {
     return {
       split: 0.2,
       companyName: '',
-      curr: { id: '' },
+      curr: { id: '', name: '' },
       total: 0,
       tree: {
         data: [],
@@ -83,7 +87,8 @@ export default {
       removeAction: api.remove,
       dialog: {
         add: false,
-        edit: false
+        edit: false,
+        position: false
       },
       buttons: page.buttons
     }
@@ -158,12 +163,20 @@ export default {
       this.total = total
     },
     edit(row) {
-      this.curr = row
+      this.setCurr(row)
       this.dialog.edit = true
+    },
+    position(row) {
+      this.setCurr(row)
+      this.dialog.position = true
+    },
+    setCurr(row) {
+      this.curr.id = row.id
+      this.curr.name = this.parent.fullPath + ' / ' + row.name
     },
     onCompanyChange(val, selection) {
       this.parent.id = ''
-      this.parent.fullPath = ''
+      this.parent.fullPath = selection.label
       this.companyName = selection.label
       this.refreshTree()
       this.refresh()

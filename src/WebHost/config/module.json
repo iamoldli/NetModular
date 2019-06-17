@@ -1,6 +1,6 @@
 {
-//文件上传路径
-  "UploadPath": "", 
+  //文件上传路径
+  "UploadPath": "",
   //临时文件路径
   "TempPath": "",
   //权限管理模块配置
@@ -9,5 +9,10 @@
     "Auditing": true,
     //是否开启权限验证
     "PermissionValidate": true
+  },
+  //通用模块
+  "Common": {
+    //附件上传路径
+    "AttachmentPath": ''
   }
 }

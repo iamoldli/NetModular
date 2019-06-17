@@ -37,13 +37,6 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
 
             Resolve(_fullExpression);
 
-            //删除多余的括号
-            if (_sqlBuilder.Length > 1 && _sqlBuilder[0] == '(' && _sqlBuilder[_sqlBuilder.Length - 1] == ')')
-            {
-                _sqlBuilder.Remove(0, 1);
-                _sqlBuilder.Remove(_sqlBuilder.Length - 1, 1);
-            }
-
             return _sqlBuilder.ToString();
         }
 

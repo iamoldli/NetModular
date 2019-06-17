@@ -4,16 +4,6 @@ const page = new function() {
   this.name = 'PersonnelFiles_Position'
   this.path = '/PersonnelFiles/Position'
   this.buttons = {
-    add: {
-      text: '添加',
-      code: `${this.name}_add`,
-      icon: 'add'
-    },
-    edit: {
-      text: '编辑',
-      icon: 'edit',
-      code: `${this.name}_edit`
-    },
     del: {
       text: '删除',
       icon: 'delete',
@@ -25,7 +15,8 @@ const page = new function() {
 /** 路由信息 */
 export const route = {
   page,
-  component: () => import(/* webpackChunkName: "PersonnelFiles.Position" */ './index')
+  component: () =>
+    import(/* webpackChunkName: "PersonnelFiles.Position" */ './index')
 }
 
 export default page

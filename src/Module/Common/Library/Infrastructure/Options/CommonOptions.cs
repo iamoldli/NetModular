@@ -7,6 +7,9 @@ namespace Nm.Module.Common.Infrastructure.Options
     /// </summary>
     public class CommonOptions : IModuleOptions
     {
-
+        /// <summary>
+        /// 附件上传路径
+        /// </summary>
+        public string AttachmentPath { get; set; }
     }
 }

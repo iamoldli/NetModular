@@ -23,7 +23,7 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <summary>
         /// 职位编号
         /// </summary>
-        public int PositionId { get; set; }
+        public Guid PositionId { get; set; }
 
         /// <summary>
         /// 姓名
@@ -56,7 +56,7 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         public string Education { get; set; }
 
         /// <summary>
-        /// 照片
+        /// 照片(Base64)
         /// </summary>
         public string Picture { get; set; }
 

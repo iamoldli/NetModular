@@ -58,7 +58,7 @@ const defaultAdvanced = {
   inline: false
 }
 export default {
-  data () {
+  data() {
     return {
       // 是否显示高级查询
       showAdvanced: false
@@ -82,17 +82,17 @@ export default {
     noSearch: Boolean
   },
   computed: {
-    model_ () {
+    model_() {
       return this.model || {}
     },
     /** 高级查询设置 */
-    advanced_ () {
+    advanced_() {
       const ad = this.$_.merge({}, defaultAdvanced, this.advanced)
       ad.enabled = ad.enabled && !this.noSearch
       return ad
     },
     /** 高级查询框样式 */
-    advancedStyle () {
+    advancedStyle() {
       return {
         width: this.advanced_.width,
         height: this.advanced_.height
@@ -100,11 +100,11 @@ export default {
     }
   },
   methods: {
-    query () {
+    query() {
       this.$parent.query()
     },
     /** 表单重置 */
-    reset () {
+    reset() {
       if (this.$refs.normalForm) {
         this.$refs.normalForm.reset()
       }
@@ -114,7 +114,7 @@ export default {
       this.$parent.reset(true)
     },
     /** 高级查询按钮点击事件 */
-    onAdvancedClick () {
+    onAdvancedClick() {
       this.showAdvanced = !this.showAdvanced
 
       if (this.showAdvanced) {
@@ -151,8 +151,13 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
+      this.$refs.normalForm.$el.addEventListener('keydown', e => {
+        if (e.keyCode === 13) {
+          this.query()
+        }
+      })
       if (this.inputWidth) {
         let inputs = this.$refs.normalForm.$el.querySelectorAll('.el-input__inner')
         if (inputs) {

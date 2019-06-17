@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.PositionService.ViewModels;
 using Nm.Module.PersonnelFiles.Domain.Position;
 using Nm.Module.PersonnelFiles.Domain.Position.Models;
+using Nm.Module.PersonnelFiles.Domain.User;
 
 namespace Nm.Module.PersonnelFiles.Application.PositionService
 {
@@ -13,10 +13,13 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
     {
         private readonly IMapper _mapper;
         private readonly IPositionRepository _repository;
-        public PositionService(IMapper mapper, IPositionRepository repository)
+        private readonly IUserRepository _userRepository;
+
+        public PositionService(IMapper mapper, IPositionRepository repository, IUserRepository userRepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _userRepository = userRepository;
         }
 
         public async Task<IResultModel> Query(PositionQueryModel model)
@@ -32,10 +35,10 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
         public async Task<IResultModel> Add(PositionAddModel model)
         {
             var entity = _mapper.Map<PositionEntity>(model);
-            //if (await _repository.Exists(entity))
-            //{
-                //return ResultModel.HasExists;
-            //}
+            if (await _repository.Exists(entity))
+            {
+                return ResultModel.Failed("岗位名称或编码已存在");
+            }
 
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
@@ -43,6 +46,11 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
 
         public async Task<IResultModel> Delete(Guid id)
         {
+            if (await _userRepository.ExistsBindPosition(id))
+            {
+                return ResultModel.Failed("有人员绑定了该职位，无法删除");
+            }
+
             var result = await _repository.DeleteAsync(id);
             return ResultModel.Result(result);
         }
@@ -65,10 +73,10 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
 
             _mapper.Map(model, entity);
 
-            //if (await _repository.Exists(entity))
-            //{
-                //return ResultModel.HasExists;
-            //}
+            if (await _repository.Exists(entity))
+            {
+                return ResultModel.Failed("岗位名称或编码已存在");
+            }
 
             var result = await _repository.UpdateAsync(entity);
 

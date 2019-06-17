@@ -111,13 +111,6 @@ export default {
     closeLoading() {
       if (!this.noLoading) { this.loading_ = false }
     }
-  },
-  mounted() {
-    this.$refs.form.$el.addEventListener('keydown', e => {
-      if (e.keyCode === 13) {
-        this.submit()
-      }
-    })
   }
 }
 </script>

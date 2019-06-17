@@ -24,5 +24,12 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <param name="departmentId"></param>
         /// <returns></returns>
         Task<bool> ExistsBindDept(Guid departmentId);
+
+        /// <summary>
+        /// 判断是否有人员绑定了指定职位
+        /// </summary>
+        /// <param name="positionId"></param>
+        /// <returns></returns>
+        Task<bool> ExistsBindPosition(Guid positionId);
     }
 }

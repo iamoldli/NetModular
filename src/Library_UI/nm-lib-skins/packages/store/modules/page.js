@@ -107,7 +107,7 @@ export default {
         meta: route.meta,
         query: route.query,
         params: route.params,
-        tabName: route.params.tn_ || route.query.tn_
+        tabName: route.params.tn_ || route.query.tn_ || route.meta.title
       }
 
       // 内嵌链接

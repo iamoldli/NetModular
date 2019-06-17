@@ -1,6 +1,6 @@
 {
     "name": "nm-module-personnelfiles",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "code": "PersonnelFiles",
     "title": "人事档案",
     "description": "人事档案",
@@ -15,8 +15,8 @@
     },
     "dependencies": {
         "nm-lib-icon": "^1.0.0",
-        "nm-lib-skins": "^1.1.4",
-        "nm-module-admin": "^1.0.0",
+        "nm-lib-skins": "^1.1.0",
+        "nm-module-admin": "^1.1.0",
         "nm-module-common": "^1.0.0"
     },
     "devDependencies": {

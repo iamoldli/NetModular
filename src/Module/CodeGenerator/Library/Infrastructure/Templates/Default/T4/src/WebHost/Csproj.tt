@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="<#= _prefix #>.Lib.Data.AspNetCore" Version="1.0.1" />
+    <PackageReference Include="<#= _prefix #>.Lib.Data.AspNetCore" Version="1.0.0" />
     <PackageReference Include="<#= _prefix #>.Lib.Data.SqlServer" Version="1.0.0" />
     <PackageReference Include="<#= _prefix #>.Lib.Data.MySql" Version="1.0.0" />
     <PackageReference Include="<#= _prefix #>.Lib.Data.SQLite" Version="1.0.0" />

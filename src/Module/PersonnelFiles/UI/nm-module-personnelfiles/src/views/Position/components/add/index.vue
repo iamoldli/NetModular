@@ -2,11 +2,20 @@
   <nm-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
       <el-col :span="20" :offset="1">
-        <el-form-item label="部门编码：" prop="departmentId">
-          <el-input v-model="form.model.departmentId" clearable/>
+        <el-form-item label="部门：" prop="name">
+          <el-input v-model="department.name" disabled/>
         </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10" :offset="1">
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name" clearable/>
+          <el-input v-model="form.model.name" autofocus clearable/>
+        </el-form-item>
+      </el-col>
+      <el-col :span="10">
+        <el-form-item label="编码：" prop="code">
+          <el-input v-model="form.model.code" clearable/>
         </el-form-item>
       </el-col>
     </el-row>
@@ -17,7 +26,7 @@ import api from '../../../../api/Position'
 import { mixins } from 'nm-lib-skins'
 export default {
   mixins: [mixins.dialog],
-  data () {
+  data() {
     return {
       form: {
         title: '添加岗位',
@@ -27,9 +36,11 @@ export default {
           /** 部门编码 */
           departmentId: '',
           /** 名称 */
-          name: ''
+          name: '',
+          code: ''
         },
         rules: {
+          name: [{ required: true, message: '请输入名称' }]
         }
       },
       on: {
@@ -38,13 +49,20 @@ export default {
       }
     }
   },
+  props: {
+    department: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onOpen () {
+    onOpen() {
       this.$nextTick(() => {
         this.$refs.form.reset()
+        this.form.model.departmentId = this.department.id
       })
     }
   }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.PersonnelFiles.Domain.User;
 using Nm.Module.PersonnelFiles.Domain.User.Models;
@@ -22,6 +23,8 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
+            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.Number.NotNull(), m => m.Number == model.Number);
 
             if (!paging.OrderBy.Any())
             {
@@ -40,6 +43,11 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
         public Task<bool> ExistsBindDept(Guid departmentId)
         {
             return Db.Find(m => m.Deleted == false && m.DepartmentId == departmentId).ExistsAsync();
+        }
+
+        public Task<bool> ExistsBindPosition(Guid positionId)
+        {
+            return Db.Find(m => m.Deleted == false && m.DepartmentId == positionId).ExistsAsync();
         }
     }
 }

@@ -3,14 +3,8 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
-        <el-form-item label="职位编号：" prop="positionId">
-          <el-input v-model="list.model.positionId" clearable/>
-        </el-form-item>
         <el-form-item label="姓名：" prop="name">
           <el-input v-model="list.model.name" clearable/>
-        </el-form-item>
-        <el-form-item label="所属部门：" prop="departmentId">
-          <el-input v-model="list.model.departmentId" clearable/>
         </el-form-item>
         <el-form-item label="工号：" prop="number">
           <el-input v-model="list.model.number" clearable/>
@@ -25,7 +19,7 @@
       <!--自定义列-->
       <!-- <template v-slot:col-name="{row}">
         <nm-button :text="row.name" type="text" />
-      </template> -->
+      </template>-->
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
@@ -50,7 +44,7 @@ import EditPage from '../components/edit'
 export default {
   name: page.name,
   components: { AddPage, EditPage },
-  data () {
+  data() {
     return {
       curr: { id: '' },
       list: {
@@ -58,12 +52,8 @@ export default {
         cols,
         action: api.query,
         model: {
-          /** 职位编号 */
-          positionId: '',
           /** 姓名 */
           name: '',
-          /** 所属部门 */
-          departmentId: '',
           /** 工号 */
           number: ''
         }
@@ -77,13 +67,13 @@ export default {
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    add () {
+    add() {
       this.dialog.add = true
     },
-    edit (row) {
+    edit(row) {
       this.curr = row
       this.dialog.edit = true
     }

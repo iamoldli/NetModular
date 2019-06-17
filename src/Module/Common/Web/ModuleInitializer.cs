@@ -35,7 +35,7 @@ namespace Nm.Module.Common.Web
         /// <param name="mvcOptions"></param>
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
-                   
+
         }
 
         /// <summary>

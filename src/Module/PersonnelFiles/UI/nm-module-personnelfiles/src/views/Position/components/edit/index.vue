@@ -2,11 +2,20 @@
   <nm-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
       <el-col :span="20" :offset="1">
-        <el-form-item label="部门编码：" prop="departmentId">
-          <el-input v-model="form.model.departmentId" clearable/>
+        <el-form-item label="部门：" prop="name">
+          <el-input v-model="department.name" disabled/>
         </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10" :offset="1">
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name" clearable/>
+          <el-input v-model="form.model.name" autofocus clearable/>
+        </el-form-item>
+      </el-col>
+      <el-col :span="10">
+        <el-form-item label="编码：" prop="code">
+          <el-input v-model="form.model.code" clearable/>
         </el-form-item>
       </el-col>
     </el-row>
@@ -17,7 +26,7 @@ import api from '../../../../api/Position'
 import { mixins } from 'nm-lib-skins'
 export default {
   mixins: [mixins.formDialogEdit],
-  data () {
+  data() {
     return {
       api,
       form: {
@@ -25,13 +34,20 @@ export default {
         action: api.update,
         model: {
           /** 部门编码 */
-          departmentId: '',
+          id: '',
           /** 名称 */
-          name: ''
+          name: '',
+          code: ''
         },
         rules: {
         }
       }
+    }
+  },
+  props: {
+    department: {
+      type: Object,
+      required: true
     }
   }
 }

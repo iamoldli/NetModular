@@ -1,6 +1,6 @@
 {
     "name": "nm-module-common",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "code": "Common",
     "title": "通用模块",
     "description": "通用模块",
@@ -14,9 +14,9 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-icon": "^1.1.1",
-        "nm-lib-skins": "^1.1.3",
-        "nm-module-admin": "^1.1.3"
+        "nm-lib-icon": "^1.1.0",
+        "nm-lib-skins": "^1.1.0",
+        "nm-module-admin": "^1.1.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.7.0",

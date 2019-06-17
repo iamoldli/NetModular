@@ -12,10 +12,12 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-icon": "^1.1.1",
-        "nm-lib-skins": "^1.1.2",
-        "nm-module-admin": "^1.1.3",
-        "nm-module-code-generator": "^1.1.4"
+        "nm-lib-icon": "^1.1.0",
+        "nm-lib-skins": "^1.1.0",
+        "nm-module-admin": "^1.1.0",
+        "nm-module-code-generator": "^1.1.0",
+        "nm-module-common": "^1.0.2",
+        "nm-module-personnelfiles": "^1.0.1"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.8.0",

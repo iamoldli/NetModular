@@ -20,5 +20,9 @@ namespace Nm.Module.PersonnelFiles.Domain.Position
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code { get; set; }
     }
 }

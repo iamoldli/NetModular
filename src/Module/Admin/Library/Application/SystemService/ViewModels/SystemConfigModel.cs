@@ -26,9 +26,9 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         public string Home { get; set; }
 
         /// <summary>
-        /// 首页标签名称
+        /// 个人信息页
         /// </summary>
-        public string HomeTagName { get; set; }
+        public string UserInfoPage { get; set; }
 
         /// <summary>
         /// 启用按钮权限
@@ -96,6 +96,11 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         /// 系统首页
         /// </summary>
         public const string Home = "sys_home";
+
+        /// <summary>
+        /// 个人信息页
+        /// </summary>
+        public const string UserInfoPage = "sys_userinfo_page";
 
         /// <summary>
         /// 是否启用按钮权限

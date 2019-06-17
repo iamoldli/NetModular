@@ -26,8 +26,6 @@ export default {
     id: '',
     /** 用户名 */
     name: '',
-    /** 头像 */
-    avatar: '',
     /** 菜单列表 */
     menus: [],
     /** 权限列表 */

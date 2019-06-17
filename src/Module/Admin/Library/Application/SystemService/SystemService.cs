@@ -72,6 +72,9 @@ namespace Nm.Module.Admin.Application.SystemService
                     case SystemConfigKey.Home:
                         model.Home = config.Value;
                         break;
+                    case SystemConfigKey.UserInfoPage:
+                        model.UserInfoPage = config.Value;
+                        break;
                     case SystemConfigKey.ButtonPermission:
                         model.ButtonPermission = config.Value.ToBool();
                         break;
@@ -132,6 +135,12 @@ namespace Nm.Module.Admin.Application.SystemService
                 Key = SystemConfigKey.Home,
                 Value = model.Home,
                 Remarks = "系统首页"
+            }));
+            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+            {
+                Key = SystemConfigKey.UserInfoPage,
+                Value = model.UserInfoPage,
+                Remarks = "个人信息页"
             }));
             tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
             {

@@ -19,10 +19,22 @@ export default {
       // 用户信息
       userInfo: true
     },
-    // 是否启用按钮权限
-    ButtonPermission: true,
-    /** 菜单只能打开一个 */
+    /**
+     * 是否启用按钮权限
+     */
+    buttonPermission: true,
+    /**
+     * 菜单只能打开一个
+     */
     menuUniqueOpened: true,
+    /**
+     * 用户信息页(路由名称)
+     */
+    userInfoPage: 'UserInfo',
+    /**
+     * 设置对话框是否可以点击模态框关闭
+     */
+    dialogCloseOnClickModal: false,
     /// //////////////////////////////////////////////////////////
     /** 上面的属性是可在管理平台配置的， 下面的属性都是系统代码内去设置的 */
     /// //////////////////////////////////////////////////////////
@@ -36,7 +48,7 @@ export default {
     modules: []
   },
   actions: {
-    async init ({ commit, dispatch }, { system, router }) {
+    async init({ commit, dispatch }, { system, router }) {
       commit('init', { system })
       // 配置页面信息
       await dispatch('app/page/load', null, { root: true })
@@ -44,7 +56,7 @@ export default {
     /**
      * @description 退出
      */
-    async logout ({ state, dispatch }) {
+    async logout({ state, dispatch }) {
       // 退出事件
       await state.logout()
 
@@ -53,11 +65,14 @@ export default {
     }
   },
   mutations: {
-    init (state, { system }) {
+    init(state, { system }) {
       _.merge(state, system)
       state.logo = state.logoUrl
       if (!state.logo) {
         state.logo = './images/logo.png'
+      }
+      if (!state.userInfoPage) {
+        state.userInfoPage = 'UserInfo'
       }
     }
   }

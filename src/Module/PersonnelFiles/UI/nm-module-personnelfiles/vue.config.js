@@ -11,7 +11,7 @@ const outputDir = '../../WebHost/wwwroot'
 module.exports = {
   outputDir: outputDir,
   devServer: {
-    port: 5220
+    port: 5223
   },
   transpileDependencies: ['nm-.*', 'element-ui'],
   configureWebpack: {

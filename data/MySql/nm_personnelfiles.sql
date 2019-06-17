@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 13/06/2019 18:40:46
+ Date: 17/06/2019 09:49:42
 */
 
 SET NAMES utf8mb4;
@@ -74,12 +74,18 @@ CREATE TABLE `position`  (
   `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
   `DepartmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '部门编码',
   `Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
+  `Code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '编码',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
   `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO `position` VALUES ('39ee6705-e688-e8f0-0f3a-434f68d4991d', '39ee628d-ca5d-7aa8-d79d-5813583943f4', 'Java', 'Java', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-14 15:17:20', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-14 15:17:33');
 
 -- ----------------------------
 -- Table structure for user
@@ -89,14 +95,14 @@ CREATE TABLE `user`  (
   `Number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '工号',
   `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
   `DepartmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属部门',
-  `PositionId` int(11) NOT NULL COMMENT '职位编号',
+  `PositionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '职位编号',
   `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
   `Sex` tinyint(3) NOT NULL COMMENT '性别',
   `Native` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '籍贯',
   `Birthday` datetime(0) NULL DEFAULT NULL COMMENT '出生日期',
   `Nation` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '民族',
   `Education` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学历',
-  `Picture` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '照片',
+  `Picture` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '照片(Base64)',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
