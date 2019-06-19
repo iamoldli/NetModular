@@ -46,5 +46,11 @@ namespace Nm.Module.Common.Application.DictService
         /// <returns></returns>
         Task<IResultModel> Update(DictUpdateModel model);
 
+        /// <summary>
+        /// 查询子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        Task<IResultModel> QueryChildren(int parentId);
     }
 }

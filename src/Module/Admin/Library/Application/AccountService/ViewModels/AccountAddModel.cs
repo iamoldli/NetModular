@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using AutoMapper;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {
     public class AccountAddModel
     {
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public int Type { get; set; }
+
         /// <summary>
         /// 用户名
         /// </summary>

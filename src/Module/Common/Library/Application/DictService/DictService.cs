@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.DictService.ViewModels;
+using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Dict;
 using Nm.Module.Common.Domain.Dict.Models;
 
@@ -11,12 +14,16 @@ namespace Nm.Module.Common.Application.DictService
 {
     public class DictService : IDictService
     {
+        private const string DictCacheKey = "COMMON_Dict_";
+        private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IDictRepository _repository;
-        public DictService(IMapper mapper, IDictRepository repository)
+
+        public DictService(IMapper mapper, IDictRepository repository, ICacheHandler cache)
         {
             _mapper = mapper;
             _repository = repository;
+            _cache = cache;
         }
 
         public async Task<IResultModel> Query(DictQueryModel model)
@@ -73,6 +80,11 @@ namespace Nm.Module.Common.Application.DictService
             var result = await _repository.UpdateAsync(entity);
 
             return ResultModel.Result(result);
+        }
+
+        public Task<IResultModel> QueryChildren(int parentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

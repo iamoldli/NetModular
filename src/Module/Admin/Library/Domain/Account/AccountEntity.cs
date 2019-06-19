@@ -11,6 +11,11 @@ namespace Nm.Module.Admin.Domain.Account
     public partial class AccountEntity : EntityBaseWithSoftDelete
     {
         /// <summary>
+        /// 类型
+        /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
         /// 用户名
         /// </summary>
         public string UserName { get; set; }

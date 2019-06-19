@@ -274,7 +274,7 @@ namespace Nm.Module.Admin.Application.AccountService
                 else
                 {
                     _uow.Commit();
-                    return ResultModel.Success();
+                    return ResultModel.Success(account.Id);
                 }
             }
 
@@ -426,11 +426,11 @@ namespace Nm.Module.Admin.Application.AccountService
         /// <returns></returns>
         private async Task<IResultModel> Exists(AccountEntity entity)
         {
-            if (await _accountRepository.ExistsUserName(entity.UserName, entity.Id))
+            if (await _accountRepository.ExistsUserName(entity.UserName, entity.Id, entity.Type))
                 return ResultModel.Failed("用户名已存在");
-            if (entity.Phone.NotNull() && await _accountRepository.ExistsPhone(entity.Phone, entity.Id))
+            if (entity.Phone.NotNull() && await _accountRepository.ExistsPhone(entity.Phone, entity.Id, entity.Type))
                 return ResultModel.Failed("手机号已存在");
-            if (entity.Email.NotNull() && await _accountRepository.ExistsEmail(entity.Email, entity.Id))
+            if (entity.Email.NotNull() && await _accountRepository.ExistsEmail(entity.Email, entity.Id, entity.Type))
                 return ResultModel.Failed("邮箱已存在");
 
             return ResultModel.Success();

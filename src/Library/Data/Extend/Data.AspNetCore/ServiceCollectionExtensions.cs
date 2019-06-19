@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -94,6 +93,7 @@ namespace Nm.Lib.Data.AspNetCore
         /// </summary>
         /// <param name="services"></param>
         /// <param name="dbContextType"></param>
+        /// <param name="options"></param>
         private static void AddUnitOfWork(this IServiceCollection services, Type dbContextType, DbConnectionOptions options)
         {
             var serviceType = typeof(IUnitOfWork<>).MakeGenericType(dbContextType);

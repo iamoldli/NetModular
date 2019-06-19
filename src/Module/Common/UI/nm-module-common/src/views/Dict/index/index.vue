@@ -16,11 +16,6 @@
         <nm-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-nm-has="buttons.add"/>
       </template>
 
-      <!--自定义列-->
-      <!-- <template v-slot:col-name="{row}">
-        <nm-button :text="row.name" type="text" />
-      </template> -->
-
       <!--操作列-->
       <template v-slot:col-operation="{row}">
         <nm-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>

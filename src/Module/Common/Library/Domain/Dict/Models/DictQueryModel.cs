@@ -14,6 +14,5 @@ namespace  Nm.Module.Common.Domain.Dict.Models
         /// 名称
         /// </summary>
         public string Name { get; set; }
-
     }
 }
