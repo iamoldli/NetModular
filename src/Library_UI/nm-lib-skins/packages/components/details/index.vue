@@ -14,40 +14,45 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Details',
-  data () {
+  data() {
     return {
       /** 表单模型 */
-      loading: {},
-      model: {}
+      model: {},
+      loading_: false
     }
   },
   props: {
+    // 查询方法
+    action: {
+      type: Function,
+      required: true
+    },
     /** 标签的宽度 */
     labelWidth: {
       type: String,
       default: '100px'
     },
-    // 查询方法
-    action: {
-      type: Function,
-      required: true
-    }
+    // 不显示loading
+    noLoading: Boolean
   },
   computed: {
-    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' })
+    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
+    loading() {
+      return !this.noLoading && this.loading_
+    }
   },
   methods: {
-    query () {
-      this.loading = true
+    query() {
+      this.loading_ = true
       this.action().then(model => {
         this.model = model
-        this.loading = false
+        this.loading_ = false
       }).catch(() => {
-        this.loading = false
+        this.loading_ = false
       })
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       const labels = this.$refs.details.querySelectorAll('.nm-details-label')
       labels.forEach(element => {
