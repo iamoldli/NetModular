@@ -111,7 +111,6 @@ namespace Nm.Lib.Data.Core.Entities
 
             var softDeleteSql = sb.ToString();
 
-            softDeleteSingleSql = "";
             sb.AppendFormat(" WHERE {0}={1};", descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name), descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name));
             softDeleteSingleSql = sb.ToString();
 
@@ -187,6 +186,10 @@ namespace Nm.Lib.Data.Core.Entities
         /// <returns></returns>
         private string BuildExistsSql(IEntityDescriptor descriptor)
         {
+            //没有主键，无法使用该方法
+            if (descriptor.PrimaryKey.IsNo())
+                return string.Empty;
+
             return $"SELECT COUNT(0) FROM {descriptor.SqlAdapter.AppendQuote(descriptor.TableName)} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)};";
         }
         #endregion

@@ -480,12 +480,20 @@ namespace Nm.Lib.Data.Core
 
         public bool Exists(dynamic id)
         {
+            //没有主键的表无法使用Exists方法
+            if (EntityDescriptor.PrimaryKey.IsNo())
+                throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
+
             var dynParams = GetParameters(id);
             return QuerySingleOrDefault<int>(_sql.Exists, dynParams) > 0;
         }
 
         public async Task<bool> ExistsAsync(dynamic id)
         {
+            //没有主键的表无法使用Exists方法
+            if (EntityDescriptor.PrimaryKey.IsNo())
+                throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
+
             var dynParams = GetParameters(id);
             return (await QuerySingleOrDefaultAsync<int>(_sql.Exists, dynParams)) > 0;
         }

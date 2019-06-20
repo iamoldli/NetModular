@@ -50,61 +50,62 @@ namespace Nm.Module.Admin.Application.SystemService
         public async Task<IResultModel<SystemConfigModel>> GetConfig(string host = null)
         {
             var result = new ResultModel<SystemConfigModel>();
-            if (_cache.TryGetValue(SystemConfigCacheKey, out SystemConfigModel model))
+            if (!_cache.TryGetValue(SystemConfigCacheKey, out SystemConfigModel model))
             {
-                return result.Success(model);
-            }
+                model = new SystemConfigModel();
 
-            model = new SystemConfigModel();
+                var configList = await _configRepository.QueryByPrefix(SystemConfigPrefix);
 
-            var configList = await _configRepository.QueryByPrefix(SystemConfigPrefix);
-
-            foreach (var config in configList)
-            {
-                switch (config.Key)
+                foreach (var config in configList)
                 {
-                    case SystemConfigKey.Title:
-                        model.Title = config.Value;
-                        break;
-                    case SystemConfigKey.Logo:
-                        model.Logo = config.Value;
-                        break;
-                    case SystemConfigKey.Home:
-                        model.Home = config.Value;
-                        break;
-                    case SystemConfigKey.UserInfoPage:
-                        model.UserInfoPage = config.Value;
-                        break;
-                    case SystemConfigKey.ButtonPermission:
-                        model.ButtonPermission = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.Auditing:
-                        model.Auditing = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.LoginVerifyCode:
-                        model.LoginVerifyCode = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.ToolbarFullscreen:
-                        model.Toolbar.Fullscreen = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.ToolbarSkin:
-                        model.Toolbar.Skin = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.ToolbarLogout:
-                        model.Toolbar.Logout = config.Value.ToBool();
-                        break;
-                    case SystemConfigKey.ToolbarUserInfo:
-                        model.Toolbar.UserInfo = config.Value.ToBool();
-                        break;
+                    switch (config.Key)
+                    {
+                        case SystemConfigKey.Title:
+                            model.Title = config.Value;
+                            break;
+                        case SystemConfigKey.Logo:
+                            model.Logo = config.Value;
+                            break;
+                        case SystemConfigKey.Home:
+                            model.Home = config.Value;
+                            break;
+                        case SystemConfigKey.UserInfoPage:
+                            model.UserInfoPage = config.Value;
+                            break;
+                        case SystemConfigKey.ButtonPermission:
+                            model.ButtonPermission = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.Auditing:
+                            model.Auditing = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.LoginVerifyCode:
+                            model.LoginVerifyCode = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.ToolbarFullscreen:
+                            model.Toolbar.Fullscreen = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.ToolbarSkin:
+                            model.Toolbar.Skin = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.ToolbarLogout:
+                            model.Toolbar.Logout = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.ToolbarUserInfo:
+                            model.Toolbar.UserInfo = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.CustomCss:
+                            model.CustomCss = config.Value;
+                            break;
+                    }
                 }
+
+                await _cache.SetAsync(SystemConfigCacheKey, model);
             }
 
             if (host.NotNull() && model.Logo.NotNull())
             {
-                model.LogoUrl = new Uri($"{host}/upload/admin/{model.Logo}").ToString().ToLower();
+                model.LogoUrl = new Uri($"{host}/upload/{model.Logo}").ToString().ToLower();
             }
-
-            await _cache.SetAsync(SystemConfigCacheKey, model);
 
             return result.Success(model);
         }
@@ -183,6 +184,12 @@ namespace Nm.Module.Admin.Application.SystemService
                 Key = SystemConfigKey.ToolbarUserInfo,
                 Value = model.Toolbar.UserInfo.ToString(),
                 Remarks = "显示工具栏用户信息按钮"
+            }));
+            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+            {
+                Key = SystemConfigKey.CustomCss,
+                Value = model.CustomCss,
+                Remarks = "自定义CSS样式"
             }));
 
             Task.WaitAll(tasks.ToArray());

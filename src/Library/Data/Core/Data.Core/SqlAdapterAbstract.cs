@@ -53,7 +53,7 @@ namespace Nm.Lib.Data.Core
         /// <returns></returns>
         public string AppendQuote(string value)
         {
-            return $"{LeftQuote}{value.Trim()}{RightQuote}";
+            return $"{LeftQuote}{value?.Trim()}{RightQuote}";
         }
 
         /// <summary>

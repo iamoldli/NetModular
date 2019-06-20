@@ -11,6 +11,22 @@ import Components from './components'
 import Mixins from './mixins/'
 import Directive from './directive'
 
+// 附加自定义样式
+const appendCustomCss = system => {
+  if (system.customCss) {
+    var style = document.createElement('style')
+    style.type = 'text/css'
+    if (style.styleSheet) {
+      style.styleSheet.cssText = system.customCss
+    } else {
+      // w3c浏览器中只要创建文本节点插入到style元素中就行了
+      var textNode = document.createTextNode(system.customCss)
+      style.appendChild(textNode)
+    }
+    document.head.appendChild(style)
+  }
+}
+
 export default {
   /**
    * @description 加载皮肤组件
@@ -77,6 +93,9 @@ export default {
         callback(vm, store, router)
       })
     }
+
+    // 附加自定义样式
+    appendCustomCss(system)
 
     return { router, store, vm }
   }

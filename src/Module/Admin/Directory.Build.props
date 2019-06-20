@@ -3,7 +3,7 @@
     <Id>Admin</Id>
     <Name>权限管理</Name>
     <Authors>Oldli</Authors>
-    <Version>1.0.4</Version>
+    <Version>1.0.4.3</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

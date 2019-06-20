@@ -49,6 +49,11 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         /// 工具栏
         /// </summary>
         public SystemToolbar Toolbar { get; set; } = new SystemToolbar();
+
+        /// <summary>
+        /// 自定义Css样式
+        /// </summary>
+        public string CustomCss { get; set; }
     }
 
     /// <summary>
@@ -136,5 +141,10 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         /// 工具栏：用户信息
         /// </summary>
         public const string ToolbarUserInfo = "sys_toolbar_userinfo";
+
+        /// <summary>
+        /// 自定义css样式
+        /// </summary>
+        public const string CustomCss = "sys_toolbar_customcss";
     }
 }

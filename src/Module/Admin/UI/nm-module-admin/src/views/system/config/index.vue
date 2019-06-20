@@ -58,6 +58,14 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-divider content-position="left">自定义CSS</el-divider>
+      <el-row :gutter="20">
+        <el-col :span="24">
+          <el-form-item prop="customCss">
+            <el-input type="textarea" :rows="5" placeholder="请输入自定义Css" v-model="form.model.customCss"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-divider content-position="left">开发属性</el-divider>
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
@@ -102,7 +110,8 @@ export default {
             skin: false,
             logout: false,
             userInfo: false
-          }
+          },
+          customCss: ''
         }
       }
     }
