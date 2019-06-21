@@ -20,6 +20,7 @@
             background-color: $logo-box-background-color;
             overflow: hidden;
             transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .26), 0 -1px 0 rgba(0, 0, 0, .02);
         }
 
         &-img {

@@ -127,6 +127,12 @@
         }
     }
 
+    &.draggable {
+        #{$prefix}-drawer-header-title {
+            user-select: none;
+        }
+    }
+
     &-drag {
         position: absolute;
         top: 0;

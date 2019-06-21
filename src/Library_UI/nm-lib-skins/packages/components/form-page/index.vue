@@ -110,7 +110,7 @@ export default {
         icon: this.icon,
         header: this.header,
         footer: true,
-        toolbar: this.toolbar,
+        fullscreen: this.fullscreen,
         loading: this.loading
       }
     },
@@ -126,13 +126,6 @@ export default {
         successMsgText: this.successMsgText,
         disabled: this.disabled
       }
-    },
-    toolbar() {
-      let toolbar = []
-      if (this.fullscreen === true) {
-        toolbar.push('fullscreen')
-      }
-      return toolbar
     }
   },
   methods: {

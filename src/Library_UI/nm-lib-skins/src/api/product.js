@@ -4,9 +4,15 @@ const get = () => {
       id: 1,
       title: '三星Galaxy Node 10',
       price: 6999,
-      store: 98989
+      store: 98989,
+      des: `三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy
+         Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10
+         三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10
+         三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10
+         三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10
+         三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10三星Galaxy Node 10`
     })
   })
 }
 
-export { get }
+export default { get }

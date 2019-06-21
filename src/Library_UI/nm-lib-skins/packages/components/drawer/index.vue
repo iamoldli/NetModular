@@ -1,5 +1,5 @@
 <template>
-  <section :class="['nm-drawer',placement,customClass,fullscreen_ ? 'fullscreen' : '',]">
+  <section :class="['nm-drawer',placement,customClass,fullscreen_ ? 'fullscreen' : '',draggable?'draggable':'']">
     <transition name="fade">
       <section class="nm-drawer-modal" @click="onModalClick" v-if="modal" v-show="visible"></section>
     </transition>
@@ -69,7 +69,7 @@ import { oneOf } from 'nm-lib-utils/src/utils/assist'
 import { on, off } from 'nm-lib-utils/src/utils/dom'
 export default {
   name: 'Drawer',
-  data () {
+  data() {
     return {
       canMove: false,
       fullscreen_: false,
@@ -92,7 +92,7 @@ export default {
     placement: {
       type: String,
       default: 'right',
-      validator (value) {
+      validator(value) {
         return oneOf(value, ['left', 'right'])
       }
     },
@@ -134,7 +134,7 @@ export default {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' })
   },
   methods: {
-    append () {
+    append() {
       if (this.appendToBody) {
         // 附加到body下面
         document.body.appendChild(this.$el)
@@ -142,27 +142,27 @@ export default {
 
       window.addEventListener('resize', this.resize)
     },
-    close () {
+    close() {
       this.$emit('update:visible', false)
       this.$emit('close')
     },
-    resize () {
+    resize() {
       this.$refs.scrollbar.update()
     },
     /** 开启全屏 */
-    openFullscreen () {
+    openFullscreen() {
       this.fullscreen_ = true
       // 全屏事件
       this.$emit('fullscreen-change', this.fullscreen_)
     },
     /** 关闭全屏 */
-    closeFullscreen () {
+    closeFullscreen() {
       this.fullscreen_ = false
       // 全屏事件
       this.$emit('fullscreen-change', this.fullscreen_)
     },
     /** 全屏事件 */
-    onFullscreen () {
+    onFullscreen() {
       if (this.fullscreen) {
         this.fullscreen_ = !this.fullscreen_
 
@@ -170,18 +170,18 @@ export default {
         this.$emit('fullscreen-change', this.fullscreen_)
       }
     },
-    onModalClick () {
+    onModalClick() {
       if (this.modal && this.modalClickClose) {
         this.close()
       }
     },
     /** 拖拽按钮鼠标按下事件 */
-    onTriggerMousedown () {
+    onTriggerMousedown() {
       this.canMove = true
       // 防止鼠标选中抽屉中文字，造成拖动trigger触发浏览器原生拖动行为
       window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty()
     },
-    onMousemove (event) {
+    onMousemove(event) {
       if (!this.canMove || !this.draggable) return
       const { width, x } = this.$el.getBoundingClientRect()
       let wrapperWidth
@@ -194,17 +194,17 @@ export default {
         this.wrapperWidth = wrapperWidth + 'px'
       }
     },
-    onMouseup () {
+    onMouseup() {
       if (!this.draggable) return
       this.canMove = false
     }
   },
-  mounted () {
+  mounted() {
     this.append()
     on(document, 'mousemove', this.onMousemove)
     on(document, 'mouseup', this.onMouseup)
   },
-  destroyed () {
+  destroyed() {
     off(document, 'mousemove', this.onMousemove)
     off(document, 'mouseup', this.onMouseup)
     if (this.$el && this.$el.parentNode) {

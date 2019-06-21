@@ -52,7 +52,7 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Box',
-  data () {
+  data() {
     return {
       collapse_: false,
       fullscreen_: false
@@ -82,48 +82,51 @@ export default {
     /** 是否显示折叠按钮 */
     collapse: Boolean,
     /** 是否显示滚动条 */
-    noScrollbar: Boolean
+    noScrollbar: Boolean,
+    /** 没有内边距 */
+    noPadding: Boolean
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
     /** 生成class */
-    class_ () {
+    class_() {
       return [
         this.fontSize,
         this.fullscreen_ ? 'fullscreen' : '',
         this.height ? 'has-height' : '',
-        this.page ? 'page' : '']
+        this.page ? 'page' : '',
+        this.noPadding ? 'no-padding' : '']
     },
     /** 是否有滚动条 */
-    hasScrollbar () {
+    hasScrollbar() {
       return !this.noScrollbar && (this.height || this.page)
     },
     /** 是否可以折叠 */
-    isCollapse () {
+    isCollapse() {
       return this.collapse && !this.page
     }
   },
   methods: {
     /** 开启全屏 */
-    openFullscreen () {
+    openFullscreen() {
       this.fullscreen_ = true
       // 全屏事件
       this.$emit('fullscreen-change', this.fullscreen_)
     },
     /** 关闭全屏 */
-    closeFullscreen () {
+    closeFullscreen() {
       this.fullscreen_ = false
       // 全屏事件
       this.$emit('fullscreen-change', this.fullscreen_)
     },
     /** 滚动条重置 */
-    scrollbarResize () {
+    scrollbarResize() {
       if (this.hasScrollbar) {
         this.$refs.scrollbar.update()
       }
     },
     /** 折叠事件 */
-    onCollapse () {
+    onCollapse() {
       // 如果设置了自定义折叠事件，则覆盖默认的
       if (this.customCollapseEvent) {
         this.collapse_ = this.customCollapseEvent()
@@ -134,7 +137,7 @@ export default {
       this.$emit('collapse-change', this.collapse_)
     },
     /** 全屏事件 */
-    onFullscreen () {
+    onFullscreen() {
       if (this.fullscreen) {
         this.fullscreen_ = !this.fullscreen_
 

@@ -86,7 +86,8 @@
         >#{$prefix}-box-footer {
             padding: $box-footer-padding;
             flex-shrink: 0;
-            @include vertical-center($box-footer-height);
+            height: $box-footer-height;
+            line-height: $box-footer-height - 3px;
             border-top: 1px solid $border-color1;
             text-align: right;
             box-sizing: border-box;
@@ -130,7 +131,8 @@
         }
 
         #{$prefix}-box-footer {
-            @include vertical-center($box-small-footer-height);
+            height: $box-small-footer-height;
+            line-height: $box-small-footer-height - 3px;
         }
     }
 
@@ -140,7 +142,8 @@
         }
 
         #{$prefix}-box-footer {
-            @include vertical-center($box-mini-footer-height);
+            height: $box-mini-footer-height;
+            line-height: $box-mini-footer-height - 3px;
         }
     }
 
@@ -160,6 +163,21 @@
 
                     .el-scrollbar__view {
                         padding: $box-content-padding;
+                    }
+                }
+            }
+        }
+    }
+
+    &.no-padding {
+        >#{$prefix}-box-dialog {
+
+            >#{$prefix}-box-content {
+
+                >#{$prefix}-box-wrapper {
+
+                    .el-scrollbar__view {
+                        padding: 0 !important;
                     }
                 }
             }
