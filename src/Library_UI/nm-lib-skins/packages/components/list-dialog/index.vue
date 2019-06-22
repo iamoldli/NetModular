@@ -56,7 +56,6 @@ export default {
   computed: {
     dialog() {
       return {
-        noFooter: true,
         noScrollbar: true,
         title: this.title,
         icon: this.icon,

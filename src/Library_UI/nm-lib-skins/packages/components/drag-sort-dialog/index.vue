@@ -11,7 +11,7 @@ import dialogMixins from '../../mixins/components/dialog'
 export default {
   name: 'DragSortDialog',
   mixins: [dialogMixins],
-  data () {
+  data() {
     return {
       model: {
         options: []
@@ -48,24 +48,25 @@ export default {
     closeOnSuccess: Boolean
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         class: 'nm-drag-sort-dialog',
         title: this.title,
         icon: this.icon,
         width: this.width,
         height: this.height,
+        footer: true,
         loading: this.loading
       }
     }
   },
   methods: {
-    onOpen () {
+    onOpen() {
       this.queryAction().then(data => {
         this.model = data
       })
     },
-    onUpdate () {
+    onUpdate() {
       this.loading = true
       this.updateAction(this.model).then(() => {
         this.loading = false

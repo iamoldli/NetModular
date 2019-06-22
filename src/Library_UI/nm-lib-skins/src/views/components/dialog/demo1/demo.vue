@@ -37,14 +37,12 @@ export default {
       dialog: {
         title: '简单对话框',
         icon: 'dialog',
-        noFooter: true,
         visible: false
       },
       dialog1: {
         title: '自定义高度',
         icon: 'dialog',
         height: '500px',
-        noFooter: true,
         visible: false
       },
       dialog2: {
@@ -52,7 +50,6 @@ export default {
         icon: 'dialog',
         height: '500px',
         fullscreen: true,
-        noFooter: true,
         visible: false
       },
       dialog3: {
@@ -60,7 +57,6 @@ export default {
         icon: 'dialog',
         height: '500px',
         fullscreen: true,
-        noFooter: true,
         closeOnClickModal: true,
         visible: false
       },
@@ -69,7 +65,6 @@ export default {
         icon: 'dialog',
         height: '500px',
         fullscreen: true,
-        noFooter: true,
         draggable: true,
         visible: false
       }

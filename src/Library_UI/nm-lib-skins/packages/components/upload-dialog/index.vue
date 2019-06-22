@@ -44,7 +44,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'UploadDialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       fileList: [],
       loading: false
@@ -99,17 +99,18 @@ export default {
   },
   computed: {
     ...mapState('module/admin/token', ['accessToken']),
-    dialog () {
+    dialog() {
       return {
         title: this.title,
         icon: this.icon,
         width: this.width,
         height: this.height,
         loading: this.loading,
+        footer: true,
         noScrollbar: true
       }
     },
-    upload () {
+    upload() {
       return {
         action: this.action,
         headers: {
@@ -129,7 +130,7 @@ export default {
         onExceed: this.onExceed
       }
     },
-    maxSizeBytes () {
+    maxSizeBytes() {
       if (this.maxSize) {
         const max = this.maxSize.toLowerCase()
         if (max.endsWith('kb')) {
@@ -150,17 +151,17 @@ export default {
     }
   },
   methods: {
-    clearFiles () {
+    clearFiles() {
       this.$refs.upload.clearFiles()
     },
-    onClose () {
+    onClose() {
       if (this.resetOnClose) {
         this.$nextTick(() => {
           this.clearFiles()
         })
       }
     },
-    onSubmit () {
+    onSubmit() {
       // 验证是否超出最大上传数
       if (this.limit && this.fileList.length > this.limit) {
         this.onExceed()
@@ -177,7 +178,7 @@ export default {
       }
       this.$refs.upload.submit()
     },
-    onChange (file, fileList) {
+    onChange(file, fileList) {
       if (this.fileList.length > 0 && fileList.length === this.fileList.length) { return }
       this.fileList = []
       fileList.map(m => {
@@ -190,10 +191,10 @@ export default {
         })
       })
     },
-    onBeforeUpload (file) {
+    onBeforeUpload(file) {
       this.loading = true
     },
-    onSuccess (response, file) {
+    onSuccess(response, file) {
       for (let i = 0; i < this.fileList.length; i++) {
         let $file = this.fileList[i]
         if ($file.localFile === file) {
@@ -209,10 +210,10 @@ export default {
         }
       }
     },
-    onError () {
+    onError() {
       this._error('上传失败')
     },
-    onRemove (file) {
+    onRemove(file) {
       if (file.localFile) {
         this.$refs.upload.handleRemove(file.localFile)
       }
@@ -220,11 +221,11 @@ export default {
       fileList.splice(fileList.indexOf(file), 1)
     },
     /** 文件超出 */
-    onExceed () {
+    onExceed() {
       this._warning(`最多允许上传${this.limit}个`)
     },
     /** 获取文件后缀名 */
-    getFileExt (name) {
+    getFileExt(name) {
       let ext = ''
       const arr = name.split('.')
       if (arr.length > 1) {
@@ -233,7 +234,7 @@ export default {
       return ext
     },
     /** 转换文件大小单位 */
-    getSizeUnit (size) {
+    getSizeUnit(size) {
       if (size === null || size === '') {
         return '0 B'
       }

@@ -47,7 +47,7 @@
           </nm-scrollbar>
         </section>
       </section>
-      <section v-if="!noFooter" class="nm-dialog-footer">
+      <section v-if="footer" class="nm-dialog-footer">
         <slot name="footer"/>
       </section>
     </section>
@@ -94,6 +94,8 @@ export default {
     },
     /** Dialog 的高度 */
     height: [Number, String],
+    /** 显示尾部 */
+    footer: Boolean,
     /** 是否需要遮罩层 */
     modal: {
       type: Boolean,
@@ -118,8 +120,6 @@ export default {
       type: Boolean,
       default: false
     },
-    /** 不显示尾部 */
-    noFooter: Boolean,
     /** 显示加载动画 */
     loading: Boolean,
     /** 可拖拽的 */

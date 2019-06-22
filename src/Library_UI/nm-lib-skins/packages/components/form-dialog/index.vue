@@ -126,6 +126,7 @@ export default {
         icon: this.icon,
         width: this.width,
         height: this.height,
+        footer: true,
         fullscreen: this.fullscreen,
         closeOnClickModal: this.closeOnClickModal,
         loading: this.showLoading

@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Library\Data\Db\Data.MySql\Data.MySql.csproj" />
     <ProjectReference Include="..\..\..\Library\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj" />
-    <ProjectReference Include="..\..\..\Library\Mapper\Mapper.AutoMapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\..\Library\Utils\Utils.Core\Utils.Core.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />
     <ProjectReference Include="..\Library\Infrastructure\Infrastructure.csproj" />

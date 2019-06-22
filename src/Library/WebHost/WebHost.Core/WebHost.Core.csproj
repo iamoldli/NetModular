@@ -13,7 +13,7 @@
     <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.AspNetCore\Data.AspNetCore.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
-    <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Module\Module.Core\Module.Core.csproj" />
     <ProjectReference Include="..\..\Swagger\Swagger\Swagger.csproj" />
     <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
