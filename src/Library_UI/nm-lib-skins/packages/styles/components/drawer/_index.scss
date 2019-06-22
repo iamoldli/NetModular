@@ -133,6 +133,12 @@
         }
     }
 
+    &.no-padding {
+        .el-scrollbar__view {
+            padding: 0 !important;
+        }
+    }
+
     &-drag {
         position: absolute;
         top: 0;

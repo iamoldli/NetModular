@@ -92,6 +92,8 @@ export default {
       type: [Number, String],
       default: '50%'
     },
+    /**内边距 */
+    padding: Number,
     /** Dialog 的高度 */
     height: [Number, String],
     /** 显示尾部 */
@@ -303,7 +305,10 @@ export default {
           this.dialogEl.style.left = (document.body.offsetWidth - this.dialogEl.offsetWidth) / 2 + 'px'
           this.dialogEl.style.top = this.top
         }
-
+        //设置内边距
+        if (this.padding) {
+          this.dialogEl.querySelector('.el-scrollbar__view').style.padding = this.padding + 'px'
+        }
         this.hasInit = true
       }
       this.$emit('opened')
@@ -322,7 +327,6 @@ export default {
     this.open().then(id => {
       this.id = 'nm-dialog-' + id
     })
-    console.log(this.draggable)
     on(document, 'mousemove', this.handleDragMove)
     on(document, 'mouseup', this.handleDragUp)
   },

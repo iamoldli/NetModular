@@ -46,7 +46,12 @@ export default {
     // 不显示loading
     noLoading: Boolean,
     // 不包含外边框
-    noBorder: Boolean
+    noBorder: Boolean,
+    // 是否创建时查询一次
+    queryOnCreated: {
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
@@ -71,7 +76,9 @@ export default {
     }
   },
   mounted() {
-    this.query()
+    if (this.queryOnCreated) {
+      this.query()
+    }
     this.$nextTick(() => {
       // 设置标签宽度
       const items = this.$el.querySelectorAll('.nm-details-item-label')

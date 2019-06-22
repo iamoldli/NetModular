@@ -28,6 +28,13 @@ export default [
     def: '自适应'
   },
   {
+    name: 'padding',
+    desc: '内边距',
+    type: 'Number',
+    opt: '-',
+    def: '0'
+  },
+  {
     name: 'modal',
     desc: '是否需要遮罩层',
     type: 'Boolean',

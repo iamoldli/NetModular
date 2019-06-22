@@ -1,5 +1,5 @@
 <template>
-  <section :class="['nm-drawer',placement,customClass,fullscreen_ ? 'fullscreen' : '',draggable?'draggable':'']">
+  <section :class="class_">
     <transition name="fade">
       <section class="nm-drawer-modal" @click="onModalClick" v-if="modal" v-show="visible"></section>
     </transition>
@@ -124,6 +124,8 @@ export default {
       type: Boolean,
       default: true
     },
+    /**没有内边距 */
+    noPadding: Boolean,
     /** 可拖拽 */
     draggable: {
       type: Boolean,
@@ -131,7 +133,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' })
+    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
+    class_() {
+      return ['nm-drawer',
+        this.placement,
+        this.fullscreen_ ? 'fullscreen' : '',
+        this.draggable ? 'draggable' : '',
+        this.customClass,
+        this.noPadding ? 'no-padding' : ''
+      ]
+    }
   },
   methods: {
     append() {

@@ -68,14 +68,14 @@ export default {
           message: '请输入密码',
           trigger: 'blur'
         }],
-        code: [{ validator(rule, value, callback) {
-          if (_this.loginVerifyCode && value === '') {
-            callback(new Error('请输入验证码'))
-          } else {
-            callback()
-          }
-        },
-        trigger: 'blur'
+        code: [{          validator(rule, value, callback) {
+            if (_this.loginVerifyCode && value === '') {
+              callback(new Error('请输入验证码'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'
         }]
       },
       loading: false

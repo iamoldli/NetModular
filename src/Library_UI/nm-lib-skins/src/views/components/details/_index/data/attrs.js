@@ -33,5 +33,12 @@ export default [
     type: 'boolean',
     opt: '-',
     def: 'false'
+  },
+  {
+    name: 'query-on-created',
+    desc: '创建时执行一次查询',
+    type: 'boolean',
+    opt: '-',
+    def: 'true'
   }
 ]
