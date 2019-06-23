@@ -32,10 +32,15 @@ export default baseUrl => {
       response => {
         // 文件下载
         if (response.request.responseType.toLowerCase() === 'blob') {
-          const fileName = response.headers['content-disposition']
-            .split(';')
-            .find(m => m.trim().startsWith('filename'))
-            .split('=')[1]
+          const fileName = decodeURI(
+            response.headers['content-disposition']
+              .split(';')
+              .find(m => m.trim().startsWith('filename='))
+              .split('=')[1]
+          )
+            .replace('"', '')
+            .replace('"', '')
+
           const url = window.URL.createObjectURL(response.data)
           const link = document.createElement('a')
           link.href = url
