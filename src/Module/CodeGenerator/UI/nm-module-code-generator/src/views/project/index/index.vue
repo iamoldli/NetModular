@@ -88,14 +88,7 @@ export default {
     },
     buildCode(row) {
       let loading = this._loading('正在努力生成代码，请稍后...')
-      api.buildCode({ id: row.id }).then(data => {
-        const url = window.URL.createObjectURL(data)
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', row.code + '.zip')
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+      api.buildCode({ id: row.id }).then(() => {
         loading.close()
       }).catch(() => {
         loading.close()
