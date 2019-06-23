@@ -18,12 +18,13 @@ import LinkMenu from './components/link'
 export default {
   mixins: [mixins.dialog],
   components: { NodeMenu, RouteMenu, LinkMenu },
-  data () {
+  data() {
     return {
       model: {
         type: 0
       },
       dialog: {
+        footer: true,
         title: '编辑菜单',
         icon: 'add',
         width: '60%',
@@ -39,7 +40,7 @@ export default {
   },
   props: ['parent', 'id'],
   methods: {
-    async edit () {
+    async edit() {
       if (this.id === '') {
         this._warning('请选择要编辑的菜单~')
         return
@@ -50,34 +51,34 @@ export default {
       this.setModel()
       this.dialog.loading = false
     },
-    onOpen () {
+    onOpen() {
       this.edit()
     },
-    onSubmit () {
+    onSubmit() {
       this.dialog.loading = true
       this.getModel().submit()
     },
-    onReset () {
+    onReset() {
       this.$nextTick(() => {
         this.getModel().reset()
       })
     },
-    onSuccess () {
+    onSuccess() {
       this.dialog.loading = false
       this.$emit('success')
     },
-    onError () {
+    onError() {
       this.dialog.loading = false
     },
-    onValidateError () {
+    onValidateError() {
       this.dialog.loading = false
     },
-    setModel () {
+    setModel() {
       this.$nextTick(() => {
         this.getModel().setModel()
       })
     },
-    getModel () {
+    getModel() {
       if (this.model.type === 0) {
         return this.$refs.node
       } else if (this.model.type === 1) {

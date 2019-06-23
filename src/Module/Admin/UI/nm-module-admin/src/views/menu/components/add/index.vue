@@ -34,10 +34,11 @@ import LinkMenu from './components/link'
 export default {
   mixins: [mixins.dialog],
   components: { NodeMenu, RouteMenu, LinkMenu },
-  data () {
+  data() {
     return {
       tab: 'node',
       dialog: {
+        footer: true,
         title: '添加菜单',
         icon: 'add',
         width: '60%',
@@ -53,29 +54,29 @@ export default {
   },
   props: ['parent', 'sort'],
   methods: {
-    onSubmit () {
+    onSubmit() {
       this.dialog.loading = true
       this.$refs[this.tab].submit()
     },
-    onReset () {
+    onReset() {
       this.$nextTick(() => {
         this.$refs[this.tab].reset()
       })
     },
-    setProps () {
+    setProps() {
       this.$refs[this.tab].setProps()
     },
-    onSuccess () {
+    onSuccess() {
       this.dialog.loading = false
       this.$emit('success')
     },
-    onError () {
+    onError() {
       this.dialog.loading = false
     },
-    onValidateError () {
+    onValidateError() {
       this.dialog.loading = false
     },
-    onOpen () {
+    onOpen() {
       this.onReset()
     }
   }

@@ -32,7 +32,7 @@ export default baseUrl => {
       response => {
         // 文件下载
         if (response.request.responseType.toLowerCase() === 'blob') {
-          const fileName = decodeURI(
+           const fileName = decodeURI(
             response.headers['content-disposition']
               .split(';')
               .find(m => m.trim().startsWith('filename='))
