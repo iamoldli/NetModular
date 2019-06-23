@@ -32,7 +32,18 @@ export default baseUrl => {
       response => {
         // 文件下载
         if (response.request.responseType.toLowerCase() === 'blob') {
-          return response.data
+          const fileName = response.headers['content-disposition']
+            .split(';')
+            .find(m => m.trim().startsWith('filename'))
+            .split('=')[1]
+          const url = window.URL.createObjectURL(response.data)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', fileName)
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          return
         }
 
         if (response.data.code === 1) {

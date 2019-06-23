@@ -53,6 +53,9 @@ namespace Nm.Lib.WebHost.Core
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
                 builder.AllowCredentials();
+                
+                //下载文件时，文件名称会保存在headers的Content-Disposition属性里面
+                builder.WithExposedHeaders("Content-Disposition");
             });
 
             //开启Swagger
