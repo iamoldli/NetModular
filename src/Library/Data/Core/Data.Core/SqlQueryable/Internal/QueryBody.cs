@@ -127,44 +127,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                     //方法
                     if (arg is MethodCallExpression methodCallExp)
                     {
-                        var methodName = methodCallExp.Method.Name;
-                        if (methodName.Equals("Substring"))
-                        {
-                            SetOrderByForSubstring(methodCallExp, expression, sortType);
-                            continue;
-                        }
-
-                        if (methodName.Equals("Count"))
-                        {
-                            Sorts.Add(new Sort("COUNT(0)", sortType));
-                            continue;
-                        }
-
-                        if (methodName.Equals("Sum"))
-                        {
-                            ResolveSelectForFunc(methodCallExp, "SUM");
-                            continue;
-                        }
-
-                        if (methodName.Equals("Avg"))
-                        {
-                            ResolveSelectForFunc(methodCallExp, "AVG");
-                            continue;
-                        }
-
-                        if (methodName.Equals("Max"))
-                        {
-                            ResolveSelectForFunc(methodCallExp, "MAX");
-                            continue;
-                        }
-
-                        if (methodName.Equals("Min"))
-                        {
-                            ResolveSelectForFunc(methodCallExp, "MIN");
-                        }
+                        SetOrderByMethod(expression, methodCallExp, sortType);
                     }
                 }
             }
+            else if (IsGroupBy && expression.Body.NodeType == ExpressionType.Call &&
+                     expression.Body is MethodCallExpression callExpression)
+            {
+                SetOrderByMethod(expression, callExpression, sortType);
+            }
+
         }
 
         private void SetOrderByForMember(MemberExpression memberExp, LambdaExpression fullExpression, SortType sortType)
@@ -200,6 +172,45 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             {
                 var colName = GetColumnName(memberExp, fullExpression);
                 Sorts.Add(new Sort(colName, sortType));
+            }
+        }
+
+        private void SetOrderByMethod(LambdaExpression expression, MethodCallExpression methodCallExp, SortType sortType = SortType.Asc)
+        {
+            var methodName = methodCallExp.Method.Name;
+            if (methodName.Equals("Substring"))
+            {
+                SetOrderByForSubstring(methodCallExp, expression, sortType);
+                return;
+            }
+
+            if (methodName.Equals("Count"))
+            {
+                Sorts.Add(new Sort("COUNT(0)", sortType));
+                return;
+            }
+
+            if (methodName.Equals("Sum"))
+            {
+                ResolveSelectForFunc(methodCallExp, "SUM");
+                return;
+            }
+
+            if (methodName.Equals("Avg"))
+            {
+                ResolveSelectForFunc(methodCallExp, "AVG");
+                return;
+            }
+
+            if (methodName.Equals("Max"))
+            {
+                ResolveSelectForFunc(methodCallExp, "MAX");
+                return;
+            }
+
+            if (methodName.Equals("Min"))
+            {
+                ResolveSelectForFunc(methodCallExp, "MIN");
             }
         }
 
