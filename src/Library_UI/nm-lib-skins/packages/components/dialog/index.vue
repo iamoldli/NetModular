@@ -240,13 +240,6 @@ export default {
       }
     },
     /**
-     * @description 绑定拖拽功能
-     */
-    bindDrag() {
-      if (!this.draggable) return
-      on(this.titleEl, 'mousedown', this.handleDragDown)
-    },
-    /**
      * @description 处理拖拽点击
      */
     handleDragDown(e) {
@@ -290,10 +283,12 @@ export default {
     onOpen() {
       this.$nextTick(() => {
         this.resize()
-        this.bindDrag()
 
         on(window, 'resize', this.resize)
-        if (!this.noScrollbar) { addResizeListener(this.elScrollbarViewEl, this.updateScrollbar) }
+        if (!this.noScrollbar) { addResizeListener(this.elScrollbarViewEl, this.resize) }
+
+        if (!this.draggable) return
+        on(this.titleEl, 'mousedown', this.handleDragDown)
       })
 
       this.$emit('open')
@@ -315,7 +310,8 @@ export default {
     },
     onClose() {
       off(window, 'resize', this.resize)
-      if (!this.noScrollbar) { removeResizeListener(this.elScrollbarViewEl, this.updateScrollbar) }
+      if (!this.noScrollbar) { removeResizeListener(this.elScrollbarViewEl, this.resize) }
+      off(this.titleEl, 'mousedown', this.handleDragDown)
       this.$emit('close')
     },
     onClosed() {
