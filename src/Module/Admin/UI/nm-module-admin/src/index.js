@@ -5,6 +5,7 @@ import Skins from 'nm-lib-skins'
 import systemApi from './api/system'
 import api from './api/account'
 import admin from './module'
+import configApi from './api/config'
 
 // 要注册的全局组件列表
 let globalComponents = []
@@ -107,8 +108,11 @@ export default {
     http(config.baseUrl)
 
     // 加载本地token
-    callbacks.push(({ store }) => {
+    callbacks.push(({ store, Vue }) => {
       store.dispatch('module/admin/token/load', null, { root: true })
+
+      // 注册获取配置项的方法为全局属性
+      Vue.prototype.$config = configApi.getValue
     })
 
     // 注入模块

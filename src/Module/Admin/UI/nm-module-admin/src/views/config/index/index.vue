@@ -3,8 +3,8 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
-        <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+        <el-form-item label="键或值：" prop="key">
+          <el-input v-model="list.model.key" clearable/>
         </el-form-item>
       </template>
 
@@ -16,7 +16,6 @@
       <!--操作列-->
       <template v-slot:col-operation="{row}">
         <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-        <nm-button text="菜单" icon="bind" type="text" @click="bindMenu(row)" v-nm-has="buttons.bindMenu"/>
         <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
       </template>
     </nm-list>
@@ -25,21 +24,18 @@
     <add-page :visible.sync="addPage.visible" @success="refresh"/>
     <!--编辑页-->
     <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh"/>
-    <!--绑定菜单-->
-    <bind-menu-page :id="bindMenuDialog.id" :visible.sync="bindMenuDialog.visible"/>
   </nm-container>
 </template>
 <script>
-import api from '../../../api/role'
+import api from '../../../api/config'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
-import BindMenuPage from '../components/menu-bind'
 
 export default {
   name: page.name,
-  components: { AddPage, EditPage, BindMenuPage },
+  components: { AddPage, EditPage },
   data() {
     return {
       list: {
@@ -47,7 +43,7 @@ export default {
         cols,
         action: api.query,
         model: {
-          name: ''
+          key: ''
         }
       },
       addPage: {
