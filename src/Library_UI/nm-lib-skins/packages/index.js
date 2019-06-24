@@ -89,8 +89,9 @@ export default {
 
     // 处理回调
     if (callbacks) {
+      let params = { vm, store, router, Vue }
       callbacks.map(callback => {
-        callback(vm, store, router)
+        callback(params)
       })
     }
 

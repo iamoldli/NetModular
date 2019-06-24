@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\..\..\Library\Auth\Auth.Abstractions\Auth.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\..\Library\Cache\Cache.Abstractions\Cache.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\..\Library\Data\Extend\Data.Query\Data.Query.csproj" />
+    <ProjectReference Include="..\..\..\..\Library\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\..\..\Library\Swagger\Swagger\Swagger.csproj" />
     <ProjectReference Include="..\..\..\..\Library\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />

@@ -94,7 +94,7 @@ export default {
    * @description 添加模块
    * @param {Object} moduleInfo 模块信息
    */
-  addModule (moduleInfo) {
+  addModule(moduleInfo) {
     if (moduleInfo) {
       modules.push(moduleInfo)
     }
@@ -102,12 +102,12 @@ export default {
   /**
    * @description 启动
    */
-  async start (config) {
+  async start(config) {
     // 接口请求地址
     http(config.baseUrl)
 
     // 加载本地token
-    callbacks.push((vm, store, router) => {
+    callbacks.push(({ store }) => {
       store.dispatch('module/admin/token/load', null, { root: true })
     })
 
