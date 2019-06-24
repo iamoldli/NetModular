@@ -16,7 +16,7 @@
 
 ### 前端框架 Demo
 
-地址：[http://nm.demo.iamoldli.com/skins/index.html#/](http://nm.demo.iamoldli.com/skins/index.html#/)  
+地址：[http://nm.demo.iamoldli.com/index.html](http://nm.demo.iamoldli.com/index.html)  
 账户：admin  
 密码：admin
 
