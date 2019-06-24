@@ -52,8 +52,8 @@ export default {
     return {
       verifyCodeUrl: '',
       form: {
-        userName: 'admin',
-        password: 'admin',
+        userName: '',
+        password: '',
         code: '',
         pictureId: ''
       },
