@@ -1,5 +1,5 @@
 <template>
-  <td-tmpl v-bind="tmpl"></td-tmpl>
+  <nm-tmpl v-bind="tmpl"></nm-tmpl>
 </template>
 <script>
 import page from './page.js'
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       tmpl: {
-        title: '对话框(td-dialog)',
+        title: '对话框(nm-dialog)',
         icon: 'dialog',
         attrs,
         events,
