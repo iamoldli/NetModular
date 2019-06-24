@@ -44,6 +44,10 @@ export default {
     // 将lodash添加到Vue的实例属性
     Vue.prototype.$_ = lodash
 
+    // 全局引用ECharts，如果需要按需引用，请访问http://echarts.baidu.com/tutorial.html#%E5%9C%A8%20webpack%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20ECharts
+    // eslint-disable-next-line no-undef
+    Vue.prototype.$echarts = echarts
+
     // 全局混入
     Mixins.global(Vue)
 
