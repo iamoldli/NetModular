@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
 using Nm.Module.PersonnelFiles.Domain.UserContact;
-using Nm.Module.PersonnelFiles.Domain.UserContact.Models;
 
 namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 {
@@ -15,22 +12,9 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public async Task<IList<UserContactEntity>> Query(UserContactQueryModel model)
+        public Task<UserContactEntity> GetByUser(Guid userId)
         {
-            var paging = model.Paging();
-
-            var query = Db.Find();
-
-            if (!paging.OrderBy.Any())
-            {
-                query.OrderByDescending(m => m.Id);
-            }
-
-            var result = await query.PaginationAsync(paging);
-
-            model.TotalCount = paging.TotalCount;
-
-            return result;
+            return Db.Find(m => m.UserId == userId).FirstAsync();
         }
     }
 }

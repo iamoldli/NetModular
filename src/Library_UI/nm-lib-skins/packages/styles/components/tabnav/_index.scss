@@ -1,72 +1,118 @@
 @import 'variables';
 
 #{$prefix}-tabnav {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
 
-  &-tabs {
-    overflow: auto;
-    flex-grow: 1;
+    &-tabs {
+        overflow: auto;
+        flex-grow: 1;
+        background: #ebf1f6;
 
-    .el-tabs__nav-next,
-    .el-tabs__nav-prev {
-      font-size: $tabnav-navbtn-font-size;
-      width: $tabnav-navbtn-width;
-      text-align: center;
-    }
-
-    .el-tabs__nav-wrap.is-scrollable {
-      padding: 0 $tabnav-navbtn-width;
-    }
-
-    .el-tabs__header {
-      margin: 0;
-      border-bottom: 1px solid $border-color1;
-
-      .el-tabs__nav {
-        border-color: $border-color1;
-        border-left: none;
-        border-radius: 0 !important;
-
-        .el-tabs__item {
-          user-select: none;
-
-          &:focus {
-            box-shadow: none !important;
-          }
+        .el-tabs__nav-next,
+        .el-tabs__nav-prev {
+            font-size: $tabnav-navbtn-font-size;
+            width: $tabnav-navbtn-width;
+            text-align: center;
         }
-      }
-    }
-  }
 
-  .el-tabs__item:first-child {
-    .el-icon-close {
-      display: none;
+        .el-tabs__nav-wrap.is-scrollable {
+            padding: 0 $tabnav-navbtn-width;
+        }
+
+        .el-tabs__header {
+            margin: 0;
+            border-bottom: 1px solid $border-color1;
+
+            .el-tabs__nav {
+                padding: 0 5px;
+                border: none;
+                border-radius: 0 !important;
+
+                .el-tabs__item {
+                    position: relative;
+                    padding: 0 20px !important;
+                    margin: 5px 2px;
+                    user-select: none;
+                    height: 30px;
+                    line-height: 30px;
+                    border-left: none;
+                    background-color: #fff;
+                    border-radius: 2px;
+                    color: $text-color3;
+
+                    .el-icon-close {
+                        display: none;
+                        position: absolute;
+                        top: 8px;
+                        right: 5px;
+                    }
+
+                    &:hover {
+                        padding-right: 25px !important;
+                        color: $theme-color;
+
+                        .el-icon-close {
+                            display: inline-block;
+                        }
+                    }
+
+                    &.is-active {
+                        padding-left: 25px !important;
+                        color: $theme-color;
+
+                        &::before {
+                            content: ' ';
+                            position: absolute;
+                            left: 9px;
+                            top: 10px;
+                            display: inline-block;
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 5px;
+                            background-color: $theme-color;
+                        }
+
+                        .el-icon-close {
+                            top: 8px;
+                            right: 9px;
+                        }
+                    }
+
+                    &:focus {
+                        box-shadow: none !important;
+                    }
+
+                    &:first-child {
+                        padding-right: 15px !important;
+
+                        .el-icon-close {
+                            display: none !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    &:hover {
-      padding: 0 20px !important;
-    }
-  }
+    &-control {
+        flex-shrink: 0;
 
-  &-control {
-    flex-shrink: 0;
+        &-btn {
+            display: inline-block;
+            width: $tabnav-control-btn-width;
+            text-align: center;
+            @include vertical-center($tabnav-control-btn-height);
+            cursor: pointer;
+            border-left: 1px solid $tabnav-control-btn-border-color;
+            border-bottom: 1px solid $tabnav-control-btn-border-color;
+            font-size: $tabnav-control-btn-font-size;
+        }
 
-    &-btn {
-      display: inline-block;
-      width: $tabnav-control-btn-width;
-      text-align: center;
-      @include vertical-center($tabnav-control-btn-height);
-      cursor: pointer;
-      border-left: 1px solid $tabnav-control-btn-border-color;
-      border-bottom: 1px solid $tabnav-control-btn-border-color;
-      font-size: $tabnav-control-btn-font-size;
+        &-icon {
+            margin-right: 10px;
+            font-weight: bold;
+        }
     }
-
-    &-icon {
-      margin-right: 10px;
-      font-weight: bold;
-    }
-  }
 }

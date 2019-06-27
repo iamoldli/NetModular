@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
@@ -61,12 +60,6 @@ namespace Nm.Lib.Module.Core
             {
                 Directory.CreateDirectory(options.UploadPath);
             }
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(options.UploadPath),
-                RequestPath = "/upload"
-            });
         }
 
         /// <summary>
@@ -76,10 +69,10 @@ namespace Nm.Lib.Module.Core
         private static void UseTemp(this IApplicationBuilder app)
         {
             var options = app.ApplicationServices.GetService<IOptionsMonitor<ModuleCommonOptions>>().CurrentValue;
-  
+
             if (options.TempPath.IsNull())
             {
-                //默认在程序根目录下的Upload目录
+                //默认在程序根目录下的Temp目录
                 options.TempPath = Path.Combine(AppContext.BaseDirectory, "Temp");
             }
         }

@@ -13,6 +13,6 @@
   //通用模块
   "Common": {
     //附件上传路径
-    "AttachmentPath": ''
+    "AttachmentPath": "D:\\Attachment"
   }
 }

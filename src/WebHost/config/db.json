@@ -23,7 +23,7 @@
       "Name": "PersonnelFiles",
       "Dialect": 1,
       "Database": "Nm_PersonnelFiles",
-      "ConnString": "Server=localhost;Database=Nm_PersonnelFiles;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "ConnString": "Server=localhost;Database=nm_personnelfiles;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
     }
   ]
 }

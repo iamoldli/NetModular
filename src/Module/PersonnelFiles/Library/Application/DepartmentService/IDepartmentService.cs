@@ -53,5 +53,10 @@ namespace Nm.Module.PersonnelFiles.Application.DepartmentService
         /// <returns></returns>
         Task<IResultModel> Update(DepartmentUpdateModel model);
 
+        /// <summary>
+        /// 获取部门的完整路径
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GetFullPath(Guid id);
     }
 }

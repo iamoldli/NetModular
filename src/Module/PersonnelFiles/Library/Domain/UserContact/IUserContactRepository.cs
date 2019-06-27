@@ -1,8 +1,6 @@
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Module.PersonnelFiles.Domain.UserContact.Models;
 
 namespace Nm.Module.PersonnelFiles.Domain.UserContact
 {
@@ -12,10 +10,10 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
     public interface IUserContactRepository : IRepository<UserContactEntity>
     {
         /// <summary>
-        /// 查询
+        /// 查询指定用户的联系信息
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IList<UserContactEntity>> Query(UserContactQueryModel model);
+        Task<UserContactEntity> GetByUser(Guid userId);
     }
 }

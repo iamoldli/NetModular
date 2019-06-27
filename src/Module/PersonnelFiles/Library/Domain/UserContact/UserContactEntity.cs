@@ -16,16 +16,6 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// 手机号
-        /// </summary>
-        public string Phone { get; set; }
-
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
         /// QQ
         /// </summary>
         public string QQ { get; set; }

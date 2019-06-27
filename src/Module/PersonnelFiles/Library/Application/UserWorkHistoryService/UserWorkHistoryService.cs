@@ -1,6 +1,4 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
@@ -32,22 +30,17 @@ namespace Nm.Module.PersonnelFiles.Application.UserWorkHistoryService
         public async Task<IResultModel> Add(UserWorkHistoryAddModel model)
         {
             var entity = _mapper.Map<UserWorkHistoryEntity>(model);
-            //if (await _repository.Exists(entity))
-            //{
-                //return ResultModel.HasExists;
-            //}
-
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> Delete(Guid id)
+        public async Task<IResultModel> Delete(int id)
         {
             var result = await _repository.DeleteAsync(id);
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> Edit(Guid id)
+        public async Task<IResultModel> Edit(int id)
         {
             var entity = await _repository.GetAsync(id);
             if (entity == null)
@@ -67,7 +60,7 @@ namespace Nm.Module.PersonnelFiles.Application.UserWorkHistoryService
 
             //if (await _repository.Exists(entity))
             //{
-                //return ResultModel.HasExists;
+            //return ResultModel.HasExists;
             //}
 
             var result = await _repository.UpdateAsync(entity);

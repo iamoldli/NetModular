@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AttachmentService.ViewModels;
 using Nm.Module.Common.Domain.Attachment.Models;
@@ -19,32 +20,25 @@ namespace Nm.Module.Common.Application.AttachmentService
         Task<IResultModel> Query(AttachmentQueryModel model);
 
         /// <summary>
-        /// 创建
+        /// 上传
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(AttachmentAddModel model);
+        Task<IResultModel> Upload(AttachmentUploadModel model, HttpRequest request);
 
         /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id">编号</param>
-        /// <returns></returns>
-        Task<IResultModel> Delete(Guid id);
-
-        /// <summary>
-        /// 编辑
+        /// 下载
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
+        Task<IResultModel<FileDownloadModel>> Download(Guid id);
 
         /// <summary>
-        /// 修改
+        /// 导出
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResultModel> Update(AttachmentUpdateModel model);
-
+        Task<IResultModel<FileDownloadModel>> Export(Guid id);
     }
 }

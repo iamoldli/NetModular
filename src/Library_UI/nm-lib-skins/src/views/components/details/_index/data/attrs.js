@@ -7,6 +7,13 @@ export default [
     def: '-'
   },
   {
+    name: 'model',
+    desc: '模型数据，对于不需要通过接口返回的数据，可以通过该属性传递',
+    type: 'Object',
+    opt: '-',
+    def: '-'
+  },
+  {
     name: 'options',
     desc: '模型配置项',
     type: 'Arrary',

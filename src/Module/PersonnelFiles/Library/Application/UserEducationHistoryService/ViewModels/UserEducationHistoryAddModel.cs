@@ -1,38 +1,42 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.PersonnelFiles.Domain.UserEducationHistory;
 
 namespace Nm.Module.PersonnelFiles.Application.UserEducationHistoryService.ViewModels
 {
-    /// <summary>
-    /// 用户教育经历添加模型
-    /// </summary>
     public class UserEducationHistoryAddModel
     {
+        /// <summary>
+        /// 用户编号
+        /// </summary>
+        [Required(ErrorMessage = "请选择用户")]
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// 学校名称
+        /// </summary>
+        [Required(ErrorMessage = "请输入学校名称")]
+        public string SchoolName { get; set; }
+
         /// <summary>
         /// 学历
         /// </summary>
         public string Level { get; set; }
 
         /// <summary>
-        /// 学校名称
-        /// </summary>
-        public string SchoolName { get; set; }
-
-        /// <summary>
         /// 开始日期
         /// </summary>
+        [Required(ErrorMessage = "请输入起始日期")]
         public DateTime StartDate { get; set; }
 
         /// <summary>
         /// 结束日期
         /// </summary>
+        [Required(ErrorMessage = "请输入结束日期")]
         public DateTime EndDate { get; set; }
 
         /// <summary>
-        /// 用户编号
+        /// 专业
         /// </summary>
-        public Guid UserId { get; set; }
-
+        public string Profession { get; set; }
     }
 }

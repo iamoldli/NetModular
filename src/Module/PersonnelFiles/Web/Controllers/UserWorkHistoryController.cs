@@ -36,14 +36,14 @@ namespace Nm.Module.PersonnelFiles.Web.Controllers
 
         [HttpDelete]
         [Description("删除")]
-        public async Task<IResultModel> Delete([BindRequired] Guid id)
+        public async Task<IResultModel> Delete([BindRequired] int id)
         {
             return await _service.Delete(id);
         }
 
         [HttpGet]
         [Description("编辑")]
-        public async Task<IResultModel> Edit([BindRequired] Guid id)
+        public async Task<IResultModel> Edit([BindRequired] int id)
         {
             return await _service.Edit(id);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,6 +61,11 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
             query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
 
             return query.ExistsAsync();
+        }
+
+        public Task<IList<PositionEntity>> QueryByDepartment(Guid departmentId)
+        {
+            return Db.Find(m => m.DepartmentId == departmentId).ToListAsync();
         }
     }
 }

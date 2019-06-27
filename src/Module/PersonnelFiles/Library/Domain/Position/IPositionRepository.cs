@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -23,5 +24,12 @@ namespace Nm.Module.PersonnelFiles.Domain.Position
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<bool> Exists(PositionEntity entity);
+
+        /// <summary>
+        /// 查询指定部门的岗位列表
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        Task<IList<PositionEntity>> QueryByDepartment(Guid departmentId);
     }
 }

@@ -11,6 +11,8 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
     /// </summary>
     public interface IUserService
     {
+        #region ==基本信息==
+
         /// <summary>
         /// 查询
         /// </summary>
@@ -46,5 +48,31 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
         /// <returns></returns>
         Task<IResultModel> Update(UserUpdateModel model);
 
+        #endregion
+
+        #region ==联系方式==
+
+        /// <summary>
+        /// 编辑联系方式
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IResultModel> EditContact(Guid id);
+
+        /// <summary>
+        /// 更新联系方式
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> UpdateContact(UserContactUpdateViewModel model);
+
+        /// <summary>
+        /// 联系方式详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IResultModel> ContactDetails(Guid id);
+
+        #endregion
     }
 }

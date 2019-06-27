@@ -92,7 +92,7 @@ export default {
       type: [Number, String],
       default: '50%'
     },
-    /**内边距 */
+    /** 内边距 */
     padding: Number,
     /** Dialog 的高度 */
     height: [Number, String],
@@ -300,7 +300,7 @@ export default {
           this.dialogEl.style.left = (document.body.offsetWidth - this.dialogEl.offsetWidth) / 2 + 'px'
           this.dialogEl.style.top = this.top
         }
-        //设置内边距
+        // 设置内边距
         if (this.padding) {
           this.dialogEl.querySelector('.el-scrollbar__view').style.padding = this.padding + 'px'
         }

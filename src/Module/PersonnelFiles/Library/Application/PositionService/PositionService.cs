@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Utils.Core.Result;
@@ -81,6 +82,18 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
             var result = await _repository.UpdateAsync(entity);
 
             return ResultModel.Result(result);
+        }
+
+        public async Task<IResultModel> Select(Guid departmentId)
+        {
+            var list = await _repository.QueryByDepartment(departmentId);
+            var result = list.Select(m => new OptionResultModel
+            {
+                Label = m.Name,
+                Value = m.Id
+            });
+
+            return ResultModel.Success(result);
         }
     }
 }

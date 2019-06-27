@@ -54,5 +54,12 @@ namespace Nm.Module.PersonnelFiles.Web.Controllers
         {
             return _service.Update(model);
         }
+
+        [HttpGet]
+        [Description("下拉列表")]
+        public async Task<IResultModel> Select([BindRequired] Guid departmentId)
+        {
+            return await _service.Select(departmentId);
+        }
     }
 }

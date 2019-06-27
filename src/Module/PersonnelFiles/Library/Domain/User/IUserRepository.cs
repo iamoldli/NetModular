@@ -31,5 +31,11 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <param name="positionId"></param>
         /// <returns></returns>
         Task<bool> ExistsBindPosition(Guid positionId);
+
+        /// <summary>
+        /// 获取当前最大工号
+        /// </summary>
+        /// <returns></returns>
+        Task<int> GetMaxJobNumber();
     }
 }

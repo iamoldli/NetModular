@@ -90,5 +90,26 @@ namespace Nm.Module.PersonnelFiles.Web.Controllers
 
             return ResultModel.Failed("上传失败");
         }
+
+        [HttpGet]
+        [Description("编辑联系信息")]
+        public async Task<IResultModel> EditContact([BindRequired] Guid id)
+        {
+            return await _service.EditContact(id);
+        }
+
+        [HttpPost]
+        [Description("修改联系信息")]
+        public Task<IResultModel> UpdateContact(UserContactUpdateViewModel model)
+        {
+            return _service.UpdateContact(model);
+        }
+
+        [HttpGet]
+        [Description("联系信息详情")]
+        public async Task<IResultModel> ContactDetails([BindRequired] Guid id)
+        {
+            return await _service.ContactDetails(id);
+        }
     }
 }

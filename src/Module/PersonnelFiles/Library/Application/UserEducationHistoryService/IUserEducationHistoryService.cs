@@ -1,5 +1,4 @@
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.UserEducationHistoryService.ViewModels;
 using Nm.Module.PersonnelFiles.Domain.UserEducationHistory.Models;
@@ -7,7 +6,7 @@ using Nm.Module.PersonnelFiles.Domain.UserEducationHistory.Models;
 namespace Nm.Module.PersonnelFiles.Application.UserEducationHistoryService
 {
     /// <summary>
-    /// 用户教育经历服务
+    /// 用户工作经历服务
     /// </summary>
     public interface IUserEducationHistoryService
     {
@@ -30,14 +29,14 @@ namespace Nm.Module.PersonnelFiles.Application.UserEducationHistoryService
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(Guid id);
+        Task<IResultModel> Delete(int id);
 
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
+        Task<IResultModel> Edit(int id);
 
         /// <summary>
         /// 修改
@@ -45,6 +44,5 @@ namespace Nm.Module.PersonnelFiles.Application.UserEducationHistoryService
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IResultModel> Update(UserEducationHistoryUpdateModel model);
-
     }
 }

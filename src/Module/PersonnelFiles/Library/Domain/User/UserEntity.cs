@@ -11,9 +11,14 @@ namespace Nm.Module.PersonnelFiles.Domain.User
     public partial class UserEntity : EntityBaseWithSoftDelete
     {
         /// <summary>
+        /// 关联账户编号
+        /// </summary>
+        public Guid AccountId { get; set; }
+
+        /// <summary>
         /// 工号
         /// </summary>
-        public string Number { get; set; }
+        public int JobNo { get; set; }
 
         /// <summary>
         /// 所属部门
@@ -43,7 +48,7 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <summary>
         /// 出生日期
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         /// <summary>
         /// 民族
@@ -56,9 +61,23 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         public string Education { get; set; }
 
         /// <summary>
-        /// 照片(Base64)
+        /// 照片关联的附件编号
         /// </summary>
-        public string Picture { get; set; }
+        public Guid? Picture { get; set; }
 
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public string IdCardNo { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public string Email { get; set; }
     }
 }

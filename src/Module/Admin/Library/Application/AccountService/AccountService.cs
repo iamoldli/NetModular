@@ -241,8 +241,10 @@ namespace Nm.Module.Admin.Application.AccountService
             return ResultModel.Success(result);
         }
 
-        public async Task<IResultModel> Add(AccountAddModel model)
+        public async Task<IResultModel<Guid>> Add(AccountAddModel model)
         {
+            var result = new ResultModel<Guid>();
+
             var account = _mapper.Map<AccountEntity>(model);
 
             var exists = await Exists(account);
@@ -259,8 +261,7 @@ namespace Nm.Module.Admin.Application.AccountService
             account.Password = EncryptPassword(account.UserName.ToLower(), account.Password);
 
             _uow.BeginTransaction();
-            var result = await _accountRepository.AddAsync(account);
-            if (result)
+            if (await _accountRepository.AddAsync(account))
             {
                 if (model.Roles != null && model.Roles.Any())
                 {
@@ -268,17 +269,17 @@ namespace Nm.Module.Admin.Application.AccountService
                     if (await _accountRoleRepository.AddAsync(accountRoleList))
                     {
                         _uow.Commit();
-                        return ResultModel.Success();
+                        return result.Success(account.Id);
                     }
                 }
                 else
                 {
                     _uow.Commit();
-                    return ResultModel.Success(account.Id);
+                    return result.Success(account.Id);
                 }
             }
 
-            return ResultModel.Failed();
+            return result.Failed();
         }
 
         public async Task<IResultModel> Edit(Guid id)
@@ -424,23 +425,25 @@ namespace Nm.Module.Admin.Application.AccountService
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        private async Task<IResultModel> Exists(AccountEntity entity)
+        private async Task<IResultModel<Guid>> Exists(AccountEntity entity)
         {
-            if (await _accountRepository.ExistsUserName(entity.UserName, entity.Id, entity.Type))
-                return ResultModel.Failed("用户名已存在");
-            if (entity.Phone.NotNull() && await _accountRepository.ExistsPhone(entity.Phone, entity.Id, entity.Type))
-                return ResultModel.Failed("手机号已存在");
-            if (entity.Email.NotNull() && await _accountRepository.ExistsEmail(entity.Email, entity.Id, entity.Type))
-                return ResultModel.Failed("邮箱已存在");
+            var result = new ResultModel<Guid>();
 
-            return ResultModel.Success();
+            if (await _accountRepository.ExistsUserName(entity.UserName, entity.Id, entity.Type))
+                return result.Failed("用户名已存在");
+            if (entity.Phone.NotNull() && await _accountRepository.ExistsPhone(entity.Phone, entity.Id, entity.Type))
+                return result.Failed("手机号已存在");
+            if (entity.Email.NotNull() && await _accountRepository.ExistsEmail(entity.Email, entity.Id, entity.Type))
+                return result.Failed("邮箱已存在");
+
+            return result.Success(Guid.Empty);
         }
 
         /// <summary>
         /// 密码加密
         /// </summary>
         /// <returns></returns>
-        private string EncryptPassword(string userName, string password)
+        public string EncryptPassword(string userName, string password)
         {
             return Md5Encrypt.Encrypt($"{userName}_{password}");
         }

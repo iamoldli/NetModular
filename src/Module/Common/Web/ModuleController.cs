@@ -3,7 +3,7 @@ using Nm.Lib.Module.Abstractions;
 
 namespace Nm.Module.Common.Web
 {
-    [Area("common")]
+    [Area("Common")]
     public abstract class ModuleController : ModuleControllerAbstract
     {
 

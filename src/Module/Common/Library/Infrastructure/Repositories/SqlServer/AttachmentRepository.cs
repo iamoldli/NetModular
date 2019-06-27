@@ -22,7 +22,7 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereIf(model.Name.NotNull(), m => m.FileName.Contains(model.Name));
 
             if (!paging.OrderBy.Any())
             {

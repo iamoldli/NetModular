@@ -124,7 +124,7 @@ export default {
       type: Boolean,
       default: true
     },
-    /**没有内边距 */
+    /** 没有内边距 */
     noPadding: Boolean,
     /** 可拖拽 */
     draggable: {
@@ -155,7 +155,6 @@ export default {
     },
     close() {
       this.$emit('update:visible', false)
-      this.$emit('close')
     },
     resize() {
       this.$refs.scrollbar.update()
@@ -221,6 +220,23 @@ export default {
     if (this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
       window.removeEventListener('resize', this.resize)
+    }
+  },
+  watch: {
+    visible(val) {
+      if (val) {
+        this.$emit('open')
+
+        this.$nextTick(() => {
+          this.$emit('opened')
+        })
+      } else {
+        this.$emit('close')
+
+        this.$nextTick(() => {
+          this.$emit('closed')
+        })
+      }
     }
   }
 }

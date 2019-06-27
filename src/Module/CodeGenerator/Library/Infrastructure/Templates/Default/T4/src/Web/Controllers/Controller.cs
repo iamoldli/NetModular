@@ -154,7 +154,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             #line default
             #line hidden
             this.Write("        [HttpGet]\r\n        [Description(\"查询\")]\r\n        public Task<IResultModel>" +
-                    " Query([FromQuery] ");
+                    " Query([FromQuery]");
             
             #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
@@ -198,7 +198,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             #line default
             #line hidden
             this.Write("        [HttpDelete]\r\n        [Description(\"删除\")]\r\n        public async Task<IRes" +
-                    "ultModel> Delete([BindRequired] ");
+                    "ultModel> Delete([BindRequired]");
             
             #line 45 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
@@ -219,7 +219,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             #line default
             #line hidden
             this.Write("        [HttpGet]\r\n        [Description(\"编辑\")]\r\n        public async Task<IResult" +
-                    "Model> Edit([BindRequired] ");
+                    "Model> Edit([BindRequired]");
             
             #line 54 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));

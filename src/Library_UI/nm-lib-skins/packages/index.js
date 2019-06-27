@@ -10,6 +10,7 @@ import Icon from 'nm-lib-icon'
 import Components from './components'
 import Mixins from './mixins/'
 import Directive from './directive'
+import dayjs from 'dayjs'
 
 // 附加自定义样式
 const appendCustomCss = system => {
@@ -47,6 +48,9 @@ export default {
     // 全局引用ECharts，如果需要按需引用，请访问http://echarts.baidu.com/tutorial.html#%E5%9C%A8%20webpack%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20ECharts
     // eslint-disable-next-line no-undef
     Vue.prototype.$echarts = echarts
+
+    // 日期格式化插件
+    Vue.prototype.$dayjs = dayjs
 
     // 全局混入
     Mixins.global(Vue)

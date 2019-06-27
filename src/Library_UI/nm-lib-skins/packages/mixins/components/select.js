@@ -34,7 +34,9 @@ export default {
       default: '请选择'
     },
     /** 是否默认选中第一个 */
-    checkedFirst: Boolean
+    checkedFirst: Boolean,
+    /** 头部的图标 */
+    icon: ''
   },
   computed: {
     selection() {
@@ -137,14 +139,15 @@ export default {
             {this.$scopedSlots.default
               ? this.$scopedSlots.default({ options: this.options })
               : this.options.map(item => {
-                  return (
-                    <el-option
-                      label={item.label}
-                      value={item.value}
-                      disabled={item.disabled}
-                    />
-                  )
-                })}
+                return (
+                  <el-option
+                    label={item.label}
+                    value={item.value}
+                    disabled={item.disabled}
+                  />
+                )
+              })}
+            {this.icon ? <nm-icon name={this.icon} slot="prefix" /> : ''}
           </el-select>
         </div>
         <div class="nm-select-button">

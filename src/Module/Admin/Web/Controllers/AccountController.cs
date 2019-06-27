@@ -94,7 +94,7 @@ namespace Nm.Module.Admin.Web.Controllers
 
         [HttpPost]
         [Description("添加")]
-        public Task<IResultModel> Add(AccountAddModel model)
+        public Task<IResultModel<Guid>> Add(AccountAddModel model)
         {
             return _service.Add(model);
         }

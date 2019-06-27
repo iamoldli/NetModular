@@ -17,7 +17,7 @@
             Check.NotNull(name, nameof(name), "文件名称不能为空");
 
             FileName = name;
-            Size = size;
+            Size = new FileSize(size);
             Ext = System.IO.Path.GetExtension(FileName)?.TrimStart('.');
         }
 
@@ -39,7 +39,7 @@
         /// <summary>
         /// 文件大小
         /// </summary>
-        public long Size { get; set; }
+        public FileSize Size { get; set; }
 
         /// <summary>
         /// 扩展名
@@ -60,6 +60,5 @@
         /// 完整存储路径(不包含根路径)
         /// </summary>
         public string FullPath => System.IO.Path.Combine(Path, SaveName);
-
     }
 }

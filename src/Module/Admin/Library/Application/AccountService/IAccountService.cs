@@ -59,7 +59,7 @@ namespace Nm.Module.Admin.Application.AccountService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(AccountAddModel model);
+        Task<IResultModel<Guid>> Add(AccountAddModel model);
 
         /// <summary>
         /// 编辑
@@ -99,5 +99,13 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 清除指定账户的缓存数据
         /// </summary>
         void ClearPermissionListCache(Guid id);
+
+        /// <summary>
+        /// 密码加密
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        string EncryptPassword(string userName, string password);
     }
 }

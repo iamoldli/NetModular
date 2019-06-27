@@ -1,6 +1,6 @@
 using System;
 using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Core.Entities.Extend;
 
 namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory
 {
@@ -8,7 +8,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory
     /// 用户工作经历
     /// </summary>
     [Table("User_Work_History")]
-    public partial class UserWorkHistoryEntity : Entity<int>
+    public partial class UserWorkHistoryEntity : EntityBase<int>
     {
         /// <summary>
         /// 用户编号

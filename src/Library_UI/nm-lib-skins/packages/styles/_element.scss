@@ -61,3 +61,12 @@ body {
 .el-input-number {
     width: 100% !important;
 }
+
+.el-input__prefix {
+    #{$prefix}-icon {
+        position: relative;
+        top: 2px;
+        padding-right: 2px;
+        font-size: 22px;
+    }
+}

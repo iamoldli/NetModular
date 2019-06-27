@@ -8,7 +8,7 @@ namespace Nm.Lib.Validation.FluentValidation.Validators
     /// </summary>
     public class PhoneValidator : PropertyValidator
     {
-        private const string Pattern = @"^1\d{10}$";
+        private const string Pattern = @"^1[345789]\d{9}$";
         private static Regex _regex;
 
         public PhoneValidator() : base("手机号无效")

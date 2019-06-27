@@ -7,6 +7,7 @@ using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.DepartmentService.ResultModels;
 using Nm.Module.PersonnelFiles.Application.DepartmentService.ViewModels;
+using Nm.Module.PersonnelFiles.Domain.Company;
 using Nm.Module.PersonnelFiles.Domain.Department;
 using Nm.Module.PersonnelFiles.Domain.Department.Models;
 using Nm.Module.PersonnelFiles.Domain.User;
@@ -18,12 +19,14 @@ namespace Nm.Module.PersonnelFiles.Application.DepartmentService
         private readonly IMapper _mapper;
         private readonly IDepartmentRepository _repository;
         private readonly IUserRepository _userRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public DepartmentService(IMapper mapper, IDepartmentRepository repository, IUserRepository userRepository)
+        public DepartmentService(IMapper mapper, IDepartmentRepository repository, IUserRepository userRepository, ICompanyRepository companyRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _userRepository = userRepository;
+            _companyRepository = companyRepository;
         }
 
         public async Task<IResultModel> GetTree(Guid companyId)
@@ -134,6 +137,30 @@ namespace Nm.Module.PersonnelFiles.Application.DepartmentService
             var result = await _repository.UpdateAsync(entity);
 
             return ResultModel.Result(result);
+        }
+
+        public async Task<string> GetFullPath(Guid id)
+        {
+            var path = string.Empty;
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return path;
+
+            path = entity.Name;
+            if (!entity.ParentId.IsEmpty())
+            {
+                path = (await GetFullPath(entity.ParentId)) + " / " + path;
+            }
+            else
+            {
+                var company = await _companyRepository.GetAsync(entity.CompanyId);
+                if (company != null)
+                {
+                    path = company.Name + " / " + path;
+                }
+            }
+
+            return path;
         }
     }
 }

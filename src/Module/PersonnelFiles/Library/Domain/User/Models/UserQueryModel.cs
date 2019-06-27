@@ -12,6 +12,6 @@ namespace Nm.Module.PersonnelFiles.Domain.User.Models
         /// <summary>
         /// 工号
         /// </summary>
-        public string Number { get; set; }
+        public int? Number { get; set; }
     }
 }

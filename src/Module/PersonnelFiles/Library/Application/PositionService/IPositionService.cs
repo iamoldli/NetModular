@@ -46,5 +46,11 @@ namespace Nm.Module.PersonnelFiles.Application.PositionService
         /// <returns></returns>
         Task<IResultModel> Update(PositionUpdateModel model);
 
+        /// <summary>
+        /// 查询指定部门下的岗位列表
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        Task<IResultModel> Select(Guid departmentId);
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using Nm.Lib.Data.Core.Entities.Extend;
 
 namespace Nm.Module.PersonnelFiles.Domain.UserEducationHistory
 {
@@ -8,7 +8,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserEducationHistory
     /// 用户教育经历
     /// </summary>
     [Table("User_Education_History")]
-    public partial class UserEducationHistoryEntity : Entity<int>
+    public partial class UserEducationHistoryEntity : EntityBase<int>
     {
         /// <summary>
         /// 用户编号
@@ -35,5 +35,9 @@ namespace Nm.Module.PersonnelFiles.Domain.UserEducationHistory
         /// </summary>
         public DateTime EndDate { get; set; }
 
+        /// <summary>
+        /// 专业
+        /// </summary>
+        public string Profession { get; set; }
     }
 }

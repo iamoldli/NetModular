@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 17/06/2019 09:49:42
+ Date: 27/06/2019 18:08:37
 */
 
 SET NAMES utf8mb4;
@@ -29,18 +29,11 @@ CREATE TABLE `company`  (
   `Phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系电话',
   `Fax` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '传真',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
-  `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
-  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of company
--- ----------------------------
-INSERT INTO `company` VALUES ('39ee6189-b90f-fd20-ee94-a44b81c6d6f4', '南京欧德利科技有限公司', '南京', '', '48484848', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 13:43:35', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 13:45:39');
-INSERT INTO `company` VALUES ('39ee61a7-9727-5fc5-e5eb-aa70c2512b18', '微软科技', '西雅图', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 14:16:13', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 14:16:13');
-INSERT INTO `company` VALUES ('39ee61a7-b87b-5769-8324-6341835f0939', '苹果科技', '纽约', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 14:16:21', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 14:16:21');
 
 -- ----------------------------
 -- Table structure for department
@@ -54,17 +47,11 @@ CREATE TABLE `department`  (
   `Leader` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '负责人',
   `Sort` int(11) NOT NULL COMMENT '排序',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
-  `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
-  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of department
--- ----------------------------
-INSERT INTO `department` VALUES ('39ee628d-ca5d-7aa8-d79d-5813583943f4', '39ee6189-b90f-fd20-ee94-a44b81c6d6f4', '研发部', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000', 0, '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 18:27:39', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 18:33:50');
-INSERT INTO `department` VALUES ('39ee628e-109c-80f9-4615-d01360c67014', '39ee6189-b90f-fd20-ee94-a44b81c6d6f4', 'Java项目组', '39ee628d-ca5d-7aa8-d79d-5813583943f4', '00000000-0000-0000-0000-000000000000', 0, '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 18:27:57', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-13 18:27:57');
 
 -- ----------------------------
 -- Table structure for position
@@ -74,54 +61,51 @@ CREATE TABLE `position`  (
   `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
   `DepartmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '部门编码',
   `Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
-  `Code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '编码',
+  `Code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
-  `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
-  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of position
--- ----------------------------
-INSERT INTO `position` VALUES ('39ee6705-e688-e8f0-0f3a-434f68d4991d', '39ee628d-ca5d-7aa8-d79d-5813583943f4', 'Java', 'Java', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-14 15:17:20', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-14 15:17:33');
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `Number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '工号',
   `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
+  `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '关联账户编号',
+  `JobNo` int(11) NOT NULL COMMENT '工号',
   `DepartmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属部门',
   `PositionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '职位编号',
   `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
-  `Sex` tinyint(3) NOT NULL COMMENT '性别',
+  `Sex` smallint(6) NOT NULL COMMENT '性别',
   `Native` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '籍贯',
   `Birthday` datetime(0) NULL DEFAULT NULL COMMENT '出生日期',
   `Nation` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '民族',
   `Education` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学历',
-  `Picture` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '照片(Base64)',
+  `Picture` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '照片关联的附件编号',
+  `IdCardNo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份证号',
+  `Phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
+  `Email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '邮箱',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
-  `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
-  `ModifiedTime` datetime(0) NOT NULL COMMENT '修改时间',
-  `Deleted` tinyint(1) NOT NULL COMMENT '已删除',
-  `DeletedTime` datetime(0) NOT NULL COMMENT '删除时间',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+  `Deleted` tinyint(4) NOT NULL COMMENT '已删除',
+  `DeletedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '删除时间',
   `DeletedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '删除人',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for usercontact
+-- Table structure for user_contact
 -- ----------------------------
-DROP TABLE IF EXISTS `usercontact`;
-CREATE TABLE `usercontact`  (
+DROP TABLE IF EXISTS `user_contact`;
+CREATE TABLE `user_contact`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `UserId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户编号',
-  `Phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
-  `Email` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `QQ` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'QQ',
   `Wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信',
   `DingDing` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '钉钉',
@@ -138,24 +122,29 @@ CREATE TABLE `usercontact`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for usereducationhistory
+-- Table structure for user_education_history
 -- ----------------------------
-DROP TABLE IF EXISTS `usereducationhistory`;
-CREATE TABLE `usereducationhistory`  (
+DROP TABLE IF EXISTS `user_education_history`;
+CREATE TABLE `user_education_history`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `UserId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户编号',
   `SchoolName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '学校名称',
   `Level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '学历',
   `StartDate` datetime(0) NOT NULL COMMENT '开始日期',
   `EndDate` datetime(0) NOT NULL COMMENT '结束日期',
+  `Profession` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '专业',
+  `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for userworkhistory
+-- Table structure for user_work_history
 -- ----------------------------
-DROP TABLE IF EXISTS `userworkhistory`;
-CREATE TABLE `userworkhistory`  (
+DROP TABLE IF EXISTS `user_work_history`;
+CREATE TABLE `user_work_history`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `UserId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户编号',
   `EnterpriseName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '企业名称',
@@ -164,7 +153,11 @@ CREATE TABLE `userworkhistory`  (
   `Position` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '职位',
   `Contact` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系人',
   `ContactPhone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系人手机号',
-  `DimissionReason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '离职原因',
+  `DimissionReason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '离职原因',
+  `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+  `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '修改人',
+  `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
