@@ -86,6 +86,9 @@ export default {
     async open({ state, commit, dispatch, rootState }, route) {
       // 默认页直接返回
       if (defaultPageList.indexOf(route.path.toLowerCase()) > -1) {
+        // 判断是否缓存
+        if (isCache(route)) commit('keepAlivePush', route.name)
+
         commit('currentSet', {
           name: route.name,
           path: state.default,
