@@ -27,11 +27,12 @@ namespace Nm.Module.Admin.Web
         {
             var options = app.ApplicationServices.GetService<IOptionsMonitor<ModuleCommonOptions>>().CurrentValue;
 
-            var logoPath = Path.Combine(options.UploadPath, "admin/logo");
+            var logoPath = Path.Combine(options.UploadPath, "Admin/Logo");
             if (!Directory.Exists(logoPath))
             {
                 Directory.CreateDirectory(logoPath);
             }
+            //开放logo访问权限
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(logoPath),
