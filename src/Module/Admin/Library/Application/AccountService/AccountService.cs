@@ -351,12 +351,12 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> ResetPassword(Guid id)
         {
-            var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
+            var account = await _accountRepository.GetAsync(id);
             if (account == null || account.Deleted)
                 return ResultModel.Failed("账户不存在");
 
             var newPassword = EncryptPassword(account.UserName, DefaultPassword);
-            var result = await _accountRepository.UpdatePassword(_loginInfo.AccountId, newPassword);
+            var result = await _accountRepository.UpdatePassword(id, newPassword);
 
             return ResultModel.Result(result);
         }
