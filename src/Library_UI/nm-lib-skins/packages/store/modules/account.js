@@ -91,6 +91,15 @@ export default {
     initRouteMenus({ commit }, account) {
       account.menus.map(m => resolveRouteMenus(m))
       commit('initRouteMenus', routeMenus)
+    },
+    /** 是否拥有指定按钮权限 */
+    hasButton({ state }, button) {
+      if (!button || !button.code) return false
+
+      const b = !state.buttons.every(
+        c => c.toLowerCase() !== button.code.toLowerCase()
+      )
+      return b
     }
   },
   mutations: {

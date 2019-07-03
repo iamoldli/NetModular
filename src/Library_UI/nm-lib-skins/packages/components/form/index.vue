@@ -13,7 +13,7 @@
     :element-loading-background="loadingBackground"
     :element-loading-spinner="loadingSpinner"
   >
-    <slot/>
+    <slot />
   </el-form>
 </template>
 <script>
@@ -71,24 +71,22 @@ export default {
     /** 提交 */
     submit() {
       this.$refs.form.validate(async (valid) => {
-        if (valid) {
-          // 自定义验证
-          if (!this.validate || this.validate() === true) {
-            this.openLoading()
+        // 自定义验证
+        if (valid && (!this.validate || this.validate() === true)) {
+          this.openLoading()
 
-            this.action(this.model).then(data => {
-              if (this.successMsg === true) {
-                this._success(this.successMsgText)
-              }
+          this.action(this.model).then(data => {
+            if (this.successMsg === true) {
+              this._success(this.successMsgText)
+            }
 
-              this.$emit('success', data)
+            this.$emit('success', data)
 
-              this.closeLoading()
-            }).catch(() => {
-              this.$emit('error')
-              this.closeLoading()
-            })
-          }
+            this.closeLoading()
+          }).catch(() => {
+            this.$emit('error')
+            this.closeLoading()
+          })
         } else {
           // 验证失败
           this.$emit('validate-error')

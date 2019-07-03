@@ -17,7 +17,7 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
         private readonly ISqlAdapter _sqlAdapter;
         private readonly QueryBody _queryBody;
         private LambdaExpression _fullExpression;
-        private QueryParameters _parameters;
+        private IQueryParameters _parameters;
         private StringBuilder _sqlBuilder;
 
         public ExpressionResolver(ISqlAdapter sqlAdapter, QueryBody queryBody)
@@ -26,7 +26,7 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
             _queryBody = queryBody;
         }
 
-        public string Resolve(LambdaExpression expression, QueryParameters parameters)
+        public string Resolve(LambdaExpression expression, IQueryParameters parameters)
         {
             if (expression == null)
                 return string.Empty;

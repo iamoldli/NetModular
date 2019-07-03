@@ -36,7 +36,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
         #region ==方法==
 
-        public string CountSqlBuild(out QueryParameters parameters)
+        public string CountSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
 
@@ -53,7 +53,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string UpdateSqlBuild(string tableName, out QueryParameters parameters)
+        public string UpdateSqlBuild(string tableName, out IQueryParameters parameters)
         {
             Check.NotNull(tableName, nameof(tableName), "未指定更新表");
 
@@ -80,7 +80,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string DeleteSqlBuild(string tableName, out QueryParameters parameters)
+        public string DeleteSqlBuild(string tableName, out IQueryParameters parameters)
         {
             Check.NotNull(tableName, nameof(tableName), "未指定更新表");
 
@@ -100,7 +100,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string SoftDeleteSqlBuild(string tableName, out QueryParameters parameters)
+        public string SoftDeleteSqlBuild(string tableName, out IQueryParameters parameters)
         {
             Check.NotNull(tableName, nameof(tableName), "未指定删除表");
 
@@ -124,22 +124,22 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string MaxSqlBuild(out QueryParameters parameters)
+        public string MaxSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("MAX", out parameters);
         }
 
-        public string MinSqlBuild(out QueryParameters parameters)
+        public string MinSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("MIN", out parameters);
         }
 
-        public string SumSqlBuild(out QueryParameters parameters)
+        public string SumSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("SUM", out parameters);
         }
 
-        public string AvgSqlBuild(out QueryParameters parameters)
+        public string AvgSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("Avg", out parameters);
         }
@@ -150,7 +150,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <param name="funcName"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private string FuncSqlBuild(string funcName, out QueryParameters parameters)
+        private string FuncSqlBuild(string funcName, out IQueryParameters parameters)
         {
             var func = _queryBody.Function;
             Check.NotNull(func, nameof(func), "函数解析失败");
@@ -174,7 +174,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string FirstSqlBuild(out QueryParameters parameters)
+        public string FirstSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
             var select = ResolveSelect();
@@ -189,7 +189,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string ExistsSqlBuild(out QueryParameters parameters)
+        public string ExistsSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
 
@@ -205,7 +205,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string QuerySqlBuild(out QueryParameters parameters)
+        public string QuerySqlBuild(out IQueryParameters parameters)
         {
             string sql;
             parameters = new QueryParameters();
@@ -265,7 +265,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string GroupBySqlBuild(out QueryParameters parameters)
+        public string GroupBySqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
             var sqlBuilder = new StringBuilder("SELECT ");
@@ -295,14 +295,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
         #region ==解析Body==
 
-        private string ResolveFrom(QueryParameters parameters)
+        private string ResolveFrom(IQueryParameters parameters)
         {
             var sqlBuilder = new StringBuilder();
             ResolveFrom(sqlBuilder, parameters);
             return sqlBuilder.ToString();
         }
 
-        private void ResolveFrom(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveFrom(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             var first = _queryBody.JoinDescriptors.First();
 
@@ -336,7 +336,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private string ResolveWhere(QueryParameters parameters)
+        private string ResolveWhere(IQueryParameters parameters)
         {
             var whereSql = new StringBuilder();
             for (var i = 0; i < _queryBody.Where.Count; i++)
@@ -352,7 +352,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return whereSql.ToString();
         }
 
-        private void ResolveWhere(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveWhere(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             if (_queryBody.Where == null)
                 return;
@@ -364,7 +364,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private string ResolveUpdate(QueryParameters parameters)
+        private string ResolveUpdate(IQueryParameters parameters)
         {
             Check.NotNull(_queryBody.Update, nameof(_queryBody.Update), "未指定更新字段");
 
@@ -689,7 +689,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 解析聚合过滤条件
         /// </summary>
-        private void ResolveHaving(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveHaving(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             var havingSql = new StringBuilder();
             for (var i = 0; i < _queryBody.Having.Count; i++)
@@ -709,7 +709,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 设置修改人和修改时间
         /// </summary>
-        private void SetModifiedBy(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void SetModifiedBy(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             if (!_queryBody.SetModifiedBy || _dbContext.AccountId.IsNull())
                 return;

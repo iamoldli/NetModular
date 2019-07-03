@@ -33,7 +33,7 @@ export default baseUrl => {
         // 文件下载/预览
         if (response.request.responseType.toLowerCase() === 'blob') {
           const url = window.URL.createObjectURL(response.data)
-          //如果是预览直接返回，否则就是下载
+          // 如果是预览直接返回，否则就是下载
           if (response.config.preview) {
             return url
           }
