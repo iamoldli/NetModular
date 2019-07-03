@@ -27,6 +27,10 @@
 > [3、数据访问模块介绍](https://www.cnblogs.com/oldli/p/10910247.html)  
 > [4、模块化实现思路](https://www.cnblogs.com/oldli/p/10945137.html)
 
+### 交流QQ群
+
+南京.Net Core交流群 903210423 ，欢迎加群交流学习
+
 ### 开发环境
 
 #### 服务端
