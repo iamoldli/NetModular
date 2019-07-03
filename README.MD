@@ -42,7 +42,7 @@ IDE：vscode
 
 ### 运行方式
 
-1、找到`data`目录，按需要创建对应数据库(目前只上传了 MySql)
+1、找到`data`目录，按需要创建对应数据库(目前只上传了 SqlServer和MySql)
 
 > > 需要注意的时，在 linux 的 docker 中 mysql 默认启用了区分大小写，需要先关闭
 
