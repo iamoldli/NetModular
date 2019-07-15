@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -60,7 +58,7 @@ namespace MQ.RabbitMQ.Test
                     Store = 1000
                 };
 
-                _client.Send("product", "product", product);
+                _client.Send("product", product);
             }
         }
 
@@ -80,10 +78,10 @@ namespace MQ.RabbitMQ.Test
                 Store = 1000
             };
 
-            _client.Send("product", "product", product);
+            _client.Send("product", product);
 
             product.Id = 2;
-            _client.Send("product1", "product", product);
+            _client.Send("product1", product);
 
         }
     }
