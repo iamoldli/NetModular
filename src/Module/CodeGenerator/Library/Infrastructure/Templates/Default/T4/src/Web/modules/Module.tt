@@ -1,2 +1,0 @@
-<#@ template language="C#" #>
-{"Id": "<#= _model.Project.Code #>","Name":"<#= _model.Project.Name #>","Version":"1.0.0"}

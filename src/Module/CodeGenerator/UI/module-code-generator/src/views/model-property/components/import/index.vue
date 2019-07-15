@@ -38,7 +38,8 @@ export default {
         width: '718px',
         height: '600px',
         noScrollbar: true,
-        loading: this.loading
+        loading: this.loading,
+        footer:true
       }
     }
   },

@@ -1,9 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {
     public class UpdatePasswordModel
     {
+        /// <summary>
+        /// 账户编号
+        /// </summary>
+        [JsonIgnore]
+        public Guid AccountId { get; set; }
+
         /// <summary>
         /// 旧密码
         /// </summary>

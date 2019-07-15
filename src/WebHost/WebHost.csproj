@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <!--复制本地锁定的程序集到输出目录-->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <RootNamespace>Nm.WebHost</RootNamespace>
     <AssemblyName>Nm.WebHost</AssemblyName>
   </PropertyGroup>
@@ -16,7 +18,7 @@
     <ProjectReference Include="..\Library\Data\Db\Data.MySql\Data.MySql.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.SQLite\Data.SQLite.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />
-    <ProjectReference Include="..\Library\WebHost\WebHost.Core\WebHost.Core.csproj" />
+    <ProjectReference Include="..\Library\Host\Host.Web\Host.Web.csproj" />
     <ProjectReference Include="..\Module\Admin\Web\Web.csproj" />
     <ProjectReference Include="..\Module\CodeGenerator\Web\Web.csproj" />
     <ProjectReference Include="..\Module\Common\Web\Web.csproj" />

@@ -8,13 +8,11 @@ namespace Nm.Lib.Cache.Redis
 {
     public class RedisCacheHandler : ICacheHandler
     {
-        private readonly RedisHelper _helper;
         private readonly IDatabase _db;
 
         public RedisCacheHandler(RedisHelper helper)
         {
-            _helper = helper;
-            _db = _helper.GetDb();
+            _db = helper.GetDb();
         }
 
         public string Get(string key)

@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AreaService.ViewModels;
+using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Area.Models;
+using Nm.Module.Common.Infrastructure.AreaCrawling;
 
 namespace Nm.Module.Common.Application.AreaService
 {
@@ -46,17 +49,16 @@ namespace Nm.Module.Common.Application.AreaService
         Task<IResultModel> Update(AreaUpdateModel model);
 
         /// <summary>
-        /// 爬取数据
-        /// <see cref="http://www.mca.gov.cn/article/sj/xzqh/2019/201901-06/201905271445.html"/>
+        /// 插入爬取数据
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> Crawling();
+        Task<IResultModel> CrawlInsert(IList<AreaCrawlingModel> list);
 
         /// <summary>
         /// 查询子节点
         /// </summary>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        Task<IResultModel> QueryChildren(int parentId);
+        Task<IResultModel<IList<AreaEntity>>> QueryChildren(int parentId);
     }
 }

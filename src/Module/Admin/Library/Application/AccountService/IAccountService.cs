@@ -32,7 +32,7 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 获取登录信息
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> LoginInfo();
+        Task<IResultModel> LoginInfo(Guid accountId);
 
         /// <summary>
         /// 修改密码
@@ -79,8 +79,9 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="deleter">删除人</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(Guid id);
+        Task<IResultModel> Delete(Guid id,Guid deleter);
 
         /// <summary>
         /// 重置密码

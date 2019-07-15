@@ -5,11 +5,11 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <Import Project="..\..\..\..\build\web.build.targets" />
-
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Library\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Library\Auth\Auth.Web\Auth.Web.csproj" />
+    <ProjectReference Include="..\..\..\Library\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
     <ProjectReference Include="..\..\..\Library\Utils\Utils.Mvc\Utils.Mvc.csproj" />
+    <ProjectReference Include="..\..\..\Library\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />
   </ItemGroup>
 

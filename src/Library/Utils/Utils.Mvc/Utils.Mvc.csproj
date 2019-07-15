@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>NetModular基础模块MVC相关扩展</Description>
   </PropertyGroup>
 
   <ItemGroup>

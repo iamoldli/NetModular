@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
     <ProjectReference Include="..\Validation.Abstractions\Validation.Abstractions.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Nm.Lib.WebHost.Core;
+using Nm.Lib.Host.Web;
 
 namespace Nm.WebHost
 {

@@ -13,5 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Auth.Abstractions\Auth.Abstractions.csproj" />
+    <ProjectReference Include="..\Auth.Web\Auth.Web.csproj" />
   </ItemGroup>
 </Project>

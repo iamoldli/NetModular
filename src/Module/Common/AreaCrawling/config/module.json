@@ -1,0 +1,11 @@
+{
+  //文件上传路径
+  "UploadPath": "",
+  //临时文件路径
+  "TempPath": "",
+  //通用模块
+  "Common": {
+    //附件上传路径
+    "AttachmentPath": ""
+  }
+}

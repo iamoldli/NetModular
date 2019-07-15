@@ -42,11 +42,13 @@ IDE：vscode
 
 ### 运行方式
 
-1、找到`data`目录，按需要创建对应数据库(目前只上传了 SqlServer和MySql)
+1、找到`data`目录，按需要创建对应数据库(目前只上传了 SqlServer 和 MySql)
 
 > > 需要注意的时，在 linux 的 docker 中 mysql 默认启用了区分大小写，需要先关闭
 
 2、打开`src/WebHost/conifg/db.json`文件，配置数据库连接
+
+数据库切换通过`Dialect`配置：0、SqlServer 1、MySql 2、SQLite
 
 ```json
 {

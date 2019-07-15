@@ -20,7 +20,6 @@ export default {
     dialog () {
       return {
         noScrollbar: true,
-        noFooter: true,
         title: `权限绑定(${this.name})`,
         icon: 'bind',
         width: '70%',

@@ -26,9 +26,13 @@ export default {
     }
   },
   methods: {
-    async get() {
+    async edit() {
       this.form.loading = true
-      this.form.model = await this.api.edit(this.id)
+      if (this.editAction) {
+        this.form.model = await this.editAction()
+      } else {
+        this.form.model = await this.api.edit(this.id)
+      }
       this.model_ = this.$_.merge({}, this.form.model)
       this.form.loading = false
 
@@ -56,7 +60,7 @@ export default {
       }
 
       if (this.id !== this.form.model.id) {
-        this.get()
+        this.edit()
       }
     }
   }

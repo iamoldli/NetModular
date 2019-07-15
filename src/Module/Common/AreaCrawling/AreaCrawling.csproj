@@ -14,11 +14,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj" />
     <ProjectReference Include="..\..\..\Library\Data\Db\Data.MySql\Data.MySql.csproj" />
-    <ProjectReference Include="..\..\..\Library\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj" />
-    <ProjectReference Include="..\..\..\Library\Utils\Utils.Core\Utils.Core.csproj" />
+    <ProjectReference Include="..\..\..\Library\Host\Host.Generic\Host.Generic.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />
     <ProjectReference Include="..\Library\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config\cache.Development.json">
+      <DependentUpon>config\cache.json</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\cache.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -40,4 +50,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config\module.Development.json">
+      <DependentUpon>config\module.json</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\module.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

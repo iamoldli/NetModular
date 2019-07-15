@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Auth.Web;
 using Nm.Lib.Utils.Core.Result;
 
 namespace Nm.Lib.Auth.Jwt

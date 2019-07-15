@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
@@ -38,7 +38,7 @@ namespace Nm.Lib.Data.AspNetCore
 
             foreach (var options in dbOptions.Connections)
             {
-                var module = modules.FirstOrDefault(m => m.Id.Equals(options.Name, StringComparison.OrdinalIgnoreCase));
+                var module = modules.FirstOrDefault(m => m.Id.EqualsIgnoreCase(options.Name));
                 if (module != null)
                 {
                     LoadEntityTypes(module, options);
@@ -64,9 +64,9 @@ namespace Nm.Lib.Data.AspNetCore
         /// <summary>
         /// 添加数据库上下文
         /// </summary>
-        private static void AddDbContext(this IServiceCollection services, ModuleInfo module, DbConnectionOptions options, DbOptions dbOptions)
+        private static void AddDbContext(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options, DbOptions dbOptions)
         {
-            var dbContextType = module.AssembliesInfo.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
+            var dbContextType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
             if (dbContextType != null)
             {
                 var assemblyHelper = new AssemblyHelper();
@@ -77,10 +77,10 @@ namespace Nm.Lib.Data.AspNetCore
 
                 //日志工厂
                 var loggerFactory = dbOptions.Logging ? services.BuildServiceProvider().GetService<ILoggerFactory>() : null;
-                //请求上下文访问器
-                var httpContextAccessor = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
+                //登录信息
+                var loginInfo = services.BuildServiceProvider().GetService<ILoginInfo>();
 
-                var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, httpContextAccessor);
+                var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, loginInfo);
 
                 services.AddScoped(typeof(IDbContext), sp => Activator.CreateInstance(dbContextType, contextOptions));
                 services.AddUnitOfWork(dbContextType, options);
@@ -108,18 +108,18 @@ namespace Nm.Lib.Data.AspNetCore
         /// <summary>
         /// 添加仓储
         /// </summary>
-        private static void AddRepositories(this IServiceCollection services, ModuleInfo module, DbConnectionOptions options)
+        private static void AddRepositories(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options)
         {
-            var interfaceList = module.AssembliesInfo.Domain.GetTypes().Where(t => t.IsInterface && typeof(IRepository<>).IsImplementType(t)).ToList();
+            var interfaceList = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsInterface && typeof(IRepository<>).IsImplementType(t)).ToList();
 
             if (!interfaceList.Any())
                 return;
 
             //根据仓储的命名空间名称来注入不同数据库的仓储
-            var entityNamespacePrefix = $"{module.AssembliesInfo.Infrastructure.GetName().Name}.Repositories.{options.Dialect}.";
+            var entityNamespacePrefix = $"{module.AssemblyDescriptor.Infrastructure.GetName().Name}.Repositories.{options.Dialect}.";
             foreach (var serviceType in interfaceList)
             {
-                var implementType = module.AssembliesInfo.Infrastructure.GetTypes().FirstOrDefault(m => m.FullName.NotNull() && m.FullName.StartsWith(entityNamespacePrefix) && serviceType.IsAssignableFrom(m));
+                var implementType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.FullName.NotNull() && m.FullName.StartsWith(entityNamespacePrefix) && serviceType.IsAssignableFrom(m));
                 if (implementType != null)
                 {
                     services.AddScoped(serviceType, sp =>
@@ -136,9 +136,9 @@ namespace Nm.Lib.Data.AspNetCore
         /// </summary>
         /// <param name="module"></param>
         /// <param name="options"></param>
-        private static void LoadEntityTypes(ModuleInfo module, DbConnectionOptions options)
+        private static void LoadEntityTypes(IModuleDescriptor module, DbConnectionOptions options)
         {
-            options.EntityTypes = module.AssembliesInfo.Domain.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
+            options.EntityTypes = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
         }
     }
 }

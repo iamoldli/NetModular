@@ -1,4 +1,5 @@
-﻿using <#= _prefix #>.Lib.Data.Abstractions;
+﻿<#@ template language="C#" #>
+using <#= _prefix #>.Lib.Data.Abstractions;
 using <#= _prefix #>.Lib.Data.Core;
 
 namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Repositories

@@ -52,5 +52,16 @@ namespace Nm.Lib.Validation.FluentValidation
         {
             return ruleBuilder.NotNull().NotEmpty();
         }
+
+        /// <summary>
+        /// 验证IP
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ruleBuilder"></param>
+        /// <returns></returns>
+        public static IRuleBuilderOptions<T, string> IP<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            return ruleBuilder.SetValidator(new IPValidator());
+        }
     }
 }

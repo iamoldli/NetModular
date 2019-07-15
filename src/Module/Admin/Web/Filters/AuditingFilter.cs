@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Module.AspNetCore.Attributes;
 using Nm.Lib.Utils.Core.Enums;
 using Nm.Module.Admin.Application.AuditInfoService;
 using Nm.Module.Admin.Application.SystemService;
@@ -21,11 +21,11 @@ namespace Nm.Module.Admin.Web.Filters
     public class AuditingFilter : IAsyncActionFilter
     {
         private readonly AdminOptions _options;
-        private readonly LoginInfo _loginInfo;
+        private readonly ILoginInfo _loginInfo;
         private readonly IAuditInfoService _auditInfoService;
         private readonly ISystemService _systemService;
 
-        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, LoginInfo loginInfo, ISystemService systemService)
+        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, ILoginInfo loginInfo, ISystemService systemService)
         {
             _options = optionsAccessor.CurrentValue;
             _auditInfoService = auditInfoService;

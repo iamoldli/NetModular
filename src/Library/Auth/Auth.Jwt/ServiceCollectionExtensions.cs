@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Auth.Web;
 using Nm.Lib.Utils.Core.Helpers;
 
 namespace Nm.Lib.Auth.Jwt
@@ -19,10 +20,12 @@ namespace Nm.Lib.Auth.Jwt
         {
             var cfgHelper = new ConfigurationHelper();
             var jwtOptions = cfgHelper.Get<JwtOptions>("Jwt", environmentName);
+            if (jwtOptions == null)
+                return services;
 
             services.AddSingleton(jwtOptions);
-            services.TryAddSingleton(typeof(ILoginHandler), typeof(JwtLoginHandler));
-            services.TryAddSingleton(typeof(LoginInfo));
+            services.TryAddSingleton<ILoginHandler, JwtLoginHandler>();
+            services.TryAddSingleton<ILoginInfo, LoginInfo>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Encrypt;
@@ -39,7 +38,6 @@ namespace Nm.Module.Admin.Application.AccountService
 
         //默认密码
         public const string DefaultPassword = "123456";
-        private readonly LoginInfo _loginInfo;
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
@@ -52,9 +50,8 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
 
-        public AccountService(LoginInfo loginInfo, ICacheHandler cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
+        public AccountService(ICacheHandler cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
         {
-            _loginInfo = loginInfo;
             _cache = cache;
             _mapper = mapper;
             _uow = uow;
@@ -112,7 +109,7 @@ namespace Nm.Module.Admin.Application.AccountService
 
             //是否激活
             var status = account.Status == AccountStatus.Inactive ? AccountStatus.Enabled : AccountStatus.UnKnown;
-            await _accountRepository.UpdateLoginInfo(account.Id, _loginInfo.IPv4, status);
+            await _accountRepository.UpdateLoginInfo(account.Id, model.IP, status);
 
             #endregion
 
@@ -122,9 +119,9 @@ namespace Nm.Module.Admin.Application.AccountService
             return result.Success(account);
         }
 
-        public async Task<IResultModel> LoginInfo()
+        public async Task<IResultModel> LoginInfo(Guid accountId)
         {
-            var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
+            var account = await _accountRepository.GetAsync(accountId);
             if (!CheckAccount(account, out string msg))
             {
                 return ResultModel.Failed(msg);
@@ -142,8 +139,8 @@ namespace Nm.Module.Admin.Application.AccountService
                 }
             };
 
-            var getMenuTree = GetAccountMenuTree();
-            var getButtonCodeList = _buttonRepository.QueryCodeByAccount(_loginInfo.AccountId);
+            var getMenuTree = GetAccountMenuTree(accountId);
+            var getButtonCodeList = _buttonRepository.QueryCodeByAccount(accountId);
 
             model.Menus = await getMenuTree;
             model.Buttons = await getButtonCodeList;
@@ -180,7 +177,7 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> UpdatePassword(UpdatePasswordModel model)
         {
-            var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
+            var account = await _accountRepository.GetAsync(model.AccountId);
             if (account == null || account.Deleted)
                 return ResultModel.Failed("账户不存在");
 
@@ -189,7 +186,7 @@ namespace Nm.Module.Admin.Application.AccountService
                 return ResultModel.Failed("原密码错误");
 
             var newPassword = EncryptPassword(account.UserName, model.NewPassword);
-            var result = await _accountRepository.UpdatePassword(_loginInfo.AccountId, newPassword);
+            var result = await _accountRepository.UpdatePassword(model.AccountId, newPassword);
 
             return ResultModel.Result(result);
         }
@@ -337,12 +334,12 @@ namespace Nm.Module.Admin.Application.AccountService
             return ResultModel.Failed();
         }
 
-        public async Task<IResultModel> Delete(Guid id)
+        public async Task<IResultModel> Delete(Guid id, Guid deleter)
         {
             var entity = await _accountRepository.GetAsync(id);
             if (entity == null)
                 return ResultModel.NotExists;
-            if (entity.Id == _loginInfo.AccountId)
+            if (entity.Id == deleter)
                 return ResultModel.Failed("不允许删除自己的账户");
 
             var result = await _accountRepository.SoftDeleteAsync(id);
@@ -389,9 +386,9 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 获取账户的菜单树
         /// </summary>
         /// <returns></returns>
-        private async Task<List<AccountMenuItem>> GetAccountMenuTree()
+        private async Task<List<AccountMenuItem>> GetAccountMenuTree(Guid accountId)
         {
-            var entities = (await _menuRepository.GetByAccount(_loginInfo.AccountId)).Distinct(new MenuComparer()).ToList();
+            var entities = (await _menuRepository.GetByAccount(accountId)).Distinct(new MenuComparer()).ToList();
             var all = _mapper.Map<List<AccountMenuItem>>(entities);
             var tree = all.Where(e => e.ParentId.IsEmpty()).OrderBy(e => e.Sort).ToList();
 

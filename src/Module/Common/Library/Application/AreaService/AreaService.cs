@@ -18,14 +18,12 @@ namespace Nm.Module.Common.Application.AreaService
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IAreaRepository _repository;
-        private readonly IAreaCrawlingHandler _areaCrawlingHandler;
         private readonly IUnitOfWork _uow;
 
-        public AreaService(IMapper mapper, IAreaRepository repository, IAreaCrawlingHandler areaCrawlingHandler, IUnitOfWork<CommonDbContext> uow, ICacheHandler cache)
+        public AreaService(IMapper mapper, IAreaRepository repository, IUnitOfWork<CommonDbContext> uow, ICacheHandler cache)
         {
             _mapper = mapper;
             _repository = repository;
-            _areaCrawlingHandler = areaCrawlingHandler;
             _uow = uow;
             _cache = cache;
         }
@@ -47,9 +45,9 @@ namespace Nm.Module.Common.Application.AreaService
             {
                 return ResultModel.HasExists;
             }
-            
-            entity.Pinyin= NPinyin.Pinyin.GetPinyin(entity.Name);
-            entity.Jianpin= NPinyin.Pinyin.GetInitials(entity.Name);
+
+            entity.Pinyin = NPinyin.Pinyin.GetPinyin(entity.Name);
+            entity.Jianpin = NPinyin.Pinyin.GetInitials(entity.Name);
 
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
@@ -92,10 +90,8 @@ namespace Nm.Module.Common.Application.AreaService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> Crawling()
+        public async Task<IResultModel> CrawlInsert(IList<AreaCrawlingModel> list)
         {
-            var list = await _areaCrawlingHandler.Crawling();
-
             _uow.BeginTransaction();
 
             foreach (var m in list)
@@ -124,8 +120,9 @@ namespace Nm.Module.Common.Application.AreaService
             }
         }
 
-        public async Task<IResultModel> QueryChildren(int parentId)
+        public async Task<IResultModel<IList<AreaEntity>>> QueryChildren(int parentId)
         {
+            var result = new ResultModel<IList<AreaEntity>>();
             var cacheKey = AreaCacheKey + parentId;
             if (!_cache.TryGetValue(cacheKey, out IList<AreaEntity> list))
             {
@@ -134,7 +131,7 @@ namespace Nm.Module.Common.Application.AreaService
                 await _cache.SetAsync(cacheKey, list);
             }
 
-            return ResultModel.Success(list);
+            return result.Success(list);
         }
     }
 }

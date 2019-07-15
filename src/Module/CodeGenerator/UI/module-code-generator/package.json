@@ -1,6 +1,6 @@
 {
     "name": "nm-module-code-generator",
-    "version": "1.1.5",
+    "version": "1.2.0",
     "author": "Oldli",
     "license": "ISC",
     "code": "CodeGenerator",

@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <Import Project="..\..\..\..\..\build\module.build.targets" />
+
   <ItemGroup>
     <PackageReference Include="System.CodeDom" Version="4.5.0" />
   </ItemGroup>
@@ -14,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Templates\Default\T4\src\Library\Infrastructure\Options\ModuleOptionsConfigure.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleOptionsConfigure.cs</LastGenOutput>
+    </None>
     <None Update="Templates\Default\T4\src\WebHost\config\cache.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>cache.cs</LastGenOutput>
@@ -122,9 +128,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Solution.cs</LastGenOutput>
     </None>
-    <None Update="Templates\Default\T4\build\WebBuildTargets.tt">
+    <None Update="Templates\Default\T4\build\ModuleBuildTargets.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>WebBuildTargets.cs</LastGenOutput>
+      <LastGenOutput>ModuleBuildTargets.cs</LastGenOutput>
     </None>
     <None Update="Templates\Default\T4\Gitignore.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -290,10 +296,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>loggingDevelopment.cs</LastGenOutput>
     </None>
-    <None Update="Templates\Default\T4\src\DirectoryBuildTargets.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DirectoryBuildTargets.cs</LastGenOutput>
-    </None>
     <None Update="Templates\Default\T4\src\DirectoryBuildProps.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>DirectoryBuildProps.cs</LastGenOutput>
@@ -305,10 +307,6 @@
     <None Update="Templates\Default\T4\src\UI\App\vscode\settings.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>settings.cs</LastGenOutput>
-    </None>
-    <None Update="Templates\Default\T4\src\Web\modules\Module.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Module.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -647,11 +645,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Main.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\Web\modules\Module.*">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Module.tt</DependentUpon>
-    </Compile>
     <Compile Update="Templates\Default\T4\data\SchemaMySql.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -677,6 +670,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>cacheDevelopment.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Options\ModuleOptionsConfigure.*">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleOptionsConfigure.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\build\ModuleBuildTargets.*">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleBuildTargets.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
-
+  
 </Project>

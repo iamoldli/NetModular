@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.ConfigService;

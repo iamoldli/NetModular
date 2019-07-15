@@ -1,5 +1,5 @@
 <template>
-  <nm-dialog no-scrollbar no-footer width="70%" height="70%" title="绑定菜单" icon="bind" :visible.sync="visible_" :loading="loading">
+  <nm-dialog no-scrollbar width="70%" height="70%" title="绑定菜单" icon="bind" :visible.sync="visible_" :loading="loading">
     <menu-bind
       :id="id"
       :menu-query-action="menuQueryAction"
@@ -16,7 +16,7 @@ import MenuBind from '../../../menu/components/bind'
 export default {
   components: { MenuBind },
   mixins: [mixins.dialog],
-  data () {
+  data() {
     return {
       loading: false
     }
@@ -28,7 +28,7 @@ export default {
     }
   },
   methods: {
-    async menuQueryAction () {
+    async menuQueryAction() {
       let checkedKeys = []
       this.loading = true
       const data = await api.menuList(this.id)
@@ -40,18 +40,18 @@ export default {
       this.loading = false
       return checkedKeys
     },
-    async menuUpdateAction (menus) {
+    async menuUpdateAction(menus) {
       this.loading = true
       await api.bindMenu({ id: this.id, menus })
       this.loading = false
     },
-    async buttonQueryAction (menuId) {
+    async buttonQueryAction(menuId) {
       this.loading = true
       var data = await api.menuButtonList({ id: this.id, menuId })
       this.loading = false
       return data
     },
-    buttonUpdateAction (params) {
+    buttonUpdateAction(params) {
       // params : {menuId, buttonId, checked} buttonId为空标识批量操作所有按钮
 
       this.loading = true

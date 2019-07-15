@@ -20,6 +20,9 @@ namespace Nm.Lib.Cache.Integration
             var cfgHelper = new ConfigurationHelper();
             var cacheOptions = cfgHelper.Get<CacheOptions>("Cache", environmentName);
 
+            if (cacheOptions == null)
+                return services;
+
             services.AddSingleton(cacheOptions);
 
             var ns = typeof(ServiceCollectionExtensions).Namespace;

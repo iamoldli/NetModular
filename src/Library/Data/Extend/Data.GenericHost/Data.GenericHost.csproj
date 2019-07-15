@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular数据访问通用主机集成扩展库</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
@@ -9,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Utils\Utils.Core\Utils.Core.csproj" />
     <ProjectReference Include="..\..\Core\Data.Core\Data.Core.csproj" />
   </ItemGroup>

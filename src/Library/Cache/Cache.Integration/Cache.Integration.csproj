@@ -13,4 +13,12 @@
     <ProjectReference Include="..\Cache.Abstractions\Cache.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="config\cache.Development.json">
+      <DependentUpon>config\cache.json</DependentUpon>
+    </None>
+    <None Update="config\cache.json">
+    </None>
+  </ItemGroup>
+
 </Project>

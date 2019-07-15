@@ -7,6 +7,9 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Core.ExpressionResolve;
 using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Utils.Core.Extensions;
+using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
+using StringExtensions = Nm.Lib.Data.Core.Internal.StringExtensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
@@ -111,7 +114,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             sqlBuilder.AppendFormat("{0}={1},", _sqlAdapter.AppendQuote("DeletedTime"), _sqlAdapter.AppendParameter("P1"));
             parameters.Add(DateTime.Now);
             sqlBuilder.AppendFormat("{0}={1} ", _sqlAdapter.AppendQuote("DeletedBy"), _sqlAdapter.AppendParameter("P2"));
-            parameters.Add(_dbContext.AccountId);
+
+            var deleteBy = Guid.Empty;
+            if (_dbContext.LoginInfo != null)
+            {
+                deleteBy = _dbContext.LoginInfo.AccountId;
+            }
+
+            parameters.Add(deleteBy);
 
             var whereSql = ResolveWhere(parameters);
             Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
@@ -221,7 +231,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 #region ==SqlServer分页需要指定排序==
 
                 //SqlServer分页需要指定排序，此处判断是否有主键，有主键默认按照主键排序
-                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && sort.IsNull())
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && StringExtensions.IsNull(sort))
                 {
                     var first = _queryBody.JoinDescriptors.First();
                     if (first.EntityDescriptor.PrimaryKey.IsNo())
@@ -394,7 +404,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         private void ResolveOrder(StringBuilder sqlBuilder)
         {
             var sql = ResolveOrder();
-            if (sql.NotNull())
+            if (StringExtensions.NotNull(sql))
                 sqlBuilder.AppendFormat(" ORDER BY {0}", sql);
         }
 
@@ -600,10 +610,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             {
                 var funcName = _sqlAdapter.FuncSubstring;
                 var colName = _queryBody.GetColumnName(objExp, fullExpression);
-                var start = ((ConstantExpression)callExp.Arguments[0]).Value.ToInt() + 1;
+                var start = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[0]).Value) + 1;
                 if (callExp.Arguments.Count > 1)
                 {
-                    var length = ((ConstantExpression)callExp.Arguments[1]).Value.ToInt();
+                    var length = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[1]).Value);
                     sqlBuilder.AppendFormat("{0}({1},{2},{3}) AS {4},", funcName, colName, start, length, alias);
                 }
                 else
@@ -711,13 +721,13 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         private void SetModifiedBy(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
-            if (!_queryBody.SetModifiedBy || _dbContext.AccountId.IsNull())
+            if (!_queryBody.SetModifiedBy ||_dbContext.LoginInfo == null)
                 return;
 
             var descriptor = _queryBody.JoinDescriptors.FirstOrDefault()?.EntityDescriptor;
             if (descriptor != null && descriptor.IsEntityBase)
             {
-                var p1 = parameters.Add(new Guid(_dbContext.AccountId));
+                var p1 = parameters.Add(_dbContext.LoginInfo.AccountId);
                 sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedBy"), p1);
                 var p2 = parameters.Add(DateTime.Now);
                 sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedTime"), p2);

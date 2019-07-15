@@ -26,10 +26,11 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
         public virtual string TransformText()
         {
             this.Write("<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>nets" +
-                    "tandard2.0</TargetFramework>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageR" +
-                    "eference Include=\"");
+                    "tandard2.0</TargetFramework>\r\n  </PropertyGroup>\r\n\r\n  <Import Project=\"..\\..\\..\\" +
+                    "..\\..\\build\\module.build.targets\" />\r\n\r\n  <ItemGroup>\r\n    <PackageReference Inc" +
+                    "lude=\"");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Csproj.tt"
+            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

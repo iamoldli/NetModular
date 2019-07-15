@@ -2,6 +2,7 @@
 using System.Data;
 using System.Text;
 using Dapper;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 
@@ -12,14 +13,14 @@ namespace Nm.Lib.Data.Core
     /// </summary>
     public abstract class DbContext : IDbContext
     {
-        private static object _lock = new object();
+        private static readonly object Lock = new object();
 
         #region ==属性==
 
         /// <summary>
-        /// 当前登录账户编号
+        /// 登录信息
         /// </summary>
-        public string AccountId => Options.HttpContextAccessor?.HttpContext.User.FindFirst("id")?.Value;
+        public ILoginInfo LoginInfo { get; }
 
         /// <summary>
         /// 数据库上下文配置项
@@ -43,6 +44,7 @@ namespace Nm.Lib.Data.Core
         protected DbContext(IDbContextOptions options)
         {
             Options = options;
+            LoginInfo = Options.LoginInfo;
         }
 
         #endregion
@@ -73,7 +75,7 @@ namespace Nm.Lib.Data.Core
         public IDbConnection Open()
         {
             //加个锁，防止并发是异常
-            lock (_lock)
+            lock (Lock)
             {
                 if (Connection == null)
                     Connection = Options.OpenConnection();

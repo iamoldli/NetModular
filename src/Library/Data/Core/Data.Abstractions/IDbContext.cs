@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 
 namespace Nm.Lib.Data.Abstractions
@@ -10,9 +11,9 @@ namespace Nm.Lib.Data.Abstractions
     public interface IDbContext : IDisposable
     {
         /// <summary>
-        /// 当前登录账户编号
+        /// 登录信息
         /// </summary>
-        string AccountId { get; }
+        ILoginInfo LoginInfo { get; }
 
         /// <summary>
         /// 数据库配置

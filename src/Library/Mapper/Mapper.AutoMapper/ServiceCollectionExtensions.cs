@@ -20,7 +20,7 @@ namespace Nm.Lib.Mapper.AutoMapper
             {
                 foreach (var moduleInfo in modules)
                 {
-                    var types = moduleInfo.AssembliesInfo.Application.GetTypes().Where(t => typeof(IMapperConfig).IsAssignableFrom(t));
+                    var types = moduleInfo.AssemblyDescriptor.Application.GetTypes().Where(t => typeof(IMapperConfig).IsAssignableFrom(t));
 
                     foreach (var type in types)
                     {

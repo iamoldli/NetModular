@@ -1,4 +1,4 @@
-﻿using Nm.Lib.WebHost.Core;
+﻿using Nm.Lib.Host.Web;
 
 namespace Nm.WebHost
 {
@@ -6,7 +6,7 @@ namespace Nm.WebHost
     {
         public static void Main(string[] args)
         {
-            WebHostCreator.Run<Startup>(args);
+            new HostBuilder().Run<Startup>(args);
         }
     }
 }

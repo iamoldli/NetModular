@@ -25,26 +25,40 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<Project Sdk=""Microsoft.NET.Sdk"">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <Import Project=""..\..\build\web.build.targets"" />
-
-  <ItemGroup>
-    <PackageReference Include=""");
+            this.Write("<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>nets" +
+                    "tandard2.0</TargetFramework>\r\n    <GenerateDocumentationFile>false</GenerateDocu" +
+                    "mentationFile>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageReference Inclu" +
+                    "de=\"");
+            
+            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Auth.Web\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Module.AspNetCore\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.Module.Abstractions\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGroup>\r\n  " +
-                    "  <ProjectReference Include=\"..\\Library\\Application\\Application.csproj\" />\r\n  </" +
-                    "ItemGroup>\r\n\r\n</Project>\r\n");
+            this.Write(".Lib.Utils.Mvc\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Validation.FluentValidation\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGr" +
+                    "oup>\r\n    <ProjectReference Include=\"..\\Library\\Application\\Application.csproj\" " +
+                    "/>\r\n  </ItemGroup>\r\n\r\n</Project>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

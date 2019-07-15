@@ -41,24 +41,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write(".Lib.Mapper.AutoMapper\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
-            
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\Csproj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write(".Lib.Swagger\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
-            
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\Csproj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write(".Lib.Validation.FluentValidation\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGr" +
-                    "oup>\r\n    <ProjectReference Include=\"..\\Domain\\Domain.csproj\" />\r\n    <ProjectRe" +
-                    "ference Include=\"..\\Infrastructure\\Infrastructure.csproj\" />\r\n  </ItemGroup>\r\n\r\n" +
-                    "</Project>\r\n");
+            this.Write(".Lib.Mapper.AutoMapper\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGroup>\r\n    " +
+                    "<ProjectReference Include=\"..\\Domain\\Domain.csproj\" />\r\n    <ProjectReference In" +
+                    "clude=\"..\\Infrastructure\\Infrastructure.csproj\" />\r\n  </ItemGroup>\r\n\r\n</Project>" +
+                    "\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

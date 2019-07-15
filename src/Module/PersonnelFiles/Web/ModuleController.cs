@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Auth.Web;
 
 namespace Nm.Module.PersonnelFiles.Web
 {
     [Area("PersonnelFiles")]
-    public abstract class ModuleController : ModuleControllerAbstract
+    public abstract class ModuleController : ControllerAbstract
     {
 
     }

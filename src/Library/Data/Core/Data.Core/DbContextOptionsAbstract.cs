@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
@@ -20,8 +20,8 @@ namespace Nm.Lib.Data.Core
         /// <param name="options"></param>
         /// <param name="sqlAdapter">数据库适配器</param>
         /// <param name="loggerFactory">日志工厂</param>
-        /// <param name="httpContextAccessor"></param>
-        protected DbContextOptionsAbstract(DbOptions dbOptions, DbConnectionOptions options, ISqlAdapter sqlAdapter, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
+        /// <param name="loginInfo">登录信息</param>
+        protected DbContextOptionsAbstract(DbOptions dbOptions, DbConnectionOptions options, ISqlAdapter sqlAdapter, ILoggerFactory loggerFactory, ILoginInfo loginInfo)
         {
             if (options.Name.IsNull())
                 throw new ArgumentNullException(nameof(options.Name), "数据库连接名称未配置");
@@ -34,7 +34,7 @@ namespace Nm.Lib.Data.Core
             ConnectionString = options.ConnString;
             SqlAdapter = sqlAdapter;
             LoggerFactory = loggerFactory;
-            HttpContextAccessor = httpContextAccessor;
+            LoginInfo = loginInfo;
 
             if (options.EntityTypes != null && options.EntityTypes.Any())
             {
@@ -55,7 +55,8 @@ namespace Nm.Lib.Data.Core
 
         public ILoggerFactory LoggerFactory { get; }
 
-        public IHttpContextAccessor HttpContextAccessor { get; }
+        public ILoginInfo LoginInfo { get; set; }
+
         public DbOptions DbOptions { get; }
     }
 }

@@ -12,6 +12,8 @@ using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Core.Internal;
 using Nm.Lib.Data.Core.SqlQueryable;
+using Nm.Lib.Utils.Core.Extensions;
+using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
 
 namespace Nm.Lib.Data.Core
 {
@@ -400,7 +402,14 @@ namespace Nm.Lib.Data.Core
             var dynParams = new DynamicParameters();
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
             dynParams.Add(_sqlAdapter.AppendParameter("DeletedTime"), DateTime.Now);
-            dynParams.Add(_sqlAdapter.AppendParameter("DeletedBy"), DbContext.AccountId);
+
+            var deleteBy = Guid.Empty;
+            if (DbContext.LoginInfo != null)
+            {
+                deleteBy = DbContext.LoginInfo.AccountId;
+            }
+            dynParams.Add(_sqlAdapter.AppendParameter("DeletedBy"), deleteBy);
+
 
             return dynParams;
         }
@@ -640,11 +649,11 @@ namespace Nm.Lib.Data.Core
         private void AppendValue(StringBuilder sqlBuilder, Type type, object value)
         {
             if (type.IsEnum || type == typeof(bool))
-                sqlBuilder.AppendFormat("{0}", value.ToInt());
+                sqlBuilder.AppendFormat("{0}", CommonExtensions.ToInt(value));
             else if (type == typeof(string) || type == typeof(char) || type == typeof(Guid))
                 sqlBuilder.AppendFormat("'{0}'", value);
             else if (type == typeof(DateTime))
-                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", value.ToDateTime());
+                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", CommonExtensions.ToDateTime(value));
             else
                 sqlBuilder.AppendFormat("{0}", value);
         }
@@ -655,7 +664,7 @@ namespace Nm.Lib.Data.Core
         /// <param name="entity"></param>
         private void SetCreatedBy(TEntity entity)
         {
-            if (EntityDescriptor.IsEntityBase && DbContext.AccountId != null)
+            if (EntityDescriptor.IsEntityBase && DbContext.LoginInfo != null)
             {
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
@@ -665,7 +674,7 @@ namespace Nm.Lib.Data.Core
                         var createdBy = (Guid)column.PropertyInfo.GetValue(entity);
                         if (createdBy == Guid.Empty)
                         {
-                            createdBy = new Guid(DbContext.AccountId);
+                            createdBy = DbContext.LoginInfo.AccountId;
                             column.PropertyInfo.SetValue(entity, createdBy);
                             i++;
                         }
@@ -683,7 +692,7 @@ namespace Nm.Lib.Data.Core
         /// <param name="entity"></param>
         private void SetModifiedBy(TEntity entity)
         {
-            if (EntityDescriptor.IsEntityBase && DbContext.AccountId != null)
+            if (EntityDescriptor.IsEntityBase && DbContext.LoginInfo != null)
             {
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
@@ -691,7 +700,7 @@ namespace Nm.Lib.Data.Core
                     if (column.Name.Equals("ModifiedBy"))
                     {
                         var modifiedBy = (Guid)column.PropertyInfo.GetValue(entity);
-                        var accountId = new Guid(DbContext.AccountId);
+                        var accountId = DbContext.LoginInfo.AccountId;
                         if (modifiedBy == Guid.Empty || modifiedBy != accountId)
                         {
                             column.PropertyInfo.SetValue(entity, accountId);

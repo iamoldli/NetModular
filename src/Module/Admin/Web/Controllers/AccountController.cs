@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Auth.Abstractions.Attributes;
-using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Auth.Web;
+using Nm.Lib.Auth.Web.Attributes;
+using Nm.Lib.Module.AspNetCore.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -20,14 +20,14 @@ namespace Nm.Module.Admin.Web.Controllers
     [Description("账户管理")]
     public class AccountController : ModuleController
     {
-        private readonly ILogger _logger;
+        private readonly ILoginInfo _loginInfo;
         private readonly IAccountService _service;
         private readonly ILoginHandler _loginHandler;
-        public AccountController(IAccountService accountService, ILogger<AccountController> logger, ILoginHandler loginHandler)
+        public AccountController(IAccountService accountService, ILoginHandler loginHandler, ILoginInfo loginInfo)
         {
             _service = accountService;
-            _logger = logger;
             _loginHandler = loginHandler;
+            _loginInfo = loginInfo;
         }
 
         [HttpGet]
@@ -36,7 +36,6 @@ namespace Nm.Module.Admin.Web.Controllers
         [Description("获取验证码")]
         public IResultModel VerifyCode(int length = 6)
         {
-            _logger.LogError("获取验证码");
             return _service.CreateVerifyCode(length);
         }
 
@@ -46,6 +45,7 @@ namespace Nm.Module.Admin.Web.Controllers
         [Description("登录")]
         public async Task<IResultModel> Login([FromBody]LoginModel model)
         {
+            model.IP = _loginInfo.IPv4;
             var result = await _service.Login(model);
             if (result.Successful)
             {
@@ -67,7 +67,7 @@ namespace Nm.Module.Admin.Web.Controllers
         [Description("获取账户登录信息")]
         public Task<IResultModel> LoginInfo()
         {
-            return _service.LoginInfo();
+            return _service.LoginInfo(_loginInfo.AccountId);
         }
 
         [HttpPost]
@@ -75,6 +75,7 @@ namespace Nm.Module.Admin.Web.Controllers
         [Common]
         public Task<IResultModel> UpdatePassword(UpdatePasswordModel model)
         {
+            model.AccountId = _loginInfo.AccountId;
             return _service.UpdatePassword(model);
         }
 
@@ -117,7 +118,7 @@ namespace Nm.Module.Admin.Web.Controllers
         [Description("删除")]
         public Task<IResultModel> Delete([BindRequired]Guid id)
         {
-            return _service.Delete(id);
+            return _service.Delete(id, _loginInfo.AccountId);
         }
 
         [HttpPost]

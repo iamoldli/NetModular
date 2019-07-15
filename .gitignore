@@ -344,3 +344,4 @@ ASALocalRun/
 /src/Module/Common/UI/nm-module-common/package-lock.json
 /src/Module/PersonnelFiles/UI/nm-module-personnelfiles/package-lock.json
 /src/WebUI/package-lock.json
+/src/Module/Admin/UI/module-admin/package-lock.json

@@ -62,6 +62,10 @@
                     color: $text-color1;
                     transform: scale(1.2);
                 }
+
+                #{$prefix}-icon {
+                    transform: scale(1) !important;
+                }
             }
         }
     }

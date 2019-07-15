@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
 using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;

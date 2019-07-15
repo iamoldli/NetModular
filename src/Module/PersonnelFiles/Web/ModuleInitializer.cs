@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
-using Nm.Module.PersonnelFiles.Infrastructure.Options;
+using Nm.Lib.Module.AspNetCore;
 
 namespace Nm.Module.PersonnelFiles.Web
 {
@@ -34,16 +32,6 @@ namespace Nm.Module.PersonnelFiles.Web
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
                    
-        }
-
-        /// <summary>
-        /// 配置配置项
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        public void ConfigOptions(IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<PersonnelFilesOptions>(configuration);
         }
     }
 }

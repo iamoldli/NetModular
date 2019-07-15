@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
-using Nm.Module.Common.Infrastructure.AreaCrawling;
-using Nm.Module.Common.Infrastructure.Options;
+using Nm.Lib.Module.AspNetCore;
 
 namespace Nm.Module.Common.Web
 {
@@ -17,7 +14,6 @@ namespace Nm.Module.Common.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IAreaCrawlingHandler, AreaCrawlingHandler>();
         }
 
         /// <summary>
@@ -36,16 +32,6 @@ namespace Nm.Module.Common.Web
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
 
-        }
-
-        /// <summary>
-        /// 配置配置项
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        public void ConfigOptions(IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<CommonOptions>(configuration);
         }
     }
 }

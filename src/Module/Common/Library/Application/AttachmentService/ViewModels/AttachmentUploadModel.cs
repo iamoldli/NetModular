@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Nm.Module.Common.Application.AttachmentService.ViewModels
 {
@@ -8,7 +9,11 @@ namespace Nm.Module.Common.Application.AttachmentService.ViewModels
     /// </summary>
     public class AttachmentUploadModel
     {
-        public IFormFile File { get; set; }
+        /// <summary>
+        /// 账户编号
+        /// </summary>
+        [JsonIgnore]
+        public Guid AccountId { get; set; }
 
         /// <summary>
         /// 所属模块

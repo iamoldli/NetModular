@@ -5,7 +5,7 @@ namespace Nm.Lib.Module.Abstractions
     /// <summary>
     /// 模块集合
     /// </summary>
-    public interface IModuleCollection : IList<ModuleInfo>
+    public interface IModuleCollection : IList<IModuleDescriptor>
     {
 
     }

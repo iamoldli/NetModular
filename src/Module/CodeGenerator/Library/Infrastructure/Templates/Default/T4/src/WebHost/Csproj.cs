@@ -25,47 +25,61 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<Project Sdk=\"Microsoft.NET.Sdk.Web\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>" +
-                    "netcoreapp2.2</TargetFramework>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <Packa" +
-                    "geReference Include=\"Microsoft.AspNetCore.App\" />\r\n    <PackageReference Include" +
-                    "=\"");
-            
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write(".Lib.Data.AspNetCore\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
-            
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write(".Lib.Data.SqlServer\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(@"<Project Sdk=""Microsoft.NET.Sdk.Web"">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <!--复制本地锁定的程序集到输出目录-->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include=""Microsoft.AspNetCore.App"" />
+    <PackageReference Include=""");
             
             #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.Data.MySql\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Cache.MemoryCache\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.Data.SQLite\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Cache.Redis\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write(".Lib.WebHost.Core\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            this.Write(".Lib.Data.SqlServer\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
             
             #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Data.MySql\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Data.SQLite\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write(".Lib.Host.Web\" Version=\"1.0.0\" />\r\n    <PackageReference Include=\"");
+            
+            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

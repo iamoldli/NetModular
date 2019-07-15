@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Library\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
-    <ProjectReference Include="..\..\..\..\Library\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
     <ProjectReference Include="..\..\..\Admin\Library\Application\Application.csproj" />
     <ProjectReference Include="..\..\..\Admin\Library\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />

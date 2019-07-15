@@ -1,5 +1,6 @@
 ﻿using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities.Extend;
+using Nm.Lib.Utils.Core.Enums;
 
 namespace Nm.Module.Admin.Domain.Permission
 {
@@ -32,6 +33,6 @@ namespace Nm.Module.Admin.Domain.Permission
         /// <summary>
         /// 请求方法
         /// </summary>
-        public HttpMethodType HttpMethod { get; set; }
+        public HttpMethod HttpMethod { get; set; }
     }
 }
