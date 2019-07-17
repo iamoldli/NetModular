@@ -269,6 +269,10 @@ export default {
     if (this.queryOnCreated) {
       this.query()
     }
+  },
+  activated() {
+    // 重新绘制布局
+    this.$refs.table.doLayout()
   }
 }
 </script>
