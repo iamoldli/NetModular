@@ -9,27 +9,27 @@
     <!--header-->
     <query-header v-if="!noHeader" :title="title" :icon="icon" :no-fullscreen="noFullscreen" :fullscreen.sync="fullscreen" :no-refresh="noRefresh">
       <template v-slot:toolbar>
-        <slot name="header-toolbar" :total="total" :selection="selection"/>
+        <slot name="header-toolbar" :total="total" :selection="selection" />
       </template>
     </query-header>
 
     <!--查询栏-->
     <querybar ref="querybar" v-if="!noQuerybar" v-bind="querybar">
       <template v-slot>
-        <slot name="querybar"/>
+        <slot name="querybar" />
       </template>
       <template v-slot:buttons>
-        <slot name="querybar-buttons" :total="total" :selection="selection"/>
+        <slot name="querybar-buttons" :total="total" :selection="selection" />
       </template>
       <template v-slot:advanced>
-        <slot name="querybar-advanced"/>
+        <slot name="querybar-advanced" />
       </template>
     </querybar>
 
     <section class="nm-list-body">
       <query-table ref="table" :rows="rows" :cols="cols" :span-method="spanMethod" :selection.sync="selection">
         <!-- 多选 -->
-        <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55"/>
+        <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55" />
 
         <!-- 序号 -->
         <el-table-column v-if="showNo" fixed="left" align="center" type="index" :index="getNo">
@@ -60,7 +60,7 @@
             <!--自定义头-->
             <template v-slot:header>
               <slot :name="`col-${col.name}-header`">
-                <nm-icon v-if="col.icon" :name="col.icon"/>
+                <nm-icon v-if="col.icon" :name="col.icon" />
                 {{col.label}}
               </slot>
             </template>
@@ -78,7 +78,7 @@
           </template>
           <template slot-scope="{row}">
             <div class="nm-list-operation">
-              <slot name="col-operation" :row="row"/>
+              <slot name="col-operation" :row="row" />
             </div>
           </template>
         </el-table-column>
@@ -87,9 +87,9 @@
 
     <!--footer-->
     <query-footer v-if="!noFooter" v-model="page" :total="total" :columns.sync="columns" :no-select-column="noSelectColumn" :reverse="footerReverse">
-      <slot name="footer" :total="total" :selection="selection"/>
+      <slot name="footer" :total="total" :selection="selection" />
     </query-footer>
-    <slot/>
+    <slot />
   </section>
 </template>
 <script>
@@ -237,7 +237,10 @@ export default {
       this.action(fullModel).then(data => {
         this.rows = data.rows
         this.total = data.total
+        // 回到顶部
         this.$refs.table.scrollTop()
+        // 重新绘制布局
+        this.$refs.table.doLayout()
         this.loading_ = false
       }).catch(() => {
         this.loading_ = false

@@ -13,9 +13,7 @@ body {
     .el-table {
 
         th.gutter,
-        colgroup.gutter {
-            display: table-cell !important;
-        }
+        colgroup.gutter {}
     }
 }
 
