@@ -12,8 +12,8 @@
         "cc": "rimraf node_modules/.cache"
     },
     "dependencies": {
-        "nm-lib-icon": "^1.1.0",
-        "nm-lib-skins": "^1.1.0",
+        "nm-lib-icon": "^1.2.1",
+        "nm-lib-skins": "^1.2.2",
         "nm-module-admin": "^1.1.11",
         "nm-module-code-generator": "^1.1.0",
         "nm-module-common": "^1.0.2",
@@ -32,7 +32,7 @@
         "eslint-plugin-vue": "^5.2.2",
         "fibers": "^3.1.1",
         "rimraf": "^2.6.3",
-        "sass": "^1.20.3",
+        "sass": "^1.22.5",
         "sass-loader": "^7.1.0",
         "uglifyjs-webpack-plugin": "^2.1.2",
         "vue-template-compiler": "^2.6.10"
