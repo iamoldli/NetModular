@@ -74,7 +74,7 @@ namespace Nm.Lib.Data.Core
         /// </summary>
         public IDbConnection Open()
         {
-            //加个锁，防止并发是异常
+            //加个锁，防止并发时异常
             lock (Lock)
             {
                 if (Connection == null)
@@ -108,9 +108,9 @@ namespace Nm.Lib.Data.Core
                         Connection.ExecuteAsync(sql.ToString());
                     }
                 }
-
-                return Connection;
             }
+
+            return Connection;
         }
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()

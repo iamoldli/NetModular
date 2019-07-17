@@ -12,7 +12,7 @@ namespace Nm.Lib.MQ.RabbitMQ
     /// <summary>
     /// RabbitMQ客户端
     /// </summary>
-    public class RabbitMQClient
+    public class RabbitMQClient : IDisposable
     {
         //发送连接
         private readonly IConnection _sendConnection;
@@ -49,8 +49,6 @@ namespace Nm.Lib.MQ.RabbitMQ
             _receiveConnection = factory.CreateConnection();
         }
 
-        #region ==发送消息==
-
         /// <summary>
         /// 发送单条消息
         /// </summary>
@@ -67,41 +65,38 @@ namespace Nm.Lib.MQ.RabbitMQ
             if (routingKey.IsNull())
                 routingKey = queue;
 
-            var channel = _sendConnection.CreateModel();
-
-            if (exchange.IsNull())
+            using (var channel = _sendConnection.CreateModel())
             {
-                switch (exchangeType)
+                if (exchange.IsNull())
                 {
-                    case ExchangeType.Direct:
-                        exchange = DefaultExchange.Direct;
-                        break;
-                    case ExchangeType.Fanout:
-                        exchange = DefaultExchange.Fanout;
-                        break;
-                    case ExchangeType.Topic:
-                        exchange = DefaultExchange.Topic;
-                        break;
-                    case ExchangeType.Headers:
-                        exchange = DefaultExchange.Headers;
-                        break;
+                    switch (exchangeType)
+                    {
+                        case ExchangeType.Direct:
+                            exchange = DefaultExchange.Direct;
+                            break;
+                        case ExchangeType.Fanout:
+                            exchange = DefaultExchange.Fanout;
+                            break;
+                        case ExchangeType.Topic:
+                            exchange = DefaultExchange.Topic;
+                            break;
+                        case ExchangeType.Headers:
+                            exchange = DefaultExchange.Headers;
+                            break;
+                    }
                 }
+
+                channel.ExchangeDeclare(exchange, exchangeType, true, false, null);
+                channel.QueueDeclare(queue, true, false, false);
+                channel.QueueBind(queue, exchange, routingKey);
+
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+                var properties = channel.CreateBasicProperties();
+                properties.Persistent = true;
+
+                channel.BasicPublish(exchange, routingKey, properties, body);
             }
-
-            channel.ExchangeDeclare(exchange, exchangeType, true, false, null);
-            channel.QueueDeclare(queue, true, false, false);
-            channel.QueueBind(queue, exchange, routingKey);
-
-            var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = true;
-
-            channel.BasicPublish(exchange, routingKey, properties, body);
         }
-
-        #endregion
-
-        #region ==订阅消息==
 
         /// <summary>
         /// 使用事件接收消息
@@ -109,7 +104,7 @@ namespace Nm.Lib.MQ.RabbitMQ
         /// <typeparam name="T"></typeparam>
         /// <param name="queue"></param>
         /// <param name="func"></param>
-        public void Receive<T>(string queue, Func<T, bool> func)
+        public Consumer Receive<T>(string queue, Func<T, bool> func)
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
             Check.NotNull(func, nameof(func), "func is null");
@@ -132,9 +127,18 @@ namespace Nm.Lib.MQ.RabbitMQ
                 }
             };
 
-            channel.BasicConsume(queue, false, consumer);
+            var tag = channel.BasicConsume(queue, false, consumer);
+            return new Consumer
+            {
+                Channel = channel,
+                Tag = tag
+            };
         }
 
-        #endregion
+        public void Dispose()
+        {
+            _sendConnection?.Dispose();
+            _receiveConnection?.Dispose();
+        }
     }
 }

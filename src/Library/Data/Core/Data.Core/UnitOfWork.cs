@@ -45,7 +45,10 @@ namespace Nm.Lib.Data.Core
             //如果不是null，则表示未提交或者出现异常，需要回滚
             Rollback();
 
-            _dbContext.Connection?.Close();
+            if (_dbContext.Connection != null && _dbContext.Connection.State != ConnectionState.Closed)
+            {
+                _dbContext.Connection.Close();
+            }
         }
     }
 

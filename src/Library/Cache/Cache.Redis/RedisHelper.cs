@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -8,7 +9,7 @@ using StackExchange.Redis;
 
 namespace Nm.Lib.Cache.Redis
 {
-    public class RedisHelper
+    public class RedisHelper : IDisposable
     {
         private readonly ConnectionMultiplexer _redis;
         public IDatabase Db;
@@ -56,6 +57,11 @@ namespace Nm.Lib.Cache.Redis
         public Task HashDeleteAsync(string key, string field)
         {
             return Db.HashDeleteAsync(key, field);
+        }
+
+        public void Dispose()
+        {
+            _redis?.Dispose();
         }
     }
 }

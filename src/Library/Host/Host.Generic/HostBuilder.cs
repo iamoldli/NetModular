@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -73,13 +74,16 @@ namespace Nm.Lib.Host.Generic
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args"></param>
         /// <param name="configureServices"></param>
-        public void Run<TStartup>(string[] args, Action<IServiceCollection, IHostingEnvironment> configureServices = null) where TStartup : class, IHostedService
+        public async Task Run<TStartup>(string[] args, Action<IServiceCollection, IHostingEnvironment> configureServices = null) where TStartup : class, IHostedService
         {
             var host = Build<TStartup>(args, configureServices);
 
-            host.Run();
+            using (host)
+            {
+                await host.StartAsync();
 
-            host.WaitForShutdown();
+                await host.WaitForShutdownAsync();
+            }
         }
     }
 }

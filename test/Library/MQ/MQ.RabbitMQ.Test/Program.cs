@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.Host.Generic;
 using Nm.Lib.MQ.RabbitMQ;
@@ -8,11 +8,9 @@ namespace MQ.RabbitMQ.Test
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            new HostBuilder().Run<Startup>(args, ConfigureServices);
-
-            Console.Read();
+            await new HostBuilder().Run<Startup>(args, ConfigureServices);
         }
 
         /// <summary>

@@ -11,6 +11,8 @@
 //解决element-ui的table表格无法对齐的问题
 body {
     .el-table {
+
+        th.gutter,
         colgroup.gutter {
             display: table-cell !important;
         }

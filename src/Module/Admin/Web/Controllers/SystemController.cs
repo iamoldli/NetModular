@@ -97,7 +97,7 @@ namespace Nm.Module.Admin.Web.Controllers
         [Description("获取指定模块的Controller下拉列表")]
         public IResultModel AllController([BindRequired]string module)
         {
-            var list = _mvcHelper.GetAllController().Where(m => m.Area.EqualsIgnoreCase(module)).Select(m => new OptionResultModel
+            var list = _mvcHelper.GetAllController().Where(m => m.Area.NotNull() && m.Area.EqualsIgnoreCase(module)).Select(m => new OptionResultModel
             {
                 Label = m.Description,
                 Value = m.Name
@@ -111,7 +111,8 @@ namespace Nm.Module.Admin.Web.Controllers
         public IResultModel AllAction([BindRequired]string module, [BindRequired]string controller)
         {
             var list = _mvcHelper.GetAllAction().Where(m =>
-                m.Controller.Area.EqualsIgnoreCase(module)
+                m.Controller.Area.NotNull()
+                && m.Controller.Area.EqualsIgnoreCase(module)
                 && m.Controller.Name.EqualsIgnoreCase(controller)
                 && !m.MethodInfo.CustomAttributes.Any(n => n.AttributeType == typeof(AllowAnonymousAttribute) || n.AttributeType == typeof(CommonAttribute)))
                 .Select(m => new OptionResultModel

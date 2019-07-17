@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ElectronNET.API" Version="5.22.12" />
+    <PackageReference Include="ElectronNET.API" Version="5.22.13" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
