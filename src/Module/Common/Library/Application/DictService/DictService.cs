@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.DictService.ViewModels;
-using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Dict;
 using Nm.Module.Common.Domain.Dict.Models;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.MediaTypeService.ViewModels;
 using Nm.Module.Common.Domain.MediaType.Models;

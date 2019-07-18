@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nm.Lib.Data.Abstractions;
+﻿using Nm.Lib.Data.Abstractions;
 
 namespace Nm.Module.Common.Infrastructure.Repositories.MySql
 {

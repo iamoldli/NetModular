@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Utils.Core.Enums;
 using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Auth.Web

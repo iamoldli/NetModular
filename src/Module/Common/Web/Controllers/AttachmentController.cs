@@ -11,11 +11,8 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Lib.Utils.Mvc.Extensions;
 using Nm.Lib.Utils.Mvc.Helpers;
 using Nm.Module.Common.Application.AttachmentService;
-using Nm.Module.Common.Application.AttachmentService.ResultModels;
 using Nm.Module.Common.Application.AttachmentService.ViewModels;
-using Nm.Module.Common.Domain.Attachment;
 using Nm.Module.Common.Domain.Attachment.Models;
-using Nm.Module.Common.Domain.AttachmentOwner;
 
 namespace Nm.Module.Common.Web.Controllers
 {

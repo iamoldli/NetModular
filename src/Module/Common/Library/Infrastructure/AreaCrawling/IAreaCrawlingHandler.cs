@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Module.Common.Domain.Area;
 
 namespace Nm.Module.Common.Infrastructure.AreaCrawling
 {

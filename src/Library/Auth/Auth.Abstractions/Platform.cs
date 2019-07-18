@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Utils.Core.Enums
+namespace Nm.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 平台类型

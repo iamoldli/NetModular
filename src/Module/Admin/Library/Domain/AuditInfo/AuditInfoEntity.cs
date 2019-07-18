@@ -1,7 +1,7 @@
 ﻿using System;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities;
-using Nm.Lib.Utils.Core.Enums;
 
 namespace Nm.Module.Admin.Domain.AuditInfo
 {

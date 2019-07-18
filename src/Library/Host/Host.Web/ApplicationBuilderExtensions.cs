@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Nm.Lib.Host.Web.Middleware;
 using Nm.Lib.Host.Web.Options;
 using Nm.Lib.Module.AspNetCore;
-using Nm.Lib.Swagger;
 using Nm.Lib.Swagger.Core;
 
 namespace Nm.Lib.Host.Web

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Nm.Lib.Utils.Core.Enums;
+using Nm.Lib.Auth.Abstractions;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.MediaTypeService.ViewModels;
 using Nm.Module.Common.Domain.MediaType;

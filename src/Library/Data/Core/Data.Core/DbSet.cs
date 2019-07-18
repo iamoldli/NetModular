@@ -12,7 +12,6 @@ using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Core.Internal;
 using Nm.Lib.Data.Core.SqlQueryable;
-using Nm.Lib.Utils.Core.Extensions;
 using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
 
 namespace Nm.Lib.Data.Core

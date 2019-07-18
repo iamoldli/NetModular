@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Module.Common.Domain.Dict.Models;
 
 namespace Nm.Module.Common.Domain.Dict

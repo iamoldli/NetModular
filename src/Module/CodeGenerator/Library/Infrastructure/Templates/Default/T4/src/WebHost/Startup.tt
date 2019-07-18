@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" #>
 using Microsoft.AspNetCore.Hosting;
-using <#= _prefix #>.Lib.WebHost.Core;
+using <#= _prefix #>.Lib.Host.Web;
 
 namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.WebHost
 {

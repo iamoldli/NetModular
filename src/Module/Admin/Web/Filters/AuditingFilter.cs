@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Enums;
 using Nm.Module.Admin.Application.AuditInfoService;
 using Nm.Module.Admin.Application.SystemService;
 using Nm.Module.Admin.Domain.AuditInfo;

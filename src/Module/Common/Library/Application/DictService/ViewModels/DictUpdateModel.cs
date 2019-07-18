@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.Common.Domain.Dict;
 
 namespace Nm.Module.Common.Application.DictService.ViewModels
 {

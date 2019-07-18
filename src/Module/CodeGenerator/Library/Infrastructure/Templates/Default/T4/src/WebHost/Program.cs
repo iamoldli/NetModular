@@ -32,7 +32,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             
             #line default
             #line hidden
-            this.Write(".Lib.WebHost.Core;\r\n\r\nnamespace ");
+            this.Write(".Lib.Host.Web;\r\n\r\nnamespace ");
             
             #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Program.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -47,8 +47,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             #line default
             #line hidden
             this.Write(".WebHost\r\n{\r\n    public class Program\r\n    {\r\n        public static void Main(str" +
-                    "ing[] args)\r\n        {\r\n            WebHostCreator.Run<Startup>(args);\r\n        " +
-                    "}\r\n    }\r\n}\r\n");
+                    "ing[] args)\r\n        {\r\n            new HostBuilder().Run<Startup>(args);\r\n     " +
+                    "   }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

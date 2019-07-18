@@ -7,7 +7,6 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Core.ExpressionResolve;
 using Nm.Lib.Data.Core.Internal;
-using Nm.Lib.Utils.Core.Extensions;
 using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
 using StringExtensions = Nm.Lib.Data.Core.Internal.StringExtensions;
 

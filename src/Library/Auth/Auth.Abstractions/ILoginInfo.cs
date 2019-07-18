@@ -1,5 +1,4 @@
-﻿using Nm.Lib.Utils.Core.Enums;
-using System;
+﻿using System;
 
 namespace Nm.Lib.Auth.Abstractions
 {

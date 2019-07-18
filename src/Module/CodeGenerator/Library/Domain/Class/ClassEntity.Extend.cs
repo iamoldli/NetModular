@@ -1,6 +1,5 @@
 ﻿using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.CodeGenerator.Domain.ClassMethod;
 
 namespace Nm.Module.CodeGenerator.Domain.Class
 {
