@@ -39,7 +39,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.build
   </ItemGroup>
 
   <ItemGroup Condition=""Exists('$(ModuleName)')"">
-    <EmbeddedResource Include=""$(ModuleName)"" />
+    <EmbeddedResource Include=""$(ModuleName)"" Watch=""false""/>
   </ItemGroup>
 
   <Target Name=""ModulesBuildBefore"" AfterTargets=""Build"">
