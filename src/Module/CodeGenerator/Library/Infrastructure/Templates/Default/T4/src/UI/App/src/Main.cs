@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>

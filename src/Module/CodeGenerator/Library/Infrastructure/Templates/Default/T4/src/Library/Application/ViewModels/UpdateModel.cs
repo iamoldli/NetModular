@@ -11,7 +11,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
 {
     using Nm.Lib.Utils.Core.Extensions;
     using Nm.Module.CodeGenerator.Domain.Property;
-
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>

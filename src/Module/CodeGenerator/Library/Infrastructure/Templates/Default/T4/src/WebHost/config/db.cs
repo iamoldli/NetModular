@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -24,8 +26,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         public virtual string TransformText()
         {
             this.Write("{\r\n  \"Logging\": false,\r\n  \"Connections\": [\r\n    {\r\n      \"Name\": \"Admin\",\r\n      " +
-                    "\"Dialect\": 0,\r\n      \"Database\": \"{?????????}\",\r\n      \"ConnString\": \"Server={??" +
-                    "?????};Database=");
+                    "\"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Server={数据库地址}" +
+                    ";Database=");
             
             #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -40,8 +42,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             
             #line default
             #line hidden
-            this.Write("\",\r\n      \"Dialect\": 0,\r\n      \"Database\": \"{?????????}\",\r\n      \"ConnString\": \"S" +
-                    "erver={???????};Database=");
+            this.Write("\",\r\n      \"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Serve" +
+                    "r={数据库地址};Database=");
             
             #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
