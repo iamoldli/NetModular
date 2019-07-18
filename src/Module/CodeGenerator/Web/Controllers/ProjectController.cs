@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
@@ -68,7 +69,7 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
         {
             var result = await _service.BuildCode(model);
             var path = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath, result.Data.Id + ".zip");
-            return PhysicalFile(path, "application/octet-stream", result.Data.Name, true);
+            return PhysicalFile(path, "application/octet-stream", HttpUtility.UrlEncode(result.Data.Name), true);
         }
     }
 }
