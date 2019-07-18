@@ -78,7 +78,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
                     return new List<ModelPropertyBuildModel>();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Query).ToList();
+                return ModelPropertyList.Where(m => m.ModelType == ModelType.Query).OrderBy(m => m.Sort).ToList();
             }
         }
 
@@ -94,7 +94,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
                     return new List<ModelPropertyBuildModel>();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Add).ToList();
+                return ModelPropertyList.Where(m => m.ModelType == ModelType.Add).OrderBy(m=>m.Sort).ToList();
             }
         }
 
@@ -110,7 +110,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
                     return new List<ModelPropertyBuildModel>();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Edit).ToList();
+                return ModelPropertyList.Where(m => m.ModelType == ModelType.Edit).OrderBy(m => m.Sort).ToList();
             }
         }
 

@@ -101,6 +101,15 @@ export default {
       this.data['d' + this.queryLevel] = options
     },
     reset() {
+      for (let i = 1; i <= this.level; i++) {
+        this.selection['v' + i] = ''
+
+        if (this.queryLevel <= i) {
+          this.data['d' + i] = []
+        }
+      }
+    },
+    resetChildren() {
       for (let i = this.queryLevel; i <= this.level; i++) {
         this.selection['v' + i] = ''
 
@@ -112,7 +121,7 @@ export default {
     onChange(level) {
       if (this.level > level) {
         this.queryLevel = ++level
-        this.reset()
+        this.resetChildren()
         this.query()
       }
 
@@ -153,7 +162,7 @@ export default {
             this.selection['v' + i] = option.value
             if (this.level > i) {
               this.queryLevel = i + 1
-              this.reset()
+              this.resetChildren()
               await this.query()
             }
           } else {
