@@ -1,0 +1,185 @@
+#{$prefix}-label {
+    margin: 0 3px;
+    padding: 2px 5px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    background: $color-info;
+
+    &.arrowed,
+    &.arrowed-in {
+        position: relative;
+        margin-left: 5px;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            border: 1px solid transparent;
+            border-right-color: $color-info;
+            border-width: 12px 6px;
+        }
+    }
+
+    &.arrowed {
+        &::before {
+            left: -12px;
+        }
+    }
+
+    &.arrowed-in {
+        &::before {
+            left: -6px;
+            border-color: $color-info $color-info $color-info transparent;
+        }
+    }
+
+    &.arrowed-right,
+    &.arrowed-right-in {
+        position: relative;
+        margin-right: 5px;
+
+        &::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            border: 1px solid transparent;
+            border-left-color: $color-info;
+            border-width: 12px 6px;
+        }
+    }
+
+    &.arrowed-right {
+        &::after {
+            right: -12px;
+        }
+    }
+
+    &.arrowed-right-in {
+        &::after {
+            right: -6px;
+            border-color: $color-info transparent $color-info $color-info;
+        }
+    }
+
+    &-success {
+        background: $color-success;
+
+        &.arrowed {
+            &::before {
+                border-right-color: $color-success;
+            }
+        }
+
+        &.arrowed-in {
+            &::before {
+                border-color: $color-success $color-success $color-success transparent;
+            }
+        }
+
+        &.arrowed-right {
+            &::after {
+                border-left-color: $color-success;
+            }
+        }
+
+        &.arrowed-right-in {
+            &::after {
+                right: -6px;
+                border-color: $color-success transparent $color-success $color-success;
+            }
+        }
+    }
+
+    &-primary {
+        background: $color-primary;
+
+        &.arrowed {
+            &::before {
+                border-right-color: $color-primary;
+            }
+        }
+
+        &.arrowed-in {
+            &::before {
+                border-color: $color-primary $color-primary $color-primary transparent;
+            }
+        }
+
+        &.arrowed-right {
+            &::after {
+                border-left-color: $color-primary;
+            }
+        }
+
+        &.arrowed-right-in {
+            &::after {
+                right: -6px;
+                border-color: $color-primary transparent $color-primary $color-primary;
+            }
+        }
+    }
+
+    &-warning {
+        background: $color-warning;
+
+        &.arrowed {
+            &::before {
+                border-right-color: $color-warning;
+            }
+        }
+
+        &.arrowed-in {
+            &::before {
+                border-color: $color-warning $color-warning $color-warning transparent;
+            }
+        }
+
+        &.arrowed-right {
+            &::after {
+                border-left-color: $color-warning;
+            }
+        }
+
+        &.arrowed-right-in {
+            &::after {
+                right: -6px;
+                border-color: $color-warning transparent $color-warning $color-warning;
+            }
+        }
+    }
+
+    &-danger {
+        background: $color-danger;
+
+        &.arrowed {
+            &::before {
+                border-right-color: $color-danger;
+            }
+        }
+
+        &.arrowed-in {
+            &::before {
+                border-color: $color-danger $color-danger $color-danger transparent;
+            }
+        }
+
+        &.arrowed-right {
+            &::after {
+                border-left-color: $color-danger;
+            }
+        }
+
+        &.arrowed-right-in {
+            &::after {
+                right: -6px;
+                border-color: $color-danger transparent $color-danger $color-danger;
+            }
+        }
+    }
+}
