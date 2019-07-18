@@ -11,6 +11,11 @@ namespace Nm.Module.CodeGenerator.Domain.Property
     public partial class PropertyEntity : EntityBase
     {
         /// <summary>
+        /// 项目编号
+        /// </summary>
+        public Guid ProjectId { get; set; }
+
+        /// <summary>
         /// 类编号
         /// </summary>
         public Guid ClassId { get; set; }

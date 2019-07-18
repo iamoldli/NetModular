@@ -9,6 +9,11 @@ namespace Nm.Module.CodeGenerator.Domain.ModelProperty
     public partial class ModelPropertyEntity : EntityBase
     {
         /// <summary>
+        /// 项目编号
+        /// </summary>
+        public Guid ProjectId { get; set; }
+
+        /// <summary>
         /// 所属类
         /// </summary>
         public Guid ClassId { get; set; }

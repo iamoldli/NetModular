@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -40,9 +42,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             #line default
             #line hidden
             this.Write(".Lib.Mapper.AutoMapper\" Version=\"1.0.0\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGroup>\r\n    " +
-                    "<ProjectReference Include=\"..\\Domain\\Domain.csproj\" />\r\n    <ProjectReference In" +
-                    "clude=\"..\\Infrastructure\\Infrastructure.csproj\" />\r\n  </ItemGroup>\r\n\r\n</Project>" +
-                    "\r\n");
+                    "<ProjectReference Include=\"..\\Infrastructure\\Infrastructure.csproj\" />\r\n  </Item" +
+                    "Group>\r\n\r\n</Project>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

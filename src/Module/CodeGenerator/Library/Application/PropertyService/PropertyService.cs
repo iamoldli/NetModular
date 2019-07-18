@@ -45,6 +45,8 @@ namespace Nm.Module.CodeGenerator.Application.PropertyService
                 return ResultModel.Failed("关联类不存在");
 
             var entity = _mapper.Map<PropertyEntity>(model);
+            entity.ProjectId = classEntity.ProjectId;
+
             if (await _repository.Exists(entity))
             {
                 return ResultModel.Failed($"属性名称({entity.Name})已存在");

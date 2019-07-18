@@ -8,8 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{9C10C55A-E7D4-45D0-B23D-39BE8BF8DE4A}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
-		src\Directory.Build.targets = src\Directory.Build.targets
-		build\web.build.targets = build\web.build.targets
+		build\module.build.targets = build\module.build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{E58182FC-0950-453F-8C3A-ABCB477C8A28}"

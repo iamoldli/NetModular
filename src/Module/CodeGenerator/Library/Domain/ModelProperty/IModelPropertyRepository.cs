@@ -34,5 +34,12 @@ namespace Nm.Module.CodeGenerator.Domain.ModelProperty
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<bool> Exists(ModelPropertyEntity entity);
+
+        /// <summary>
+        /// 删除指定类的所有属性
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteByProject(Guid projectId);
     }
 }

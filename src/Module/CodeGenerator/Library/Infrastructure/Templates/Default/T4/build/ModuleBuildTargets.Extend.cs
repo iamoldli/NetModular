@@ -20,7 +20,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.build
 
             var content = TransformText();
             
-            var filePath = Path.Combine(dir, "web.build.targets");
+            var filePath = Path.Combine(dir, "module.build.targets");
             File.WriteAllText(filePath, content);
         }
     }

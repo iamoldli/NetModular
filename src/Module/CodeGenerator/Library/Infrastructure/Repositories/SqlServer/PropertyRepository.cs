@@ -59,5 +59,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
         {
             return Db.Find(m => m.ClassId == classId).DeleteAsync();
         }
+
+        public Task<bool> DeleteByProject(Guid projectId)
+        {
+            return Db.Find(m => m.ProjectId == projectId).DeleteAsync();
+        }
     }
 }

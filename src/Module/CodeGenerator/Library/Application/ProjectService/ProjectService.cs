@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
@@ -19,6 +20,7 @@ using Nm.Module.CodeGenerator.Domain.Project;
 using Nm.Module.CodeGenerator.Domain.Project.Models;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Infrastructure.Options;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Default;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
@@ -27,6 +29,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
     public class ProjectService : IProjectService
     {
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
         private readonly ModuleCommonOptions _commonOptions;
         private readonly CodeGeneratorOptions _codeGeneratorOptions;
         private readonly IProjectRepository _repository;
@@ -37,7 +40,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         private readonly IModelPropertyRepository _modelPropertyRepository;
         private readonly IClassMethodRepository _classMethodRepository;
 
-        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository)
+        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository, IUnitOfWork<CodeGeneratorDbContext> uow)
         {
             _repository = repository;
             _mapper = mapper;
@@ -47,6 +50,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             _enumItemRepository = enumItemRepository;
             _modelPropertyRepository = modelPropertyRepository;
             _classMethodRepository = classMethodRepository;
+            _uow = uow;
             _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
             _commonOptions = optionsMonitor.CurrentValue;
         }
@@ -70,8 +74,31 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
 
         public async Task<IResultModel> Delete(Guid id)
         {
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            _uow.BeginTransaction();
             var result = await _repository.SoftDeleteAsync(id);
-            return ResultModel.Result(result);
+            if (result)
+            {
+                result = await _classRepository.DeleteByProject(id);
+                if (result)
+                {
+                    result = await _propertyRepository.DeleteByProject(id);
+                    if (result)
+                    {
+                        result = await _modelPropertyRepository.DeleteByProject(id);
+                        if (result)
+                        {
+                            _uow.BeginTransaction();
+                            return ResultModel.Success();
+                        }
+                    }
+                }
+            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Edit(Guid id)

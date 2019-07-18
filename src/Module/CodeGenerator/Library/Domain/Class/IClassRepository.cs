@@ -30,5 +30,12 @@ namespace Nm.Module.CodeGenerator.Domain.Class
         /// </summary>
         /// <returns></returns>
         Task<bool> Exists(ClassEntity entity);
+
+        /// <summary>
+        /// 删除制定项目的所有类
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteByProject(Guid projectId);
     }
 }

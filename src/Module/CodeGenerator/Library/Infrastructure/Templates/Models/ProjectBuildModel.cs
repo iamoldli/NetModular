@@ -30,6 +30,6 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         /// <summary>
         /// 前端代码目录名称
         /// </summary>
-        public string WebUIDicName => $"{Prefix.ToLower()}-module-{Code.ToLower()}";
+        public string WebUIDicName => $"module-{Code.ToLower()}";
     }
 }

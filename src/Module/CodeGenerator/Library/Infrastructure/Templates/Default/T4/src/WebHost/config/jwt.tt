@@ -1,6 +1,6 @@
 <#@ template language="C#" #>
 {
-//秘钥
+  //秘钥
   "Key": "twAJ$j5##pVc5*y&",
   //发行商
   "Issuer": "http://www.iamoldli.com",

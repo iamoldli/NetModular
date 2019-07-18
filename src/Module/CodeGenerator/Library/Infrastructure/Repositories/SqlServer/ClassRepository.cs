@@ -46,5 +46,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
                 .WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id)
                 .ExistsAsync();
         }
+
+        public Task<bool> DeleteByProject(Guid projectId)
+        {
+            return Db.Find(m => m.ProjectId == projectId).DeleteAsync();
+        }
     }
 }

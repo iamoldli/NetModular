@@ -46,5 +46,11 @@ namespace Nm.Module.CodeGenerator.Domain.Property
         /// <returns></returns>
         Task<bool> DeleteByClass(Guid classId);
 
+        /// <summary>
+        /// 删除指定类的所有属性
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteByProject(Guid projectId);
     }
 }

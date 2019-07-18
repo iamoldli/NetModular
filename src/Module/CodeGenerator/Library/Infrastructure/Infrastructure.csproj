@@ -681,5 +681,33 @@
       <DependentUpon>ModuleBuildTargets.tt</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Templates\Default\T4\Solution.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Solution.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Application\Csproj.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Csproj.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Csproj.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Csproj.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\config\jwt.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>jwt.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\config\logging.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>logging.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
   
 </Project>
