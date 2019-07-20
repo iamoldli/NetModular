@@ -74,7 +74,7 @@ namespace Nm.Module.Admin.Web.Filters
             var auditInfo = new AuditInfoEntity
             {
                 AccountId = _loginInfo.AccountId,
-                Area = routeValues["area"],
+                Area = routeValues["area"] ?? "",
                 Controller = routeValues["controller"],
                 Action = routeValues["action"],
                 Parameters = JsonConvert.SerializeObject(context.ActionArguments),
