@@ -1,7 +1,8 @@
 export default [
   {
     name: 'id',
-    label: '编号'
+    label: '编号',
+    show: false
   },
   {
     name: 'creator',

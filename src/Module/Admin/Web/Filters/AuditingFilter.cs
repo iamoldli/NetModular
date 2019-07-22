@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Module.AspNetCore.Attributes;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Mvc.Helpers;
 using Nm.Module.Admin.Application.AuditInfoService;
 using Nm.Module.Admin.Application.SystemService;
 using Nm.Module.Admin.Domain.AuditInfo;
@@ -23,13 +25,15 @@ namespace Nm.Module.Admin.Web.Filters
         private readonly ILoginInfo _loginInfo;
         private readonly IAuditInfoService _auditInfoService;
         private readonly ISystemService _systemService;
+        private readonly MvcHelper _mvcHelper;
 
-        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, ILoginInfo loginInfo, ISystemService systemService)
+        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditInfoService auditInfoService, ILoginInfo loginInfo, ISystemService systemService, MvcHelper mvcHelper)
         {
             _options = optionsAccessor.CurrentValue;
             _auditInfoService = auditInfoService;
             _loginInfo = loginInfo;
             _systemService = systemService;
+            _mvcHelper = mvcHelper;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -82,6 +86,20 @@ namespace Nm.Module.Admin.Web.Filters
                 IP = _loginInfo.IP,
                 ExecutionTime = DateTime.Now
             };
+
+            var controllerDescriptor = _mvcHelper.GetAllController().FirstOrDefault(m =>
+                m.Area.EqualsIgnoreCase(auditInfo.Area) && m.Name.EqualsIgnoreCase(auditInfo.Controller));
+            if (controllerDescriptor != null)
+            {
+                auditInfo.ControllerDesc = controllerDescriptor.Description;
+
+                var actionDescription = _mvcHelper.GetAllAction().FirstOrDefault(m =>
+                    m.Controller == controllerDescriptor && m.Name.EqualsIgnoreCase(auditInfo.Action));
+                if (actionDescription != null)
+                {
+                    auditInfo.ActionDesc = actionDescription.Description;
+                }
+            }
 
             //记录浏览器UA
             if (_loginInfo.Platform == Platform.Web)

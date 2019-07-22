@@ -63,6 +63,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             var list = await query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
                  .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id))
                  .Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name }).PaginationAsync(paging);
+
             model.TotalCount = paging.TotalCount;
             return list;
         }

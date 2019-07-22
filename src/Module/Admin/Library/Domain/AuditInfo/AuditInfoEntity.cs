@@ -27,9 +27,19 @@ namespace Nm.Module.Admin.Domain.AuditInfo
         public string Controller { get; set; }
 
         /// <summary>
+        /// 控制器描述
+        /// </summary>
+        public string ControllerDesc { get; set; }
+
+        /// <summary>
         /// 操作
         /// </summary>
         public string Action { get; set; }
+
+        /// <summary>
+        /// 操作描述
+        /// </summary>
+        public string ActionDesc { get; set; }
 
         /// <summary>
         /// 参数(Json序列化)

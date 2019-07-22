@@ -4,10 +4,10 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="模块：" prop="moduleCode">
-          <module-info-select v-model="list.model.moduleCode"/>
+          <module-info-select v-model="list.model.moduleCode" />
         </el-form-item>
         <el-form-item label="账户：" prop="accountId">
-          <el-input v-model="list.model.accountId"/>
+          <el-input v-model="list.model.accountId" />
         </el-form-item>
       </template>
       <!--高级查询-->
@@ -24,17 +24,28 @@
         </el-row>
       </template>
 
+      <template v-slot:col-moduleName="{row}">
+        <span>{{row.moduleName}}({{row.area}})</span>
+      </template>
+
+      <template v-slot:col-controller="{row}">
+        <span>{{row.controllerDesc}}({{row.controller}})</span>
+      </template>
+
+      <template v-slot:col-action="{row}">
+        <span>{{row.actionDesc}}({{row.action}})</span>
+      </template>
       <template v-slot:col-executionDuration="{row}">
         <span>{{row.executionDuration}}ms</span>
       </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button :text="buttons.details.text" type="text" @click="details(row)" v-nm-has="buttons.details"/>
+        <nm-button :text="buttons.details.text" type="text" @click="details(row)" v-nm-has="buttons.details" />
       </template>
     </nm-list>
 
-    <details-page :id="detailsPage.id" :visible.sync="detailsPage.visible"/>
+    <details-page :id="detailsPage.id" :visible.sync="detailsPage.visible" />
   </nm-container>
 </template>
 <script>
@@ -47,7 +58,7 @@ import ModuleInfoSelect from '../../moduleInfo/components/select'
 export default {
   name: page.name,
   components: { DetailsPage, ModuleInfoSelect },
-  data () {
+  data() {
     return {
       list: {
         title: page.title,
@@ -73,10 +84,10 @@ export default {
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    details (row) {
+    details(row) {
       this.detailsPage.id = row.id
       this.detailsPage.visible = true
     }
