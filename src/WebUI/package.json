@@ -13,16 +13,16 @@
     },
     "dependencies": {
         "nm-lib-icon": "^1.2.1",
-        "nm-lib-skins": "^1.2.2",
-        "nm-module-admin": "^1.1.11",
+        "nm-lib-skins": "^1.2.5",
+        "nm-module-admin": "^1.2.1",
         "nm-module-code-generator": "^1.1.0",
-        "nm-module-common": "^1.0.2",
+        "nm-module-common": "^1.1.0",
         "nm-module-personnelfiles": "^1.0.1"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.8.0",
         "@vue/cli-plugin-eslint": "^3.8.0",
-        "@vue/cli-service": "^3.8.0",
+        "@vue/cli-service": "^3.9.3",
         "@vue/eslint-config-standard": "^4.0.0",
         "babel-eslint": "^10.0.1",
         "eslint": "^5.16.0",
@@ -32,7 +32,7 @@
         "eslint-plugin-vue": "^5.2.2",
         "fibers": "^3.1.1",
         "rimraf": "^2.6.3",
-        "sass": "^1.22.5",
+        "sass": "^1.22.7",
         "sass-loader": "^7.1.0",
         "uglifyjs-webpack-plugin": "^2.1.2",
         "vue-template-compiler": "^2.6.10"
