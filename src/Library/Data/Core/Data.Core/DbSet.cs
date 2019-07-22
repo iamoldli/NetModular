@@ -416,7 +416,7 @@ namespace Nm.Lib.Data.Core
         public bool SoftDelete(dynamic id)
         {
             if (!EntityDescriptor.SoftDelete)
-                throw new Exception("该实体为继承软删除实体，无法使用软删除功能~");
+                throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
 
@@ -426,7 +426,7 @@ namespace Nm.Lib.Data.Core
         public async Task<bool> SoftDeleteAsync(dynamic id)
         {
             if (!EntityDescriptor.SoftDelete)
-                throw new Exception("该实体为继承软删除实体，无法使用软删除功能~");
+                throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
             return await ExecuteAsync(_sql.SoftDeleteSingle, dynParams) > 0;
