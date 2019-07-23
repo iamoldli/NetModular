@@ -35,11 +35,6 @@ export default {
       type: String,
       default: '100%'
     },
-    /** 列集合 */
-    cols: {
-      type: Array,
-      required: true
-    },
     /** 数据 */
     rows: {
       type: Array,

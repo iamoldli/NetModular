@@ -27,7 +27,7 @@
     </querybar>
 
     <section class="nm-list-body">
-      <query-table ref="table" :rows="rows" :cols="cols" :span-method="spanMethod" :selection.sync="selection">
+      <query-table ref="table" :rows="rows" :span-method="spanMethod" :selection.sync="selection">
         <!-- 多选 -->
         <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55" />
 
@@ -43,32 +43,8 @@
           </template>
         </el-table-column>
 
-        <!-- 自动生成列 -->
-        <template v-for="col in columns">
-          <el-table-column
-            v-if="col.show"
-            :key="col.name"
-            :prop="col.name"
-            :width="col.width"
-            :sortable="col.sortable"
-            :type="col.type"
-            :fixed="col.fixed"
-            :align="col.align"
-            :header-align="col.headerAlign"
-          >
-            <!--自定义头-->
-            <template v-slot:header>
-              <slot :name="`col-${col.name}-header`">
-                <nm-icon v-if="col.icon" :name="col.icon" />
-                {{col.label}}
-              </slot>
-            </template>
-
-            <template slot-scope="{row}">
-              <slot :name="'col-'+col.name" :row="row">{{row[col.name]}}</slot>
-            </template>
-          </el-table-column>
-        </template>
+        <!--表格主体-->
+        <slot name="tbody"></slot>
 
         <!-- 操作列 -->
         <el-table-column v-if="!noOperation" :width="operationWidth" fixed="right" align="center" label="操作">
@@ -85,7 +61,7 @@
     </section>
 
     <!--footer-->
-    <query-footer v-if="!noFooter" v-model="page" :total="total" :columns.sync="columns" :no-select-column="noSelectColumn" :reverse="footerReverse">
+    <query-footer v-if="!noFooter" v-model="page" :total="total" no-select-column :reverse="footerReverse">
       <slot name="footer" :total="total" :selection="selection" />
     </query-footer>
     <slot />
@@ -93,32 +69,13 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import QueryHeader from './components/header'
-import Querybar from './components/querybar'
-import QueryTable from './components/table'
-import QueryFooter from './components/footer'
+import QueryHeader from '../list/components/header'
+import Querybar from '../list/components/querybar'
+import QueryTable from '../list/components/table'
+import QueryFooter from '../list/components/footer'
 
-// 默认列信息
-const defaultColumnInfo = {
-  // 列的字段名称
-  name: '',
-  // 列的显示名称
-  label: '',
-  // 宽度
-  width: '',
-  // 排序
-  sortable: false,
-  // 固定列
-  fixed: false,
-  // 对其方式
-  align: 'center',
-  // 表头对其方式
-  headerAlign: 'center',
-  // 是否显示
-  show: true
-}
 export default {
-  name: 'List',
+  name: 'ListAgile',
   components: { QueryHeader, Querybar, QueryTable, QueryFooter },
   data() {
     return {
@@ -134,8 +91,7 @@ export default {
       rows: [],
       // 总数量
       total: 0,
-      selection: [],
-      columns: this.getColumns()
+      selection: []
     }
   },
   props: {
@@ -156,13 +112,6 @@ export default {
     rules: Object,
     /** 高级查询 */
     advanced: Object,
-    // 列数组
-    cols: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
     /** 多选 */
     multiple: Boolean,
     /** 显示序号 */
@@ -174,8 +123,6 @@ export default {
     noOperation: Boolean,
     /** 操作列宽度 */
     operationWidth: [String, Number],
-    /** 不显示选择列按钮 */
-    noSelectColumn: Boolean,
     /** 不显示查询栏 */
     noQuerybar: Boolean,
     /** 不显示全屏按钮 */
@@ -265,14 +212,6 @@ export default {
     /** 获取序号 */
     getNo(index) {
       return (this.page.index - 1) * this.page.size + index + 1
-    },
-    getColumns() {
-      if (this.cols) {
-        return this.cols.map(col => {
-          return Object.assign({}, defaultColumnInfo, col)
-        })
-      }
-      return []
     }
   },
   created() {
