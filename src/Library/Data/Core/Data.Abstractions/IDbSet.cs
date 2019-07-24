@@ -347,12 +347,60 @@ namespace Nm.Lib.Data.Abstractions
 
         #endregion
 
+        #region ==查询==
+
         /// <summary>
-        /// 查询
+        /// 
         /// </summary>
         /// <param name="expression">过滤条件</param>
         /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
         INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null, string tableName = null);
+
+        #endregion
+
+        #region ==分表==
+
+        /// <summary>
+        /// 按照天分表，如：User_20190724
+        /// </summary>
+        /// <param name="date">分表计算日期</param>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string GetTableNameByDay(DateTime date, string tableName = null);
+
+        /// <summary>
+        /// 按照周分表，如：User_201923 表示2019年第23周
+        /// </summary>
+        /// <param name="date">分表计算日期</param>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string GetTableNameByWeek(DateTime date, string tableName = null);
+
+        /// <summary>
+        /// 按照月分表，如：User_201901 表示2019年1月
+        /// </summary>
+        /// <param name="date">分表计算日期</param>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string GetTableNameByMonth(DateTime date, string tableName = null);
+
+        /// <summary>
+        /// 按照季度分表，如：User_20191 表示2019年第一季度
+        /// </summary>
+        /// <param name="date">分表计算日期</param>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string GetTableNameByQuarter(DateTime date, string tableName = null);
+
+        /// <summary>
+        /// 按照年分表，如：User_2019 表示2019年度
+        /// </summary>
+        /// <param name="date">分表计算日期</param>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string GetTableNameByYear(DateTime date, string tableName = null);
+
+        #endregion
     }
 }

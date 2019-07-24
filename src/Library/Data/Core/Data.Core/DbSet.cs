@@ -626,6 +626,49 @@ namespace Nm.Lib.Data.Core
 
         #endregion
 
+        #region ==分表==
+
+        public string GetTableNameByDay(DateTime date, string tableName = null)
+        {
+            return $"{tableName ?? EntityDescriptor.TableName}_{date:yyyyMMdd}";
+        }
+
+        public string GetTableNameByWeek(DateTime date, string tableName = null)
+        {
+            var week = date.DayOfYear / 7;
+            if (date.DayOfYear % 7 != 0)
+            {
+                week++;
+            }
+
+            return $"{tableName ?? EntityDescriptor.TableName}_{date.Year}{week}";
+        }
+
+        public string GetTableNameByMonth(DateTime date, string tableName = null)
+        {
+            return $"{tableName ?? EntityDescriptor.TableName}_{date:yyyyMM}";
+        }
+
+        public string GetTableNameByQuarter(DateTime date, string tableName = null)
+        {
+            var quarter = 1;
+            if (date.Month > 3 && date.Month < 7)
+                quarter = 2;
+            else if (date.Month > 7 && date.Month < 10)
+                quarter = 3;
+            else if (date.Month > 10)
+                quarter = 4;
+
+            return $"{tableName ?? EntityDescriptor.TableName}_{date.Year}{quarter}";
+        }
+
+        public string GetTableNameByYear(DateTime date, string tableName = null)
+        {
+            return $"{tableName ?? EntityDescriptor.TableName}_{date.Year}";
+        }
+
+        #endregion
+
         #region ==私有方法==
 
         /// <summary>

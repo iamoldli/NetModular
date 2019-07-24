@@ -1,4 +1,5 @@
-﻿using Nm.Lib.Utils.Core.Encrypt;
+﻿using System;
+using Nm.Lib.Utils.Core.Encrypt;
 using Xunit;
 
 namespace Utils.Core.Test.Encrypt
