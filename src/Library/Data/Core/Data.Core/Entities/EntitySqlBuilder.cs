@@ -59,7 +59,9 @@ namespace Nm.Lib.Data.Core.Entities
             sb.Append("(");
 
             //删除最后一个","
-            valuesSql.Remove(valuesSql.Length - 1, 1);
+            if (valuesSql.Length > 0)
+                valuesSql.Remove(valuesSql.Length - 1, 1);
+
             sb.Append(valuesSql);
             sb.Append(");");
 

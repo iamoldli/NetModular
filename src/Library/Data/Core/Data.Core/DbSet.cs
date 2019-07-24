@@ -619,7 +619,22 @@ namespace Nm.Lib.Data.Core
             return DbContext.Open().QueryAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
-        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null, string tableName = null)
+        public INetSqlQueryable<TEntity> Find()
+        {
+            return new NetSqlQueryable<TEntity>(this, null, null);
+        }
+
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression)
+        {
+            return new NetSqlQueryable<TEntity>(this, expression, null);
+        }
+
+        public INetSqlQueryable<TEntity> Find(string tableName)
+        {
+            return new NetSqlQueryable<TEntity>(this, null, tableName);
+        }
+        
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName)
         {
             return new NetSqlQueryable<TEntity>(this, expression, tableName);
         }

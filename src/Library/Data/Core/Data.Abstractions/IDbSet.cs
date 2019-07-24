@@ -350,12 +350,32 @@ namespace Nm.Lib.Data.Abstractions
         #region ==查询==
 
         /// <summary>
-        /// 
+        /// 查询
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find();
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="expression">过滤条件</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="tableName">指定表名称</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(string tableName);
+
+        /// <summary>
+        /// 查询
         /// </summary>
         /// <param name="expression">过滤条件</param>
         /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null, string tableName = null);
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName);
 
         #endregion
 
