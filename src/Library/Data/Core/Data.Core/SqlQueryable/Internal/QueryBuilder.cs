@@ -21,6 +21,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         private readonly ILogger _logger;
         private readonly ExpressionResolver _resolver;
         private readonly IDbContext _dbContext;
+
         #endregion
 
         #region ==构造函数==
@@ -55,9 +56,9 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string UpdateSqlBuild(string tableName, out IQueryParameters parameters)
+        public string UpdateSqlBuild(out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定更新表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定更新表");
 
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
@@ -66,7 +67,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             Check.NotNull(updateSql, nameof(updateSql), "生成更新sql异常");
 
 
-            sqlBuilder.AppendFormat("UPDATE {0} SET ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("UPDATE {0} SET ", _sqlAdapter.AppendQuote(_queryBody.TableName));
             sqlBuilder.Append(updateSql);
 
             SetModifiedBy(sqlBuilder, parameters);
@@ -82,14 +83,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string DeleteSqlBuild(string tableName, out IQueryParameters parameters)
+        public string DeleteSqlBuild(out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定更新表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定更新表");
 
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
 
-            sqlBuilder.AppendFormat("DELETE FROM {0} ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("DELETE FROM {0} ", _sqlAdapter.AppendQuote(_queryBody.TableName));
 
             var whereSql = ResolveWhere(parameters);
             Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
@@ -102,13 +103,13 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string SoftDeleteSqlBuild(string tableName, out IQueryParameters parameters)
+        public string SoftDeleteSqlBuild( out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定删除表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定删除表");
 
             parameters = new QueryParameters();
 
-            var sqlBuilder = new StringBuilder($"UPDATE {_sqlAdapter.AppendQuote(tableName)} SET ");
+            var sqlBuilder = new StringBuilder($"UPDATE {_sqlAdapter.AppendQuote(_queryBody.TableName)} SET ");
             sqlBuilder.AppendFormat("{0}=1,", _sqlAdapter.AppendQuote("Deleted"));
             sqlBuilder.AppendFormat("{0}={1},", _sqlAdapter.AppendQuote("DeletedTime"), _sqlAdapter.AppendParameter("P1"));
             parameters.Add(DateTime.Now);
@@ -317,11 +318,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
             if (_queryBody.JoinDescriptors.Count == 1)
             {
-                sqlBuilder.AppendFormat(" {0}{1} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.EntityDescriptor.TableName));
+                sqlBuilder.AppendFormat(" {0}{1} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(_queryBody.TableName));
                 return;
             }
 
-            sqlBuilder.AppendFormat(" {0}{1} AS {2} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.EntityDescriptor.TableName), _sqlAdapter.AppendQuote(first.Alias));
+            sqlBuilder.AppendFormat(" {0}{1} AS {2} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(_queryBody.TableName), _sqlAdapter.AppendQuote(first.Alias));
 
             for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
             {
@@ -720,7 +721,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         private void SetModifiedBy(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
-            if (!_queryBody.SetModifiedBy ||_dbContext.LoginInfo == null)
+            if (!_queryBody.SetModifiedBy || _dbContext.LoginInfo == null)
                 return;
 
             var descriptor = _queryBody.JoinDescriptors.FirstOrDefault()?.EntityDescriptor;

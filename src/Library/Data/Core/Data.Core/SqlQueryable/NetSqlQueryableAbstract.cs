@@ -7,6 +7,7 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable
 {
@@ -18,13 +19,15 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         protected QueryBody QueryBody;
         protected readonly QueryBuilder QueryBuilder;
 
-        protected NetSqlQueryableAbstract(IDbSet dbSet, QueryBody queryBody)
+        protected NetSqlQueryableAbstract(IDbSet dbSet, QueryBody queryBody, string tableName = null)
         {
             Db = dbSet;
             SqlAdapter = dbSet.DbContext.Options.SqlAdapter;
             Logger = Db.DbContext.Options.LoggerFactory?.CreateLogger("NetSqlQueryable");
 
             QueryBody = queryBody;
+            queryBody.TableName = tableName.NotNull() ? tableName : Db.EntityDescriptor.TableName;
+
             QueryBuilder = new QueryBuilder(QueryBody, SqlAdapter, Logger, Db.DbContext);
         }
 

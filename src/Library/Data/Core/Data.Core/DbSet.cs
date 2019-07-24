@@ -52,56 +52,68 @@ namespace Nm.Lib.Data.Core
 
         #region ==Insert==
 
-        public bool Insert(TEntity entity)
+        public bool Insert(TEntity entity, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
 
             SetCreatedBy(entity);
 
+            var sql = _sql.Insert(tableName);
+
             if (EntityDescriptor.PrimaryKey.IsInt())
             {
-                var sql = _sql.Insert + _sqlAdapter.IdentitySql;
+                sql += _sqlAdapter.IdentitySql;
                 var id = ExecuteScalar<int>(sql, entity);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
 
+                    _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
+
                     return true;
                 }
+
+                return false;
             }
-            else if (EntityDescriptor.PrimaryKey.IsLong())
+            if (EntityDescriptor.PrimaryKey.IsLong())
             {
-                var sql = _sql.Insert + _sqlAdapter.IdentitySql;
+                sql += _sqlAdapter.IdentitySql;
                 var id = ExecuteScalar<long>(sql, entity);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
+
+                    _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
+
                     return true;
                 }
+                return false;
             }
-            else if (EntityDescriptor.PrimaryKey.IsGuid())
+
+            if (EntityDescriptor.PrimaryKey.IsGuid())
             {
                 var id = (Guid)EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                 if (id == Guid.Empty)
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, _sqlAdapter.GenerateSequentialGuid());
-                return Execute(_sql.Insert, entity) > 0;
-            }
-            else
-            {
-                return Execute(_sql.Insert, entity) > 0;
-            }
 
-            return false;
+                _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
+
+                return Execute(sql, entity) > 0;
+            }
+            return Execute(sql, entity) > 0;
+
         }
 
-        public async Task<bool> InsertAsync(TEntity entity)
+        public async Task<bool> InsertAsync(TEntity entity, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
             SetCreatedBy(entity);
 
+            var sql = _sql.Insert(tableName);
+
             if (EntityDescriptor.PrimaryKey.IsInt())
             {
-                var sql = _sql.Insert + _sqlAdapter.IdentitySql;
+                sql += _sqlAdapter.IdentitySql;
 
                 var id = await ExecuteScalarAsync<int>(sql, entity);
                 if (id > 0)
@@ -112,10 +124,12 @@ namespace Nm.Lib.Data.Core
 
                     return true;
                 }
+
+                return false;
             }
-            else if (EntityDescriptor.PrimaryKey.IsLong())
+            if (EntityDescriptor.PrimaryKey.IsLong())
             {
-                var sql = _sql.Insert + _sqlAdapter.IdentitySql;
+                sql += _sqlAdapter.IdentitySql;
                 var id = await ExecuteScalarAsync<long>(sql, entity);
                 if (id > 0)
                 {
@@ -125,32 +139,30 @@ namespace Nm.Lib.Data.Core
 
                     return true;
                 }
+                return false;
             }
-            else if (EntityDescriptor.PrimaryKey.IsGuid())
+            if (EntityDescriptor.PrimaryKey.IsGuid())
             {
                 var id = (Guid)EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                 if (id == Guid.Empty)
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, _sqlAdapter.GenerateSequentialGuid());
 
-                _logger?.LogDebug("Insert:({0}),NewID({1})", _sql.Insert, id);
+                _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return await ExecuteAsync(_sql.Insert, entity) > 0;
-            }
-            else
-            {
-                _logger?.LogDebug("Insert:({0})", _sql.Insert);
-
-                return await ExecuteAsync(_sql.Insert, entity) > 0;
+                return await ExecuteAsync(sql, entity) > 0;
             }
 
-            return false;
+            _logger?.LogDebug("Insert:({0})", sql);
+
+            return await ExecuteAsync(sql, entity) > 0;
+
         }
 
         #endregion
 
         #region ==BatchInsert==
 
-        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000)
+        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
@@ -183,7 +195,7 @@ namespace Nm.Lib.Data.Core
                         });
                     }
 
-                    Execute(_sql.Insert, entityList);
+                    Execute(_sql.Insert(tableName), entityList);
 
                     #endregion
                 }
@@ -199,7 +211,7 @@ namespace Nm.Lib.Data.Core
                         if (mod == 1)
                         {
                             sqlBuilder.Clear();
-                            sqlBuilder.Append(_sql.BatchInsert);
+                            sqlBuilder.Append(_sql.BatchInsert(tableName));
                         }
 
                         var entity = entityList[t];
@@ -257,7 +269,7 @@ namespace Nm.Lib.Data.Core
             }
         }
 
-        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000)
+        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
@@ -290,7 +302,7 @@ namespace Nm.Lib.Data.Core
                         });
                     }
 
-                    await ExecuteAsync(_sql.Insert, entityList);
+                    await ExecuteAsync(_sql.Insert(tableName), entityList);
 
                     #endregion
                 }
@@ -306,7 +318,7 @@ namespace Nm.Lib.Data.Core
                         if (mod == 1)
                         {
                             sqlBuilder.Clear();
-                            sqlBuilder.Append(_sql.BatchInsert);
+                            sqlBuilder.Append(_sql.BatchInsert(tableName));
                         }
 
                         var entity = entityList[t];
@@ -379,16 +391,16 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool Delete(dynamic id)
+        public bool Delete(dynamic id, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return Execute(_sql.DeleteSingle, dynParams) > 0;
+            return Execute(_sql.DeleteSingle(tableName), dynParams) > 0;
         }
 
-        public async Task<bool> DeleteAsync(dynamic id)
+        public async Task<bool> DeleteAsync(dynamic id, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return await ExecuteAsync(_sql.DeleteSingle, dynParams) > 0;
+            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams) > 0;
         }
 
         #endregion
@@ -413,23 +425,23 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool SoftDelete(dynamic id)
+        public bool SoftDelete(dynamic id, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
 
-            return Execute(_sql.SoftDeleteSingle, dynParams) > 0;
+            return Execute(_sql.SoftDeleteSingle(tableName), dynParams) > 0;
         }
 
-        public async Task<bool> SoftDeleteAsync(dynamic id)
+        public async Task<bool> SoftDeleteAsync(dynamic id, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
-            return await ExecuteAsync(_sql.SoftDeleteSingle, dynParams) > 0;
+            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams) > 0;
         }
 
         #endregion
@@ -446,16 +458,16 @@ namespace Nm.Lib.Data.Core
             SetModifiedBy(entity);
         }
 
-        public bool Update(TEntity entity)
+        public bool Update(TEntity entity, string tableName = null)
         {
             UpdateCheck(entity);
-            return Execute(_sql.UpdateSingle, entity) > 0;
+            return Execute(_sql.UpdateSingle(tableName), entity) > 0;
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity)
+        public async Task<bool> UpdateAsync(TEntity entity, string tableName = null)
         {
             UpdateCheck(entity);
-            return await ExecuteAsync(_sql.UpdateSingle, entity) > 0;
+            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity) > 0;
         }
 
         #endregion
@@ -470,40 +482,40 @@ namespace Nm.Lib.Data.Core
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
             return dynParams;
         }
-        public TEntity Get(dynamic id)
+        public TEntity Get(dynamic id, string tableName = null)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<TEntity>(_sql.Get, dynParams);
+            return QuerySingleOrDefault<TEntity>(_sql.Get(tableName), dynParams);
         }
 
-        public Task<TEntity> GetAsync(dynamic id)
+        public Task<TEntity> GetAsync(dynamic id, string tableName = null)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefaultAsync<TEntity>(_sql.Get, dynParams);
+            return QuerySingleOrDefaultAsync<TEntity>(_sql.Get(tableName), dynParams);
         }
 
         #endregion
 
         #region ==Exists==
 
-        public bool Exists(dynamic id)
+        public bool Exists(dynamic id, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<int>(_sql.Exists, dynParams) > 0;
+            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams) > 0;
         }
 
-        public async Task<bool> ExistsAsync(dynamic id)
+        public async Task<bool> ExistsAsync(dynamic id, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists, dynParams)) > 0;
+            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams)) > 0;
         }
 
         #endregion
@@ -607,9 +619,9 @@ namespace Nm.Lib.Data.Core
             return DbContext.Open().QueryAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
         }
 
-        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null)
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null, string tableName = null)
         {
-            return new NetSqlQueryable<TEntity>(this, expression);
+            return new NetSqlQueryable<TEntity>(this, expression, tableName);
         }
 
         #endregion

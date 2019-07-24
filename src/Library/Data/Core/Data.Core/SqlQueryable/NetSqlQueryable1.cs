@@ -15,7 +15,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 {
     internal class NetSqlQueryable<TEntity> : NetSqlQueryableAbstract, INetSqlQueryable<TEntity> where TEntity : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter))
+        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression, string tableName) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter), tableName)
         {
             QueryBody.JoinDescriptors.Add(new QueryJoinDescriptor
             {
@@ -139,14 +139,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
         public int DeleteWithAffectedNum()
         {
-            var sql = QueryBuilder.DeleteSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
             return Db.Execute(sql, parameters.Parse());
         }
 
         public Task<int> DeleteWithAffectedNumAsync()
         {
-            var sql = QueryBuilder.DeleteSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
             return Db.ExecuteAsync(sql, parameters.Parse());
         }
@@ -169,14 +169,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
         public int SoftDeleteWithAffectedNum()
         {
-            var sql = QueryBuilder.SoftDeleteSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
             return Db.Execute(sql, parameters.Parse());
         }
 
         public Task<int> SoftDeleteWithAffectedNumAsync()
         {
-            var sql = QueryBuilder.SoftDeleteSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
             return Db.ExecuteAsync(sql, parameters.Parse());
         }
@@ -201,7 +201,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             QueryBody.Update = expression;
             QueryBody.SetModifiedBy = setModifiedBy;
-            var sql = QueryBuilder.UpdateSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
             return Db.Execute(sql, parameters.Parse());
         }
@@ -210,7 +210,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             QueryBody.Update = expression;
             QueryBody.SetModifiedBy = setModifiedBy;
-            var sql = QueryBuilder.UpdateSqlBuild(Db.EntityDescriptor.TableName, out IQueryParameters parameters);
+            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
             return Db.ExecuteAsync(sql, parameters.Parse());
         }

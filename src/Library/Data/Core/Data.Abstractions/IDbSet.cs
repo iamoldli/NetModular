@@ -211,15 +211,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 新增
         /// </summary>
         /// <param name="entity">实体</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool Insert(TEntity entity);
+        bool Insert(TEntity entity, string tableName = null);
 
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="entity">实体</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> InsertAsync(TEntity entity);
+        Task<bool> InsertAsync(TEntity entity, string tableName = null);
 
         #endregion
 
@@ -230,16 +232,18 @@ namespace Nm.Lib.Data.Abstractions
         /// </summary>
         /// <param name="entityList">实体集合</param>
         /// <param name="flushSize">单次刷新数量</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool BatchInsert(List<TEntity> entityList, int flushSize = 10000);
+        bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, string tableName = null);
 
         /// <summary>
         /// 批量插入
         /// </summary>
         /// <param name="entityList">实体集合</param>
         /// <param name="flushSize">单次刷新数量</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000);
+        Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, string tableName = null);
 
         #endregion
 
@@ -249,15 +253,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool Delete(dynamic id);
+        bool Delete(dynamic id, string tableName = null);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(dynamic id);
+        Task<bool> DeleteAsync(dynamic id, string tableName = null);
 
         #endregion
 
@@ -267,15 +273,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 软删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool SoftDelete(dynamic id);
+        bool SoftDelete(dynamic id, string tableName = null);
 
         /// <summary>
         /// 软删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> SoftDeleteAsync(dynamic id);
+        Task<bool> SoftDeleteAsync(dynamic id, string tableName = null);
 
         #endregion
 
@@ -285,15 +293,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 更新
         /// </summary>
         /// <param name="entity">实体</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool Update(TEntity entity);
+        bool Update(TEntity entity, string tableName = null);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entity">实体</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(TEntity entity);
+        Task<bool> UpdateAsync(TEntity entity, string tableName = null);
 
         #endregion
 
@@ -303,15 +313,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 根据主键查询
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        TEntity Get(dynamic id);
+        TEntity Get(dynamic id, string tableName = null);
 
         /// <summary>
         /// 根据主键查询
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(dynamic id);
+        Task<TEntity> GetAsync(dynamic id, string tableName = null);
 
         #endregion
 
@@ -321,15 +333,17 @@ namespace Nm.Lib.Data.Abstractions
         /// 是否存在
         /// </summary>
         /// <param name="id">主键</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        bool Exists(dynamic id);
+        bool Exists(dynamic id, string tableName = null);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id">主键</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> ExistsAsync(dynamic id);
+        Task<bool> ExistsAsync(dynamic id, string tableName = null);
 
         #endregion
 
@@ -337,7 +351,8 @@ namespace Nm.Lib.Data.Abstractions
         /// 查询
         /// </summary>
         /// <param name="expression">过滤条件</param>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null);
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression = null, string tableName = null);
     }
 }
