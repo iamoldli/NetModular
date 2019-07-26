@@ -12,10 +12,12 @@ namespace Nm.Lib.Logging.Serilog
             {
                 var cfgHelper = new ConfigurationHelper();
                 var cfg = cfgHelper.Load("logging", hostingContext.HostingEnvironment.EnvironmentName);
+                if (cfg != null)
+                {
+                    loggerConfiguration.ReadFrom.Configuration(cfg);
+                }
 
-                loggerConfiguration
-                    .ReadFrom.Configuration(cfg)
-                    .Enrich.FromLogContext();
+                loggerConfiguration.Enrich.FromLogContext();
             });
 
             return builder;

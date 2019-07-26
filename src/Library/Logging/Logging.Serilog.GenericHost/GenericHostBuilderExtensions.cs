@@ -13,9 +13,13 @@ namespace Nm.Lib.Logging.Serilog.GenericHost
                 var cfgHelper = new ConfigurationHelper();
                 var cfg = cfgHelper.Load("logging", hostingContext.HostingEnvironment.EnvironmentName);
 
-                loggerConfiguration
-                    .ReadFrom.Configuration(cfg)
-                    .Enrich.FromLogContext();
+                if (cfg != null)
+                {
+                    loggerConfiguration
+                        .ReadFrom.Configuration(cfg);
+                }
+
+                loggerConfiguration.Enrich.FromLogContext();
             });
 
             return builder;

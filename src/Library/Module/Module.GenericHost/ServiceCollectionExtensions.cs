@@ -23,6 +23,8 @@ namespace Nm.Lib.Module.GenericHost
 
             var cfgHelper = new ConfigurationHelper();
             var cfg = cfgHelper.Load("module", environmentName, true);
+            if (cfg == null)
+                return modules;
 
             //通用配置
             services.Configure<ModuleCommonOptions>(cfg);

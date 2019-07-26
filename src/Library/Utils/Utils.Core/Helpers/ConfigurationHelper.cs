@@ -21,8 +21,12 @@ namespace Nm.Lib.Utils.Core.Helpers
         /// <returns></returns>
         public IConfiguration Load(string configFileName, string environmentName = "", bool reloadOnChange = false)
         {
+            var filePath = Path.Combine(AppContext.BaseDirectory, "config");
+            if (!Directory.Exists(filePath))
+                return null;
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(AppContext.BaseDirectory, "config"))
+                .SetBasePath(filePath)
                 .AddJsonFile(configFileName.ToLower() + ".json", true, reloadOnChange);
 
             if (environmentName.NotNull())
@@ -44,6 +48,9 @@ namespace Nm.Lib.Utils.Core.Helpers
         public T Get<T>(string configFileName, string environmentName = "", bool reloadOnChange = false)
         {
             var configuration = Load(configFileName, environmentName, reloadOnChange);
+            if (configuration == null)
+                return default;
+
             return configuration.Get<T>();
         }
     }
