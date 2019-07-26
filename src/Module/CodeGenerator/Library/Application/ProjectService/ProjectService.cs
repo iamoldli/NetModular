@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
@@ -20,7 +19,6 @@ using Nm.Module.CodeGenerator.Domain.Project;
 using Nm.Module.CodeGenerator.Domain.Project.Models;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Infrastructure.Options;
-using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Default;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
@@ -29,7 +27,6 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
     public class ProjectService : IProjectService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly ModuleCommonOptions _commonOptions;
         private readonly CodeGeneratorOptions _codeGeneratorOptions;
         private readonly IProjectRepository _repository;
@@ -40,7 +37,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         private readonly IModelPropertyRepository _modelPropertyRepository;
         private readonly IClassMethodRepository _classMethodRepository;
 
-        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository, IUnitOfWork<CodeGeneratorDbContext> uow)
+        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository)
         {
             _repository = repository;
             _mapper = mapper;
@@ -50,7 +47,6 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             _enumItemRepository = enumItemRepository;
             _modelPropertyRepository = modelPropertyRepository;
             _classMethodRepository = classMethodRepository;
-            _uow = uow;
             _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
             _commonOptions = optionsMonitor.CurrentValue;
         }
@@ -78,21 +74,23 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             if (entity == null)
                 return ResultModel.NotExists;
 
-            _uow.BeginTransaction();
-            var result = await _repository.SoftDeleteAsync(id);
-            if (result)
+            using (var tran = _repository.BeginTransaction())
             {
-                result = await _classRepository.DeleteByProject(id);
+                var result = await _repository.SoftDeleteAsync(id, tran);
                 if (result)
                 {
-                    result = await _propertyRepository.DeleteByProject(id);
+                    result = await _classRepository.DeleteByProject(id, tran);
                     if (result)
                     {
-                        result = await _modelPropertyRepository.DeleteByProject(id);
+                        result = await _propertyRepository.DeleteByProject(id, tran);
                         if (result)
                         {
-                            _uow.BeginTransaction();
-                            return ResultModel.Success();
+                            result = await _modelPropertyRepository.DeleteByProject(id, tran);
+                            if (result)
+                            {
+                                tran.Commit();
+                                return ResultModel.Success();
+                            }
                         }
                     }
                 }

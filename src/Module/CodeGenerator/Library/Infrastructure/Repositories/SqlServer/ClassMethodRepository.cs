@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -13,9 +14,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
 
         }
 
-        public Task<bool> DeleteByClass(Guid classId)
+        public Task<bool> DeleteByClass(Guid classId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ClassId == classId).DeleteAsync();
+            return Db.Find(m => m.ClassId == classId).UseTran(transaction).DeleteAsync();
         }
 
         public Task<ClassMethodEntity> GetByClass(Guid classId)

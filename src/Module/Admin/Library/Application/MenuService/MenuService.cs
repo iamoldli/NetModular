@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -17,14 +16,12 @@ using Nm.Module.Admin.Domain.MenuPermission;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.RoleMenu;
 using Nm.Module.Admin.Domain.RoleMenuButton;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.MenuService
 {
     public class MenuService : IMenuService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IMenuRepository _menuRepository;
         private readonly IMenuPermissionRepository _menuPermissionRepository;
         private readonly IRoleMenuRepository _roleMenuRepository;
@@ -34,11 +31,10 @@ namespace Nm.Module.Admin.Application.MenuService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IAccountService _accountService;
 
-        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IUnitOfWork<AdminDbContext> uow, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
+        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
         {
             _menuRepository = menuRepository;
             _menuPermissionRepository = menuPermissionRepository;
-            _uow = uow;
             _mapper = mapper;
             _roleMenuRepository = roleMenuRepository;
             _permissionRepository = permissionRepository;
@@ -96,8 +92,6 @@ namespace Nm.Module.Admin.Application.MenuService
         {
             var menu = _mapper.Map<MenuEntity>(model);
 
-            _uow.BeginTransaction();
-
             if (await _menuRepository.ExistsNameByParentId(menu.Name, menu.Id, menu.ParentId))
             {
                 return ResultModel.Failed($"节点名称“{menu.Name}”已存在");
@@ -120,7 +114,6 @@ namespace Nm.Module.Admin.Application.MenuService
 
             if (await _menuRepository.AddAsync(menu))
             {
-                _uow.Commit();
                 return ResultModel.Success();
             }
 
@@ -139,23 +132,24 @@ namespace Nm.Module.Admin.Application.MenuService
             if (await _roleMenuRepository.ExistsWidthMenuId(id))
                 return ResultModel.Failed($"有角色绑定了当前菜单({entity.Name})，请先删除关联信息");
 
-            _uow.BeginTransaction();
-
-            /*
-             * 删除逻辑
-             * 1、删除菜单
-             * 2、删除该菜单与权限的关联信息
-             */
-            if (await _menuRepository.DeleteAsync(id)
-                && await _menuPermissionRepository.DeleteByMenuId(id)
-                && await _buttonRepository.DeleteByMenu(id)
-                && await _roleMenuButtonRepository.DeleteByMenu(id))
+            using (var tran = _menuRepository.BeginTransaction())
             {
-                _uow.Commit();
+                /*
+                 * 删除逻辑
+                 * 1、删除菜单
+                 * 2、删除该菜单与权限的关联信息
+                 */
+                if (await _menuRepository.DeleteAsync(id, tran)
+                    && await _menuPermissionRepository.DeleteByMenuId(id, tran)
+                    && await _buttonRepository.DeleteByMenu(id, tran)
+                    && await _roleMenuButtonRepository.DeleteByMenu(id, tran))
+                {
+                    tran.Commit();
 
-                await ClearAccountPermissionCache(id);
+                    await ClearAccountPermissionCache(id);
 
-                return ResultModel.Success();
+                    return ResultModel.Success();
+                }
             }
 
             return ResultModel.Failed();
@@ -206,31 +200,33 @@ namespace Nm.Module.Admin.Application.MenuService
 
         public async Task<IResultModel> BindPermission(MenuBindPermissionModel model)
         {
-            _uow.BeginTransaction();
-
-            //删除旧数据
-            if (await _menuPermissionRepository.DeleteByMenuId(model.Id))
+            using (var tran = _menuRepository.BeginTransaction())
             {
-                if (model.PermissionList == null || !model.PermissionList.Any())
+                //删除旧数据
+                if (await _menuPermissionRepository.DeleteByMenuId(model.Id, tran))
                 {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
+                    if (model.PermissionList == null || !model.PermissionList.Any())
+                    {
+                        tran.Commit();
+                        await ClearAccountPermissionCache(model.Id);
 
-                    return ResultModel.Success();
-                }
+                        return ResultModel.Success();
+                    }
 
-                //添加新数据
-                var entityList = new List<MenuPermissionEntity>();
-                model.PermissionList.ForEach(p =>
-                {
-                    entityList.Add(new MenuPermissionEntity { MenuId = model.Id, PermissionId = p });
-                });
-                if (await _menuPermissionRepository.AddAsync(entityList))
-                {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
+                    //添加新数据
+                    var entityList = new List<MenuPermissionEntity>();
+                    model.PermissionList.ForEach(p =>
+                    {
+                        entityList.Add(new MenuPermissionEntity { MenuId = model.Id, PermissionId = p });
+                    });
 
-                    return ResultModel.Success();
+                    if (await _menuPermissionRepository.AddAsync(entityList, tran))
+                    {
+                        tran.Commit();
+                        await ClearAccountPermissionCache(model.Id);
+
+                        return ResultModel.Success();
+                    }
                 }
             }
 
@@ -268,24 +264,26 @@ namespace Nm.Module.Admin.Application.MenuService
                 return ResultModel.Failed("不包含数据");
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var option in model.Options)
+            using (var tran = _menuRepository.BeginTransaction())
             {
-                var entity = await _menuRepository.GetAsync(option.Id);
-                if (entity == null)
+                foreach (var option in model.Options)
                 {
-                    return ResultModel.Failed();
+                    var entity = await _menuRepository.GetAsync(option.Id, tran);
+                    if (entity == null)
+                    {
+                        return ResultModel.Failed();
+                    }
+
+                    entity.Sort = option.Sort;
+                    if (!await _menuRepository.UpdateAsync(entity, tran))
+                    {
+                        return ResultModel.Failed();
+                    }
                 }
 
-                entity.Sort = option.Sort;
-                if (!await _menuRepository.UpdateAsync(entity))
-                {
-                    return ResultModel.Failed();
-                }
+                tran.Commit();
             }
 
-            _uow.Commit();
             return ResultModel.Success();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -14,19 +15,19 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<bool> DeleteByRole(Guid roleId)
+        public Task<bool> DeleteByRole(Guid roleId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.RoleId == roleId).DeleteAsync();
+            return Db.Find(m => m.RoleId == roleId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> DeleteByMenu(Guid menuId)
+        public Task<bool> DeleteByMenu(Guid menuId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.MenuId == menuId).DeleteAsync();
+            return Db.Find(m => m.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> DeleteByButton(Guid buttonId)
+        public Task<bool> DeleteByButton(Guid buttonId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ButtonId == buttonId).DeleteAsync();
+            return Db.Find(m => m.ButtonId == buttonId).UseTran(transaction).DeleteAsync();
         }
 
         public virtual Task<IList<ButtonEntity>> Query(Guid roleId, Guid menuId)
@@ -50,10 +51,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .DeleteAsync();
         }
 
-        public Task<bool> Delete(Guid roleId, Guid menuId)
+        public Task<bool> Delete(Guid roleId, Guid menuId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.RoleId == roleId && m.MenuId == menuId)
-                .DeleteAsync();
+            return Db.Find(m => m.RoleId == roleId && m.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
         public Task<bool> ExistsWidthButton(Guid buttonId)

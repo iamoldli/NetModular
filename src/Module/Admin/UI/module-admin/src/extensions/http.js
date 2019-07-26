@@ -31,7 +31,8 @@ export default baseUrl => {
     axios.interceptors.response.use(
       response => {
         // 文件下载/预览
-        if (response.request.responseType.toLowerCase() === 'blob') {
+        const contentDisposition = response.headers['content-disposition']
+        if (contentDisposition) {
           const url = window.URL.createObjectURL(response.data)
           // 如果是预览直接返回，否则就是下载
           if (response.config.preview) {
@@ -39,7 +40,7 @@ export default baseUrl => {
           }
 
           const fileName = decodeURI(
-            response.headers['content-disposition']
+            contentDisposition
               .split(';')
               .find(m => m.trim().startsWith('filename='))
               .split('=')[1]
@@ -55,6 +56,7 @@ export default baseUrl => {
           document.body.removeChild(link)
           return
         }
+
         if (response.data.code === 1) {
           return response.data.data
         } else {

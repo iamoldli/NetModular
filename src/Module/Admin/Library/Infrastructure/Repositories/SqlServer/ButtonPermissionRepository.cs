@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -17,9 +18,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.PermissionId.Equals(permissionId)).ExistsAsync();
         }
 
-        public Task<bool> RemoveByButtonId(Guid buttonId)
+        public Task<bool> RemoveByButtonId(Guid buttonId, IDbTransaction transaction)
         {
-            return Db.Find(e => e.ButtonId == buttonId).DeleteAsync();
+            return Db.Find(e => e.ButtonId == buttonId).UseTran(transaction).DeleteAsync();
 
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.ModuleInfoService;
@@ -12,7 +11,6 @@ using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Config;
 using Nm.Module.Admin.Domain.Role;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.SystemService
 {
@@ -25,7 +23,6 @@ namespace Nm.Module.Admin.Application.SystemService
 
         private const string SystemConfigCacheKey = "ADMIN_SYSTEM_CONFIG";
 
-        private readonly IUnitOfWork _uow;
         private readonly IConfigRepository _configRepository;
         private readonly IModuleInfoService _moduleInfoService;
         private readonly IPermissionService _permissionService;
@@ -34,9 +31,8 @@ namespace Nm.Module.Admin.Application.SystemService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly ICacheHandler _cache;
 
-        public SystemService(IUnitOfWork<AdminDbContext> uow, IConfigRepository configRepository, IModuleInfoService moduleInfoService, IPermissionService permissionService, IRoleRepository roleRepository, ICacheHandler cache, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository)
+        public SystemService(IConfigRepository configRepository, IModuleInfoService moduleInfoService, IPermissionService permissionService, IRoleRepository roleRepository, ICacheHandler cache, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository)
         {
-            _uow = uow;
             _configRepository = configRepository;
             _moduleInfoService = moduleInfoService;
             _permissionService = permissionService;
@@ -116,84 +112,85 @@ namespace Nm.Module.Admin.Application.SystemService
 
             var tasks = new List<Task>();
 
-            _uow.BeginTransaction();
+            using (var tran = _configRepository.BeginTransaction())
+            {
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.Title,
+                    Value = model.Title,
+                    Remarks = "系统标题"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.Logo,
+                    Value = model.Logo,
+                    Remarks = "系统Logo"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.Home,
+                    Value = model.Home,
+                    Remarks = "系统首页"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.UserInfoPage,
+                    Value = model.UserInfoPage,
+                    Remarks = "个人信息页"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.ButtonPermission,
+                    Value = model.ButtonPermission.ToString(),
+                    Remarks = "启用按钮权限"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.Auditing,
+                    Value = model.Auditing.ToString(),
+                    Remarks = "启用审计日志"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.LoginVerifyCode,
+                    Value = model.LoginVerifyCode.ToString(),
+                    Remarks = "启用登录验证码功能"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.ToolbarFullscreen,
+                    Value = model.Toolbar.Fullscreen.ToString(),
+                    Remarks = "显示工具栏全屏按钮"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.ToolbarSkin,
+                    Value = model.Toolbar.Skin.ToString(),
+                    Remarks = "显示工具栏皮肤按钮"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.ToolbarLogout,
+                    Value = model.Toolbar.Logout.ToString(),
+                    Remarks = "显示工具栏退出按钮"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.ToolbarUserInfo,
+                    Value = model.Toolbar.UserInfo.ToString(),
+                    Remarks = "显示工具栏用户信息按钮"
+                }, tran));
+                tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
+                {
+                    Key = SystemConfigKey.CustomCss,
+                    Value = model.CustomCss,
+                    Remarks = "自定义CSS样式"
+                }, tran));
 
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.Title,
-                Value = model.Title,
-                Remarks = "系统标题"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.Logo,
-                Value = model.Logo,
-                Remarks = "系统Logo"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.Home,
-                Value = model.Home,
-                Remarks = "系统首页"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.UserInfoPage,
-                Value = model.UserInfoPage,
-                Remarks = "个人信息页"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.ButtonPermission,
-                Value = model.ButtonPermission.ToString(),
-                Remarks = "启用按钮权限"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.Auditing,
-                Value = model.Auditing.ToString(),
-                Remarks = "启用审计日志"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.LoginVerifyCode,
-                Value = model.LoginVerifyCode.ToString(),
-                Remarks = "启用登录验证码功能"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.ToolbarFullscreen,
-                Value = model.Toolbar.Fullscreen.ToString(),
-                Remarks = "显示工具栏全屏按钮"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.ToolbarSkin,
-                Value = model.Toolbar.Skin.ToString(),
-                Remarks = "显示工具栏皮肤按钮"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.ToolbarLogout,
-                Value = model.Toolbar.Logout.ToString(),
-                Remarks = "显示工具栏退出按钮"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.ToolbarUserInfo,
-                Value = model.Toolbar.UserInfo.ToString(),
-                Remarks = "显示工具栏用户信息按钮"
-            }));
-            tasks.Add(_configRepository.UpdateAsync(new ConfigEntity
-            {
-                Key = SystemConfigKey.CustomCss,
-                Value = model.CustomCss,
-                Remarks = "自定义CSS样式"
-            }));
+                Task.WaitAll(tasks.ToArray());
 
-            Task.WaitAll(tasks.ToArray());
-
-            _uow.Commit();
+                tran.Commit();
+            }
 
             _cache.RemoveAsync(SystemConfigCacheKey).Wait();
 

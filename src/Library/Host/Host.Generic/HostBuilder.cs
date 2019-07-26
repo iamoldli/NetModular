@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nm.Lib.Cache.Integration;
-using Nm.Lib.Data.GenericHost;
+using Nm.Lib.Data.Integration;
 using Nm.Lib.Logging.Serilog.GenericHost;
 using Nm.Lib.Mapper.AutoMapper;
 using Nm.Lib.Module.GenericHost;

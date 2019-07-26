@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 
@@ -22,8 +23,9 @@ namespace Nm.Module.Admin.Domain.AccountRole
         /// 删除指定账户的关联信息
         /// </summary>
         /// <param name="accountId"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> DeleteByAccount(Guid accountId);
+        Task<bool> DeleteByAccount(Guid accountId, IDbTransaction transaction);
 
         /// <summary>
         /// 判断绑定关系是否已存在

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using Nm.Lib.Data.Abstractions;
@@ -22,6 +23,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         }
 
         #region ==属性==
+
+        /// <summary>
+        /// 事务
+        /// </summary>
+        public IDbTransaction Transaction { get; private set; }
 
         /// <summary>
         /// 用户指定的表名称，对于多表连接的查询，该名称为第一张表的名称
@@ -98,6 +104,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         #endregion
 
         #region ==方法==
+
+        public void UseTran(IDbTransaction transaction)
+        {
+            Transaction = transaction;
+        }
 
         public void SetWhere(LambdaExpression whereExpression)
         {

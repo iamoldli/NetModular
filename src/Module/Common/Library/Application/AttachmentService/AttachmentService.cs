@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AttachmentService.ResultModels;
@@ -12,7 +11,6 @@ using Nm.Module.Common.Domain.Attachment;
 using Nm.Module.Common.Domain.Attachment.Models;
 using Nm.Module.Common.Domain.AttachmentOwner;
 using Nm.Module.Common.Domain.MediaType;
-using Nm.Module.Common.Infrastructure.Repositories;
 using FileInfo = Nm.Lib.Utils.Core.Files.FileInfo;
 
 namespace Nm.Module.Common.Application.AttachmentService
@@ -21,15 +19,13 @@ namespace Nm.Module.Common.Application.AttachmentService
     {
         private readonly ModuleCommonOptions _moduleCommonOptions;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IAttachmentRepository _repository;
         private readonly IAttachmentOwnerRepository _ownerRepository;
         private readonly IMediaTypeRepository _mediaTypeRepository;
 
-        public AttachmentService(IAttachmentRepository repository, IUnitOfWork<CommonDbContext> uow, IAttachmentOwnerRepository ownerRepository, IOptionsMonitor<ModuleCommonOptions> moduleCommonOptionsMonitor, IMediaTypeRepository mediaTypeRepository, IMapper mapper)
+        public AttachmentService(IAttachmentRepository repository, IAttachmentOwnerRepository ownerRepository, IOptionsMonitor<ModuleCommonOptions> moduleCommonOptionsMonitor, IMediaTypeRepository mediaTypeRepository, IMapper mapper)
         {
             _repository = repository;
-            _uow = uow;
             _ownerRepository = ownerRepository;
             _moduleCommonOptions = moduleCommonOptionsMonitor.CurrentValue;
             _mediaTypeRepository = mediaTypeRepository;
@@ -69,18 +65,19 @@ namespace Nm.Module.Common.Application.AttachmentService
                 entity.MediaType = mediaType.Value;
             }
 
-            _uow.BeginTransaction();
-
-            if (await _repository.AddAsync(entity))
+            using (var tran = _repository.BeginTransaction())
             {
-                //如果需要授权访问附件，需要添加拥有者关联信息
-                if (!model.Auth || await _ownerRepository.AddAsync(new AttachmentOwnerEntity { AttachmentId = entity.Id, AccountId = model.AccountId }))
+                if (await _repository.AddAsync(entity))
                 {
-                    _uow.Commit();
+                    //如果需要授权访问附件，需要添加拥有者关联信息
+                    if (!model.Auth || await _ownerRepository.AddAsync(new AttachmentOwnerEntity { AttachmentId = entity.Id, AccountId = model.AccountId }))
+                    {
+                        tran.Commit();
 
-                    var resultModel = _mapper.Map<AttachmentUploadResultModel>(entity);
+                        var resultModel = _mapper.Map<AttachmentUploadResultModel>(entity);
 
-                    return result.Success(resultModel);
+                        return result.Success(resultModel);
+                    }
                 }
             }
 

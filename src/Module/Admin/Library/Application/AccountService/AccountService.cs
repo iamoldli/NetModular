@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Logging;
 using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Encrypt;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Helpers;
@@ -20,7 +18,6 @@ using Nm.Module.Admin.Domain.Button;
 using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.Role;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.AccountService
 {
@@ -40,7 +37,6 @@ namespace Nm.Module.Admin.Application.AccountService
         public const string DefaultPassword = "123456";
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IAccountRepository _accountRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IMenuRepository _menuRepository;
@@ -50,11 +46,10 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IUnitOfWork<AdminDbContext> uow, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ILogger<AccountService> logger, ISystemService systemService)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService)
         {
             _cache = cache;
             _mapper = mapper;
-            _uow = uow;
             _accountRepository = accountRepository;
             _accountRoleRepository = accountRoleRepository;
             _menuRepository = menuRepository;
@@ -257,22 +252,25 @@ namespace Nm.Module.Admin.Application.AccountService
 
             account.Password = EncryptPassword(account.UserName.ToLower(), account.Password);
 
-            _uow.BeginTransaction();
-            if (await _accountRepository.AddAsync(account))
+            using (var tran = _accountRepository.BeginTransaction())
             {
-                if (model.Roles != null && model.Roles.Any())
+                if (await _accountRepository.AddAsync(account, tran))
                 {
-                    var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
-                    if (await _accountRoleRepository.AddAsync(accountRoleList))
+                    if (model.Roles != null && model.Roles.Any())
                     {
-                        _uow.Commit();
+                        var accountRoleList = model.Roles
+                            .Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
+                        if (await _accountRoleRepository.AddAsync(accountRoleList, tran))
+                        {
+                            tran.Commit();
+                            return result.Success(account.Id);
+                        }
+                    }
+                    else
+                    {
+                        tran.Commit();
                         return result.Success(account.Id);
                     }
-                }
-                else
-                {
-                    _uow.Commit();
-                    return result.Success(account.Id);
                 }
             }
 
@@ -303,30 +301,32 @@ namespace Nm.Module.Admin.Application.AccountService
             if (!exists.Successful)
                 return exists;
 
-            _uow.BeginTransaction();
-            var result = await _accountRepository.UpdateAsync(account);
-            if (result)
+            using (var tran = _accountRepository.BeginTransaction())
             {
-                result = await _accountRoleRepository.DeleteByAccount(account.Id);
+                var result = await _accountRepository.UpdateAsync(account, tran);
                 if (result)
                 {
-                    if (model.Roles != null && model.Roles.Any())
+                    result = await _accountRoleRepository.DeleteByAccount(account.Id, tran);
+                    if (result)
                     {
-                        var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
-                        if (await _accountRoleRepository.AddAsync(accountRoleList))
+                        if (model.Roles != null && model.Roles.Any())
                         {
-                            _uow.Commit();
+                            var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
+                            if (await _accountRoleRepository.AddAsync(accountRoleList, tran))
+                            {
+                                tran.Commit();
+                                ClearPermissionListCache(account.Id);
+
+                                return ResultModel.Success();
+                            }
+                        }
+                        else
+                        {
+                            tran.Commit();
                             ClearPermissionListCache(account.Id);
 
                             return ResultModel.Success();
                         }
-                    }
-                    else
-                    {
-                        _uow.Commit();
-                        ClearPermissionListCache(account.Id);
-
-                        return ResultModel.Success();
                     }
                 }
             }

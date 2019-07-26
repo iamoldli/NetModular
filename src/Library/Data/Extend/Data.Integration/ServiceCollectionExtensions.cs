@@ -8,13 +8,12 @@ using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Utils.Core;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.AspNetCore
+namespace Nm.Lib.Data.Integration
 {
     public static class ServiceCollectionExtensions
     {
@@ -70,7 +69,7 @@ namespace Nm.Lib.Data.AspNetCore
             if (dbContextType != null)
             {
                 var assemblyHelper = new AssemblyHelper();
-                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("AspNetCore", "") + options.Dialect;
+                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + options.Dialect;
                 var dbContextOptionsTypeName = options.Dialect + "DbContextOptions";
 
                 var dbContextOptionsType = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(dbContextOptionsAssemblyName)).GetType($"{dbContextOptionsAssemblyName}.{dbContextOptionsTypeName}");
@@ -82,33 +81,16 @@ namespace Nm.Lib.Data.AspNetCore
 
                 var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, loginInfo);
 
-                services.AddScoped(typeof(IDbContext), sp => Activator.CreateInstance(dbContextType, contextOptions));
-                services.AddUnitOfWork(dbContextType, options);
-                services.AddRepositories(module, options);
+                var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions);
+                services.AddSingleton(typeof(IDbContext), sp => dbContext);
+                services.AddRepositories(module, options, dbContext);
             }
-        }
-
-        /// <summary>
-        /// 添加工作单元
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="dbContextType"></param>
-        /// <param name="options"></param>
-        private static void AddUnitOfWork(this IServiceCollection services, Type dbContextType, DbConnectionOptions options)
-        {
-            var serviceType = typeof(IUnitOfWork<>).MakeGenericType(dbContextType);
-            var implementType = typeof(UnitOfWork<>).MakeGenericType(dbContextType);
-            services.AddScoped(serviceType, sp =>
-            {
-                var dbContext = sp.GetServices<IDbContext>().FirstOrDefault(m => m.Options.Name.Equals(options.Name));
-                return Activator.CreateInstance(implementType, dbContext);
-            });
         }
 
         /// <summary>
         /// 添加仓储
         /// </summary>
-        private static void AddRepositories(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options)
+        private static void AddRepositories(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options, IDbContext dbContext)
         {
             var interfaceList = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsInterface && typeof(IRepository<>).IsImplementType(t)).ToList();
 
@@ -122,11 +104,7 @@ namespace Nm.Lib.Data.AspNetCore
                 var implementType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.FullName.NotNull() && m.FullName.StartsWith(entityNamespacePrefix) && serviceType.IsAssignableFrom(m));
                 if (implementType != null)
                 {
-                    services.AddScoped(serviceType, sp =>
-                    {
-                        var dbContext = sp.GetServices<IDbContext>().FirstOrDefault(m => m.Options.Name.Equals(options.Name));
-                        return Activator.CreateInstance(implementType, dbContext);
-                    });
+                    services.AddSingleton(serviceType, Activator.CreateInstance(implementType, dbContext));
                 }
             }
         }

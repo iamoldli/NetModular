@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
@@ -11,22 +10,19 @@ using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.ModelProperty;
 using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
 using Nm.Module.CodeGenerator.Domain.Property;
-using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
 {
     public class ModelPropertyService : IModelPropertyService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IModelPropertyRepository _repository;
         private readonly IClassRepository _classRepository;
         private readonly IPropertyRepository _propertyRepository;
 
-        public ModelPropertyService(IMapper mapper, IUnitOfWork<CodeGeneratorDbContext> uow, IClassRepository classRepository, IModelPropertyRepository repository, IPropertyRepository propertyRepository)
+        public ModelPropertyService(IMapper mapper, IClassRepository classRepository, IModelPropertyRepository repository, IPropertyRepository propertyRepository)
         {
             _mapper = mapper;
-            _uow = uow;
             _classRepository = classRepository;
             _repository = repository;
             _propertyRepository = propertyRepository;
@@ -115,26 +111,28 @@ namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
                 return ResultModel.Failed("不包含数据");
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var option in model.Options)
+            using (var tran = _repository.BeginTransaction())
             {
-                var entity = await _repository.GetAsync(option.Id);
-                if (entity == null)
+                foreach (var option in model.Options)
                 {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
+                    var entity = await _repository.GetAsync(option.Id, tran);
+                    if (entity == null)
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
+
+                    entity.Sort = option.Sort;
+                    if (!await _repository.UpdateAsync(entity, tran))
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
                 }
 
-                entity.Sort = option.Sort;
-                if (!await _repository.UpdateAsync(entity))
-                {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
-                }
+                tran.Commit();
             }
 
-            _uow.Commit();
             return ResultModel.Success();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -54,14 +55,15 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> DeleteByMenu(Guid menuId)
+        public Task<bool> DeleteByMenu(Guid menuId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.MenuId == menuId).DeleteAsync();
+            return Db.Find(m => m.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> UpdateForSync(ButtonEntity button)
+        public Task<bool> UpdateForSync(ButtonEntity button, IDbTransaction transaction)
         {
             return Db.Find(m => m.MenuId == button.MenuId && m.Code == button.Code)
+                .UseTran(transaction)
                 .UpdateAsync(m => new ButtonEntity { Icon = button.Icon, Name = button.Name });
         }
     }

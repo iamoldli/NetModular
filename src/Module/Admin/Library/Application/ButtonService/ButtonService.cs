@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -15,13 +14,11 @@ using Nm.Module.Admin.Domain.ButtonPermission;
 using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.RoleMenuButton;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.ButtonService
 {
     public class ButtonService : IButtonService
     {
-        private readonly IUnitOfWork _uow;
         private readonly IButtonRepository _buttonRepository;
         private readonly IMenuRepository _menuRepository;
         private readonly IRoleMenuButtonRepository _roleMenuButtonRepository;
@@ -30,9 +27,8 @@ namespace Nm.Module.Admin.Application.ButtonService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IAccountService _accountService;
 
-        public ButtonService(IMapper mapper, IUnitOfWork<AdminDbContext> uow, IButtonRepository buttonRepository, IMenuRepository menuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IPermissionRepository permissionRepository, IButtonPermissionRepository buttonPermissionRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
+        public ButtonService(IMapper mapper, IButtonRepository buttonRepository, IMenuRepository menuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IPermissionRepository permissionRepository, IButtonPermissionRepository buttonPermissionRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
         {
-            _uow = uow;
             _buttonRepository = buttonRepository;
             _menuRepository = menuRepository;
             _roleMenuButtonRepository = roleMenuButtonRepository;
@@ -75,32 +71,33 @@ namespace Nm.Module.Admin.Application.ButtonService
                 }
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var button in model.Buttons)
+            using (var tran = _buttonRepository.BeginTransaction())
             {
-                button.MenuId = model.MenuId;
-                button.Code = button.Code.ToLower();
+                foreach (var button in model.Buttons)
+                {
+                    button.MenuId = model.MenuId;
+                    button.Code = button.Code.ToLower();
 
-                if (!await _buttonRepository.Exists(button.Code))
-                {
-                    if (!await _buttonRepository.AddAsync(button))
+                    if (!await _buttonRepository.Exists(button.Code))
                     {
-                        _uow.Rollback();
-                        return ResultModel.Failed("同步失败");
+                        if (!await _buttonRepository.AddAsync(button, tran))
+                        {
+                            tran.Rollback();
+                            return ResultModel.Failed("同步失败");
+                        }
+                    }
+                    else
+                    {
+                        if (!await _buttonRepository.UpdateForSync(button, tran))
+                        {
+                            tran.Rollback();
+                            return ResultModel.Failed("同步失败");
+                        }
                     }
                 }
-                else
-                {
-                    if (!await _buttonRepository.UpdateForSync(button))
-                    {
-                        _uow.Rollback();
-                        return ResultModel.Failed("同步失败");
-                    }
-                }
+
+                tran.Commit();
             }
-
-            _uow.Commit();
 
             return ResultModel.Success();
         }
@@ -114,14 +111,15 @@ namespace Nm.Module.Admin.Application.ButtonService
             if (await _roleMenuButtonRepository.ExistsWidthButton(id))
                 return ResultModel.Failed("有角色绑定了该按钮，请先删除绑定关系");
 
-            _uow.BeginTransaction();
-
-            if (await _roleMenuButtonRepository.DeleteByButton(entity.Id) && await _buttonRepository.DeleteAsync(id))
+            using (var tran = _buttonRepository.BeginTransaction())
             {
-                _uow.Commit();
-                return ResultModel.Success();
+                if (await _roleMenuButtonRepository.DeleteByButton(entity.Id, tran) && await _buttonRepository.DeleteAsync(id, tran))
+                {
+                    tran.Commit();
+                    return ResultModel.Success();
+                }
             }
-            _uow.Rollback();
+
             return ResultModel.Failed();
         }
 
@@ -133,33 +131,34 @@ namespace Nm.Module.Admin.Application.ButtonService
 
         public async Task<IResultModel> BindPermission(ButtonBindPermissionModel model)
         {
-            _uow.BeginTransaction();
-
-            //删除旧数据
-            if (await _buttonPermissionRepository.RemoveByButtonId(model.Id))
+            using (var tran = _buttonRepository.BeginTransaction())
             {
-                if (model.PermissionList == null || !model.PermissionList.Any())
+                //删除旧数据
+                if (await _buttonPermissionRepository.RemoveByButtonId(model.Id, tran))
                 {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
-                    return ResultModel.Success();
-                }
+                    if (model.PermissionList == null || !model.PermissionList.Any())
+                    {
+                        tran.Commit();
+                        await ClearAccountPermissionCache(model.Id);
+                        return ResultModel.Success();
+                    }
 
-                //添加新数据
-                var entityList = new List<ButtonPermissionEntity>();
-                model.PermissionList.ForEach(p =>
-                {
-                    entityList.Add(new ButtonPermissionEntity { ButtonId = model.Id, PermissionId = p });
-                });
-                if (await _buttonPermissionRepository.AddAsync(entityList))
-                {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
-                    return ResultModel.Success();
+                    //添加新数据
+                    var entityList = new List<ButtonPermissionEntity>();
+                    model.PermissionList.ForEach(p =>
+                    {
+                        entityList.Add(new ButtonPermissionEntity { ButtonId = model.Id, PermissionId = p });
+                    });
+
+                    if (await _buttonPermissionRepository.AddAsync(entityList, tran))
+                    {
+                        tran.Commit();
+                        await ClearAccountPermissionCache(model.Id);
+                        return ResultModel.Success();
+                    }
                 }
             }
 
-            _uow.Rollback();
             return ResultModel.Failed();
         }
 

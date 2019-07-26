@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
@@ -24,12 +25,12 @@ namespace Nm.Module.Common.Web.Controllers
         private readonly FileUploadHelper _fileUploadHelper;
         private readonly ModuleCommonOptions _moduleCommonOptions;
 
-        public AttachmentController(IAttachmentService service, ILoginInfo loginInfo, FileUploadHelper fileUploadHelper, ModuleCommonOptions moduleCommonOptions)
+        public AttachmentController(IAttachmentService service, ILoginInfo loginInfo, FileUploadHelper fileUploadHelper, IOptionsMonitor<ModuleCommonOptions> iOptionsMonitor)
         {
             _service = service;
             _loginInfo = loginInfo;
             _fileUploadHelper = fileUploadHelper;
-            _moduleCommonOptions = moduleCommonOptions;
+            _moduleCommonOptions = iOptionsMonitor.CurrentValue;
         }
 
         [HttpGet]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -55,14 +56,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.EnumId == enumId).ExistsAsync();
         }
 
-        public Task<bool> DeleteByClass(Guid classId)
+        public Task<bool> DeleteByClass(Guid classId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ClassId == classId).DeleteAsync();
+            return Db.Find(m => m.ClassId == classId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> DeleteByProject(Guid projectId)
+        public Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ProjectId == projectId).DeleteAsync();
+            return Db.Find(m => m.ProjectId == projectId).UseTran(transaction).DeleteAsync();
         }
     }
 }

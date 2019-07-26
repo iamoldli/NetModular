@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
@@ -35,7 +36,8 @@ namespace Nm.Module.CodeGenerator.Domain.Class
         /// 删除制定项目的所有类
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> DeleteByProject(Guid projectId);
+        Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction);
     }
 }

@@ -50,7 +50,7 @@ namespace Nm.Lib.Module.GenericHost
         /// <summary>
         /// 添加应用服务
         /// </summary>
-        private static void AddApplicationServices(this IServiceCollection services, IModuleDescriptor module, ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        private static void AddApplicationServices(this IServiceCollection services, IModuleDescriptor module)
         {
             if (module.AssemblyDescriptor == null)
                 return;
@@ -62,7 +62,7 @@ namespace Nm.Lib.Module.GenericHost
                 var implementationType = types.FirstOrDefault(m => m != serviceType && serviceType.IsAssignableFrom(m));
                 if (implementationType != null)
                 {
-                    services.Add(new ServiceDescriptor(serviceType, implementationType, lifetime));
+                    services.Add(new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton));
                 }
             }
         }

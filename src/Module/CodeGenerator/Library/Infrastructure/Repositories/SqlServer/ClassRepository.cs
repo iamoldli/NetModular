@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -47,9 +48,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
                 .ExistsAsync();
         }
 
-        public Task<bool> DeleteByProject(Guid projectId)
+        public Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ProjectId == projectId).DeleteAsync();
+            return Db.Find(m => m.ProjectId == projectId).UseTran(transaction).DeleteAsync();
         }
     }
 }

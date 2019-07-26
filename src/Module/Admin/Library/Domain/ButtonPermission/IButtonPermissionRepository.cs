@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 
@@ -21,7 +22,8 @@ namespace Nm.Module.Admin.Domain.ButtonPermission
         /// 通过按钮编号删除所有对应菜单与权限关系
         /// </summary>
         /// <param name="buttonId"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> RemoveByButtonId(Guid buttonId);
+        Task<bool> RemoveByButtonId(Guid buttonId, IDbTransaction transaction);
     }
 }

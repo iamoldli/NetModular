@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -15,14 +14,12 @@ using Nm.Module.Admin.Domain.Role;
 using Nm.Module.Admin.Domain.Role.Models;
 using Nm.Module.Admin.Domain.RoleMenu;
 using Nm.Module.Admin.Domain.RoleMenuButton;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.RoleService
 {
     public class RoleService : IRoleService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IRoleRepository _repository;
         private readonly IRoleMenuRepository _roleMenuRepository;
         private readonly IRoleMenuButtonRepository _roleMenuButtonRepository;
@@ -30,10 +27,9 @@ namespace Nm.Module.Admin.Application.RoleService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IAccountService _accountService;
 
-        public RoleService(IMapper mapper, IUnitOfWork<AdminDbContext> uow, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
         {
             _mapper = mapper;
-            _uow = uow;
             _repository = repository;
             _roleMenuRepository = roleMenuRepository;
             _roleMenuButtonRepository = roleMenuButtonRepository;
@@ -74,21 +70,23 @@ namespace Nm.Module.Admin.Application.RoleService
             if (exist)
                 return ResultModel.Failed("有账户绑定了该角色，请先删除对应绑定关系");
 
-            _uow.BeginTransaction();
-            var result = await _repository.SoftDeleteAsync(id);
-            if (result)
+            using (var tran = _repository.BeginTransaction())
             {
-                result = await _roleMenuRepository.DeleteByRoleId(id);
+                var result = await _repository.SoftDeleteAsync(id, tran);
                 if (result)
                 {
-                    result = await _roleMenuButtonRepository.DeleteByRole(id);
+                    result = await _roleMenuRepository.DeleteByRoleId(id, tran);
                     if (result)
                     {
-                        _uow.Commit();
+                        result = await _roleMenuButtonRepository.DeleteByRole(id, tran);
+                        if (result)
+                        {
+                            tran.Commit();
+                        }
                     }
                 }
+                return ResultModel.Result(result);
             }
-            return ResultModel.Result(result);
         }
 
         public async Task<IResultModel> Edit(Guid id)
@@ -141,22 +139,20 @@ namespace Nm.Module.Admin.Application.RoleService
              * 1、清除已有的绑定数据
              * 2、添加新的绑定数据
              */
-            _uow.BeginTransaction();
-
-            var clear = await _roleMenuRepository.DeleteByRoleId(model.Id);
-            if (clear)
+            using (var tran = _roleMenuRepository.BeginTransaction())
             {
-                if (entityList == null || !entityList.Any() || await _roleMenuRepository.AddAsync(entityList))
+                var clear = await _roleMenuRepository.DeleteByRoleId(model.Id, tran);
+                if (clear)
                 {
-                    _uow.Commit();
-
-                    await ClearAccountPermissionCache(model.Id);
-
-                    return ResultModel.Success();
+                    if (entityList == null || !entityList.Any() || await _roleMenuRepository.AddAsync(entityList, tran))
+                    {
+                        tran.Commit();
+                        await ClearAccountPermissionCache(model.Id);
+                        return ResultModel.Success();
+                    }
                 }
             }
 
-            _uow.Rollback();
             return ResultModel.Failed();
         }
 
@@ -226,37 +222,39 @@ namespace Nm.Module.Admin.Application.RoleService
 
             #region ==批量添加指定菜单的所有按钮==
 
-            _uow.BeginTransaction();
-            result = await _roleMenuButtonRepository.Delete(model.RoleId, model.MenuId);
-            if (result)
+            using (var tran = _roleMenuRepository.BeginTransaction())
             {
-                if (model.Checked)
+                result = await _roleMenuButtonRepository.Delete(model.RoleId, model.MenuId, tran);
+                if (result)
                 {
-                    var buttons = await _buttonRepository.QueryByMenu(model.MenuId);
-                    var entities = buttons.Select(m => new RoleMenuButtonEntity
+                    if (model.Checked)
                     {
-                        RoleId = model.RoleId,
-                        MenuId = model.MenuId,
-                        ButtonId = m.Id
-                    }).ToList();
+                        var buttons = await _buttonRepository.QueryByMenu(model.MenuId);
+                        var entities = buttons.Select(m => new RoleMenuButtonEntity
+                        {
+                            RoleId = model.RoleId,
+                            MenuId = model.MenuId,
+                            ButtonId = m.Id
+                        }).ToList();
 
-                    if (await _roleMenuButtonRepository.AddAsync(entities))
+                        if (await _roleMenuButtonRepository.AddAsync(entities, tran))
+                        {
+                            tran.Commit();
+                            await ClearAccountPermissionCache(model.RoleId);
+
+                            return ResultModel.Success();
+                        }
+                    }
+                    else
                     {
-                        _uow.Commit();
+                        tran.Commit();
                         await ClearAccountPermissionCache(model.RoleId);
 
                         return ResultModel.Success();
                     }
                 }
-                else
-                {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.RoleId);
-
-                    return ResultModel.Success();
-                }
             }
-            _uow.Rollback();
+
             return ResultModel.Failed();
 
             #endregion

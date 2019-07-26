@@ -51,7 +51,7 @@ namespace Nm.Lib.Data.Core
 
         public string ConnectionString { get; }
 
-        public abstract IDbConnection OpenConnection();
+        public abstract IDbConnection NewConnection();
 
         public ILoggerFactory LoggerFactory { get; }
 

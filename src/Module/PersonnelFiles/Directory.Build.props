@@ -3,7 +3,7 @@
     <Id>PersonnelFiles</Id>
     <Name>人事档案</Name>
     <Authors>Oldli</Authors>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

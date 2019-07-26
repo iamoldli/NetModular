@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using Nm.Module.PersonnelFiles.Domain.Department;
 
 namespace Nm.Module.PersonnelFiles.Application.DepartmentService.ViewModels
 {

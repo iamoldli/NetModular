@@ -26,10 +26,10 @@ namespace Nm.Lib.Data.Abstractions
         string ConnectionString { get; }
 
         /// <summary>
-        /// 打开连接
+        /// 创建新的连接
         /// </summary>
         /// <returns></returns>
-        IDbConnection OpenConnection();
+        IDbConnection NewConnection();
 
         /// <summary>
         /// 日志工厂

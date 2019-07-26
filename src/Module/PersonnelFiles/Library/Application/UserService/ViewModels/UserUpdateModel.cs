@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 using Nm.Module.PersonnelFiles.Domain.User;
 
 namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels

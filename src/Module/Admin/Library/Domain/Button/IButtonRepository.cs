@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.Button.Models;
@@ -42,14 +43,16 @@ namespace Nm.Module.Admin.Domain.Button
         /// 删除指定菜单的按钮
         /// </summary>
         /// <param name="menuId"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> DeleteByMenu(Guid menuId);
+        Task<bool> DeleteByMenu(Guid menuId, IDbTransaction transaction);
 
         /// <summary>
         /// 同步操作更新按钮信息
         /// </summary>
         /// <param name="button"></param>
+        /// <param name="transaction">事务</param>
         /// <returns></returns>
-        Task<bool> UpdateForSync(ButtonEntity button);
+        Task<bool> UpdateForSync(ButtonEntity button, IDbTransaction transaction);
     }
 }

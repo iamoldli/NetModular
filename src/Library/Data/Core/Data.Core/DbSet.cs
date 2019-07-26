@@ -52,7 +52,7 @@ namespace Nm.Lib.Data.Core
 
         #region ==Insert==
 
-        public bool Insert(TEntity entity, string tableName = null)
+        public bool Insert(TEntity entity, IDbTransaction transaction = null, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
 
@@ -63,7 +63,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsInt())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = ExecuteScalar<int>(sql, entity);
+                var id = ExecuteScalar<int>(sql, entity, transaction);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -78,7 +78,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsLong())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = ExecuteScalar<long>(sql, entity);
+                var id = ExecuteScalar<long>(sql, entity, transaction);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -98,13 +98,15 @@ namespace Nm.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return Execute(sql, entity) > 0;
+                return Execute(sql, entity, transaction) > 0;
             }
-            return Execute(sql, entity) > 0;
+
+            _logger?.LogDebug("Insert:({0})", sql);
+            return Execute(sql, entity, transaction) > 0;
 
         }
 
-        public async Task<bool> InsertAsync(TEntity entity, string tableName = null)
+        public async Task<bool> InsertAsync(TEntity entity, IDbTransaction transaction = null, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
             SetCreatedBy(entity);
@@ -115,7 +117,7 @@ namespace Nm.Lib.Data.Core
             {
                 sql += _sqlAdapter.IdentitySql;
 
-                var id = await ExecuteScalarAsync<int>(sql, entity);
+                var id = await ExecuteScalarAsync<int>(sql, entity, transaction);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -130,7 +132,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsLong())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = await ExecuteScalarAsync<long>(sql, entity);
+                var id = await ExecuteScalarAsync<long>(sql, entity, transaction);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -149,12 +151,12 @@ namespace Nm.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return await ExecuteAsync(sql, entity) > 0;
+                return await ExecuteAsync(sql, entity, transaction) > 0;
             }
 
             _logger?.LogDebug("Insert:({0})", sql);
 
-            return await ExecuteAsync(sql, entity) > 0;
+            return await ExecuteAsync(sql, entity, transaction) > 0;
 
         }
 
@@ -162,20 +164,21 @@ namespace Nm.Lib.Data.Core
 
         #region ==BatchInsert==
 
-        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, string tableName = null)
+        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, IDbTransaction transaction = null, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
 
-            var uow = new UnitOfWork(DbContext);
-
             //判断有没有事务
-            var hasTran = DbContext.Transaction != null;
+            var hasTran = true;
+            if (transaction == null)
+            {
+                transaction = DbContext.BeginTransaction();
+                hasTran = false;
+            }
+
             try
             {
-                if (!hasTran)
-                    uow.BeginTransaction();
-
                 if (_sqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 {
                     #region ==SQLite使用Dapper的官方方法==
@@ -254,35 +257,34 @@ namespace Nm.Lib.Data.Core
                 }
 
                 if (!hasTran)
-                    uow.Commit();
+                    transaction.Commit();
 
                 return true;
             }
             catch
             {
                 if (!hasTran)
-                    uow.Commit();
-
-                uow.Dispose();
+                    transaction.Rollback();
 
                 throw;
             }
         }
 
-        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, string tableName = null)
+        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, IDbTransaction transaction = null, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
 
-            var uow = new UnitOfWork(DbContext);
-
             //判断有没有事务
-            var hasTran = DbContext.Transaction != null;
+            var hasTran = true;
+            if (transaction == null)
+            {
+                transaction = DbContext.BeginTransaction();
+                hasTran = false;
+            }
+
             try
             {
-                if (!hasTran)
-                    uow.BeginTransaction();
-
                 if (_sqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 {
                     #region ==SQLite使用Dapper的官方方法==
@@ -363,16 +365,14 @@ namespace Nm.Lib.Data.Core
                 }
 
                 if (!hasTran)
-                    uow.Commit();
+                    transaction.Commit();
 
                 return true;
             }
             catch
             {
                 if (!hasTran)
-                    uow.Rollback();
-
-                uow.Dispose();
+                    transaction.Rollback();
 
                 throw;
             }
@@ -391,16 +391,16 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool Delete(dynamic id, string tableName = null)
+        public bool Delete(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return Execute(_sql.DeleteSingle(tableName), dynParams) > 0;
+            return Execute(_sql.DeleteSingle(tableName), dynParams, transaction) > 0;
         }
 
-        public async Task<bool> DeleteAsync(dynamic id, string tableName = null)
+        public async Task<bool> DeleteAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams) > 0;
+            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams, transaction) > 0;
         }
 
         #endregion
@@ -425,23 +425,23 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool SoftDelete(dynamic id, string tableName = null)
+        public bool SoftDelete(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
 
-            return Execute(_sql.SoftDeleteSingle(tableName), dynParams) > 0;
+            return Execute(_sql.SoftDeleteSingle(tableName), dynParams, transaction) > 0;
         }
 
-        public async Task<bool> SoftDeleteAsync(dynamic id, string tableName = null)
+        public async Task<bool> SoftDeleteAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
-            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams) > 0;
+            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams, transaction) > 0;
         }
 
         #endregion
@@ -458,16 +458,16 @@ namespace Nm.Lib.Data.Core
             SetModifiedBy(entity);
         }
 
-        public bool Update(TEntity entity, string tableName = null)
+        public bool Update(TEntity entity, IDbTransaction transaction = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return Execute(_sql.UpdateSingle(tableName), entity) > 0;
+            return Execute(_sql.UpdateSingle(tableName), entity, transaction) > 0;
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity, string tableName = null)
+        public async Task<bool> UpdateAsync(TEntity entity, IDbTransaction transaction = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity) > 0;
+            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity, transaction) > 0;
         }
 
         #endregion
@@ -482,141 +482,140 @@ namespace Nm.Lib.Data.Core
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
             return dynParams;
         }
-        public TEntity Get(dynamic id, string tableName = null)
+        public TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<TEntity>(_sql.Get(tableName), dynParams);
+            return QuerySingleOrDefault<TEntity>(_sql.Get(tableName), dynParams, transaction);
         }
 
-        public Task<TEntity> GetAsync(dynamic id, string tableName = null)
+        public Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefaultAsync<TEntity>(_sql.Get(tableName), dynParams);
+            return QuerySingleOrDefaultAsync<TEntity>(_sql.Get(tableName), dynParams, transaction);
         }
 
         #endregion
 
         #region ==Exists==
 
-        public bool Exists(dynamic id, string tableName = null)
+        public bool Exists(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams) > 0;
+            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams, transaction) > 0;
         }
 
-        public async Task<bool> ExistsAsync(dynamic id, string tableName = null)
+        public async Task<bool> ExistsAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams)) > 0;
+            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams, transaction)) > 0;
         }
 
         #endregion
 
         #region ==Execute==
 
-        public int Execute(string sql, object param = null, CommandType? commandType = null)
+        public int Execute(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().Execute(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).Execute(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<int> ExecuteAsync(string sql, object param = null, CommandType? commandType = null)
+        public Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().ExecuteAsync(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).ExecuteAsync(sql, param, transaction, commandType: commandType);
         }
 
         #endregion
 
         #region ==ExecuteScalar==
 
-        public T ExecuteScalar<T>(string sql, object param = null, CommandType? commandType = null)
+        public T ExecuteScalar<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().ExecuteScalar<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).ExecuteScalar<T>(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, CommandType? commandType = null)
+        public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().ExecuteScalarAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).ExecuteScalarAsync<T>(sql, param, transaction, commandType: commandType);
         }
 
         #endregion
 
         #region ==QueryFirstOrDefault==
 
-        public dynamic QueryFirstOrDefault(string sql, object param = null, CommandType? commandType = null)
+        public dynamic QueryFirstOrDefault(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryFirstOrDefault(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryFirstOrDefault(sql, param, transaction, commandType: commandType);
         }
 
-        public T QueryFirstOrDefault<T>(string sql, object param = null, CommandType? commandType = null)
+        public T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryFirstOrDefault<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryFirstOrDefault<T>(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, CommandType? commandType = null)
+        public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryFirstOrDefaultAsync(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryFirstOrDefaultAsync(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, CommandType? commandType = null)
+        public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryFirstOrDefaultAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryFirstOrDefaultAsync<T>(sql, param, transaction, commandType: commandType);
         }
-
 
         #endregion
 
         #region ==QuerySingleOrDefault==
 
-        public dynamic QuerySingleOrDefault(string sql, object param = null, CommandType? commandType = null)
+        public dynamic QuerySingleOrDefault(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QuerySingleOrDefault(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QuerySingleOrDefault(sql, param, transaction, commandType: commandType);
         }
 
-        public T QuerySingleOrDefault<T>(string sql, object param = null, CommandType? commandType = null)
+        public T QuerySingleOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QuerySingleOrDefault<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QuerySingleOrDefault<T>(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, CommandType? commandType = null)
+        public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QuerySingleOrDefaultAsync(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QuerySingleOrDefaultAsync(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, CommandType? commandType = null)
+        public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QuerySingleOrDefaultAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandType: commandType);
         }
 
         #endregion
 
         #region ==Query==
 
-        public IEnumerable<dynamic> Query(string sql, object param = null, CommandType? commandType = null)
+        public IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().Query(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).Query(sql, param, transaction, commandType: commandType);
         }
 
-        public IEnumerable<T> Query<T>(string sql, object param = null, CommandType? commandType = null)
+        public IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().Query<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).Query<T>(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, CommandType? commandType = null)
+        public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryAsync(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryAsync(sql, param, transaction, commandType: commandType);
         }
 
-        public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, CommandType? commandType = null)
+        public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
         {
-            return DbContext.Open().QueryAsync<T>(sql, param, DbContext.Transaction, commandType: commandType);
+            return DbContext.NewConnection(transaction).QueryAsync<T>(sql, param, transaction, commandType: commandType);
         }
 
         public INetSqlQueryable<TEntity> Find()
@@ -633,7 +632,7 @@ namespace Nm.Lib.Data.Core
         {
             return new NetSqlQueryable<TEntity>(this, null, tableName);
         }
-        
+
         public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName)
         {
             return new NetSqlQueryable<TEntity>(this, expression, tableName);

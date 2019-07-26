@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -18,14 +19,14 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.PermissionId.Equals(permissionId)).ExistsAsync();
         }
 
-        public Task<bool> DeleteByPermissionId(Guid permissionId)
+        public Task<bool> DeleteByPermissionId(Guid permissionId, IDbTransaction transaction)
         {
-            return Db.Find(e => e.PermissionId == permissionId).DeleteAsync();
+            return Db.Find(e => e.PermissionId == permissionId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> DeleteByMenuId(Guid menuId)
+        public Task<bool> DeleteByMenuId(Guid menuId, IDbTransaction transaction)
         {
-            return Db.Find(e => e.MenuId == menuId).DeleteAsync();
+            return Db.Find(e => e.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
         public Task<IList<MenuPermissionEntity>> GetListByMenuId(Guid menuId)

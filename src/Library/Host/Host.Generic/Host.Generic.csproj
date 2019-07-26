@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
-    <ProjectReference Include="..\..\Data\Extend\Data.GenericHost\Data.GenericHost.csproj" />
+    <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj" />
     <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Module\Module.GenericHost\Module.GenericHost.csproj" />

@@ -23,7 +23,7 @@ namespace Nm.Lib.Data.MySql
         {
         }
 
-        public override IDbConnection OpenConnection()
+        public override IDbConnection NewConnection()
         {
             return new MySqlConnection(ConnectionString);
         }

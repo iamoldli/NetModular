@@ -3,21 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
 using Nm.Module.Admin.Application.AccountService.ViewModels;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Infrastructure.Repositories;
 using Nm.Module.PersonnelFiles.Application.DepartmentService;
 using Nm.Module.PersonnelFiles.Application.UserService.ViewModels;
 using Nm.Module.PersonnelFiles.Domain.User;
 using Nm.Module.PersonnelFiles.Domain.User.Models;
 using Nm.Module.PersonnelFiles.Domain.UserContact;
 using Nm.Module.PersonnelFiles.Infrastructure.Options;
-using Nm.Module.PersonnelFiles.Infrastructure.Repositories;
 
 namespace Nm.Module.PersonnelFiles.Application.UserService
 {
@@ -25,8 +22,6 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
     {
         private readonly PersonnelFilesOptions _options;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
-        private readonly IUnitOfWork _adminUow;
         private readonly IUserRepository _repository;
         private readonly IAccountService _accountService;
         private readonly IDepartmentService _departmentService;
@@ -35,15 +30,12 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
         private readonly IUserContactRepository _contactRepository;
 
         public UserService(IMapper mapper, IUserRepository repository,
-            IOptionsMonitor<PersonnelFilesOptions> optionsMonitor, IUnitOfWork<AdminDbContext> adminUow,
-            IUnitOfWork<PersonnelFilesDbContext> uow, IAccountService accountService,
+            IOptionsMonitor<PersonnelFilesOptions> optionsMonitor, IAccountService accountService,
             IDepartmentService departmentService, IAccountRepository accountRepository,
             IAccountRoleRepository accountRoleRepository, IUserContactRepository contactRepository)
         {
             _mapper = mapper;
             _repository = repository;
-            _adminUow = adminUow;
-            _uow = uow;
             _accountService = accountService;
             _departmentService = departmentService;
             _accountRepository = accountRepository;
@@ -90,16 +82,12 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
                 Password = model.Password
             };
 
-            _adminUow.BeginTransaction();
             var result = await _accountService.Add(account);
             if (result.Successful)
             {
                 entity.AccountId = result.Data;
-                _uow.BeginTransaction();
                 if (await _repository.AddAsync(entity))
                 {
-                    _adminUow.Commit();
-                    _uow.Commit();
                     return ResultModel.Success();
                 }
             }

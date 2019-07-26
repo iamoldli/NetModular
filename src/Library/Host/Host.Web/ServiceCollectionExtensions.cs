@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.Auth.Jwt;
 using Nm.Lib.Cache.Integration;
-using Nm.Lib.Data.AspNetCore;
+using Nm.Lib.Data.Integration;
 using Nm.Lib.Host.Web.Options;
 using Nm.Lib.Mapper.AutoMapper;
 using Nm.Lib.Module.AspNetCore;

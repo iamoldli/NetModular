@@ -16,7 +16,7 @@ namespace Nm.Lib.Data.SqlServer
         {
         }
 
-        public override IDbConnection OpenConnection()
+        public override IDbConnection NewConnection()
         {
             return new SqlConnection(ConnectionString);
         }

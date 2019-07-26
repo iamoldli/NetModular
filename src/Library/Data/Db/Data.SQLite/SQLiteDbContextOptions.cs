@@ -16,7 +16,7 @@ namespace Nm.Lib.Data.SQLite
         {
         }
 
-        public override IDbConnection OpenConnection()
+        public override IDbConnection NewConnection()
         {
             return new SQLiteConnection(ConnectionString);
         }

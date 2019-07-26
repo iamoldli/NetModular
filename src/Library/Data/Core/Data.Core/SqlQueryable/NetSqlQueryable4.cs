@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -37,6 +38,17 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.WhereDelegateType = typeof(Func<,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3),
                 typeof(TEntity4), typeof(bool));
         }
+
+        #region ==UseTran==
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> UseTran(IDbTransaction transaction)
+        {
+            QueryBody.UseTran(transaction);
+            return this;
+        }
+
+        #endregion
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> OrderBy(string colName)
         {
             return Order(new Sort(colName));
@@ -77,10 +89,17 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereIf(bool ifCondition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
         {
-            if (ifCondition)
+            if (condition)
                 Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition ? ifExpression : elseExpression);
 
             return this;
         }
@@ -151,12 +170,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             return base.AvgAsync<TResult>(expression);
         }
-        
+
         public IGroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TResult>> expression)
         {
             return new GroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4>(Db, QueryBody, QueryBuilder, expression);
         }
-
 
         public new IList<TEntity> ToList()
         {
