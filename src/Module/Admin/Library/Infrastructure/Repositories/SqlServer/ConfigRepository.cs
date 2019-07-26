@@ -60,9 +60,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public override async Task<bool> UpdateAsync(ConfigEntity entity, IDbTransaction transacition)
         {
             if (await Exists(entity.Key))
-                return await Db.Find(m => m.Key == entity.Key).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
+                return await Db.Find(m => m.Key == entity.Key).UseTran(transacition).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
 
-            return await AddAsync(entity);
+            return await AddAsync(entity, transacition);
         }
     }
 }
