@@ -179,9 +179,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQ.RabbitMQ.Test", "test\Li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Web", "src\Library\Auth\Auth.Web\Auth.Web.csproj", "{B08BB1E2-C78A-433E-8DBF-9926A1D1E2F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Abstractions", "src\Library\Swagger\Swagger.Abstractions\Swagger.Abstractions.csproj", "{8DE0941B-72FF-498A-AA3E-644896D14C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swagger.Abstractions", "src\Library\Swagger\Swagger.Abstractions\Swagger.Abstractions.csproj", "{8DE0941B-72FF-498A-AA3E-644896D14C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swagger.Core", "src\Library\Swagger\Swagger.Core\Swagger.Core.csproj", "{650226ED-0B20-4EFC-AF79-C60522839B9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swagger.Core", "src\Library\Swagger\Swagger.Core\Swagger.Core.csproj", "{650226ED-0B20-4EFC-AF79-C60522839B9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Oracle", "src\Library\Data\Db\Data.Oracle\Data.Oracle.csproj", "{ECE8468D-A1BB-429D-B233-44D4DC5E9E51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -393,6 +395,10 @@ Global
 		{650226ED-0B20-4EFC-AF79-C60522839B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{650226ED-0B20-4EFC-AF79-C60522839B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{650226ED-0B20-4EFC-AF79-C60522839B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE8468D-A1BB-429D-B233-44D4DC5E9E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE8468D-A1BB-429D-B233-44D4DC5E9E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE8468D-A1BB-429D-B233-44D4DC5E9E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE8468D-A1BB-429D-B233-44D4DC5E9E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -476,6 +482,7 @@ Global
 		{B08BB1E2-C78A-433E-8DBF-9926A1D1E2F5} = {CBEB17BA-C3A4-451C-95D5-6FA4EDF17F7E}
 		{8DE0941B-72FF-498A-AA3E-644896D14C10} = {81097B80-B458-48E5-8302-A02850147D5B}
 		{650226ED-0B20-4EFC-AF79-C60522839B9D} = {81097B80-B458-48E5-8302-A02850147D5B}
+		{ECE8468D-A1BB-429D-B233-44D4DC5E9E51} = {185CA55C-B3E3-4EAD-B3C4-7EC1FD878BD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

@@ -669,9 +669,9 @@ namespace Nm.Lib.Data.Core
             var quarter = 1;
             if (date.Month > 3 && date.Month < 7)
                 quarter = 2;
-            else if (date.Month > 7 && date.Month < 10)
+            else if (date.Month > 6 && date.Month < 10)
                 quarter = 3;
-            else if (date.Month > 10)
+            else if (date.Month > 9)
                 quarter = 4;
 
             return $"{tableName ?? EntityDescriptor.TableName}_{date.Year}{quarter}";

@@ -6,10 +6,11 @@ const isDev = process.env.NODE_ENV === 'development' // 开发环境
 // 增加环境变量
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
 // 打包输出路径
-const outputDir = '../WebHost/wwwroot'
+const outputDir = '../WebHost/wwwroot/app'
 
 module.exports = {
   outputDir: outputDir,
+  publicPath: '/app',
   devServer: {
     port: 5220
   },
