@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -56,8 +57,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Key == key).FirstAsync();
         }
 
-
-        public override async Task<bool> UpdateAsync(ConfigEntity entity)
+        public override async Task<bool> UpdateAsync(ConfigEntity entity, IDbTransaction transacition)
         {
             if (await Exists(entity.Key))
                 return await Db.Find(m => m.Key == entity.Key).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
