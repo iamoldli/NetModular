@@ -32,7 +32,7 @@ namespace Nm.Lib.Module.GenericHost
                 if (module == null)
                     continue;
 
-                services.AddApplicationServices(module, ServiceLifetime.Singleton);
+                services.AddApplicationServices(module);
 
                 //加载模块配置项
                 var optionsConfigureType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.IsAssignableFrom(typeof(IModuleOptionsConfigure)));
