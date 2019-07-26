@@ -31,29 +31,48 @@ export default baseUrl => {
     axios.interceptors.response.use(
       response => {
         // 文件下载/预览
-        const contentDisposition = response.headers['content-disposition']
-        if (contentDisposition) {
-          const url = window.URL.createObjectURL(response.data)
-          // 如果是预览直接返回，否则就是下载
-          if (response.config.preview) {
-            return url
+        if (response.request.responseType.toLowerCase() === 'blob') {
+          // 如果响应头不包含'content-disposition'属性，则表示请求失败
+          if (response.headers['content-disposition']) {
+            const url = window.URL.createObjectURL(response.data)
+            // 如果是预览直接返回，否则就是下载
+            if (response.config.preview) {
+              return url
+            }
+
+            const fileName = decodeURI(
+              response.headers['content-disposition']
+                .split(';')
+                .find(m => m.trim().startsWith('filename='))
+                .split('=')[1]
+            )
+              .replace('"', '')
+              .replace('"', '')
+
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', fileName)
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+          } else {
+            var reader = new FileReader()
+            reader.onload = e => {
+              var data = JSON.parse(e.target.result)
+              if (data.code === 1) {
+                return data.data
+              } else {
+                Message.error({
+                  message: data.msg,
+                  showClose: true,
+                  center: true,
+                  duration: messageDuration
+                })
+                return Promise.reject(data.msg)
+              }
+            }
+            reader.readAsText(response.data)
           }
-
-          const fileName = decodeURI(
-            contentDisposition
-              .split(';')
-              .find(m => m.trim().startsWith('filename='))
-              .split('=')[1]
-          )
-            .replace('"', '')
-            .replace('"', '')
-
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', fileName)
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
           return
         }
 
