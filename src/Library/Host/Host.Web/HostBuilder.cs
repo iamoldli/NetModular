@@ -32,7 +32,7 @@ namespace Nm.Lib.Host.Web
             var cfgHelper = new ConfigurationHelper();
 
             //加载主机配置项
-            var hostOptions = cfgHelper.Get<HostOptions>("Host");
+            var hostOptions = cfgHelper.Get<HostOptions>("Host") ?? new HostOptions();
 
             if (hostOptions.Urls.IsNull())
                 hostOptions.Urls = "http://*:5000";

@@ -16,7 +16,7 @@ namespace Nm.Lib.Host.Web
             Env = env;
             var cfgHelper = new ConfigurationHelper();
             //加载主机配置项
-            HostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName);
+            HostOptions = cfgHelper.Get<HostOptions>("Host", env.EnvironmentName) ?? new HostOptions();
         }
 
         public virtual void ConfigureServices(IServiceCollection services)

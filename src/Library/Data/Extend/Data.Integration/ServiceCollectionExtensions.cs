@@ -25,10 +25,13 @@ namespace Nm.Lib.Data.Integration
         /// <param name="modules"></param>
         public static void AddDb(this IServiceCollection services, string environmentName, IModuleCollection modules)
         {
+            if (modules == null || !modules.Any())
+                return;
+
             var cfgHelper = new ConfigurationHelper();
             var dbOptions = cfgHelper.Get<DbOptions>("Db", environmentName);
 
-            if (!dbOptions.Connections.Any() || !modules.Any())
+            if (dbOptions?.Connections == null || !dbOptions.Connections.Any())
                 return;
 
             CheckOptions(dbOptions);
