@@ -249,7 +249,7 @@ namespace Nm.Lib.Data.Core
                         else if (mod == 0 || t == entityList.Count - 1)
                         {
                             sqlBuilder.Append(";");
-                            Execute(sqlBuilder.ToString());
+                            Execute(sqlBuilder.ToString(), transaction: transaction);
                         }
                     }
 
@@ -357,7 +357,7 @@ namespace Nm.Lib.Data.Core
                         else if (mod == 0 || t == entityList.Count - 1)
                         {
                             sqlBuilder.Append(";");
-                            await ExecuteAsync(sqlBuilder.ToString());
+                            await ExecuteAsync(sqlBuilder.ToString(), transaction: transaction);
                         }
                     }
 

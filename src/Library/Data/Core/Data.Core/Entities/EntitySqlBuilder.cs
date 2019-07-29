@@ -18,7 +18,7 @@ namespace Nm.Lib.Data.Core.Entities
             var existsSql = BuildExistsSql(descriptor);
 
             return new EntitySql(descriptor, insertSql, batchInsertSql, deleteSingleSql, deleteSql, softDeleteSql,
-                softDeleteSingleSql, updateSingleSql, updateSql, getSql, querySql, existsSql);
+                softDeleteSingleSql, updateSingleSql, updateSql, getSql, querySql, existsSql, batchInsertColumnList);
         }
 
         #region ==Private Methods==

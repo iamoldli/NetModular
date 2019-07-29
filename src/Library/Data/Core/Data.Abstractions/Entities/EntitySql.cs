@@ -71,7 +71,7 @@ namespace Nm.Lib.Data.Abstractions.Entities
 
         #endregion
 
-        public EntitySql(IEntityDescriptor descriptor, string insert, string batchInsert, string deleteSingle, string delete, string softDelete, string softDeleteSingle, string updateSingle, string update, string get, string query, string exists)
+        public EntitySql(IEntityDescriptor descriptor, string insert, string batchInsert, string deleteSingle, string delete, string softDelete, string softDeleteSingle, string updateSingle, string update, string get, string query, string exists, List<IColumnDescriptor> batchInsertColumnList)
         {
             _descriptor = descriptor;
             _adapter = _descriptor.SqlAdapter;
@@ -86,6 +86,7 @@ namespace Nm.Lib.Data.Abstractions.Entities
             _get = get;
             _query = query;
             _exists = exists;
+            BatchInsertColumnList = batchInsertColumnList;
         }
 
         /// <summary>
