@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.Permission.Models;
@@ -15,8 +16,9 @@ namespace Nm.Module.Admin.Domain.Permission
         /// 判断是否存在
         /// </summary>
         /// <param name="entity"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> Exists(PermissionEntity entity);
+        Task<bool> Exists(PermissionEntity entity, IDbTransaction transaction);
 
         /// <summary>
         /// 判断是否存在
@@ -63,7 +65,8 @@ namespace Nm.Module.Admin.Domain.Permission
         /// 修改同步信息
         /// </summary>
         /// <param name="permission"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> UpdateForSync(PermissionEntity permission);
+        Task<bool> UpdateForSync(PermissionEntity permission, IDbTransaction transaction);
     }
 }

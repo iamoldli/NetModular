@@ -34,10 +34,11 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> Exists(string code, Guid? id = null)
+        public Task<bool> Exists(ButtonEntity entity, IDbTransaction transaction = null)
         {
-            var query = Db.Find(m => m.Code == code);
-            query.WhereIf(id != null, m => m.Id != id);
+            var query = Db.Find(m => m.Code == entity.Code);
+            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
+            query.UseTran(transaction);
             return query.ExistsAsync();
         }
 

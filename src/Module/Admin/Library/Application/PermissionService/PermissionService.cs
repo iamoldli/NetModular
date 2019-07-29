@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
@@ -43,9 +44,9 @@ namespace Nm.Module.Admin.Application.PermissionService
             {
                 foreach (var permission in permissions)
                 {
-                    if (!await _permissionRepository.Exists(permission))
+                    if (!await _permissionRepository.Exists(permission, tran))
                     {
-                        if (!await _permissionRepository.AddAsync(permission))
+                        if (!await _permissionRepository.AddAsync(permission, tran))
                         {
                             tran.Rollback();
                             return ResultModel.Failed("同步失败");
@@ -53,7 +54,7 @@ namespace Nm.Module.Admin.Application.PermissionService
                     }
                     else
                     {
-                        if (!await _permissionRepository.UpdateForSync(permission))
+                        if (!await _permissionRepository.UpdateForSync(permission, tran))
                         {
                             tran.Rollback();
                             return ResultModel.Failed("同步失败");

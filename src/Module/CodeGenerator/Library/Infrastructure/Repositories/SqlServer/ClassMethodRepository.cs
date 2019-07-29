@@ -19,9 +19,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.ClassId == classId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<ClassMethodEntity> GetByClass(Guid classId)
+        public Task<ClassMethodEntity> GetByClass(Guid classId, IDbTransaction transaction)
         {
-            return Db.Find(m => m.ClassId == classId).FirstAsync();
+            return Db.Find(m => m.ClassId == classId).UseTran(transaction).FirstAsync();
         }
     }
 }

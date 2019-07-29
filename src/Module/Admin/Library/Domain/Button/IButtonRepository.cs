@@ -21,10 +21,10 @@ namespace Nm.Module.Admin.Domain.Button
         /// <summary>
         /// 判断是否存在
         /// </summary>
-        /// <param name="code">编码</param>
-        /// <param name="id"></param>
+        /// <param name="entity"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> Exists(string code, Guid? id = null);
+        Task<bool> Exists(ButtonEntity entity, IDbTransaction transaction);
 
         /// <summary>
         /// 根据菜单编号查询按钮列表

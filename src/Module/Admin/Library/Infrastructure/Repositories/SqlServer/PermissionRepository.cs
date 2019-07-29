@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -24,7 +25,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<bool> Exists(PermissionEntity entity)
+        public Task<bool> Exists(PermissionEntity entity,IDbTransaction transaction)
         {
             var query = Db.Find(m => m.ModuleCode.Equals(entity.ModuleCode));
             query.Where(m => m.Controller.Equals(entity.Controller));
@@ -32,6 +33,8 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             query.Where(m => m.HttpMethod.Equals(entity.HttpMethod));
 
             query.WhereIf(entity.Id != Guid.Empty, m => m.Id != entity.Id);
+
+            query.UseTran(transaction);
             return query.ExistsAsync();
         }
 
@@ -115,9 +118,10 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> UpdateForSync(PermissionEntity entity)
+        public Task<bool> UpdateForSync(PermissionEntity entity, IDbTransaction transaction)
         {
             return Db.Find(m => m.ModuleCode == entity.ModuleCode && m.Controller == entity.Controller && m.Action == entity.Action)
+                .UseTran(transaction)
                 .UpdateAsync(m => new PermissionEntity { Name = entity.Name });
         }
     }

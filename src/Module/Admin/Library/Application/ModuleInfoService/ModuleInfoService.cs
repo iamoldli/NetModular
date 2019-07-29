@@ -49,7 +49,7 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
             {
                 foreach (var moduleInfo in modules)
                 {
-                    if (!await _repository.Exists(moduleInfo.Code))
+                    if (!await _repository.Exists(moduleInfo, tran))
                     {
                         if (!await _repository.AddAsync(moduleInfo))
                         {

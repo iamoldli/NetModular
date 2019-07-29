@@ -78,7 +78,7 @@ namespace Nm.Module.Admin.Application.ButtonService
                     button.MenuId = model.MenuId;
                     button.Code = button.Code.ToLower();
 
-                    if (!await _buttonRepository.Exists(button.Code))
+                    if (!await _buttonRepository.Exists(button, tran))
                     {
                         if (!await _buttonRepository.AddAsync(button, tran))
                         {

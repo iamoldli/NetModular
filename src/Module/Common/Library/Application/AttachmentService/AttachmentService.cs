@@ -70,7 +70,7 @@ namespace Nm.Module.Common.Application.AttachmentService
                 if (await _repository.AddAsync(entity))
                 {
                     //如果需要授权访问附件，需要添加拥有者关联信息
-                    if (!model.Auth || await _ownerRepository.AddAsync(new AttachmentOwnerEntity { AttachmentId = entity.Id, AccountId = model.AccountId }))
+                    if (!model.Auth || await _ownerRepository.AddAsync(new AttachmentOwnerEntity { AttachmentId = entity.Id, AccountId = model.AccountId }, tran))
                     {
                         tran.Commit();
 

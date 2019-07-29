@@ -119,12 +119,12 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
             {
                 if (await _repository.UpdateAsync(entity, tran))
                 {
-                    var methodEntity = await _classMethodRepository.GetByClass(model.Id);
+                    var methodEntity = await _classMethodRepository.GetByClass(model.Id, tran);
                     if (methodEntity != null)
                     {
                         _mapper.Map(model.Method, methodEntity);
                         //更新方法
-                        if (await _classMethodRepository.UpdateAsync(methodEntity))
+                        if (await _classMethodRepository.UpdateAsync(methodEntity, tran))
                         {
                             tran.Commit();
                             return ResultModel.Success();
@@ -135,7 +135,7 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
                         methodEntity = _mapper.Map<ClassMethodEntity>(model.Method);
                         methodEntity.ClassId = entity.Id;
                         //添加方法
-                        if (await _classMethodRepository.AddAsync(methodEntity))
+                        if (await _classMethodRepository.AddAsync(methodEntity, tran))
                         {
                             tran.Commit();
                             return ResultModel.Success();

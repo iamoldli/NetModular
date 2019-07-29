@@ -19,7 +19,8 @@ namespace Nm.Module.CodeGenerator.Domain.ClassMethod
         /// 根据实体查询
         /// </summary>
         /// <param name="classId"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<ClassMethodEntity> GetByClass(Guid classId);
+        Task<ClassMethodEntity> GetByClass(Guid classId, IDbTransaction transaction = null);
     }
 }

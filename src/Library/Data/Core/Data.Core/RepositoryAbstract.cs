@@ -39,7 +39,7 @@ namespace Nm.Lib.Data.Core
 
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
-            return DbContext.BeginTransaction();
+            return DbContext.BeginTransaction(isolationLevel);
         }
 
         #endregion

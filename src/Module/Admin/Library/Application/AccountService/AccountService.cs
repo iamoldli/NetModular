@@ -258,8 +258,7 @@ namespace Nm.Module.Admin.Application.AccountService
                 {
                     if (model.Roles != null && model.Roles.Any())
                     {
-                        var accountRoleList = model.Roles
-                            .Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
+                        var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
                         if (await _accountRoleRepository.AddAsync(accountRoleList, tran))
                         {
                             tran.Commit();
