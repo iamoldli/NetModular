@@ -46,6 +46,6 @@ namespace Nm.Lib.Utils.Core.Models
         /// <summary>
         /// 编码
         /// </summary>
-        public string Code { get; set; }
+        public string Value { get; set; }
     }
 }
