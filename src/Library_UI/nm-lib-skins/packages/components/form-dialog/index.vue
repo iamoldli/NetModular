@@ -1,13 +1,13 @@
 <template>
   <nm-dialog ref="dialog" class="nm-form-dialog" v-bind="dialog" v-on="dialogOn" :visible.sync="visible_">
     <nm-form ref="form" v-bind="form" v-on="formOn">
-      <slot/>
+      <slot />
     </nm-form>
 
     <template v-slot:footer>
       <div class="nm-form-footer">
         <div class="nm-form-footer-left">
-          <slot name="footer-left"/>
+          <slot name="footer-left" />
         </div>
         <div class="nm-form-footer-right">
           <slot name="fotter">
@@ -70,6 +70,8 @@ export default {
     },
     /** 标签的宽度 */
     labelWidth: String,
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: String,
     // 自定义验证
     validate: Function,
     /** 是否显示成功提示消息 */
@@ -139,6 +141,7 @@ export default {
         rules: this.rules,
         action: this.action,
         labelWidth: this.labelWidth,
+        labelPosition: this.labelPosition,
         validate: this.validate,
         successMsg: this.successMsg,
         successMsgText: this.successMsgText,

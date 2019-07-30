@@ -5,6 +5,7 @@
     :model="model"
     :rules="rules"
     :label-width="labelWidth"
+    :label-position="labelPosition"
     :size="fontSize"
     :inline="inline"
     :disabled="disabled"
@@ -52,6 +53,11 @@ export default {
     labelWidth: {
       type: String,
       default: '100px'
+    },
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: {
+      type: String,
+      default: 'right'
     },
     // 自定义验证
     validate: Function,

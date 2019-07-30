@@ -3,7 +3,7 @@
     <section class="nm-form-page-body">
       <nm-scrollbar :horizontal="false">
         <nm-form class="nm-form-page-main" ref="form" v-bind="form" v-on="formOn">
-          <slot/>
+          <slot />
         </nm-form>
       </nm-scrollbar>
     </section>
@@ -11,7 +11,7 @@
     <!--底部-->
     <template v-slot:footer class="nm-form-page-footer">
       <div class="nm-form-page-footer-left">
-        <slot name="footer-left"/>
+        <slot name="footer-left" />
       </div>
       <div class="nm-form-page-footer-right">
         <slot name="fotter">
@@ -64,6 +64,8 @@ export default {
     validate: Function,
     /** 标签的宽度 */
     labelWidth: String,
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: String,
     /** 是否显示成功提示消息 */
     successMsg: {
       type: Boolean,
@@ -121,6 +123,7 @@ export default {
         rules: this.rules,
         action: this.action,
         labelWidth: this.labelWidth,
+        labelPosition: this.labelPosition,
         validate: this.validate,
         successMsg: this.successMsg,
         successMsgText: this.successMsgText,
