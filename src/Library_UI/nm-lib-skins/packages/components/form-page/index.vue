@@ -168,15 +168,6 @@ export default {
       this.loading = false
       this.$emit('validate-error')
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.page.$el.addEventListener('keydown', e => {
-        if (e.keyCode === 13) {
-          this.submit()
-        }
-      })
-    })
   }
 }
 </script>

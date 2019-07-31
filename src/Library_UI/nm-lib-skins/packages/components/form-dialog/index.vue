@@ -207,15 +207,6 @@ export default {
     onClosed() {
       this.$emit('closed')
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.dialog.$el.addEventListener('keydown', e => {
-        if (e.keyCode === 13) {
-          this.submit()
-        }
-      })
-    })
   }
 }
 </script>
