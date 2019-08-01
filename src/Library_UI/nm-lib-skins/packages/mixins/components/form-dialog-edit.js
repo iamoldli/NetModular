@@ -23,6 +23,11 @@ export default {
     id: {
       type: [String, Number],
       required: true
+    },
+    /** 是否总是刷新数据，即使相同id */
+    allRefresh: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -59,7 +64,7 @@ export default {
         return
       }
 
-      if (this.id !== this.form.model.id) {
+      if (this.allRefresh || this.id !== this.form.model.id) {
         this.edit()
       }
     }

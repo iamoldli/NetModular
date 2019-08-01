@@ -167,5 +167,12 @@ export default [
     type: 'Boolean',
     opt: '-',
     def: 'false'
+  },
+  {
+    name: 'clearValidateOnOpen',
+    desc: '打开时是否清除验证信息',
+    type: 'Boolean',
+    opt: '-',
+    def: 'true'
   }
 ]

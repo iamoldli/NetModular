@@ -119,6 +119,11 @@ export default {
     noLoading: {
       type: Boolean,
       default: false
+    },
+    /** 打开时是否清楚验证信息 */
+    clearValidateOnOpen: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -196,6 +201,11 @@ export default {
       this.$emit('validate-error')
     },
     onOpen() {
+	  if (this.clearValidateOnOpen) {
+        this.$nextTick(() => {
+          this.$refs.form.clearValidate()
+        })
+      }
       this.$emit('open')
     },
     onOpened() {
