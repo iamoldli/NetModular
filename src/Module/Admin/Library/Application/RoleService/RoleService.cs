@@ -235,7 +235,7 @@ namespace Nm.Module.Admin.Application.RoleService
                 {
                     if (model.Checked)
                     {
-                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName);
+                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName, tran);
                         var entities = buttons.Select(m => new RoleMenuButtonEntity
                         {
                             RoleId = model.RoleId,

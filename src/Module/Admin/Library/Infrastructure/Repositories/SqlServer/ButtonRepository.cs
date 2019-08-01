@@ -34,17 +34,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> Exists(ButtonEntity entity, IDbTransaction transaction = null)
+        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IDbTransaction transaction)
         {
-            var query = Db.Find(m => m.Code == entity.Code);
-            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
-            query.UseTran(transaction);
-            return query.ExistsAsync();
-        }
-
-        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode)
-        {
-            return Db.Find(m => m.MenuCode == menuCode).ToListAsync();
+            return Db.Find(m => m.MenuCode == menuCode).UseTran(transaction).ToListAsync();
         }
 
         public Task<IList<string>> QueryCodeByAccount(Guid accountId)

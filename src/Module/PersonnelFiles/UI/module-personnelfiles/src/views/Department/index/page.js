@@ -6,7 +6,7 @@ const page = new function() {
   this.path = '/PersonnelFiles/Department'
 
   // 关联权限
-  this.permissions = [`${this.name}_query_get`]
+  this.permissions = [`${this.name}_query_get`, `${this.name}_tree_get`]
 
   // 按钮
   this.buttons = {

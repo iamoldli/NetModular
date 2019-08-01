@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.add" @click="add(total)" />
+        <nm-button-has :options="buttons.add" @click="addPage.visible=true" />
       </template>
 
       <!--操作列-->

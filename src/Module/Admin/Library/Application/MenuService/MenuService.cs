@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -90,8 +91,6 @@ namespace Nm.Module.Admin.Application.MenuService
             return model;
         }
 
-        #region ==添加菜单==
-
         public async Task<IResultModel> Add(MenuAddModel model)
         {
             var menu = _mapper.Map<MenuEntity>(model);
@@ -130,123 +129,6 @@ namespace Nm.Module.Admin.Application.MenuService
 
             return ResultModel.Failed();
         }
-
-        /// <summary>
-        /// 同步权限
-        /// </summary>
-        /// <returns></returns>
-        private async Task<bool> SyncPermission(MenuEntity menu, List<string> permissions, IDbTransaction transaction)
-        {
-            if (menu.Type != MenuType.Route)
-            {
-                return true;
-            }
-
-            //删除旧数据
-            if (await _menuPermissionRepository.DeleteByMenu(menu.RouteName, transaction))
-            {
-                if (permissions == null || !permissions.Any())
-                {
-                    await ClearAccountPermissionCache(menu);
-                    return true;
-                }
-
-                //添加新数据
-                var entityList = new List<MenuPermissionEntity>();
-                permissions.ForEach(code =>
-                {
-                    entityList.Add(new MenuPermissionEntity { MenuCode = menu.RouteName, PermissionCode = code.ToLower() });
-                });
-
-                if (await _menuPermissionRepository.AddAsync(entityList, transaction))
-                {
-                    await ClearAccountPermissionCache(menu);
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 同步按钮
-        /// </summary>
-        /// <param name="menu"></param>
-        /// <param name="buttons"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        private async Task<bool> SyncButton(MenuEntity menu, List<MenuButtonAddModel> buttons, IDbTransaction transaction)
-        {
-            if (menu.Type != MenuType.Route)
-            {
-                return true;
-            }
-
-            //删除旧数据
-            if (await _buttonRepository.DeleteByMenu(menu.RouteName, transaction))
-            {
-                if (buttons == null || !buttons.Any())
-                    return true;
-
-                //添加新数据
-                foreach (var btn in buttons)
-                {
-                    var entity = new ButtonEntity
-                    {
-                        MenuCode = menu.RouteName,
-                        Code = btn.Code.ToLower(),
-                        Icon = btn.Icon,
-                        Name = btn.Text
-                    };
-
-                    if (!await _buttonRepository.AddAsync(entity, transaction))
-                        return false;
-
-                    if (!await SyncButtonPermission(entity, btn.Permissions, transaction))
-                        return false;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 同步按钮权限
-        /// </summary>
-        /// <param name="button"></param>
-        /// <param name="permissions"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        private async Task<bool> SyncButtonPermission(ButtonEntity button, List<string> permissions, IDbTransaction transaction)
-        {
-            //删除旧数据
-            if (await _buttonPermissionRepository.DeleteByButton(button.Code, transaction))
-            {
-                if (permissions == null || !permissions.Any())
-                {
-                    return true;
-                }
-
-                //添加新数据
-                var entityList = new List<ButtonPermissionEntity>();
-                permissions.ForEach(code =>
-                {
-                    entityList.Add(new ButtonPermissionEntity { ButtonCode = button.Code, PermissionCode = code.ToLower() });
-                });
-
-                if (await _buttonPermissionRepository.AddAsync(entityList, transaction))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        #endregion
 
         public async Task<IResultModel> Delete(Guid id)
         {
@@ -391,5 +273,144 @@ namespace Nm.Module.Admin.Application.MenuService
                 }
             }
         }
+
+        #region ====
+
+        /// <summary>
+        /// 同步权限
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> SyncPermission(MenuEntity menu, List<string> permissions, IDbTransaction transaction)
+        {
+            if (menu.Type != MenuType.Route)
+            {
+                return true;
+            }
+
+            //删除旧数据
+            if (await _menuPermissionRepository.DeleteByMenu(menu.RouteName, transaction))
+            {
+                if (permissions == null || !permissions.Any())
+                {
+                    await ClearAccountPermissionCache(menu);
+                    return true;
+                }
+
+                //添加新数据
+                var entityList = new List<MenuPermissionEntity>();
+                permissions.ForEach(code =>
+                {
+                    entityList.Add(new MenuPermissionEntity { MenuCode = menu.RouteName, PermissionCode = code.ToLower() });
+                });
+
+                if (await _menuPermissionRepository.AddAsync(entityList, transaction))
+                {
+                    await ClearAccountPermissionCache(menu);
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 同步按钮
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <param name="buttons"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private async Task<bool> SyncButton(MenuEntity menu, List<MenuButtonAddModel> buttons, IDbTransaction transaction)
+        {
+            if (menu.Type != MenuType.Route)
+            {
+                return true;
+            }
+
+            var oldButtons = await _buttonRepository.QueryByMenu(menu.RouteName, transaction);
+
+            #region ==更新以及新增按钮==
+
+            foreach (var newBtn in buttons)
+            {
+                var oldBtn = oldButtons.FirstOrDefault(m => m.Code.EqualsIgnoreCase(newBtn.Code));
+                bool result;
+                if (oldBtn != null)
+                {
+                    oldBtn.Name = newBtn.Text;
+                    oldBtn.Icon = newBtn.Icon;
+                    result = await _buttonRepository.UpdateAsync(oldBtn, transaction);
+                }
+                else
+                {
+                    oldBtn = new ButtonEntity
+                    {
+                        MenuCode = menu.RouteName,
+                        Code = newBtn.Code.ToLower(),
+                        Icon = newBtn.Icon,
+                        Name = newBtn.Text
+                    };
+                    result = await _buttonRepository.UpdateAsync(oldBtn, transaction);
+                }
+
+                if (!result)
+                    return false;
+
+                if (!await SyncButtonPermission(oldBtn, newBtn.Permissions, transaction))
+                    return false;
+            }
+
+            #endregion
+
+            foreach (var oldBtn in oldButtons)
+            {
+                var isDel = !buttons.Any(m => m.Code.EqualsIgnoreCase(oldBtn.Code));
+                if (isDel)
+                {
+                    if (!await _buttonRepository.DeleteAsync(oldBtn.Id, transaction) || !await _buttonPermissionRepository.DeleteByButton(oldBtn.Code, transaction))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 同步按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <param name="permissions"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private async Task<bool> SyncButtonPermission(ButtonEntity button, List<string> permissions, IDbTransaction transaction)
+        {
+            //删除旧数据
+            if (await _buttonPermissionRepository.DeleteByButton(button.Code, transaction))
+            {
+                if (permissions == null || !permissions.Any())
+                {
+                    return true;
+                }
+
+                //添加新数据
+                var entityList = new List<ButtonPermissionEntity>();
+                permissions.ForEach(code =>
+                {
+                    entityList.Add(new ButtonPermissionEntity { ButtonCode = button.Code, PermissionCode = code.ToLower() });
+                });
+
+                if (await _buttonPermissionRepository.AddAsync(entityList, transaction))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
     }
 }

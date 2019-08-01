@@ -15,14 +15,21 @@ const page = new function() {
       type: 'success',
       icon: 'add',
       code: `${this.name}_add`,
-      permissions: [`${this.name}_add_post`]
+      permissions: [`${this.name}_add_post`, `${this.name}_UploadPicture_post`]
     },
     edit: {
       text: '编辑',
       type: 'text',
       icon: 'edit',
       code: `${this.name}_edit`,
-      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
+      permissions: [
+        `${this.name}_edit_get`,
+        `${this.name}_update_post`,
+        `${this.name}_UploadPicture_post`,
+        `${this.name}_EditContact_get`,
+        `${this.name}_UpdateContact_post`,
+        `${this.name}_ContactDetails_get`
+      ]
     },
     del: {
       text: '删除',

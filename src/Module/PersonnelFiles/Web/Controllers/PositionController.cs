@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.PositionService;
 using Nm.Module.PersonnelFiles.Application.PositionService.ViewModels;
@@ -57,6 +58,7 @@ namespace Nm.Module.PersonnelFiles.Web.Controllers
 
         [HttpGet]
         [Description("下拉列表")]
+        [Common]
         public async Task<IResultModel> Select([BindRequired] Guid departmentId)
         {
             return await _service.Select(departmentId);

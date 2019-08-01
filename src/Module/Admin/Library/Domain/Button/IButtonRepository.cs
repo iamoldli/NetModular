@@ -19,19 +19,12 @@ namespace Nm.Module.Admin.Domain.Button
         Task<IList<ButtonEntity>> Query(ButtonQueryModel model);
 
         /// <summary>
-        /// 判断是否存在
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        Task<bool> Exists(ButtonEntity entity, IDbTransaction transaction);
-
-        /// <summary>
         /// 根据菜单编号查询按钮列表
         /// </summary>
         /// <param name="menuCode"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<IList<ButtonEntity>> QueryByMenu(string menuCode);
+        Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IDbTransaction transaction);
 
         /// <summary>
         /// 查询指定账户拥有的按钮编码列表
