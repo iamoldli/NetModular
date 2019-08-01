@@ -1,6 +1,6 @@
 {
     "name": "nm-module-common",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "code": "Common",
     "title": "通用模块",
     "description": "通用模块",
@@ -16,6 +16,7 @@
     "dependencies": {
         "nm-lib-icon": "^1.1.0",
         "nm-lib-skins": "^1.1.0",
+        "nm-lib-utils": "^1.1.0",
         "nm-module-admin": "^1.1.7"
     },
     "devDependencies": {

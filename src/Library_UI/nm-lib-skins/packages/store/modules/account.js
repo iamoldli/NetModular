@@ -46,7 +46,15 @@ export default {
   },
   getters: {
     // 当前账户拥有菜单对应的路由列表
-    routes: state => {}
+    routes: state => {
+      let list = []
+      if (state.routeMenus) {
+        state.routeMenus.forEach((value, key) => {
+          list.push(key)
+        })
+      }
+      return list
+    }
   },
   actions: {
     /**

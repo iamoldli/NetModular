@@ -14,6 +14,7 @@ using Nm.Module.CodeGenerator.Domain.Class.Models;
 namespace Nm.Module.CodeGenerator.Web.Controllers
 {
     [Description("实体管理")]
+    [Common]
     public class ClassController : ModuleController
     {
         private readonly IClassService _service;
@@ -59,7 +60,6 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
         }
 
         [HttpGet]
-        [Common]
         [Description("获取基类类型下拉列表")]
         public IResultModel BaseEntityTypeSelect()
         {

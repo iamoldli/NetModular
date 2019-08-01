@@ -4,29 +4,29 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" text="添加" icon="add" @click="addPage.visible=true" v-nm-has="buttons.add"/>
+        <nm-button-has :options="buttons.add" @click="add(total)" />
       </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-        <nm-button text="菜单" icon="bind" type="text" @click="bindMenu(row)" v-nm-has="buttons.bindMenu"/>
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+        <nm-button-has :options="buttons.edit" @click="edit(row)" />
+        <nm-button-has :options="buttons.bindMenu" @click="bindMenu(row)" />
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
 
     <!--添加页-->
-    <add-page :visible.sync="addPage.visible" @success="refresh"/>
+    <add-page :visible.sync="addPage.visible" @success="refresh" />
     <!--编辑页-->
-    <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh"/>
+    <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh" />
     <!--绑定菜单-->
-    <bind-menu-page :id="bindMenuDialog.id" :visible.sync="bindMenuDialog.visible"/>
+    <bind-menu-page :id="bindMenuDialog.id" :visible.sync="bindMenuDialog.visible" />
   </nm-container>
 </template>
 <script>

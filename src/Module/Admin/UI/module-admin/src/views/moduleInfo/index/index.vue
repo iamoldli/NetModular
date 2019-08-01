@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
+        <nm-button-has :options="buttons.sync" @click="sync" />
       </template>
 
       <!--是否显示-->
@@ -18,7 +18,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
   </nm-container>
@@ -30,7 +30,7 @@ import cols from './cols'
 
 export default {
   name: page.name,
-  data () {
+  data() {
     return {
       list: {
         title: page.title,
@@ -45,10 +45,10 @@ export default {
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    sync () {
+    sync() {
       this._confirm('您确认要同步模块信息吗', '同步模块信息').then(() => {
         api.sync().then(data => {
           this._success('同步成功')

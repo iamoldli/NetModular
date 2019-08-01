@@ -1,6 +1,6 @@
 import api from '../../../../../api/menu'
 export default {
-  data () {
+  data() {
     return {
       form: {
         noLoading: true,
@@ -54,24 +54,27 @@ export default {
   },
   props: ['model', 'parent'],
   methods: {
-    submit () {
+    submit() {
+      if (this.submitBefore) {
+        this.submitBefore()
+      }
       this.$refs.form.submit()
     },
-    reset () {
+    reset() {
       this.$nextTick(() => {
         this.$refs.form.reset()
       })
     },
-    setModel () {
+    setModel() {
       this.form.model = this.model
     },
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onError () {
+    onError() {
       this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.$emit('validate-error')
     }
   }

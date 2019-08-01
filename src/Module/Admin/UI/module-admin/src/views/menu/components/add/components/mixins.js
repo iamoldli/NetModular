@@ -1,6 +1,6 @@
 import api from '../../../../../api/menu'
 export default {
-  data () {
+  data() {
     return {
       form: {
         noLoading: true,
@@ -54,26 +54,29 @@ export default {
   },
   props: ['parent', 'sort'],
   methods: {
-    submit () {
+    submit() {
+      if (this.submitBefore) {
+        this.submitBefore()
+      }
       this.$refs.form.submit()
     },
-    reset () {
+    reset() {
       this.$nextTick(() => {
         this.$refs.form.reset()
         this.setProps()
       })
     },
-    setProps () {
+    setProps() {
       this.form.model.parentId = this.parent.id
       this.form.model.sort = this.sort
     },
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onError () {
+    onError() {
       this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.$emit('validate-error')
     }
   }

@@ -3,14 +3,14 @@
     <el-row :gutter="50">
       <el-col :span="20" :offset="2">
         <el-form-item label="父节点">
-          <el-input v-model="parent.path" disabled/>
+          <el-input v-model="parent.path" disabled />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="所属模块：" prop="moduleCode">
-          <module-info-select v-model="form.model.moduleCode"/>
+          <module-info-select v-model="form.model.moduleCode" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
@@ -26,12 +26,12 @@
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="菜单名称：" prop="name">
-          <el-input v-model="form.model.name"/>
+          <el-input v-model="form.model.name" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="路由名称：" prop="routeName">
-          <el-input v-model="form.model.routeName" disabled/>
+          <el-input v-model="form.model.routeName" disabled />
         </el-form-item>
       </el-col>
     </el-row>
@@ -50,24 +50,24 @@
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="图标：" prop="icon">
-          <nm-icon-picker v-model="form.model.icon"/>
+          <nm-icon-picker v-model="form.model.icon" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="图标颜色：" prop="iconColor">
-          <nm-color-picker v-model="form.model.iconColor"/>
+          <nm-color-picker v-model="form.model.iconColor" />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="排序：" prop="sort">
-          <el-input v-model="form.model.sort"/>
+          <el-input v-model="form.model.sort" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="显示：" prop="show">
-          <el-switch v-model="form.model.show"/>
+          <el-switch v-model="form.model.show" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -90,7 +90,9 @@ export default {
     return {
       form: {
         model: {
-          type: 1
+          type: 1,
+          permissions: [],
+          buttons: []
         },
         rules: {
           moduleCode: [{ required: true, message: '请选择模块' }],
@@ -104,12 +106,13 @@ export default {
       let routes = []
       const moduleCode = this.form.model.moduleCode
       if (!moduleCode) { return routes }
-
       this.$router.options.routes.forEach(r => {
         if (r && r.name && r.name.toLowerCase().startsWith(moduleCode.toLowerCase())) {
           routes.push({
             name: r.meta.title,
-            code: r.name
+            code: r.name.toLowerCase(),
+            permissions: r.meta.permissions,
+            buttons: r.meta.buttons
           })
         }
       })
@@ -117,6 +120,24 @@ export default {
     }
   },
   methods: {
+    submitBefore() {
+      for (var i = 0; i < this.routes.length; i++) {
+        let route = this.routes[i]
+        let model = this.form.model
+        if (route.code === model.routeName) {
+          model.routeName = route.code
+          model.permissions = route.permissions
+          model.buttons = []
+
+          if (route.buttons) {
+            Object.keys(route.buttons).map(key => {
+              model.buttons.push(route.buttons[key])
+            })
+          }
+          break
+        }
+      }
+    },
     onRouteChange(val) {
       for (var i = 0; i < this.routes.length; i++) {
         let route = this.routes[i]

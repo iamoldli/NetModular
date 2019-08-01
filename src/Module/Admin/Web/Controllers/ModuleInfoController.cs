@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.ModuleInfoService;
 using Nm.Module.Admin.Domain.ModuleInfo.Models;
@@ -41,11 +42,11 @@ namespace Nm.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
+        [Common]
         [Description("下拉列表数据")]
         public Task<IResultModel> Select()
         {
             return _service.Select();
         }
-
     }
 }

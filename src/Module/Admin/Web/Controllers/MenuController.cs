@@ -77,27 +77,6 @@ namespace Nm.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
-        [Description("获取菜单的权限列表")]
-        public Task<IResultModel> PermissionList([BindRequired]Guid id)
-        {
-            return _service.PermissionList(id);
-        }
-
-        [HttpPost]
-        [Description("绑定权限")]
-        public async Task<IResultModel> BindPermission(MenuBindPermissionModel model)
-        {
-            return await _service.BindPermission(model);
-        }
-
-        [HttpGet]
-        [Description("获取菜单的按钮列表")]
-        public Task<IResultModel> ButtonList([BindRequired]Guid id)
-        {
-            return _service.ButtonList(id);
-        }
-
-        [HttpGet]
         [Description("获取排序信息")]
         public Task<IResultModel> Sort(Guid? parentId)
         {

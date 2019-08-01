@@ -116,12 +116,12 @@ export default {
   },
   methods: {
     add (row) {
-      if (this.selection.every(item => item.value !== row.id)) {
-        this.selection.push({ label: row.name, value: row.id })
+      if (this.selection.every(item => item.value !== row.code)) {
+        this.selection.push({ label: row.name, value: row.code })
       }
     },
     notIn (row) {
-      row.hasIn = !this.selection.every(item => item.value !== row.id)
+      row.hasIn = !this.selection.every(item => item.value !== row.code)
       return !row.hasIn
     },
     save () {

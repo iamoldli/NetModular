@@ -66,6 +66,5 @@ namespace Nm.Module.Admin.Web.Controllers
 
             return await _service.GetValueByKey(key);
         }
-
     }
 }

@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -37,9 +39,14 @@ module.exports = {
   outputDir: outputDir,
   publicPath: '/app',
   devServer: {
-    port: 5220
-  },
-  transpileDependencies: ['");
+    port: ");
+            
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.No + 5220));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n  },\r\n  transpileDependencies: [\'");
             
             #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));

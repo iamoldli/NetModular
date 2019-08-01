@@ -10,8 +10,8 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button type="text" :text="buttons.export.text" :icon="buttons.export.icon" @click="onExport(row)" v-nm-has="buttons.export"/>
-        <nm-button-delete :id="row.id" :action="removeAction" @success="refresh" v-nm-has="buttons.del"/>
+        <nm-button-has :options="buttons.export" @click="onExport(row)"/>
+        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh"/>
       </template>
     </nm-list>
   </nm-container>

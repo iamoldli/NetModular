@@ -1,6 +1,6 @@
 {
     "name": "nm-lib-utils",
-    "version": "1.1.2",
+    "version": "1.1.7",
     "description": "NetModular前端常用工具集",
     "main": "src/index.js",
     "author": "Oldli",

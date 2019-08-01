@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Enums;
 using Nm.Lib.Utils.Core.Extensions;
 
@@ -17,14 +18,17 @@ namespace Nm.Lib.Auth.Web.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var loginInfo = context.HttpContext.RequestServices.GetService<LoginInfo>();
-            //未登录
-            if (loginInfo == null || loginInfo.AccountId.IsEmpty())
-                return;
-
             //排除匿名访问
             if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute)))
                 return;
+
+            //未登录
+            var loginInfo = context.HttpContext.RequestServices.GetService<ILoginInfo>();
+            if (loginInfo == null || loginInfo.AccountId.IsEmpty())
+            {
+                context.Result = new ChallengeResult();
+                return;
+            }
 
             //排除通用接口
             if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(CommonAttribute)))

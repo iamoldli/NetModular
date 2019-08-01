@@ -10,6 +10,10 @@ export default [
     label: '名称'
   },
   {
+    name: 'no',
+    label: '编号'
+  },
+  {
     name: 'prefix',
     label: '前缀',
     width: 150

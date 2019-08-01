@@ -31,7 +31,7 @@ namespace Nm.Module.Admin.Domain.Menu
         public string Name { get; set; }
 
         /// <summary>
-        /// 路由名称
+        /// 路由名称(对应路由菜单的菜单编码)
         /// </summary>
         public string RouteName { get; set; }
 

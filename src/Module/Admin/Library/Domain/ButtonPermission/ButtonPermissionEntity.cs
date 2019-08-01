@@ -1,5 +1,4 @@
-﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities;
 
 namespace Nm.Module.Admin.Domain.ButtonPermission
@@ -11,13 +10,13 @@ namespace Nm.Module.Admin.Domain.ButtonPermission
     public class ButtonPermissionEntity : Entity<int>
     {
         /// <summary>
-        /// 按钮编号
+        /// 按钮编码
         /// </summary>
-        public Guid ButtonId { get; set; }
+        public string ButtonCode { get; set; }
 
         /// <summary>
-        /// 权限编号
+        /// 权限编码
         /// </summary>
-        public Guid PermissionId { get; set; }
+        public string PermissionCode { get; set; }
     }
 }

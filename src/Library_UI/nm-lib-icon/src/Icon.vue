@@ -1,24 +1,14 @@
 <template>
   <svg class="nm-icon" :class="iconClass" aria-hidden="true">
-    <use :xlink:href="Name"></use>
+    <use :xlink:href="`#icon-${this.name}`" />
   </svg>
 </template>
 
 <script>
 export default {
   props: {
-    iconClass: {
-      type: String
-    },
-    name: {
-      type: String,
-      required: true
-    }
-  },
-  computed: {
-    Name () {
-      return `#icon-${this.name}`;
-    }
+    iconClass: String,
+    name: String
   }
 };
 </script>

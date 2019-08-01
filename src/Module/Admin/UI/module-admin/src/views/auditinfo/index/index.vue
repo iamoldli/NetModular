@@ -41,7 +41,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button :text="buttons.details.text" type="text" @click="details(row)" v-nm-has="buttons.details" />
+        <nm-button-has :options="buttons.details" @click="details(row)" />
       </template>
     </nm-list>
 

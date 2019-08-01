@@ -4,21 +4,32 @@ const page = new function() {
   this.title = '<#= _class.Remarks #>列表'
   this.name = '<#= _model.Project.Code #>_<#= _class.Name #>'
   this.path = '/<#= _model.Project.Code #>/<#= _class.Name #>'
+  
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
-    add: {
+     add: {
       text: '添加',
+      type: 'success',
+      icon: 'add',
       code: `${this.name}_add`,
-      icon: 'add'
+      permissions: [`${this.name}_add_post`]
     },
     edit: {
       text: '编辑',
+      type: 'text',
       icon: 'edit',
-      code: `${this.name}_edit`
+      code: `${this.name}_edit`,
+      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',
+      type: 'text',
       icon: 'delete',
-      code: `${this.name}_del`
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     }
   }
 }()

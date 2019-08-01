@@ -1,5 +1,5 @@
 import { http } from 'nm-lib-utils'
-import token from '../extensions/token'
+import { token } from 'nm-lib-skins'
 
 const root = 'admin/account/'
 const crud = http.crud(root)

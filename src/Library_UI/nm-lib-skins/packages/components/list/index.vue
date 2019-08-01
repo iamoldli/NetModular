@@ -65,7 +65,7 @@
             </template>
 
             <template slot-scope="{row}">
-              <slot :name="'col-'+col.name" :row="row">{{row[col.name]}}</slot>
+              <slot :name="'col-'+col.name" :row="row">{{col.format?$dayjs(row[col.name]).format(col.format):row[col.name]}}</slot>
             </template>
           </el-table-column>
         </template>
@@ -115,7 +115,9 @@ const defaultColumnInfo = {
   // 表头对其方式
   headerAlign: 'center',
   // 是否显示
-  show: true
+  show: true,
+  // 格式化，暂时针对日期，采用dayjs组件 https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/API-reference.md
+  format: ''
 }
 export default {
   name: 'List',

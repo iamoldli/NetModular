@@ -1,5 +1,4 @@
-﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
+﻿using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities;
 
 namespace Nm.Module.Admin.Domain.MenuPermission
@@ -11,13 +10,13 @@ namespace Nm.Module.Admin.Domain.MenuPermission
     public class MenuPermissionEntity : Entity<int>
     {
         /// <summary>
-        /// 菜单编号
+        /// 菜单编码
         /// </summary>
-        public Guid MenuId { get; set; }
+        public string MenuCode { get; set; }
 
         /// <summary>
-        /// 权限编号
+        /// 权限编码
         /// </summary>
-        public Guid PermissionId { get; set; }
+        public string PermissionCode { get; set; }
     }
 }

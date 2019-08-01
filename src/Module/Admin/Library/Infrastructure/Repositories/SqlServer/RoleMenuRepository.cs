@@ -27,7 +27,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(e => e.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> ExistsWidthMenuId(Guid menuId)
+        public Task<bool> ExistsWidthMenu(Guid menuId)
         {
             return Db.Find(e => e.MenuId == menuId).ExistsAsync();
         }

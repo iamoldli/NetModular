@@ -24,27 +24,27 @@
           <!--查询条件-->
           <template v-slot:querybar>
             <el-form-item label="名称：" prop="name">
-              <el-input v-model="list.model.name" clearable/>
+              <el-input v-model="list.model.name" clearable />
             </el-form-item>
           </template>
 
           <!--按钮-->
           <template v-slot:querybar-buttons>
-            <nm-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-nm-has="buttons.add"/>
+            <nm-button-has :options="buttons.add" @click="add" />
           </template>
 
           <!--操作列-->
           <template v-slot:col-operation="{row}">
-            <nm-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-            <nm-button-delete :id="row.id" :action="removeAction" @success="refresh" v-nm-has="buttons.del"/>
+            <nm-button-has :options="buttons.edi" @click="edit(row)" />
+            <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
           </template>
         </nm-list>
       </template>
     </nm-split>
     <!--添加-->
-    <add-page :parent-id="parent.id" :full-path="parent.fullPath" :visible.sync="dialog.add" @success="refresh"/>
+    <add-page :parent-id="parent.id" :full-path="parent.fullPath" :visible.sync="dialog.add" @success="refresh" />
     <!--编辑-->
-    <edit-page :id="curr.id" :full-path="parent.fullPath" :visible.sync="dialog.edit" @success="refresh"/>
+    <edit-page :id="curr.id" :full-path="parent.fullPath" :visible.sync="dialog.edit" @success="refresh" />
   </nm-container>
 </template>
 <script>

@@ -10,6 +10,7 @@ using Nm.Module.Admin.Application.RoleService.ResultModels;
 using Nm.Module.Admin.Application.RoleService.ViewModels;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Role;
 using Nm.Module.Admin.Domain.Role.Models;
 using Nm.Module.Admin.Domain.RoleMenu;
@@ -25,9 +26,10 @@ namespace Nm.Module.Admin.Application.RoleService
         private readonly IRoleMenuButtonRepository _roleMenuButtonRepository;
         private readonly IButtonRepository _buttonRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
+        private readonly IMenuRepository _menuRepository;
         private readonly IAccountService _accountService;
 
-        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository)
         {
             _mapper = mapper;
             _repository = repository;
@@ -36,6 +38,7 @@ namespace Nm.Module.Admin.Application.RoleService
             _buttonRepository = buttonRepository;
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
+            _menuRepository = menuRepository;
         }
 
         public async Task<IResultModel> Query(RoleQueryModel model)
@@ -186,6 +189,10 @@ namespace Nm.Module.Admin.Application.RoleService
             if (!exists)
                 return ResultModel.NotExists;
 
+            var menu = await _menuRepository.GetAsync(model.MenuId);
+            if (menu == null)
+                return ResultModel.Failed("菜单不存在");
+
             bool result;
             if (model.ButtonId.NotEmpty())
             {
@@ -228,7 +235,7 @@ namespace Nm.Module.Admin.Application.RoleService
                 {
                     if (model.Checked)
                     {
-                        var buttons = await _buttonRepository.QueryByMenu(model.MenuId);
+                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName);
                         var entities = buttons.Select(m => new RoleMenuButtonEntity
                         {
                             RoleId = model.RoleId,

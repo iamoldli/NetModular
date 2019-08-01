@@ -5,16 +5,16 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="1">
           <el-form-item label="标题：" prop="title">
-            <el-input v-model="form.model.title"/>
+            <el-input v-model="form.model.title" />
           </el-form-item>
           <el-form-item label="首页：" prop="home">
-            <el-input v-model="form.model.home"/>
+            <el-input v-model="form.model.home" />
           </el-form-item>
         </el-col>
         <el-col :span="10" :offset="1">
           <el-form-item label="Logo：" prop="logo">
             <el-upload class="logo-uploader" v-bind="logoUpload">
-              <img v-if="form.model.logoUrl" :src="form.model.logoUrl" class="logo-uploader-img">
+              <img v-if="form.model.logoUrl" :src="form.model.logoUrl" class="logo-uploader-img" />
               <i v-else class="el-icon-plus logo-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -23,7 +23,7 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="1">
           <el-form-item label="个人信息页：" prop="userInfoPage">
-            <el-input v-model="form.model.userInfoPage"/>
+            <el-input v-model="form.model.userInfoPage" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -31,7 +31,7 @@
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
           <el-form-item label="启用验证码：" prop="loginVerifyCode">
-            <el-switch v-model="form.model.loginVerifyCode"/>
+            <el-switch v-model="form.model.loginVerifyCode" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -39,22 +39,22 @@
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
           <el-form-item label="全屏控制：" prop="toolbar.fullscreen">
-            <el-switch v-model="form.model.toolbar.fullscreen"/>
+            <el-switch v-model="form.model.toolbar.fullscreen" />
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item label="皮肤设置：" prop="toolbar.skin">
-            <el-switch v-model="form.model.toolbar.skin"/>
+            <el-switch v-model="form.model.toolbar.skin" />
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item label="退出按钮：" prop="toolbar.logout">
-            <el-switch v-model="form.model.toolbar.logout"/>
+            <el-switch v-model="form.model.toolbar.logout" />
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item label="用户信息：" prop="toolbar.userInfo">
-            <el-switch v-model="form.model.toolbar.userInfo"/>
+            <el-switch v-model="form.model.toolbar.userInfo" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -69,13 +69,18 @@
       <el-divider content-position="left">开发属性</el-divider>
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
+          <el-form-item label="权限验证：" prop="permissionValidate">
+            <el-switch v-model="form.model.permissionValidate" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="5" :offset="1">
           <el-form-item label="按钮权限：" prop="buttonPermission">
-            <el-switch v-model="form.model.buttonPermission"/>
+            <el-switch v-model="form.model.buttonPermission" />
           </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item label="审计日志：" prop="auditing">
-            <el-switch v-model="form.model.auditing"/>
+            <el-switch v-model="form.model.auditing" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -103,6 +108,7 @@ export default {
           home: '',
           userInfoPage: '',
           buttonPermission: false,
+          permissionValidate: false,
           auditing: false,
           loginVerifyCode: false,
           toolbar: {
@@ -117,7 +123,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('module/admin/token', ['accessToken']),
+    ...mapState('app/token', ['accessToken']),
     logoUpload() {
       return {
         action: api.uploadLogoUrl(),

@@ -110,7 +110,7 @@ export default {
 
     // 加载本地token
     callbacks.push(({ store, Vue }) => {
-      store.dispatch('module/admin/token/load', null, { root: true })
+      store.dispatch('app/token/load', null, { root: true })
 
       // 注册获取配置项的方法为全局属性
       Vue.prototype.$config = configApi.getValue

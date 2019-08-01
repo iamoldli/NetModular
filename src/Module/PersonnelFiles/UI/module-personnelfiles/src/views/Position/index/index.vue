@@ -4,10 +4,10 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
         <el-form-item label="编码：" prop="code">
-          <el-input v-model="list.model.code" clearable/>
+          <el-input v-model="list.model.code" clearable />
         </el-form-item>
       </template>
 
@@ -17,7 +17,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-delete :id="row.id" :action="removeAction" @success="refresh" v-nm-has="buttons.del"/>
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
   </nm-container>

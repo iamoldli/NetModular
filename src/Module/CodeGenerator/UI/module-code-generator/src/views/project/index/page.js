@@ -1,28 +1,44 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '项目列表'
   this.name = 'codegenerator_project'
   this.path = '/codegenerator/project'
+
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     add: {
       text: '添加',
+      type: 'success',
+      icon: 'add',
       code: `${this.name}_add`,
-      icon: 'add'
+      permissions: [`${this.name}_add_post`]
     },
     edit: {
       text: '编辑',
-      code: `${this.name}_edit`
+      type: 'text',
+      icon: 'edit',
+      code: `${this.name}_edit`,
+      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',
-      code: `${this.name}_del`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     },
     buildCode: {
       text: '生成',
-      code: `${this.name}_build_code`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_build_code`,
+      permissions: [`${this.name}_buildcode`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

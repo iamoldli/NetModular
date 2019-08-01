@@ -1,8 +1,7 @@
 import { http } from 'nm-lib-utils'
+import { token, store } from 'nm-lib-skins'
 import routerConfig from '../router'
 import { Message } from 'element-ui'
-import token from '../extensions/token'
-import { store } from 'nm-lib-skins'
 
 // 消息提醒显示时长(ms)
 const messageDuration = 1500
@@ -92,7 +91,7 @@ export default baseUrl => {
         const $router = routerConfig.$router
         let currentRoute = $router.currentRoute
         let redirect =
-          currentRoute.name !== 'Login' ? currentRoute.fullPath : '/' // 跳转页面
+          currentRoute.name !== 'login' ? currentRoute.fullPath : '/' // 跳转页面
 
         if (error && error.response) {
           switch (error.response.status) {
@@ -100,7 +99,7 @@ export default baseUrl => {
               // 删除token
               token.remove()
               $router.push({
-                name: 'Login',
+                name: 'login',
                 query: {
                   redirect
                 }
@@ -127,14 +126,14 @@ export default baseUrl => {
               break
           }
         } else {
-          if (currentRoute.path === '/login') {
+          if (currentRoute.path === '/admin/account/login') {
             Message.error({
               message: '无法连接网络~',
               duration: messageDuration
             })
           } else {
             token.remove()
-            $router.push({ name: 'Login', query: { redirect } })
+            $router.push({ name: 'login', query: { redirect } })
           }
         }
         return Promise.reject(error)

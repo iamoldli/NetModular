@@ -37,7 +37,7 @@ namespace Nm.Lib.Module.GenericHost
                 services.AddApplicationServices(module);
 
                 //加载模块配置项
-                var optionsConfigureType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.IsAssignableFrom(typeof(IModuleOptionsConfigure)));
+                var optionsConfigureType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => typeof(IModuleOptionsConfigure).IsAssignableFrom(m));
                 if (optionsConfigureType != null)
                 {
                     ((IModuleOptionsConfigure)Activator.CreateInstance(optionsConfigureType)).ConfigOptions(services, cfg.GetSection(module.Id));

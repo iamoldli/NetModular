@@ -4,21 +4,21 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
         <el-form-item label="编码：" prop="code">
-          <el-input v-model="list.model.code" clearable/>
+          <el-input v-model="list.model.code" clearable />
         </el-form-item>
       </template>
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" text="添加" icon="add" @click="add" v-nm-has="buttons.add"/>
+        <nm-button-has :options="buttons.add" @click="add" />
       </template>
 
       <!--配置类-->
       <template v-slot:col-name="{row}">
-        <nm-button :text="row.name" type="text" @click="manageClass(row)"/>
+        <nm-button :text="row.name" type="text" @click="manageClass(row)" />
       </template>
 
       <!--是否显示-->
@@ -26,18 +26,18 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
-        <nm-button text="生成" icon="run" type="text" @click="buildCode(row)" v-nm-has="buttons.buildCode"/>
+        <nm-button-has :options="buttons.edi" @click="edit(row)" />
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
+        <nm-button-has :options="buttons.buildCode" @click="buildCode(row)" />
       </template>
     </nm-list>
 
     <!--添加-->
-    <add-page :visible.sync="dialog.add" @success="refresh"/>
+    <add-page :visible.sync="dialog.add" @success="refresh" />
     <!--编辑-->
-    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
+    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh" />
     <!--类管理-->
-    <class-page :project="curr" :visible.sync="dialog.class"/>
+    <class-page :project="curr" :visible.sync="dialog.class" />
   </nm-container>
 </template>
 <script>

@@ -11,6 +11,7 @@ import Components from './components'
 import Mixins from './mixins/'
 import Directive from './directive'
 import dayjs from 'dayjs'
+import token from './router/token'
 
 // 附加自定义样式
 const appendCustomCss = system => {
@@ -111,4 +112,4 @@ export default {
 }
 
 const mixins = Mixins.components
-export { mixins, store }
+export { mixins, store, token }

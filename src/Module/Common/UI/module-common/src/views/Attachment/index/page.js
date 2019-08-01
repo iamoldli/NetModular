@@ -3,15 +3,25 @@ const page = new function() {
   this.title = '附件管理'
   this.name = 'Common_Attachment'
   this.path = '/Common/Attachment'
+
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     del: {
       text: '删除',
-      code: `${this.name}_del`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     },
     export: {
       text: '导出',
+      type: 'text',
       icon: 'export',
-      code: `${this.name}_export`
+      code: `${this.name}_export`,
+      permissions: [`${this.name}_export_get`]
     }
   }
 }()

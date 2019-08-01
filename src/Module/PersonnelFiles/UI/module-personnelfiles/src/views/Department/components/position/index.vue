@@ -4,26 +4,26 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" text="添加" icon="add" @click="add" v-nm-has="buttons.positionAdd"/>
+        <nm-button-has :options="buttons.positionAdd" @click="add(total)" />
       </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.positionEdit"/>
-        <nm-button-delete :id="row.id" :action="removeAction" @success="refresh" v-nm-has="buttons.positionDel"/>
+        <nm-button-has :options="buttons.positionEdit" @click="edit(row)" />
+        <nm-button-delete :options="buttons.positionDel" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
 
     <!--添加-->
-    <add-page :department="department" :visible.sync="dialog.add" @success="refresh"/>
+    <add-page :department="department" :visible.sync="dialog.add" @success="refresh" />
     <!--编辑-->
-    <edit-page :id="curr.id" :department="department" :visible.sync="dialog.edit" @success="refresh"/>
+    <edit-page :id="curr.id" :department="department" :visible.sync="dialog.edit" @success="refresh" />
   </nm-list-dialog>
 </template>
 <script>

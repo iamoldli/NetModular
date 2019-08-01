@@ -1,8 +1,12 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '系统配置'
-  this.name = 'admin_system_config'
+  this.icon = 'config'
+  this.name = 'admin_system'
   this.path = '/admin/system/config'
+
+  // 关联权限
+  this.permissions = [`${this.name}_config_post`]
 }()
 
 /** 路由信息 */

@@ -1,4 +1,4 @@
-import token from '../../extensions/token'
+import token from '../../router/token'
 export default {
   namespaced: true,
   state: {
@@ -8,18 +8,18 @@ export default {
     refreshToken: ''
   },
   actions: {
-    load ({ commit }) {
+    load({ commit }) {
       const t = token.get()
       if (t) {
         commit('init', t)
       }
     },
-    init ({ commit }, token) {
+    init({ commit }, token) {
       commit('init', token)
     }
   },
   mutations: {
-    init (state, token) {
+    init(state, token) {
       Object.assign(state, token)
     }
   }

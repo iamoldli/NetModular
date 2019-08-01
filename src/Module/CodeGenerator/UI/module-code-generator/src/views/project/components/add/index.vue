@@ -3,13 +3,16 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name"/>
+          <el-input v-model="form.model.name" />
+        </el-form-item>
+        <el-form-item label="编号：" prop="no">
+          <el-input v-model.number="form.model.no" />
         </el-form-item>
         <el-form-item label="前缀：" prop="prefix">
-          <el-input v-model="form.model.prefix"/>
+          <el-input v-model="form.model.prefix" />
         </el-form-item>
         <el-form-item label="编码：" prop="code">
-          <el-input v-model="form.model.code"/>
+          <el-input v-model="form.model.code" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -20,7 +23,7 @@ import api from '../../../../api/project.js'
 import { mixins } from 'nm-lib-skins'
 export default {
   mixins: [mixins.dialog],
-  data () {
+  data() {
     return {
       form: {
         title: '添加项目',
@@ -30,6 +33,7 @@ export default {
         labelWidth: '70px',
         model: {
           name: '',
+          no: 0,
           prefix: '',
           code: ''
         },
@@ -49,10 +53,10 @@ export default {
     }
   },
   methods: {
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onOpen () {
+    onOpen() {
       this.$nextTick(() => {
         this.$refs.form.reset()
       })

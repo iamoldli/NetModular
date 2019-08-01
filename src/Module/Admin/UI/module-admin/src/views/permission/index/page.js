@@ -1,17 +1,21 @@
 /** 页面信息 */
 const page = new function() {
-  this.title = '权限管理'
+  this.title = '权限列表'
+  this.icon = 'verifycode'
   this.name = 'admin_permission'
   this.path = '/admin/permission'
+
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     sync: {
       text: '同步',
+      type: 'success',
+      icon: 'refresh',
       code: `${this.name}_sync`,
-      icon: 'refresh'
-    },
-    del: {
-      text: '删除',
-      code: `${this.name}_del`
+      permissions: [`${this.name}_sync_post`]
     }
   }
 }()

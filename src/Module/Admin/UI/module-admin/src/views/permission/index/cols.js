@@ -31,6 +31,11 @@ export default [
     label: '请求方法'
   },
   {
+    name: 'code',
+    label: '唯一编码',
+    width: '300'
+  },
+  {
     name: 'creator',
     label: '创建人',
     width: 100,

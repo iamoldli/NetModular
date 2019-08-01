@@ -57,12 +57,12 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Key == key).FirstAsync();
         }
 
-        public override async Task<bool> UpdateAsync(ConfigEntity entity, IDbTransaction transacition)
+        public override async Task<bool> UpdateAsync(ConfigEntity entity, IDbTransaction transaction)
         {
-            if (await Exists(entity.Key))
-                return await Db.Find(m => m.Key == entity.Key).UseTran(transacition).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
+            if (await ExistsAsync(m => m.Key.Equals(entity.Key), transaction))
+                return await Db.Find(m => m.Key == entity.Key).UseTran(transaction).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
 
-            return await AddAsync(entity, transacition);
+            return await AddAsync(entity, transaction);
         }
     }
 }

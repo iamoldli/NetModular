@@ -34,5 +34,10 @@ namespace Nm.Module.Admin.Domain.Permission
         /// 请求方法
         /// </summary>
         public HttpMethod HttpMethod { get; set; }
+
+        /// <summary>
+        /// 唯一编码
+        /// </summary>
+        public string Code { get; set; }
     }
 }

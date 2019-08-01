@@ -6,14 +6,16 @@ const loadPage = config => {
   const { page, component } = config
   return {
     path: page.path,
-    name: page.name,
+    name: page.name.toLowerCase(),
     component: component,
     props: page.props || true,
     meta: {
       title: page.title,
+      icon: page.icon,
       frameIn: page.frameIn,
       cache: page.cache,
-      buttons: page.buttons
+      buttons: page.buttons,
+      permissions: page.permissions
     }
   }
 }

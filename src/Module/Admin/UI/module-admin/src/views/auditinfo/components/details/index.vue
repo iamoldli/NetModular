@@ -32,7 +32,8 @@ export default {
         header: true,
         title: '审计日志详情',
         icon: 'log',
-        width: '450px'
+        width: '600px',
+        draggable: true
       },
       model: {}
     }

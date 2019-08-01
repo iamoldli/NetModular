@@ -23,6 +23,8 @@ export default {
      * 是否启用按钮权限
      */
     buttonPermission: true,
+    /** 是否启用权限验证功能 */
+    permissionValidate: true,
     /**
      * 菜单只能打开一个
      */
@@ -30,7 +32,7 @@ export default {
     /**
      * 用户信息页(路由名称)
      */
-    userInfoPage: 'UserInfo',
+    userInfoPage: 'userinfo',
     /**
      * 设置对话框是否可以点击模态框关闭
      */
@@ -72,7 +74,7 @@ export default {
         state.logo = './images/logo.png'
       }
       if (!state.userInfoPage) {
-        state.userInfoPage = 'UserInfo'
+        state.userInfoPage = 'userinfo'
       }
     }
   }

@@ -1,4 +1,3 @@
-import token from './modules/token'
 export default {
   namespaced: true,
   state: {
@@ -7,11 +6,8 @@ export default {
   },
   mutations: {
     // 设置当前操作的菜单
-    setCurrentMenu (state, menu) {
+    setCurrentMenu(state, menu) {
       state.currentMenu = menu
     }
-  },
-  modules: {
-    token
   }
 }

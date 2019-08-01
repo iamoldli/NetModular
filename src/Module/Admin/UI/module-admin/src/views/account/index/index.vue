@@ -4,10 +4,10 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="用户名：" prop="userName">
-          <el-input v-model="list.model.userName" clearable/>
+          <el-input v-model="list.model.userName" clearable />
         </el-form-item>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
@@ -16,10 +16,10 @@
         <el-row>
           <el-col :span="20" :offset="1">
             <el-form-item label="手机号：" prop="phone">
-              <el-input v-model="list.model.phone" clearable/>
+              <el-input v-model="list.model.phone" clearable />
             </el-form-item>
             <el-form-item label="邮箱：" prop="email">
-              <el-input v-model="list.model.name" clearable/>
+              <el-input v-model="list.model.name" clearable />
             </el-form-item>
           </el-col>
         </el-row>
@@ -27,14 +27,14 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons="{total}">
-        <nm-button type="success" text="添加" icon="add" @click="add(total)" v-nm-has="buttons.add"/>
+        <nm-button-has :options="buttons.add" @click="add(total)" />
       </template>
 
       <!--角色-->
       <template v-slot:col-roles="{row}">
         <template v-if="row.roles&&row.roles.length>0">
           <template v-for="(role,index) in row.roles">
-            <nm-button type="text" :key="role.value" :text="role.label"/>
+            <nm-button type="text" :key="role.value" :text="role.label" />
             <template v-if="index < row.roles.length - 1">、</template>
           </template>
         </template>
@@ -62,20 +62,13 @@
           </span>
           <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
             <el-dropdown-item>
-              <nm-button text="编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辑" icon="edit" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
+              <nm-button-has :options="buttons.edit" @click="edit(row)" />
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button text="重置密码" icon="refresh" type="text" @click="resetPassword(row)" v-nm-has="buttons.resetPassword"/>
+              <nm-button-has :options="buttons.resetPassword" @click="resetPassword(row)" />
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button-delete
-                :disabled="row.id===accountId"
-                text="删&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除"
-                :action="removeAction"
-                :id="row.id"
-                @success="refresh"
-                v-nm-has="buttons.del"
-              />
+              <nm-button-delete :options="buttons.del" :disabled="row.id===accountId" :action="removeAction" :id="row.id" @success="refresh" />
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -83,9 +76,9 @@
     </nm-list>
 
     <!--添加-->
-    <add-page :visible.sync="addPage.visible" :sort="addPage.sort" @success="refresh"/>
+    <add-page :visible.sync="addPage.visible" :sort="addPage.sort" @success="refresh" />
     <!--编辑-->
-    <edit-page :visible.sync="editPage.visible" :id="editPage.id" @success="refresh"/>
+    <edit-page :visible.sync="editPage.visible" :id="editPage.id" @success="refresh" />
   </nm-container>
 </template>
 <script>

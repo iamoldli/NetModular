@@ -3,18 +3,32 @@ const page = new function() {
   this.title = '配置项管理'
   this.name = 'admin_config'
   this.path = '/admin/config'
+
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     add: {
       text: '添加',
-      code: `${this.name}_add`
+      type: 'success',
+      icon: 'add',
+      code: `${this.name}_add`,
+      permissions: [`${this.name}_add_post`]
     },
     edit: {
       text: '编辑',
-      code: `${this.name}_edit`
+      type: 'text',
+      icon: 'edit',
+      code: `${this.name}_edit`,
+      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',
-      code: `${this.name}_del`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     }
   }
 }()

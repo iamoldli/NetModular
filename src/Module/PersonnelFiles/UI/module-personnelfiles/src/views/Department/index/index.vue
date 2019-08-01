@@ -3,7 +3,7 @@
     <nm-split v-model="split">
       <template v-slot:left>
         <nm-box page header title="部门架构" type="success" icon="menu" :toolbar="null">
-          <tree ref="tree" v-model="parent.id" @change="onTreeChange"/>
+          <tree ref="tree" v-model="parent.id" @change="onTreeChange" />
         </nm-box>
       </template>
       <template v-slot:right>
@@ -11,31 +11,31 @@
           <!--查询条件-->
           <template v-slot:querybar>
             <el-form-item label="名称：" prop="name">
-              <el-input v-model="list.model.name" clearable/>
+              <el-input v-model="list.model.name" clearable />
             </el-form-item>
           </template>
 
           <!--按钮-->
           <template v-slot:querybar-buttons="{total}">
-            <nm-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add(total)" v-nm-has="buttons.add"/>
+            <nm-button-has :options="buttons.add" @click="add(total)" />
           </template>
 
           <!--操作列-->
           <template v-slot:col-operation="{row}">
-            <nm-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-            <nm-button :text="buttons.position.text" :icon="buttons.position.icon" type="text" @click="position(row)" v-nm-has="buttons.position"/>
-            <nm-button-delete :id="row.id" :action="removeAction" @success="onRemoveSuccess(row.id)" v-nm-has="buttons.del"/>
+            <nm-button-has :options="buttons.edit" @click="edit(row)" />
+            <nm-button-has :options="buttons.position" @click="position(row)" />
+            <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="onRemoveSuccess(row.id)" />
           </template>
         </nm-list>
       </template>
     </nm-split>
 
     <!--添加-->
-    <add-page v-bind="saveProps" :visible.sync="dialog.add" @success="refreshAll"/>
+    <add-page v-bind="saveProps" :visible.sync="dialog.add" @success="refreshAll" />
     <!--编辑-->
-    <edit-page :id="curr.id" v-bind="saveProps" :visible.sync="dialog.edit" @success="refreshAll"/>
+    <edit-page :id="curr.id" v-bind="saveProps" :visible.sync="dialog.edit" @success="refreshAll" />
     <!--岗位设置-->
-    <position-page :department="curr" :visible.sync="dialog.position"/>
+    <position-page :department="curr" :visible.sync="dialog.position" />
   </nm-container>
 </template>
 <script>

@@ -39,6 +39,6 @@ namespace Nm.Module.Admin.Domain.RoleMenu
         /// </summary>
         /// <param name="menuId"></param>
         /// <returns></returns>
-        Task<bool> ExistsWidthMenuId(Guid menuId);
+        Task<bool> ExistsWidthMenu(Guid menuId);
     }
 }

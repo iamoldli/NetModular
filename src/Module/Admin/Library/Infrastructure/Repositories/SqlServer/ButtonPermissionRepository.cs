@@ -13,14 +13,14 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<bool> ExistsBindPermission(Guid permissionId)
+        public Task<bool> ExistsBindPermission(string permissionCode)
         {
-            return Db.Find(m => m.PermissionId.Equals(permissionId)).ExistsAsync();
+            return Db.Find(m => m.PermissionCode.Equals(permissionCode)).ExistsAsync();
         }
 
-        public Task<bool> RemoveByButtonId(Guid buttonId, IDbTransaction transaction)
+        public Task<bool> DeleteByButton(string buttonCode, IDbTransaction transaction)
         {
-            return Db.Find(e => e.ButtonId == buttonId).UseTran(transaction).DeleteAsync();
+            return Db.Find(e => e.ButtonCode == buttonCode).UseTran(transaction).DeleteAsync();
 
         }
     }

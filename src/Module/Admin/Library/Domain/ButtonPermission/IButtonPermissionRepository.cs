@@ -13,17 +13,17 @@ namespace Nm.Module.Admin.Domain.ButtonPermission
         /// <summary>
         /// 判断是否存在绑定了指定权限的按钮
         /// </summary>
-        /// <param name="permissionId"></param>
+        /// <param name="permissionCode"></param>
         /// <returns></returns>
-        Task<bool> ExistsBindPermission(Guid permissionId);
+        Task<bool> ExistsBindPermission(string permissionCode);
 
 
         /// <summary>
         /// 通过按钮编号删除所有对应菜单与权限关系
         /// </summary>
-        /// <param name="buttonId"></param>
+        /// <param name="buttonCode"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> RemoveByButtonId(Guid buttonId, IDbTransaction transaction);
+        Task<bool> DeleteByButton(string buttonCode, IDbTransaction transaction);
     }
 }

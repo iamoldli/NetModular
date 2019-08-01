@@ -13,7 +13,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <<#= _prefix #>-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-<#= _prefix #>-has="buttons.add"/>
+        <<#= _prefix #>-button-has :options="buttons.add" @click="add(total)" />
       </template>
 
       <!--自定义列-->
@@ -23,8 +23,8 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <<#= _prefix #>-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-<#= _prefix #>-has="buttons.edit"/>
-        <<#= _prefix #>-button-delete :id="row.id" :action="removeAction" @success="refresh" v-<#= _prefix #>-has="buttons.del"/>
+        <<#= _prefix #>-button-has :options="buttons.edit" @click="edit(row)" />
+        <<#= _prefix #>-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh"/>
       </template>
     </<#= _prefix #>-list>
 

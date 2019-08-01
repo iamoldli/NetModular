@@ -1,24 +1,36 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '枚举列表'
   this.name = 'codegenerator_enum'
   this.path = '/codegenerator/enum'
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     add: {
       text: '添加',
+      type: 'success',
+      icon: 'add',
       code: `${this.name}_add`,
-      icon: 'add'
+      permissions: [`${this.name}_add_post`]
     },
     edit: {
       text: '编辑',
-      code: `${this.name}_edit`
+      type: 'text',
+      icon: 'edit',
+      code: `${this.name}_edit`,
+      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',
-      code: `${this.name}_del`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

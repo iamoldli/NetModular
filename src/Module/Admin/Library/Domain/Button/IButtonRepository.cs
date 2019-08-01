@@ -29,9 +29,9 @@ namespace Nm.Module.Admin.Domain.Button
         /// <summary>
         /// 根据菜单编号查询按钮列表
         /// </summary>
-        /// <param name="menuId"></param>
+        /// <param name="menuCode"></param>
         /// <returns></returns>
-        Task<IList<ButtonEntity>> QueryByMenu(Guid menuId);
+        Task<IList<ButtonEntity>> QueryByMenu(string menuCode);
 
         /// <summary>
         /// 查询指定账户拥有的按钮编码列表
@@ -42,10 +42,10 @@ namespace Nm.Module.Admin.Domain.Button
         /// <summary>
         /// 删除指定菜单的按钮
         /// </summary>
-        /// <param name="menuId"></param>
+        /// <param name="menuCode">菜单编码</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> DeleteByMenu(Guid menuId, IDbTransaction transaction);
+        Task<bool> DeleteByMenu(string menuCode, IDbTransaction transaction);
 
         /// <summary>
         /// 同步操作更新按钮信息

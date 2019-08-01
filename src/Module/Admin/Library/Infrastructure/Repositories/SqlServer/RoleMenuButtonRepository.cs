@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.RoleMenuButton;
 
 namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
@@ -32,11 +33,11 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public virtual Task<IList<ButtonEntity>> Query(Guid roleId, Guid menuId)
         {
-            return Db.Find()
-                .RightJoin<ButtonEntity>((x, y) => x.ButtonId == y.Id && x.RoleId == roleId)
-                .Where((x, y) => y.MenuId == menuId)
-                .Select((x, y) => new { x.RoleId, y })
-                .ToListAsync<ButtonEntity>();
+            return DbContext.Set<ButtonEntity>().Find()
+                 .InnerJoin<MenuEntity>((x, y) => x.MenuCode == y.RouteName && y.Id == menuId)
+                 .LeftJoin<RoleMenuButtonEntity>((x, y, z) => x.Id == z.ButtonId && z.RoleId == roleId)
+                 .Select((x, y, z) => new { x, z.RoleId })
+                 .ToListAsync<ButtonEntity>();
         }
 
         public Task<bool> Exists(RoleMenuButtonEntity entity)

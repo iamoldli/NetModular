@@ -26,14 +26,12 @@ namespace Nm.Module.Admin.Web.Controllers
         private readonly ModuleCommonOptions _options;
         private readonly ISystemService _systemService;
         private readonly FileUploadHelper _fileUploadHelper;
-        private readonly PermissionHelper _permissionHelper;
         private readonly MvcHelper _mvcHelper;
 
-        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, PermissionHelper permissionHelper, MvcHelper mvcHelper)
+        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, MvcHelper mvcHelper)
         {
             _systemService = systemService;
             _fileUploadHelper = fileUploadHelper;
-            _permissionHelper = permissionHelper;
             _mvcHelper = mvcHelper;
             _options = optionsMonitor.CurrentValue;
         }
@@ -81,19 +79,8 @@ namespace Nm.Module.Admin.Web.Controllers
             return ResultModel.Failed("上传失败");
         }
 
-        [HttpPost]
-        [Description("系统初始化")]
-        [AllowAnonymous]
-        public Task<IResultModel> Install()
-        {
-            var model = new SystemInstallModel
-            {
-                Permissions = _permissionHelper.GetAllPermission()
-            };
-            return _systemService.Install(model);
-        }
-
         [HttpGet]
+        [Common]
         [Description("获取指定模块的Controller下拉列表")]
         public IResultModel AllController([BindRequired]string module)
         {
@@ -107,6 +94,7 @@ namespace Nm.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
+        [Common]
         [Description("获取指定模块和Controller的Action下拉列表")]
         public IResultModel AllAction([BindRequired]string module, [BindRequired]string controller)
         {

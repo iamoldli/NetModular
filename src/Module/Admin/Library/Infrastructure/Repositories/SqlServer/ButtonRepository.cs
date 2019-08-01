@@ -24,7 +24,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
 
-            var query = Db.Find(m => m.MenuId == model.MenuId)
+            var query = Db.Find(m => m.MenuCode == model.MenuCode)
                 .WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
 
             var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
@@ -42,9 +42,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.ExistsAsync();
         }
 
-        public Task<IList<ButtonEntity>> QueryByMenu(Guid menuId)
+        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode)
         {
-            return Db.Find(m => m.MenuId == menuId).ToListAsync();
+            return Db.Find(m => m.MenuCode == menuCode).ToListAsync();
         }
 
         public Task<IList<string>> QueryCodeByAccount(Guid accountId)
@@ -56,14 +56,14 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> DeleteByMenu(Guid menuId, IDbTransaction transaction)
+        public Task<bool> DeleteByMenu(string menuCode, IDbTransaction transaction)
         {
-            return Db.Find(m => m.MenuId == menuId).UseTran(transaction).DeleteAsync();
+            return Db.Find(m => m.MenuCode == menuCode).UseTran(transaction).DeleteAsync();
         }
 
         public Task<bool> UpdateForSync(ButtonEntity button, IDbTransaction transaction)
         {
-            return Db.Find(m => m.MenuId == button.MenuId && m.Code == button.Code)
+            return Db.Find(m => m.MenuCode == button.MenuCode && m.Code == button.Code)
                 .UseTran(transaction)
                 .UpdateAsync(m => new ButtonEntity { Icon = button.Icon, Name = button.Name });
         }

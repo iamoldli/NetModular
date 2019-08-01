@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -59,21 +61,32 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             #line default
             #line hidden
             this.Write(@"'
+  
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
-    add: {
+     add: {
       text: '添加',
+      type: 'success',
+      icon: 'add',
       code: `${this.name}_add`,
-      icon: 'add'
+      permissions: [`${this.name}_add_post`]
     },
     edit: {
       text: '编辑',
+      type: 'text',
       icon: 'edit',
-      code: `${this.name}_edit`
+      code: `${this.name}_edit`,
+      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',
+      type: 'text',
       icon: 'delete',
-      code: `${this.name}_del`
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     }
   }
 }()
@@ -83,14 +96,14 @@ export const route = {
   page,
   component: () => import(/* webpackChunkName: """);
             
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
+            #line 40 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
+            #line 40 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default

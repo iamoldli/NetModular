@@ -12,18 +12,15 @@
     :native-type="nativeType"
     @click="remove"
   >
-    <nm-icon v-if="!noIcon" name="delete"/>
-    <span v-if="!circle&&text" class="nm-button-text" v-html="text"/>
+    <nm-icon v-if="!noIcon" :name="icon" />
+    <span v-if="!circle&&text" class="nm-button-text" v-html="text" />
   </el-button>
 </template>
 <script>
 export default {
   name: 'ButtonDelete',
   props: {
-    type: {
-      type: String,
-      default: 'text'
-    },
+    options: Object,
     /** 尺寸，默认或者为空时，按照皮肤的字号设置 */
     size: String,
     /** 是否朴素按钮 */
@@ -42,11 +39,6 @@ export default {
     nativeType: String,
     // 不显示图标
     noIcon: Boolean,
-    // 文本
-    text: {
-      type: String,
-      default: '删除'
-    },
     // 删除方法
     action: {
       type: Function,
@@ -58,12 +50,30 @@ export default {
     msg: String
   },
   computed: {
-    getSize () {
+    getSize() {
       return this.size || this.fontSize
+    },
+    type() {
+      if (this.options && this.options.type) {
+        return this.options.type
+      }
+      return 'text'
+    },
+    icon() {
+      if (this.options && this.options.icon) {
+        return this.options.icon
+      }
+      return 'delete'
+    },
+    text() {
+      if (this.options && this.options.text) {
+        return this.options.text
+      }
+      return '删除'
     }
   },
   methods: {
-    async remove () {
+    async remove() {
       this._delete(async () => {
         await this.action(this.id)
         this.$emit('success')

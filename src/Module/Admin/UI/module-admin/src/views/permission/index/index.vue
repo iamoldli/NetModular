@@ -4,7 +4,7 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
@@ -13,7 +13,7 @@
         <el-row>
           <el-col :span="20" :offset="1">
             <el-form-item label="模块：" prop="moduleCode">
-              <module-info-select v-model="list.model.moduleCode" @change="onModuleChange"/>
+              <module-info-select v-model="list.model.moduleCode" @change="onModuleChange" />
             </el-form-item>
             <el-form-item label="控制器：" prop="controller">
               <nm-select ref="controllerSelect" :method="getAllControllerAction" v-model="list.model.controller" @change="onControllerChange">
@@ -39,16 +39,11 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" :text="buttons.sync.text" :icon="buttons.sync.icon" @click="sync" v-nm-has="buttons.sync"/>
+        <nm-button-has :options="buttons.sync" @click="sync" />
       </template>
 
       <template v-slot:col-moduleName="{row}">
         <span>{{`${row.moduleName}(${row.moduleCode})`}}</span>
-      </template>
-
-      <!--操作列-->
-      <template v-slot:col-operation="{row}">
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" v-nm-has="buttons.del"/>
       </template>
     </nm-list>
   </nm-container>
@@ -63,12 +58,13 @@ import ModuleInfoSelect from '../../moduleInfo/components/select'
 export default {
   name: page.name,
   components: { ModuleInfoSelect },
-  data () {
+  data() {
     return {
       list: {
         title: page.title,
         cols,
         labelWidth: '70px',
+        noOperation: true,
         action: api.query,
         advanced: {
           enabled: true,
@@ -79,35 +75,37 @@ export default {
           name: '',
           controller: '',
           action: ''
-        }
+        },
+        loading: false
       },
-      removeAction: api.remove,
       buttons: page.buttons
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    sync () {
+    sync() {
       this._confirm('您确认要同步权限信息吗', '同步权限信息').then(() => {
+        this.list.loading = true
         api.sync().then(data => {
+          this.list.loading = false
           this._success('同步成功')
           this.refresh()
         })
       })
     },
-    getAllControllerAction () {
+    getAllControllerAction() {
       return systemApi.getAllController({ module: this.list.model.moduleCode })
     },
-    getAllAction () {
+    getAllAction() {
       const con = this.list.model
       return systemApi.getAllAction({ module: con.moduleCode, controller: con.controller })
     },
-    onModuleChange () {
+    onModuleChange() {
       this.$refs.controllerSelect.refresh()
     },
-    onControllerChange () {
+    onControllerChange() {
       this.$refs.actionSelect.refresh()
     }
   }

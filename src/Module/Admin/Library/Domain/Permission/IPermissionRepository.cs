@@ -41,18 +41,18 @@ namespace Nm.Module.Admin.Domain.Permission
         Task<IList<PermissionEntity>> Query(PermissionQueryModel model);
 
         /// <summary>
-        /// 通过菜单编号查找对应权限列表
+        /// 通过菜单查找对应权限列表
         /// </summary>
-        /// <param name="menuId"></param>
+        /// <param name="menuCode"></param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> QueryByMenu(Guid menuId);
+        Task<IList<PermissionEntity>> QueryByMenu(string menuCode);
 
         /// <summary>
         /// 通过按钮编号查找对应权限列表
         /// </summary>
-        /// <param name="buttonId"></param>
+        /// <param name="buttonCode"></param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> QueryByButton(Guid buttonId);
+        Task<IList<PermissionEntity>> QueryByButton(string buttonCode);
 
         /// <summary>
         /// 查询指定账户的权限列表

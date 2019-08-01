@@ -6,7 +6,7 @@ const has = {
     // 验证是否开启按钮验证
     if (store.state.app.system.buttonPermission) {
       var buttons = store.state.app.account.buttons
-      const code = binding.value.code
+      const code = binding.value
       if (!code || buttons.every(c => c.toLowerCase() !== code.toLowerCase())) {
         el.parentNode.removeChild(el)
       }

@@ -43,8 +43,7 @@ namespace Nm.Module.Admin.Web.Core
                     Name = action.Controller.Description ?? action.Controller.Name
                 };
 
-                var httpMethodAttr =
-                    action.MethodInfo.CustomAttributes.FirstOrDefault(m => m.AttributeType.Name.StartsWith("Http"));
+                var httpMethodAttr = action.MethodInfo.CustomAttributes.FirstOrDefault(m => m.AttributeType.Name.StartsWith("Http"));
 
                 if (httpMethodAttr != null)
                 {
@@ -52,6 +51,8 @@ namespace Nm.Module.Admin.Web.Core
 
                     p.HttpMethod = (HttpMethod)Enum.Parse(typeof(HttpMethod), httpMethodName);
                     p.Name += "_" + (action.Description ?? action.Name);
+                    p.Code = $"{p.ModuleCode}_{p.Controller}_{p.Action}_{httpMethodName}".ToLower();
+
                     list.Add(p);
                 }
             }

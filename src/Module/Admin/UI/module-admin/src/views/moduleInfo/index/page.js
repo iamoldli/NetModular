@@ -1,17 +1,28 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '模块管理'
+  this.icon = 'product'
   this.name = 'admin_moduleinfo'
   this.path = '/admin/moduleinfo'
+
+  // 关联权限
+  this.permissions = [`${this.name}_query_get`]
+
+  // 按钮
   this.buttons = {
     sync: {
       text: '同步',
+      type: 'success',
+      icon: 'refresh',
       code: `${this.name}_sync`,
-      icon: 'refresh'
+      permissions: [`${this.name}_sync_post`]
     },
     del: {
       text: '删除',
-      code: `${this.name}_del`
+      type: 'text',
+      icon: 'delete',
+      code: `${this.name}_del`,
+      permissions: [`${this.name}_delete_delete`]
     }
   }
 }()

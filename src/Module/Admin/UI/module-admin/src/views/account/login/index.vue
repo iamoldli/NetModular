@@ -1,12 +1,12 @@
 <template>
-  <nm-login :actions="actions"/>
+  <nm-login :actions="actions" />
 </template>
 <script>
 import { mapActions } from 'vuex'
 import api from '../../../api/account'
 export default {
   computed: {
-    actions () {
+    actions() {
       return {
         getVerifyCode: api.getVerifyCode,
         login: this.login
@@ -14,8 +14,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions('module/admin/token', ['init']),
-    async login (params) {
+    ...mapActions('app/token', ['init']),
+    async login(params) {
       const data = await api.login(params)
       if (data) {
         this.init(data)

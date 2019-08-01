@@ -31,15 +31,6 @@ namespace Nm.Module.Admin.Domain.Menu
         Task<bool> ExistsChild(Guid id);
 
         /// <summary>
-        /// 在同级别下名称是重复
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="parentId"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<bool> ExistsNameByParentId(string name, Guid id, Guid parentId = default(Guid));
-
-        /// <summary>
         /// 根据模块编码判断是否有菜单
         /// </summary>
         /// <param name="moduleCode"></param>

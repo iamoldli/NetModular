@@ -3,7 +3,7 @@
     <nm-split v-model="split">
       <template v-slot:left>
         <nm-box page header title="菜单树" type="success" icon="menu" :toolbar="null">
-          <menu-tree ref="tree" @select-change="onTreeSelectChange"/>
+          <menu-tree ref="tree" @select-change="onTreeSelectChange" />
         </nm-box>
       </template>
       <template v-slot:right>
@@ -11,17 +11,17 @@
           <!--查询条件-->
           <template v-slot:querybar>
             <el-form-item label="名称：" prop="name">
-              <el-input v-model="list.model.name" clearable/>
+              <el-input v-model="list.model.name" clearable />
             </el-form-item>
             <el-form-item label="编码：" prop="code">
-              <el-input v-model="list.model.code" clearable/>
+              <el-input v-model="list.model.code" clearable />
             </el-form-item>
           </template>
 
           <!--按钮-->
           <template v-slot:querybar-buttons="{total}">
-            <nm-button type="success" @click="add(total)" icon="add" text="添加" v-nm-has="buttons.add"/>
-            <nm-button type="warning" text="排序" icon="sort" @click="openSort" v-nm-has="buttons.sort"/>
+            <nm-button-has :options="buttons.add" @click="add(total)" />
+            <nm-button-has :options="buttons.sort" @click="openSort" />
           </template>
 
           <!--类型-->
@@ -35,7 +35,7 @@
           <template v-slot:col-icon="{row}">
             <el-tooltip :content="row.icon" effect="dark" placement="right" v-if="row.icon">
               <label>
-                <nm-icon :name="row.icon" size="20px"/>
+                <nm-icon :name="row.icon" size="20px" />
               </label>
             </el-tooltip>
             <label v-else>无</label>
@@ -53,16 +53,10 @@
               </span>
               <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
                 <el-dropdown-item>
-                  <nm-button @click="edit(row)" icon="edit" text="编辑" type="text" v-nm-has="buttons.edit"/>
-                </el-dropdown-item>
-                <el-dropdown-item v-if="row.type===1">
-                  <nm-button :id="row.id" @click="bindPermission(row)" icon="bind" text="权限" type="text" v-nm-has="buttons.bindPermission"/>
-                </el-dropdown-item>
-                <el-dropdown-item v-if="row.type===1">
-                  <nm-button @click="bindButton(row)" icon="bind" text="按钮" type="text" v-nm-has="buttons.bindButton"/>
+                  <nm-button-has :options="buttons.edit" @click="edit(row)" />
                 </el-dropdown-item>
                 <el-dropdown-item>
-                  <nm-button-delete :action="remove" :id="row.id" @success="refresh(true)" v-nm-has="buttons.del"/>
+                  <nm-button-delete :options="buttons.del" :action="remove" :id="row.id" @success="refresh(true)" />
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -72,15 +66,11 @@
     </nm-split>
 
     <!--添加菜单-->
-    <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)"/>
+    <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)" />
     <!--编辑菜单-->
-    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)"/>
-    <!--按钮绑定-->
-    <button-bind-page :menu="currentMenu" :visible.sync="dialog.btnBind"/>
-    <!--权限绑定-->
-    <permission-bind-page v-bind="currentMenu" :visible.sync="dialog.perBind"/>
+    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)" />
     <!--排序-->
-    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh(true)"/>
+    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh(true)" />
   </nm-container>
 </template>
 <script>
@@ -90,13 +80,11 @@ import api from '../../../api/menu'
 import cols from './cols.js'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
-import ButtonBindPage from '../../button/index'
-import PermissionBindPage from '../components/premission-bind'
 import MenuTree from '../components/tree'
 
 export default {
   name: page.name,
-  components: { MenuTree, AddPage, EditPage, ButtonBindPage, PermissionBindPage },
+  components: { MenuTree, AddPage, EditPage },
   data() {
     return {
       split: 0.2,
@@ -117,12 +105,6 @@ export default {
       dialog: {
         add: false,
         edit: false,
-        // 预览
-        prev: false,
-        // 按钮绑定
-        btnBind: false,
-        // 权限绑定
-        perBind: false,
         // 排序
         sort: false
       },
@@ -170,14 +152,6 @@ export default {
     edit(row) {
       this.currentMenu = row
       this.dialog.edit = true
-    },
-    bindButton(row) {
-      this.currentMenu = row
-      this.dialog.btnBind = true
-    },
-    bindPermission(row) {
-      this.currentMenu = row
-      this.dialog.perBind = true
     },
     querySortList() {
       return api.querySortList(this.menu.id)

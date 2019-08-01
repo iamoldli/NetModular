@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.ButtonPermission;
-using Nm.Module.Admin.Domain.MenuPermission;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.Permission.Models;
 
@@ -14,14 +10,10 @@ namespace Nm.Module.Admin.Application.PermissionService
     public class PermissionService : IPermissionService
     {
         private readonly IPermissionRepository _permissionRepository;
-        private readonly IMenuPermissionRepository _menuPermissionRepository;
-        private readonly IButtonPermissionRepository _buttonPermissionRepository;
 
-        public PermissionService(IPermissionRepository permissionRepository, IMenuPermissionRepository menuPermissionRepository, IButtonPermissionRepository buttonPermissionRepository)
+        public PermissionService(IPermissionRepository permissionRepository)
         {
             _permissionRepository = permissionRepository;
-            _menuPermissionRepository = menuPermissionRepository;
-            _buttonPermissionRepository = buttonPermissionRepository;
         }
 
         public async Task<IResultModel> Query(PermissionQueryModel model)
@@ -66,21 +58,6 @@ namespace Nm.Module.Admin.Application.PermissionService
             }
 
             return ResultModel.Success();
-        }
-
-        public async Task<IResultModel> Delete(Guid id)
-        {
-            if (!await _permissionRepository.Exists(id))
-                return ResultModel.Failed("该记录不存在~");
-
-            if (await _menuPermissionRepository.ExistsBindPermission(id))
-                return ResultModel.Failed("有菜单关联了该权限，请先删除关联的菜单~");
-
-            if (await _buttonPermissionRepository.ExistsBindPermission(id))
-                return ResultModel.Failed("有按钮关联了该权限，请先删除关联的按钮~");
-
-            var result = await _permissionRepository.DeleteAsync(id);
-            return ResultModel.Result(result);
         }
     }
 }
