@@ -13,7 +13,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.positionAdd" @click="add" />
+        <nm-button-has :options="buttons.add" @click="add" />
       </template>
 
       <template v-slot:col-name="{row}">
