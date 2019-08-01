@@ -35,7 +35,7 @@ const page = new (function() {
       type: 'text',
       icon: 'delete',
       code: `${this.name}_build_code`,
-      permissions: [`${this.name}_buildcode`]
+      permissions: [`${this.name}_buildcode_post`]
     }
   }
 })()

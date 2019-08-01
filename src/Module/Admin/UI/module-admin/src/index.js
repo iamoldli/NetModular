@@ -81,7 +81,7 @@ const getSystem = async () => {
   // 退出方法
   system.logout = () => {
     api.logout()
-    routerConfig.$router.push({ name: 'Login' })
+    routerConfig.$router.push({ name: 'login' })
   }
   // 查询登陆信息方法
   system.getLoginInfo = api.getLoginInfo

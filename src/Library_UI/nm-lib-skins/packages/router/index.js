@@ -47,6 +47,8 @@ export default (routerConfig, store, system) => {
     } else {
       if (to.name === 'login') {
         next()
+        // 关闭进度条
+        NProgress.done()
       } else {
         // 加载账户信息，内部会做是否已加载判断
         store
