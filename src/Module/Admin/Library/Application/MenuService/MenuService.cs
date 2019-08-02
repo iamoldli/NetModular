@@ -121,6 +121,8 @@ namespace Nm.Module.Admin.Application.MenuService
                         if (await SyncButton(menu, model.Buttons, tran))
                         {
                             tran.Commit();
+                            
+                            await ClearAccountPermissionCache(entity);
                             return ResultModel.Success();
                         }
                     }
@@ -303,12 +305,7 @@ namespace Nm.Module.Admin.Application.MenuService
                     entityList.Add(new MenuPermissionEntity { MenuCode = menu.RouteName, PermissionCode = code.ToLower() });
                 });
 
-                if (await _menuPermissionRepository.AddAsync(entityList, transaction))
-                {
-                    await ClearAccountPermissionCache(menu);
-
-                    return true;
-                }
+                return await _menuPermissionRepository.AddAsync(entityList, transaction);
             }
 
             return false;
@@ -327,6 +324,9 @@ namespace Nm.Module.Admin.Application.MenuService
             {
                 return true;
             }
+           
+            if (buttons == null)
+                buttons = new List<MenuButtonAddModel>();
 
             var oldButtons = await _buttonRepository.QueryByMenu(menu.RouteName, transaction);
 
@@ -351,7 +351,7 @@ namespace Nm.Module.Admin.Application.MenuService
                         Icon = newBtn.Icon,
                         Name = newBtn.Text
                     };
-                    result = await _buttonRepository.UpdateAsync(oldBtn, transaction);
+                    result = await _buttonRepository.AddAsync(oldBtn, transaction);
                 }
 
                 if (!result)

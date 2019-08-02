@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Auth\Auth.Web\Auth.Web.csproj" />
+    <ProjectReference Include="..\..\..\Library\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\..\Library\Utils\Utils.Mvc\Utils.Mvc.csproj" />
+    <ProjectReference Include="..\..\..\Library\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
+    <ProjectReference Include="..\Library\Application\Application.csproj" />
+  </ItemGroup>
+
+</Project>

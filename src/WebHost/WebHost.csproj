@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Module\CodeGenerator\Web\Web.csproj" />
     <ProjectReference Include="..\Module\Common\Web\Web.csproj" />
     <ProjectReference Include="..\Module\PersonnelFiles\Web\Web.csproj" />
+    <ProjectReference Include="..\Module\Quartz\Web\Web.csproj" />
   </ItemGroup>
 
   <!--复制配置文件到输出目录-->

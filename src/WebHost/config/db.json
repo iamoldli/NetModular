@@ -24,6 +24,12 @@
       "Dialect": 1,
       "Database": "Nm_PersonnelFiles",
       "ConnString": "Server=localhost;Database=nm_personnelfiles;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+    },
+    {
+      "Name": "Quartz",
+      "Dialect": 1,
+      "Database": "Nm_Quartz",
+      "ConnString": "Server=localhost;Database=nm_quartz;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
     }
   ]
 }

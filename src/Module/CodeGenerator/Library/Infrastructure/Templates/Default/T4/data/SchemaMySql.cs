@@ -11,7 +11,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     using System.Linq;
     using Nm.Module.CodeGenerator.Domain.Property;
-
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -49,7 +50,7 @@ if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             this.Write("\r\n-- ----------------------------\r\nCREATE TABLE `");
             
             #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaMySql.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(c.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden

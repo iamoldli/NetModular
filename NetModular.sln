@@ -184,8 +184,19 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Integration", "src\Library\Data\Extend\Data.Integration\Data.Integration.csproj", "{86CA8459-0652-4B7F-8F21-EDDBFBB3E433}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Quartz", "04_Quartz", "{02AF1E90-722E-4F74-911D-9086B3BC85B0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Module\Quartz\Directory.Build.props = src\Module\Quartz\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{1416A370-7DD6-4967-8C3B-C322CB3485C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Module\Quartz\Library\Domain\Domain.csproj", "{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Module\Quartz\Library\Application\Application.csproj", "{061D97F8-EC67-471C-B410-EC44A8BC5DDB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Module\Quartz\Library\Infrastructure\Infrastructure.csproj", "{858EA006-2295-4CBF-81D4-FBAD8943253D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Module\Quartz\Web\Web.csproj", "{9461BC4A-14D2-4268-A386-097DA50DE2D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -397,6 +408,22 @@ Global
 		{86CA8459-0652-4B7F-8F21-EDDBFBB3E433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86CA8459-0652-4B7F-8F21-EDDBFBB3E433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86CA8459-0652-4B7F-8F21-EDDBFBB3E433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061D97F8-EC67-471C-B410-EC44A8BC5DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061D97F8-EC67-471C-B410-EC44A8BC5DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061D97F8-EC67-471C-B410-EC44A8BC5DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061D97F8-EC67-471C-B410-EC44A8BC5DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858EA006-2295-4CBF-81D4-FBAD8943253D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858EA006-2295-4CBF-81D4-FBAD8943253D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858EA006-2295-4CBF-81D4-FBAD8943253D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858EA006-2295-4CBF-81D4-FBAD8943253D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9461BC4A-14D2-4268-A386-097DA50DE2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9461BC4A-14D2-4268-A386-097DA50DE2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9461BC4A-14D2-4268-A386-097DA50DE2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9461BC4A-14D2-4268-A386-097DA50DE2D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,6 +509,10 @@ Global
 		{86CA8459-0652-4B7F-8F21-EDDBFBB3E433} = {957CA2B2-5796-4CBD-9F1A-60EA45F002EB}
 		{02AF1E90-722E-4F74-911D-9086B3BC85B0} = {00947CC4-D68B-45F0-AD39-1B4544DBBB32}
 		{1416A370-7DD6-4967-8C3B-C322CB3485C7} = {02AF1E90-722E-4F74-911D-9086B3BC85B0}
+		{6AE5C4EB-B534-4A02-AA8A-85812AABBAF4} = {1416A370-7DD6-4967-8C3B-C322CB3485C7}
+		{061D97F8-EC67-471C-B410-EC44A8BC5DDB} = {1416A370-7DD6-4967-8C3B-C322CB3485C7}
+		{858EA006-2295-4CBF-81D4-FBAD8943253D} = {1416A370-7DD6-4967-8C3B-C322CB3485C7}
+		{9461BC4A-14D2-4268-A386-097DA50DE2D8} = {02AF1E90-722E-4F74-911D-9086B3BC85B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

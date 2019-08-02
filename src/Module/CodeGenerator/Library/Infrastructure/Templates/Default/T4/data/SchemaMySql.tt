@@ -7,7 +7,7 @@
 -- ----------------------------
 -- <#= c.Remarks #>
 -- ----------------------------
-CREATE TABLE `<#= c.Name #>`  (
+CREATE TABLE `<#= c.TableName #>`  (
 <# for(var i = 0;i < c.PropertyList.Count;i++){ #>
 <# var p = c.PropertyList[i]; #>
   `<#= p.Name #>` <#= Property2Column(p) #> <#= p.IsPrimaryKey ? "PRIMARY KEY" : "" #> <#= p.Nullable ? "":"NOT NULL" #>  <#= p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "AUTO_INCREMENT" : "" #> COMMENT '<#= p.Remarks #>'<#= i<c.PropertyList.Count-1?",":"" #>
