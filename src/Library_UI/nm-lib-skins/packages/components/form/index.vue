@@ -101,7 +101,19 @@ export default {
     },
     /** 重置 */
     reset() {
+      this.resetChildren(this.$refs.form)
       this.$refs.form.resetFields()
+    },
+    /** 重置子组件 */
+    resetChildren(vnode) {
+      if (vnode.$children && vnode.$children.length > 0) {
+        vnode.$children.map(item => {
+          if (item && item.reset && typeof item.reset === 'function') {
+            item.reset()
+          }
+          this.resetChildren(item)
+        })
+      }
     },
     /** 清除验证结果 */
     clearValidate(props) {
