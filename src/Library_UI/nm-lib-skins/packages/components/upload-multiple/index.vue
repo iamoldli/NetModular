@@ -22,7 +22,7 @@
       <el-table-column align="center" prop="ext" label="扩展" width="180"></el-table-column>
       <el-table-column align="center" label="操作">
         <template v-slot:default="{row}">
-          <nm-button type="text" icon="delete" text="删除" @click="onRemove(row)"/>
+          <nm-button type="text" icon="delete" text="删除" @click="onRemove(row)" />
         </template>
       </el-table-column>
     </el-table>
@@ -34,7 +34,7 @@ import loadingMixins from '../../mixins/components/loading'
 export default {
   name: 'UploadMultiple',
   mixins: [loadingMixins],
-  data () {
+  data() {
     return {
       fileList: [],
       loading: false
@@ -71,8 +71,8 @@ export default {
     alwaysShowTable: Boolean
   },
   computed: {
-    ...mapState('module/admin/token', ['accessToken']),
-    upload () {
+    ...mapState('app/token', ['accessToken']),
+    upload() {
       return {
         action: this.action,
         headers: {
@@ -90,7 +90,7 @@ export default {
         onExceed: this.onExceed
       }
     },
-    maxSizeBytes () {
+    maxSizeBytes() {
       if (this.maxSize) {
         const max = this.maxSize.toLowerCase()
         if (max.endsWith('kb')) {
@@ -109,19 +109,19 @@ export default {
       }
       return ''
     },
-    showTable () {
+    showTable() {
       return this.alwaysShowTable || (this.fileList && this.fileList.length > 0)
     }
   },
   methods: {
-    clearFiles () {
+    clearFiles() {
       this.$refs.upload.clearFiles()
     },
-    reset () {
+    reset() {
       this.fileList = []
     },
     /** 远程文件对象转换 */
-    convert (file, localFile) {
+    convert(file, localFile) {
       return {
         name: file.fileName,
         size: this.getSizeUnit(file.size),
@@ -131,10 +131,10 @@ export default {
       }
     },
     /** 上传 */
-    submit () {
+    submit() {
       this.$refs.upload.submit()
     },
-    onBeforeUpload (file) {
+    onBeforeUpload(file) {
       // 验证是否超出最大上传数
       if (this.limit && this.fileList.length > this.limit) {
         this.$refs.upload.handleRemove(file)
@@ -147,7 +147,7 @@ export default {
       }
       this.loading = true
     },
-    onSuccess (response, file, fileList) {
+    onSuccess(response, file, fileList) {
       for (let i = 0; i < this.fileList.length; i++) {
         let $file = this.fileList[i]
         if ($file.localFile === file) {
@@ -172,11 +172,11 @@ export default {
         this.onError()
       }
     },
-    onError () {
+    onError() {
       this._error('上传失败')
       this.loading = false
     },
-    onRemove (file) {
+    onRemove(file) {
       if (file.localFile) {
         this.$refs.upload.handleRemove(file.localFile)
       }
@@ -184,11 +184,11 @@ export default {
       fileList.splice(fileList.indexOf(file), 1)
     },
     /** 文件超出 */
-    onExceed () {
+    onExceed() {
       this._warning(`最多允许上传${this.limit}个`)
     },
     /** 获取文件后缀名 */
-    getFileExt (name) {
+    getFileExt(name) {
       let ext = ''
       const arr = name.split('.')
       if (arr.length > 1) {
@@ -197,7 +197,7 @@ export default {
       return ext
     },
     /** 转换文件大小单位 */
-    getSizeUnit (size) {
+    getSizeUnit(size) {
       if (size === null || size === '') {
         return '0 B'
       }

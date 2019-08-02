@@ -25,15 +25,15 @@
         <el-table-column align="center" prop="ext" label="扩展" width="180"></el-table-column>
         <el-table-column align="center" label="操作">
           <template v-slot:default="{row}">
-            <nm-icon class="status-success" v-if="row.status===1" name="select"/>
-            <nm-icon class="status-error" v-else-if="row.status===2" name="close"/>
-            <nm-button type="text" icon="delete" text="删除" @click="onRemove(row)"/>
+            <nm-icon class="status-success" v-if="row.status===1" name="select" />
+            <nm-icon class="status-error" v-else-if="row.status===2" name="close" />
+            <nm-button type="text" icon="delete" text="删除" @click="onRemove(row)" />
           </template>
         </el-table-column>
       </el-table>
     </div>
     <template v-slot:footer>
-      <nm-button type="success" text="保存" @click="onSubmit"/>
+      <nm-button type="success" text="保存" @click="onSubmit" />
     </template>
   </nm-dialog>
 </template>
@@ -98,7 +98,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('module/admin/token', ['accessToken']),
+    ...mapState('app/token', ['accessToken']),
     dialog() {
       return {
         title: this.title,

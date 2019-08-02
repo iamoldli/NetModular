@@ -1,11 +1,11 @@
 <template>
   <div class="nm-upload-single">
     <div class="input">
-      <el-input :value="fileName" disabled/>
+      <el-input :value="fileName" disabled />
     </div>
     <div class="button">
       <el-upload ref="upload" v-bind="upload">
-        <nm-button :type="btnType" text="上传" :icon="icon_" @click="onClick" :loading="loading"/>
+        <nm-button :type="btnType" text="上传" :icon="icon_" @click="onClick" :loading="loading" />
       </el-upload>
     </div>
   </div>
@@ -14,7 +14,7 @@
 import { mapState } from 'vuex'
 export default {
   name: 'UploadSingle',
-  data () {
+  data() {
     return {
       fileName: this.name,
       filePath: this.value,
@@ -44,8 +44,8 @@ export default {
     accept: String
   },
   computed: {
-    ...mapState('module/admin/token', ['accessToken']),
-    maxSizeBytes () {
+    ...mapState('app/token', ['accessToken']),
+    maxSizeBytes() {
       if (this.maxSize) {
         const max = this.maxSize.toLowerCase()
         if (max.endsWith('kb')) {
@@ -64,10 +64,10 @@ export default {
       }
       return 0
     },
-    icon_ () {
+    icon_() {
       return this.loading ? 'loading' : this.noIcon ? '' : 'upload'
     },
-    upload () {
+    upload() {
       return {
         action: this.action,
         headers: {
@@ -88,22 +88,22 @@ export default {
     }
   },
   methods: {
-    reset () {
+    reset() {
       this.fileName = ''
       this.filePath = ''
     },
-    onClick () {
+    onClick() {
       if (this.loading) { return }
       this.$refs.upload.clearFiles()
     },
-    onBeforeUpload (file) {
+    onBeforeUpload(file) {
       if (this.maxSizeBytes && file.size > this.maxSizeBytes) {
         this._error('文件大小不能超过' + this.maxSize)
         return false
       }
       this.loading = true
     },
-    onSuccess (response, file, fileList) {
+    onSuccess(response, file, fileList) {
       if (response.code === 1) {
         this.fileName = response.data.fileName
         this.filePath = response.data.fullPath
@@ -115,16 +115,16 @@ export default {
       }
       this.loading = false
     },
-    onError () {
+    onError() {
       this._error('上传失败')
       this.loading = false
     }
   },
   watch: {
-    value (val) {
+    value(val) {
       this.filePath = val
     },
-    name (val) {
+    name(val) {
       this.fileName = val
     }
 
