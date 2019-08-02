@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Lib.Utils.Mvc.Extensions;
@@ -42,6 +43,7 @@ namespace Nm.Module.Common.Web.Controllers
 
         [HttpPost]
         [Description("上传")]
+        [Common]
         public async Task<IResultModel> Upload([FromForm]AttachmentUploadModel model, IFormFile formFile)
         {
             model.AccountId = _loginInfo.AccountId;
@@ -73,6 +75,7 @@ namespace Nm.Module.Common.Web.Controllers
 
         [HttpGet("{id:guid}")]
         [Description("下载")]
+        [Common]
         public async Task<IActionResult> Download([BindRequired]Guid id)
         {
             var result = await _service.Download(id, _loginInfo.AccountId);
@@ -87,6 +90,7 @@ namespace Nm.Module.Common.Web.Controllers
 
         [HttpGet("{id:guid}")]
         [Description("导出")]
+        [Common]
         public async Task<IActionResult> Export([BindRequired]Guid id)
         {
             var result = await _service.Download(id, _loginInfo.AccountId);

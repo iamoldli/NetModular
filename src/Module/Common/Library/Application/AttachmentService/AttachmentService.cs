@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AttachmentService.ResultModels;
@@ -49,7 +50,7 @@ namespace Nm.Module.Common.Application.AttachmentService
             {
                 Module = model.Module,
                 Group = model.Group,
-                FileName = fileInfo.FileName,
+                FileName = model.Name.NotNull() ? model.Name : fileInfo.FileName,
                 SaveName = fileInfo.SaveName,
                 Ext = fileInfo.Ext,
                 Md5 = fileInfo.Md5,

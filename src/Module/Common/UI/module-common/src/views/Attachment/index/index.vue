@@ -4,14 +4,14 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.export" @click="onExport(row)"/>
-        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh"/>
+        <nm-button-has :options="buttons.export" @click="onExport(row)" />
+        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh" />
       </template>
     </nm-list>
   </nm-container>

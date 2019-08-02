@@ -28,6 +28,11 @@ namespace Nm.Module.Common.Application.AttachmentService.ViewModels
         public string Group { get; set; }
 
         /// <summary>
+        /// 文件名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// 是否需要授权访问
         /// </summary>
         public bool Auth { get; set; }
