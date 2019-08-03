@@ -1,6 +1,7 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '附件管理'
+  this.icon = 'attachment'
   this.name = 'Common_Attachment'
   this.path = '/Common/Attachment'
 

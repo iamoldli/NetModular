@@ -1,11 +1,15 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '区划代码管理'
+  this.icon = 'area'
   this.name = 'Common_Area'
   this.path = '/Common/Area'
 
   // 关联权限
-  this.permissions = [`${this.name}_query_get`]
+  this.permissions = [
+    `${this.name}_query_get`,
+    `${this.name}_querychildren_get`
+  ]
 
   this.buttons = {
     add: {

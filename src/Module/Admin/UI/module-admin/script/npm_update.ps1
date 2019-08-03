@@ -1,2 +1,2 @@
-cd ../UI/module-common
+cd ../
 npm --registry  https://registry.npmjs.org/ update

@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="姓名：" prop="name">
-          <el-input v-model="form.model.name" clearable/>
+          <el-input v-model="form.model.name" clearable />
         </el-form-item>
         <el-form-item label="性别：" prop="sex">
           <el-radio-group v-model="form.model.sex">
@@ -17,7 +17,9 @@
       </el-col>
       <el-col :span="6">
         <el-form-item label="照片：" prop="picture">
-          <picture-upload v-model="form.model.picture"/>
+          <nm-attachment-upload-img v-model="form.model.picture" v-bind="pictureUpload">
+            <template v-slot:text>请选择文件</template>
+          </nm-attachment-upload-img>
         </el-form-item>
       </el-col>
     </el-row>
@@ -25,14 +27,14 @@
       <el-col :span="10" :offset="1">
         <el-form-item label="用户名：" prop="userName">
           <el-input v-model="form.model.userName" clearable>
-            <nm-icon name="user" slot="prefix"/>
+            <nm-icon name="user" slot="prefix" />
           </el-input>
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="密码：" prop="password">
           <el-input v-model="form.model.password" clearable>
-            <nm-icon name="password" slot="prefix"/>
+            <nm-icon name="password" slot="prefix" />
           </el-input>
         </el-form-item>
       </el-col>
@@ -40,13 +42,13 @@
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="角色：" prop="roles">
-          <nm-role-select ref="roles" multiple v-model="form.model.roles" :clearable="false" icon="role"/>
+          <nm-role-select ref="roles" multiple v-model="form.model.roles" :clearable="false" icon="role" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="手机号：" prop="phone">
           <el-input v-model="form.model.phone" clearable>
-            <nm-icon name="phone" slot="prefix"/>
+            <nm-icon name="phone" slot="prefix" />
           </el-input>
         </el-form-item>
       </el-col>
@@ -54,37 +56,37 @@
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="部门：" prop="departmentId">
-          <department-select ref="department" v-model="form.model.departmentId" clearable/>
+          <department-select ref="department" v-model="form.model.departmentId" clearable />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="岗位：" prop="positionId">
-          <position-select :department-id="form.model.departmentId" v-model="form.model.positionId"/>
+          <position-select :department-id="form.model.departmentId" v-model="form.model.positionId" />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="民族：" prop="nation">
-          <el-input v-model="form.model.nation" clearable/>
+          <el-input v-model="form.model.nation" clearable />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="籍贯：" prop="native">
-          <el-input v-model="form.model.native" clearable/>
+          <el-input v-model="form.model.native" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="学历：" prop="education">
-          <el-input v-model="form.model.education" clearable/>
+          <el-input v-model="form.model.education" clearable />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="身份证号：" prop="idCardNo">
           <el-input v-model="form.model.idCardNo" clearable>
-            <nm-icon name="id" slot="prefix"/>
+            <nm-icon name="id" slot="prefix" />
           </el-input>
         </el-form-item>
       </el-col>
@@ -93,7 +95,7 @@
       <el-col :span="10" :offset="1">
         <el-form-item label="邮箱：" prop="email">
           <el-input v-model="form.model.email" clearable>
-            <nm-icon name="email" slot="prefix"/>
+            <nm-icon name="email" slot="prefix" />
           </el-input>
         </el-form-item>
       </el-col>
@@ -105,11 +107,10 @@ import { mixins } from 'nm-lib-skins'
 import api from '../../../../api/User'
 import DepartmentSelect from '../../../Department/components/select'
 import PositionSelect from '../../../Position/components/select'
-import PictureUpload from '../picture-upload'
 
 export default {
   mixins: [mixins.dialog],
-  components: { DepartmentSelect, PositionSelect, PictureUpload },
+  components: { DepartmentSelect, PositionSelect },
   data() {
     return {
       form: {
@@ -159,6 +160,14 @@ export default {
       on: {
         success: this.onSuccess,
         open: this.onOpen
+      },
+      pictureUpload: {
+        module: 'PersonnelFiles',
+        group: 'UserPicture',
+        maxSize: '500kb',
+        width: '100px',
+        height: '120px',
+        iconSize: '3em'
       }
     }
   },

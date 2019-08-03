@@ -71,7 +71,7 @@ export default {
         },
         operationWidth: 130,
         loading: false,
-        loadingText: '正在努力爬取区域数据，请稍后...'
+        loadingText: '正在努力加载数据，请稍后...'
       },
       removeAction: api.remove,
       dialog: {

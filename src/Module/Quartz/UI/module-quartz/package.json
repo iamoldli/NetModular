@@ -9,9 +9,11 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "dev": "cd ../../WebHost && dotnet watch run",
         "cm": "rimraf node_modules",
-        "cc": "rimraf node_modules/.cache"
+        "cc": "rimraf node_modules/.cache",
+        "i": "cd ./script && npm_install.ps1",
+        "up": "cd ./script && npm_update.ps1",
+        "pub": "cd ./script && npm_publish.ps1"
     },
     "dependencies": {
         "nm-lib-icon": "^1.0.0",

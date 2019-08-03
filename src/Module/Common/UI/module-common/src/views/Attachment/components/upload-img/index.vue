@@ -1,9 +1,9 @@
 <template>
-  <div class="td-attachment-upload-img" :style="style" v-loading="loading">
+  <div class="nm-attachment-upload-img" :style="style" v-loading="loading">
     <el-upload v-bind="uploadOptions">
-      <td-attachment-img v-if="id" :id="id" class="preview" />
-      <div class="text-box">
-        <i class="el-icon-upload"></i>
+      <nm-attachment-img v-show="id" :id="id" class="preview" />
+      <div v-show="!id" class="text-box">
+        <i class="el-icon-upload" :style="{fontSize:iconSize}"></i>
         <div class="text">
           <slot name="text">
             将文件拖到此处，或
@@ -15,6 +15,9 @@
         </div>
       </div>
     </el-upload>
+    <span v-show="id" class="remove" @click="reset">
+      <nm-icon name="close" />
+    </span>
   </div>
 </template>
 <script>
@@ -49,6 +52,11 @@ export default {
       default() {
         return ['jpg', 'jpeg', 'png']
       }
+    },
+    /** 图标大小 */
+    iconSize: {
+      type: String,
+      default: '5em'
     }
   },
   computed: {
@@ -115,7 +123,8 @@ export default {
 </script>
 
 <style lang="scss">
-.td-attachment-upload-img {
+.nm-attachment-upload-img {
+  position: relative;
   display: inline-block;
   box-sizing: border-box;
   border: 1px dashed #ccc;
@@ -128,9 +137,6 @@ export default {
   > div {
     width: 100%;
     height: 100%;
-  }
-  &:hover {
-    border-color: #409eff;
   }
 
   .preview {
@@ -147,20 +153,6 @@ export default {
     }
   }
 
-  .text-box {
-    font-size: 14px;
-
-    .el-icon-upload {
-      font-size: 5em;
-      color: #c0c4cc !important;
-    }
-
-    em {
-      color: #409eff;
-      font-style: normal;
-    }
-  }
-
   .el-upload {
     width: 100%;
     height: 100%;
@@ -170,13 +162,52 @@ export default {
     position: relative;
     top: 50%;
     border: none;
-    margin-top: -100px;
+    margin-top: -50%;
     width: 100%;
-    height: 200px;
+    height: auto;
+    .text-box {
+      font-size: 14px;
+
+      .el-icon-upload {
+        margin: auto;
+        font-size: 5em;
+        color: #c0c4cc !important;
+      }
+
+      em {
+        color: #409eff;
+        font-style: normal;
+      }
+    }
   }
 
   .el-loading-spinner {
     line-height: 100%;
+  }
+
+  .remove {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #f56c6c;
+    color: #ccc;
+    font-size: 16px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    border-color: #409eff;
+
+    .remove {
+      display: inline-block;
+    }
   }
 }
 </style>

@@ -122,7 +122,7 @@ namespace Nm.Module.Admin.Application.MenuService
                         {
                             tran.Commit();
                             
-                            await ClearAccountPermissionCache(entity);
+                            await ClearAccountPermissionCache(menu);
                             return ResultModel.Success();
                         }
                     }

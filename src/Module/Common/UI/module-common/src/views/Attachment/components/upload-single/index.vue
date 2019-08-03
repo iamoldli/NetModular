@@ -1,11 +1,11 @@
 <template>
-  <div class="td-attachment-upload-single">
+  <div class="nm-attachment-upload-single">
     <div class="input">
       <el-input :value="fileName" readonly />
     </div>
     <div class="button">
       <el-upload ref="upload" v-bind="uploadOptions">
-        <td-button :type="btnType" text="上传" :icon="icon_" @click="onClick" :loading="loading" />
+        <nm-button :type="btnType" text="上传" :icon="icon_" @click="onClick" :loading="loading" />
       </el-upload>
     </div>
   </div>
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss">
-.td-attachment-upload-single {
+.nm-attachment-upload-single {
   position: relative;
   padding-right: 80px;
   width: 100%;
@@ -125,11 +125,11 @@ export default {
 
     > div,
     .el-upload,
-    .td-button {
+    .nm-button {
       height: 100%;
     }
 
-    .td-button {
+    .nm-button {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }

@@ -1,10 +1,17 @@
 {
     "name": "nm-lib-utils",
-    "version": "1.1.7",
+    "version": "1.2.0",
     "description": "NetModular前端常用工具集",
     "main": "src/index.js",
     "author": "Oldli",
     "license": "ISC",
+	"scripts": {
+        "cm": "rimraf node_modules && rimraf dist",
+        "cc": "rimraf node_modules/.cache",
+        "i": "cd ./script && npm_install.ps1",
+        "up": "cd ./script && npm_update.ps1",
+        "pub": "cd ./script && npm_publish.ps1"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/iamoldli/NetModular"

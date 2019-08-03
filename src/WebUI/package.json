@@ -18,7 +18,7 @@
         "nm-module-admin": "^1.2.11",
         "nm-module-code-generator": "^1.2.4",
         "nm-module-common": "^1.0.0",
-        "nm-module-personnelfiles": "^1.0.7"
+        "nm-module-personnelfiles": "^1.0.9"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.8.0",
