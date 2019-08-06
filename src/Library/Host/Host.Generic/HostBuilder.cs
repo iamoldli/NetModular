@@ -60,6 +60,7 @@ namespace Nm.Lib.Host.Generic
                     //添加主机服务
                     services.AddHostedService<TStartup>();
 
+                    //添加HttpClient相关
                     services.AddHttpClient();
                 })
                 .UseLogging()

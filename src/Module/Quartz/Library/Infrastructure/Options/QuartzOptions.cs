@@ -21,5 +21,12 @@ namespace Nm.Module.Quartz.Infrastructure.Options
         /// 序列化方式
         /// </summary>
         public string SerializerType { get; set; }
+
+        public QuartzOptions()
+        {
+            InstanceName = "QuartzServer";
+            TablePrefix = "QRTZ_";
+            SerializerType = "JSON";
+        }
     }
 }

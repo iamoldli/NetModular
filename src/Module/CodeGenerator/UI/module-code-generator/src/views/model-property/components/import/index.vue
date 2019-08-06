@@ -2,7 +2,7 @@
   <nm-dialog v-bind="dialog" :visible.sync="visible_" @open="onOpen">
     <el-transfer class="nm-code-generator-model-property-import" v-model="value" :data="list"></el-transfer>
     <template v-slot:footer>
-      <nm-button type="success" text="保存" @click="submit"/>
+      <nm-button type="success" text="保存" @click="submit" />
     </template>
   </nm-dialog>
 </template>
@@ -12,7 +12,7 @@ import propertyApi from '../../../../api/property'
 import api from '../../../../api/model-property'
 export default {
   mixins: [mixins.dialog],
-  data () {
+  data() {
     return {
       list: [],
       value: [],
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         title: `从实体中导入属性(${this.parent.name})`,
         icon: 'import',
@@ -39,12 +39,12 @@ export default {
         height: '600px',
         noScrollbar: true,
         loading: this.loading,
-        footer:true
+        footer: true
       }
     }
   },
   methods: {
-    queryList () {
+    queryList() {
       this.list = []
       propertyApi.select(this.parent.id).then(data => {
         data.map(m => {
@@ -59,7 +59,7 @@ export default {
         })
       })
     },
-    querySelected () {
+    querySelected() {
       this.value = []
       api.select({ classId: this.parent.id, modelType: this.modelType }).then(data => {
         data.map(m => {
@@ -68,7 +68,7 @@ export default {
         this.queryList()
       })
     },
-    submit () {
+    submit() {
       let ids = []
       this.list.map(m => {
         if (this.value.includes(m.key) && !m.disabled) {
@@ -93,7 +93,7 @@ export default {
         this.loading = false
       })
     },
-    onOpen () {
+    onOpen() {
       this.querySelected()
     }
   }

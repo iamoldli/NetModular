@@ -3,10 +3,13 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Quartz.Application.JobService;
 using Nm.Module.Quartz.Application.JobService.ViewModels;
 using Nm.Module.Quartz.Domain.Job.Models;
+using Nm.Module.Quartz.Domain.JobLog.Models;
+using Nm.Module.Quartz.Web.Core;
 
 namespace Nm.Module.Quartz.Web.Controllers
 {
@@ -14,10 +17,12 @@ namespace Nm.Module.Quartz.Web.Controllers
     public class JobController : ModuleController
     {
         private readonly IJobService _service;
+        private readonly JobHelper _helper;
 
-        public JobController(IJobService service)
+        public JobController(IJobService service, JobHelper helper)
         {
             _service = service;
+            _helper = helper;
         }
 
         [HttpGet]
@@ -34,13 +39,6 @@ namespace Nm.Module.Quartz.Web.Controllers
             return _service.Add(model);
         }
 
-        [HttpDelete]
-        [Description("删除")]
-        public async Task<IResultModel> Delete([BindRequired]Guid id)
-        {
-            return await _service.Delete(id);
-        }
-
         [HttpGet]
         [Description("编辑")]
         public async Task<IResultModel> Edit([BindRequired]Guid id)
@@ -53,6 +51,48 @@ namespace Nm.Module.Quartz.Web.Controllers
         public Task<IResultModel> Update(JobUpdateModel model)
         {
             return _service.Update(model);
+        }
+
+        [HttpDelete]
+        [Description("删除")]
+        public Task<IResultModel> Delete([BindRequired]Guid id)
+        {
+            return _service.Delete(id);
+        }
+
+        [HttpPost]
+        [Description("暂停")]
+        public  Task<IResultModel> Pause([BindRequired]Guid id)
+        {
+            return  _service.Pause(id);
+        }
+
+        [HttpPost]
+        [Description("启动")]
+        public Task<IResultModel> Resume([BindRequired]Guid id)
+        {
+            return _service.Resume(id);
+        }
+
+        [HttpGet]
+        [Description("日志")]
+        public Task<IResultModel> Log([FromQuery]JobLogQueryModel model)
+        {
+            return _service.Log(model);
+        }
+
+        [HttpGet]
+        [Common]
+        public IResultModel ModuleSelect()
+        {
+            return ResultModel.Success(_helper.ModuleSelect);
+        }
+
+        [HttpGet]
+        [Common]
+        public IResultModel JobSelect(string moduleId)
+        {
+            return ResultModel.Success(_helper.GetJobSelect(moduleId));
         }
     }
 }

@@ -42,18 +42,18 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web.Controllers
 <# if(_class.Method.Delete) {#>
         [HttpDelete]
         [Description("删除")]
-        public async Task<IResultModel> Delete([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
+        public Task<IResultModel> Delete([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
         {
-            return await _service.Delete(id);
+            return _service.Delete(id);
         }
 
 <#} #>
 <# if(_class.Method.Edit) {#>
         [HttpGet]
         [Description("编辑")]
-        public async Task<IResultModel> Edit([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
+        public Task<IResultModel> Edit([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
         {
-            return await _service.Edit(id);
+            return _service.Edit(id);
         }
 
         [HttpPost]

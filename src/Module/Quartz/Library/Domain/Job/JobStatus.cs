@@ -7,13 +7,13 @@ namespace Nm.Module.Quartz.Domain.Job
     /// </summary>
     public enum JobStatus
     {
-        [Description("未知")]
-        UnKnown,
-        [Description("停止")]
-        Stop,
-        [Description("启动")]
-        Start,
+        [Description("运行")]
+        Running,
+        [Description("暂停")]
+        Pause,
+        [Description("已完成")]
+        Completed,
         [Description("异常")]
-        Error
+        Exception
     }
 }

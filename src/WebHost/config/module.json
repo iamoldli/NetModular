@@ -14,5 +14,14 @@
   "Common": {
     //附件上传路径
     "AttachmentPath": "D:\\Attachment"
+  },
+  //任务调度
+  "Quartz": {
+    //实例名称
+    "InstanceName": "QuartzServer",
+    //表前缀
+    "TablePrefix": "QRTZ_",
+    //序列化方式
+    "SerializerType": "JSON" 
   }
 }

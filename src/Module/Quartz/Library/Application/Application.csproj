@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Library\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\..\Library\Quartz\Quartz.Abstractions\Quartz.Abstractions.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

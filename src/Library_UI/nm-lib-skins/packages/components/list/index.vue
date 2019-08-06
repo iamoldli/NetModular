@@ -55,6 +55,7 @@
             :fixed="col.fixed"
             :align="col.align"
             :header-align="col.headerAlign"
+            :show-overflow-tooltip="col.showOverflowTooltip"
           >
             <!--自定义头-->
             <template v-slot:header>
@@ -117,7 +118,9 @@ const defaultColumnInfo = {
   // 是否显示
   show: true,
   // 格式化，暂时针对日期，采用dayjs组件 https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/API-reference.md
-  format: ''
+  format: '',
+  // 当内容过长被隐藏时显示 tooltip
+  showOverflowTooltip: true
 }
 export default {
   name: 'List',
@@ -275,6 +278,10 @@ export default {
         })
       }
       return []
+    },
+    /** 重新绘制布局 */
+    doLayout() {
+      this.$refs.table.doLayout()
     }
   },
   created() {
@@ -283,8 +290,7 @@ export default {
     }
   },
   activated() {
-    // 重新绘制布局
-    this.$refs.table.doLayout()
+    this.doLayout()
   }
 }
 </script>

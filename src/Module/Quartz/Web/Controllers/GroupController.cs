@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Quartz.Application.GroupService;
 using Nm.Module.Quartz.Application.GroupService.ViewModels;
@@ -41,18 +42,15 @@ namespace Nm.Module.Quartz.Web.Controllers
             return await _service.Delete(id);
         }
 
+        /// <summary>
+        /// 下拉列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [Description("编辑")]
-        public async Task<IResultModel> Edit([BindRequired]Guid id)
+        [Common]
+        public async Task<IResultModel> Select()
         {
-            return await _service.Edit(id);
-        }
-
-        [HttpPost]
-        [Description("修改")]
-        public Task<IResultModel> Update(GroupUpdateModel model)
-        {
-            return _service.Update(model);
+            return await _service.Select();
         }
     }
 }

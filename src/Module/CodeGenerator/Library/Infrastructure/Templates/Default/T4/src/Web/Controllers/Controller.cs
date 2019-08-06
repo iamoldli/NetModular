@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Controllers
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -195,15 +197,15 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             
             #line default
             #line hidden
-            this.Write("        [HttpDelete]\r\n        [Description(\"删除\")]\r\n        public async Task<IRes" +
-                    "ultModel> Delete([BindRequired]");
+            this.Write("        [HttpDelete]\r\n        [Description(\"删除\")]\r\n        public Task<IResultMod" +
+                    "el> Delete([BindRequired]");
             
             #line 45 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
             #line hidden
-            this.Write(" id)\r\n        {\r\n            return await _service.Delete(id);\r\n        }\r\n\r\n");
+            this.Write(" id)\r\n        {\r\n            return _service.Delete(id);\r\n        }\r\n\r\n");
             
             #line 50 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
 } 
@@ -216,17 +218,16 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             
             #line default
             #line hidden
-            this.Write("        [HttpGet]\r\n        [Description(\"编辑\")]\r\n        public async Task<IResult" +
-                    "Model> Edit([BindRequired]");
+            this.Write("        [HttpGet]\r\n        [Description(\"编辑\")]\r\n        public Task<IResultModel>" +
+                    " Edit([BindRequired]");
             
             #line 54 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
             #line hidden
-            this.Write(" id)\r\n        {\r\n            return await _service.Edit(id);\r\n        }\r\n\r\n      " +
-                    "  [HttpPost]\r\n        [Description(\"修改\")]\r\n        public Task<IResultModel> Upd" +
-                    "ate(");
+            this.Write(" id)\r\n        {\r\n            return _service.Edit(id);\r\n        }\r\n\r\n        [Htt" +
+                    "pPost]\r\n        [Description(\"修改\")]\r\n        public Task<IResultModel> Update(");
             
             #line 61 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));

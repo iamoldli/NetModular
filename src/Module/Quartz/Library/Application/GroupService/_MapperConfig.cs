@@ -10,8 +10,6 @@ namespace Nm.Module.Quartz.Application.GroupService
         public void Bind(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<GroupAddModel, GroupEntity>();
-            cfg.CreateMap<GroupEntity, GroupUpdateModel>();
-            cfg.CreateMap<GroupUpdateModel, GroupEntity>();
         }
     }
 }

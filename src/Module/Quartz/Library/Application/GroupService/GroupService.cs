@@ -6,6 +6,7 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Quartz.Application.GroupService.ViewModels;
 using Nm.Module.Quartz.Domain.Group;
 using Nm.Module.Quartz.Domain.Group.Models;
+using Nm.Module.Quartz.Domain.Job;
 
 namespace Nm.Module.Quartz.Application.GroupService
 {
@@ -13,10 +14,13 @@ namespace Nm.Module.Quartz.Application.GroupService
     {
         private readonly IMapper _mapper;
         private readonly IGroupRepository _repository;
-        public GroupService(IMapper mapper, IGroupRepository repository)
+        private readonly IJobRepository _jobRepository;
+
+        public GroupService(IMapper mapper, IGroupRepository repository, IJobRepository jobRepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _jobRepository = jobRepository;
         }
 
         public async Task<IResultModel> Query(GroupQueryModel model)
@@ -32,10 +36,10 @@ namespace Nm.Module.Quartz.Application.GroupService
         public async Task<IResultModel> Add(GroupAddModel model)
         {
             var entity = _mapper.Map<GroupEntity>(model);
-            //if (await _repository.Exists(entity))
-            //{
-                //return ResultModel.HasExists;
-            //}
+            if (await _repository.Exists(entity))
+            {
+                return ResultModel.Failed("编码");
+            }
 
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
@@ -43,36 +47,32 @@ namespace Nm.Module.Quartz.Application.GroupService
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            var result = await _repository.DeleteAsync(id);
-            return ResultModel.Result(result);
-        }
-
-        public async Task<IResultModel> Edit(Guid id)
-        {
             var entity = await _repository.GetAsync(id);
             if (entity == null)
+            {
                 return ResultModel.NotExists;
+            }
 
-            var model = _mapper.Map<GroupUpdateModel>(entity);
-            return ResultModel.Success(model);
-        }
+            if (await _jobRepository.ExistsByGroup(entity.Code))
+            {
+                return ResultModel.Failed("有任务绑定了该分组，请先删除任务");
+            }
 
-        public async Task<IResultModel> Update(GroupUpdateModel model)
-        {
-            var entity = await _repository.GetAsync(model.Id);
-            if (entity == null)
-                return ResultModel.NotExists;
-
-            _mapper.Map(model, entity);
-
-            //if (await _repository.Exists(entity))
-            //{
-                //return ResultModel.HasExists;
-            //}
-
-            var result = await _repository.UpdateAsync(entity);
+            var result = await _repository.DeleteAsync(id);
 
             return ResultModel.Result(result);
+        }
+
+        public async Task<IResultModel> Select()
+        {
+            var list = await _repository.GetAllAsync();
+            var select = list.Select(m => new OptionResultModel
+            {
+                Label = m.Name,
+                Value = m.Code
+            });
+
+            return ResultModel.Success(select);
         }
     }
 }

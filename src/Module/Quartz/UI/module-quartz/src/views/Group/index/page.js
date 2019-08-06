@@ -1,27 +1,21 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '任务组列表'
+  this.icon = 'group'
   this.name = 'Quartz_Group'
   this.path = '/Quartz/Group'
-  
+
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
 
   // 按钮
   this.buttons = {
-     add: {
+    add: {
       text: '添加',
       type: 'success',
       icon: 'add',
       code: `${this.name}_add`,
       permissions: [`${this.name}_add_post`]
-    },
-    edit: {
-      text: '编辑',
-      type: 'text',
-      icon: 'edit',
-      code: `${this.name}_edit`,
-      permissions: [`${this.name}_edit_get`, `${this.name}_update_post`]
     },
     del: {
       text: '删除',

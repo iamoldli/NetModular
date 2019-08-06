@@ -10,5 +10,6 @@ namespace Nm.Lib.Module.GenericHost
         public Assembly Domain { get; set; }
 
         public Assembly Infrastructure { get; set; }
+        public Assembly Quartz { get; set; }
     }
 }

@@ -160,9 +160,11 @@ export default {
   }
 
   .nm-login-box {
-    margin: 0 auto;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -160px 0 0 -190px;
     padding: 5px 15px;
-    margin-top: 10%;
     border-radius: 5px;
     text-align: center;
     width: 350px;

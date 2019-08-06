@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Module.Quartz.Domain.Group.Models;
 
 namespace Nm.Module.Quartz.Domain.Group
@@ -17,5 +16,12 @@ namespace Nm.Module.Quartz.Domain.Group
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IList<GroupEntity>> Query(GroupQueryModel model);
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<bool> Exists(GroupEntity entity);
     }
 }

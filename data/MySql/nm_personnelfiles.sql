@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 27/06/2019 18:08:37
+ Date: 06/08/2019 18:17:35
 */
 
 SET NAMES utf8mb4;
@@ -36,6 +36,11 @@ CREATE TABLE `company`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of company
+-- ----------------------------
+INSERT INTO `company` VALUES ('39ef6737-7c13-efbf-93b4-a8490018f11f', '南京欧德利', '南京奥体', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:14:16', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-06 18:15:07');
+
+-- ----------------------------
 -- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;
@@ -54,6 +59,11 @@ CREATE TABLE `department`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of department
+-- ----------------------------
+INSERT INTO `department` VALUES ('39ef6737-dbba-67c2-8c8e-f1044eb7a19d', '39ef6737-7c13-efbf-93b4-a8490018f11f', '研发部', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000', 0, '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:14:41', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:14:41');
+
+-- ----------------------------
 -- Table structure for position
 -- ----------------------------
 DROP TABLE IF EXISTS `position`;
@@ -68,6 +78,11 @@ CREATE TABLE `position`  (
   `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO `position` VALUES ('39ef6738-32c5-8c9d-b7e5-faba1848bdc4', '39ef6737-dbba-67c2-8c8e-f1044eb7a19d', '技术经理', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:15:03', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:15:03');
 
 -- ----------------------------
 -- Table structure for user
@@ -100,6 +115,13 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('39ef6739-27a5-21d0-a636-144d1a1eef37', '39ef6739-279c-caac-bb19-c6f0da6ab30d', 100001, '39ef6737-dbba-67c2-8c8e-f1044eb7a19d', '39ef6738-32c5-8c9d-b7e5-faba1848bdc4', '老李', 1, '', '2019-08-07 00:00:00', '', '', '39ef673b-7806-f8c1-e9e1-28ec2fd82fed', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:16:06', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:18:41', 0, '2019-08-03 09:16:06', '00000000-0000-0000-0000-000000000000');
+INSERT INTO `user` VALUES ('39ef673e-faf5-6f27-f67e-02772d2da9d9', '39ef673e-fae6-cda2-24b2-2302c5bf47eb', 100003, '39ef6737-dbba-67c2-8c8e-f1044eb7a19d', '39ef6738-32c5-8c9d-b7e5-faba1848bdc4', '123', 1, '', '2019-07-29 00:00:00', '', '', '39ef673d-d9ca-9c94-b554-21aef02b4e06', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:22:28', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:22:28', 0, '2019-08-03 09:22:28', '00000000-0000-0000-0000-000000000000');
+INSERT INTO `user` VALUES ('39ef673f-7c55-211d-e287-b29769b51adf', '39ef673f-7c49-a598-262a-b909bbec2cc7', 100004, '39ef6737-dbba-67c2-8c8e-f1044eb7a19d', '39ef6738-32c5-8c9d-b7e5-faba1848bdc4', '111', 1, '', '2019-08-05 00:00:00', '', '', '39ef673f-3efa-759f-dc6c-11324a80c025', '', '', '', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:23:01', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:23:01', 0, '2019-08-03 09:23:01', '00000000-0000-0000-0000-000000000000');
+
+-- ----------------------------
 -- Table structure for user_contact
 -- ----------------------------
 DROP TABLE IF EXISTS `user_contact`;
@@ -119,7 +141,12 @@ CREATE TABLE `user_contact`  (
   `TownName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城镇名称',
   `Address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详细地址',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_contact
+-- ----------------------------
+INSERT INTO `user_contact` VALUES (1, '39ef673e-faf5-6f27-f67e-02772d2da9d9', '11', '11', '11', '130000000000', '河北省', '130100000000', '石家庄市', '130104000000', '桥西区', '130104002000', '中山街道办事处', '111');
 
 -- ----------------------------
 -- Table structure for user_education_history

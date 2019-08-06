@@ -13,7 +13,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <<#= _prefix #>-button-has :options="buttons.add" @click="add(total)" />
+        <<#= _prefix #>-button-has :options="buttons.add" @click="add" />
       </template>
 
       <!--自定义列-->

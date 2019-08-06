@@ -10,6 +10,10 @@ export default [
     label: '名称'
   },
   {
+    name: 'code',
+    label: '编码'
+  },
+  {
     name: 'creator',
     label: '创建人',
     width: 100,

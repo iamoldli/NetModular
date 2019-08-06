@@ -15,7 +15,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 
         public void Save()
         {
-            var dir = Path.Combine(_model.RootPath, _model.Project.Code, "data\\SqlServer");
+            var dir = Path.Combine(_model.RootPath, _model.Project.Code, "data\\Oracle");
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 

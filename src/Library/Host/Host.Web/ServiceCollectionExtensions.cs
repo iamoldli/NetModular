@@ -75,7 +75,7 @@ namespace Nm.Lib.Host.Web
             .AddValidators(services)//添加验证器
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //添加数据库
+            //添加数据库，数据库依赖ILoginInfo，所以需要在添加身份认证以及MVC后添加数据库
             services.AddDb(env.EnvironmentName, modules);
 
             //解决Multipart body length limit 134217728 exceeded
@@ -85,7 +85,11 @@ namespace Nm.Lib.Host.Web
                 x.MultipartBodyLengthLimit = int.MaxValue;
             });
 
+            //添加HttpClient相关
             services.AddHttpClient();
+
+            //添加模块的自定义服务
+            services.AddModuleServices(modules);
 
             return services;
         }

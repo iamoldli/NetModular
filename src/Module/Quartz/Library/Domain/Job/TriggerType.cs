@@ -7,11 +7,9 @@ namespace Nm.Module.Quartz.Domain.Job
     /// </summary>
     public enum TriggerType
     {
-        [Description("未知")]
-        UnKnown,
-        [Description("简单")]
+        [Description("简单触发器")]
         Simple,
-        [Description("Cron表达式")]
+        [Description("CRON触发器")]
         Cron
     }
 }

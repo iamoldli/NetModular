@@ -105,11 +105,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Insert(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_insert, tableName);
+                return string.Format(_insert, _adapter.AppendQuote(tableName));
 
             if (_defaultInsert.IsNull())
             {
-                _defaultInsert = string.Format(_insert, _descriptor.TableName);
+                _defaultInsert = string.Format(_insert, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultInsert;
@@ -128,11 +128,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string BatchInsert(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_batchInsert, tableName);
+                return string.Format(_batchInsert, _adapter.AppendQuote(tableName));
 
             if (_defaultBatchInsert.IsNull())
             {
-                _defaultBatchInsert = string.Format(_batchInsert, _descriptor.TableName);
+                _defaultBatchInsert = string.Format(_batchInsert, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultBatchInsert;
@@ -151,11 +151,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string DeleteSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_deleteSingle, tableName);
+                return string.Format(_deleteSingle, _adapter.AppendQuote(tableName));
 
             if (_defaultDeleteSingle.IsNull())
             {
-                _defaultDeleteSingle = string.Format(_deleteSingle, _descriptor.TableName);
+                _defaultDeleteSingle = string.Format(_deleteSingle, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultDeleteSingle;
@@ -174,11 +174,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Delete(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_delete, tableName);
+                return string.Format(_delete, _adapter.AppendQuote(tableName));
 
             if (_defaultDelete.IsNull())
             {
-                _defaultDelete = string.Format(_delete, _descriptor.TableName);
+                _defaultDelete = string.Format(_delete, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultDelete;
@@ -197,11 +197,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string SoftDeleteSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_softDeleteSingle, tableName);
+                return string.Format(_softDeleteSingle, _adapter.AppendQuote(tableName));
 
             if (_defaultSoftDeleteSingle.IsNull())
             {
-                _defaultSoftDeleteSingle = string.Format(_softDeleteSingle, _descriptor.TableName);
+                _defaultSoftDeleteSingle = string.Format(_softDeleteSingle, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultSoftDeleteSingle;
@@ -220,11 +220,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string SoftDelete(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_softDelete, tableName);
+                return string.Format(_softDelete, _adapter.AppendQuote(tableName));
 
             if (_defaultSoftDelete.IsNull())
             {
-                _defaultSoftDelete = string.Format(_softDelete, _descriptor.TableName);
+                _defaultSoftDelete = string.Format(_softDelete, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultSoftDelete;
@@ -243,11 +243,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string UpdateSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_updateSingle, tableName);
+                return string.Format(_updateSingle, _adapter.AppendQuote(tableName));
 
             if (_defaultUpdateSingle.IsNull())
             {
-                _defaultUpdateSingle = string.Format(_updateSingle, _descriptor.TableName);
+                _defaultUpdateSingle = string.Format(_updateSingle, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultUpdateSingle;
@@ -266,11 +266,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Update(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_update, tableName);
+                return string.Format(_update, _adapter.AppendQuote(tableName));
 
             if (_defaultUpdate.IsNull())
             {
-                _defaultUpdate = string.Format(_update, _descriptor.TableName);
+                _defaultUpdate = string.Format(_update, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultUpdate;
@@ -289,11 +289,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Get(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_get, tableName);
+                return string.Format(_get, _adapter.AppendQuote(tableName));
 
             if (_defaultGet.IsNull())
             {
-                _defaultGet = string.Format(_get, _descriptor.TableName);
+                _defaultGet = string.Format(_get, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultGet;
@@ -312,11 +312,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Query(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_query, tableName);
+                return string.Format(_query, _adapter.AppendQuote(tableName));
 
             if (_defaultQuery.IsNull())
             {
-                _defaultQuery = string.Format(_query, _descriptor.TableName);
+                _defaultQuery = string.Format(_query, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultQuery;
@@ -335,11 +335,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         public string Exists(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_exists, tableName);
+                return string.Format(_exists, _adapter.AppendQuote(tableName));
 
             if (_defaultExists.IsNull())
             {
-                _defaultExists = string.Format(_exists, _descriptor.TableName);
+                _defaultExists = string.Format(_exists, _adapter.AppendQuote(_descriptor.TableName));
             }
 
             return _defaultExists;

@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.Quartz.Domain.Group;
 
 namespace Nm.Module.Quartz.Application.GroupService.ViewModels
 {
@@ -9,5 +7,16 @@ namespace Nm.Module.Quartz.Application.GroupService.ViewModels
     /// </summary>
     public class GroupAddModel
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        [Required(ErrorMessage = "请输入组名称")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        [Required(ErrorMessage = "请输入编码")]
+        public string Code { get; set; }
     }
 }

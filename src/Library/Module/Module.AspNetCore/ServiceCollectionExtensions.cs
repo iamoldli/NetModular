@@ -43,15 +43,27 @@ namespace Nm.Lib.Module.AspNetCore
                     ((IModuleOptionsConfigure)Activator.CreateInstance(optionsConfigureType)).ConfigOptions(services, cfg.GetSection(module.Id));
                 }
 
-                //加载模块初始化器
-
-                ((ModuleDescriptor)module).Initializer.ConfigureServices(services);
-
-
                 services.AddSingleton(module);
             }
 
             return modules;
+        }
+
+        /// <summary>
+        /// 添加模块的自定义服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="modules"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules)
+        {
+            foreach (var module in modules)
+            {
+                //加载模块初始化器
+                ((ModuleDescriptor) module)?.Initializer.ConfigureServices(services);
+            }
+
+            return services;
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '枚举列表'
   this.name = 'codegenerator_enum'
   this.path = '/codegenerator/enum'
@@ -30,7 +30,7 @@ const page = new (function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

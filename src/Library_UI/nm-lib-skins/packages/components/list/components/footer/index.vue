@@ -51,6 +51,8 @@ export default {
       this.$parent.$emit('index-change', index)
     },
     onSelectColumnChange(columns) {
+      // 重绘父组件的布局
+      this.$parent.doLayout()
       this.$emit('update:columns', columns)
     }
   }

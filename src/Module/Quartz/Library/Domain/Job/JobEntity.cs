@@ -11,9 +11,19 @@ namespace Nm.Module.Quartz.Domain.Job
     public partial class JobEntity : EntityBase
     {
         /// <summary>
-        /// 任务组编号
+        /// 所属模块
         /// </summary>
-        public Guid Group { get; set; }
+        public string ModuleCode { get; set; }
+
+        /// <summary>
+        /// 任务唯一键
+        /// </summary>
+        public string JobKey { get; set; }
+
+        /// <summary>
+        /// 任务组
+        /// </summary>
+        public string Group { get; set; }
 
         /// <summary>
         /// 任务名称
@@ -21,22 +31,22 @@ namespace Nm.Module.Quartz.Domain.Job
         public string Name { get; set; }
 
         /// <summary>
-        /// 触发器类型
+        /// 任务编码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 任务类
+        /// </summary>
+        public string JobClass { get; set; }
+
+        /// <summary>
+        /// 触发类型
         /// </summary>
         public TriggerType TriggerType { get; set; }
 
         /// <summary>
-        /// 组件编号
-        /// </summary>
-        public Guid Component { get; set; }
-
-        /// <summary>
-        /// 类编号
-        /// </summary>
-        public Guid Class { get; set; }
-
-        /// <summary>
-        /// 简单触发器时间间隔
+        /// 简单触发器时间间隔(秒)
         /// </summary>
         public int Interval { get; set; }
 
@@ -53,17 +63,16 @@ namespace Nm.Module.Quartz.Domain.Job
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime BeginTime { get; set; }
+        public DateTime BeginDate { get; set; }
 
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// 状态
         /// </summary>
         public JobStatus Status { get; set; }
-
     }
 }

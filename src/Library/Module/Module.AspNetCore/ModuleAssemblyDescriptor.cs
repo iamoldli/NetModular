@@ -12,5 +12,7 @@ namespace Nm.Lib.Module.AspNetCore
         public Assembly Domain { get; set; }
 
         public Assembly Infrastructure { get; set; }
+
+        public Assembly Quartz { get; set; }
     }
 }

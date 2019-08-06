@@ -33,18 +33,9 @@ namespace Nm.Module.Quartz.Application.GroupService
         Task<IResultModel> Delete(Guid id);
 
         /// <summary>
-        /// 编辑
+        /// 下拉列表
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResultModel> Edit(Guid id);
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task<IResultModel> Update(GroupUpdateModel model);
-
+        Task<IResultModel> Select();
     }
 }

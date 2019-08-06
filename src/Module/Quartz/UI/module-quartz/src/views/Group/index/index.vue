@@ -3,29 +3,26 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
+        <el-form-item label="名称：" prop="name">
+          <el-input v-model="list.model.name" clearable />
+        </el-form-item>
+        <el-form-item label="编码：" prop="code">
+          <el-input v-model="list.model.code" clearable />
+        </el-form-item>
       </template>
-
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.add" @click="add(total)" />
+        <nm-button-has :options="buttons.add" @click="add" />
       </template>
-
-      <!--自定义列-->
-      <!-- <template v-slot:col-name="{row}">
-        <nm-button :text="row.name" type="text" />
-      </template> -->
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.edit" @click="edit(row)" />
-        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh"/>
+        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh" />
       </template>
     </nm-list>
 
     <!--添加-->
-    <add-page :visible.sync="dialog.add" @success="refresh"/>
-    <!--编辑-->
-    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
+    <add-page :visible.sync="dialog.add" @success="refresh" />
   </nm-container>
 </template>
 <script>
@@ -33,12 +30,11 @@ import api from '../../../api/Group'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
-import EditPage from '../components/edit'
 
 export default {
   name: page.name,
-  components: { AddPage, EditPage },
-  data () {
+  components: { AddPage },
+  data() {
     return {
       curr: { id: '' },
       list: {
@@ -46,26 +42,23 @@ export default {
         cols,
         action: api.query,
         model: {
+          name: '',
+          code: ''
         }
       },
       removeAction: api.remove,
       dialog: {
-        add: false,
-        edit: false
+        add: false
       },
       buttons: page.buttons
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    add () {
+    add() {
       this.dialog.add = true
-    },
-    edit (row) {
-      this.curr = row
-      this.dialog.edit = true
     }
   }
 }

@@ -687,4 +687,22 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Templates\Default\T4\data\SchemaOracle - 复制.cs">
+      <DependentUpon>SchemaOracle.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Index.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Index.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Web\Controllers\Controller.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Controller.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

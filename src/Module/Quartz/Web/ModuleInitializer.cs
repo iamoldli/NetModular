@@ -1,13 +1,19 @@
 using System.Collections.Specialized;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Module.AspNetCore;
-using Nm.Module.Quartz.Infrastructure.Jobs;
+using Nm.Lib.Quartz.Abstractions;
+using Nm.Lib.Quartz.Web;
+using Nm.Lib.Utils.Core.Extensions;
+using Nm.Module.Quartz.Infrastructure.Options;
+using Nm.Module.Quartz.Web.Core;
 using Quartz;
-using Quartz.Impl;
 
 namespace Nm.Module.Quartz.Web
 {
@@ -19,6 +25,12 @@ namespace Nm.Module.Quartz.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IJobLogger, JobLogger>();
+            services.AddSingleton<ISchedulerListener, SchedulerListener>();
+
+            var quartzProps = GetQuartzProps(services);
+
+            services.AddQuartz(quartzProps);
         }
 
         /// <summary>
@@ -28,24 +40,6 @@ namespace Nm.Module.Quartz.Web
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
-
-            //调度器工厂
-            var factory = new StdSchedulerFactory(new NameValueCollection());
-
-            //创建一个调度器
-            var scheduler = factory.GetScheduler().GetAwaiter().GetResult();
-
-            var jobKey = new JobKey("timer", "group");
-            var job = JobBuilder.Create<TimerJob>().WithIdentity(jobKey).Build();
-            var trigger = TriggerBuilder.Create()
-                .WithIdentity("trigger", "group")
-                .WithCronSchedule("0/5 * * * * ?") //5秒执行一次
-                .Build();
-
-            scheduler.ScheduleJob(job, trigger).GetAwaiter().GetResult();
-
-            scheduler.Start().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -55,6 +49,49 @@ namespace Nm.Module.Quartz.Web
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
 
+        }
+
+        /// <summary>
+        /// 获取Quartz属性
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        private NameValueCollection GetQuartzProps(IServiceCollection services)
+        {
+            var sp = services.BuildServiceProvider();
+            var options = sp.GetService<IOptionsMonitor<QuartzOptions>>().CurrentValue;
+            var quartzProps = new NameValueCollection();
+            var quartzDbOptions = sp.GetService<DbOptions>().Connections.FirstOrDefault(m => m.Name.EqualsIgnoreCase("quartz"));
+            if (quartzDbOptions != null)
+            {
+                quartzProps["quartz.scheduler.instanceName"] = options.InstanceName;
+                quartzProps["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX,Quartz";
+                quartzProps["quartz.jobStore.driverDelegateType"] = "Quartz.Impl.AdoJobStore.StdAdoDelegate,Quartz";
+                quartzProps["quartz.jobStore.tablePrefix"] = options.TablePrefix;
+                quartzProps["quartz.jobStore.dataSource"] = "default";
+                quartzProps["quartz.dataSource.default.connectionString"] = quartzDbOptions.ConnString;
+                quartzProps["quartz.dataSource.default.provider"] = GetProvider(quartzDbOptions.Dialect);
+                quartzProps["quartz.serializer.type"] = options.SerializerType;
+            }
+
+            return quartzProps;
+        }
+
+        private string GetProvider(SqlDialect dialect)
+        {
+            switch (dialect)
+            {
+                case SqlDialect.SqlServer:
+                    return "SqlServer";
+                case SqlDialect.MySql:
+                    return "MySql";
+                case SqlDialect.SQLite:
+                    return "SQLite-10";
+                case SqlDialect.Oracle:
+                    return "OracleODP";
+            }
+
+            return "";
         }
     }
 }

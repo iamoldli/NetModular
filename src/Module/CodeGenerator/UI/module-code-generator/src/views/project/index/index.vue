@@ -16,19 +16,15 @@
         <nm-button-has :options="buttons.add" @click="add" />
       </template>
 
-      <!--配置类-->
-      <template v-slot:col-name="{row}">
-        <nm-button :text="row.name" type="text" @click="manageClass(row)" />
-      </template>
-
       <!--是否显示-->
       <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
         <nm-button-has :options="buttons.edi" @click="edit(row)" />
-        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
+        <nm-button text="实体配置" type="text" @click="manageClass(row)" />
         <nm-button-has :options="buttons.buildCode" @click="buildCode(row)" />
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
 

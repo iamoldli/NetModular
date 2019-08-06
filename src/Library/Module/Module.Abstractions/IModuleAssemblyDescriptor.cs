@@ -21,5 +21,10 @@ namespace Nm.Lib.Module.Abstractions
         /// 基础设施
         /// </summary>
         Assembly Infrastructure { get; set; }
+
+        /// <summary>
+        /// 任务调度Quartz
+        /// </summary>
+        Assembly Quartz { get; set; }
     }
 }

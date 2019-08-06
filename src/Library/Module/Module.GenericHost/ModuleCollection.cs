@@ -42,6 +42,7 @@ namespace Nm.Lib.Module.GenericHost
                             Domain = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Domain")).FirstOrDefault(),
                             Infrastructure = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Infrastructure")).FirstOrDefault(),
                             Application = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Application")).FirstOrDefault(),
+                            Quartz = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Quartz")).FirstOrDefault()
                         };
 
                         Check.NotNull(assemblyDescriptor.Domain, moduleDescriptor.Id + "模块的Domain程序集未发现");

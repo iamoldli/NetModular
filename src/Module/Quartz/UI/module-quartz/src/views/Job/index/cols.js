@@ -14,36 +14,35 @@ export default [
     label: '任务名称'
   },
   {
+    name: 'jobClass',
+    label: '任务类',
+    width: '300'
+  },
+  {
     name: 'triggerType',
     label: '触发器类型'
   },
   {
-    name: 'component',
-    label: '组件编号'
-  },
-  {
-    name: 'class',
-    label: '类编号'
-  },
-  {
     name: 'interval',
-    label: '简单触发器时间间隔'
+    label: '时间间隔'
   },
   {
     name: 'repeatCount',
-    label: '简单触发器重复次数，0表示无限'
+    label: '重复次数'
   },
   {
     name: 'cron',
     label: 'Cron表达式'
   },
   {
-    name: 'beginTime',
-    label: '开始时间'
+    name: 'beginDate',
+    label: '开始日期',
+    format: 'YYYY-MM-DD'
   },
   {
-    name: 'endTime',
-    label: '结束时间'
+    name: 'endDate',
+    label: '结束日期',
+    format: 'YYYY-MM-DD'
   },
   {
     name: 'status',
