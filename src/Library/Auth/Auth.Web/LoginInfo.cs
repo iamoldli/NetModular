@@ -24,7 +24,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                var accountId = _contextAccessor?.HttpContext.User.FindFirst("id");
+                var accountId = _contextAccessor?.HttpContext?.User?.FindFirst("id");
 
                 if (accountId != null && accountId.Value.NotNull())
                 {
@@ -42,7 +42,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor == null)
+                if (_contextAccessor?.HttpContext?.User == null)
                     return Platform.UnKnown;
 
                 var pt = _contextAccessor.HttpContext.User.FindFirst("pf");
@@ -62,7 +62,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor == null)
+                if (_contextAccessor?.HttpContext?.Connection == null)
                     return "";
 
                 return _contextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -76,7 +76,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor == null)
+                if (_contextAccessor?.HttpContext?.Connection == null)
                     return "";
 
                 return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
@@ -90,7 +90,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor == null)
+                if (_contextAccessor?.HttpContext?.Connection == null)
                     return "";
 
                 return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
