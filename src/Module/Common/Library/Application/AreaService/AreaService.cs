@@ -3,17 +3,18 @@ using System.Data;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Cache.Abstractions;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AreaService.ViewModels;
 using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Area.Models;
+using Nm.Module.Common.Infrastructure;
 using Nm.Module.Common.Infrastructure.AreaCrawling;
 
 namespace Nm.Module.Common.Application.AreaService
 {
     public class AreaService : IAreaService
     {
-        private const string AreaCacheKey = "COMMON_AREA_";
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IAreaRepository _repository;
@@ -118,14 +119,23 @@ namespace Nm.Module.Common.Application.AreaService
             }
         }
 
-        public async Task<IResultModel<IList<AreaEntity>>> QueryChildren(int parentId)
+        public async Task<IResultModel<IList<AreaEntity>>> QueryChildren(string parentCode)
         {
             var result = new ResultModel<IList<AreaEntity>>();
-            var cacheKey = AreaCacheKey + parentId;
+            var cacheKey = CacheKeys.Area + parentCode;
             if (!_cache.TryGetValue(cacheKey, out IList<AreaEntity> list))
             {
-                list = await _repository.QueryChildren(parentId);
+                var parentId = 0;
+                if (parentCode.NotNull() && parentCode != "0")
+                {
+                    var entity = await _repository.GetByCode(parentCode);
+                    if (entity != null)
+                    {
+                        parentId = entity.Id;
+                    }
+                }
 
+                list = await _repository.QueryChildren(parentId);
                 await _cache.SetAsync(cacheKey, list);
             }
 

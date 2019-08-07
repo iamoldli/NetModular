@@ -17,8 +17,8 @@
         "nm-lib-utils": "^1.0.0",
         "nm-module-admin": "^1.0.0",
         "nm-module-code-generator": "^1.0.0",
-        "nm-module-common": "^1.0.0",
-        "nm-module-personnelfiles": "^1.0.0",
+        "nm-module-common": "^1.1.9",
+        "nm-module-personnelfiles": "^1.1.0",
         "nm-module-quartz": "^1.0.0"
     },
     "devDependencies": {

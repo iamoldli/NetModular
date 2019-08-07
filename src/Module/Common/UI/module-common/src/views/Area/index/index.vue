@@ -35,7 +35,7 @@
 
           <!--操作列-->
           <template v-slot:col-operation="{row}">
-            <nm-button-has :options="buttons.edi" @click="edit(row)" />
+            <nm-button-has :options="buttons.edit" @click="edit(row)" />
             <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
           </template>
         </nm-list>

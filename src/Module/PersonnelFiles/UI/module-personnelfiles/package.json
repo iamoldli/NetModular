@@ -1,6 +1,6 @@
 {
     "name": "nm-module-personnelfiles",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "code": "PersonnelFiles",
     "title": "人事档案",
     "description": "人事档案",
@@ -17,16 +17,16 @@
         "pub": "cd ./script && npm_publish.ps1"
     },
     "dependencies": {
-        "nm-lib-icon": "^1.2.6",
-        "nm-lib-skins": "^1.3.9",
-        "nm-lib-utils": "^1.1.7",
-        "nm-module-admin": "^1.2.11",
-        "nm-module-common": "^1.1.6"
+        "nm-lib-icon": "^1.2.8",
+        "nm-lib-skins": "^1.3.12",
+        "nm-lib-utils": "^1.2.0",
+        "nm-module-admin": "^1.3.0",
+        "nm-module-common": "^1.1.9"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.7.0",
-        "@vue/cli-plugin-eslint": "^3.7.0",
-        "@vue/cli-service": "^3.7.0",
+        "@vue/cli-plugin-babel": "^3.10.0",
+        "@vue/cli-plugin-eslint": "^3.10.0",
+        "@vue/cli-service": "^3.10.0",
         "@vue/eslint-config-standard": "^4.0.0",
         "babel-eslint": "^10.0.1",
         "eslint": "^5.16.0",

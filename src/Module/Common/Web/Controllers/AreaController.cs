@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AreaService;
 using Nm.Module.Common.Application.AreaService.ViewModels;
@@ -58,9 +59,10 @@ namespace Nm.Module.Common.Web.Controllers
 
         [HttpGet]
         [Description("查询子节点")]
-        public Task<IResultModel<IList<AreaEntity>>> QueryChildren(int? parentId)
+        [Common]
+        public Task<IResultModel<IList<AreaEntity>>> QueryChildren(string parentCode)
         {
-            return _service.QueryChildren(parentId ?? 0);
+            return _service.QueryChildren(parentCode);
         }
     }
 }

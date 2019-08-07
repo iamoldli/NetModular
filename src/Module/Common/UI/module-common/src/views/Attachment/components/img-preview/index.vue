@@ -21,7 +21,7 @@ export default {
   methods: {
     get() {
       if (this.id) {
-        api.download(this.id).then(url => {
+        api.preview(this.id).then(url => {
           this.url = url
         })
       } else {

@@ -30,5 +30,12 @@ namespace Nm.Module.Common.Domain.Area
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<bool> Exists(AreaEntity entity);
+
+        /// <summary>
+        /// 根据编码查询
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        Task<AreaEntity> GetByCode(string code);
     }
 }

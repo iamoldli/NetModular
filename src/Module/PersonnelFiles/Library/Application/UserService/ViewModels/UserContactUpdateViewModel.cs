@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Nm.Lib.Utils.Core.Models;
 
 namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels
 {
@@ -27,44 +28,9 @@ namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels
         public string DingDing { get; set; }
 
         /// <summary>
-        /// 省份编码
+        /// 区域信息
         /// </summary>
-        public string ProvinceCode { get; set; }
-
-        /// <summary>
-        /// 省份名称
-        /// </summary>
-        public string ProvinceName { get; set; }
-
-        /// <summary>
-        /// 城市编码
-        /// </summary>
-        public string CityCode { get; set; }
-
-        /// <summary>
-        /// 城市名称
-        /// </summary>
-        public string CityName { get; set; }
-
-        /// <summary>
-        /// 区县编码
-        /// </summary>
-        public string AreaCode { get; set; }
-
-        /// <summary>
-        /// 区县名称
-        /// </summary>
-        public string AreaName { get; set; }
-
-        /// <summary>
-        /// 城镇编码
-        /// </summary>
-        public string TownCode { get; set; }
-
-        /// <summary>
-        /// 城镇名称
-        /// </summary>
-        public string TownName { get; set; }
+        public AreaSelectModel Area { get; set; }
 
         /// <summary>
         /// 详细地址

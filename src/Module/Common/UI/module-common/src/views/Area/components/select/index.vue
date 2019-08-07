@@ -1,192 +1,139 @@
 <template>
   <section class="nm-area-select-box">
     <el-row :gutter="gutter">
-      <el-col :span="span">
-        <el-select v-model="selection.v1" :size="fontSize" :filterable="filterable" @change="onChange(1)">
-          <el-option v-for="item in data.d1" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-col>
-      <el-col v-if="level>1" :span="span">
-        <el-select v-model="selection.v2" :size="fontSize" :filterable="filterable" @change="onChange(2)">
-          <el-option v-for="item in data.d2" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-col>
-      <el-col v-if="level>2" :span="span">
-        <el-select v-model="selection.v3" :size="fontSize" :filterable="filterable" @change="onChange(3)">
-          <el-option v-for="item in data.d3" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-col>
-      <el-col v-if="level>3" :span="span">
-        <el-select v-model="selection.v4" :size="fontSize" :filterable="filterable" @change="onChange(4)">
-          <el-option v-for="item in data.d4" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-col>
+      <item ref="l1" :level="1" :show="province.show" :disabled="province.disabled" v-model="value_.province" :span="span" parent-code="0" />
+      <item ref="l2" :level="2" :show="city.show" :disabled="city.disabled" v-model="value_.city" :span="span" :parent-code="value_.province.code" />
+      <item ref="l3" :level="3" :show="area.show" :disabled="area.disabled" v-model="value_.area" :span="span" :parent-code="value_.city.code" />
+      <item ref="l4" :level="4" :show="town.show" :disabled="town.disabled" v-model="value_.town" :span="span" :parent-code="value_.area.code" />
     </el-row>
   </section>
 </template>
 <script>
-import api from '../../../../api/Area'
+import { assist } from 'nm-lib-utils'
+import Item from './item'
+// 默认值
+const defaultValue = {
+  province: {
+    name: '',
+    code: ''
+  },
+  city: {
+    name: '',
+    code: ''
+  },
+  area: {
+    name: '',
+    code: ''
+  },
+  town: {
+    name: '',
+    code: ''
+  },
+  /** 完整名称 */
+  fullName: ''
+}
+
 export default {
+  components: { Item },
   data() {
     return {
-      selection: {
-        v1: '',
-        v2: '',
-        v3: '',
-        v4: ''
-      },
-      data: {
-        d1: [],
-        d2: [],
-        d3: [],
-        d4: []
-      },
-      // 当前要查询的等级
-      queryLevel: 1
+      levelList: ['province', 'city', 'area', 'town'],
+      value_: Object.assign({}, assist.deepCopy(defaultValue), assist.deepCopy(this.value)),
+      initValue: Object.assign({}, assist.deepCopy(defaultValue), assist.deepCopy(this.value))
     }
   },
   props: {
-    value: Array,
-    /** 默认值，区域编码列表 */
-    defaultValue: Array,
-    /**
-     * 级别0、1、2、3 分别对应省、市、区县、乡镇
-     */
+    value: {
+      type: Object,
+      default() {
+        return defaultValue
+      }
+    },
     level: {
-      type: Number,
-      default: 1
+      type: String,
+      default: '1234',
+      validator(val) {
+        return ['1234', '123', '12', '1', '234', '23', '2', '34', '3', '4'].indexOf(val) !== -1
+      }
+    },
+    disabledList: {
+      type: String
     },
     /**
-     * 各个下拉框间隔
+     * 下拉框的间隔
      */
     gutter: {
       type: Number,
       default: 10
     },
-    /**
-     * 返回的数据类型 all、id、name、code
-     */
-    dataType: {
-      type: String,
-      default: 'all',
-      validator(val) {
-        return ['all', 'name', 'code', 'value'].indexOf(val) !== -1
-      }
-    },
     /** 是否可搜索 */
-    filterable: Boolean
+    filterable: Boolean,
+    /** 完整名称中间的分隔符 */
+    separator: String
   },
   computed: {
+    province() {
+      return this.getOptions('1')
+    },
+    city() {
+      return this.getOptions('2')
+    },
+    area() {
+      return this.getOptions('3')
+    },
+    town() {
+      return this.getOptions('4')
+    },
+    // 间隔
     span() {
-      if (this.level === 2) { return 12 }
-      if (this.level === 3) { return 8 }
-      if (this.level === 4) { return 6 }
-      return 24
+      return 24 / this.level.length
     }
   },
   methods: {
-    async query() {
-      let parentId = 0
-      if (this.queryLevel > 1) {
-        parentId = this.selection['v' + (this.queryLevel - 1)]
+    init() {
+      this.value_ = Object.assign({}, assist.deepCopy(defaultValue), assist.deepCopy(this.value))
+      this.initValue = Object.assign({}, assist.deepCopy(defaultValue), assist.deepCopy(this.value))
+    },
+    getOptions(level) {
+      return {
+        show: this.level.indexOf(level) > -1,
+        disabled: this.disabledList ? this.disabledList.indexOf(level) > -1 : false
       }
-      let data = await api.queryChildren(parentId)
-      const options = data.map(item => {
-        return {
-          label: item.name,
-          value: item.id,
-          code: item.code
-        }
-      })
-      this.data['d' + this.queryLevel] = options
     },
     reset() {
-      for (let i = 1; i <= this.level; i++) {
-        this.selection['v' + i] = ''
-
-        if (this.queryLevel <= i) {
-          this.data['d' + i] = []
-        }
-      }
+      // 重置为默认值
+      this.value_ = Object.assign({}, assist.deepCopy(this.initValue))
+      this.onChange()
     },
-    resetChildren() {
-      for (let i = this.queryLevel; i <= this.level; i++) {
-        this.selection['v' + i] = ''
-
-        if (this.queryLevel <= i) {
-          this.data['d' + i] = []
-        }
-      }
+    resetChild(level) {
+      this.$refs['l' + level].reset_()
     },
-    onChange(level) {
-      if (this.level > level) {
-        this.queryLevel = ++level
-        this.resetChildren()
-        this.query()
-      }
-
-      let value = []
+    onChange() {
+      let val = { fullName: '' }
       for (let i = 1; i < 5; i++) {
-        if (i <= this.level && this.selection['v' + i]) {
-          const option = this.data['d' + i].find(item => item.value === this.selection['v' + i])
-          value.push(this.option2Value(option))
+        let prop = this.levelList[i - 1]
+        if (this[prop].show) {
+          val[prop] = this.value_[prop]
+        }
+        if (val[prop].name) {
+          val.fullName += val[prop].name + this.separator
         }
       }
-      this.$emit('input', value)
-      this.$emit('change', value)
-    },
-    option2Value(option) {
-      if (this.dataType === 'all') {
-        return {
-          id: option.value,
-          name: option.label,
-          value: option.code
-        }
-      } else if (this.dataType === 'id') {
-        return option.value
-      } else if (this.dataType === 'name') {
-        return option.label
-      } else if (this.dataType === 'code') {
-        return option.code
+      if (val.fullName) {
+        val.fullName = val.fullName.substring(0, val.fullName.length - 1)
       }
-    },
-    /**
-     * @description 设置默认值
-     */
-    async setDefaultValue() {
-      if (this.defaultValue && this.defaultValue.length > 0) {
-        for (let i = 1; i <= Math.min(this.defaultValue.length, this.level); i++) {
-          const code = this.defaultValue[i - 1]
-          const option = this.data['d' + i].find(item => item.code === code)
-          if (option) {
-            this.selection['v' + i] = option.value
-            if (this.level > i) {
-              this.queryLevel = i + 1
-              this.resetChildren()
-              await this.query()
-            }
-          } else {
-            break
-          }
-        }
-      } else {
-        for (let i = 1; i <= this.level; i++) {
-          this.selection['v' + i] = ''
-          if (this.queryLevel < i) {
-            this.data['d' + i] = []
-          }
-        }
-      }
+      this.$emit('input', val)
+      this.$emit('change', val)
     }
   },
   mounted() {
-    this.query().then(() => {
-      this.setDefaultValue()
-    })
+    this.init()
   },
   watch: {
-    defaultValue(val) {
-      this.setDefaultValue()
+    value: {
+      handler() {
+        this.init()
+      }
     }
   }
 }

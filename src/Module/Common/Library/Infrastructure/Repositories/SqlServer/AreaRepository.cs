@@ -42,5 +42,10 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
 
             return query.ExistsAsync();
         }
+
+        public Task<AreaEntity> GetByCode(string code)
+        {
+            return GetAsync(m => m.Code == code);
+        }
     }
 }

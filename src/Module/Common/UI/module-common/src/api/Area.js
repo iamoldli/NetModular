@@ -9,8 +9,8 @@ const urls = {
 /**
  * @description 查询子节点
  */
-const queryChildren = parentId => {
-  return http.get(urls.queryChildren, { parentId })
+const queryChildren = parentCode => {
+  return http.get(urls.queryChildren, { parentCode })
 }
 
 export default {

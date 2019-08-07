@@ -3,15 +3,19 @@ const root = 'Common/Attachment/'
 const crud = http.crud(root)
 const urls = {
   upload: root + 'Upload',
-  download: root + 'Download/',
-  export: root + 'Export/'
+  download: root + 'Download/'
 }
 
 const getUploadUrl = () => {
   return http.axios.defaults.baseURL + urls.upload
 }
-
+// 下载
 const download = id => {
+  return http.get(urls.download + id, {}, { responseType: 'blob' })
+}
+
+// 预览
+const preview = id => {
   return http.get(
     urls.download + id,
     {},
@@ -19,13 +23,9 @@ const download = id => {
   )
 }
 
-const exportFile = id => {
-  return http.get(urls.export + id, {}, { responseType: 'blob' })
-}
-
 export default {
   ...crud,
   getUploadUrl,
   download,
-  exportFile
+  preview
 }

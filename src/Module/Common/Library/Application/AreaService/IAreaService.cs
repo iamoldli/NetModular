@@ -57,8 +57,8 @@ namespace Nm.Module.Common.Application.AreaService
         /// <summary>
         /// 查询子节点
         /// </summary>
-        /// <param name="parentId"></param>
+        /// <param name="parentCode"></param>
         /// <returns></returns>
-        Task<IResultModel<IList<AreaEntity>>> QueryChildren(int parentId);
+        Task<IResultModel<IList<AreaEntity>>> QueryChildren(string parentCode);
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
 using Nm.Module.Admin.Application.AccountService.ViewModels;
@@ -146,12 +147,17 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
 
             var model = new UserContactUpdateViewModel
             {
-                UserId = id
+                UserId = id,
+                Area = new AreaSelectModel()
             };
             var entity = await _contactRepository.GetByUser(id);
             if (entity != null)
             {
                 _mapper.Map(entity, model);
+                model.Area.Province = new AreaSelectOptionModel(entity.ProvinceCode);
+                model.Area.City = new AreaSelectOptionModel(entity.CityCode);
+                model.Area.Area = new AreaSelectOptionModel(entity.AreaCode);
+                model.Area.Town = new AreaSelectOptionModel(entity.TownCode);
             }
 
             return ResultModel.Success(model);
@@ -159,13 +165,13 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
 
         public async Task<IResultModel> UpdateContact(UserContactUpdateViewModel model)
         {
-            var entity = await _contactRepository.GetByUser(model.UserId);
-            if (entity == null)
-            {
-                entity = new UserContactEntity();
-            }
+            var entity = await _contactRepository.GetByUser(model.UserId) ?? new UserContactEntity();
 
             _mapper.Map(model, entity);
+
+            ClearContactAreaInfo(entity);
+
+            SetContactAreaInfo(entity, model.Area);
 
             bool result;
             if (entity.Id > 0)
@@ -189,6 +195,54 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
             var entity = await _contactRepository.GetByUser(id);
             entity = entity ?? new UserContactEntity();
             return ResultModel.Success(entity);
+        }
+
+        /// <summary>
+        /// 清除联系方式的区域信息
+        /// </summary>
+        /// <param name="entity"></param>
+        private void ClearContactAreaInfo(UserContactEntity entity)
+        {
+            entity.ProvinceCode = "";
+            entity.ProvinceName = "";
+            entity.CityCode = "";
+            entity.CityName = "";
+            entity.AreaCode = "";
+            entity.AreaName = "";
+            entity.TownCode = "";
+            entity.TownName = "";
+        }
+
+        /// <summary>
+        /// 设置联系方式的区域信息
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="areaInfo"></param>
+        private void SetContactAreaInfo(UserContactEntity entity, AreaSelectModel areaInfo)
+        {
+            if (areaInfo.Province == null)
+                return;
+
+            entity.ProvinceCode = areaInfo.Province.Code;
+            entity.ProvinceName = areaInfo.Province.Name;
+
+            if (areaInfo.City == null)
+                return;
+
+            entity.CityCode = areaInfo.City.Code;
+            entity.CityName = areaInfo.City.Name;
+
+            if (areaInfo.Area == null)
+                return;
+
+            entity.AreaCode = areaInfo.Area.Code;
+            entity.AreaName = areaInfo.Area.Name;
+
+            if (areaInfo.Town == null)
+                return;
+
+            entity.TownCode = areaInfo.Town.Code;
+            entity.TownName = areaInfo.Town.Name;
         }
     }
 }

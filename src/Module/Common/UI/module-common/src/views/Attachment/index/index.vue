@@ -10,7 +10,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.export" @click="onExport(row)" />
+        <nm-button-has :options="buttons.export" @click="onDownload(row)" />
         <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh" />
       </template>
     </nm-list>
@@ -49,8 +49,8 @@ export default {
     upload() {
       this.dialog.upload = true
     },
-    onExport(row) {
-      api.exportFile(row.id)
+    onDownload(row) {
+      api.download(row.id)
     }
   }
 }
