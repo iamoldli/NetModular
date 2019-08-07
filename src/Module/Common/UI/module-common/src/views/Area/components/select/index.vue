@@ -69,7 +69,10 @@ export default {
     /** 是否可搜索 */
     filterable: Boolean,
     /** 完整名称中间的分隔符 */
-    separator: String
+    separator: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     province() {
