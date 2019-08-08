@@ -53,8 +53,17 @@ namespace Nm.Module.Common.Application.AreaService
 
         public async Task<IResultModel> Delete(int id)
         {
-            var result = await _repository.DeleteAsync(id);
-            return ResultModel.Result(result);
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            if (await _repository.DeleteAsync(id))
+            {
+                await ClearCache(entity);
+                return ResultModel.Success();
+            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Edit(int id)
@@ -83,9 +92,13 @@ namespace Nm.Module.Common.Application.AreaService
             entity.Pinyin = NPinyin.Pinyin.GetPinyin(entity.Name);
             entity.Jianpin = NPinyin.Pinyin.GetInitials(entity.Name);
 
-            var result = await _repository.UpdateAsync(entity);
+            if (await _repository.UpdateAsync(entity))
+            {
+                //Çå³ý»º´æ
+                await ClearCache(entity);
+            }
 
-            return ResultModel.Result(result);
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> CrawlInsert(IList<AreaCrawlingModel> list)
@@ -140,6 +153,23 @@ namespace Nm.Module.Common.Application.AreaService
             }
 
             return result.Success(list);
+        }
+
+        /// <summary>
+        /// Çå³þ»º´æ
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private async Task ClearCache(AreaEntity entity)
+        {
+            if (entity.ParentId > 0)
+            {
+                var parent = await _repository.GetAsync(entity.ParentId);
+                if (parent != null)
+                {
+                    await _cache.RemoveAsync(CacheKeys.Area + parent.Code);
+                }
+            }
         }
     }
 }

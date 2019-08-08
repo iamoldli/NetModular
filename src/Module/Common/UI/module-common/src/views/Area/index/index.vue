@@ -92,10 +92,11 @@ export default {
       if (id !== 0 && !id) {
         resolve([{ id: 0, label: '行政区划代码' }])
       } else {
-        const data = await api.queryChildren(id)
+        const data = await api.queryChildren(node.data.code)
         const children = data.map(item => {
           return {
             id: item.id,
+            code: item.code,
             label: item.name,
             leaf: item.level === 3
           }
