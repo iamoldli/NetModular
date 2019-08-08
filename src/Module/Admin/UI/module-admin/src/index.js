@@ -79,9 +79,14 @@ const getSystem = async () => {
   system.modules = modules
 
   // 退出方法
-  system.logout = () => {
+  system.logout = redirect => {
     api.logout()
-    routerConfig.$router.push({ name: 'login' })
+    routerConfig.$router.push({
+      name: 'login',
+      query: {
+        redirect
+      }
+    })
   }
   // 查询登陆信息方法
   system.getLoginInfo = api.getLoginInfo

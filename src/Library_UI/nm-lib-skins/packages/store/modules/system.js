@@ -58,9 +58,9 @@ export default {
     /**
      * @description 退出
      */
-    async logout({ state, dispatch }) {
+    async logout({ state, dispatch }, redirect) {
       // 退出事件
-      await state.logout()
+      await state.logout(redirect)
 
       // 账号退出
       dispatch('app/account/logout', null, { root: true })
