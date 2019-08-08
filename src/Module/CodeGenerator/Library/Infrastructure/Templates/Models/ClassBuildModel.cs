@@ -73,12 +73,26 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         {
             get
             {
-                if (!ModelPropertyList.Any())
+                List<ModelPropertyBuildModel> list = null;
+                if (ModelPropertyList.Any())
                 {
-                    return new List<ModelPropertyBuildModel>();
+                    list = ModelPropertyList.Where(m => m.ModelType == ModelType.Query).OrderBy(m => m.Sort).ToList();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Query).OrderBy(m => m.Sort).ToList();
+                if (list == null || !list.Any())
+                {
+                    list = PropertyList.OrderBy(m=>m.Sort).Select(m => new ModelPropertyBuildModel
+                    {
+                        Name = m.Name,
+                        Enum = m.Enum,
+                        Nullable = m.Nullable,
+                        Sort = m.Sort,
+                        Remarks = m.Remarks,
+                        Type = m.Type
+                    }).ToList();
+                }
+
+                return list;
             }
         }
 
@@ -89,12 +103,26 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         {
             get
             {
-                if (!ModelPropertyList.Any())
+                List<ModelPropertyBuildModel> list = null;
+                if (ModelPropertyList.Any())
                 {
-                    return new List<ModelPropertyBuildModel>();
+                    list = ModelPropertyList.Where(m => m.ModelType == ModelType.Add).OrderBy(m => m.Sort).ToList();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Add).OrderBy(m=>m.Sort).ToList();
+                if (list == null || !list.Any())
+                {
+                    list = PropertyList.OrderBy(m => m.Sort).Select(m => new ModelPropertyBuildModel
+                    {
+                        Name = m.Name,
+                        Enum = m.Enum,
+                        Nullable = m.Nullable,
+                        Sort = m.Sort,
+                        Remarks = m.Remarks,
+                        Type = m.Type
+                    }).ToList();
+                }
+
+                return list;
             }
         }
 
@@ -105,12 +133,26 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         {
             get
             {
-                if (!ModelPropertyList.Any())
+                List<ModelPropertyBuildModel> list = null;
+                if (ModelPropertyList.Any())
                 {
-                    return new List<ModelPropertyBuildModel>();
+                    list = ModelPropertyList.Where(m => m.ModelType == ModelType.Edit).OrderBy(m => m.Sort).ToList();
                 }
 
-                return ModelPropertyList.Where(m => m.ModelType == ModelType.Edit).OrderBy(m => m.Sort).ToList();
+                if (list == null || !list.Any())
+                {
+                    list = PropertyList.OrderBy(m => m.Sort).Select(m => new ModelPropertyBuildModel
+                    {
+                        Name = m.Name,
+                        Enum = m.Enum,
+                        Nullable = m.Nullable,
+                        Sort = m.Sort,
+                        Remarks = m.Remarks,
+                        Type = m.Type
+                    }).ToList();
+                }
+
+                return list;
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <Authors>Oldli</Authors>
-    <Version>1.2.3</Version>
+    <Version>1.2.4</Version>
     <Description>模块核心库</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

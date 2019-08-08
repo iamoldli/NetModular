@@ -121,7 +121,7 @@ namespace Nm.Module.Admin.Application.MenuService
                         if (await SyncButton(menu, model.Buttons, tran))
                         {
                             tran.Commit();
-                            
+
                             await ClearAccountPermissionCache(menu);
                             return ResultModel.Success();
                         }
@@ -193,7 +193,7 @@ namespace Nm.Module.Admin.Application.MenuService
                         //同步按钮
                         if (await SyncButton(entity, model.Buttons, tran))
                         {
-							await ClearAccountPermissionCache(menu);
+                            await ClearAccountPermissionCache(entity);
                             tran.Commit();
                             return ResultModel.Success();
                         }
@@ -325,7 +325,7 @@ namespace Nm.Module.Admin.Application.MenuService
             {
                 return true;
             }
-           
+
             if (buttons == null)
                 buttons = new List<MenuButtonAddModel>();
 
