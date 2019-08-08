@@ -193,6 +193,7 @@ namespace Nm.Module.Admin.Application.MenuService
                         //同步按钮
                         if (await SyncButton(entity, model.Buttons, tran))
                         {
+							await ClearAccountPermissionCache(menu);
                             tran.Commit();
                             return ResultModel.Success();
                         }
