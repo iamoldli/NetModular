@@ -99,7 +99,7 @@ npm run serve
 
 node: _如果安装包失败，请使用官方的镜像，不要使用国内的_
 
-5、然后打开浏览器，输入`http://localhost:5220/`进行浏览
+5、然后打开浏览器，输入`http://localhost:5220/app`进行浏览
 
 可访问 `http://localhost:6220/swagger/index.html` 查看接口文档
 
