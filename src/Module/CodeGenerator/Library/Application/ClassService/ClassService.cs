@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Application.ProjectService;
+using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
 using Nm.Module.CodeGenerator.Domain.ClassMethod;
@@ -19,13 +22,16 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
         private readonly BaseEntityPropertyCollection _baseEntityPropertyCollection;
         private readonly IClassMethodRepository _classMethodRepository;
 
-        public ClassService(IMapper mapper, IClassRepository repository, BaseEntityPropertyCollection baseEntityPropertyCollection, IPropertyRepository propertyRepository, IClassMethodRepository classMethodRepository)
+        private readonly IProjectService _projectService;
+
+        public ClassService(IMapper mapper, IClassRepository repository, BaseEntityPropertyCollection baseEntityPropertyCollection, IPropertyRepository propertyRepository, IClassMethodRepository classMethodRepository, IProjectService projectService)
         {
             _mapper = mapper;
             _repository = repository;
             _baseEntityPropertyCollection = baseEntityPropertyCollection;
             _propertyRepository = propertyRepository;
             _classMethodRepository = classMethodRepository;
+            _projectService = projectService;
         }
 
         public async Task<IResultModel> Query(ClassQueryModel model)
@@ -145,6 +151,16 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
             }
 
             return ResultModel.Failed();
+        }
+
+        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid id)
+        {
+            var result = new ResultModel<ProjectBuildCodeResultModel>();
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return result.Failed("对象不存在");
+
+            return await _projectService.BuildCode(entity.ProjectId, new List<ClassEntity> { entity });
         }
     }
 }

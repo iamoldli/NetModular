@@ -21,8 +21,8 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.edi" @click="edit(row)" />
-        <nm-button text="实体配置" type="text" @click="manageClass(row)" />
+        <nm-button-has :options="buttons.edit" @click="edit(row)" />
+        <nm-button text="实体" icon="entity" type="text" @click="manageClass(row)" />
         <nm-button-has :options="buttons.buildCode" @click="buildCode(row)" />
         <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
@@ -56,7 +56,7 @@ export default {
         title: page.title,
         cols,
         action: api.query,
-        operationWidth: 200,
+        operationWidth: 240,
         model: {
           name: '',
           code: ''

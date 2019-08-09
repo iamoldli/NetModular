@@ -2,7 +2,8 @@ import { http } from 'nm-lib-utils'
 const root = 'codegenerator/class/'
 const crud = http.crud(root)
 const urls = {
-  baseEntityTypeSelect: root + 'BaseEntityTypeSelect'
+  baseEntityTypeSelect: root + 'BaseEntityTypeSelect',
+  buildCode: root + 'BuildCode'
 }
 
 /**
@@ -11,8 +12,12 @@ const urls = {
 const getBaseEntityTypeSelect = () => {
   return http.get(urls.baseEntityTypeSelect)
 }
-
+/** 生成代码 */
+const buildCode = id => {
+  return http.get(urls.buildCode, { id }, { responseType: 'blob' })
+}
 export default {
   ...crud,
-  getBaseEntityTypeSelect
+  getBaseEntityTypeSelect,
+  buildCode
 }

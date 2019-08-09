@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
+using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.Project;
 using Nm.Module.CodeGenerator.Domain.Project.Models;
 
 namespace Nm.Module.CodeGenerator.Application.ProjectService
@@ -52,5 +55,13 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(ProjectBuildCodeModel model);
+
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="classList"></param>
+        /// <returns></returns>
+        Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid projectId, IList<ClassEntity> classList = null);
     }
 }

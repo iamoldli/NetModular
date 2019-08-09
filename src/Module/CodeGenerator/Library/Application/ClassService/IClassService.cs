@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
 
 namespace Nm.Module.CodeGenerator.Application.ClassService
@@ -45,5 +46,12 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IResultModel> Update(ClassUpdateModel model);
+
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid id);
     }
 }

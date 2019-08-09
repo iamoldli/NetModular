@@ -1,6 +1,7 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '项目列表'
+  this.icon = 'project'
   this.name = 'codegenerator_project'
   this.path = '/codegenerator/project'
 
@@ -33,7 +34,7 @@ const page = new function() {
     buildCode: {
       text: '生成',
       type: 'text',
-      icon: 'delete',
+      icon: 'download',
       code: `${this.name}_build_code`,
       permissions: [`${this.name}_buildcode_post`]
     }

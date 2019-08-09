@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -122,12 +123,21 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(ProjectBuildCodeModel model)
+        public Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(ProjectBuildCodeModel model)
+        {
+            return BuildCode(model.Id);
+        }
+
+        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid projectId, IList<ClassEntity> classList = null)
         {
             var result = new ResultModel<ProjectBuildCodeResultModel>();
-            var project = await _repository.GetAsync(model.Id);
+
+            var project = await _repository.GetAsync(projectId);
             if (project == null)
                 return result.Failed("项目不存在");
+
+            //创建项目生成对象
+            var projectBuildModel = _mapper.Map<ProjectBuildModel>(project);
 
             var id = Guid.NewGuid().ToString();
             var rootPath = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath);
@@ -136,11 +146,11 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                 RootPath = Path.Combine(rootPath, id),
             };
 
-            //创建项目生成对象
-            var projectBuildModel = _mapper.Map<ProjectBuildModel>(project);
+            if (classList == null)
+            {
+                classList = await _classRepository.QueryAllByProject(project.Id);
+            }
 
-            //查询类生成列表
-            var classList = await _classRepository.QueryAllByProject(model.Id);
             foreach (var classEntity in classList)
             {
                 var classBuildModel = _mapper.Map<ClassBuildModel>(classEntity);
@@ -174,7 +184,6 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                         classBuildModel.PropertyList.Add(propertyBuildModel);
                     }
                 }
-
 
                 var modelPropertyList = await _modelPropertyRepository.QueryByClass(classEntity.Id);
 
@@ -223,6 +232,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                 Id = id,
                 Name = projectBuildModel.Name + ".zip"
             };
+
             return result.Success(resultModel);
         }
     }

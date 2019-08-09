@@ -1,15 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
+using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ClassService;
 using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Options;
 
 namespace Nm.Module.CodeGenerator.Web.Controllers
 {
@@ -18,10 +24,14 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
     public class ClassController : ModuleController
     {
         private readonly IClassService _service;
+        private readonly ModuleCommonOptions _commonOptions;
+        private readonly CodeGeneratorOptions _codeGeneratorOptions;
 
-        public ClassController(IClassService service)
+        public ClassController(IClassService service, IOptionsMonitor<ModuleCommonOptions> commonOption, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions)
         {
             _service = service;
+            _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
+            _commonOptions = commonOption.CurrentValue;
         }
 
         [HttpGet]
@@ -61,9 +71,19 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
 
         [HttpGet]
         [Description("获取基类类型下拉列表")]
+        [Common]
         public IResultModel BaseEntityTypeSelect()
         {
             return ResultModel.Success(EnumExtensions.ToResult<BaseEntityType>(true));
+        }
+
+        [HttpGet]
+        [Description("生成代码")]
+        public async Task<IActionResult> BuildCode([BindRequired]Guid id)
+        {
+            var result = await _service.BuildCode(id);
+            var path = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath, result.Data.Id + ".zip");
+            return PhysicalFile(path, "application/octet-stream", HttpUtility.UrlEncode(result.Data.Name), true);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
 
                 if (list == null || !list.Any())
                 {
-                    list = PropertyList.OrderBy(m=>m.Sort).Select(m => new ModelPropertyBuildModel
+                    list = PropertyList.OrderBy(m => m.Sort).Where(m => !m.IsInherit).Select(m => new ModelPropertyBuildModel
                     {
                         Name = m.Name,
                         Enum = m.Enum,
@@ -111,7 +111,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
 
                 if (list == null || !list.Any())
                 {
-                    list = PropertyList.OrderBy(m => m.Sort).Select(m => new ModelPropertyBuildModel
+                    list = PropertyList.OrderBy(m => m.Sort).Where(m => !m.IsInherit).Select(m => new ModelPropertyBuildModel
                     {
                         Name = m.Name,
                         Enum = m.Enum,
@@ -141,7 +141,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
 
                 if (list == null || !list.Any())
                 {
-                    list = PropertyList.OrderBy(m => m.Sort).Select(m => new ModelPropertyBuildModel
+                    list = PropertyList.OrderBy(m => m.Sort).Where(m => !m.IsInherit).Select(m => new ModelPropertyBuildModel
                     {
                         Name = m.Name,
                         Enum = m.Enum,
