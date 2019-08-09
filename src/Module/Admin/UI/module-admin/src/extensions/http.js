@@ -112,7 +112,7 @@ export default baseUrl => {
                   fullPath: currentRoute.path,
                   router: $router,
                   to: {
-                    name: 'Error403'
+                    name: 'error403'
                   }
                 },
                 { root: true }
