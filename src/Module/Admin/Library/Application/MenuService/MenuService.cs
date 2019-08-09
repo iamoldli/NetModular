@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
@@ -33,8 +34,9 @@ namespace Nm.Module.Admin.Application.MenuService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IButtonPermissionRepository _buttonPermissionRepository;
         private readonly IAccountService _accountService;
+        private readonly ILogger _logger;
 
-        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository)
+        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger)
         {
             _menuRepository = menuRepository;
             _menuPermissionRepository = menuPermissionRepository;
@@ -45,6 +47,7 @@ namespace Nm.Module.Admin.Application.MenuService
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
             _buttonPermissionRepository = buttonPermissionRepository;
+            _logger = logger;
         }
 
         public async Task<IResultModel> GetTree()
@@ -123,6 +126,7 @@ namespace Nm.Module.Admin.Application.MenuService
                             tran.Commit();
 
                             await ClearAccountPermissionCache(menu);
+
                             return ResultModel.Success();
                         }
                     }
@@ -277,7 +281,7 @@ namespace Nm.Module.Admin.Application.MenuService
             }
         }
 
-        #region ====
+        #region ==私有方法==
 
         /// <summary>
         /// 同步权限
@@ -345,14 +349,22 @@ namespace Nm.Module.Admin.Application.MenuService
                 }
                 else
                 {
-                    oldBtn = new ButtonEntity
+                    if (await _buttonRepository.ExistsByCode(newBtn.Code.ToLower()))
                     {
-                        MenuCode = menu.RouteName,
-                        Code = newBtn.Code.ToLower(),
-                        Icon = newBtn.Icon,
-                        Name = newBtn.Text
-                    };
-                    result = await _buttonRepository.AddAsync(oldBtn, transaction);
+                        _logger.LogError($"按钮编码{newBtn.Code}不能重复");
+                        result = false;
+                    }
+                    else
+                    {
+                        oldBtn = new ButtonEntity
+                        {
+                            MenuCode = menu.RouteName,
+                            Code = newBtn.Code.ToLower(),
+                            Icon = newBtn.Icon,
+                            Name = newBtn.Text
+                        };
+                        result = await _buttonRepository.AddAsync(oldBtn, transaction);
+                    }
                 }
 
                 if (!result)

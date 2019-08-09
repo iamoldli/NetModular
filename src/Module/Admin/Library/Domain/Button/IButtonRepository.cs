@@ -33,19 +33,10 @@ namespace Nm.Module.Admin.Domain.Button
         Task<IList<string>> QueryCodeByAccount(Guid accountId);
 
         /// <summary>
-        /// 删除指定菜单的按钮
+        /// 编码是否存在
         /// </summary>
-        /// <param name="menuCode">菜单编码</param>
-        /// <param name="transaction"></param>
+        /// <param name="code"></param>
         /// <returns></returns>
-        Task<bool> DeleteByMenu(string menuCode, IDbTransaction transaction);
-
-        /// <summary>
-        /// 同步操作更新按钮信息
-        /// </summary>
-        /// <param name="button"></param>
-        /// <param name="transaction">事务</param>
-        /// <returns></returns>
-        Task<bool> UpdateForSync(ButtonEntity button, IDbTransaction transaction);
+        Task<bool> ExistsByCode(string code);
     }
 }

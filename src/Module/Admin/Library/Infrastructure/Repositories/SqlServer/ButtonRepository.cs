@@ -48,16 +48,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> DeleteByMenu(string menuCode, IDbTransaction transaction)
+        public Task<bool> ExistsByCode(string code)
         {
-            return Db.Find(m => m.MenuCode == menuCode).UseTran(transaction).DeleteAsync();
-        }
-
-        public Task<bool> UpdateForSync(ButtonEntity button, IDbTransaction transaction)
-        {
-            return Db.Find(m => m.MenuCode == button.MenuCode && m.Code == button.Code)
-                .UseTran(transaction)
-                .UpdateAsync(m => new ButtonEntity { Icon = button.Icon, Name = button.Name });
+            return Db.Find(m => m.Code == code).ExistsAsync();
         }
     }
 }
