@@ -102,5 +102,11 @@ namespace Nm.Module.Common.Web.Controllers
 
             return new JsonResult(result);
         }
+        [HttpDelete]
+        [Description("删除")]
+        public async Task<IResultModel> Delete([BindRequired] Guid id)
+        {
+            return await _service.Delete(id);
+        }
     }
 }
