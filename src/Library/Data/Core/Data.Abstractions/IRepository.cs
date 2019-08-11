@@ -199,7 +199,7 @@ namespace Nm.Lib.Data.Abstractions
         /// 更新
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <returns></returns
+        /// <returns></returns>
         bool Update(TEntity entity);
 
         /// <summary>
