@@ -4,7 +4,7 @@
 
 1、模块化  
 2、前后端分离  
-3、多数据库任意切换(目前支持 SqlServer、MySql、SQLite)  
+3、多数据库任意切换(目前支持 SqlServer、MySql、SQLite，源码中只上传了MySql和SqlServer的数据库文件，有时候会更新不及时，最好用MySql来测试~)  
 4、异步到底
 
 ### Demo
