@@ -62,11 +62,35 @@ body {
     width: 100% !important;
 }
 
-.el-input__prefix {
-    #{$prefix}-icon {
-        position: relative;
-        top: 2px;
-        padding-right: 2px;
-        font-size: 22px;
+@mixin input-icon($type, $top, $size, $padding) {
+    .el-input#{$type} {
+
+        .el-input__prefix,
+        .el-input__suffix,
+        .el-input-group__prepend,
+        .el-input-group__append {
+            #{$prefix}-icon {
+                position: relative;
+                top: $top;
+                font-size: $size;
+            }
+        }
+
+        &.el-input--prefix {
+            .el-input__inner {
+                padding-left: $padding;
+            }
+        }
+
+        &.el-input--suffix {
+            .el-input__inner {
+                padding-right: $padding;
+            }
+        }
     }
 }
+
+@include input-icon('', 6px, 26px, 34px);
+@include input-icon('--medium', 4px, 22px, 30px);
+@include input-icon('--small', 1px, 19px, 25px);
+@include input-icon('--mini', 2px, 18px, 22px);

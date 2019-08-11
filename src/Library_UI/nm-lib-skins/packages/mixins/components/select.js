@@ -79,12 +79,15 @@ export default {
 
         if (this.checkedFirst && !this.hasInit && options.length > 0) {
           this.value_ = options[0].value
+          this.onChange()
           this.hasInit = true
         }
       })
     },
     onChange(val) {
       this.value_ = val
+      this.$emit('input', this.value_)
+      this.$emit('change', this.value_, this.selection, this.options)
     },
     onVisibleChange(val) {
       this.$emit('visible-change', val)
@@ -105,10 +108,6 @@ export default {
   watch: {
     value() {
       this.value_ = this.value
-    },
-    value_() {
-      this.$emit('input', this.value_)
-      this.$emit('change', this.value_, this.selection, this.options)
     }
   },
   render(h) {
@@ -139,14 +138,14 @@ export default {
             {this.$scopedSlots.default
               ? this.$scopedSlots.default({ options: this.options })
               : this.options.map(item => {
-                return (
-                  <el-option
-                    label={item.label}
-                    value={item.value}
-                    disabled={item.disabled}
-                  />
-                )
-              })}
+                  return (
+                    <el-option
+                      label={item.label}
+                      value={item.value}
+                      disabled={item.disabled}
+                    />
+                  )
+                })}
             {this.icon ? <nm-icon name={this.icon} slot="prefix" /> : ''}
           </el-select>
         </div>
