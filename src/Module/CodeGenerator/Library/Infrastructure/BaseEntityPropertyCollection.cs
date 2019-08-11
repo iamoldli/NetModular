@@ -25,7 +25,15 @@ namespace Nm.Module.CodeGenerator.Infrastructure
                     Type = primaryKeyPropertyType,
                     ShowInList = true,
                     Length=(primaryKeyPropertyType==PropertyType.String)?50:0
-                }
+                },
+               new PropertyEntity
+                {
+                    Name = "CID",
+                    IsInherit = true,
+                    Remarks = "所属公司",
+                    Type = PropertyType.Guid,
+                    Sort = 1000
+                },
             };
         }
 
@@ -75,6 +83,23 @@ namespace Nm.Module.CodeGenerator.Infrastructure
                     Type = PropertyType.DateTime,
                     Sort = 1003
                 },
+                new PropertyEntity
+                {
+                    Name = "PID",
+                    IsInherit = true,
+                    Remarks = "父表ID",
+                    Type = PropertyType.String,
+                    Sort = 1004,
+                    Length=50
+                },
+                new PropertyEntity
+                {
+                    Name = "CID",
+                    IsInherit = true,
+                    Remarks = "所属公司",
+                    Type = PropertyType.Guid,
+                    Sort = 1005
+                },
             };
         }
 
@@ -98,6 +123,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure
                 new PropertyEntity
                 {
                     Name = "DeletedBy", IsInherit = true, Remarks = "删除人",Type = PropertyType.Guid, Sort = 1002
+                },
+                 new PropertyEntity
+                {
+                    Name = "CID", IsInherit = true, Remarks = "所属公司", Type = PropertyType.Guid, Sort = 1003
                 }
             };
         }
@@ -138,6 +167,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure
                 new PropertyEntity
                 {
                     Name = "DeletedBy", IsInherit = true, Remarks = "删除人",Type = PropertyType.Guid, Sort = 1006
+                },
+                new PropertyEntity
+                {
+                    Name = "PID", IsInherit = true, Remarks = "父表ID", Type = PropertyType.String, Sort = 1007, Length=50
+                },
+               new PropertyEntity
+                {
+                    Name = "CID", IsInherit = true, Remarks = "所属公司", Type = PropertyType.Guid, Sort = 1008
                 }
             };
         }

@@ -37,6 +37,11 @@ namespace Nm.Module.Admin.Application.AccountService.ViewModels
         /// 邮箱
         /// </summary>
         public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
 
         /// <summary>
         /// 绑定角色列表

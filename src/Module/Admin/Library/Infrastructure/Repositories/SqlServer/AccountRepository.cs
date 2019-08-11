@@ -24,7 +24,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<AccountEntity> GetByUserName(string userName, int type = 0)
         {
-            return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName) && m.Type == type);
+            return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName) );
         }
 
         public Task<bool> UpdateLoginInfo(Guid id, string ip, AccountStatus status = AccountStatus.UnKnown)
@@ -41,7 +41,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public async Task<IList<AccountEntity>> Query(AccountQueryModel model)
         {
             var paging = model.Paging();
-            var query = Db.Find(m => m.Deleted == false && m.Type == model.Type);
+            var query = Db.Find(m => m.Deleted == false );
             query.WhereIf(model.UserName.NotNull(), m => m.UserName.Contains(model.UserName));
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
             query.WhereIf(model.Phone.NotNull(), m => m.Phone == model.Phone);

@@ -64,5 +64,10 @@ namespace Nm.Module.Admin.Domain.Account
         /// 注销人
         /// </summary>
         public Guid ClosedBy { get; set; } = Guid.Empty;
+
+        /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
     }
 }

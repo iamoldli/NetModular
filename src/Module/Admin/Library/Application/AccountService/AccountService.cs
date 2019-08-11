@@ -340,6 +340,8 @@ namespace Nm.Module.Admin.Application.AccountService
                 return ResultModel.NotExists;
             if (entity.Id == deleter)
                 return ResultModel.Failed("不允许删除自己的账户");
+            if (entity.Type == 1)
+                return ResultModel.Failed("不允许删除用户账户");
 
             var result = await _accountRepository.SoftDeleteAsync(id);
             return ResultModel.Result(result);
