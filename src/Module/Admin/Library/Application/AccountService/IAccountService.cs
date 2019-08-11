@@ -35,6 +35,12 @@ namespace Nm.Module.Admin.Application.AccountService
         Task<IResultModel> LoginInfo(Guid accountId);
 
         /// <summary>
+        /// 获取CID
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns>guid</returns>
+        Task<Guid> GetCID(Guid accountId);
+        /// <summary>
         /// 修改密码
         /// </summary>
         /// <param name="model"></param>

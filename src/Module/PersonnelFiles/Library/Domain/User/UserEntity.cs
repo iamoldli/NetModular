@@ -79,5 +79,10 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// 邮箱
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; }
     }
 }

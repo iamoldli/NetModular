@@ -85,6 +85,11 @@ namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels
         public string Email { get; set; }
 
         /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
+
+        /// <summary>
         /// 绑定角色列表
         /// </summary>
         public List<Guid> Roles { get; set; }

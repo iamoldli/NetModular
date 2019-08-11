@@ -27,7 +27,7 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
             var query = Db.Find();
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
             query.WhereIf(model.Number != null && model.Number > 0, m => m.JobNo == model.Number);
-
+            query.WhereIf(!model.CID.IsEmpty() , m => m.CID == model.CID);
             if (!paging.OrderBy.Any())
             {
                 query.OrderByDescending(m => m.Id);

@@ -7,6 +7,7 @@
   <Import Project="..\..\..\..\..\build\module.build.targets" />
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Library\Auth\Auth.Web\Auth.Web.csproj" />
     <ProjectReference Include="..\..\..\Admin\Library\Domain\Domain.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>

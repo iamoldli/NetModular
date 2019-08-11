@@ -28,10 +28,11 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public async Task<IList<RoleEntity>> Query(RoleQueryModel model)
         {
             var paging = model.Paging();
-            var query = Db.Find(m => m.Deleted == false).LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
-            query.WhereIf(model.Name.NotNull(), (x, y) => x.Name.Contains(model.Name));
-            query.Select((x, y) => new { x, Creator = y.Name });
-            var list = await query.PaginationAsync(paging);
+            var query = Db.Find(m => m.Deleted == false);
+            query.WhereIf(!model.CID.IsEmpty(), m => m.CID==model.CID);
+            var query1=query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
+            query1.Select((x, y) => new { x, Creator = y.Name });
+            var list = await query1.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
         }

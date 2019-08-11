@@ -46,7 +46,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
             query.WhereIf(model.Phone.NotNull(), m => m.Phone == model.Phone);
             query.WhereIf(model.Email.NotNull(), m => m.Email == model.Email);
-
+            query.WhereIf(!model.CID.IsEmpty(), m => m.CID == model.CID);
             if (!paging.OrderBy.Any())
             {
                 query.OrderByDescending(m => m.Id);

@@ -30,6 +30,11 @@ namespace Nm.Module.Admin.Application.AccountService.ResultModels
         public SkinConfigModel Skin { get; set; }
 
         /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
+
+        /// <summary>
         /// 菜单列表
         /// </summary>
         public List<AccountMenuItem> Menus { get; set; }

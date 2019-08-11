@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
@@ -21,6 +22,7 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
 {
     public class UserService : IUserService
     {
+        private readonly ILoginInfo _loginInfo;
         private readonly PersonnelFilesOptions _options;
         private readonly IMapper _mapper;
         private readonly IUserRepository _repository;
@@ -33,8 +35,9 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
         public UserService(IMapper mapper, IUserRepository repository,
             IOptionsMonitor<PersonnelFilesOptions> optionsMonitor, IAccountService accountService,
             IDepartmentService departmentService, IAccountRepository accountRepository,
-            IAccountRoleRepository accountRoleRepository, IUserContactRepository contactRepository)
+            IAccountRoleRepository accountRoleRepository, IUserContactRepository contactRepository, ILoginInfo loginInfo )
         {
+            _loginInfo = loginInfo;
             _mapper = mapper;
             _repository = repository;
             _accountService = accountService;
@@ -47,6 +50,9 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
 
         public async Task<IResultModel> Query(UserQueryModel model)
         {
+            model.CID =await _accountService.GetCID(_loginInfo.AccountId);
+            
+
             var result = new QueryResultModel<UserEntity>
             {
                 Rows = await _repository.Query(model),
@@ -80,9 +86,14 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
                 Email = model.Email,
                 Name = model.Name,
                 Roles = model.Roles,
-                Password = model.Password
+                Password = model.Password,
+                CID=model.CID
+    
             };
-
+            
+            var cid=await _accountService.GetCID(_loginInfo.AccountId);
+            entity.CID = cid;
+            account.CID = cid;
             var result = await _accountService.Add(account);
             if (result.Successful)
             {
@@ -132,6 +143,7 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
                 var account = await _accountRepository.GetAsync(entity.AccountId);
                 account.Phone = model.Phone;
                 account.Email = model.Email;
+                account.CID = model.CID;
 
                 result = await _accountRepository.UpdateAsync(account);
             }

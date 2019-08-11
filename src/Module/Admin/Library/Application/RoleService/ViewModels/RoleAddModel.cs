@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nm.Module.Admin.Application.RoleService.ViewModels
 {
@@ -10,5 +11,9 @@ namespace Nm.Module.Admin.Application.RoleService.ViewModels
         public string Remarks { get; set; }
 
         public int Sort { get; set; }
+        /// <summary>
+        /// 归属公司
+        /// </summary>
+        public Guid CID { get; set; }
     }
 }

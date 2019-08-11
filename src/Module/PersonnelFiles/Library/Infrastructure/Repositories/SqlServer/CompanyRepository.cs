@@ -29,7 +29,7 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
                 query.OrderByDescending(m => m.Id);
             }
 
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+            var result = await query.InnerJoin<AccountEntity>((x, y) => (x.Id == y.CID || y.CID.Equals("00000000-0000-0000-0000-000000000000")) && (y.Id==model.AccountID))
                 .Select((x, y) => new { x, Creator = y.Name })
                 .PaginationAsync(paging);
 

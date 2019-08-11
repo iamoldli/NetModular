@@ -8,4 +8,5 @@ namespace Nm.Module.Admin.Application.RoleService.ViewModels
         [Required(ErrorMessage = "请选择角色")]
         public Guid Id { get; set; }
     }
+
 }

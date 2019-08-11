@@ -1,4 +1,5 @@
 ﻿using Nm.Lib.Data.Query;
+using System;
 
 namespace Nm.Module.Admin.Domain.Account.Models
 {
@@ -33,5 +34,10 @@ namespace Nm.Module.Admin.Domain.Account.Models
         /// 状态
         /// </summary>
         public AccountStatus Status { get; set; }
+
+        /// <summary>
+        /// 所属企业ID
+        /// </summary>
+        public Guid CID { get; set; }
     }
 }

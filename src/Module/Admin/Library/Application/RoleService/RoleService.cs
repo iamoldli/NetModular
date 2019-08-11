@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -28,8 +29,10 @@ namespace Nm.Module.Admin.Application.RoleService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IMenuRepository _menuRepository;
         private readonly IAccountService _accountService;
+        private readonly ILoginInfo _loginInfo;
 
-        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository)
+
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, ILoginInfo loginInfo)
         {
             _mapper = mapper;
             _repository = repository;
@@ -39,10 +42,12 @@ namespace Nm.Module.Admin.Application.RoleService
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
             _menuRepository = menuRepository;
+            _loginInfo = loginInfo;
         }
 
         public async Task<IResultModel> Query(RoleQueryModel model)
         {
+            model.CID = await _accountService.GetCID(_loginInfo.AccountId);
             var result = new QueryResultModel<RoleEntity>
             {
                 Rows = await _repository.Query(model),
@@ -53,6 +58,7 @@ namespace Nm.Module.Admin.Application.RoleService
 
         public async Task<IResultModel> Add(RoleAddModel model)
         {
+            model.CID = await _accountService.GetCID(_loginInfo.AccountId);
             if (await _repository.Exists(model.Name))
                 return ResultModel.HasExists;
 
@@ -268,7 +274,11 @@ namespace Nm.Module.Admin.Application.RoleService
 
         public async Task<IResultModel> Select()
         {
-            var all = await _repository.GetAllAsync();
+            RoleQueryModel model = new RoleQueryModel();
+               model.CID = await _accountService.GetCID(_loginInfo.AccountId);
+            model.Page.Index = 1;
+            model.Page.Size = 1000;
+            var all = await _repository.Query(model);
             var list = all.Select(m => new OptionResultModel
             {
                 Label = m.Name,

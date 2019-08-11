@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Utils.Core.Encrypt;
 using Nm.Lib.Utils.Core.Extensions;
@@ -34,6 +35,7 @@ namespace Nm.Module.Admin.Application.AccountService
         public const string AccountPermissionListKey = "ADMIN_ACCOUNT_PERMISSION_LIST_";
 
         //默认密码
+
         public const string DefaultPassword = "123456";
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
@@ -45,9 +47,11 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly IPermissionRepository _permissionRepository;
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
+        private readonly ILoginInfo _loginInfo;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, ILoginInfo loginInfo)
         {
+            _loginInfo = loginInfo;
             _cache = cache;
             _mapper = mapper;
             _accountRepository = accountRepository;
@@ -114,6 +118,11 @@ namespace Nm.Module.Admin.Application.AccountService
             return result.Success(account);
         }
 
+        public async Task<Guid> GetCID(Guid accountId)
+        {
+            var account = await _accountRepository.GetAsync(accountId);
+            return account.CID;
+        }
         public async Task<IResultModel> LoginInfo(Guid accountId)
         {
             var account = await _accountRepository.GetAsync(accountId);
@@ -126,6 +135,7 @@ namespace Nm.Module.Admin.Application.AccountService
             {
                 Id = account.Id,
                 Name = account.Name,
+                CID=account.CID,
                 Skin = new SkinConfigModel
                 {
                     Name = "pretty",
@@ -218,6 +228,11 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public async Task<IResultModel> Query(AccountQueryModel model)
         {
+           
+            var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
+            model.CID = account.CID;
+
+
             var result = new QueryResultModel<AccountEntity>
             {
                 Rows = await _accountRepository.Query(model),

@@ -1,5 +1,6 @@
 ﻿using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities.Extend;
+using System;
 
 namespace Nm.Module.Admin.Domain.Role
 {
@@ -18,5 +19,10 @@ namespace Nm.Module.Admin.Domain.Role
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 归属公司
+        /// </summary>
+        public Guid CID { get; set; }
     }
 }

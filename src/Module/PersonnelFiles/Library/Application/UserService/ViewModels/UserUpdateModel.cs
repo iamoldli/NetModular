@@ -85,5 +85,14 @@ namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels
         /// 部门完整路径
         /// </summary>
         public string DeptFullPath { get; set; }
+
+
+        /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
+
+
+
     }
 }

@@ -1,4 +1,5 @@
 using Nm.Lib.Data.Query;
+using System;
 
 namespace Nm.Module.PersonnelFiles.Domain.User.Models
 {
@@ -13,5 +14,11 @@ namespace Nm.Module.PersonnelFiles.Domain.User.Models
         /// 工号
         /// </summary>
         public int? Number { get; set; }
+
+
+        /// <summary>
+        /// 所属公司ID
+        /// </summary>
+        public Guid CID { get; set; } = Guid.Empty;
     }
 }

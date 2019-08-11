@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
 using Nm.Module.PersonnelFiles.Domain.Company;
@@ -13,14 +14,19 @@ namespace Nm.Module.PersonnelFiles.Application.CompanyService
     {
         private readonly IMapper _mapper;
         private readonly ICompanyRepository _repository;
-        public CompanyService(IMapper mapper, ICompanyRepository repository)
+
+        private readonly ILoginInfo _loginInfo;
+        public CompanyService(IMapper mapper, ILoginInfo loginInfo, ICompanyRepository repository)
         {
             _mapper = mapper;
+            _loginInfo = loginInfo;
             _repository = repository;
         }
 
         public async Task<IResultModel> Query(CompanyQueryModel model)
         {
+            model.AccountID = _loginInfo.AccountId;
+            
             var result = new QueryResultModel<CompanyEntity>
             {
                 Rows = await _repository.Query(model),
@@ -77,7 +83,16 @@ namespace Nm.Module.PersonnelFiles.Application.CompanyService
 
         public async Task<IResultModel> Select()
         {
-            var all = await _repository.GetAllAsync();
+            CompanyQueryModel model = new CompanyQueryModel();
+            model.Name = "";
+            model.Page.Index = 1;
+            model.Page.Size = 1000;
+            model.AccountID = _loginInfo.AccountId;
+            var all = await _repository.Query(model);
+
+          
+ 
+
             var list = all.Select(m => new OptionResultModel
             {
                 Label = m.Name,
