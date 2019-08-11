@@ -20,6 +20,7 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
             _repository = repository;
         }
 
+<# if(_class.Method.Query) {#>
         public async Task<IResultModel> Query(<#= _class.Name #>QueryModel model)
         {
             var result = new QueryResultModel<<#= _class.Name #>Entity>
@@ -30,6 +31,8 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
             return ResultModel.Success(result);
         }
 
+<#} #>
+<# if(_class.Method.Add) {#>
         public async Task<IResultModel> Add(<#= _class.Name #>AddModel model)
         {
             var entity = _mapper.Map<<#= _class.Name #>Entity>(model);
@@ -42,12 +45,16 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
             return ResultModel.Result(result);
         }
 
+<#} #>
+<# if(_class.Method.Delete) {#>
         public async Task<IResultModel> Delete(<#= _class.PrimaryKeyTypeName #> id)
         {
             var result = await _repository.DeleteAsync(id);
             return ResultModel.Result(result);
         }
 
+<#} #>
+<# if(_class.Method.Edit) {#>
         public async Task<IResultModel> Edit(<#= _class.PrimaryKeyTypeName #> id)
         {
             var entity = await _repository.GetAsync(id);
@@ -75,5 +82,6 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
 
             return ResultModel.Result(result);
         }
+<#} #>
     }
 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.RoleService;
 using Nm.Module.Admin.Application.RoleService.ViewModels;
@@ -85,6 +86,7 @@ namespace Nm.Module.Admin.Web.Controllers
 
         [HttpGet]
         [Description("下拉列表数据")]
+        [Common]
         public Task<IResultModel> Select()
         {
             return _service.Select();

@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -32,7 +30,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
             
             #line default
             #line hidden
-            this.Write(".Lib.Module.Abstractions;\r\n\r\nnamespace ");
+            this.Write(".Lib.Auth.Web;\r\n\r\nnamespace ");
             
             #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleController.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -49,12 +47,12 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
             this.Write(".Web\r\n{\r\n    [Area(\"");
             
             #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleController.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
-            this.Write("\")]\r\n    public abstract class ModuleController : ModuleControllerAbstract\r\n    {" +
-                    "\r\n\r\n    }\r\n}\r\n");
+            this.Write("\")]\r\n    public abstract class ModuleController : ControllerAbstract\r\n    {\r\n\r\n  " +
+                    "  }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

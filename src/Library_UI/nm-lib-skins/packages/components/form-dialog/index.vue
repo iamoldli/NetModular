@@ -1,13 +1,13 @@
 <template>
   <nm-dialog ref="dialog" class="nm-form-dialog" v-bind="dialog" v-on="dialogOn" :visible.sync="visible_">
     <nm-form ref="form" v-bind="form" v-on="formOn">
-      <slot/>
+      <slot />
     </nm-form>
 
     <template v-slot:footer>
       <div class="nm-form-footer">
         <div class="nm-form-footer-left">
-          <slot name="footer-left"/>
+          <slot name="footer-left" />
         </div>
         <div class="nm-form-footer-right">
           <slot name="fotter">
@@ -24,7 +24,7 @@ import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'FormDialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       loading_: false,
       formOn: {
@@ -52,7 +52,7 @@ export default {
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
-      default: false
+      default: true
     },
     /** 是否显示全屏按钮 */
     fullscreen: Boolean,
@@ -70,6 +70,8 @@ export default {
     },
     /** 标签的宽度 */
     labelWidth: String,
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: String,
     // 自定义验证
     validate: Function,
     /** 是否显示成功提示消息 */
@@ -117,45 +119,52 @@ export default {
     noLoading: {
       type: Boolean,
       default: false
+    },
+    /** 打开时是否清楚验证信息 */
+    clearValidateOnOpen: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
-    dialog () {
+    dialog() {
       return {
         title: this.title,
         icon: this.icon,
         width: this.width,
         height: this.height,
+        footer: true,
         fullscreen: this.fullscreen,
         closeOnClickModal: this.closeOnClickModal,
         loading: this.showLoading
       }
     },
-    form () {
+    form() {
       return {
         noLoading: true,
         model: this.model,
         rules: this.rules,
         action: this.action,
         labelWidth: this.labelWidth,
+        labelPosition: this.labelPosition,
         validate: this.validate,
         successMsg: this.successMsg,
         successMsgText: this.successMsgText,
         disabled: this.disabled
       }
     },
-    showLoading () {
+    showLoading() {
       return !this.noLoading && (this.loading_ || this.loading)
     }
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.loading_ = true
       this.$refs.form.submit()
     },
     /** 重置 */
-    reset () {
+    reset() {
       if (this.customResetFunction) {
         this.customResetFunction()
       } else {
@@ -163,19 +172,19 @@ export default {
       }
     },
     /** 清除验证信息 */
-    clearValidate () {
+    clearValidate() {
       this.$refs.form.clearValidate()
     },
     /** 打开loading */
-    openLoading () {
+    openLoading() {
       this.loading_ = true
     },
     /** 关闭loading */
-    closeLoading () {
+    closeLoading() {
       this.loading = false
     },
     // 成功
-    onSuccess (data) {
+    onSuccess(data) {
       // 关闭对话框
       if (this.closeWhenSuccess) {
         setTimeout(this.hide, 800)
@@ -183,24 +192,29 @@ export default {
       this.loading_ = false
       this.$emit('success', data)
     },
-    onError () {
+    onError() {
       this.loading_ = false
       this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.loading_ = false
       this.$emit('validate-error')
     },
-    onOpen () {
+    onOpen() {
+	  if (this.clearValidateOnOpen) {
+        this.$nextTick(() => {
+          this.$refs.form.clearValidate()
+        })
+      }
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
       this.$emit('opened')
     },
-    onClose () {
+    onClose() {
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   }

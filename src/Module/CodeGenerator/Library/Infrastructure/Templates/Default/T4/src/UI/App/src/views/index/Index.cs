@@ -83,16 +83,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             
             #line default
             #line hidden
-            this.Write("-button type=\"success\" :text=\"buttons.add.text\" :icon=\"buttons.add.icon\" @click=\"" +
-                    "add\" v-");
-            
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write("-has=\"buttons.add\"/>\r\n      </template>\r\n\r\n      <!--自定义列-->\r\n      <!-- <templat" +
-                    "e v-slot:col-name=\"{row}\">\r\n        <");
+            this.Write("-button-has :options=\"buttons.add\" @click=\"add\" />\r\n      </template>\r\n\r\n      <!" +
+                    "--自定义列-->\r\n      <!-- <template v-slot:col-name=\"{row}\">\r\n        <");
             
             #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -107,29 +99,15 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             
             #line default
             #line hidden
-            this.Write("-button :text=\"buttons.edit.text\" :icon=\"buttons.edit.icon\" type=\"text\" @click=\"e" +
-                    "dit(row)\" v-");
-            
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write("-has=\"buttons.edit\"/>\r\n        <");
+            this.Write("-button-has :options=\"buttons.edit\" @click=\"edit(row)\" />\r\n        <");
             
             #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write("-button-delete :id=\"row.id\" :action=\"removeAction\" @success=\"refresh\" v-");
-            
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write("-has=\"buttons.del\"/>\r\n      </template>\r\n    </");
+            this.Write("-button-delete :options=\"buttons.del\" :id=\"row.id\" :action=\"removeAction\" @succes" +
+                    "s=\"refresh\"/>\r\n      </template>\r\n    </");
             
             #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));

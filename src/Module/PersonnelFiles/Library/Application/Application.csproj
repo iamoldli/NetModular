@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Library\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\Admin\Library\Application\Application.csproj" />
+    <ProjectReference Include="..\..\..\Admin\Library\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

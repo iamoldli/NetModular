@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -11,6 +12,7 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
+using Nm.Module.CodeGenerator.Domain.ClassMethod;
 using Nm.Module.CodeGenerator.Domain.Enum;
 using Nm.Module.CodeGenerator.Domain.EnumItem;
 using Nm.Module.CodeGenerator.Domain.ModelProperty;
@@ -34,7 +36,9 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         private readonly IEnumRepository _enumRepository;
         private readonly IEnumItemRepository _enumItemRepository;
         private readonly IModelPropertyRepository _modelPropertyRepository;
-        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions)
+        private readonly IClassMethodRepository _classMethodRepository;
+
+        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository)
         {
             _repository = repository;
             _mapper = mapper;
@@ -43,6 +47,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             _enumRepository = enumRepository;
             _enumItemRepository = enumItemRepository;
             _modelPropertyRepository = modelPropertyRepository;
+            _classMethodRepository = classMethodRepository;
             _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
             _commonOptions = optionsMonitor.CurrentValue;
         }
@@ -66,8 +71,33 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            var result = await _repository.SoftDeleteAsync(id);
-            return ResultModel.Result(result);
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            using (var tran = _repository.BeginTransaction())
+            {
+                var result = await _repository.SoftDeleteAsync(id, tran);
+                if (result)
+                {
+                    result = await _classRepository.DeleteByProject(id, tran);
+                    if (result)
+                    {
+                        result = await _propertyRepository.DeleteByProject(id, tran);
+                        if (result)
+                        {
+                            result = await _modelPropertyRepository.DeleteByProject(id, tran);
+                            if (result)
+                            {
+                                tran.Commit();
+                                return ResultModel.Success();
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Edit(Guid id)
@@ -93,12 +123,21 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(ProjectBuildCodeModel model)
+        public Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(ProjectBuildCodeModel model)
+        {
+            return BuildCode(model.Id);
+        }
+
+        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid projectId, IList<ClassEntity> classList = null)
         {
             var result = new ResultModel<ProjectBuildCodeResultModel>();
-            var project = await _repository.GetAsync(model.Id);
+
+            var project = await _repository.GetAsync(projectId);
             if (project == null)
                 return result.Failed("项目不存在");
+
+            //创建项目生成对象
+            var projectBuildModel = _mapper.Map<ProjectBuildModel>(project);
 
             var id = Guid.NewGuid().ToString();
             var rootPath = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath);
@@ -107,11 +146,11 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                 RootPath = Path.Combine(rootPath, id),
             };
 
-            //创建项目生成对象
-            var projectBuildModel = _mapper.Map<ProjectBuildModel>(project);
+            if (classList == null)
+            {
+                classList = await _classRepository.QueryAllByProject(project.Id);
+            }
 
-            //查询类生成列表
-            var classList = await _classRepository.QueryAllByProject(model.Id);
             foreach (var classEntity in classList)
             {
                 var classBuildModel = _mapper.Map<ClassBuildModel>(classEntity);
@@ -146,7 +185,6 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                     }
                 }
 
-
                 var modelPropertyList = await _modelPropertyRepository.QueryByClass(classEntity.Id);
 
                 if (modelPropertyList.Any())
@@ -177,6 +215,8 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                     }
                 }
 
+                classBuildModel.Method = await _classMethodRepository.GetByClass(classEntity.Id);
+
                 projectBuildModel.ClassList.Add(classBuildModel);
             }
 
@@ -192,6 +232,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
                 Id = id,
                 Name = projectBuildModel.Name + ".zip"
             };
+
             return result.Success(resultModel);
         }
     }

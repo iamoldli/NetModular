@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Abstractions.Attributes;
-using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Auth.Web.Attributes;
+using Nm.Lib.Module.AspNetCore.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
@@ -74,27 +74,6 @@ namespace Nm.Module.Admin.Web.Controllers
         public async Task<IResultModel> Update(MenuUpdateModel model)
         {
             return await _service.Update(model);
-        }
-
-        [HttpGet]
-        [Description("获取菜单的权限列表")]
-        public Task<IResultModel> PermissionList([BindRequired]Guid id)
-        {
-            return _service.PermissionList(id);
-        }
-
-        [HttpPost]
-        [Description("绑定权限")]
-        public async Task<IResultModel> BindPermission(MenuBindPermissionModel model)
-        {
-            return await _service.BindPermission(model);
-        }
-
-        [HttpGet]
-        [Description("获取菜单的按钮列表")]
-        public Task<IResultModel> ButtonList([BindRequired]Guid id)
-        {
-            return _service.ButtonList(id);
         }
 
         [HttpGet]

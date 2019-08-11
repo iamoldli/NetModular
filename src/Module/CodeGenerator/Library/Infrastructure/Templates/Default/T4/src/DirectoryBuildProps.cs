@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -48,7 +46,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <!--设置打包路径-->
-    <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
+    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
     <!--取消生成目录附加目标框架目录-->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Company></Company>
@@ -63,8 +61,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
             this.Write(@".Module.$(Id)</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <PackageProjectUrl>http://10.32.2.101/Net_Module/$(Id)</PackageProjectUrl>
-    <RepositoryUrl>http://10.32.2.101/Net_Module/$(Id)</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/iamoldli/NetModular</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
   </PropertyGroup>
 </Project>
 ");

@@ -6,6 +6,7 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
 {
     public interface INetSqlQueryable
     {
+
         #region ==ToList==
 
         /// <summary>
@@ -135,6 +136,13 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <returns></returns>
         string ToSql();
+
+        /// <summary>
+        /// 获取Sql语句并返回参数
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        string ToSql(out IQueryParameters parameters);
 
         #endregion
     }

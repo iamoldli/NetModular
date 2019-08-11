@@ -91,6 +91,14 @@ export default [
     def: '100px'
   },
   {
+    name: 'label-position',
+    desc:
+      '表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width',
+    type: 'String',
+    opt: 'right/left/top',
+    def: 'right'
+  },
+  {
     name: 'validate',
     desc: '自定义验证，在表单验证通过之后，表单提交之前调用',
     type: 'Function',
@@ -159,5 +167,12 @@ export default [
     type: 'Boolean',
     opt: '-',
     def: 'false'
+  },
+  {
+    name: 'clearValidateOnOpen',
+    desc: '打开时是否清除验证信息',
+    type: 'Boolean',
+    opt: '-',
+    def: 'true'
   }
 ]

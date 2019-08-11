@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Domain.Menu;
 
 namespace Nm.Module.Admin.Application.MenuService.ResultModels
 {
-    public class MenuTreeResultModel
+    public class MenuTreeResultModel : TreeResultModel<MenuTreeResultModel>
     {
         /// <summary>
         /// 编号
@@ -65,10 +65,5 @@ namespace Nm.Module.Admin.Application.MenuService.ResultModels
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
-
-        /// <summary>
-        /// 子节点
-        /// </summary>
-        public List<MenuTreeResultModel> Children = new List<MenuTreeResultModel>();
     }
 }

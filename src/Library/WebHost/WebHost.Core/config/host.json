@@ -1,6 +1,0 @@
-﻿{
-  //地址
-  "Urls": "http://*:5000",
-  //开启Swagger
-  "Swagger": false
-}

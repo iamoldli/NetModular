@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -27,42 +25,42 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
         {
             this.Write("using ");
             
-            #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 2 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Data.Abstractions;\r\nusing ");
             
-            #line 2 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Data.Core;\r\n\r\nnamespace ");
             
-            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Infrastructure.Repositories\r\n{\r\n    public class ");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write("DbContext : DbContext\r\n    {\r\n        public ");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
+            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default

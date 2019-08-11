@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -38,6 +39,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.WhereDelegateType = typeof(Func<,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3),
                 typeof(TEntity4), typeof(TEntity5), typeof(bool));
         }
+
+        #region ==UseTran==
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> UseTran(IDbTransaction transaction)
+        {
+            QueryBody.UseTran(transaction);
+            return this;
+        }
+
+        #endregion
 
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> OrderBy(string colName)
         {
@@ -79,10 +90,17 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool ifCondition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> expression)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> expression)
         {
-            if (ifCondition)
+            if (condition)
                 Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression)
+        {
+            Where(condition ? ifExpression : elseExpression);
 
             return this;
         }
@@ -142,7 +160,6 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             return new GroupByQueryable5<TResult, TEntity, TEntity2, TEntity3, TEntity4, TEntity5>(Db, QueryBody, QueryBuilder, expression);
         }
-
 
         public new IList<TEntity> ToList()
         {

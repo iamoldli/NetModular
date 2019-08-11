@@ -43,6 +43,10 @@
                         color: $text-color1;
                         transform: scale(1.2);
                     }
+
+                    #{$prefix}-icon {
+                        transform: scale(1) !important;
+                    }
                 }
             }
         }
@@ -102,12 +106,17 @@
 
     }
 
-    // 拖拽模式
     &.draggable {
-        >.el-dialog {
-            margin: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
+        bottom: auto !important;
+        right: auto !important;
+
+        #{$prefix}-dialog-title {
+            cursor: move;
+            user-select: none;
+        }
+
+        .el-dialog {
+            position: fixed;
         }
     }
 
@@ -121,9 +130,4 @@
             }
         }
     }
-}
-
-#{$prefix}-dialog-resizable-handle {
-    position: absolute;
-    z-index: 90;
 }

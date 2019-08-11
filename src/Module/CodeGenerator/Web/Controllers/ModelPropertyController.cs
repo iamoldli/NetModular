@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ModelPropertyService;
@@ -12,6 +13,7 @@ using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
 namespace Nm.Module.CodeGenerator.Web.Controllers
 {
     [Description("模型属性管理")]
+    [Common]
     public class ModelPropertyController : ModuleController
     {
         private readonly IModelPropertyService _service;

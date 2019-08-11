@@ -61,7 +61,7 @@ export default {
         })
       } else if (target === 3 || target === 4) {
         // 当前皮肤下，容器内和内容区一样
-        this.$router.push({ name: 'Iframe', params: { url: encodeURI(menu.url), tn_: menu.name } })
+        this.$router.push({ name: 'iframe', params: { url: encodeURI(menu.url), tn_: menu.name } })
       }
     },
     getIndex (index) {

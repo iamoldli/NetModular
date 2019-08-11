@@ -1,9 +1,9 @@
 <template>
-  <nm-box class="nm-form-page" v-bind="box">
+  <nm-box ref="page" class="nm-form-page" v-bind="box">
     <section class="nm-form-page-body">
       <nm-scrollbar :horizontal="false">
         <nm-form class="nm-form-page-main" ref="form" v-bind="form" v-on="formOn">
-          <slot/>
+          <slot />
         </nm-form>
       </nm-scrollbar>
     </section>
@@ -11,7 +11,7 @@
     <!--底部-->
     <template v-slot:footer class="nm-form-page-footer">
       <div class="nm-form-page-footer-left">
-        <slot name="footer-left"/>
+        <slot name="footer-left" />
       </div>
       <div class="nm-form-page-footer-right">
         <slot name="fotter">
@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'FormPage',
-  data () {
+  data() {
     return {
       loading: false,
       formOn: {
@@ -64,6 +64,8 @@ export default {
     validate: Function,
     /** 标签的宽度 */
     labelWidth: String,
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: String,
     /** 是否显示成功提示消息 */
     successMsg: {
       type: Boolean,
@@ -103,72 +105,66 @@ export default {
     disabled: Boolean
   },
   computed: {
-    box () {
+    box() {
       return {
         page: true,
         title: this.title,
         icon: this.icon,
         header: this.header,
         footer: true,
-        toolbar: this.toolbar,
+        fullscreen: this.fullscreen,
         loading: this.loading
       }
     },
-    form () {
+    form() {
       return {
         noLoading: true,
         model: this.model,
         rules: this.rules,
         action: this.action,
         labelWidth: this.labelWidth,
+        labelPosition: this.labelPosition,
         validate: this.validate,
         successMsg: this.successMsg,
         successMsgText: this.successMsgText,
         disabled: this.disabled
       }
-    },
-    toolbar () {
-      let toolbar = []
-      if (this.fullscreen === true) {
-        toolbar.push('fullscreen')
-      }
-      return toolbar
     }
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.loading = true
       this.$refs.form.submit()
     },
     /** 重置 */
-    reset () {
+    reset() {
       this.$refs.form.reset()
     },
     /** 清除验证信息 */
-    clearValidate () {
+    clearValidate() {
       this.$refs.form.clearValidate()
     },
     /** 打开loading */
-    openLoading () {
+    openLoading() {
       this.loading = true
       this.$refs.form.openLoading()
     },
     /** 关闭loading */
-    closeLoading () {
+    closeLoading() {
       this.loading = false
       this.$refs.form.closeLoading()
     },
     // 成功
-    onSuccess (data) {
+    onSuccess(data) {
       this.loading = false
       this.$emit('success', data)
     },
-    onError () {
+    onError() {
       this.loading = false
       this.$emit('error')
     },
-    onValidateError () {
+    onValidateError() {
       this.loading = false
       this.$emit('validate-error')
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -33,6 +34,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
             QueryBody.WhereDelegateType = typeof(Func<,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(bool));
         }
+
+        #region ==UseTran==
+
+        public INetSqlQueryable<TEntity, TEntity2> UseTran(IDbTransaction transaction)
+        {
+            QueryBody.UseTran(transaction);
+            return this;
+        }
+
+        #endregion
 
         public INetSqlQueryable<TEntity, TEntity2> OrderBy(string colName)
         {
@@ -74,10 +85,17 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity, TEntity2> WhereIf(bool ifCondition, Expression<Func<TEntity, TEntity2, bool>> expression)
+        public INetSqlQueryable<TEntity, TEntity2> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, bool>> expression)
         {
-            if (ifCondition)
+            if (condition)
                 Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, bool>> ifExpression, Expression<Func<TEntity, TEntity2, bool>> elseExpression)
+        {
+            Where(condition ? ifExpression : elseExpression);
 
             return this;
         }

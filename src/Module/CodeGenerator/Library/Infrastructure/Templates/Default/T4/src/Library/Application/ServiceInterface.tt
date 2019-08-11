@@ -12,6 +12,7 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
     /// </summary>
     public interface I<#= _class.Name #>Service
     {
+<# if(_class.Method.Query) {#>
         /// <summary>
         /// 查询
         /// </summary>
@@ -19,6 +20,8 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
         /// <returns></returns>
         Task<IResultModel> Query(<#= _class.Name #>QueryModel model);
 
+<#} #>
+<# if(_class.Method.Add) {#>
         /// <summary>
         /// 创建
         /// </summary>
@@ -26,6 +29,8 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
         /// <returns></returns>
         Task<IResultModel> Add(<#= _class.Name #>AddModel model);
 
+<#} #>
+<# if(_class.Method.Delete) {#>
         /// <summary>
         /// 删除
         /// </summary>
@@ -33,6 +38,8 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
         /// <returns></returns>
         Task<IResultModel> Delete(<#= _class.PrimaryKeyTypeName #> id);
 
+<#} #>
+<# if(_class.Method.Edit) {#>
         /// <summary>
         /// 编辑
         /// </summary>
@@ -46,5 +53,7 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Application.<#= _clas
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IResultModel> Update(<#= _class.Name #>UpdateModel model);
+
+<#} #>
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Lib.Utils.Mvc.Helpers;
 using Nm.Module.Admin.Application.PermissionService;
@@ -35,13 +33,6 @@ namespace Nm.Module.Admin.Web.Controllers
         public Task<IResultModel> Sync()
         {
             return _service.Sync(_permissionHelper.GetAllPermission());
-        }
-
-        [HttpDelete]
-        [Description("删除")]
-        public Task<IResultModel> Delete([BindRequired]Guid id)
-        {
-            return _service.Delete(id);
         }
     }
 }

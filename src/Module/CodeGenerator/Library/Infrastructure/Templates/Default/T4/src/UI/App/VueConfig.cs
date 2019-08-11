@@ -33,16 +33,22 @@ const isDev = process.env.NODE_ENV === 'development' // 开发环境
 // 增加环境变量
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
 // 打包输出路径
-const outputDir = '../../WebHost/wwwroot'
+const outputDir = '../../WebHost/wwwroot/app'
 
 module.exports = {
   outputDir: outputDir,
+  publicPath: '/app',
   devServer: {
-    port: 5220
-  },
-  transpileDependencies: ['");
+    port: ");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.No + 5220));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n  },\r\n  transpileDependencies: [\'");
+            
+            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -50,7 +56,7 @@ module.exports = {
             this.Write("-.*\', \'element-ui\'],\r\n  configureWebpack: {\r\n    plugins: [\r\n      /**\r\n       * " +
                     "复制");
             
-            #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -58,7 +64,7 @@ module.exports = {
             this.Write("-lib-skins/public目录下的文件到输出目录\r\n       */\r\n      new CopyWebpackPlugin([\r\n        {" +
                     "\r\n          from: path.join(__dirname, \'node_modules/");
             
-            #line 25 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -82,7 +88,7 @@ module.exports = {
     /**
      * 设置index.html模板路径，使用");
             
-            #line 42 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 43 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -90,7 +96,7 @@ module.exports = {
             this.Write("-lib-skins/public中的模板\r\n     */\r\n    config.plugin(\'html\').tap(args => {\r\n      ar" +
                     "gs[0].template = \'./node_modules/");
             
-            #line 45 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 46 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -137,7 +143,7 @@ module.exports = {
               priority: 10,
               test: /[\\/]node_modules[\\/]");
             
-            #line 85 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 86 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

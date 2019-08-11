@@ -21,13 +21,16 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web.Controllers
             _service = service;
         }
 
+<# if(_class.Method.Query) {#>
         [HttpGet]
         [Description("查询")]
-        public Task<IResultModel> Query([FromQuery] <#= _class.Name #>QueryModel model)
+        public Task<IResultModel> Query([FromQuery]<#= _class.Name #>QueryModel model)
         {
             return _service.Query(model);
         }
 
+<#} #>
+<# if(_class.Method.Add) {#>
         [HttpPost]
         [Description("添加")]
         public Task<IResultModel> Add(<#= _class.Name #>AddModel model)
@@ -35,18 +38,22 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web.Controllers
             return _service.Add(model);
         }
 
+<#} #>
+<# if(_class.Method.Delete) {#>
         [HttpDelete]
         [Description("删除")]
-        public async Task<IResultModel> Delete([BindRequired] <#= _class.PrimaryKeyTypeName #> id)
+        public Task<IResultModel> Delete([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
         {
-            return await _service.Delete(id);
+            return _service.Delete(id);
         }
 
+<#} #>
+<# if(_class.Method.Edit) {#>
         [HttpGet]
         [Description("编辑")]
-        public async Task<IResultModel> Edit([BindRequired] <#= _class.PrimaryKeyTypeName #> id)
+        public Task<IResultModel> Edit([BindRequired]<#= _class.PrimaryKeyTypeName #> id)
         {
-            return await _service.Edit(id);
+            return _service.Edit(id);
         }
 
         [HttpPost]
@@ -55,6 +62,6 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web.Controllers
         {
             return _service.Update(model);
         }
-
+<#} #>
     }
 }

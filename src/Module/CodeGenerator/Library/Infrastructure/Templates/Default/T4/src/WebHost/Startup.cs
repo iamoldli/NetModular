@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -32,7 +30,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             
             #line default
             #line hidden
-            this.Write(".Lib.WebHost.Core;\r\n\r\nnamespace ");
+            this.Write(".Lib.Host.Web;\r\n\r\nnamespace ");
             
             #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Startup.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));

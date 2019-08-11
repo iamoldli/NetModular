@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.ModuleInfo.Models;
@@ -20,10 +21,10 @@ namespace Nm.Module.Admin.Domain.ModuleInfo
         /// <summary>
         /// 判断模块是否已存在
         /// </summary>
-        /// <param name="code">权限编码</param>
-        /// <param name="id">模块编号</param>
+        /// <param name="entity"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> Exists(string code, Guid? id = null);
+        Task<bool> Exists(ModuleInfoEntity entity, IDbTransaction transaction);
 
         /// <summary>
         /// 根据编码更新实体

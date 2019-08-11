@@ -2,27 +2,23 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.EnumItemService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.EnumItem;
 using Nm.Module.CodeGenerator.Domain.EnumItem.Models;
-using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.EnumItemService
 {
     public class EnumItemService : IEnumItemService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IEnumItemRepository _repository;
 
-        public EnumItemService(IMapper mapper, IEnumItemRepository repository, IUnitOfWork<CodeGeneratorDbContext> uow)
+        public EnumItemService(IMapper mapper, IEnumItemRepository repository)
         {
             _mapper = mapper;
             _repository = repository;
-            _uow = uow;
         }
 
         public async Task<IResultModel> Query(EnumItemQueryModel model)
@@ -102,26 +98,28 @@ namespace Nm.Module.CodeGenerator.Application.EnumItemService
                 return ResultModel.Failed("不包含数据");
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var option in model.Options)
+            using (var tran = _repository.BeginTransaction())
             {
-                var entity = await _repository.GetAsync(option.Id);
-                if (entity == null)
+                foreach (var option in model.Options)
                 {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
+                    var entity = await _repository.GetAsync(option.Id, tran);
+                    if (entity == null)
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
+
+                    entity.Value = option.Sort;
+                    if (!await _repository.UpdateAsync(entity, tran))
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
                 }
 
-                entity.Value = option.Sort;
-                if (!await _repository.UpdateAsync(entity))
-                {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
-                }
+                tran.Commit();
             }
 
-            _uow.Commit();
             return ResultModel.Success();
         }
     }

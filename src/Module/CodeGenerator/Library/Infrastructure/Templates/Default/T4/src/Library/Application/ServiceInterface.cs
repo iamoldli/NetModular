@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -109,38 +107,84 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write("Service\r\n    {\r\n        /// <summary>\r\n        /// 查询\r\n        /// </summary>\r\n  " +
-                    "      /// <param name=\"model\"></param>\r\n        /// <returns></returns>\r\n       " +
-                    " Task<IResultModel> Query(");
+            this.Write("Service\r\n    {\r\n");
             
-            #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+ if(_class.Method.Query) {
+            
+            #line default
+            #line hidden
+            this.Write("        /// <summary>\r\n        /// 查询\r\n        /// </summary>\r\n        /// <param" +
+                    " name=\"model\"></param>\r\n        /// <returns></returns>\r\n        Task<IResultMod" +
+                    "el> Query(");
+            
+            #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
-            this.Write("QueryModel model);\r\n\r\n        /// <summary>\r\n        /// 创建\r\n        /// </summar" +
-                    "y>\r\n        /// <param name=\"model\"></param>\r\n        /// <returns></returns>\r\n " +
-                    "       Task<IResultModel> Add(");
+            this.Write("QueryModel model);\r\n\r\n");
             
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+} 
+            
+            #line default
+            #line hidden
+            
+            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+ if(_class.Method.Add) {
+            
+            #line default
+            #line hidden
+            this.Write("        /// <summary>\r\n        /// 创建\r\n        /// </summary>\r\n        /// <param" +
+                    " name=\"model\"></param>\r\n        /// <returns></returns>\r\n        Task<IResultMod" +
+                    "el> Add(");
+            
+            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
-            this.Write("AddModel model);\r\n\r\n        /// <summary>\r\n        /// 删除\r\n        /// </summary>" +
-                    "\r\n        /// <param name=\"id\">编号</param>\r\n        /// <returns></returns>\r\n    " +
-                    "    Task<IResultModel> Delete(");
+            this.Write("AddModel model);\r\n\r\n");
             
-            #line 34 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+            #line 32 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+} 
+            
+            #line default
+            #line hidden
+            
+            #line 33 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+ if(_class.Method.Delete) {
+            
+            #line default
+            #line hidden
+            this.Write("        /// <summary>\r\n        /// 删除\r\n        /// </summary>\r\n        /// <param" +
+                    " name=\"id\">编号</param>\r\n        /// <returns></returns>\r\n        Task<IResultMode" +
+                    "l> Delete(");
+            
+            #line 39 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
             #line hidden
-            this.Write(" id);\r\n\r\n        /// <summary>\r\n        /// 编辑\r\n        /// </summary>\r\n        /" +
-                    "// <param name=\"id\"></param>\r\n        /// <returns></returns>\r\n        Task<IRes" +
-                    "ultModel> Edit(");
+            this.Write(" id);\r\n\r\n");
             
             #line 41 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+} 
+            
+            #line default
+            #line hidden
+            
+            #line 42 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+ if(_class.Method.Edit) {
+            
+            #line default
+            #line hidden
+            this.Write("        /// <summary>\r\n        /// 编辑\r\n        /// </summary>\r\n        /// <param" +
+                    " name=\"id\"></param>\r\n        /// <returns></returns>\r\n        Task<IResultModel>" +
+                    " Edit(");
+            
+            #line 48 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
@@ -149,12 +193,19 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
                     "// <param name=\"model\"></param>\r\n        /// <returns></returns>\r\n        Task<I" +
                     "ResultModel> Update(");
             
-            #line 48 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+            #line 55 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
-            this.Write("UpdateModel model);\r\n    }\r\n}\r\n");
+            this.Write("UpdateModel model);\r\n\r\n");
+            
+            #line 57 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Application\ServiceInterface.tt"
+} 
+            
+            #line default
+            #line hidden
+            this.Write("    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

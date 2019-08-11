@@ -1,29 +1,35 @@
 <template>
-  <section :class="class_" v-loading="showLoading" :element-loading-text="loadingText" :element-loading-background="loadingBackground" :element-loading-spinner="loadingSpinner">
+  <section
+    :class="class_"
+    v-loading="showLoading"
+    :element-loading-text="loadingText||loadingText_"
+    :element-loading-background="loadingBackground"
+    :element-loading-spinner="loadingSpinner"
+  >
     <!--header-->
     <query-header v-if="!noHeader" :title="title" :icon="icon" :no-fullscreen="noFullscreen" :fullscreen.sync="fullscreen" :no-refresh="noRefresh">
       <template v-slot:toolbar>
-        <slot name="header-toolbar" :total="total" :selection="selection"/>
+        <slot name="header-toolbar" :total="total" :selection="selection" />
       </template>
     </query-header>
 
     <!--查询栏-->
     <querybar ref="querybar" v-if="!noQuerybar" v-bind="querybar">
       <template v-slot>
-        <slot name="querybar"/>
+        <slot name="querybar" />
       </template>
       <template v-slot:buttons>
-        <slot name="querybar-buttons" :total="total" :selection="selection"/>
+        <slot name="querybar-buttons" :total="total" :selection="selection" />
       </template>
       <template v-slot:advanced>
-        <slot name="querybar-advanced"/>
+        <slot name="querybar-advanced" />
       </template>
     </querybar>
 
     <section class="nm-list-body">
       <query-table ref="table" :rows="rows" :cols="cols" :span-method="spanMethod" :selection.sync="selection">
         <!-- 多选 -->
-        <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55"/>
+        <el-table-column v-if="multiple" fixed="left" align="center" type="selection" width="55" />
 
         <!-- 序号 -->
         <el-table-column v-if="showNo" fixed="left" align="center" type="index" :index="getNo">
@@ -49,18 +55,18 @@
             :fixed="col.fixed"
             :align="col.align"
             :header-align="col.headerAlign"
-            :size="fontSize"
+            :show-overflow-tooltip="col.showOverflowTooltip"
           >
             <!--自定义头-->
             <template v-slot:header>
               <slot :name="`col-${col.name}-header`">
-                <nm-icon v-if="col.icon" :name="col.icon"/>
+                <nm-icon v-if="col.icon" :name="col.icon" />
                 {{col.label}}
               </slot>
             </template>
 
             <template slot-scope="{row}">
-              <slot :name="'col-'+col.name" :row="row">{{row[col.name]}}</slot>
+              <slot :name="'col-'+col.name" :row="row">{{col.format?$dayjs(row[col.name]).format(col.format):row[col.name]}}</slot>
             </template>
           </el-table-column>
         </template>
@@ -72,7 +78,7 @@
           </template>
           <template slot-scope="{row}">
             <div class="nm-list-operation">
-              <slot name="col-operation" :row="row"/>
+              <slot name="col-operation" :row="row" />
             </div>
           </template>
         </el-table-column>
@@ -81,9 +87,9 @@
 
     <!--footer-->
     <query-footer v-if="!noFooter" v-model="page" :total="total" :columns.sync="columns" :no-select-column="noSelectColumn" :reverse="footerReverse">
-      <slot name="footer" :total="total" :selection="selection"/>
+      <slot name="footer" :total="total" :selection="selection" />
     </query-footer>
-    <slot/>
+    <slot />
   </section>
 </template>
 <script>
@@ -110,12 +116,16 @@ const defaultColumnInfo = {
   // 表头对其方式
   headerAlign: 'center',
   // 是否显示
-  show: true
+  show: true,
+  // 格式化，暂时针对日期，采用dayjs组件 https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/API-reference.md
+  format: '',
+  // 当内容过长被隐藏时显示 tooltip
+  showOverflowTooltip: true
 }
 export default {
   name: 'List',
   components: { QueryHeader, Querybar, QueryTable, QueryFooter },
-  data () {
+  data() {
     return {
       loading_: false,
       fullscreen: false,
@@ -130,9 +140,7 @@ export default {
       // 总数量
       total: 0,
       selection: [],
-      columns: this.cols.map(col => {
-        return Object.assign({}, defaultColumnInfo, col)
-      })
+      columns: this.getColumns()
     }
   },
   props: {
@@ -154,7 +162,12 @@ export default {
     /** 高级查询 */
     advanced: Object,
     // 列数组
-    cols: Array,
+    cols: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     /** 多选 */
     multiple: Boolean,
     /** 显示序号 */
@@ -188,6 +201,8 @@ export default {
     spanMethod: Function,
     /** 加载中动画 */
     loading: Boolean,
+    /** 加载中文本 */
+    loadingText: String,
     /** 创建后执行一次查询 */
     queryOnCreated: {
       type: Boolean,
@@ -195,13 +210,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    class_ () {
+    ...mapState('app/loading', { loadingText_: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
+    class_() {
       return ['nm-list',
         this.fontSize ? `nm-list-${this.fontSize}` : '',
         this.fullscreen ? 'fullscreen' : '']
     },
-    querybar () {
+    querybar() {
       return {
         model: this.model,
         rules: this.rules,
@@ -211,13 +226,13 @@ export default {
         noSearchButtonIcon: this.noSearchButtonIcon
       }
     },
-    showLoading () {
+    showLoading() {
       return this.loading || this.loading_
     }
   },
   methods: {
     /** 查询方法 */
-    query () {
+    query() {
       if (this.loading_) { return }
 
       this.loading_ = true
@@ -229,19 +244,22 @@ export default {
       this.action(fullModel).then(data => {
         this.rows = data.rows
         this.total = data.total
+        // 回到顶部
         this.$refs.table.scrollTop()
+        // 重新绘制布局
+        this.$refs.table.doLayout()
         this.loading_ = false
       }).catch(() => {
         this.loading_ = false
       })
     },
     /** 刷新 */
-    refresh () {
+    refresh() {
       this.page.index = 1
       this.query()
     },
     /** 查询表单重置 */
-    reset (from) {
+    reset(from) {
       if (!from) {
         this.$refs.querybar.reset()
       } else {
@@ -250,14 +268,29 @@ export default {
       }
     },
     /** 获取序号 */
-    getNo (index) {
+    getNo(index) {
       return (this.page.index - 1) * this.page.size + index + 1
+    },
+    getColumns() {
+      if (this.cols) {
+        return this.cols.map(col => {
+          return Object.assign({}, defaultColumnInfo, col)
+        })
+      }
+      return []
+    },
+    /** 重新绘制布局 */
+    doLayout() {
+      this.$refs.table.doLayout()
     }
   },
-  created () {
+  created() {
     if (this.queryOnCreated) {
       this.query()
     }
+  },
+  activated() {
+    this.doLayout()
   }
 }
 </script>

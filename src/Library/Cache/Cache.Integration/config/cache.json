@@ -1,0 +1,6 @@
+﻿{
+  "Mode": "0",
+  "Redis": {
+    "ConnectionString": ""
+  }
+}

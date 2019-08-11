@@ -73,8 +73,8 @@ export default {
       let defaultPage = '/'
       // 自定义的默认页添加到默认页路径列表中
       if (sys.home) {
-        defaultPage = sys.home
-        defaultPageList.push(sys.home)
+        defaultPage = sys.home.toLowerCase()
+        defaultPageList.push(defaultPage)
       }
       // 设置默认页以及当前页为默认页
       commit('defaultSet', defaultPage)
@@ -86,6 +86,9 @@ export default {
     async open({ state, commit, dispatch, rootState }, route) {
       // 默认页直接返回
       if (defaultPageList.indexOf(route.path.toLowerCase()) > -1) {
+        // 判断是否缓存
+        if (isCache(route)) commit('keepAlivePush', route.name)
+
         commit('currentSet', {
           name: route.name,
           path: state.default,
@@ -102,12 +105,12 @@ export default {
 
       const page = {
         name: route.name,
-        path: route.path,
+        path: route.path.toLowerCase(),
         fullPath: route.fullPath,
         meta: route.meta,
         query: route.query,
         params: route.params,
-        tabName: route.params.tn_ || route.query.tn_
+        tabName: route.params.tn_ || route.query.tn_ || route.meta.title
       }
 
       // 内嵌链接

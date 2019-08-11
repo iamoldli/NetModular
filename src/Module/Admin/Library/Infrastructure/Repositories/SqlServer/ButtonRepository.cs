@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -23,7 +24,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
 
-            var query = Db.Find(m => m.MenuId == model.MenuId)
+            var query = Db.Find(m => m.MenuCode == model.MenuCode)
                 .WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
 
             var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
@@ -33,16 +34,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> Exists(string code, Guid? id = null)
+        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IDbTransaction transaction)
         {
-            var query = Db.Find(m => m.Code == code);
-            query.WhereIf(id != null, m => m.Id != id);
-            return query.ExistsAsync();
-        }
-
-        public Task<IList<ButtonEntity>> QueryByMenu(Guid menuId)
-        {
-            return Db.Find(m => m.MenuId == menuId).ToListAsync();
+            return Db.Find(m => m.MenuCode == menuCode).UseTran(transaction).ToListAsync();
         }
 
         public Task<IList<string>> QueryCodeByAccount(Guid accountId)
@@ -54,15 +48,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> DeleteByMenu(Guid menuId)
+        public Task<bool> ExistsByCode(string code)
         {
-            return Db.Find(m => m.MenuId == menuId).DeleteAsync();
-        }
-
-        public Task<bool> UpdateForSync(ButtonEntity button)
-        {
-            return Db.Find(m => m.MenuId == button.MenuId && m.Code == button.Code)
-                .UpdateAsync(m => new ButtonEntity { Icon = button.Icon, Name = button.Name });
+            return Db.Find(m => m.Code == code).ExistsAsync();
         }
     }
 }

@@ -26,8 +26,6 @@ export default {
     id: '',
     /** 用户名 */
     name: '',
-    /** 头像 */
-    avatar: '',
     /** 菜单列表 */
     menus: [],
     /** 权限列表 */
@@ -48,7 +46,15 @@ export default {
   },
   getters: {
     // 当前账户拥有菜单对应的路由列表
-    routes: state => {}
+    routes: state => {
+      let list = []
+      if (state.routeMenus) {
+        state.routeMenus.forEach((value, key) => {
+          list.push(key)
+        })
+      }
+      return list
+    }
   },
   actions: {
     /**
@@ -93,6 +99,15 @@ export default {
     initRouteMenus({ commit }, account) {
       account.menus.map(m => resolveRouteMenus(m))
       commit('initRouteMenus', routeMenus)
+    },
+    /** 是否拥有指定按钮权限 */
+    hasButton({ state }, button) {
+      if (!button || !button.code) return false
+
+      const b = !state.buttons.every(
+        c => c.toLowerCase() !== button.code.toLowerCase()
+      )
+      return b
     }
   },
   mutations: {

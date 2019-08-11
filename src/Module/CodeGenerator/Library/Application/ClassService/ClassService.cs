@@ -1,32 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Nm.Module.CodeGenerator.Application.ProjectService;
+using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
+using Nm.Module.CodeGenerator.Domain.ClassMethod;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Infrastructure;
-using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.ClassService
 {
     public class ClassService : IClassService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IClassRepository _repository;
         private readonly IPropertyRepository _propertyRepository;
         private readonly BaseEntityPropertyCollection _baseEntityPropertyCollection;
+        private readonly IClassMethodRepository _classMethodRepository;
 
-        public ClassService(IMapper mapper, IClassRepository repository, IUnitOfWork<CodeGeneratorDbContext> uow, BaseEntityPropertyCollection baseEntityPropertyCollection, IPropertyRepository propertyRepository)
+        private readonly IProjectService _projectService;
+
+        public ClassService(IMapper mapper, IClassRepository repository, BaseEntityPropertyCollection baseEntityPropertyCollection, IPropertyRepository propertyRepository, IClassMethodRepository classMethodRepository, IProjectService projectService)
         {
             _mapper = mapper;
             _repository = repository;
-            _uow = uow;
             _baseEntityPropertyCollection = baseEntityPropertyCollection;
             _propertyRepository = propertyRepository;
+            _classMethodRepository = classMethodRepository;
+            _projectService = projectService;
         }
 
         public async Task<IResultModel> Query(ClassQueryModel model)
@@ -47,33 +52,45 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
                 return ResultModel.Failed($"类名称({entity.Name})已存在");
             }
 
-            _uow.BeginTransaction();
-            if (await _repository.AddAsync(entity))
+            using (var tran = _repository.BeginTransaction())
             {
-                if (entity.BaseEntityType != BaseEntityType.Normal)
+                if (await _repository.AddAsync(entity, tran))
                 {
-                    var propertyEntities = _baseEntityPropertyCollection.Get(entity.BaseEntityType);
-                    propertyEntities.ForEach(m => m.ClassId = entity.Id);
-                    if (await _propertyRepository.AddAsync(propertyEntities))
+                    if (entity.BaseEntityType != BaseEntityType.Normal)
                     {
-                        _uow.Commit();
-                        return ResultModel.Success();
+                        var propertyEntities = _baseEntityPropertyCollection.Get(entity.BaseEntityType);
+                        propertyEntities.ForEach(m => m.ClassId = entity.Id);
+                        //添加基类实体的属性
+                        if (await _propertyRepository.AddAsync(propertyEntities, tran))
+                        {
+                            var methodEntity = _mapper.Map<ClassMethodEntity>(model.Method);
+                            methodEntity.ClassId = entity.Id;
+                            //添加方法
+                            if (await _classMethodRepository.AddAsync(methodEntity, tran))
+                            {
+                                tran.Commit();
+                                return ResultModel.Success();
+                            }
+                        }
                     }
                 }
             }
-            _uow.Rollback();
+
             return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            _uow.BeginTransaction();
-            if (await _repository.DeleteAsync(id) && await _propertyRepository.DeleteByClass(id))
+            using (var tran = _repository.BeginTransaction())
             {
-                _uow.Commit();
-                return ResultModel.Success();
+                if (await _repository.DeleteAsync(id, tran) && await _propertyRepository.DeleteByClass(id, tran) &&
+                    await _classMethodRepository.DeleteByClass(id, tran))
+                {
+                    tran.Commit();
+                    return ResultModel.Success();
+                }
             }
-            _uow.Rollback();
+
             return ResultModel.Failed();
         }
 
@@ -84,6 +101,10 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
                 return ResultModel.NotExists;
 
             var model = _mapper.Map<ClassUpdateModel>(entity);
+
+            var methodEntity = await _classMethodRepository.GetByClass(id);
+            model.Method = _mapper.Map<ClassMethodModel>(methodEntity) ?? new ClassMethodModel();
+
             return ResultModel.Success(model);
         }
 
@@ -100,9 +121,46 @@ namespace Nm.Module.CodeGenerator.Application.ClassService
                 return ResultModel.Failed($"类名称({entity.Name})已存在");
             }
 
-            var result = await _repository.UpdateAsync(entity);
+            using (var tran = _repository.BeginTransaction())
+            {
+                if (await _repository.UpdateAsync(entity, tran))
+                {
+                    var methodEntity = await _classMethodRepository.GetByClass(model.Id, tran);
+                    if (methodEntity != null)
+                    {
+                        _mapper.Map(model.Method, methodEntity);
+                        //更新方法
+                        if (await _classMethodRepository.UpdateAsync(methodEntity, tran))
+                        {
+                            tran.Commit();
+                            return ResultModel.Success();
+                        }
+                    }
+                    else
+                    {
+                        methodEntity = _mapper.Map<ClassMethodEntity>(model.Method);
+                        methodEntity.ClassId = entity.Id;
+                        //添加方法
+                        if (await _classMethodRepository.AddAsync(methodEntity, tran))
+                        {
+                            tran.Commit();
+                            return ResultModel.Success();
+                        }
+                    }
+                }
+            }
 
-            return ResultModel.Result(result);
+            return ResultModel.Failed();
+        }
+
+        public async Task<IResultModel<ProjectBuildCodeResultModel>> BuildCode(Guid id)
+        {
+            var result = new ResultModel<ProjectBuildCodeResultModel>();
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return result.Failed("对象不存在");
+
+            return await _projectService.BuildCode(entity.ProjectId, new List<ClassEntity> { entity });
         }
     }
 }

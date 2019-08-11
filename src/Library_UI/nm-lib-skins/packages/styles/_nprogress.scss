@@ -1,0 +1,10 @@
+#nprogress {
+    .bar {
+        background: $color-warning !important;
+    }
+
+    .peg {
+        box-shadow: 0 0 10px $color-warning,
+            0 0 5px $color-warning !important;
+    }
+}

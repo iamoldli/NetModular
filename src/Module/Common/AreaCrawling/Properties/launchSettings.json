@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AreaCrawling": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "environment": "Development"
+      }
+    }
+  }
+}

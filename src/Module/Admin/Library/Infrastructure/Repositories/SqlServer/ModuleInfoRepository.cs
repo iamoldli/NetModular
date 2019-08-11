@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -35,10 +36,11 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> Exists(string code, Guid? id = null)
+        public Task<bool> Exists(ModuleInfoEntity entity,IDbTransaction transaction)
         {
-            var query = Db.Find(m => m.Code == code);
-            query.WhereIf(id != null, m => m.Id != id);
+            var query = Db.Find(m => m.Code == entity.Code);
+            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
+            query.UseTran(transaction);
             return query.ExistsAsync();
         }
 

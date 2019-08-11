@@ -26,9 +26,9 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         public string Home { get; set; }
 
         /// <summary>
-        /// 首页标签名称
+        /// 个人信息页
         /// </summary>
-        public string HomeTagName { get; set; }
+        public string UserInfoPage { get; set; }
 
         /// <summary>
         /// 启用按钮权限
@@ -46,9 +46,19 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         public bool LoginVerifyCode { get; set; }
 
         /// <summary>
+        /// 开启权限验证
+        /// </summary>
+        public bool PermissionValidate { get; set; }
+
+        /// <summary>
         /// 工具栏
         /// </summary>
         public SystemToolbar Toolbar { get; set; } = new SystemToolbar();
+
+        /// <summary>
+        /// 自定义Css样式
+        /// </summary>
+        public string CustomCss { get; set; }
     }
 
     /// <summary>
@@ -98,9 +108,19 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         public const string Home = "sys_home";
 
         /// <summary>
+        /// 个人信息页
+        /// </summary>
+        public const string UserInfoPage = "sys_userinfo_page";
+
+        /// <summary>
         /// 是否启用按钮权限
         /// </summary>
         public const string ButtonPermission = "sys_button_permission";
+
+        /// <summary>
+        /// 是否启用权限验证
+        /// </summary>
+        public const string PermissionValidate = "sys_permission_validate";
 
         /// <summary>
         /// 是否启用审计功能
@@ -131,5 +151,10 @@ namespace Nm.Module.Admin.Application.SystemService.ViewModels
         /// 工具栏：用户信息
         /// </summary>
         public const string ToolbarUserInfo = "sys_toolbar_userinfo";
+
+        /// <summary>
+        /// 自定义css样式
+        /// </summary>
+        public const string CustomCss = "sys_toolbar_customcss";
     }
 }

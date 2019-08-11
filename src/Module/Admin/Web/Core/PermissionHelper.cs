@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Attributes;
+using Nm.Lib.Utils.Core.Enums;
 using Nm.Lib.Utils.Mvc.Helpers;
 using Nm.Module.Admin.Domain.Permission;
 
@@ -42,15 +43,16 @@ namespace Nm.Module.Admin.Web.Core
                     Name = action.Controller.Description ?? action.Controller.Name
                 };
 
-                var httpMethodAttr =
-                    action.MethodInfo.CustomAttributes.FirstOrDefault(m => m.AttributeType.Name.StartsWith("Http"));
+                var httpMethodAttr = action.MethodInfo.CustomAttributes.FirstOrDefault(m => m.AttributeType.Name.StartsWith("Http"));
 
                 if (httpMethodAttr != null)
                 {
                     var httpMethodName = httpMethodAttr.AttributeType.Name.Replace("Http", "").Replace("Attribute", "").ToUpper();
 
-                    p.HttpMethod = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), httpMethodName);
+                    p.HttpMethod = (HttpMethod)Enum.Parse(typeof(HttpMethod), httpMethodName);
                     p.Name += "_" + (action.Description ?? action.Name);
+                    p.Code = $"{p.ModuleCode}_{p.Controller}_{p.Action}_{httpMethodName}".ToLower();
+
                     list.Add(p);
                 }
             }

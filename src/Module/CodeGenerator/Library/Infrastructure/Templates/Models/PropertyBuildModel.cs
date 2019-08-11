@@ -69,6 +69,11 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         public bool HasDefaultValue { get; set; }
 
         /// <summary>
+        /// 排序
+        /// </summary>
+        public int Sort { get; set; }
+
+        /// <summary>
         /// 小驼峰名称
         /// </summary>
         public string CamelName => Name.First().ToString().ToLower() + Name.Substring(1);

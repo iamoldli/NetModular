@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Abstractions.Attributes;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
@@ -15,6 +15,7 @@ using Nm.Module.CodeGenerator.Domain.Property.Models;
 namespace Nm.Module.CodeGenerator.Web.Controllers
 {
     [Description("实体属性管理")]
+    [Common]
     public class PropertyController : ModuleController
     {
         private readonly IPropertyService _service;
@@ -60,7 +61,6 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
         }
 
         [HttpGet]
-        [Common]
         [Description("获取属性类型下拉列表")]
         public IResultModel PropertyTypeSelect()
         {

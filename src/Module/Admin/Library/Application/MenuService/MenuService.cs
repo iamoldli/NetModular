@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
+using Microsoft.Extensions.Logging;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AccountService;
@@ -11,41 +13,41 @@ using Nm.Module.Admin.Application.MenuService.ResultModels;
 using Nm.Module.Admin.Application.MenuService.ViewModels;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Button;
+using Nm.Module.Admin.Domain.ButtonPermission;
 using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Menu.Models;
 using Nm.Module.Admin.Domain.MenuPermission;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.RoleMenu;
 using Nm.Module.Admin.Domain.RoleMenuButton;
-using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.MenuService
 {
     public class MenuService : IMenuService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IMenuRepository _menuRepository;
         private readonly IMenuPermissionRepository _menuPermissionRepository;
         private readonly IRoleMenuRepository _roleMenuRepository;
-        private readonly IPermissionRepository _permissionRepository;
         private readonly IButtonRepository _buttonRepository;
         private readonly IRoleMenuButtonRepository _roleMenuButtonRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
+        private readonly IButtonPermissionRepository _buttonPermissionRepository;
         private readonly IAccountService _accountService;
+        private readonly ILogger _logger;
 
-        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IUnitOfWork<AdminDbContext> uow, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService)
+        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger)
         {
             _menuRepository = menuRepository;
             _menuPermissionRepository = menuPermissionRepository;
-            _uow = uow;
             _mapper = mapper;
             _roleMenuRepository = roleMenuRepository;
-            _permissionRepository = permissionRepository;
             _buttonRepository = buttonRepository;
             _roleMenuButtonRepository = roleMenuButtonRepository;
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
+            _buttonPermissionRepository = buttonPermissionRepository;
+            _logger = logger;
         }
 
         public async Task<IResultModel> GetTree()
@@ -96,46 +98,42 @@ namespace Nm.Module.Admin.Application.MenuService
         {
             var menu = _mapper.Map<MenuEntity>(model);
 
-            try
+            //根据父节点的等级+1设置当前菜单的等级
+            if (menu.ParentId != Guid.Empty)
             {
-                _uow.BeginTransaction();
-
-                if (await _menuRepository.ExistsNameByParentId(menu.Name, menu.Id, menu.ParentId))
+                var parentMenu = await _menuRepository.GetAsync(model.ParentId);
+                if (parentMenu == null)
                 {
-                    _uow.Rollback();
-                    return ResultModel.Failed($"节点名称“{menu.Name}”已存在");
+                    return ResultModel.Failed("父节点不存在");
                 }
 
-                //根据父节点的等级+1设置当前菜单的等级
-                if (menu.ParentId != Guid.Empty)
+                menu.Level = parentMenu.Level + 1;
+            }
+
+            if (menu.Type == MenuType.Node)
+                menu.Target = MenuTarget.UnKnown;
+
+            using (var tran = _menuRepository.BeginTransaction())
+            {
+                if (await _menuRepository.AddAsync(menu, tran))
                 {
-                    var parentMenu = await _menuRepository.GetAsync(model.ParentId);
-                    if (parentMenu == null)
+                    //同步菜单权限
+                    if (await SyncPermission(menu, model.Permissions, tran))
                     {
-                        _uow.Rollback();
-                        return ResultModel.Failed("父节点不存在");
+                        //同步按钮
+                        if (await SyncButton(menu, model.Buttons, tran))
+                        {
+                            tran.Commit();
+
+                            await ClearAccountPermissionCache(menu);
+
+                            return ResultModel.Success();
+                        }
                     }
-
-                    menu.Level = parentMenu.Level + 1;
                 }
-
-                if (menu.Type == MenuType.Node)
-                    menu.Target = MenuTarget.UnKnown;
-
-                if (await _menuRepository.AddAsync(menu))
-                {
-                    _uow.Commit();
-                    return ResultModel.Success();
-                }
-
-                _uow.Rollback();
-                return ResultModel.Failed();
             }
-            catch
-            {
-                _uow.Rollback();
-                throw;
-            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Delete(Guid id)
@@ -147,29 +145,26 @@ namespace Nm.Module.Admin.Application.MenuService
             if (await _menuRepository.ExistsChild(id))
                 return ResultModel.Failed($"当前菜单({entity.Name})存在子菜单，请先删除子菜单");
 
-            if (await _roleMenuRepository.ExistsWidthMenuId(id))
+            if (await _roleMenuRepository.ExistsWidthMenu(entity.Id))
                 return ResultModel.Failed($"有角色绑定了当前菜单({entity.Name})，请先删除关联信息");
 
-            _uow.BeginTransaction();
-
-            /*
-             * 删除逻辑
-             * 1、删除菜单
-             * 2、删除该菜单与权限的关联信息
-             */
-            if (await _menuRepository.DeleteAsync(id)
-                && await _menuPermissionRepository.DeleteByMenuId(id)
-                && await _buttonRepository.DeleteByMenu(id)
-                && await _roleMenuButtonRepository.DeleteByMenu(id))
+            using (var tran = _menuRepository.BeginTransaction())
             {
-                _uow.Commit();
+                /*
+                 * 删除逻辑
+                 * 1、删除菜单
+                 * 2、删除该菜单与权限的关联信息
+                 */
+                if (await _menuRepository.DeleteAsync(id, tran) && await _roleMenuButtonRepository.DeleteByMenu(entity.Id, tran))
+                {
+                    tran.Commit();
 
-                await ClearAccountPermissionCache(id);
+                    await ClearAccountPermissionCache(entity);
 
-                return ResultModel.Success();
+                    return ResultModel.Success();
+                }
             }
 
-            _uow.Rollback();
             return ResultModel.Failed();
         }
 
@@ -191,8 +186,25 @@ namespace Nm.Module.Admin.Application.MenuService
 
             entity = _mapper.Map(model, entity);
 
-            var result = await _menuRepository.UpdateAsync(entity);
-            return ResultModel.Result(result);
+            using (var tran = _menuRepository.BeginTransaction())
+            {
+                var result = await _menuRepository.UpdateAsync(entity);
+                if (result)
+                {
+                    //同步菜单权限
+                    if (await SyncPermission(entity, model.Permissions, tran))
+                    {
+                        //同步按钮
+                        if (await SyncButton(entity, model.Buttons, tran))
+                        {
+                            await ClearAccountPermissionCache(entity);
+                            tran.Commit();
+                            return ResultModel.Success();
+                        }
+                    }
+                }
+            }
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Query(MenuQueryModel model)
@@ -204,60 +216,6 @@ namespace Nm.Module.Admin.Application.MenuService
             };
 
             return ResultModel.Success(queryResult);
-        }
-
-        public async Task<IResultModel> PermissionList(Guid id)
-        {
-            var exists = await _menuRepository.ExistsAsync(id);
-            if (!exists)
-                return ResultModel.Failed("菜单不存在！");
-
-            var list = await _permissionRepository.QueryByMenu(id);
-            return ResultModel.Success(list);
-        }
-
-        public async Task<IResultModel> BindPermission(MenuBindPermissionModel model)
-        {
-            _uow.BeginTransaction();
-
-            //删除旧数据
-            if (await _menuPermissionRepository.DeleteByMenuId(model.Id))
-            {
-                if (model.PermissionList == null || !model.PermissionList.Any())
-                {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
-
-                    return ResultModel.Success();
-                }
-
-                //添加新数据
-                var entityList = new List<MenuPermissionEntity>();
-                model.PermissionList.ForEach(p =>
-                {
-                    entityList.Add(new MenuPermissionEntity { MenuId = model.Id, PermissionId = p });
-                });
-                if (await _menuPermissionRepository.AddAsync(entityList))
-                {
-                    _uow.Commit();
-                    await ClearAccountPermissionCache(model.Id);
-
-                    return ResultModel.Success();
-                }
-            }
-
-            _uow.Rollback();
-            return ResultModel.Failed();
-        }
-
-        public async Task<IResultModel> ButtonList(Guid id)
-        {
-            var exists = await _menuRepository.ExistsAsync(id);
-            if (!exists)
-                return ResultModel.Failed("菜单不存在！");
-
-            var list = await _buttonRepository.QueryByMenu(id);
-            return ResultModel.Success(list);
         }
 
         public async Task<IResultModel> QuerySortList(Guid parentId)
@@ -281,26 +239,26 @@ namespace Nm.Module.Admin.Application.MenuService
                 return ResultModel.Failed("不包含数据");
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var option in model.Options)
+            using (var tran = _menuRepository.BeginTransaction())
             {
-                var entity = await _menuRepository.GetAsync(option.Id);
-                if (entity == null)
+                foreach (var option in model.Options)
                 {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
+                    var entity = await _menuRepository.GetAsync(option.Id, tran);
+                    if (entity == null)
+                    {
+                        return ResultModel.Failed();
+                    }
+
+                    entity.Sort = option.Sort;
+                    if (!await _menuRepository.UpdateAsync(entity, tran))
+                    {
+                        return ResultModel.Failed();
+                    }
                 }
 
-                entity.Sort = option.Sort;
-                if (!await _menuRepository.UpdateAsync(entity))
-                {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
-                }
+                tran.Commit();
             }
 
-            _uow.Commit();
             return ResultModel.Success();
         }
 
@@ -308,16 +266,164 @@ namespace Nm.Module.Admin.Application.MenuService
         /// 清除菜单关联账户的权限缓存
         /// </summary>
         /// <returns></returns>
-        private async Task ClearAccountPermissionCache(Guid menuId)
+        private async Task ClearAccountPermissionCache(MenuEntity menu)
         {
-            var relationList = await _accountRoleRepository.QueryByMenu(menuId);
-            if (relationList.Any())
+            if (menu.Type == MenuType.Route)
             {
-                foreach (var relation in relationList)
+                var relationList = await _accountRoleRepository.QueryByMenu(menu.Id);
+                if (relationList.Any())
                 {
-                    _accountService.ClearPermissionListCache(relation.AccountId);
+                    foreach (var relation in relationList)
+                    {
+                        _accountService.ClearPermissionListCache(relation.AccountId);
+                    }
                 }
             }
         }
+
+        #region ==私有方法==
+
+        /// <summary>
+        /// 同步权限
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> SyncPermission(MenuEntity menu, List<string> permissions, IDbTransaction transaction)
+        {
+            if (menu.Type != MenuType.Route)
+            {
+                return true;
+            }
+
+            //删除旧数据
+            if (await _menuPermissionRepository.DeleteByMenu(menu.RouteName, transaction))
+            {
+                if (permissions == null || !permissions.Any())
+                {
+                    await ClearAccountPermissionCache(menu);
+                    return true;
+                }
+
+                //添加新数据
+                var entityList = new List<MenuPermissionEntity>();
+                permissions.ForEach(code =>
+                {
+                    entityList.Add(new MenuPermissionEntity { MenuCode = menu.RouteName, PermissionCode = code.ToLower() });
+                });
+
+                return await _menuPermissionRepository.AddAsync(entityList, transaction);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 同步按钮
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <param name="buttons"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private async Task<bool> SyncButton(MenuEntity menu, List<MenuButtonAddModel> buttons, IDbTransaction transaction)
+        {
+            if (menu.Type != MenuType.Route)
+            {
+                return true;
+            }
+
+            if (buttons == null)
+                buttons = new List<MenuButtonAddModel>();
+
+            var oldButtons = await _buttonRepository.QueryByMenu(menu.RouteName, transaction);
+
+            #region ==更新以及新增按钮==
+
+            foreach (var newBtn in buttons)
+            {
+                var oldBtn = oldButtons.FirstOrDefault(m => m.Code.EqualsIgnoreCase(newBtn.Code));
+                bool result;
+                if (oldBtn != null)
+                {
+                    oldBtn.Name = newBtn.Text;
+                    oldBtn.Icon = newBtn.Icon;
+                    result = await _buttonRepository.UpdateAsync(oldBtn, transaction);
+                }
+                else
+                {
+                    if (await _buttonRepository.ExistsByCode(newBtn.Code.ToLower()))
+                    {
+                        _logger.LogError($"按钮编码{newBtn.Code}不能重复");
+                        result = false;
+                    }
+                    else
+                    {
+                        oldBtn = new ButtonEntity
+                        {
+                            MenuCode = menu.RouteName,
+                            Code = newBtn.Code.ToLower(),
+                            Icon = newBtn.Icon,
+                            Name = newBtn.Text
+                        };
+                        result = await _buttonRepository.AddAsync(oldBtn, transaction);
+                    }
+                }
+
+                if (!result)
+                    return false;
+
+                if (!await SyncButtonPermission(oldBtn, newBtn.Permissions, transaction))
+                    return false;
+            }
+
+            #endregion
+
+            foreach (var oldBtn in oldButtons)
+            {
+                var isDel = !buttons.Any(m => m.Code.EqualsIgnoreCase(oldBtn.Code));
+                if (isDel)
+                {
+                    if (!await _buttonRepository.DeleteAsync(oldBtn.Id, transaction) || !await _buttonPermissionRepository.DeleteByButton(oldBtn.Code, transaction))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 同步按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <param name="permissions"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private async Task<bool> SyncButtonPermission(ButtonEntity button, List<string> permissions, IDbTransaction transaction)
+        {
+            //删除旧数据
+            if (await _buttonPermissionRepository.DeleteByButton(button.Code, transaction))
+            {
+                if (permissions == null || !permissions.Any())
+                {
+                    return true;
+                }
+
+                //添加新数据
+                var entityList = new List<ButtonPermissionEntity>();
+                permissions.ForEach(code =>
+                {
+                    entityList.Add(new ButtonPermissionEntity { ButtonCode = button.Code, PermissionCode = code.ToLower() });
+                });
+
+                if (await _buttonPermissionRepository.AddAsync(entityList, transaction))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
     }
 }

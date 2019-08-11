@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -127,9 +125,9 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 /packages
-/src/UI/td-module-admin/package-lock.json
+/src/UI/nm-module-admin/package-lock.json
 /src/Web/modules
-/src/UI/td-module-admin/dist
+/src/UI/nm-module-admin/dist
 ");
             return this.GenerationEnvironment.ToString();
         }

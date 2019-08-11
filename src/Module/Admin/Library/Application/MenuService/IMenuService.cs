@@ -25,7 +25,7 @@ namespace Nm.Module.Admin.Application.MenuService
         Task<IResultModel> Add(MenuAddModel model);
 
         /// <summary>
-        /// 
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -50,25 +50,6 @@ namespace Nm.Module.Admin.Application.MenuService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> Query(MenuQueryModel model);
-
-        /// <summary>
-        /// 查询菜单的权限列表
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel> PermissionList(Guid id);
-
-        /// <summary>
-        /// 绑定权限
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel> BindPermission(MenuBindPermissionModel model);
-
-        /// <summary>
-        /// 获取菜单的所有按钮列表
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<IResultModel> ButtonList(Guid id);
 
         /// <summary>
         /// 查询排序列表

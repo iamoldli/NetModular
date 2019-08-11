@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions.Entities;
@@ -16,6 +17,17 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         where TEntity4 : IEntity, new()
         where TEntity5 : IEntity, new()
     {
+        #region ==使用事务==
+
+        /// <summary>
+        /// 使用事务
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> UseTran(IDbTransaction transaction);
+
+        #endregion
+
         #region ==Sort==
 
         /// <summary>
@@ -78,10 +90,19 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// <summary>
         /// 过滤
         /// </summary>
-        /// <param name="ifCondition">添加条件</param>
+        /// <param name="condition">添加条件</param>
         /// <param name="expression">条件</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool ifCondition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> expression);
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> expression);
+
+        /// <summary>
+        /// 过滤
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="ifExpression"></param>
+        /// <param name="elseExpression"></param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression);
 
         #endregion
 

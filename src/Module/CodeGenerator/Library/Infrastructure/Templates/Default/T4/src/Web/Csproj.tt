@@ -6,10 +6,11 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <Import Project="..\..\build\web.build.targets" />
-
   <ItemGroup>
-    <PackageReference Include="<#= _prefix #>.Lib.Module.Abstractions" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Auth.Web" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Module.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Utils.Mvc" Version="1.0.0" />
+    <PackageReference Include="<#= _prefix #>.Lib.Validation.FluentValidation" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

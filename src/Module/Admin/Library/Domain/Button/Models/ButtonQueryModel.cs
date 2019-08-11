@@ -7,10 +7,10 @@ namespace Nm.Module.Admin.Domain.Button.Models
     public class ButtonQueryModel : QueryModel
     {
         /// <summary>
-        /// 菜单编号
+        /// 菜单编码
         /// </summary>
         [Required(ErrorMessage = "请选择菜单")]
-        public Guid MenuId { get; set; }
+        public string MenuCode { get; set; }
 
         /// <summary>
         /// 名称

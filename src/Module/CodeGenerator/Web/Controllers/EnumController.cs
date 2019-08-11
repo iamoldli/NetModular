@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.EnumService;
 using Nm.Module.CodeGenerator.Application.EnumService.ViewModels;
@@ -58,6 +59,7 @@ namespace Nm.Module.CodeGenerator.Web.Controllers
 
         [HttpGet]
         [Description("下拉列表")]
+        [Common]
         public Task<IResultModel> Select()
         {
             return _service.Select();

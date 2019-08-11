@@ -1,8 +1,15 @@
 {
     "name": "nm-lib-icon",
-    "version": "1.1.0",
+    "version": "1.2.8",
     "description": "NetModular前端图标库",
     "main": "index.js",
+	"scripts": {
+        "cm": "rimraf node_modules && rimraf dist",
+        "cc": "rimraf node_modules/.cache",
+        "i": "cd ./script && npm_install.ps1",
+        "up": "cd ./script && npm_update.ps1",
+        "pub": "cd ./script && npm_publish.ps1"
+    },
     "dependencies": {
         "vue": "^2.6.9"
     },

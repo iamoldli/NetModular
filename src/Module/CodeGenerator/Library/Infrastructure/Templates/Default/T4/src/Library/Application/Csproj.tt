@@ -8,12 +8,9 @@
   <ItemGroup>
     <PackageReference Include="<#= _prefix #>.Lib.Data.Query" Version="1.0.0" />
     <PackageReference Include="<#= _prefix #>.Lib.Mapper.AutoMapper" Version="1.0.0" />
-    <PackageReference Include="<#= _prefix #>.Lib.Swagger" Version="1.0.0" />
-    <PackageReference Include="<#= _prefix #>.Lib.Validation.FluentValidation" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

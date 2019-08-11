@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
+using Nm.Lib.Data.Abstractions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 参数集合
     /// </summary>
-    public class QueryParameters
+    public class QueryParameters : IQueryParameters
     {
         private static readonly Dictionary<Type, DbType> TypeMap = new Dictionary<Type, DbType>
         {

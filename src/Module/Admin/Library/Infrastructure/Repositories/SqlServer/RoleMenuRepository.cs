@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -21,19 +22,19 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync();
         }
 
-        public Task<bool> DeleteByMenuId(Guid menuId)
+        public Task<bool> DeleteByMenuId(Guid menuId, IDbTransaction transaction)
         {
-            return Db.Find(e => e.MenuId == menuId).DeleteAsync();
+            return Db.Find(e => e.MenuId == menuId).UseTran(transaction).DeleteAsync();
         }
 
-        public Task<bool> ExistsWidthMenuId(Guid menuId)
+        public Task<bool> ExistsWidthMenu(Guid menuId)
         {
             return Db.Find(e => e.MenuId == menuId).ExistsAsync();
         }
 
-        public Task<bool> DeleteByRoleId(Guid roleId)
+        public Task<bool> DeleteByRoleId(Guid roleId, IDbTransaction transaction)
         {
-            return Db.Find(e => e.RoleId == roleId).DeleteAsync();
+            return Db.Find(e => e.RoleId == roleId).UseTran(transaction).DeleteAsync();
         }
     }
 }

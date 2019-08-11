@@ -84,5 +84,12 @@ export default [
     type: 'boolean',
     opt: '-',
     def: 'false'
+  },
+  {
+    name: 'noPadding',
+    desc: '没有内边距',
+    type: 'boolean',
+    opt: '-',
+    def: 'false'
   }
 ]

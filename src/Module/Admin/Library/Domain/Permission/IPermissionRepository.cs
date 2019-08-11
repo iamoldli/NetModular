@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.Permission.Models;
@@ -15,8 +16,9 @@ namespace Nm.Module.Admin.Domain.Permission
         /// 判断是否存在
         /// </summary>
         /// <param name="entity"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> Exists(PermissionEntity entity);
+        Task<bool> Exists(PermissionEntity entity, IDbTransaction transaction);
 
         /// <summary>
         /// 判断是否存在
@@ -39,18 +41,18 @@ namespace Nm.Module.Admin.Domain.Permission
         Task<IList<PermissionEntity>> Query(PermissionQueryModel model);
 
         /// <summary>
-        /// 通过菜单编号查找对应权限列表
+        /// 通过菜单查找对应权限列表
         /// </summary>
-        /// <param name="menuId"></param>
+        /// <param name="menuCode"></param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> QueryByMenu(Guid menuId);
+        Task<IList<PermissionEntity>> QueryByMenu(string menuCode);
 
         /// <summary>
         /// 通过按钮编号查找对应权限列表
         /// </summary>
-        /// <param name="buttonId"></param>
+        /// <param name="buttonCode"></param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> QueryByButton(Guid buttonId);
+        Task<IList<PermissionEntity>> QueryByButton(string buttonCode);
 
         /// <summary>
         /// 查询指定账户的权限列表
@@ -63,7 +65,8 @@ namespace Nm.Module.Admin.Domain.Permission
         /// 修改同步信息
         /// </summary>
         /// <param name="permission"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> UpdateForSync(PermissionEntity permission);
+        Task<bool> UpdateForSync(PermissionEntity permission, IDbTransaction transaction);
     }
 }

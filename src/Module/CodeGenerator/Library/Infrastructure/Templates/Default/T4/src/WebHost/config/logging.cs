@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -28,10 +26,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             this.Write(@"{
   ""Serilog"": {
     ""MinimumLevel"": {
-      ""Default"": ""Error"",
+      ""Default"": ""Debug"",
       ""Override"": {
-        ""Microsoft"": ""Error"",
-        ""System"": ""Error""
+        ""Microsoft"": ""Debug"",
+        ""System"": ""Debug""
       }
     },
     ""WriteTo"": [

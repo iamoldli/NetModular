@@ -22,9 +22,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Id == id).UpdateAsync(m => new AccountEntity { Password = password });
         }
 
-        public Task<AccountEntity> GetByUserName(string userName)
+        public Task<AccountEntity> GetByUserName(string userName, int type = 0)
         {
-            return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName));
+            return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName) && m.Type == type);
         }
 
         public Task<bool> UpdateLoginInfo(Guid id, string ip, AccountStatus status = AccountStatus.UnKnown)
@@ -41,7 +41,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public async Task<IList<AccountEntity>> Query(AccountQueryModel model)
         {
             var paging = model.Paging();
-            var query = Db.Find(m => m.Deleted == false);
+            var query = Db.Find(m => m.Deleted == false && m.Type == model.Type);
             query.WhereIf(model.UserName.NotNull(), m => m.UserName.Contains(model.UserName));
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
             query.WhereIf(model.Phone.NotNull(), m => m.Phone == model.Phone);
@@ -57,23 +57,23 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> ExistsUserName(string userName, Guid? id)
+        public Task<bool> ExistsUserName(string userName, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.UserName == userName && m.UserName != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.UserName == userName && m.UserName != null);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
-        public Task<bool> ExistsPhone(string phone, Guid? id)
+        public Task<bool> ExistsPhone(string phone, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Phone == phone && m.Phone != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Phone == phone && m.Phone != null);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
-        public Task<bool> ExistsEmail(string email, Guid? id)
+        public Task<bool> ExistsEmail(string email, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Email == email && m.Email != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Email == email && m.Email != null);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }

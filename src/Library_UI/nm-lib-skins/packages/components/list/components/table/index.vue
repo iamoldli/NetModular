@@ -1,13 +1,13 @@
 <template>
   <section class="nm-list-body-table">
     <el-table ref="table" v-bind="table" v-on="on">
-      <slot/>
+      <slot />
     </el-table>
   </section>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       on: {
         'select': this.onSelect,
@@ -35,15 +35,10 @@ export default {
       type: String,
       default: '100%'
     },
-    /** 列集合 */
-    cols: {
-      type: Array,
-      required: true
-    },
     /** 数据 */
     rows: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -51,7 +46,7 @@ export default {
     spanMethod: Function
   },
   computed: {
-    table () {
+    table() {
       return {
         border: true,
         stripe: true,
@@ -66,66 +61,72 @@ export default {
   },
   methods: {
     /** 清除排序 */
-    clearSort () {
+    clearSort() {
       this.$refs.table.clearSort()
     },
     /** 滚动到顶部 */
-    scrollTop () {
+    scrollTop() {
       this.$nextTick(() => {
         this.$el.querySelector('.el-table__body-wrapper').scrollTop = 0
       })
     },
+    /** 重绘布局 */
+    doLayout() {
+      this.$nextTick(() => {
+        this.$refs.table.doLayout()
+      })
+    },
     /** 当用户手动勾选数据行的 Checkbox 时触发的事件 */
-    onSelect (selection, row) {
+    onSelect(selection, row) {
       this.$parent.$emit('select', selection, row)
     },
     /** 当用户手动勾选全选 Checkbox 时触发的事件 */
-    onSelectAll (selection) {
+    onSelectAll(selection) {
       this.$parent.$emit('select-all', selection)
     },
     /** 当选择项发生变化时会触发该事件 */
-    onSelectionChange (selection) {
+    onSelectionChange(selection) {
       this.$emit('update:selection', selection)
       this.$parent.$emit('selection-change', selection)
     },
     /** 当单元格 hover 进入时会触发该事件 */
-    onCellMouseEnter (row, column, cell, event) {
+    onCellMouseEnter(row, column, cell, event) {
       this.$parent.$emit('cell-mouse-enter', row, column, cell, event)
     },
     /** 当单元格 hover 退出时会触发该事件 */
-    onCellMouseLeave (row, column, cell, event) {
+    onCellMouseLeave(row, column, cell, event) {
       this.$parent.$emit('cell-mouse-leave', row, column, cell, event)
     },
     /** 当某个单元格被点击时会触发该事件 */
-    onCellClick (row, column, cell, event) {
+    onCellClick(row, column, cell, event) {
       this.$parent.$emit('cell-click', row, column, cell, event)
     },
     /** 当某个单元格被双击击时会触发该事件 */
-    onCellDblclick (row, column, cell, event) {
+    onCellDblclick(row, column, cell, event) {
       this.$parent.$emit('cell-dblclick', row, column, cell, event)
     },
     /** 当某一行被点击时会触发该事件 */
-    onRowClick (row, event, column) {
+    onRowClick(row, event, column) {
       this.$parent.$emit('row-click', row, event, column)
     },
     /** 当某一行被鼠标右键点击时会触发该事件 */
-    onRowContextmenu (row, event) {
+    onRowContextmenu(row, event) {
       this.$parent.$emit('row-contextmenu', row, event)
     },
     /** 当某一行被双击时会触发该事件 */
-    onRowDblclick (row, event) {
+    onRowDblclick(row, event) {
       this.$parent.$emit('row-dblclick', row, event)
     },
     /** 当某一列的表头被点击时会触发该事件 */
-    onHeaderClick (column, event) {
+    onHeaderClick(column, event) {
       this.$parent.$emit('header-click', column, event)
     },
     /** 当某一列的表头被鼠标右键点击时触发该事件 */
-    onHeaderContextmenu (column, event) {
+    onHeaderContextmenu(column, event) {
       this.$parent.$emit('header-contextmenu', column, event)
     },
     /** 当表格的排序条件发生变化的时候会触发该事件 */
-    onSortChange (val) {
+    onSortChange(val) {
       this.page.sort = []
       // 将排序信息转化成后端的格式
       if (val.prop !== null) {
@@ -137,7 +138,7 @@ export default {
       this.$parent.$emit('sort-change', this.page.sort, val)
     },
     /** 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性 */
-    onCurrentChange (currentRow, oldCurrentRow) {
+    onCurrentChange(currentRow, oldCurrentRow) {
       this.$parent.$emit('current-change', currentRow, oldCurrentRow)
     }
   }

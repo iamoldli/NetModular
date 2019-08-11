@@ -13,6 +13,11 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 编号
+        /// </summary>
+        public int No { get; set; }
+
+        /// <summary>
         /// 前缀
         /// </summary>
         public string Prefix { get; set; }
@@ -30,6 +35,6 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
         /// <summary>
         /// 前端代码目录名称
         /// </summary>
-        public string WebUIDicName => $"{Prefix.ToLower()}-module-{Code.ToLower()}";
+        public string WebUIDicName => $"module-{Code.ToLower()}";
     }
 }

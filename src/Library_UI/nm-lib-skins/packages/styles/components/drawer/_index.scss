@@ -66,6 +66,10 @@
                         color: $text-color1;
                         transform: scale(1.2);
                     }
+
+                    #{$prefix}-icon {
+                        transform: scale(1) !important;
+                    }
                 }
             }
         }
@@ -124,6 +128,18 @@
             >#{$prefix}-drawer-drag {
                 display: none;
             }
+        }
+    }
+
+    &.draggable {
+        #{$prefix}-drawer-header-title {
+            user-select: none;
+        }
+    }
+
+    &.no-padding {
+        .el-scrollbar__view {
+            padding: 0 !important;
         }
     }
 

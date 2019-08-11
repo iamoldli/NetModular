@@ -25,8 +25,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("{\r\n    //地址\r\n    \"Urls\": \"http://*:6220\",\r\n    //开启Swagger\r\n    \"Swagger\": false\r" +
-                    "\n}");
+            this.Write("{\r\n    //地址\r\n    \"Urls\": \"http://*:");
+            
+            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\host.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.No + 6220));
+            
+            #line default
+            #line hidden
+            this.Write("\",\r\n    //开启Swagger\r\n    \"Swagger\": false\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

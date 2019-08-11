@@ -17,7 +17,7 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
         private readonly ISqlAdapter _sqlAdapter;
         private readonly QueryBody _queryBody;
         private LambdaExpression _fullExpression;
-        private QueryParameters _parameters;
+        private IQueryParameters _parameters;
         private StringBuilder _sqlBuilder;
 
         public ExpressionResolver(ISqlAdapter sqlAdapter, QueryBody queryBody)
@@ -26,7 +26,7 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
             _queryBody = queryBody;
         }
 
-        public string Resolve(LambdaExpression expression, QueryParameters parameters)
+        public string Resolve(LambdaExpression expression, IQueryParameters parameters)
         {
             if (expression == null)
                 return string.Empty;
@@ -36,13 +36,6 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
             _sqlBuilder = new StringBuilder();
 
             Resolve(_fullExpression);
-
-            //删除多余的括号
-            if (_sqlBuilder.Length > 1 && _sqlBuilder[0] == '(' && _sqlBuilder[_sqlBuilder.Length - 1] == ')')
-            {
-                _sqlBuilder.Remove(0, 1);
-                _sqlBuilder.Remove(_sqlBuilder.Length - 1, 1);
-            }
 
             return _sqlBuilder.ToString();
         }

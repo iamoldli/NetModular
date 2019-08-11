@@ -1,7 +1,7 @@
 <template>
   <footer class="nm-list-footer" :class="[reverse?'reverse':'']">
     <div class="nm-list-footer-left">
-      <slot/>
+      <slot />
     </div>
     <div class="nm-list-footer-right">
       <el-pagination
@@ -14,7 +14,7 @@
         @size-change="onSizeChange"
         @current-change="onIndexChange"
       />
-      <select-column v-if="!noSelectColumn" :columns="columns" @change="onSelectColumnChange"/>
+      <select-column v-if="!noSelectColumn" :columns="columns" @change="onSelectColumnChange" />
     </div>
   </footer>
 </template>
@@ -38,19 +38,21 @@ export default {
     reverse: Boolean
   },
   methods: {
-    onSizeChange (size) {
-      const page = Object.assign({}, this.value, { size })
+    onSizeChange(size) {
+      const page = Object.assign({}, this.value, { size, index: 1 })
       this.$emit('input', page)
       this.$parent.query()
       this.$parent.$emit('size-change', size)
     },
-    onIndexChange (index) {
+    onIndexChange(index) {
       const page = Object.assign({}, this.value, { index })
       this.$emit('input', page)
       this.$parent.query()
       this.$parent.$emit('index-change', index)
     },
-    onSelectColumnChange (columns) {
+    onSelectColumnChange(columns) {
+      // 重绘父组件的布局
+      this.$parent.doLayout()
       this.$emit('update:columns', columns)
     }
   }

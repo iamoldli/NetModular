@@ -9,7 +9,8 @@ const get = () => {
     /** logo */
     logo,
     /** 默认页 */
-    home: '', // 退出方法
+    home: '/home',
+    // 退出方法
     logout() {
       token.remove()
       routeConfig.$router.push({ name: 'login' })

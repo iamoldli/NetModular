@@ -5,6 +5,7 @@
     :model="model"
     :rules="rules"
     :label-width="labelWidth"
+    :label-position="labelPosition"
     :size="fontSize"
     :inline="inline"
     :disabled="disabled"
@@ -13,7 +14,7 @@
     :element-loading-background="loadingBackground"
     :element-loading-spinner="loadingSpinner"
   >
-    <slot/>
+    <slot />
   </el-form>
 </template>
 <script>
@@ -21,7 +22,7 @@ import loading from '../../mixins/components/loading'
 export default {
   name: 'Form',
   mixins: [loading],
-  data () {
+  data() {
     return {
       loading_: false
     }
@@ -53,6 +54,11 @@ export default {
       type: String,
       default: '100px'
     },
+    /** 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition: {
+      type: String,
+      default: 'right'
+    },
     // 自定义验证
     validate: Function,
     /** 禁用表单 */
@@ -63,32 +69,30 @@ export default {
     noLoading: Boolean
   },
   computed: {
-    showLoading () {
+    showLoading() {
       return !this.noLoading && (this.loading_ || this.loading)
     }
   },
   methods: {
     /** 提交 */
-    submit () {
+    submit() {
       this.$refs.form.validate(async (valid) => {
-        if (valid) {
-          // 自定义验证
-          if (!this.validate || this.validate() === true) {
-            this.openLoading()
+        // 自定义验证
+        if (valid && (!this.validate || this.validate() === true)) {
+          this.openLoading()
 
-            this.action(this.model).then(data => {
-              if (this.successMsg === true) {
-                this._success(this.successMsgText)
-              }
+          this.action(this.model).then(data => {
+            if (this.successMsg === true) {
+              this._success(this.successMsgText)
+            }
 
-              this.$emit('success', data)
+            this.$emit('success', data)
 
-              this.closeLoading()
-            }).catch(() => {
-              this.$emit('error')
-              this.closeLoading()
-            })
-          }
+            this.closeLoading()
+          }).catch(() => {
+            this.$emit('error')
+            this.closeLoading()
+          })
         } else {
           // 验证失败
           this.$emit('validate-error')
@@ -96,19 +100,31 @@ export default {
       })
     },
     /** 重置 */
-    reset () {
+    reset() {
+      this.resetChildren(this.$refs.form)
       this.$refs.form.resetFields()
     },
+    /** 重置子组件 */
+    resetChildren(vnode) {
+      if (vnode.$children && vnode.$children.length > 0) {
+        vnode.$children.map(item => {
+          if (item && item.reset && typeof item.reset === 'function') {
+            item.reset()
+          }
+          this.resetChildren(item)
+        })
+      }
+    },
     /** 清除验证结果 */
-    clearValidate (props) {
+    clearValidate(props) {
       this.$refs.form.clearValidate(props)
     },
     /** 打开加载中 */
-    openLoading () {
+    openLoading() {
       if (!this.noLoading) { this.loading_ = true }
     },
     /** 关闭加载中 */
-    closeLoading () {
+    closeLoading() {
       if (!this.noLoading) { this.loading_ = false }
     }
   }

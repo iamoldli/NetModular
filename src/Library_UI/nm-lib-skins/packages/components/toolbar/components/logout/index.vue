@@ -13,7 +13,7 @@ export default {
     ...mapActions('app/system', ['logout']),
     onLogout () {
       this._confirm('您确认要退出登录吗').then(() => {
-        this.logout()
+        this.logout(this.$route.fullPath)
       })
     }
   }

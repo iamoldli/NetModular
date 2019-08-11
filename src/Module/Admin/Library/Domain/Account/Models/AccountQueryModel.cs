@@ -5,6 +5,11 @@ namespace Nm.Module.Admin.Domain.Account.Models
     public class AccountQueryModel : QueryModel
     {
         /// <summary>
+        /// 账户类型
+        /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
         /// 用户名
         /// </summary>
         public string UserName { get; set; }

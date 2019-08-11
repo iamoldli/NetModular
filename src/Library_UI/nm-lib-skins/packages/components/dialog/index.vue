@@ -1,14 +1,12 @@
 <template>
   <el-dialog
     ref="dialog"
-    v-nm-drop="draggableOption_"
-    v-nm-resizable="resizableOption_"
     :id="id"
     :class="class_"
-    :top="top"
+    :top="draggable?'':top"
     :modal="modal_"
     :close-on-click-modal="closeOnClickModal_"
-    :fullscreen="fullscreen_"
+    :fullscreen="hasFullscreen"
     :visible.sync="visible_"
     :show-close="false"
     :append-to-body="true"
@@ -19,14 +17,14 @@
       <section v-if="icon" class="nm-dialog-icon">
         <nm-icon :name="icon"/>
       </section>
-      <section class="nm-dialog-title">
+      <section ref="title" class="nm-dialog-title">
         <slot name="title">{{title}}</slot>
       </section>
       <section class="nm-dialog-toolbar">
         <!--工具栏插槽-->
         <slot name="toolbar"/>
         <!--全屏按钮-->
-        <nm-button v-if="fullscreen" :icon="fullscreen_ ? 'fullscreen-c':'fullscreen-o'" @click="toggerFullscreen"/>
+        <nm-button v-if="fullscreen" :icon="hasFullscreen ? 'fullscreen-c':'fullscreen-o'" @click="toggerFullscreen"/>
         <!--关闭按钮-->
         <nm-button icon="close" @click="close"/>
       </section>
@@ -49,7 +47,7 @@
           </nm-scrollbar>
         </section>
       </section>
-      <section v-if="!noFooter" class="nm-dialog-footer">
+      <section v-if="footer" class="nm-dialog-footer">
         <slot name="footer"/>
       </section>
     </section>
@@ -58,24 +56,30 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event'
+import { on, off } from 'nm-lib-utils/src/utils/dom'
 import dialog from '../../mixins/components/dialog.js'
 export default {
   name: 'Dialog',
   mixins: [dialog],
-  data () {
+  data() {
     return {
       id: '',
-      // 全屏
-      fullscreen_: false,
+      // 是否已全屏
+      hasFullscreen: false,
       // 距顶部高度
       top: '',
-      dropOldStyle: null,
+      // 是否点击拖拽
+      isDragDown: false,
       on: {
         open: this.onOpen,
         opened: this.onOpened,
         close: this.onClose,
         closed: this.onClosed
-      }
+      },
+      // 拖拽点击时的状态
+      dragDownState: {},
+      // 已初始化
+      hasInit: false
     }
   },
   props: {
@@ -88,8 +92,12 @@ export default {
       type: [Number, String],
       default: '50%'
     },
+    /** 内边距 */
+    padding: Number,
     /** Dialog 的高度 */
     height: [Number, String],
+    /** 显示尾部 */
+    footer: Boolean,
     /** 是否需要遮罩层 */
     modal: {
       type: Boolean,
@@ -98,7 +106,7 @@ export default {
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
-      default: false
+      default: null
     },
     /** 是否显示关闭按钮 */
     showClose: {
@@ -114,98 +122,68 @@ export default {
       type: Boolean,
       default: false
     },
-    /** 不显示尾部 */
-    noFooter: Boolean,
-    /** 是否可拖拽 */
-    draggable: {
-      type: Boolean,
-      default: false
-    },
-    /** 拖拽容器 */
-    dragContainer: {
-      type: String,
-      default: 'body'
-    },
     /** 显示加载动画 */
-    loading: Boolean
+    loading: Boolean,
+    /** 可拖拽的 */
+    draggable: Boolean,
+    /** 是否可拖出页面 */
+    dragOutPage: Boolean,
+    /** 拖拽出页面后保留的最小宽度 */
+    dragMinWidth: {
+      type: Number,
+      default: 100
+    }
   },
   computed: {
+    ...mapState('app/system', ['dialogCloseOnClickModal']),
     ...mapState('app/loading', { loadingText: 'text', loadingBackground: 'background', loadingSpinner: 'spinner' }),
-    elScrollbarViewEl () {
+    elScrollbarViewEl() {
       return this.$refs.dialog.$el.querySelector('.el-scrollbar__view')
     },
-    class_ () {
-      return ['nm-dialog', this.draggableOption_.enabled ? 'draggable' : '']
+    class_() {
+      return ['nm-dialog', this.draggable ? 'draggable' : '']
     },
-    /** 可以拖动时，点击空白处不可关闭**/
-    closeOnClickModal_ () {
-      return !this.draggable && this.closeOnClickModal
-    },
-    modal_ () {
-      return !this.draggable && this.modal
-    },
-    width_ () {
+    width_() {
       return typeof this.width === 'number' ? this.width > 0 ? this.width + 'px' : '50%' : this.width
     },
-    draggableOption_ () {
-      return {
-        // 是否启用
-        enabled: this.fullscreen_ ? false : this.draggable,
-        // 拖动节点
-        dropNode: '.el-dialog__header>.nm-dialog-title',
-        // 限制节点
-        limitNode: this.dragContainer
-      }
+    modal_() {
+      return !this.draggable && this.modal
     },
-    resizableOption_ () {
-      return {
-        // 是否启用
-        enabled: this.fullscreen_ ? false : this.draggable,
-        // 调整方向
-        resizableDirection: ['left-top', 'left', 'top', 'right', 'right-top', 'bottom', 'left-bottom', 'right-bottom'],
-        // 插入节点筛选器
-        parentNode: '.el-dialog',
-        // 限制节点
-        limitNode: this.dragContainer,
-        // 样式
-        class: ''
+    closeOnClickModal_() {
+      if (this.closeOnClickModal === null) {
+        return this.dialogCloseOnClickModal
       }
+      return this.closeOnClickModal
+    },
+    dialogEl() {
+      return this.$refs.dialog.$el.querySelector('.el-dialog')
+    },
+    titleEl() {
+      return this.$refs.title
     }
   },
   methods: {
     ...mapActions('app/dialog', ['open']),
     /** 全屏切换 */
-    toggerFullscreen () {
-      this.fullscreen_ = !this.fullscreen_
+    toggerFullscreen() {
+      this.hasFullscreen = !this.hasFullscreen
     },
     /** 开启全屏 */
-    openFullscreen () {
-      this.fullscreen_ = true
+    openFullscreen() {
+      this.hasFullscreen = true
     },
     /** 关闭全屏 */
-    closeFullscreen () {
-      this.fullscreen_ = false
+    closeFullscreen() {
+      this.hasFullscreen = false
     },
     /** 关闭对话框 */
-    close () {
+    close() {
       this.hide()
-    },
-    /** 保存样式 */
-    saveStyle () {
-      // 缓存参数
-      let elem = this.$refs.dialog.$el
-      if (elem.style.width === '') { return }
-      this.dropOldStyle = {}
-      this.dropOldStyle.width = elem.style.width
-      this.dropOldStyle.height = elem.style.height
-      this.dropOldStyle.top = elem.style.top
-      this.dropOldStyle.left = elem.style.left
     },
     /**
     * 调整高度
     */
-    resize () {
-      this.saveStyle()
+    resize() {
       // 对话框高度
       const dialogHeight = this.getDialogHeight()
       // 页面高度
@@ -220,39 +198,18 @@ export default {
         height = dialogHeight.full + 'px'
       }
 
-      // 拖拽模式
-      if (this.draggable && !this.fullscreen_) {
-        const wrapperEl = this.$refs.dialog.$el
-        if (this.dropOldStyle === null) {
-          wrapperEl.style.width = this.width_
-          wrapperEl.style.top = this.top
-          wrapperEl.style.left = (document.body.clientWidth - wrapperEl.clientWidth) / 2 + 'px'
-          wrapperEl.style.height = height
-        } else {
-          // 还原样式
-          wrapperEl.style.width = this.dropOldStyle.width
-          wrapperEl.style.height = this.dropOldStyle.height
-          wrapperEl.style.top = this.dropOldStyle.top
-          wrapperEl.style.left = this.dropOldStyle.left
-        }
-      } else {
-        this.$refs.dialog.$el.querySelector('.el-dialog').style.height = height
-        this.$refs.dialog.$el.querySelector('.el-dialog').style.width = this.width_
-      }
-      if (!this.noScrollbar) {
-        this.$nextTick(() => {
-          this.$refs.scrollbar.update()
-        })
-      }
+      this.dialogEl.style.height = height
+      this.dialogEl.style.width = this.width_
+
+      this.updateScrollbar()
     },
     // 获取对话框的高度信息
-    getDialogHeight () {
-      const el = this.$refs.dialog.$el
-      const header = el.querySelector('.el-dialog__header')
-      const h = header ? header.offsetHeight : 0
+    getDialogHeight() {
+      const headerEl = this.dialogEl.querySelector('.el-dialog__header')
+      const h = headerEl ? headerEl.offsetHeight : 0
       let b = this.elScrollbarViewEl ? this.elScrollbarViewEl.offsetHeight : 0
-      const footer = el.querySelector('.nm-dialog-footer')
-      const f = footer ? footer.offsetHeight : 0
+      const footerEl = this.dialogEl.querySelector('.nm-dialog-footer')
+      const f = footerEl ? footerEl.offsetHeight : 0
 
       let full = h + b + f
       // 如果主动设置了高度
@@ -271,47 +228,107 @@ export default {
 
       return { h, b, f, full: full }
     },
-    onOpen () {
+    /**
+     * @description 更新滚动条
+     */
+    updateScrollbar() {
+      // 如果有滚动条，需要更新下滚动条
+      if (!this.noScrollbar) {
+        this.$nextTick(() => {
+          this.$refs.scrollbar.update()
+        })
+      }
+    },
+    /**
+     * @description 处理拖拽点击
+     */
+    handleDragDown(e) {
+      if (this.draggable && !this.hasFullscreen) {
+        this.isDragDown = true
+        this.dragDownState = e
+
+        // 防止鼠标选中抽屉中文字，造成拖动trigger触发浏览器原生拖动行为
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty()
+      }
+    },
+    /**
+     * @description 处理拖拽移动
+     */
+    handleDragMove(e) {
+      if (this.isDragDown) {
+        let left = this.dialogEl.offsetLeft + (e.clientX - this.dragDownState.clientX)
+        let top = this.dialogEl.offsetTop + (e.clientY - this.dragDownState.clientY)
+        let leftMax = document.body.offsetWidth - this.dialogEl.offsetWidth
+        let leftMin = 0
+        let topMax = document.body.offsetHeight - this.dialogEl.offsetHeight
+        let topMin = 0
+
+        if (this.dragOutPage) {
+          leftMax = document.body.offsetWidth - this.dragMinWidth
+          leftMin = -this.dialogEl.offsetWidth + this.dragMinWidth
+          topMax = document.body.offsetHeight - this.titleEl.offsetHeight
+        }
+
+        this.dialogEl.style.left = Math.max(leftMin, Math.min(left, leftMax)) + 'px'
+        this.dialogEl.style.top = Math.max(topMin, Math.min(top, topMax)) + 'px'
+        this.dragDownState = e
+      }
+    },
+    /**
+     * @description 处理拖拽结束
+     */
+    handleDragUp(e) {
+      this.isDragDown = false
+    },
+    onOpen() {
       this.$nextTick(() => {
-        window.addEventListener('resize', this.resize)
         this.resize()
+
+        on(window, 'resize', this.resize)
         if (!this.noScrollbar) { addResizeListener(this.elScrollbarViewEl, this.resize) }
+
+        if (!this.draggable) return
+        on(this.titleEl, 'mousedown', this.handleDragDown)
       })
+
       this.$emit('open')
     },
-    onOpened () {
+    onOpened() {
+      if (!this.hasInit) {
+        // 如果是可拖拽的，需要计算绝对定位
+        if (this.draggable) {
+          this.dialogEl.style.left = (document.body.offsetWidth - this.dialogEl.offsetWidth) / 2 + 'px'
+          this.dialogEl.style.top = this.top
+        }
+        // 设置内边距
+        if (this.padding) {
+          this.dialogEl.querySelector('.el-scrollbar__view').style.padding = this.padding + 'px'
+        }
+        this.hasInit = true
+      }
       this.$emit('opened')
     },
-    onClose () {
-      this.saveStyle()
-      window.removeEventListener('resize', this.resize)
+    onClose() {
+      off(window, 'resize', this.resize)
       if (!this.noScrollbar) { removeResizeListener(this.elScrollbarViewEl, this.resize) }
+      off(this.titleEl, 'mousedown', this.handleDragDown)
       this.$emit('close')
     },
-    onClosed () {
+    onClosed() {
       this.$emit('closed')
     }
   },
-  mounted () {
+  mounted() {
     // 打开对话框
     this.open().then(id => {
       this.id = 'nm-dialog-' + id
     })
+    on(document, 'mousemove', this.handleDragMove)
+    on(document, 'mouseup', this.handleDragUp)
   },
-  watch: {
-    draggableOption_ () {
-      if (!this.draggableOption_.enabled && this.visible) {
-        // 缓存参数
-        this.saveStyle()
-        let elem = this.$refs.dialog.$el
-        elem.style.height = null
-        elem.style.top = null
-        elem.style.width = null
-        elem.style.left = null
-      } else {
-        this.resize()
-      }
-    }
+  destroyed() {
+    off(document, 'mousemove', this.handleDragMove)
+    off(document, 'mouseup', this.handleDragUp)
   }
 }
 </script>

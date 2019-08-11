@@ -1,67 +1,84 @@
 @import './variables';
 
 #{$prefix}-details {
-  width: 100%;
-  border: 1px solid #dcebf7;
-
-  &-row {
+    width: 100%;
     overflow: hidden;
-    @include flex-row();
+    border: 1px solid $border-color3;
 
-    &.cols-1 {
-      #{$prefix}-details-cell {
-        width: 100%;
-      }
-    }
-    &.cols-2 {
-      #{$prefix}-details-cell {
-        width: 50%;
-      }
-    }
-    &.cols-3 {
-      #{$prefix}-details-cell {
-        width: 33.33333333%;
-      }
-    }
-    &.cols-4 {
-      #{$prefix}-details-cell {
-        width: 25%;
-      }
-    }
-  }
+    &-group {
+        @include flex-row();
+        overflow: hidden;
 
-  &-cell {
-    @include flex-row();
-    flex-shrink: 0;
-    flex-grow: 0;
-    > section {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      box-sizing: border-box;
-    }
-  }
+        &:first-child {
+            border-top: none;
 
-  &-label {
-    padding: 10px 0;
-    color: #336199;
-    background-color: #edf3f4;
-    border-bottom: 1px solid #f7fbff;
-    flex-shrink: 0;
-    justify-content: flex-end;
-  }
-  &-content {
-    padding: 10px 0 10px 12px;
-    border-bottom: 1px dotted #dcebf7;
-    flex-grow: 1;
-    word-break: break-all;
-  }
+            #{$prefix}-details-item-label,
+            #{$prefix}-details-item-content {
+                border-top: none;
+            }
+        }
 
-  &-row:last-child {
-    #{$prefix}-details-cel {
-      > section {
-        border-bottom: none;
-      }
+        &-1 {
+            #{$prefix}-details-item {
+                width: 100%;
+            }
+        }
+
+        &-2 {
+            #{$prefix}-details-item {
+                width: 50%;
+            }
+        }
+
+        &-3 {
+            #{$prefix}-details-item {
+                width: 33.3333333%;
+            }
+        }
+
+        &-4 {
+            #{$prefix}-details-item {
+                width: 25%;
+            }
+        }
+
+        &-5 {
+            #{$prefix}-details-item {
+                width: 20%;
+            }
+        }
     }
-  }
+
+    &-item {
+        float: left;
+        @include flex-row();
+
+        &-label {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            color: #336199;
+            background-color: #EDF3F4;
+            border-top: 1px solid #F7FBFF;
+        }
+
+        &-content {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-grow: 1;
+            box-sizing: border-box;
+            font-size: 14px;
+            border-top: 1px dotted $border-color3;
+            line-height: 150%;
+        }
+    }
+
+    &.no-border {
+        border: none !important;
+
+    }
 }

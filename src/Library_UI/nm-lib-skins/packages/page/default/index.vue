@@ -1,6 +1,6 @@
 <template>
   <nm-container>
-    <h1>欢迎登陆{{title}}~</h1>
+    <h1>欢迎登录{{title}}~</h1>
   </nm-container>
 </template>
 <script>

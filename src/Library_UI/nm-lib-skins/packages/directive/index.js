@@ -1,9 +1,7 @@
 import lib from '../library'
-import drop from './drop'
-import resizable from './resizable'
 import has from './has'
 
-const directive = [drop, resizable, has]
+const directive = [has]
 
 const install = {
   install: Vue => {

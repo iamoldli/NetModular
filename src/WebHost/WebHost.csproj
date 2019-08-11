@@ -2,20 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespacePrefix>NetModular</RootNamespacePrefix>
-    <RootNamespace>NetModular.WebHost</RootNamespace>
-    <AssemblyName>NetModular.WebHost</AssemblyName>
+    <!--复制本地锁定的程序集到输出目录-->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RootNamespace>Nm.WebHost</RootNamespace>
+    <AssemblyName>Nm.WebHost</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Nm.Lib.Data.SqlServer" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Library\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj" />
+    <ProjectReference Include="..\Library\Cache\Cache.Redis\Cache.Redis.csproj" />
+    <ProjectReference Include="..\Library\Data\Db\Data.MySql\Data.MySql.csproj" />
+    <ProjectReference Include="..\Library\Data\Db\Data.SQLite\Data.SQLite.csproj" />
     <ProjectReference Include="..\Library\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />
-    <ProjectReference Include="..\Library\WebHost\WebHost.Core\WebHost.Core.csproj" />
+    <ProjectReference Include="..\Library\Host\Host.Web\Host.Web.csproj" />
     <ProjectReference Include="..\Module\Admin\Web\Web.csproj" />
     <ProjectReference Include="..\Module\CodeGenerator\Web\Web.csproj" />
+    <ProjectReference Include="..\Module\Common\Web\Web.csproj" />
+    <ProjectReference Include="..\Module\PersonnelFiles\Web\Web.csproj" />
+    <ProjectReference Include="..\Module\Quartz\Web\Web.csproj" />
   </ItemGroup>
 
   <!--复制配置文件到输出目录-->

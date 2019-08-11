@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Module.Abstractions.Attributes;
+using Nm.Lib.Module.AspNetCore.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AuditInfoService;
 using Nm.Module.Admin.Domain.AuditInfo.Models;

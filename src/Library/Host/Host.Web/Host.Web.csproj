@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="config_example\cache.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\cache.json</DependentUpon>
+    </None>
+    <None Update="config_example\cache.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\db.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\db.json</DependentUpon>
+    </None>
+    <None Update="config_example\db.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\host.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\host.json</DependentUpon>
+    </None>
+    <None Update="config_example\host.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\jwt.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\jwt.json</DependentUpon>
+    </None>
+    <None Update="config_example\jwt.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\logging.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\logging.json</DependentUpon>
+    </None>
+    <None Update="config_example\logging.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\module.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\module.json</DependentUpon>
+    </None>
+    <None Update="config_example\module.json">
+      <Pack>true</Pack>
+    </None>
+    <None Update="config_example\mq.Development.json">
+      <Pack>true</Pack>
+      <DependentUpon>config\mq.json</DependentUpon>
+    </None>
+    <None Update="config_example\mq.json">
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
+    <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
+    <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
+    <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
+    <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Swagger\Swagger.Core\Swagger.Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils.Mvc\Utils.Mvc.csproj" />
+    <ProjectReference Include="..\..\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
+  </ItemGroup>
+
+</Project>

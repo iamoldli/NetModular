@@ -54,14 +54,14 @@ namespace Nm.Lib.Utils.Mvc.Helpers
                         TypeInfo = typeInfo
                     };
 
-                    var areaAttr = (AreaAttribute) Attribute.GetCustomAttribute(typeInfo, typeof(AreaAttribute));
+                    var areaAttr = (AreaAttribute)Attribute.GetCustomAttribute(typeInfo, typeof(AreaAttribute));
                     if (areaAttr != null)
                     {
                         controller.Area = areaAttr.RouteValue;
                     }
 
                     var descAttr =
-                        (DescriptionAttribute) Attribute.GetCustomAttribute(typeInfo, typeof(DescriptionAttribute));
+                        (DescriptionAttribute)Attribute.GetCustomAttribute(typeInfo, typeof(DescriptionAttribute));
                     if (descAttr != null && descAttr.Description.NotNull())
                     {
                         controller.Description = descAttr.Description;

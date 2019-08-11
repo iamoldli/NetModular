@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using <#= _prefix #>.Lib.Module.Abstractions;
-using <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Options;
+using <#= _prefix #>.Lib.Module.AspNetCore;
 
 namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web
 {
@@ -35,16 +34,6 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Web
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
                    
-        }
-
-        /// <summary>
-        /// 配置配置项
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        public void ConfigOptions(IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<<#= _model.Project.Code #>Options>(configuration);
         }
     }
 }

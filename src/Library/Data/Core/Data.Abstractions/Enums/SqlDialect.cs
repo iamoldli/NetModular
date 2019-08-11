@@ -1,4 +1,6 @@
-﻿namespace Nm.Lib.Data.Abstractions.Enums
+﻿using System.ComponentModel;
+
+namespace Nm.Lib.Data.Abstractions.Enums
 {
     /// <summary>
     /// 数据库类型
@@ -16,6 +18,10 @@
         /// <summary>
         /// SQLite
         /// </summary>
-        SQLite
+        SQLite,
+        /// <summary>
+        /// Oracle
+        /// </summary>
+        Oracle
     }
 }

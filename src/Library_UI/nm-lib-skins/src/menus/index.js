@@ -1,4 +1,4 @@
-﻿import componentMenus from '../views/components/menus'
+import componentMenus from '../views/components/menus'
 let menus = []
 // 基础组件
 menus.push(componentMenus)

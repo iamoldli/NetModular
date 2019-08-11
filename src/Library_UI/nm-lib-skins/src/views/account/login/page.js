@@ -1,7 +1,7 @@
 /** 页面信息 */
-const page = new function () {
+const page = new function() {
   this.title = '登录'
-  this.name = 'Login'
+  this.name = 'login'
   this.path = '/login'
   this.frameIn = false
   this.cache = false

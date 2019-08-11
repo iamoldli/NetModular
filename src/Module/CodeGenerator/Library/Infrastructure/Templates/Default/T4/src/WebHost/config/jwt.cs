@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -25,9 +23,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("{\r\n//秘钥\r\n  \"Key\": \"twAJ$j5##pVc5*y&\",\r\n  //发行商\r\n  \"Issuer\": \"http://www.iamoldli." +
-                    "com\",\r\n  //订阅者\r\n  \"Audience\": \"http://www.iamoldli.com\",\r\n  //有效期(分钟)\r\n  \"Expire" +
-                    "s\": 120\r\n}");
+            this.Write("{\r\n  //秘钥\r\n  \"Key\": \"twAJ$j5##pVc5*y&\",\r\n  //发行商\r\n  \"Issuer\": \"http://www.iamoldl" +
+                    "i.com\",\r\n  //订阅者\r\n  \"Audience\": \"http://www.iamoldli.com\",\r\n  //有效期(分钟)\r\n  \"Expi" +
+                    "res\": 120\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

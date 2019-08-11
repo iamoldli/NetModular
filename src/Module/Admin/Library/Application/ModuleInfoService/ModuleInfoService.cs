@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.ModuleInfo;
 using Nm.Module.Admin.Domain.ModuleInfo.Models;
 using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Infrastructure.Repositories;
 using ModuleInfoEntity = Nm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
 namespace Nm.Module.Admin.Application.ModuleInfoService
@@ -18,15 +16,13 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
         private readonly IModuleInfoRepository _repository;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IMenuRepository _menuRepository;
-        private readonly IUnitOfWork _uow;
         private readonly IModuleCollection _moduleCollection;
 
-        public ModuleInfoService(IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository, IUnitOfWork<AdminDbContext> uow, IModuleCollection moduleCollection)
+        public ModuleInfoService(IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository, IModuleCollection moduleCollection)
         {
             _repository = repository;
             _permissionRepository = permissionRepository;
             _menuRepository = menuRepository;
-            _uow = uow;
             _moduleCollection = moduleCollection;
         }
 
@@ -49,29 +45,30 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
                 Version = m.Version
             });
 
-            _uow.BeginTransaction();
-
-            foreach (var moduleInfo in modules)
+            using (var tran = _repository.BeginTransaction())
             {
-                if (!await _repository.Exists(moduleInfo.Code))
+                foreach (var moduleInfo in modules)
                 {
-                    if (!await _repository.AddAsync(moduleInfo))
+                    if (!await _repository.Exists(moduleInfo, tran))
                     {
-                        _uow.Rollback();
-                        return ResultModel.Failed();
+                        if (!await _repository.AddAsync(moduleInfo))
+                        {
+                            tran.Rollback();
+                            return ResultModel.Failed();
+                        }
+                    }
+                    else
+                    {
+                        if (!await _repository.UpdateByCode(moduleInfo))
+                        {
+                            tran.Rollback();
+                            return ResultModel.Failed();
+                        }
                     }
                 }
-                else
-                {
-                    if (!await _repository.UpdateByCode(moduleInfo))
-                    {
-                        _uow.Rollback();
-                        return ResultModel.Failed();
-                    }
-                }
-            }
 
-            _uow.Commit();
+                tran.Commit();
+            }
 
             return ResultModel.Success();
         }

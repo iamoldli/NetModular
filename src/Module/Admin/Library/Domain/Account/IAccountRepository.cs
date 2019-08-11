@@ -14,17 +14,18 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 修改密码
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="password"></param>
+        /// <param name="id">账户编号</param>
+        /// <param name="password">密码</param>
         /// <returns></returns>
         Task<bool> UpdatePassword(Guid id, string password);
 
         /// <summary>
         /// 根据用户名查询账户信息
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="userName">用户名</param>
+        /// <param name="type">账户类型</param>
         /// <returns></returns>
-        Task<AccountEntity> GetByUserName(string userName);
+        Task<AccountEntity> GetByUserName(string userName, int type = 0);
 
         /// <summary>
         /// 修改登录信息
@@ -44,25 +45,28 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 用户名是否存在
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="id"></param>
+        /// <param name="userName">用户名</param>
+        /// <param name="id">编号</param>
+        /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsUserName(string userName, Guid? id = null);
+        Task<bool> ExistsUserName(string userName, Guid? id = null, int type = 0);
 
         /// <summary>
         /// 手机号是否存在
         /// </summary>
-        /// <param name="phone"></param>
-        /// <param name="id"></param>
+        /// <param name="phone">手机号</param>
+        /// <param name="id">编号</param>
+        /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsPhone(string phone, Guid? id = null);
+        Task<bool> ExistsPhone(string phone, Guid? id = null, int type = 0);
 
         /// <summary>
         /// 邮箱是否存在
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="id"></param>
+        /// <param name="email">邮箱</param>
+        /// <param name="id">编号</param>
+        /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsEmail(string email, Guid? id = null);
+        Task<bool> ExistsEmail(string email, Guid? id = null, int type = 0);
     }
 }

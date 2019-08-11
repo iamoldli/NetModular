@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Module.Abstractions;
+using Nm.Lib.Auth.Web;
 
 namespace Nm.Module.CodeGenerator.Web
 {
-    [Area("codegenerator")]
-    public abstract class ModuleController : ModuleControllerAbstract
+    [Area("CodeGenerator")]
+    public abstract class ModuleController : ControllerAbstract
     {
 
     }

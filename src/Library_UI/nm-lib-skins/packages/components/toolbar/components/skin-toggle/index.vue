@@ -1,6 +1,6 @@
 <template>
   <div class="nm-toolbar-item">
-    <nm-button class="nm-toolbar-button" type="text" @click="visible=true">
+    <nm-button class="nm-toolbar-button" type="text" @click="open">
       <nm-icon name="skin"/>
     </nm-button>
     <nm-dialog title="皮肤切换" icon="skin" btn-ok-text="切换" :btn-reset="false" :visible.sync="visible" :model="model" :action="action">
@@ -54,7 +54,7 @@ import themeList from './themeList'
 import { mapMutations } from 'vuex'
 export default {
   components: { skinPretty, skinFormItem },
-  data () {
+  data() {
     return {
       /** 当前选择的主题 */
       selectTheme: { themeName: '', headerColor: '', sideColor: '', sideList: [] },
@@ -65,10 +65,10 @@ export default {
         /** 主题 */
         theme: ''
         /** 字号 medium/small/mini */},
-      action () { }
+      action() { }
     }
   },
-  created () {
+  created() {
     this.prettyList = themeList.prettyTheme
     this.selectTheme.sideList = this.prettyList[0].sideColor
     this.selectTheme.headerColor = this.prettyList[0].headerColor
@@ -76,12 +76,15 @@ export default {
     this.selectTheme.sideColor = this.prettyList[0].sideColor[0].sideColor
   },
   methods: {
+    open() {
+      this._warning('开发中~')
+    },
     // 设置选中布局样式
-    isActiveSkin (name) {
+    isActiveSkin(name) {
       this.model.name = name
     },
     // 设置选中头部颜色
-    isActiveHeaderColor (info) {
+    isActiveHeaderColor(info) {
       this.selectTheme.sideList = info.sideColor
       this.selectTheme.headerColor = info.headerColor
       this.selectTheme.themeName = info.sideColor[0].theme
@@ -89,13 +92,13 @@ export default {
       // this.themeChange(info.sideColor[0]);
     },
     // 设置选中侧边颜色
-    isActiveSideColor (item) {
+    isActiveSideColor(item) {
       this.selectTheme.themeName = item.theme
       this.selectTheme.sideColor = item.sideColor
       // this.themeChange(item);
     },
     // 切换主题及保存
-    checkTheme () {
+    checkTheme() {
       this.model.theme = this.selectTheme.themeName
       this.themeChange(this.model)
     },

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\..\..\..\..\build\module.build.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.11" />
+    <PackageReference Include="NPinyin.Core" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Admin\Library\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+</Project>

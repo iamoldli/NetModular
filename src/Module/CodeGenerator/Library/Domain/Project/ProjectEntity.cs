@@ -15,6 +15,11 @@ namespace Nm.Module.CodeGenerator.Domain.Project
         public string Name { get; set; }
 
         /// <summary>
+        /// 编号
+        /// </summary>
+        public int No { get; set; }
+
+        /// <summary>
         /// 前缀
         /// </summary>
         public string Prefix { get; set; }

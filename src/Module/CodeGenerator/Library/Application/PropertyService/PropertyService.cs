@@ -2,30 +2,26 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Domain.Property.Models;
-using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.PropertyService
 {
     public class PropertyService : IPropertyService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
         private readonly IPropertyRepository _repository;
         private readonly IClassRepository _classRepository;
 
-        public PropertyService(IMapper mapper, IPropertyRepository repository, IClassRepository classRepository, IUnitOfWork<CodeGeneratorDbContext> uow)
+        public PropertyService(IMapper mapper, IPropertyRepository repository, IClassRepository classRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _classRepository = classRepository;
-            _uow = uow;
         }
 
         public async Task<IResultModel> Query(PropertyQueryModel model)
@@ -45,6 +41,8 @@ namespace Nm.Module.CodeGenerator.Application.PropertyService
                 return ResultModel.Failed("关联类不存在");
 
             var entity = _mapper.Map<PropertyEntity>(model);
+            entity.ProjectId = classEntity.ProjectId;
+
             if (await _repository.Exists(entity))
             {
                 return ResultModel.Failed($"属性名称({entity.Name})已存在");
@@ -109,26 +107,28 @@ namespace Nm.Module.CodeGenerator.Application.PropertyService
                 return ResultModel.Failed("不包含数据");
             }
 
-            _uow.BeginTransaction();
-
-            foreach (var option in model.Options)
+            using (var tran = _repository.BeginTransaction())
             {
-                var entity = await _repository.GetAsync(option.Id);
-                if (entity == null)
+                foreach (var option in model.Options)
                 {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
+                    var entity = await _repository.GetAsync(option.Id, tran);
+                    if (entity == null)
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
+
+                    entity.Sort = option.Sort;
+                    if (!await _repository.UpdateAsync(entity, tran))
+                    {
+                        tran.Rollback();
+                        return ResultModel.Failed();
+                    }
                 }
 
-                entity.Sort = option.Sort;
-                if (!await _repository.UpdateAsync(entity))
-                {
-                    _uow.Rollback();
-                    return ResultModel.Failed();
-                }
+                tran.Commit();
             }
 
-            _uow.Commit();
             return ResultModel.Success();
         }
 

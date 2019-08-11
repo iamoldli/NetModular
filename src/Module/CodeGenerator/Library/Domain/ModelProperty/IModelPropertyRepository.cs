@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
@@ -34,5 +35,13 @@ namespace Nm.Module.CodeGenerator.Domain.ModelProperty
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<bool> Exists(ModelPropertyEntity entity);
+
+        /// <summary>
+        /// 删除指定类的所有属性
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction);
     }
 }

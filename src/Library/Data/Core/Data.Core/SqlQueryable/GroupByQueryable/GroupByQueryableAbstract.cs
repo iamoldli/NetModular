@@ -63,49 +63,49 @@ namespace Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable
 
         public IList<dynamic> ToList()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.Query(sql, parameters.Parse()).ToList();
         }
 
         public IList<TResult> ToList<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.Query<TResult>(sql, parameters.Parse()).ToList();
         }
 
         public async Task<IList<dynamic>> ToListAsync()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return (await Db.QueryAsync(sql, parameters.Parse())).ToList();
         }
 
         public async Task<IList<TResult>> ToListAsync<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return (await Db.QueryAsync<TResult>(sql, parameters.Parse())).ToList();
         }
 
         public dynamic First()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefault(sql, parameters.Parse());
         }
 
         public TResult First<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefault<TResult>(sql, parameters.Parse());
         }
 
         public Task<dynamic> FirstAsync()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefaultAsync(sql, parameters.Parse());
         }
 
         public Task<TResult> FirstAsync<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out QueryParameters parameters);
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefaultAsync<TResult>(sql, parameters.Parse());
         }
     }

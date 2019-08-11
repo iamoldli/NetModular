@@ -52,12 +52,6 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             return ExistsAsync(e => e.ParentId == id);
         }
-
-        public Task<bool> ExistsNameByParentId(string name, Guid id, Guid parentId = default(Guid))
-        {
-            return ExistsAsync(e => e.ParentId == parentId && e.Name.Equals(name) && e.Id != id);
-        }
-
         public Task<bool> ExistsWidthModule(string moduleCode)
         {
             return ExistsAsync(e => e.ModuleCode == moduleCode);

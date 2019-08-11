@@ -1,7 +1,7 @@
 import dialog from './dialog'
 export default {
   mixins: [dialog],
-  data () {
+  data() {
     return {
       // 存储表单数据
       model_: {},
@@ -23,30 +23,49 @@ export default {
     id: {
       type: [String, Number],
       required: true
+    },
+    /** 是否总是刷新数据，即使相同id */
+    allRefresh: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
-    async get () {
+    async edit() {
       this.form.loading = true
-      this.form.model = await this.api.edit(this.id)
+      if (this.editAction) {
+        this.form.model = await this.editAction()
+      } else {
+        this.form.model = await this.api.edit(this.id)
+      }
       this.model_ = this.$_.merge({}, this.form.model)
       this.form.loading = false
+
+      // 刷新数据后的回调方法
+      if (this.afterRefresh) {
+        this.afterRefresh()
+      }
     },
-    onReset () {
+    onReset() {
       this.form.model = this.$_.merge({}, this.model_)
+
+      // 重置后的回调方法
+      if (this.afterReset) {
+        this.afterReset()
+      }
     },
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onOpen () {
+    onOpen() {
       if (!this.id) {
         this._warning('请选择要编辑的数据~')
         this.$refs.form.reset()
         return
       }
 
-      if (this.id !== this.form.model.id) {
-        this.get()
+      if (this.allRefresh || this.id !== this.form.model.id) {
+        this.edit()
       }
     }
   }

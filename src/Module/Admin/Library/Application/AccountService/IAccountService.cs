@@ -32,7 +32,7 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 获取登录信息
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> LoginInfo();
+        Task<IResultModel> LoginInfo(Guid accountId);
 
         /// <summary>
         /// 修改密码
@@ -59,7 +59,7 @@ namespace Nm.Module.Admin.Application.AccountService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Add(AccountAddModel model);
+        Task<IResultModel<Guid>> Add(AccountAddModel model);
 
         /// <summary>
         /// 编辑
@@ -79,8 +79,9 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 删除
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="deleter">删除人</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(Guid id);
+        Task<IResultModel> Delete(Guid id,Guid deleter);
 
         /// <summary>
         /// 重置密码
@@ -99,5 +100,13 @@ namespace Nm.Module.Admin.Application.AccountService
         /// 清除指定账户的缓存数据
         /// </summary>
         void ClearPermissionListCache(Guid id);
+
+        /// <summary>
+        /// 密码加密
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        string EncryptPassword(string userName, string password);
     }
 }

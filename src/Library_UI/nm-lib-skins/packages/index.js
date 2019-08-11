@@ -10,6 +10,24 @@ import Icon from 'nm-lib-icon'
 import Components from './components'
 import Mixins from './mixins/'
 import Directive from './directive'
+import dayjs from 'dayjs'
+import token from './router/token'
+
+// 附加自定义样式
+const appendCustomCss = system => {
+  if (system.customCss) {
+    var style = document.createElement('style')
+    style.type = 'text/css'
+    if (style.styleSheet) {
+      style.styleSheet.cssText = system.customCss
+    } else {
+      // w3c浏览器中只要创建文本节点插入到style元素中就行了
+      var textNode = document.createTextNode(system.customCss)
+      style.appendChild(textNode)
+    }
+    document.head.appendChild(style)
+  }
+}
 
 export default {
   /**
@@ -27,6 +45,13 @@ export default {
 
     // 将lodash添加到Vue的实例属性
     Vue.prototype.$_ = lodash
+
+    // 全局引用ECharts，如果需要按需引用，请访问http://echarts.baidu.com/tutorial.html#%E5%9C%A8%20webpack%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20ECharts
+    // eslint-disable-next-line no-undef
+    Vue.prototype.$echarts = echarts
+
+    // 日期格式化插件
+    Vue.prototype.$dayjs = dayjs
 
     // 全局混入
     Mixins.global(Vue)
@@ -73,14 +98,18 @@ export default {
 
     // 处理回调
     if (callbacks) {
+      let params = { vm, store, router, Vue }
       callbacks.map(callback => {
-        callback(vm, store, router)
+        callback(params)
       })
     }
+
+    // 附加自定义样式
+    appendCustomCss(system)
 
     return { router, store, vm }
   }
 }
 
 const mixins = Mixins.components
-export { mixins, store }
+export { mixins, store, token }

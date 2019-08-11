@@ -7,6 +7,11 @@ namespace Nm.Module.Admin.Application.AccountService.ViewModels
     public class AccountAddModel
     {
         /// <summary>
+        /// 类型
+        /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "请输入用户名")]

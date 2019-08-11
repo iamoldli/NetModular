@@ -1,0 +1,11 @@
+{
+  "Logging": true,
+  "Connections": [
+    {
+      "Name": "Admin",
+      "Dialect": 1,
+      "Database": "Nm_Admin",
+      "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+    }
+  ]
+}

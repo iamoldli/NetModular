@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -45,6 +46,11 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.ProjectId == entity.ProjectId && m.Name.Equals(entity.Name))
                 .WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id)
                 .ExistsAsync();
+        }
+
+        public Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction)
+        {
+            return Db.Find(m => m.ProjectId == projectId).UseTran(transaction).DeleteAsync();
         }
     }
 }

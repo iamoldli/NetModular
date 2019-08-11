@@ -3,26 +3,26 @@
     <div class="nm-tabnav-tabs">
       <el-tabs :value="current.path" type="card" :closable="true" @tab-click="click" @edit="edit">
         <el-tab-pane label="首页" :name="defaultPage"></el-tab-pane>
-        <el-tab-pane v-for="item in opened" :key="item.path" :label="item.tabName" :name="item.path"/>
+        <el-tab-pane v-for="item in opened" :key="item.path" :label="item.tabName" :name="item.path" />
       </el-tabs>
     </div>
     <div class="nm-tabnav-control">
       <el-dropdown @command="cmd => handleCommand(cmd)">
         <span class="nm-tabnav-control-btn">
-          <nm-icon name="angle-double-down"/>
+          <nm-icon name="angle-double-down" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="left">
-            <nm-icon name="arrow-left" class="nm-tabnav-control-icon"/>关闭左侧
+            <nm-icon name="arrow-left" class="nm-tabnav-control-icon" />关闭左侧
           </el-dropdown-item>
           <el-dropdown-item command="right">
-            <nm-icon name="arrow-right" class="nm-tabnav-control-icon"/>关闭右侧
+            <nm-icon name="arrow-right" class="nm-tabnav-control-icon" />关闭右侧
           </el-dropdown-item>
           <el-dropdown-item command="other">
-            <nm-icon name="other" class="nm-tabnav-control-icon"/>关闭其他
+            <nm-icon name="other" class="nm-tabnav-control-icon" />关闭其他
           </el-dropdown-item>
           <el-dropdown-item command="all">
-            <nm-icon name="app" class="nm-tabnav-control-icon"/>全部关闭
+            <nm-icon name="app" class="nm-tabnav-control-icon" />全部关闭
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

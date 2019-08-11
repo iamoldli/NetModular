@@ -2,8 +2,10 @@
 using System.Data;
 using System.Text;
 using Dapper;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
+using IsolationLevel = System.Data.IsolationLevel;
 
 namespace Nm.Lib.Data.Core
 {
@@ -15,24 +17,14 @@ namespace Nm.Lib.Data.Core
         #region ==属性==
 
         /// <summary>
-        /// 当前登录账户编号
+        /// 登录信息
         /// </summary>
-        public string AccountId => Options.HttpContextAccessor?.HttpContext.User.FindFirst("id")?.Value;
+        public ILoginInfo LoginInfo { get; }
 
         /// <summary>
         /// 数据库上下文配置项
         /// </summary>
         public IDbContextOptions Options { get; }
-
-        /// <summary>
-        /// 数据库连接
-        /// </summary>
-        public IDbConnection Connection { get; private set; }
-
-        /// <summary>
-        /// 事务
-        /// </summary>
-        public IDbTransaction Transaction { get; set; }
 
         #endregion
 
@@ -41,19 +33,58 @@ namespace Nm.Lib.Data.Core
         protected DbContext(IDbContextOptions options)
         {
             Options = options;
+            LoginInfo = Options.LoginInfo;
         }
 
         #endregion
 
         #region ==方法==
 
+        public IDbConnection NewConnection(IDbTransaction transaction = null)
+        {
+            if (transaction != null)
+                return transaction.Connection;
+
+            var conn = Options.NewConnection();
+
+            //SQLite跨数据库访问需要附加
+            if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+            {
+                conn.Open();
+
+                var sql = new StringBuilder();
+                foreach (var c in Options.DbOptions.Connections)
+                {
+                    var connString = "";
+                    foreach (var param in c.ConnString.Split(';'))
+                    {
+                        var temp = param.Split('=');
+                        var key = temp[0];
+                        if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) ||
+                            key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
+                        {
+                            connString = temp[1];
+                            break;
+                        }
+                    }
+
+                    sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
+                }
+
+                conn.ExecuteAsync(sql.ToString());
+            }
+
+            return conn;
+        }
+
         public IDbTransaction BeginTransaction()
         {
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 return null;
 
-            Open();
-            return Transaction = Transaction ?? Connection.BeginTransaction();
+            var conn = NewConnection();
+            conn.Open();
+            return conn.BeginTransaction();
         }
 
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
@@ -61,48 +92,9 @@ namespace Nm.Lib.Data.Core
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 return null;
 
-            Open();
-            return Transaction = Transaction ?? Connection.BeginTransaction(isolationLevel);
-        }
-
-        /// <summary>
-        /// 打开连接
-        /// </summary>
-        public IDbConnection Open()
-        {
-            if (Connection == null)
-                Connection = Options.OpenConnection();
-
-            if (Connection.State != ConnectionState.Open)
-            {
-                Connection.Open();
-
-                //SQLite跨数据库访问需要附加
-                if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
-                {
-                    var sql = new StringBuilder();
-                    foreach (var conn in Options.DbOptions.Connections)
-                    {
-                        var connString = "";
-                        foreach (var param in conn.ConnString.Split(';'))
-                        {
-                            var temp = param.Split('=');
-                            var key = temp[0];
-                            if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
-                            {
-                                connString = temp[1];
-                                break;
-                            }
-                        }
-
-                        sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
-                    }
-
-                    Connection.ExecuteAsync(sql.ToString());
-                }
-            }
-
-            return Connection;
+            var conn = NewConnection();
+            conn.Open();
+            return conn.BeginTransaction(isolationLevel);
         }
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()
@@ -111,11 +103,5 @@ namespace Nm.Lib.Data.Core
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            Transaction?.Dispose();
-            Connection?.Dispose();
-        }
     }
 }

@@ -161,6 +161,13 @@ export default [
     def: 'false'
   },
   {
+    name: 'loading-text',
+    desc: '加载中文本',
+    type: 'String',
+    opt: '-',
+    def: 'false'
+  },
+  {
     name: 'query-on-created',
     desc: '创建后执行一次查询',
     type: 'Boolean',

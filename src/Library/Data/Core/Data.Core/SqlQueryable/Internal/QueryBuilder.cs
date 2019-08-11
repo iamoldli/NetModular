@@ -7,6 +7,8 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Core.ExpressionResolve;
 using Nm.Lib.Data.Core.Internal;
+using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
+using StringExtensions = Nm.Lib.Data.Core.Internal.StringExtensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {
@@ -19,6 +21,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         private readonly ILogger _logger;
         private readonly ExpressionResolver _resolver;
         private readonly IDbContext _dbContext;
+
         #endregion
 
         #region ==构造函数==
@@ -36,7 +39,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
         #region ==方法==
 
-        public string CountSqlBuild(out QueryParameters parameters)
+        public string CountSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
 
@@ -53,9 +56,9 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string UpdateSqlBuild(string tableName, out QueryParameters parameters)
+        public string UpdateSqlBuild(out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定更新表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定更新表");
 
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
@@ -64,7 +67,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             Check.NotNull(updateSql, nameof(updateSql), "生成更新sql异常");
 
 
-            sqlBuilder.AppendFormat("UPDATE {0} SET ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("UPDATE {0} SET ", _sqlAdapter.AppendQuote(_queryBody.TableName));
             sqlBuilder.Append(updateSql);
 
             SetModifiedBy(sqlBuilder, parameters);
@@ -80,14 +83,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string DeleteSqlBuild(string tableName, out QueryParameters parameters)
+        public string DeleteSqlBuild(out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定更新表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定更新表");
 
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
 
-            sqlBuilder.AppendFormat("DELETE FROM {0} ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("DELETE FROM {0} ", _sqlAdapter.AppendQuote(_queryBody.TableName));
 
             var whereSql = ResolveWhere(parameters);
             Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
@@ -100,18 +103,25 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string SoftDeleteSqlBuild(string tableName, out QueryParameters parameters)
+        public string SoftDeleteSqlBuild( out IQueryParameters parameters)
         {
-            Check.NotNull(tableName, nameof(tableName), "未指定删除表");
+            Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定删除表");
 
             parameters = new QueryParameters();
 
-            var sqlBuilder = new StringBuilder($"UPDATE {_sqlAdapter.AppendQuote(tableName)} SET ");
+            var sqlBuilder = new StringBuilder($"UPDATE {_sqlAdapter.AppendQuote(_queryBody.TableName)} SET ");
             sqlBuilder.AppendFormat("{0}=1,", _sqlAdapter.AppendQuote("Deleted"));
             sqlBuilder.AppendFormat("{0}={1},", _sqlAdapter.AppendQuote("DeletedTime"), _sqlAdapter.AppendParameter("P1"));
             parameters.Add(DateTime.Now);
             sqlBuilder.AppendFormat("{0}={1} ", _sqlAdapter.AppendQuote("DeletedBy"), _sqlAdapter.AppendParameter("P2"));
-            parameters.Add(_dbContext.AccountId);
+
+            var deleteBy = Guid.Empty;
+            if (_dbContext.LoginInfo != null)
+            {
+                deleteBy = _dbContext.LoginInfo.AccountId;
+            }
+
+            parameters.Add(deleteBy);
 
             var whereSql = ResolveWhere(parameters);
             Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
@@ -124,22 +134,22 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string MaxSqlBuild(out QueryParameters parameters)
+        public string MaxSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("MAX", out parameters);
         }
 
-        public string MinSqlBuild(out QueryParameters parameters)
+        public string MinSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("MIN", out parameters);
         }
 
-        public string SumSqlBuild(out QueryParameters parameters)
+        public string SumSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("SUM", out parameters);
         }
 
-        public string AvgSqlBuild(out QueryParameters parameters)
+        public string AvgSqlBuild(out IQueryParameters parameters)
         {
             return FuncSqlBuild("Avg", out parameters);
         }
@@ -150,7 +160,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <param name="funcName"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private string FuncSqlBuild(string funcName, out QueryParameters parameters)
+        private string FuncSqlBuild(string funcName, out IQueryParameters parameters)
         {
             var func = _queryBody.Function;
             Check.NotNull(func, nameof(func), "函数解析失败");
@@ -174,7 +184,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string FirstSqlBuild(out QueryParameters parameters)
+        public string FirstSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
             var select = ResolveSelect();
@@ -189,7 +199,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string ExistsSqlBuild(out QueryParameters parameters)
+        public string ExistsSqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
 
@@ -205,7 +215,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string QuerySqlBuild(out QueryParameters parameters)
+        public string QuerySqlBuild(out IQueryParameters parameters)
         {
             string sql;
             parameters = new QueryParameters();
@@ -221,7 +231,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 #region ==SqlServer分页需要指定排序==
 
                 //SqlServer分页需要指定排序，此处判断是否有主键，有主键默认按照主键排序
-                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && sort.IsNull())
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && StringExtensions.IsNull(sort))
                 {
                     var first = _queryBody.JoinDescriptors.First();
                     if (first.EntityDescriptor.PrimaryKey.IsNo())
@@ -265,7 +275,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string GroupBySqlBuild(out QueryParameters parameters)
+        public string GroupBySqlBuild(out IQueryParameters parameters)
         {
             parameters = new QueryParameters();
             var sqlBuilder = new StringBuilder("SELECT ");
@@ -295,24 +305,24 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
         #region ==解析Body==
 
-        private string ResolveFrom(QueryParameters parameters)
+        private string ResolveFrom(IQueryParameters parameters)
         {
             var sqlBuilder = new StringBuilder();
             ResolveFrom(sqlBuilder, parameters);
             return sqlBuilder.ToString();
         }
 
-        private void ResolveFrom(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveFrom(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             var first = _queryBody.JoinDescriptors.First();
 
             if (_queryBody.JoinDescriptors.Count == 1)
             {
-                sqlBuilder.AppendFormat(" {0}{1} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.EntityDescriptor.TableName));
+                sqlBuilder.AppendFormat(" {0}{1} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(_queryBody.TableName));
                 return;
             }
 
-            sqlBuilder.AppendFormat(" {0}{1} AS {2} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.EntityDescriptor.TableName), _sqlAdapter.AppendQuote(first.Alias));
+            sqlBuilder.AppendFormat(" {0}{1} AS {2} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(_queryBody.TableName), _sqlAdapter.AppendQuote(first.Alias));
 
             for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
             {
@@ -336,7 +346,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private string ResolveWhere(QueryParameters parameters)
+        private string ResolveWhere(IQueryParameters parameters)
         {
             var whereSql = new StringBuilder();
             for (var i = 0; i < _queryBody.Where.Count; i++)
@@ -352,7 +362,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return whereSql.ToString();
         }
 
-        private void ResolveWhere(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveWhere(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             if (_queryBody.Where == null)
                 return;
@@ -364,7 +374,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private string ResolveUpdate(QueryParameters parameters)
+        private string ResolveUpdate(IQueryParameters parameters)
         {
             Check.NotNull(_queryBody.Update, nameof(_queryBody.Update), "未指定更新字段");
 
@@ -394,7 +404,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         private void ResolveOrder(StringBuilder sqlBuilder)
         {
             var sql = ResolveOrder();
-            if (sql.NotNull())
+            if (StringExtensions.NotNull(sql))
                 sqlBuilder.AppendFormat(" ORDER BY {0}", sql);
         }
 
@@ -536,7 +546,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 //分组查询
                 if (_queryBody.IsGroupBy)
                 {
-                    var descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m => _sqlAdapter.AppendQuote(m.Alias) == alias);
+                    var descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m => _sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name);
                     if (descriptor != null)
                     {
                         var colName = _queryBody.GetColumnName(descriptor.Name, descriptor.JoinDescriptor);
@@ -600,10 +610,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             {
                 var funcName = _sqlAdapter.FuncSubstring;
                 var colName = _queryBody.GetColumnName(objExp, fullExpression);
-                var start = ((ConstantExpression)callExp.Arguments[0]).Value.ToInt() + 1;
+                var start = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[0]).Value) + 1;
                 if (callExp.Arguments.Count > 1)
                 {
-                    var length = ((ConstantExpression)callExp.Arguments[1]).Value.ToInt();
+                    var length = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[1]).Value);
                     sqlBuilder.AppendFormat("{0}({1},{2},{3}) AS {4},", funcName, colName, start, length, alias);
                 }
                 else
@@ -689,7 +699,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 解析聚合过滤条件
         /// </summary>
-        private void ResolveHaving(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void ResolveHaving(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
             var havingSql = new StringBuilder();
             for (var i = 0; i < _queryBody.Having.Count; i++)
@@ -709,15 +719,15 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 设置修改人和修改时间
         /// </summary>
-        private void SetModifiedBy(StringBuilder sqlBuilder, QueryParameters parameters)
+        private void SetModifiedBy(StringBuilder sqlBuilder, IQueryParameters parameters)
         {
-            if (!_queryBody.SetModifiedBy || _dbContext.AccountId.IsNull())
+            if (!_queryBody.SetModifiedBy || _dbContext.LoginInfo == null)
                 return;
 
             var descriptor = _queryBody.JoinDescriptors.FirstOrDefault()?.EntityDescriptor;
             if (descriptor != null && descriptor.IsEntityBase)
             {
-                var p1 = parameters.Add(new Guid(_dbContext.AccountId));
+                var p1 = parameters.Add(_dbContext.LoginInfo.AccountId);
                 sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedBy"), p1);
                 var p2 = parameters.Add(DateTime.Now);
                 sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedTime"), p2);

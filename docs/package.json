@@ -1,0 +1,12 @@
+{
+  "name": "netmodular-docs",
+  "version": "1.0.0",
+  "description": "NetModular文档",
+  "main": "index.js",
+    "scripts": {
+      "dev": "vuepress dev ../docs",
+      "build": "vuepress build ../docs"
+  },
+  "author": "Oldli",
+  "license": "ISC"
+}

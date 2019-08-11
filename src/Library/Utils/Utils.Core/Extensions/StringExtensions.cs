@@ -34,6 +34,5 @@ namespace Nm.Lib.Utils.Core.Extensions
         {
             return s.Equals(value, StringComparison.OrdinalIgnoreCase);
         }
-
     }
 }

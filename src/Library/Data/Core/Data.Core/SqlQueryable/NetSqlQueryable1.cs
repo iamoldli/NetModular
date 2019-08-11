@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -15,7 +16,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 {
     internal class NetSqlQueryable<TEntity> : NetSqlQueryableAbstract, INetSqlQueryable<TEntity> where TEntity : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter))
+        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression, string tableName) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter), tableName)
         {
             QueryBody.JoinDescriptors.Add(new QueryJoinDescriptor
             {
@@ -27,6 +28,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
             Where(whereExpression);
         }
+
+        #region ==UseTran==
+
+        public INetSqlQueryable<TEntity> UseTran(IDbTransaction transaction)
+        {
+            QueryBody.UseTran(transaction);
+            return this;
+        }
+
+        #endregion
 
         #region ==Sort==
 
@@ -74,11 +85,17 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity> WhereIf(bool ifCondition, Expression<Func<TEntity, bool>> expression)
+        public INetSqlQueryable<TEntity> WhereIf(bool condition, Expression<Func<TEntity, bool>> expression)
         {
-            if (ifCondition)
+            if (condition)
                 Where(expression);
 
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereIf(bool condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition ? ifExpression : elseExpression);
             return this;
         }
 
@@ -139,16 +156,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
         public int DeleteWithAffectedNum()
         {
-            var sql = QueryBuilder.DeleteSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse());
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         public Task<int> DeleteWithAffectedNumAsync()
         {
-            var sql = QueryBuilder.DeleteSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse());
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         #endregion
@@ -169,16 +186,16 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
         public int SoftDeleteWithAffectedNum()
         {
-            var sql = QueryBuilder.SoftDeleteSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse());
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         public Task<int> SoftDeleteWithAffectedNumAsync()
         {
-            var sql = QueryBuilder.SoftDeleteSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse());
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         #endregion
@@ -201,18 +218,18 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             QueryBody.Update = expression;
             QueryBody.SetModifiedBy = setModifiedBy;
-            var sql = QueryBuilder.UpdateSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse());
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         public Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true)
         {
             QueryBody.Update = expression;
             QueryBody.SetModifiedBy = setModifiedBy;
-            var sql = QueryBuilder.UpdateSqlBuild(Db.EntityDescriptor.TableName, out QueryParameters parameters);
+            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse());
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
         }
 
         #endregion
@@ -244,6 +261,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             return base.MinAsync<TResult>(expression);
         }
 
+        #endregion
+
+        #region ==Sum==
+
         public TResult Sum<TResult>(Expression<Func<TEntity, TResult>> expression)
         {
             return base.Sum<TResult>(expression);
@@ -253,6 +274,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             return base.SumAsync<TResult>(expression);
         }
+
+        #endregion
+
+        #region ==Avg==
 
         public TResult Avg<TResult>(Expression<Func<TEntity, TResult>> expression)
         {

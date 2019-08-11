@@ -68,14 +68,14 @@ export default {
           message: '请输入密码',
           trigger: 'blur'
         }],
-        code: [{          validator(rule, value, callback) {
-            if (_this.loginVerifyCode && value === '') {
-              callback(new Error('请输入验证码'))
-            } else {
-              callback()
-            }
-          },
-          trigger: 'blur'
+        code: [{ validator(rule, value, callback) {
+          if (_this.loginVerifyCode && value === '') {
+            callback(new Error('请输入验证码'))
+          } else {
+            callback()
+          }
+        },
+        trigger: 'blur'
         }]
       },
       loading: false
@@ -160,9 +160,11 @@ export default {
   }
 
   .nm-login-box {
-    margin: 0 auto;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -160px 0 0 -190px;
     padding: 5px 15px;
-    margin-top: 10%;
     border-radius: 5px;
     text-align: center;
     width: 350px;

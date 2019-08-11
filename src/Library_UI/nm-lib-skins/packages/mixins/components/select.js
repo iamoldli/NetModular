@@ -4,7 +4,8 @@ export default {
       value_: this.value,
       options: [],
       action: null,
-      loading: false
+      loading: false,
+      hasInit: false
     }
   },
   props: {
@@ -31,7 +32,11 @@ export default {
     placeholder: {
       type: String,
       default: '请选择'
-    }
+    },
+    /** 是否默认选中第一个 */
+    checkedFirst: Boolean,
+    /** 头部的图标 */
+    icon: ''
   },
   computed: {
     selection() {
@@ -71,6 +76,11 @@ export default {
       this.action().then(options => {
         this.options = options
         this.loading = false
+
+        if (this.checkedFirst && !this.hasInit && options.length > 0) {
+          this.value_ = options[0].value
+          this.hasInit = true
+        }
       })
     },
     onChange(val) {
@@ -129,14 +139,15 @@ export default {
             {this.$scopedSlots.default
               ? this.$scopedSlots.default({ options: this.options })
               : this.options.map(item => {
-                  return (
-                    <el-option
-                      label={item.label}
-                      value={item.value}
-                      disabled={item.disabled}
-                    />
-                  )
-                })}
+                return (
+                  <el-option
+                    label={item.label}
+                    value={item.value}
+                    disabled={item.disabled}
+                  />
+                )
+              })}
+            {this.icon ? <nm-icon name={this.icon} slot="prefix" /> : ''}
           </el-select>
         </div>
         <div class="nm-select-button">

@@ -9,8 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
 {
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -34,30 +32,16 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
             
             #line default
             #line hidden
-            this.Write(".Lib.Module.Abstractions;\r\nusing ");
+            this.Write(".Lib.Module.AspNetCore;\r\n\r\nnamespace ");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
+            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
-            
-            #line default
-            #line hidden
-            this.Write(".Infrastructure.Options;\r\n\r\nnamespace ");
-            
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write(".Module.");
-            
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
+            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
@@ -91,22 +75,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         {
                    
         }
-
-        /// <summary>
-        /// 配置配置项
-        /// </summary>
-        /// <param name=""services""></param>
-        /// <param name=""configuration""></param>
-        public void ConfigOptions(IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<");
-            
-            #line 47 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
-            
-            #line default
-            #line hidden
-            this.Write("Options>(configuration);\r\n        }\r\n    }\r\n}\r\n");
+    }
+}
+");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -16,21 +16,9 @@ namespace Nm.Lib.Data.Core.Entities
             var updateSql = BuildUpdateSql(descriptor, out string updateSingleSql);
             var querySql = BuildQuerySql(descriptor, out string getSql);
             var existsSql = BuildExistsSql(descriptor);
-            return new EntitySql
-            {
-                Insert = insertSql,
-                BatchInsert = batchInsertSql,
-                BatchInsertColumnList = batchInsertColumnList,
-                Delete = deleteSql,
-                DeleteSingle = deleteSingleSql,
-                SoftDelete = softDeleteSql,
-                SoftDeleteSingle = softDeleteSingleSql,
-                Update = updateSql,
-                UpdateSingle = updateSingleSql,
-                Query = querySql,
-                Get = getSql,
-                Exists = existsSql
-            };
+
+            return new EntitySql(descriptor, insertSql, batchInsertSql, deleteSingleSql, deleteSql, softDeleteSql,
+                softDeleteSingleSql, updateSingleSql, updateSql, getSql, querySql, existsSql, batchInsertColumnList);
         }
 
         #region ==Private Methods==
@@ -41,8 +29,7 @@ namespace Nm.Lib.Data.Core.Entities
         private string BuildInsertSql(IEntityDescriptor descriptor, List<IColumnDescriptor> batchInsertColumnList, out string batchInsertSql)
         {
             var sb = new StringBuilder();
-            sb.Append("INSERT INTO ");
-            descriptor.SqlAdapter.AppendQuote(sb, descriptor.TableName);
+            sb.Append("INSERT INTO {0} ");
             sb.Append("(");
 
             var valuesSql = new StringBuilder();
@@ -72,7 +59,9 @@ namespace Nm.Lib.Data.Core.Entities
             sb.Append("(");
 
             //删除最后一个","
-            valuesSql.Remove(valuesSql.Length - 1, 1);
+            if (valuesSql.Length > 0)
+                valuesSql.Remove(valuesSql.Length - 1, 1);
+
             sb.Append(valuesSql);
             sb.Append(");");
 
@@ -84,7 +73,7 @@ namespace Nm.Lib.Data.Core.Entities
         /// </summary>
         private string BuildDeleteSql(IEntityDescriptor descriptor, out string deleteSingleSql)
         {
-            var deleteSql = $"DELETE FROM {descriptor.SqlAdapter.AppendQuote(descriptor.TableName)} ";
+            var deleteSql = "DELETE FROM {0} ";
             if (!descriptor.PrimaryKey.IsNo())
                 deleteSingleSql = $"{deleteSql} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)};";
             else
@@ -104,14 +93,13 @@ namespace Nm.Lib.Data.Core.Entities
                 return string.Empty;
             }
 
-            var sb = new StringBuilder($"UPDATE {descriptor.SqlAdapter.AppendQuote(descriptor.TableName)} SET ");
+            var sb = new StringBuilder("UPDATE {0} SET ");
             sb.AppendFormat("{0}=1,", descriptor.SqlAdapter.AppendQuote("Deleted"));
             sb.AppendFormat("{0}={1},", descriptor.SqlAdapter.AppendQuote("DeletedTime"), descriptor.SqlAdapter.AppendParameter("DeletedTime"));
             sb.AppendFormat("{0}={1} ", descriptor.SqlAdapter.AppendQuote("DeletedBy"), descriptor.SqlAdapter.AppendParameter("DeletedBy"));
 
             var softDeleteSql = sb.ToString();
 
-            softDeleteSingleSql = "";
             sb.AppendFormat(" WHERE {0}={1};", descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name), descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name));
             softDeleteSingleSql = sb.ToString();
 
@@ -124,9 +112,7 @@ namespace Nm.Lib.Data.Core.Entities
         private string BuildUpdateSql(IEntityDescriptor descriptor, out string updateSingleSql)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat("UPDATE ");
-            descriptor.SqlAdapter.AppendQuote(sb, descriptor.TableName);
-            sb.Append(" SET ");
+            sb.Append("UPDATE {0} SET");
 
             var updateSql = sb.ToString();
             updateSingleSql = "";
@@ -166,8 +152,7 @@ namespace Nm.Lib.Data.Core.Entities
                     sb.Append(",");
                 }
             }
-            sb.Append(" FROM ");
-            descriptor.SqlAdapter.AppendQuote(sb, descriptor.TableName);
+            sb.Append(" FROM {0} ");
 
             var querySql = sb.ToString();
             getSql = "";
@@ -187,7 +172,11 @@ namespace Nm.Lib.Data.Core.Entities
         /// <returns></returns>
         private string BuildExistsSql(IEntityDescriptor descriptor)
         {
-            return $"SELECT COUNT(0) FROM {descriptor.SqlAdapter.AppendQuote(descriptor.TableName)} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)};";
+            //没有主键，无法使用该方法
+            if (descriptor.PrimaryKey.IsNo())
+                return string.Empty;
+
+            return $"SELECT COUNT(0) FROM {{0}} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)};";
         }
         #endregion
     }

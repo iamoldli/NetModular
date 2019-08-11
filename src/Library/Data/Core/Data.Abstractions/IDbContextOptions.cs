@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Options;
 
 namespace Nm.Lib.Data.Abstractions
@@ -26,10 +26,10 @@ namespace Nm.Lib.Data.Abstractions
         string ConnectionString { get; }
 
         /// <summary>
-        /// 打开连接
+        /// 创建新的连接
         /// </summary>
         /// <returns></returns>
-        IDbConnection OpenConnection();
+        IDbConnection NewConnection();
 
         /// <summary>
         /// 日志工厂
@@ -37,9 +37,9 @@ namespace Nm.Lib.Data.Abstractions
         ILoggerFactory LoggerFactory { get; }
 
         /// <summary>
-        /// Http上下文访问器
+        /// 登录信息
         /// </summary>
-        IHttpContextAccessor HttpContextAccessor { get; }
+        ILoginInfo LoginInfo { get; set; }
 
         /// <summary>
         /// 所有数据库配置信息

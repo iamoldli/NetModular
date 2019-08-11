@@ -44,6 +44,8 @@
 
             // 表头对其方式
             headerAlign: 'center',
+            // 当内容过长被隐藏时显示 tooltip
+            showOverflowTooltip: false
 
             // 是否显示
             show: true
@@ -61,7 +63,7 @@ import methods from './data/methods.js'
 import events from './data/events.js'
 export default {
   name: page.name,
-  data () {
+  data() {
     return {
       val: '',
       tmpl: {
@@ -74,7 +76,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.setTabName(this.tmpl.title)
   }
 }
