@@ -1,5 +1,5 @@
 <template>
-  <div :class="['nm-txt', 'nm-text-' + this.type]">
+  <div :class="['nm-txt', 'nm-text-' + this.type,{'nm-text-icon':icon}]">
     <nm-icon v-if="icon" :name="type" />
     <slot>{{text}}</slot>
   </div>

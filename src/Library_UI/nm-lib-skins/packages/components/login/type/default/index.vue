@@ -1,10 +1,10 @@
 <template>
   <div class="nm-login nm-login-container default">
-    <div class="nm-login-bg"/>
+    <div class="nm-login-bg" />
     <div class="nm-login-box">
       <div class="nm-login-content">
         <div class="nm-login-logo">
-          <img class="nm-login-logo-img" :src="logo">
+          <img class="nm-login-logo-img" :src="logo" />
           <h1 class="nm-login-logo-title">{{title}}</h1>
         </div>
         <el-form ref="form" :model="form" :rules="rules">
@@ -33,7 +33,7 @@
               </el-form-item>
             </div>
             <div class="verifycode-img">
-              <img title="点击刷新" :src="verifyCodeUrl" @click="refreshVierifyCode">
+              <img title="点击刷新" :src="verifyCodeUrl" @click="refreshVierifyCode" />
             </div>
           </div>
           <el-form-item style="text-align:right;">
@@ -68,14 +68,14 @@ export default {
           message: '请输入密码',
           trigger: 'blur'
         }],
-        code: [{ validator(rule, value, callback) {
-          if (_this.loginVerifyCode && value === '') {
-            callback(new Error('请输入验证码'))
-          } else {
-            callback()
-          }
-        },
-        trigger: 'blur'
+        code: [{          validator(rule, value, callback) {
+            if (_this.loginVerifyCode && value === '') {
+              callback(new Error('请输入验证码'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'
         }]
       },
       loading: false
@@ -160,7 +160,7 @@ export default {
   }
 
   .nm-login-box {
-	position: absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     margin: -160px 0 0 -190px;

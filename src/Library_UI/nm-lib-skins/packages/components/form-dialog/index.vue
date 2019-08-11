@@ -201,7 +201,7 @@ export default {
       this.$emit('validate-error')
     },
     onOpen() {
-	  if (this.clearValidateOnOpen) {
+      if (this.clearValidateOnOpen) {
         this.$nextTick(() => {
           this.$refs.form.clearValidate()
         })
