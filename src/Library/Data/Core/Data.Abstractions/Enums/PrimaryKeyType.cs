@@ -27,5 +27,11 @@ namespace Nm.Lib.Data.Abstractions.Enums
         /// </summary>
         [Description("Guid")]
         Guid
+            ,
+        /// <summary>
+        /// 字符型
+        /// </summary>
+        [Description("String")]
+        String
     }
 }

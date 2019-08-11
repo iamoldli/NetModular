@@ -30,6 +30,10 @@ namespace Nm.Lib.Data.Core.Entities
             {
                 Type = PrimaryKeyType.Guid;
             }
+            else if (p.PropertyType == typeof(string))
+            {
+                Type = PrimaryKeyType.String;
+            }
             else
             {
                 throw new ArgumentException("无效的主键类型", nameof(p.PropertyType));

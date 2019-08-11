@@ -35,5 +35,12 @@ namespace Nm.Module.Common.Application.AttachmentService
         /// <param name="accountId"></param>
         /// <returns></returns>
         Task<IResultModel<FileDownloadModel>> Download(Guid id, Guid accountId);
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <returns></returns>
+        Task<IResultModel> Delete(Guid id);
     }
 }
