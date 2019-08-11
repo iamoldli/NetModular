@@ -42,6 +42,25 @@ namespace Nm.Module.Common.Application.AttachmentService
             };
             return ResultModel.Success(result);
         }
+        /// <summary>
+        /// É¾³ý
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IResultModel> Delete(Guid id)
+        {
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+                return ResultModel.NotExists;
+
+            if (await _repository.DeleteAsync(id))
+            {
+               
+                return ResultModel.Success();
+            }
+
+            return ResultModel.Failed();
+        }
 
         public async Task<IResultModel<AttachmentUploadResultModel>> Upload(AttachmentUploadModel model, FileInfo fileInfo)
         {
