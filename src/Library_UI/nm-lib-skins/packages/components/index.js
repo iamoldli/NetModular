@@ -1,7 +1,11 @@
 import lib from '../library'
 
 let components = []
-const requireComponent = require.context('../components', true, /index\.vue$/)
+const requireComponent = require.context(
+  '../components',
+  true,
+  /index\.(vue|js)$/
+)
 requireComponent
   .keys()
   .filter(item => item !== './index.js')
