@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.ModelPropertyService;
-using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.ModelPropertyService;
+using Tm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.ModelProperty.Models;
 
-namespace Nm.Module.CodeGenerator.Web.Controllers
+namespace Tm.Module.CodeGenerator.Web.Controllers
 {
     [Description("模型属性管理")]
     [Common]

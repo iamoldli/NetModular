@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.CodeGenerator.Domain.ClassMethod;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.CodeGenerator.Domain.ClassMethod;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
 {
     public class ClassMethodRepository : RepositoryAbstract<ClassMethodEntity>, IClassMethodRepository
     {

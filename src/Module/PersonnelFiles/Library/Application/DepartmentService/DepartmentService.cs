@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.DepartmentService.ResultModels;
-using Nm.Module.PersonnelFiles.Application.DepartmentService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Company;
-using Nm.Module.PersonnelFiles.Domain.Department;
-using Nm.Module.PersonnelFiles.Domain.Department.Models;
-using Nm.Module.PersonnelFiles.Domain.User;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.DepartmentService.ResultModels;
+using Tm.Module.PersonnelFiles.Application.DepartmentService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Company;
+using Tm.Module.PersonnelFiles.Domain.Department;
+using Tm.Module.PersonnelFiles.Domain.Department.Models;
+using Tm.Module.PersonnelFiles.Domain.User;
 
-namespace Nm.Module.PersonnelFiles.Application.DepartmentService
+namespace Tm.Module.PersonnelFiles.Application.DepartmentService
 {
     public class DepartmentService : IDepartmentService
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Nm.Module.PersonnelFiles.Domain.User
+namespace Tm.Module.PersonnelFiles.Domain.User
 {
     /// <summary>
     /// 性别

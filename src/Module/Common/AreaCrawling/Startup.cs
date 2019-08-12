@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Nm.Module.Common.Application.AreaService;
-using Nm.Module.Common.Infrastructure.AreaCrawling;
+using Tm.Module.Common.Application.AreaService;
+using Tm.Module.Common.Infrastructure.AreaCrawling;
 
-namespace Nm.Module.Common.AreaCrawling
+namespace Tm.Module.Common.AreaCrawling
 {
     public class Startup : IHostedService, IDisposable
     {

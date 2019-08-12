@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace Tm.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 实体信息集合

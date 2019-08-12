@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.CompanyService;
-using Nm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Company.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.CompanyService;
+using Tm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Company.Models;
 
-namespace Nm.Module.PersonnelFiles.Web.Controllers
+namespace Tm.Module.PersonnelFiles.Web.Controllers
 {
     [Description("公司单位管理")]
     public class CompanyController : ModuleController

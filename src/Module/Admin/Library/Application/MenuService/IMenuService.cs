@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.MenuService.ViewModels;
-using Nm.Module.Admin.Domain.Menu.Models;
+using Tm.Lib.Utils.Core.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.MenuService.ViewModels;
+using Tm.Module.Admin.Domain.Menu.Models;
 
-namespace Nm.Module.Admin.Application.MenuService
+namespace Tm.Module.Admin.Application.MenuService
 {
     /// <summary>
     /// 菜单服务

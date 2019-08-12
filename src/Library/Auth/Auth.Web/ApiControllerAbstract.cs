@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Validation.Abstractions;
+using Tm.Lib.Validation.Abstractions;
 
-namespace Nm.Lib.Auth.Web
+namespace Tm.Lib.Auth.Web
 {
     /// <summary>
     /// 控制器抽象

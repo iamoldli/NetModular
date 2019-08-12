@@ -1,9 +1,9 @@
 ﻿
 using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Common.Domain.AttachmentOwner
+namespace Tm.Module.Common.Domain.AttachmentOwner
 {
     /// <summary>
     /// 附件拥有者

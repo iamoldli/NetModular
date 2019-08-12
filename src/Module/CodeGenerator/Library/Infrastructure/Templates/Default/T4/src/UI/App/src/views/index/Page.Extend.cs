@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
 {
     public partial class Page : ITemplateHandler
     {

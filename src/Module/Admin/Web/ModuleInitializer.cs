@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Module.Admin.Web.Core;
-using Nm.Module.Admin.Web.Filters;
+using Tm.Lib.Utils.Core.Options;
+using Tm.Module.Admin.Web.Core;
+using Tm.Module.Admin.Web.Filters;
 using System.IO;
-using Nm.Lib.Auth.Web;
-using Nm.Lib.Module.AspNetCore;
+using Tm.Lib.Auth.Web;
+using Tm.Lib.Module.AspNetCore;
 
-namespace Nm.Module.Admin.Web
+namespace Tm.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.CodeGenerator.Domain.Class
+namespace Tm.Module.CodeGenerator.Domain.Class
 {
     /// <summary>
     /// 基类实体类型

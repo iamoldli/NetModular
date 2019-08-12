@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace Nm.Module.Admin.Domain.ModuleInfo
+namespace Tm.Module.Admin.Domain.ModuleInfo
 {
     /// <summary>
     /// 模块仓储

@@ -1,7 +1,7 @@
 ﻿
-using Nm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Query
+namespace Tm.Lib.Data.Query
 {
     /// <summary>
     /// 查询排序模型

@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\jwt.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\jwt.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class jwt : jwtBase
     {
@@ -23,8 +25,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("{\r\n  //秘钥\r\n  \"Key\": \"twAJ$j5##pVc5*y&\",\r\n  //发行商\r\n  \"Issuer\": \"http://www.iamoldl" +
-                    "i.com\",\r\n  //订阅者\r\n  \"Audience\": \"http://www.iamoldli.com\",\r\n  //有效期(分钟)\r\n  \"Expi" +
+            this.Write("{\r\n  //秘钥\r\n  \"Key\": \"twAJ$j5##pVc5*y&\",\r\n  //发行商\r\n  \"Issuer\": \"http://www.temii.cn" +
+                    "i.com\",\r\n  //订阅者\r\n  \"Audience\": \"http://www.temii.cn\",\r\n  //有效期(分钟)\r\n  \"Expi" +
                     "res\": 120\r\n}");
             return this.GenerationEnvironment.ToString();
         }

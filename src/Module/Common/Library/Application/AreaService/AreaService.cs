@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.AreaService.ViewModels;
-using Nm.Module.Common.Domain.Area;
-using Nm.Module.Common.Domain.Area.Models;
-using Nm.Module.Common.Infrastructure;
-using Nm.Module.Common.Infrastructure.AreaCrawling;
+using Tm.Lib.Cache.Abstractions;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.AreaService.ViewModels;
+using Tm.Module.Common.Domain.Area;
+using Tm.Module.Common.Domain.Area.Models;
+using Tm.Module.Common.Infrastructure;
+using Tm.Module.Common.Infrastructure.AreaCrawling;
 
-namespace Nm.Module.Common.Application.AreaService
+namespace Tm.Module.Common.Application.AreaService
 {
     public class AreaService : IAreaService
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Quartz.Abstractions;
+using Tm.Lib.Quartz.Abstractions;
 using Quartz;
 
-namespace Nm.Lib.Quartz.Core
+namespace Tm.Lib.Quartz.Core
 {
     public class JobTaskContext : IJobTaskContext
     {

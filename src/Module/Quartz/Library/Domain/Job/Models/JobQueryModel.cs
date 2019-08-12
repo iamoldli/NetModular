@@ -1,7 +1,7 @@
 using System;
-using  Nm.Lib.Data.Query;
+using  Tm.Lib.Data.Query;
 
-namespace  Nm.Module.Quartz.Domain.Job.Models
+namespace  Tm.Module.Quartz.Domain.Job.Models
 {
     public class JobQueryModel : QueryModel
     {

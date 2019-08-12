@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.CodeGenerator.Infrastructure.Templates
+﻿namespace Tm.Module.CodeGenerator.Infrastructure.Templates
 {
     /// <summary>
     /// 模板处理

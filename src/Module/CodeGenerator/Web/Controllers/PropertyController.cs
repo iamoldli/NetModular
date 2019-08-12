@@ -3,16 +3,16 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.PropertyService;
-using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Property;
-using Nm.Module.CodeGenerator.Domain.Property.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.PropertyService;
+using Tm.Module.CodeGenerator.Application.PropertyService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Property;
+using Tm.Module.CodeGenerator.Domain.Property.Models;
 
-namespace Nm.Module.CodeGenerator.Web.Controllers
+namespace Tm.Module.CodeGenerator.Web.Controllers
 {
     [Description("实体属性管理")]
     [Common]

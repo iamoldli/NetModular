@@ -7,17 +7,17 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     using System.Linq;
-    using Nm.Module.CodeGenerator.Domain.Property;
+    using Tm.Module.CodeGenerator.Domain.Property;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class SchemaOracle : SchemaOracleBase
     {
@@ -28,155 +28,155 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
         public virtual string TransformText()
         {
             
-            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 4 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             
             #line default
             #line hidden
             
-            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 5 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  foreach(var c in _model.Project.ClassList){ 
             
             #line default
             #line hidden
             this.Write("/**************************");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 6 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.Remarks));
             
             #line default
             #line hidden
             this.Write("*****************************/\r\nCREATE TABLE [dbo].[");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 7 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("](\r\n");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  for(var i = 0;i < c.PropertyList.Count;i++){ 
             
             #line default
             #line hidden
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  var p = c.PropertyList[i]; 
             
             #line default
             #line hidden
             this.Write("    [");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("] ");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Property2Column(p)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey ? "PRIMARY KEY" : ""));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "IDENTITY(1,1)" : ""));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Nullable ? "":"NOT NULL"));
             
             #line default
             #line hidden
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i<c.PropertyList.Count-1?",":""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             } 
             
             #line default
             #line hidden
             this.Write(")\r\nGO\r\n");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  foreach(var p in c.PropertyList){ 
             
             #line default
             #line hidden
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 15 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  if(p.Type == PropertyType.DateTime){ 
             
             #line default
             #line hidden
             this.Write("ALTER TABLE [dbo].[");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("] ADD CONSTRAINT [DF_");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("_");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("]  DEFAULT (GETDATE()) FOR [");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("]\r\nGO\r\n\r\n");
             
-            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 19 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 20 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 21 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
  foreach(var p in c.PropertyList){ 
             
             #line default
             #line hidden
             this.Write("EXEC sys.sp_addextendedproperty @name=N\'MS_Description\', @value=N\'");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
@@ -184,34 +184,34 @@ if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             this.Write("\' , @level0type=N\'SCHEMA\',@level0name=N\'dbo\', @level1type=N\'TABLE\',@level1name=N\'" +
                     "");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("\', @level2type=N\'COLUMN\',@level2name=N\'");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("\'\r\nGO\r\n");
             
-            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 24 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 26 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
+            #line 27 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaOracle.tt"
 } 
             
             #line default

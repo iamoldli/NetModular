@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.SystemService.ViewModels;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.SystemService.ViewModels;
 
-namespace Nm.Module.Admin.Application.SystemService
+namespace Tm.Module.Admin.Application.SystemService
 {
     /// <summary>
     /// 系统相关服务

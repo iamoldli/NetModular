@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.UserEducationHistoryService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.UserEducationHistory.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.UserEducationHistoryService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.UserEducationHistory.Models;
 
-namespace Nm.Module.PersonnelFiles.Application.UserEducationHistoryService
+namespace Tm.Module.PersonnelFiles.Application.UserEducationHistoryService
 {
     /// <summary>
     /// 用户工作经历服务

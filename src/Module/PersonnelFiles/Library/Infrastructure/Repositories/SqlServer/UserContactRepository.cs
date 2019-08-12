@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.PersonnelFiles.Domain.UserContact;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.PersonnelFiles.Domain.UserContact;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 {
     public class UserContactRepository : RepositoryAbstract<UserContactEntity>, IUserContactRepository
     {

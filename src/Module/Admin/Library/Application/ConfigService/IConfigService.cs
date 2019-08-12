@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.ConfigService.ViewModels;
-using Nm.Module.Admin.Domain.Config.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.ConfigService.ViewModels;
+using Tm.Module.Admin.Domain.Config.Models;
 
-namespace Nm.Module.Admin.Application.ConfigService
+namespace Tm.Module.Admin.Application.ConfigService
 {
     /// <summary>
     /// 配置项服务

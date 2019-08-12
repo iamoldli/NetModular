@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.PersonnelFiles.Domain.UserContact
+namespace Tm.Module.PersonnelFiles.Domain.UserContact
 {
     /// <summary>
     /// 用户联系信息仓储

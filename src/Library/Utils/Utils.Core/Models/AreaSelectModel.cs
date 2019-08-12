@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Nm.Lib.Utils.Core.Models
+namespace Tm.Lib.Utils.Core.Models
 {
     /// <summary>
     /// 区域选择模型

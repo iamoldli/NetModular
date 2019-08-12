@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.RoleMenuButton;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.Admin.Domain.Button;
+using Tm.Module.Admin.Domain.Menu;
+using Tm.Module.Admin.Domain.RoleMenuButton;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class RoleMenuButtonRepository : RepositoryAbstract<RoleMenuButtonEntity>, IRoleMenuButtonRepository
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.PersonnelFiles.Domain.User.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.PersonnelFiles.Domain.User.Models;
 
-namespace Nm.Module.PersonnelFiles.Domain.User
+namespace Tm.Module.PersonnelFiles.Domain.User
 {
     /// <summary>
     /// 用户信息仓储

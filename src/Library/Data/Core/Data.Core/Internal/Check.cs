@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Data.Core.Internal
+namespace Tm.Lib.Data.Core.Internal
 {
     /// <summary>
     /// 

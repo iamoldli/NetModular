@@ -1,9 +1,9 @@
 using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.Common.Application.DictService.ViewModels;
-using Nm.Module.Common.Domain.Dict;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.Common.Application.DictService.ViewModels;
+using Tm.Module.Common.Domain.Dict;
 
-namespace Nm.Module.Common.Application.DictService
+namespace Tm.Module.Common.Application.DictService
 {
     public class MapperConfig : IMapperConfig
     {

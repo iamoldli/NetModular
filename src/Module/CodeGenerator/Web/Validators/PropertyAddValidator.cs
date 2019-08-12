@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Property;
+using Tm.Module.CodeGenerator.Application.PropertyService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Property;
 
-namespace Nm.Module.CodeGenerator.Web.Validators
+namespace Tm.Module.CodeGenerator.Web.Validators
 {
     public class PropertyAddValidator : AbstractValidator<PropertyAddModel>
     {

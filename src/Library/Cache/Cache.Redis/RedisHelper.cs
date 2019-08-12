@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core;
+using Tm.Lib.Cache.Abstractions;
+using Tm.Lib.Utils.Core;
 using StackExchange.Redis;
 
-namespace Nm.Lib.Cache.Redis
+namespace Tm.Lib.Cache.Redis
 {
     public class RedisHelper : IDisposable
     {

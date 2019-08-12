@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
+namespace Tm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
 {
     /// <summary>
     /// 分组查询对象

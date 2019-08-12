@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
 {
     public partial class QueryModel : ITemplateHandler
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Host.Web.Options;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Host.Web.Options;
+using Tm.Lib.Utils.Core.Helpers;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
-namespace Nm.Lib.Host.Web
+namespace Tm.Lib.Host.Web
 {
     public abstract class StartupAbstract
     {

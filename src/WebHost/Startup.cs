@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Nm.Lib.Host.Web;
+using Tm.Lib.Host.Web;
 
-namespace Nm.WebHost
+namespace Tm.WebHost
 {
     public class Startup : StartupAbstract
     {

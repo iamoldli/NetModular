@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Quartz.Application.JobService.ViewModels
+namespace Tm.Module.Quartz.Application.JobService.ViewModels
 {
     public class JobUpdateModel : JobAddModel
     {

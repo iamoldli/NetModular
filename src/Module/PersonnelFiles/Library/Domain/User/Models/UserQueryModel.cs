@@ -1,7 +1,7 @@
-using Nm.Lib.Data.Query;
+using Tm.Lib.Data.Query;
 using System;
 
-namespace Nm.Module.PersonnelFiles.Domain.User.Models
+namespace Tm.Module.PersonnelFiles.Domain.User.Models
 {
     public class UserQueryModel : QueryModel
     {

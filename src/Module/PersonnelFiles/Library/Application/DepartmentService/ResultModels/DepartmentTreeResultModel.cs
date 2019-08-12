@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Core.Result;
 
-namespace Nm.Module.PersonnelFiles.Application.DepartmentService.ResultModels
+namespace Tm.Module.PersonnelFiles.Application.DepartmentService.ResultModels
 {
     public class DepartmentTreeResultModel : TreeResultModel<DepartmentTreeResultModel>
     {

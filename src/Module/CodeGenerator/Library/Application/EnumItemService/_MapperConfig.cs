@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.CodeGenerator.Application.EnumItemService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.EnumItem;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.CodeGenerator.Application.EnumItemService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.EnumItem;
 
-namespace Nm.Module.CodeGenerator.Application.EnumItemService
+namespace Tm.Module.CodeGenerator.Application.EnumItemService
 {
     public class MapperConfig : IMapperConfig
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Swagger.Abstractions.Attributes
+namespace Tm.Lib.Swagger.Abstractions.Attributes
 {
     /// <summary>
     /// Swagger：隐藏属性

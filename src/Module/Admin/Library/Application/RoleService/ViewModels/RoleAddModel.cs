@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.RoleService.ViewModels
+namespace Tm.Module.Admin.Application.RoleService.ViewModels
 {
     public class RoleAddModel
     {

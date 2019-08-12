@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable;
-using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
-using Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
-using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Pagination;
+using Tm.Lib.Data.Abstractions.SqlQueryable;
+using Tm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using Tm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
+using Tm.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace Nm.Lib.Data.Core.SqlQueryable
+namespace Tm.Lib.Data.Core.SqlQueryable
 {
     internal class NetSqlQueryable<TEntity> : NetSqlQueryableAbstract, INetSqlQueryable<TEntity> where TEntity : IEntity, new()
     {

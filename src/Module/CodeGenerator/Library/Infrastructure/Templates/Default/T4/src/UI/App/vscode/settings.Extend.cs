@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.vscode
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.vscode
 {
     public partial class settings : ITemplateHandler
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.CodeGenerator.Application.EnumService.ViewModels
+namespace Tm.Module.CodeGenerator.Application.EnumService.ViewModels
 {
     /// <summary>
     /// 添加模型

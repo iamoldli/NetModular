@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.PersonnelFiles.Application.DepartmentService.ViewModels
+namespace Tm.Module.PersonnelFiles.Application.DepartmentService.ViewModels
 {
     /// <summary>
     /// 部门添加模型

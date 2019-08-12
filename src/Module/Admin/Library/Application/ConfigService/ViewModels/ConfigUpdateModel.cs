@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.ConfigService.ViewModels
+namespace Tm.Module.Admin.Application.ConfigService.ViewModels
 {
     public class ConfigUpdateModel : ConfigAddModel
     {

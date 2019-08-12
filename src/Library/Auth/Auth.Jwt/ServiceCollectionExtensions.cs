@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Auth.Web;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Auth.Web;
+using Tm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Auth.Jwt
+namespace Tm.Lib.Auth.Jwt
 {
     public static class ServiceCollectionExtensions
     {

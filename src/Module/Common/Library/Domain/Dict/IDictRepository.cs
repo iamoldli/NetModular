@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Common.Domain.Dict.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Common.Domain.Dict.Models;
 
-namespace Nm.Module.Common.Domain.Dict
+namespace Tm.Module.Common.Domain.Dict
 {
     /// <summary>
     /// 字典仓储

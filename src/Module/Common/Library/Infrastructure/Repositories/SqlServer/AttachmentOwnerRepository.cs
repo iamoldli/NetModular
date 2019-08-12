@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.Common.Domain.AttachmentOwner;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.Common.Domain.AttachmentOwner;
 
-namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Common.Infrastructure.Repositories.SqlServer
 {
     public class AttachmentOwnerRepository : RepositoryAbstract<AttachmentOwnerEntity>, IAttachmentOwnerRepository
     {

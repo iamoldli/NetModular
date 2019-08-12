@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Options;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Options;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace Tm.Lib.Module.AspNetCore
 {
     public static class ApplicationBuilderExtensions
     {

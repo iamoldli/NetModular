@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class Cols : ColsBase
     {
@@ -25,60 +27,60 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         {
             this.Write("export default [\r\n");
             
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 3 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
     for(var i = 0;i < _properties.Count;i++){ var p = _properties[i]; 
             
             #line default
             #line hidden
             
-            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 4 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
         if(p.Name == "Id"){ 
             
             #line default
             #line hidden
             this.Write("  {\r\n    name: \'id\',\r\n    label: \'编号\',\r\n    width: 250,\r\n    show: false\r\n  },\r\n");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
       } else {
             
             #line default
             #line hidden
             this.Write("  {\r\n    name: \'");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
             
             #line default
             #line hidden
             this.Write("\',\r\n    label: \'");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
             this.Write("\'\r\n  }");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 15 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.IsEntityBase || i < _class.PropertyList.Count - 1 ? ",":""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
      } 
             
             #line default
             #line hidden
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 17 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
    } 
             
             #line default
             #line hidden
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 18 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
     if(_class.IsEntityBase){ 
             
             #line default
@@ -87,7 +89,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
                     " },\r\n  {\r\n    name: \'createdTime\',\r\n    label: \'创建时间\',\r\n    width: 150,\r\n    sho" +
                     "w: false\r\n  }\r\n");
             
-            #line 31 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
+            #line 31 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Cols.tt"
     } 
             
             #line default

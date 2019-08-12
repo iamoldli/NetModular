@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace Tm.Lib.Data.Abstractions.Entities
 {
     public interface IColumnDescriptor
     {

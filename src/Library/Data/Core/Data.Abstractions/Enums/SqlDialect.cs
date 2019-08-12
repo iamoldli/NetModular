@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Data.Abstractions.Enums
+namespace Tm.Lib.Data.Abstractions.Enums
 {
     /// <summary>
     /// 数据库类型

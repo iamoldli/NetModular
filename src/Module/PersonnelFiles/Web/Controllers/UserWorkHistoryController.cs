@@ -2,12 +2,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService;
-using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.UserWorkHistoryService;
+using Tm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
 
-namespace Nm.Module.PersonnelFiles.Web.Controllers
+namespace Tm.Module.PersonnelFiles.Web.Controllers
 {
     [Description("用户工作经历管理")]
     public class UserWorkHistoryController : ModuleController

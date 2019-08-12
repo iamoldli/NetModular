@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Abstractions
+namespace Tm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 泛型仓储接口

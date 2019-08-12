@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Application
 {
     public partial class Csproj : ITemplateHandler
     {

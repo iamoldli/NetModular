@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.ClassMethod;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.ClassMethod;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 类生成模型

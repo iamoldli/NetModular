@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+﻿using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Module.Admin.Domain.Permission
+namespace Tm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限扩展属性

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
-using Nm.Lib.Data.Core.Internal;
-using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Pagination;
+using Tm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using Tm.Lib.Data.Core.Internal;
+using Tm.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable
+namespace Tm.Lib.Data.Core.SqlQueryable.GroupByQueryable
 {
     internal abstract class GroupByQueryableAbstract : IGroupByQueryable
     {

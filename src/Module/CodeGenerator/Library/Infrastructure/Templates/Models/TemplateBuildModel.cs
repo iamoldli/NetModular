@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
+﻿namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 模板生成模型

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.Account.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Admin.Domain.Account;
+using Tm.Module.Admin.Domain.Account.Models;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AccountRepository : RepositoryAbstract<AccountEntity>, IAccountRepository
     {

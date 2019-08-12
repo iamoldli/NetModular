@@ -7,17 +7,17 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     using System.Linq;
-    using Nm.Module.CodeGenerator.Domain.Property;
+    using Tm.Module.CodeGenerator.Domain.Property;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class SchemaSQLite : SchemaSQLiteBase
     {
@@ -29,101 +29,101 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
         {
             this.Write("\r\n");
             
-            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 5 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
 if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {
             
             #line default
             #line hidden
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 6 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
  foreach(var c in _model.Project.ClassList){ 
             
             #line default
             #line hidden
             this.Write("-- ----------------------------\r\n-- ");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.Remarks));
             
             #line default
             #line hidden
             this.Write("\r\n-- ----------------------------\r\nCREATE TABLE `");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(c.TableName));
             
             #line default
             #line hidden
             this.Write("`  (\r\n");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
  for(var i = 0;i < c.PropertyList.Count;i++){ 
             
             #line default
             #line hidden
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
  var p = c.PropertyList[i]; 
             
             #line default
             #line hidden
             this.Write(" \"");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write("\" ");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Property2Column(p)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Nullable ? "":"NOT NULL"));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey ? "PRIMARY KEY" : ""));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.IsPrimaryKey && (p.Type == PropertyType.Int || p.Type == PropertyType.Long) ? "AUTOINCREMENT" : ""));
             
             #line default
             #line hidden
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i<c.PropertyList.Count-1?",":""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
 } 
             
             #line default
             #line hidden
             this.Write(");\r\n\r\n");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 17 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
+            #line 18 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\data\SchemaSQLite.tt"
 } 
             
             #line default

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Helpers;
-using Nm.Lib.Utils.Core.Options;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Utils.Core;
+using Tm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Utils.Core.Options;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace Tm.Lib.Module.AspNetCore
 {
     public static class ServiceCollectionExtensions
     {

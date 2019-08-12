@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace Tm.Lib.Data.Core.Entities
 {
     internal class EntitySqlBuilder : IEntitySqlBuilder
     {

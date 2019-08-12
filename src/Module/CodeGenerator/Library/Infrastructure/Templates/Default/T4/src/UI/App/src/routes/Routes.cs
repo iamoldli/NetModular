@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.routes
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.routes
 {
     using System;
     
@@ -15,7 +15,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\routes\Routes.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\routes\Routes.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class Routes : RoutesBase
     {

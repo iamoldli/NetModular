@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using FluentValidation.Validators;
 
-namespace Nm.Lib.Validation.FluentValidation.Validators
+namespace Tm.Lib.Validation.FluentValidation.Validators
 {
     /// <summary>
     /// 手机号简单验证

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Options;
 
-namespace Nm.Module.Common.Infrastructure.Options
+namespace Tm.Module.Common.Infrastructure.Options
 {
     public class ModuleOptionsConfigure : IModuleOptionsConfigure
     {

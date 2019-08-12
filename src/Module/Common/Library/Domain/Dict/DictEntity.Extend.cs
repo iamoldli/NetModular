@@ -1,4 +1,4 @@
-namespace Nm.Module.Common.Domain.Dict
+namespace Tm.Module.Common.Domain.Dict
 {
     public partial class DictEntity
     {

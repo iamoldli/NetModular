@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Nm.Lib.Swagger.Core.Filters
+namespace Tm.Lib.Swagger.Core.Filters
 {
     /// <summary>
     /// 控制器和方法的描述信息处理

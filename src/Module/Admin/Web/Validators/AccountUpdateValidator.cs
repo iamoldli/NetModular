@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Application.AccountService.ViewModels;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Admin.Application.AccountService.ViewModels;
 
-namespace Nm.Module.Admin.Web.Validators
+namespace Tm.Module.Admin.Web.Validators
 {
     public class AccountUpdateValidator : AbstractValidator<AccountUpdateModel>
     {

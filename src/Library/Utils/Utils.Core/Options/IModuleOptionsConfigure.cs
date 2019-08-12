@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Nm.Lib.Utils.Core.Options
+namespace Tm.Lib.Utils.Core.Options
 {
     public interface IModuleOptionsConfigure
     {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
 
-namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
+namespace Tm.Module.CodeGenerator.Application.ModelPropertyService
 {
     public class MapperConfig : IMapperConfig
     {

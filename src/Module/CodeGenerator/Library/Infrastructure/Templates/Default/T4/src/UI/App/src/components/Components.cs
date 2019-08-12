@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.components
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.components
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\components\Components.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\components\Components.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class Components : ComponentsBase
     {
@@ -23,15 +25,15 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("export default []\r\n\r\n/**  全局组件注册示例  */\r\n// import DictionarySelect from \'../views" +
-                    "/dictionary/select\'\r\n//\r\n// export default [{\r\n/// /组件名称\r\n// name: \'");
+            this.Write("export default []\r\n\r\n/**  ????????????  */\r\n// import DictionarySelect from \'../v" +
+                    "iews/dictionary/select\'\r\n//\r\n// export default [{\r\n/// /???????\r\n// name: \'");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\components\Components.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\components\Components.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write("-dictionary-select\',\r\n/// /组件对象\r\n// component: DictionarySelect\r\n// }\r\n// ]\r\n");
+            this.Write("-dictionary-select\',\r\n/// /???????\r\n// component: DictionarySelect\r\n// }\r\n// ]\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

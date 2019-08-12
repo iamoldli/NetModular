@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.FileProviders;
-using Nm.Lib.Host.Web.Middleware;
-using Nm.Lib.Host.Web.Options;
-using Nm.Lib.Module.AspNetCore;
-using Nm.Lib.Swagger.Core;
+using Tm.Lib.Host.Web.Middleware;
+using Tm.Lib.Host.Web.Options;
+using Tm.Lib.Module.AspNetCore;
+using Tm.Lib.Swagger.Core;
 
-namespace Nm.Lib.Host.Web
+namespace Tm.Lib.Host.Web
 {
     public static class ApplicationBuilderExtensions
     {

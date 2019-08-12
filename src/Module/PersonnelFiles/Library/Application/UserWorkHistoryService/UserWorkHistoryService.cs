@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
 
-namespace Nm.Module.PersonnelFiles.Application.UserWorkHistoryService
+namespace Tm.Module.PersonnelFiles.Application.UserWorkHistoryService
 {
     public class UserWorkHistoryService : IUserWorkHistoryService
     {

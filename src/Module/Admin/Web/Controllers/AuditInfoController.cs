@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.AuditInfoService;
-using Nm.Module.Admin.Domain.AuditInfo.Models;
+using Tm.Lib.Module.AspNetCore.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.AuditInfoService;
+using Tm.Module.Admin.Domain.AuditInfo.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace Tm.Module.Admin.Web.Controllers
 {
     [Description("审计信息")]
     public class AuditInfoController : ModuleController

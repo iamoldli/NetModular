@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Company;
-using Nm.Module.PersonnelFiles.Domain.Company.Models;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Company;
+using Tm.Module.PersonnelFiles.Domain.Company.Models;
 
-namespace Nm.Module.PersonnelFiles.Application.CompanyService
+namespace Tm.Module.PersonnelFiles.Application.CompanyService
 {
     public class CompanyService : ICompanyService
     {

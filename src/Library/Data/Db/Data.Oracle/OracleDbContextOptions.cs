@@ -1,11 +1,11 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Data.Core;
 using Oracle.ManagedDataAccess.Client;
 
-namespace Nm.Lib.Data.Oracle
+namespace Tm.Lib.Data.Oracle
 {
     /// <summary>
     /// Oracle数据库上下文配置项

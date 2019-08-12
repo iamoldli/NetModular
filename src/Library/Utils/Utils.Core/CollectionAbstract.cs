@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Nm.Lib.Utils.Core
+namespace Tm.Lib.Utils.Core
 {
     public abstract class CollectionAbstract<TEntity> : IList<TEntity>
     {

@@ -1,6 +1,6 @@
-using Nm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Attributes;
 
-namespace Nm.Module.PersonnelFiles.Domain.Department
+namespace Tm.Module.PersonnelFiles.Domain.Department
 {
     public partial class DepartmentEntity
     {

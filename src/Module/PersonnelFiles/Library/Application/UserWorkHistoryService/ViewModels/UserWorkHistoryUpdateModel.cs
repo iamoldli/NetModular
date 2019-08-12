@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels
+namespace Tm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels
 {
     public class UserWorkHistoryUpdateModel : UserWorkHistoryAddModel
     {

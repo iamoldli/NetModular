@@ -1,11 +1,11 @@
-﻿using Nm.Lib.Host.Web;
+﻿using Tm.Lib.Host.Web;
 using System;
 using System.Linq;
 using ElectronNET.API;
 using Microsoft.AspNetCore.Hosting;
-using Nm.Lib.Logging.Serilog;
+using Tm.Lib.Logging.Serilog;
 
-namespace Nm.Lib.Host.Electron
+namespace Tm.Lib.Host.Electron
 {
     /// <summary>
     /// 主机生成器

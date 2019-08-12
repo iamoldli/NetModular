@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.PersonnelFiles.Domain.User;
+using Tm.Module.PersonnelFiles.Domain.User;
 
-namespace Nm.Module.PersonnelFiles.Application.UserService.ViewModels
+namespace Tm.Module.PersonnelFiles.Application.UserService.ViewModels
 {
     /// <summary>
     /// 用户信息添加模型

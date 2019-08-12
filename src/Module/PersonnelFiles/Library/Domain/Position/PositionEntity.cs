@@ -1,8 +1,8 @@
 using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities.Extend;
 
-namespace Nm.Module.PersonnelFiles.Domain.Position
+namespace Tm.Module.PersonnelFiles.Domain.Position
 {
     /// <summary>
     /// 岗位

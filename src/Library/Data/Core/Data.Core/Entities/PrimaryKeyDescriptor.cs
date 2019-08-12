@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace Tm.Lib.Data.Core.Entities
 {
     public class PrimaryKeyDescriptor : IPrimaryKeyDescriptor
     {

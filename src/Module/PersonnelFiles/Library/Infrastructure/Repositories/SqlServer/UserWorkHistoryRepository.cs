@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 {
     public class UserWorkHistoryRepository : RepositoryAbstract<UserWorkHistoryEntity>, IUserWorkHistoryRepository
     {

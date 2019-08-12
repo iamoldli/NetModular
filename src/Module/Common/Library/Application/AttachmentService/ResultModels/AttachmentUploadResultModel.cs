@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Module.Common.Application.AttachmentService.ResultModels
+namespace Tm.Module.Common.Application.AttachmentService.ResultModels
 {
     public class AttachmentUploadResultModel
     {

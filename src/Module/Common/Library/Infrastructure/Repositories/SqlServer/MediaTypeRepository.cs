@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Common.Domain.MediaType;
-using Nm.Module.Common.Domain.MediaType.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Common.Domain.MediaType;
+using Tm.Module.Common.Domain.MediaType.Models;
 
-namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Common.Infrastructure.Repositories.SqlServer
 {
     public class MediaTypeRepository : RepositoryAbstract<MediaTypeEntity>, IMediaTypeRepository
     {

@@ -1,7 +1,7 @@
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Common.Domain.Area
+namespace Tm.Module.Common.Domain.Area
 {
     /// <summary>
     /// 区划代码

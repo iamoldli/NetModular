@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Data.Abstractions.Attributes
+namespace Tm.Lib.Data.Abstractions.Attributes
 {
     /// <summary>
     /// 主键

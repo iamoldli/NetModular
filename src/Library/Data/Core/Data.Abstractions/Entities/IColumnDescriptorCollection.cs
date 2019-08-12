@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace Tm.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 列信息集合

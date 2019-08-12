@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.ConfigService;
-using Nm.Module.Admin.Application.ConfigService.ViewModels;
-using Nm.Module.Admin.Domain.Config.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.ConfigService;
+using Tm.Module.Admin.Application.ConfigService.ViewModels;
+using Tm.Module.Admin.Domain.Config.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace Tm.Module.Admin.Web.Controllers
 {
     [Description("配置项管理")]
     public class ConfigController : ModuleController

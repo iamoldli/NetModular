@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Nm.Lib.Auth.Abstractions;
+using Tm.Lib.Auth.Abstractions;
 
-namespace Nm.Module.Admin.Application.AccountService.ViewModels
+namespace Tm.Module.Admin.Application.AccountService.ViewModels
 {
     /// <summary>
     /// 登录模型

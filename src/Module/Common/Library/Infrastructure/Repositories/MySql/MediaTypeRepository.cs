@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.Common.Infrastructure.Repositories.MySql
+namespace Tm.Module.Common.Infrastructure.Repositories.MySql
 {
     public class MediaTypeRepository : SqlServer.MediaTypeRepository
     {

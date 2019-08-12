@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class SqlServerRepository : SqlServerRepositoryBase
     {
@@ -26,126 +28,126 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             this.Write("using System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Threading.Tas" +
                     "ks;\r\nusing ");
             
-            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 5 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Data.Abstractions;\r\nusing ");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 6 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Data.Core;\r\nusing ");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 7 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Data.Query;\r\n");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  if(_class.IsEntityBase){ 
             
             #line default
             #line hidden
             this.Write("using ");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.Admin.Domain.Account;\r\n");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } 
             
             #line default
             #line hidden
             this.Write("using ");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Domain.");
             
-            #line 11 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 11 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Domain.");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Infrastructure.Repositories.SqlServer\r\n{\r\n    public class ");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Repository : RepositoryAbstract<");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Entity>, I");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Repository\r\n    {\r\n        public ");
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 18 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
@@ -153,35 +155,35 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             this.Write("Repository(IDbContext context) : base(context)\r\n        {\r\n        }\r\n\r\n        p" +
                     "ublic async Task<IList<");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Entity>> Query(");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("QueryModel model)\r\n        {\r\n            var paging = model.Paging();\r\n\r\n");
             
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 26 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  if(_class.IsSoftDelete){ 
             
             #line default
             #line hidden
             this.Write("            var query = Db.Find(m => m.Deleted == false);\r\n");
             
-            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 28 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  }else{ 
             
             #line default
             #line hidden
             this.Write("            var query = Db.Find();\r\n");
             
-            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 30 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } 
             
             #line default
@@ -189,7 +191,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             this.Write("\r\n            if (!paging.OrderBy.Any())\r\n            {\r\n                query.Or" +
                     "derByDescending(m => m.Id);\r\n            }\r\n\r\n");
             
-            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 37 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  if(_class.IsEntityBase){ 
             
             #line default
@@ -198,14 +200,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
                     "y == y.Id)\r\n                .Select((x, y) => new { x, Creator = y.Name })\r\n    " +
                     "            .PaginationAsync(paging);\r\n");
             
-            #line 41 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 41 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } else {
             
             #line default
             #line hidden
             this.Write("            var result = await query.PaginationAsync(paging);\r\n");
             
-            #line 43 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 43 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } 
             
             #line default

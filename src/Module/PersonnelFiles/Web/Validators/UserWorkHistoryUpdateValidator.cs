@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Validation.FluentValidation;
-using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Validation.FluentValidation;
+using Tm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
 
-namespace Nm.Module.PersonnelFiles.Web.Validators
+namespace Tm.Module.PersonnelFiles.Web.Validators
 {
     public class UserWorkHistoryUpdateValidator : AbstractValidator<UserWorkHistoryUpdateModel>
     {

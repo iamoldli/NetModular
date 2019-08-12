@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+﻿using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Module.Admin.Domain.AuditInfo
+namespace Tm.Module.Admin.Domain.AuditInfo
 {
     public partial class AuditInfoEntity
     {

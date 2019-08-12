@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Core.Internal;
+using Tm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Core.Internal;
 
-namespace Nm.Lib.Data.SQLite
+namespace Tm.Lib.Data.SQLite
 {
     internal class SQLiteAdapter : SqlAdapterAbstract
     {

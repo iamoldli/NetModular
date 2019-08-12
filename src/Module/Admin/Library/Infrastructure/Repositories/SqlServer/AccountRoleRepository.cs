@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Role;
-using Nm.Module.Admin.Domain.RoleMenu;
-using Nm.Module.Admin.Domain.RoleMenuButton;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.Admin.Domain.Account;
+using Tm.Module.Admin.Domain.AccountRole;
+using Tm.Module.Admin.Domain.Role;
+using Tm.Module.Admin.Domain.RoleMenu;
+using Tm.Module.Admin.Domain.RoleMenuButton;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AccountRoleRepository : RepositoryAbstract<AccountRoleEntity>, IAccountRoleRepository
     {

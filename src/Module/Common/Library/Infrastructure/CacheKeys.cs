@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nm.Module.Common.Infrastructure
+namespace Tm.Module.Common.Infrastructure
 {
     /// <summary>
     /// 缓存键

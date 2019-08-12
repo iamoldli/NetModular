@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Nm.Lib.Cache.Abstractions
+namespace Tm.Lib.Cache.Abstractions
 {
     /// <summary>
     /// 依赖注入服务配置

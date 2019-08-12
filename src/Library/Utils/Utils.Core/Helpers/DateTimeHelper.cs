@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Attributes;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace Tm.Lib.Utils.Core.Helpers
 {
     [Singleton]
     public class DateTimeHelper

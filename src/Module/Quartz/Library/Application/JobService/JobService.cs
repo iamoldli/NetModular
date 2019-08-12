@@ -2,16 +2,16 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Quartz.Application.JobService.ViewModels;
-using Nm.Module.Quartz.Domain.Job;
-using Nm.Module.Quartz.Domain.Job.Models;
-using Nm.Module.Quartz.Domain.JobLog;
-using Nm.Module.Quartz.Domain.JobLog.Models;
+using Tm.Lib.Quartz.Abstractions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Quartz.Application.JobService.ViewModels;
+using Tm.Module.Quartz.Domain.Job;
+using Tm.Module.Quartz.Domain.Job.Models;
+using Tm.Module.Quartz.Domain.JobLog;
+using Tm.Module.Quartz.Domain.JobLog.Models;
 using Quartz;
 
-namespace Nm.Module.Quartz.Application.JobService
+namespace Tm.Module.Quartz.Application.JobService
 {
     public class JobService : IJobService
     {

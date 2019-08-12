@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Domain.RoleMenu
+namespace Tm.Module.Admin.Domain.RoleMenu
 {
     /// <summary>
     /// 角色菜单仓储

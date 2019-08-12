@@ -2,19 +2,19 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Auth.Jwt;
-using Nm.Lib.Cache.Integration;
-using Nm.Lib.Data.Integration;
-using Nm.Lib.Host.Web.Options;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Lib.Module.AspNetCore;
-using Nm.Lib.Swagger.Core;
-using Nm.Lib.Swagger.Core.Conventions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Mvc;
-using Nm.Lib.Validation.FluentValidation;
+using Tm.Lib.Auth.Jwt;
+using Tm.Lib.Cache.Integration;
+using Tm.Lib.Data.Integration;
+using Tm.Lib.Host.Web.Options;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Lib.Module.AspNetCore;
+using Tm.Lib.Swagger.Core;
+using Tm.Lib.Swagger.Core.Conventions;
+using Tm.Lib.Utils.Core;
+using Tm.Lib.Utils.Mvc;
+using Tm.Lib.Validation.FluentValidation;
 
-namespace Nm.Lib.Host.Web
+namespace Tm.Lib.Host.Web
 {
     public static class ServiceCollectionExtensions
     {

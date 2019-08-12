@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Nm.Module.Common.Application.AttachmentService.ViewModels
+namespace Tm.Module.Common.Application.AttachmentService.ViewModels
 {
     /// <summary>
     /// 附件上传模型

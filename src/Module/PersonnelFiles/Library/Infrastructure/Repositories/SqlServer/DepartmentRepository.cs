@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.PersonnelFiles.Domain.Department;
-using Nm.Module.PersonnelFiles.Domain.Department.Models;
-using Nm.Module.PersonnelFiles.Domain.User;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Admin.Domain.Account;
+using Tm.Module.PersonnelFiles.Domain.Department;
+using Tm.Module.PersonnelFiles.Domain.Department.Models;
+using Tm.Module.PersonnelFiles.Domain.User;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 {
     public class DepartmentRepository : RepositoryAbstract<DepartmentEntity>, IDepartmentRepository
     {

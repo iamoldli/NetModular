@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Quartz.Abstractions;
+using Tm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Result;
 using Quartz;
 
-namespace Nm.Module.Quartz.Web.Core
+namespace Tm.Module.Quartz.Web.Core
 {
     /// <summary>
     /// 任务帮助类

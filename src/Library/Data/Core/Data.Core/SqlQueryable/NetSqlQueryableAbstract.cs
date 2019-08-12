@@ -3,13 +3,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable;
-using Nm.Lib.Data.Core.SqlQueryable.Internal;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Pagination;
+using Tm.Lib.Data.Abstractions.SqlQueryable;
+using Tm.Lib.Data.Core.SqlQueryable.Internal;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.Core.SqlQueryable
+namespace Tm.Lib.Data.Core.SqlQueryable
 {
     internal abstract class NetSqlQueryableAbstract : INetSqlQueryable
     {

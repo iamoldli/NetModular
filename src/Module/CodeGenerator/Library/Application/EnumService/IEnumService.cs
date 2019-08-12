@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.EnumService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Enum.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.EnumService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Enum.Models;
 
-namespace Nm.Module.CodeGenerator.Application.EnumService
+namespace Tm.Module.CodeGenerator.Application.EnumService
 {
     /// <summary>
     /// 枚举服务接口

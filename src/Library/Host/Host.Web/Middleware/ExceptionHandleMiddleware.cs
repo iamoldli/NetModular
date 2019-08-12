@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Core.Result;
 
-namespace Nm.Lib.Host.Web.Middleware
+namespace Tm.Lib.Host.Web.Middleware
 {
     public class ExceptionHandleMiddleware
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Auth.Web;
+using Tm.Lib.Auth.Web;
 
-namespace Nm.Module.Quartz.Web
+namespace Tm.Module.Quartz.Web
 {
     [Area("Quartz")]
     public abstract class ModuleController : ControllerAbstract

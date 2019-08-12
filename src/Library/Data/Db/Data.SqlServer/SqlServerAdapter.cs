@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Core.Internal;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Core.Internal;
 
-namespace Nm.Lib.Data.SqlServer
+namespace Tm.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {

@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Core.Entities;
+﻿using Tm.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Common.Domain.Factor
+namespace Tm.Module.Common.Domain.Factor
 {
     public class FactorEntity : Entity<int>
     {

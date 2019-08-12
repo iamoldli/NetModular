@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 {
     using System;
     
@@ -15,7 +15,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class VueConfig : VueConfigBase
     {
@@ -41,14 +41,14 @@ module.exports = {
   devServer: {
     port: ");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.No + 5220));
             
             #line default
             #line hidden
             this.Write("\r\n  },\r\n  transpileDependencies: [\'");
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 18 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -56,7 +56,7 @@ module.exports = {
             this.Write("-.*\', \'element-ui\'],\r\n  configureWebpack: {\r\n    plugins: [\r\n      /**\r\n       * " +
                     "复制");
             
-            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 22 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -64,7 +64,7 @@ module.exports = {
             this.Write("-lib-skins/public目录下的文件到输出目录\r\n       */\r\n      new CopyWebpackPlugin([\r\n        {" +
                     "\r\n          from: path.join(__dirname, \'node_modules/");
             
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 26 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -88,7 +88,7 @@ module.exports = {
     /**
      * 设置index.html模板路径，使用");
             
-            #line 43 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 43 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -96,7 +96,7 @@ module.exports = {
             this.Write("-lib-skins/public中的模板\r\n     */\r\n    config.plugin(\'html\').tap(args => {\r\n      ar" +
                     "gs[0].template = \'./node_modules/");
             
-            #line 46 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 46 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -143,7 +143,7 @@ module.exports = {
               priority: 10,
               test: /[\\/]node_modules[\\/]");
             
-            #line 86 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
+            #line 86 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\VueConfig.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using Nm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace Tm.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 主键信息

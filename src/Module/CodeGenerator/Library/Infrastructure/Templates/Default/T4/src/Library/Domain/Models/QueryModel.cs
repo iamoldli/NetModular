@@ -7,10 +7,10 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain.Models
 {
-    using Nm.Lib.Utils.Core.Extensions;
-    using Nm.Module.CodeGenerator.Domain.Property;
+    using Tm.Lib.Utils.Core.Extensions;
+    using Tm.Module.CodeGenerator.Domain.Property;
 
     /// <summary>
     /// Class to produce the template output

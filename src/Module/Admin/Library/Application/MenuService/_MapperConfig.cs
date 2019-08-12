@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.Admin.Application.MenuService.ResultModels;
-using Nm.Module.Admin.Application.MenuService.ViewModels;
-using Nm.Module.Admin.Domain.Menu;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.Admin.Application.MenuService.ResultModels;
+using Tm.Module.Admin.Application.MenuService.ViewModels;
+using Tm.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.MenuService
+namespace Tm.Module.Admin.Application.MenuService
 {
     public class MapperConfig : IMapperConfig
     {

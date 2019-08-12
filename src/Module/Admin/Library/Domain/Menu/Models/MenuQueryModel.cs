@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Query;
+using Tm.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Menu.Models
+namespace Tm.Module.Admin.Domain.Menu.Models
 {
     public class MenuQueryModel : QueryModel
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Common.Domain.Attachment.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Common.Domain.Attachment.Models;
 
-namespace Nm.Module.Common.Domain.Attachment
+namespace Tm.Module.Common.Domain.Attachment
 {
     /// <summary>
     /// 附件表仓储

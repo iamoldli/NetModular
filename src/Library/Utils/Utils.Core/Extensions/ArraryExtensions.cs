@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace Tm.Lib.Utils.Core.Extensions
 {
     /// <summary>
     /// 数组扩展

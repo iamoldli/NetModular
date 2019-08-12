@@ -3,15 +3,15 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Quartz.Application.JobService;
-using Nm.Module.Quartz.Application.JobService.ViewModels;
-using Nm.Module.Quartz.Domain.Job.Models;
-using Nm.Module.Quartz.Domain.JobLog.Models;
-using Nm.Module.Quartz.Web.Core;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Quartz.Application.JobService;
+using Tm.Module.Quartz.Application.JobService.ViewModels;
+using Tm.Module.Quartz.Domain.Job.Models;
+using Tm.Module.Quartz.Domain.JobLog.Models;
+using Tm.Module.Quartz.Web.Core;
 
-namespace Nm.Module.Quartz.Web.Controllers
+namespace Tm.Module.Quartz.Web.Controllers
 {
     [Description("任务管理")]
     public class JobController : ModuleController

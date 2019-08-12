@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Auth.Web.Attributes
+namespace Tm.Lib.Auth.Web.Attributes
 {
     /// <summary>
     /// 通用权限(只要登录即可访问，不需要授权)

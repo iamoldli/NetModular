@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.Admin.Domain.Menu
+namespace Tm.Module.Admin.Domain.Menu
 {
     /// <summary>
     /// 菜单类型

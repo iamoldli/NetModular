@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
-using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
-using Nm.Module.CodeGenerator.Domain.Class.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Tm.Module.CodeGenerator.Application.ProjectService.ResultModels;
+using Tm.Module.CodeGenerator.Domain.Class.Models;
 
-namespace Nm.Module.CodeGenerator.Application.ClassService
+namespace Tm.Module.CodeGenerator.Application.ClassService
 {
     /// <summary>
     /// 类服务

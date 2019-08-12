@@ -1,8 +1,8 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
+﻿using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities.Extend;
 using System;
 
-namespace Nm.Module.Admin.Domain.Role
+namespace Tm.Module.Admin.Domain.Role
 {
     /// <summary>
     /// 角色

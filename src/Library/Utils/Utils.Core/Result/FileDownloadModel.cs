@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace Nm.Lib.Utils.Core.Result
+namespace Tm.Lib.Utils.Core.Result
 {
     /// <summary>
     /// 文件下载

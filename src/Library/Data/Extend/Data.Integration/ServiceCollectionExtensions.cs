@@ -4,16 +4,16 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Utils.Core;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.Integration
+namespace Tm.Lib.Data.Integration
 {
     public static class ServiceCollectionExtensions
     {

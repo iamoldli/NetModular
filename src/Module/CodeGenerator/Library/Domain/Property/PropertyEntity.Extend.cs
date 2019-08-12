@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+﻿using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Module.CodeGenerator.Domain.Property
+namespace Tm.Module.CodeGenerator.Domain.Property
 {
     public partial class PropertyEntity
     {

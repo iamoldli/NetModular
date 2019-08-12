@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Nm.Module.Common.Infrastructure.AreaCrawling
+namespace Tm.Module.Common.Infrastructure.AreaCrawling
 {
     /// <summary>
     /// 行政区域数据爬取处理

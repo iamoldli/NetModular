@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Nm.Module.Quartz.Domain.Job
+namespace Tm.Module.Quartz.Domain.Job
 {
     /// <summary>
     /// 触发器类型

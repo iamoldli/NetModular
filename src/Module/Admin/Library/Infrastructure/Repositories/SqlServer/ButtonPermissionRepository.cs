@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.Admin.Domain.ButtonPermission;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Module.Admin.Domain.ButtonPermission;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class ButtonPermissionRepository : RepositoryAbstract<ButtonPermissionEntity>, IButtonPermissionRepository
     {

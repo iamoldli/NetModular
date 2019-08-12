@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace Tm.Lib.Data.Core.Entities
 {
     public class ColumnDescriptorr : IColumnDescriptor
     {

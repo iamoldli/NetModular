@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using Tm.Lib.Data.Query;
 
-namespace Nm.Module.CodeGenerator.Domain.Enum.Models
+namespace Tm.Module.CodeGenerator.Domain.Enum.Models
 {
     public class EnumQueryModel : QueryModel
     {

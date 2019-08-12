@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Encrypt;
-using Nm.Lib.Utils.Core.Result;
-using FileInfo = Nm.Lib.Utils.Core.Files.FileInfo;
+using Tm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Encrypt;
+using Tm.Lib.Utils.Core.Result;
+using FileInfo = Tm.Lib.Utils.Core.Files.FileInfo;
 
-namespace Nm.Lib.Utils.Mvc.Helpers
+namespace Tm.Lib.Utils.Mvc.Helpers
 {
     /// <summary>
     /// 文件上传帮助类

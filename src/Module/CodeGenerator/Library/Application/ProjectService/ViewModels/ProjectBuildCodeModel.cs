@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.CodeGenerator.Application.ProjectService.ViewModels
+namespace Tm.Module.CodeGenerator.Application.ProjectService.ViewModels
 {
     /// <summary>
     /// 生成代码模型

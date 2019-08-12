@@ -1,9 +1,9 @@
 using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.Common.Application.AttachmentService.ResultModels;
-using Nm.Module.Common.Domain.Attachment;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.Common.Application.AttachmentService.ResultModels;
+using Tm.Module.Common.Domain.Attachment;
 
-namespace Nm.Module.Common.Application.AttachmentService
+namespace Tm.Module.Common.Application.AttachmentService
 {
     public class MapperConfig : IMapperConfig
     {

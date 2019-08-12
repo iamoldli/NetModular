@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.Property;
+using Tm.Lib.Utils.Core.Attributes;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.Property;
 
-namespace Nm.Module.CodeGenerator.Infrastructure
+namespace Tm.Module.CodeGenerator.Infrastructure
 {
     /// <summary>
     /// 基类实体属性集合

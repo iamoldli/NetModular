@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Nm.Lib.Validation.FluentValidation;
-using Nm.Module.Admin.Application.MenuService.ViewModels;
-using Nm.Module.Admin.Domain.Menu;
+using Tm.Lib.Validation.FluentValidation;
+using Tm.Module.Admin.Application.MenuService.ViewModels;
+using Tm.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Web.Validators
+namespace Tm.Module.Admin.Web.Validators
 {
     public class MenuAddValidator : AbstractValidator<MenuAddModel>
     {

@@ -1,4 +1,4 @@
-namespace Nm.Module.Common.Application.AreaService.ViewModels
+namespace Tm.Module.Common.Application.AreaService.ViewModels
 {
     /// <summary>
     /// 区划代码添加模型

@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Quartz.Application.JobService.ViewModels;
-using Nm.Module.Quartz.Domain.Job.Models;
-using Nm.Module.Quartz.Domain.JobLog.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Quartz.Application.JobService.ViewModels;
+using Tm.Module.Quartz.Domain.Job.Models;
+using Tm.Module.Quartz.Domain.JobLog.Models;
 
-namespace Nm.Module.Quartz.Application.JobService
+namespace Tm.Module.Quartz.Application.JobService
 {
     /// <summary>
     /// 任务服务

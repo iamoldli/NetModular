@@ -3,18 +3,18 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.AttachmentService.ResultModels;
-using Nm.Module.Common.Application.AttachmentService.ViewModels;
-using Nm.Module.Common.Domain.Attachment;
-using Nm.Module.Common.Domain.Attachment.Models;
-using Nm.Module.Common.Domain.AttachmentOwner;
-using Nm.Module.Common.Domain.MediaType;
-using FileInfo = Nm.Lib.Utils.Core.Files.FileInfo;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.AttachmentService.ResultModels;
+using Tm.Module.Common.Application.AttachmentService.ViewModels;
+using Tm.Module.Common.Domain.Attachment;
+using Tm.Module.Common.Domain.Attachment.Models;
+using Tm.Module.Common.Domain.AttachmentOwner;
+using Tm.Module.Common.Domain.MediaType;
+using FileInfo = Tm.Lib.Utils.Core.Files.FileInfo;
 
-namespace Nm.Module.Common.Application.AttachmentService
+namespace Tm.Module.Common.Application.AttachmentService
 {
     public class AttachmentService : IAttachmentService
     {

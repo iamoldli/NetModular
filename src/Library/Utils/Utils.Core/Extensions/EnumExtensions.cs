@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Core.Result;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace Tm.Lib.Utils.Core.Extensions
 {
     public static class EnumExtensions
     {

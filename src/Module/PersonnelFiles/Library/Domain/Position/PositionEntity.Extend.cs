@@ -1,6 +1,6 @@
-using Nm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Attributes;
 
-namespace Nm.Module.PersonnelFiles.Domain.Position
+namespace Tm.Module.PersonnelFiles.Domain.Position
 {
     public partial class PositionEntity
     {

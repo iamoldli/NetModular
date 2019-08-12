@@ -1,8 +1,8 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
-using Nm.Lib.Utils.Core.Enums;
+﻿using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities.Extend;
+using Tm.Lib.Utils.Core.Enums;
 
-namespace Nm.Module.Admin.Domain.Permission
+namespace Tm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Utils.Core.Enums;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Utils.Core.Enums;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Auth.Web.Attributes
+namespace Tm.Lib.Auth.Web.Attributes
 {
     /// <summary>
     /// 权限验证

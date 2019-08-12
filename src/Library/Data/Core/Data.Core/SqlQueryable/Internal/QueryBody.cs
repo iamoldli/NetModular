@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Core.Internal;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Pagination;
+using Tm.Lib.Data.Core.Internal;
 
-namespace Nm.Lib.Data.Core.SqlQueryable.Internal
+namespace Tm.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 查询主体信息

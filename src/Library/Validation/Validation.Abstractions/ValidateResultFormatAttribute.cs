@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Nm.Lib.Validation.Abstractions
+namespace Tm.Lib.Validation.Abstractions
 {
     /// <summary>
     /// 模型验证结果格式化过滤器

@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
 {
     /// <summary>
     /// Class to produce the template output

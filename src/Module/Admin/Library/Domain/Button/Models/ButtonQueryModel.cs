@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Lib.Data.Query;
+using Tm.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Button.Models
+namespace Tm.Module.Admin.Domain.Button.Models
 {
     public class ButtonQueryModel : QueryModel
     {

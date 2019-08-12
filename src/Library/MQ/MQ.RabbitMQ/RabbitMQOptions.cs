@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.MQ.RabbitMQ
+﻿namespace Tm.Lib.MQ.RabbitMQ
 {
     // ReSharper disable once InconsistentNaming
     /// <summary>

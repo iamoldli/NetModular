@@ -1,7 +1,7 @@
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories
 {
     public class PersonnelFilesDbContext : DbContext
     {

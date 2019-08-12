@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Attributes;
 
-namespace Nm.Lib.Data.Core.Entities.Extend
+namespace Tm.Lib.Data.Core.Entities.Extend
 {
 
     /// <summary>

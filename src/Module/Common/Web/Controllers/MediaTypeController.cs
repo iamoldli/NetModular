@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.MediaTypeService;
-using Nm.Module.Common.Application.MediaTypeService.ViewModels;
-using Nm.Module.Common.Domain.MediaType.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.MediaTypeService;
+using Tm.Module.Common.Application.MediaTypeService.ViewModels;
+using Tm.Module.Common.Domain.MediaType.Models;
 
-namespace Nm.Module.Common.Web.Controllers
+namespace Tm.Module.Common.Web.Controllers
 {
     [Description("多媒体管理")]
     public class MediaTypeController : ModuleController

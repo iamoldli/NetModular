@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class db : dbBase
     {
@@ -24,10 +26,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         public virtual string TransformText()
         {
             this.Write("{\r\n  \"Logging\": false,\r\n  \"Connections\": [\r\n    {\r\n      \"Name\": \"Admin\",\r\n      " +
-                    "\"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Server={数据库地址}" +
-                    ";Database=");
+                    "\"Dialect\": 0,\r\n      \"Database\": \"{?????????}\",\r\n      \"ConnString\": \"Server={??" +
+                    "?????};Database=");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -35,22 +37,22 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             this.Write("_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;\"\r\n    },\r\n    {\r\n      \"Name\"" +
                     ": \"");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
-            this.Write("\",\r\n      \"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Serve" +
-                    "r={数据库地址};Database=");
+            this.Write("\",\r\n      \"Dialect\": 0,\r\n      \"Database\": \"{?????????}\",\r\n      \"ConnString\": \"S" +
+                    "erver={???????};Database=");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 15 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("_");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 15 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default

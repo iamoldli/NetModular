@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 项目生成模型

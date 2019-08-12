@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.Class;
 
-namespace Nm.Module.CodeGenerator.Application.ClassService.ViewModels
+namespace Tm.Module.CodeGenerator.Application.ClassService.ViewModels
 {
     public class ClassAddModel
     {

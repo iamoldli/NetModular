@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.MQ.RabbitMQ
+namespace Tm.Lib.MQ.RabbitMQ
 {
     public static class ServiceCollectionExtensions
     {

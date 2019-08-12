@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Lib.Utils.Mvc.Extensions;
-using Nm.Lib.Utils.Mvc.Helpers;
-using Nm.Module.Common.Application.AttachmentService;
-using Nm.Module.Common.Application.AttachmentService.ViewModels;
-using Nm.Module.Common.Domain.Attachment.Models;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Mvc.Extensions;
+using Tm.Lib.Utils.Mvc.Helpers;
+using Tm.Module.Common.Application.AttachmentService;
+using Tm.Module.Common.Application.AttachmentService.ViewModels;
+using Tm.Module.Common.Domain.Attachment.Models;
 
-namespace Nm.Module.Common.Web.Controllers
+namespace Tm.Module.Common.Web.Controllers
 {
     [Description("附件表管理")]
     public class AttachmentController : ModuleController

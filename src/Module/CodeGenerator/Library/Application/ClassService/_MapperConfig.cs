@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.ClassMethod;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.ClassMethod;
 
-namespace Nm.Module.CodeGenerator.Application.ClassService
+namespace Tm.Module.CodeGenerator.Application.ClassService
 {
     public class MapperConfig : IMapperConfig
     {

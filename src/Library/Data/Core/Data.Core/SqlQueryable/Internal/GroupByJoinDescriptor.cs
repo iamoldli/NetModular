@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Core.SqlQueryable.Internal
+﻿namespace Tm.Lib.Data.Core.SqlQueryable.Internal
 {
     internal class GroupByJoinDescriptor
     {

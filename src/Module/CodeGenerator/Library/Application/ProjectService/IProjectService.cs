@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
-using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.Project;
-using Nm.Module.CodeGenerator.Domain.Project.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.ProjectService.ResultModels;
+using Tm.Module.CodeGenerator.Application.ProjectService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.Project;
+using Tm.Module.CodeGenerator.Domain.Project.Models;
 
-namespace Nm.Module.CodeGenerator.Application.ProjectService
+namespace Tm.Module.CodeGenerator.Application.ProjectService
 {
     /// <summary>
     /// 项目服务

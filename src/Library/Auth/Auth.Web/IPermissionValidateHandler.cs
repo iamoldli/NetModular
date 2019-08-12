@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Utils.Core.Enums;
+using Tm.Lib.Utils.Core.Enums;
 
-namespace Nm.Lib.Auth.Web
+namespace Tm.Lib.Auth.Web
 {
     /// <summary>
     /// 权限验证处理接口

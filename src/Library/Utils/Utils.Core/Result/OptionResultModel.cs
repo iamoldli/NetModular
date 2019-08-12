@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Utils.Core.Result
+﻿namespace Tm.Lib.Utils.Core.Result
 {
     /// <summary>
     /// 可选项返回模型

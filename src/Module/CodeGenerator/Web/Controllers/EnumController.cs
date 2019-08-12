@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.EnumService;
-using Nm.Module.CodeGenerator.Application.EnumService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Enum.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.EnumService;
+using Tm.Module.CodeGenerator.Application.EnumService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Enum.Models;
 
-namespace Nm.Module.CodeGenerator.Web.Controllers
+namespace Tm.Module.CodeGenerator.Web.Controllers
 {
     [Description("枚举管理")]
     public class EnumController : ModuleController

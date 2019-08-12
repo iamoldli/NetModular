@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.ButtonPermission;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.MenuPermission;
-using Nm.Module.Admin.Domain.ModuleInfo;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.Permission.Models;
-using Nm.Module.Admin.Domain.RoleMenu;
-using Nm.Module.Admin.Domain.RoleMenuButton;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Admin.Domain.Account;
+using Tm.Module.Admin.Domain.AccountRole;
+using Tm.Module.Admin.Domain.Button;
+using Tm.Module.Admin.Domain.ButtonPermission;
+using Tm.Module.Admin.Domain.Menu;
+using Tm.Module.Admin.Domain.MenuPermission;
+using Tm.Module.Admin.Domain.ModuleInfo;
+using Tm.Module.Admin.Domain.Permission;
+using Tm.Module.Admin.Domain.Permission.Models;
+using Tm.Module.Admin.Domain.RoleMenu;
+using Tm.Module.Admin.Domain.RoleMenuButton;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class PermissionRepository : RepositoryAbstract<PermissionEntity>, IPermissionRepository
     {

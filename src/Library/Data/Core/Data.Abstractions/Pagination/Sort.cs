@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions.Enums;
+﻿using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Abstractions.Pagination
+namespace Tm.Lib.Data.Abstractions.Pagination
 {
     /// <summary>
     /// 排序规则

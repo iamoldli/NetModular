@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Quartz.Core;
+using Tm.Lib.Quartz.Abstractions;
+using Tm.Lib.Quartz.Core;
 
-namespace Nm.Module.Quartz.Quartz
+namespace Tm.Module.Quartz.Quartz
 {
     [Description("定时任务")]
     public class TimerJob : JobTaskAbstract

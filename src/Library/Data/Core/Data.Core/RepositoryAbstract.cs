@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Core
+namespace Tm.Lib.Data.Core
 {
     /// <summary>
     /// 仓储抽象类

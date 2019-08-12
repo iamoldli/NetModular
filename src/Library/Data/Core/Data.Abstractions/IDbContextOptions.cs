@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions.Options;
 
-namespace Nm.Lib.Data.Abstractions
+namespace Tm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 数据库配置项

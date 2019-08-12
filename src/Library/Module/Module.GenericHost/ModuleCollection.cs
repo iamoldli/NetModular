@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Utils.Core;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Module.GenericHost
+namespace Tm.Lib.Module.GenericHost
 {
     public class ModuleCollection : IModuleCollection
     {

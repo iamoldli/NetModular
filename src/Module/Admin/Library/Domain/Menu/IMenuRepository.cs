@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Menu.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.Menu.Models;
 
-namespace Nm.Module.Admin.Domain.Menu
+namespace Tm.Module.Admin.Domain.Menu
 {
     /// <summary>
     /// 菜单仓储

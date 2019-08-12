@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Core.Result;
 
-namespace Nm.Lib.Auth.Web
+namespace Tm.Lib.Auth.Web
 {
     /// <summary>
     /// 登录处理

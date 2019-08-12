@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Abstractions.Enums
+﻿namespace Tm.Lib.Data.Abstractions.Enums
 {
     /// <summary>
     /// 连接类型

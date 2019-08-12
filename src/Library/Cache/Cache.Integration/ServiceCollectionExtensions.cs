@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Cache.Abstractions;
+using Tm.Lib.Utils.Core;
+using Tm.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Cache.Integration
+namespace Tm.Lib.Cache.Integration
 {
     public static class ServiceCollectionExtensions
     {

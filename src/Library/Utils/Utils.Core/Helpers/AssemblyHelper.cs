@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
-using Nm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Attributes;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace Tm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 程序集操作帮助类

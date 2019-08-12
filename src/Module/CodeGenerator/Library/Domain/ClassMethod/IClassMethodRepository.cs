@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.CodeGenerator.Domain.ClassMethod
+namespace Tm.Module.CodeGenerator.Domain.ClassMethod
 {
     public interface IClassMethodRepository : IRepository<ClassMethodEntity>
     {

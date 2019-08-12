@@ -1,9 +1,9 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
-using Nm.Module.CodeGenerator.Domain.Property;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities.Extend;
+using Tm.Module.CodeGenerator.Domain.Property;
 
-namespace Nm.Module.CodeGenerator.Domain.ModelProperty
+namespace Tm.Module.CodeGenerator.Domain.ModelProperty
 {
     [Table("Model_Property")]
     public partial class ModelPropertyEntity : EntityBase

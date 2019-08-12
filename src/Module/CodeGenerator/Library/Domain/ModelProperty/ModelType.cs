@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.CodeGenerator.Domain.ModelProperty
+namespace Tm.Module.CodeGenerator.Domain.ModelProperty
 {
     /// <summary>
     /// 模型类型

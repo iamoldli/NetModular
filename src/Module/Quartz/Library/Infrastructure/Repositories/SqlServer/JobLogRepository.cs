@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Module.Quartz.Domain.JobLog;
-using Nm.Module.Quartz.Domain.JobLog.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Module.Quartz.Domain.JobLog;
+using Tm.Module.Quartz.Domain.JobLog.Models;
 
-namespace Nm.Module.Quartz.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Quartz.Infrastructure.Repositories.SqlServer
 {
     public class JobLogRepository : RepositoryAbstract<JobLogEntity>, IJobLogRepository
     {

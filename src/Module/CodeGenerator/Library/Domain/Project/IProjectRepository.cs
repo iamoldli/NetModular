@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.CodeGenerator.Domain.Project.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.CodeGenerator.Domain.Project.Models;
 
-namespace Nm.Module.CodeGenerator.Domain.Project
+namespace Tm.Module.CodeGenerator.Domain.Project
 {
     /// <summary>
     /// 项目仓储

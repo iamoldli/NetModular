@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Config.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.Config.Models;
 
-namespace Nm.Module.Admin.Domain.Config
+namespace Tm.Module.Admin.Domain.Config
 {
     /// <summary>
     /// 配置项仓储

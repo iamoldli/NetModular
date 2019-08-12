@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Domain.MenuPermission
+namespace Tm.Module.Admin.Domain.MenuPermission
 {
     /// <summary>
     /// 菜单权限仓储

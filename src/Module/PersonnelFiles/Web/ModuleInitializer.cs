@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.AspNetCore;
+using Tm.Lib.Module.AspNetCore;
 
-namespace Nm.Module.PersonnelFiles.Web
+namespace Tm.Module.PersonnelFiles.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {

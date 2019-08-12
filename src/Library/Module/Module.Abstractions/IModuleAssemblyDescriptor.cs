@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Nm.Lib.Module.Abstractions
+namespace Tm.Lib.Module.Abstractions
 {
     /// <summary>
     /// 模块的程序集描述

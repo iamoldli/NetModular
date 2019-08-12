@@ -1,4 +1,4 @@
-﻿using Nm.Lib.Utils.Core.Encrypt;
+﻿using Tm.Lib.Utils.Core.Encrypt;
 using Xunit;
 
 namespace Utils.Core.Test.Encrypt
@@ -8,7 +8,7 @@ namespace Utils.Core.Test.Encrypt
         [Fact]
         public void EncryptTest()
         {
-            var str = "oldli";
+            var str = "MichaelCheng";
             var encryptStr = Md5Encrypt.Encrypt(str, true);
 
             Assert.Equal("5798a32794f531e50c12828665b715ad", encryptStr);

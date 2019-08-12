@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Account.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.Account.Models;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace Tm.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户仓储

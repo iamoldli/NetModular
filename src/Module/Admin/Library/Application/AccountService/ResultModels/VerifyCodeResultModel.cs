@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.Admin.Application.AccountService.ResultModels
+﻿namespace Tm.Module.Admin.Application.AccountService.ResultModels
 {
     public class VerifyCodeResultModel
     {

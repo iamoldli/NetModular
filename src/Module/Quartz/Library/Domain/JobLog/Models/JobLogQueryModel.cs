@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Lib.Data.Query;
+using Tm.Lib.Data.Query;
 
-namespace Nm.Module.Quartz.Domain.JobLog.Models
+namespace Tm.Module.Quartz.Domain.JobLog.Models
 {
     public class JobLogQueryModel : QueryModel
     {

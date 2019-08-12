@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Core
+namespace Tm.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {

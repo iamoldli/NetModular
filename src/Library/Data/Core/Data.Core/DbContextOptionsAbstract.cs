@@ -2,14 +2,14 @@
 using System.Data;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core.Entities;
-using Nm.Lib.Data.Core.Internal;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Data.Core.Entities;
+using Tm.Lib.Data.Core.Internal;
 
-namespace Nm.Lib.Data.Core
+namespace Tm.Lib.Data.Core
 {
     public abstract class DbContextOptionsAbstract : IDbContextOptions
     {

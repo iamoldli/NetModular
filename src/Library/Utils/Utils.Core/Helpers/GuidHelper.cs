@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Nm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Attributes;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace Tm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 有序Guid类型

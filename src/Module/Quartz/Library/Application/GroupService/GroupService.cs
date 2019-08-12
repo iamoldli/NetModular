@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Quartz.Application.GroupService.ViewModels;
-using Nm.Module.Quartz.Domain.Group;
-using Nm.Module.Quartz.Domain.Group.Models;
-using Nm.Module.Quartz.Domain.Job;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Quartz.Application.GroupService.ViewModels;
+using Tm.Module.Quartz.Domain.Group;
+using Tm.Module.Quartz.Domain.Group.Models;
+using Tm.Module.Quartz.Domain.Job;
 
-namespace Nm.Module.Quartz.Application.GroupService
+namespace Tm.Module.Quartz.Application.GroupService
 {
     public class GroupService : IGroupService
     {

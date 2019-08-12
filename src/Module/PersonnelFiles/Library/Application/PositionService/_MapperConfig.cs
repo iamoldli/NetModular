@@ -1,9 +1,9 @@
 using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.PersonnelFiles.Application.PositionService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Position;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.PersonnelFiles.Application.PositionService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Position;
 
-namespace Nm.Module.PersonnelFiles.Application.PositionService
+namespace Tm.Module.PersonnelFiles.Application.PositionService
 {
     public class MapperConfig : IMapperConfig
     {

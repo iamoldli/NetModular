@@ -1,7 +1,7 @@
 ﻿using System;
 using Quartz;
 
-namespace Nm.Lib.Quartz.Abstractions
+namespace Tm.Lib.Quartz.Abstractions
 {
     /// <summary>
     /// 任务上下文

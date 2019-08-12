@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.PositionService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Position.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.PositionService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Position.Models;
 
-namespace Nm.Module.PersonnelFiles.Application.PositionService
+namespace Tm.Module.PersonnelFiles.Application.PositionService
 {
     /// <summary>
     /// 岗位服务

@@ -1,6 +1,6 @@
 <#@ template language="C#" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="Nm.Module.CodeGenerator.Domain.Property" #>
+<#@ import namespace="Tm.Module.CodeGenerator.Domain.Property" #>
 <#if (_model.Project.ClassList != null && _model.Project.ClassList.Any()) {#>
 <# foreach(var c in _model.Project.ClassList){ #>
 /**************************<#= c.Remarks #>*****************************/

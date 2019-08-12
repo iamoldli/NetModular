@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.Common.Domain.AttachmentOwner
+namespace Tm.Module.Common.Domain.AttachmentOwner
 {
     public interface IAttachmentOwnerRepository : IRepository<AttachmentOwnerEntity>
     {

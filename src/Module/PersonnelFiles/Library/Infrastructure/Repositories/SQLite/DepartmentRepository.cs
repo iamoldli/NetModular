@@ -1,6 +1,6 @@
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SQLite
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories.SQLite
 {
     public class DepartmentRepository : SqlServer.DepartmentRepository
     {

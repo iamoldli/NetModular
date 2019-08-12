@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using Tm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Admin.Domain.RoleMenu
+namespace Tm.Module.Admin.Domain.RoleMenu
 {
     /// <summary>
     /// 角色菜单

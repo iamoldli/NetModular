@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Core.Internal;
+﻿using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Core.Internal;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace Tm.Lib.Data.Core.Entities
 {
     /// <summary>
     /// 列信息集合

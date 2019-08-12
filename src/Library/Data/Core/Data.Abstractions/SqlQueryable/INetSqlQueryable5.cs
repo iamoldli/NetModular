@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Pagination;
+using Tm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 
-namespace Nm.Lib.Data.Abstractions.SqlQueryable
+namespace Tm.Lib.Data.Abstractions.SqlQueryable
 {
     public interface INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> : INetSqlQueryable
         where TEntity : IEntity, new()

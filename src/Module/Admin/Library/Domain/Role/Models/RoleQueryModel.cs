@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Query;
+﻿using Tm.Lib.Data.Query;
 using System;
 
-namespace Nm.Module.Admin.Domain.Role.Models
+namespace Tm.Module.Admin.Domain.Role.Models
 {
     public class RoleQueryModel : QueryModel
     {

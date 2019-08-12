@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Lib.Utils.Mvc.Helpers;
-using Nm.Module.Admin.Application.PermissionService;
-using Nm.Module.Admin.Domain.Permission.Models;
-using Nm.Module.Admin.Web.Core;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Mvc.Helpers;
+using Tm.Module.Admin.Application.PermissionService;
+using Tm.Module.Admin.Domain.Permission.Models;
+using Tm.Module.Admin.Web.Core;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace Tm.Module.Admin.Web.Controllers
 {
     [Description("权限接口")]
     public class PermissionController : ModuleController

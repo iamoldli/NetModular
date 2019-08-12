@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Core.Result;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace Tm.Module.Admin.Domain.Account
 {
     public partial class AccountEntity
     {

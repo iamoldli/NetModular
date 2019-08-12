@@ -3,11 +3,11 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Quartz.Core;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Quartz.Abstractions;
+using Tm.Lib.Quartz.Core;
 
-namespace Nm.Lib.Quartz.Web
+namespace Tm.Lib.Quartz.Web
 {
     public static class ServiceCollectionExtensions
     {

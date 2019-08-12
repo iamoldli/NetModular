@@ -1,4 +1,4 @@
-﻿using Nm.Lib.Quartz.Abstractions;
+﻿using Tm.Lib.Quartz.Abstractions;
 using Quartz;
 using System;
 using System.Collections.Specialized;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Quartz.Impl;
 
-namespace Nm.Lib.Quartz.Core
+namespace Tm.Lib.Quartz.Core
 {
     public class QuartzServer : IQuartzServer
     {

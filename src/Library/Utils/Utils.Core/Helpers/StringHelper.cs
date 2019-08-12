@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using Nm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Attributes;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace Tm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 字符串帮助类

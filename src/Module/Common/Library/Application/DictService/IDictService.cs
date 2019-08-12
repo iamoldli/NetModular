@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.DictService.ViewModels;
-using Nm.Module.Common.Domain.Dict.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.DictService.ViewModels;
+using Tm.Module.Common.Domain.Dict.Models;
 
-namespace Nm.Module.Common.Application.DictService
+namespace Tm.Module.Common.Application.DictService
 {
     /// <summary>
     /// 字典服务

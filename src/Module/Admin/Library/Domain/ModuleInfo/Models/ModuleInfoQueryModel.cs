@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using Tm.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.ModuleInfo.Models
+namespace Tm.Module.Admin.Domain.ModuleInfo.Models
 {
     public class ModuleInfoQueryModel : QueryModel
     {

@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.RoleService;
-using Nm.Module.Admin.Application.RoleService.ViewModels;
-using Nm.Module.Admin.Domain.Role.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Application.RoleService;
+using Tm.Module.Admin.Application.RoleService.ViewModels;
+using Tm.Module.Admin.Domain.Role.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace Tm.Module.Admin.Web.Controllers
 {
     [Description("角色管理")]
     public class RoleController : ModuleController

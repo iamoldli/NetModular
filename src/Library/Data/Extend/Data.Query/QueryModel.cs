@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Query
+﻿namespace Tm.Lib.Data.Query
 {
     /// <summary>
     /// 查询抽象

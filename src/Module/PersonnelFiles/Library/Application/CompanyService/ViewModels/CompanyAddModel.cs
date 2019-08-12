@@ -1,4 +1,4 @@
-namespace Nm.Module.PersonnelFiles.Application.CompanyService.ViewModels
+namespace Tm.Module.PersonnelFiles.Application.CompanyService.ViewModels
 {
     /// <summary>
     /// 公司单位添加模型

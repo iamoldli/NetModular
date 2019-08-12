@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Nm.Lib.Data.Query;
+using Tm.Lib.Data.Query;
 
-namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory.Models
+namespace Tm.Module.PersonnelFiles.Domain.UserWorkHistory.Models
 {
     public class UserWorkHistoryQueryModel : QueryModel
     {

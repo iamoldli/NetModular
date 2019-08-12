@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.CodeGenerator.Domain.Class
+﻿namespace Tm.Module.CodeGenerator.Domain.Class
 {
     class ActionType
     {

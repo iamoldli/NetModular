@@ -1,7 +1,7 @@
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
 
-namespace Nm.Module.Quartz.Infrastructure.Repositories
+namespace Tm.Module.Quartz.Infrastructure.Repositories
 {
     public class QuartzDbContext : DbContext
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
 
-namespace Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
+namespace Tm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels
 {
     /// <summary>
     /// 从实体导入模型

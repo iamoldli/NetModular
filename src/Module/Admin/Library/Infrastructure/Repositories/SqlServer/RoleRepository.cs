@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.Role;
-using Nm.Module.Admin.Domain.Role.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
+using Tm.Lib.Data.Query;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Module.Admin.Domain.Account;
+using Tm.Module.Admin.Domain.Role;
+using Tm.Module.Admin.Domain.Role.Models;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace Tm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class RoleRepository : RepositoryAbstract<RoleEntity>, IRoleRepository
     {

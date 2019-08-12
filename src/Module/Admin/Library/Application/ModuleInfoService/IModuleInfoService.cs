@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace Nm.Module.Admin.Application.ModuleInfoService
+namespace Tm.Module.Admin.Application.ModuleInfoService
 {
     /// <summary>
     /// 模块服务

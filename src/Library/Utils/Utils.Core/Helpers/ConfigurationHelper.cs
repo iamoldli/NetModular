@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace Tm.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 配置帮助类

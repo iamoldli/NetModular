@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Lib.Data.Core.SqlQueryable.Internal
+namespace Tm.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 参数集合

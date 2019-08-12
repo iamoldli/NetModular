@@ -1,9 +1,9 @@
 using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.PersonnelFiles.Application.UserWorkHistoryService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory;
 
-namespace Nm.Module.PersonnelFiles.Application.UserWorkHistoryService
+namespace Tm.Module.PersonnelFiles.Application.UserWorkHistoryService
 {
     public class MapperConfig : IMapperConfig
     {

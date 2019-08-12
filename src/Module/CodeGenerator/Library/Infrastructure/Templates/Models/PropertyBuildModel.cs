@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Nm.Module.CodeGenerator.Domain.Property;
+using Tm.Module.CodeGenerator.Domain.Property;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Models
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Models
 {
     /// <summary>
     /// 属性生成模型

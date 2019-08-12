@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.SqlQueryable;
-using Nm.Lib.Data.Core.Internal;
-using Nm.Lib.Data.Core.SqlQueryable;
-using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Data.Abstractions.SqlQueryable;
+using Tm.Lib.Data.Core.Internal;
+using Tm.Lib.Data.Core.SqlQueryable;
+using CommonExtensions = Tm.Lib.Data.Core.Internal.CommonExtensions;
 
-namespace Nm.Lib.Data.Core
+namespace Tm.Lib.Data.Core
 {
     public class DbSet<TEntity> : IDbSet<TEntity> where TEntity : IEntity, new()
     {

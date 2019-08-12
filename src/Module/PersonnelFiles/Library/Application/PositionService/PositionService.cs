@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.PositionService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Position;
-using Nm.Module.PersonnelFiles.Domain.Position.Models;
-using Nm.Module.PersonnelFiles.Domain.User;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.PositionService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Position;
+using Tm.Module.PersonnelFiles.Domain.Position.Models;
+using Tm.Module.PersonnelFiles.Domain.User;
 
-namespace Nm.Module.PersonnelFiles.Application.PositionService
+namespace Tm.Module.PersonnelFiles.Application.PositionService
 {
     public class PositionService : IPositionService
     {

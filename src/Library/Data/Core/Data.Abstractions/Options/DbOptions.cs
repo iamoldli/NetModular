@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nm.Lib.Data.Abstractions.Options
+namespace Tm.Lib.Data.Abstractions.Options
 {
     /// <summary>
     /// 数据库配置项

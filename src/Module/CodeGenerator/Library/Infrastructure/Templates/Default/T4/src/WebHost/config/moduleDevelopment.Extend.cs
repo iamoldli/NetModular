@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
     public partial class moduleDevelopment : ITemplateHandler
     {

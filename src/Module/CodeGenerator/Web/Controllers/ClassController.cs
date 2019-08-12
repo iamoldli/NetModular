@@ -6,18 +6,18 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.ClassService;
-using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
-using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.Class.Models;
-using Nm.Module.CodeGenerator.Infrastructure.Options;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.ClassService;
+using Tm.Module.CodeGenerator.Application.ClassService.ViewModels;
+using Tm.Module.CodeGenerator.Application.ProjectService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.Class.Models;
+using Tm.Module.CodeGenerator.Infrastructure.Options;
 
-namespace Nm.Module.CodeGenerator.Web.Controllers
+namespace Tm.Module.CodeGenerator.Web.Controllers
 {
     [Description("实体管理")]
     [Common]

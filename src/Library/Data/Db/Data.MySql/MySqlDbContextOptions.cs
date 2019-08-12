@@ -1,11 +1,11 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Data.Core;
 
-namespace Nm.Lib.Data.MySql
+namespace Tm.Lib.Data.MySql
 {
     /// <summary>
     /// MySql数据库上下文配置项

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.CodeGenerator.Domain.Enum.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.CodeGenerator.Domain.Enum.Models;
 
-namespace Nm.Module.CodeGenerator.Domain.Enum
+namespace Tm.Module.CodeGenerator.Domain.Enum
 {
     /// <summary>
     /// 枚举仓储

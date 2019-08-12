@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Role.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.Role.Models;
 
-namespace Nm.Module.Admin.Domain.Role
+namespace Tm.Module.Admin.Domain.Role
 {
     /// <summary>
     /// 角色仓储

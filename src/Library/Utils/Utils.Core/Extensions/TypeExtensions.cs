@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace Tm.Lib.Utils.Core.Extensions
 {
     /// <summary>
     /// 类型扩展

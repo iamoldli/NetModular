@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.Quartz.Domain.JobLog
+namespace Tm.Module.Quartz.Domain.JobLog
 {
     /// <summary>
     /// 任务日志类型

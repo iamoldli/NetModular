@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Options
+namespace Tm.Module.CodeGenerator.Infrastructure.Options
 {
     public class CodeGeneratorOptions
     {

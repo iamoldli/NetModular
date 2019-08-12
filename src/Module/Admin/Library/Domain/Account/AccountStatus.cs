@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace Tm.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户状态

@@ -1,6 +1,6 @@
-using Nm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Options;
 
-namespace Nm.Module.Common.Infrastructure.Options
+namespace Tm.Module.Common.Infrastructure.Options
 {
     /// <summary>
     /// 通用模块配置项

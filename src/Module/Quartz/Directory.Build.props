@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Id>Quartz</Id>
     <Name>任务调度</Name>
-    <Authors>Oldli</Authors>
+    <Authors>MichaelCheng</Authors>
     <Version>1.0.0</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -15,10 +15,10 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Company></Company>
     <Copyright></Copyright>
-    <RootNamespacePrefix>Nm.Module.$(Id)</RootNamespacePrefix>
+    <RootNamespacePrefix>Tm.Module.$(Id)</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <PackageProjectUrl>https://github.com/iamoldli/NetModular</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/chylove1982/NetModular</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/chylove1982/NetModular</RepositoryUrl>
   </PropertyGroup>
 </Project>

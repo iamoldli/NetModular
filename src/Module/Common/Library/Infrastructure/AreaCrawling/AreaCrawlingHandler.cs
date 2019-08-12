@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Module.Common.Infrastructure.AreaCrawling
+namespace Tm.Module.Common.Infrastructure.AreaCrawling
 {
     /// <summary>
     /// 从 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2018/index.html 爬取数据

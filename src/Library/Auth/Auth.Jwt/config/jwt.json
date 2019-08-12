@@ -2,9 +2,9 @@
     //秘钥
     "Key": "twZJ$j5##pVc5*y&",
     //发行商
-    "Issuer": "http://www.iamoldli.com",
+    "Issuer": "http://www.temii.cn",
     //订阅者
-    "Audience": "http://www.iamoldli.com",
+    "Audience": "http://www.temii.cn",
     //有效期(分钟)
     "Expires": 120
 }

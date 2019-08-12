@@ -1,7 +1,7 @@
-using  Nm.Lib.Data.Query;
+using  Tm.Lib.Data.Query;
 using System;
 
-namespace  Nm.Module.PersonnelFiles.Domain.Company.Models
+namespace  Tm.Module.PersonnelFiles.Domain.Company.Models
 {
     public class CompanyQueryModel : QueryModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.CodeGenerator.Application.PropertyService.ViewModels
+namespace Tm.Module.CodeGenerator.Application.PropertyService.ViewModels
 {
     public class PropertyUpdateShowInListModel
     {

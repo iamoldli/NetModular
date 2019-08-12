@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Auth.Jwt
+﻿namespace Tm.Lib.Auth.Jwt
 {
     /// <summary>
     /// JWT令牌

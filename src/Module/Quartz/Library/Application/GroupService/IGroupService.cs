@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Quartz.Application.GroupService.ViewModels;
-using Nm.Module.Quartz.Domain.Group.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Quartz.Application.GroupService.ViewModels;
+using Tm.Module.Quartz.Domain.Group.Models;
 
-namespace Nm.Module.Quartz.Application.GroupService
+namespace Tm.Module.Quartz.Application.GroupService
 {
     /// <summary>
     /// 任务组服务

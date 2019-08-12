@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
+using Tm.Lib.Data.Abstractions.Attributes;
 
-namespace Nm.Module.Admin.Domain.Button
+namespace Tm.Module.Admin.Domain.Button
 {
     public partial class ButtonEntity
     {

@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Lib.Utils.Mvc.Extensions;
-using Nm.Lib.Utils.Mvc.Helpers;
-using Nm.Module.PersonnelFiles.Application.UserService;
-using Nm.Module.PersonnelFiles.Application.UserService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.User.Models;
+using Tm.Lib.Utils.Core.Options;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Lib.Utils.Mvc.Extensions;
+using Tm.Lib.Utils.Mvc.Helpers;
+using Tm.Module.PersonnelFiles.Application.UserService;
+using Tm.Module.PersonnelFiles.Application.UserService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.User.Models;
 
-namespace Nm.Module.PersonnelFiles.Web.Controllers
+namespace Tm.Module.PersonnelFiles.Web.Controllers
 {
     [Description("用户信息管理")]
     public class UserController : ModuleController

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Common.Application.MediaTypeService.ViewModels
+namespace Tm.Module.Common.Application.MediaTypeService.ViewModels
 {
     public class MediaTypeUpdateModel : MediaTypeAddModel
     {

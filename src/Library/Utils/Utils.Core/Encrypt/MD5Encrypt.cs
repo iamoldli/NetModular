@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Encrypt
+namespace Tm.Lib.Utils.Core.Encrypt
 {
     /// <summary>
     /// MD5

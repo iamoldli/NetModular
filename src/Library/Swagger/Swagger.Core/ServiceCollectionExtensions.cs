@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Swagger.Core.Filters;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Swagger.Core.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Nm.Lib.Swagger.Core
+namespace Tm.Lib.Swagger.Core
 {
     public static class ServiceCollectionExtensions
     {

@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.MySql
+namespace Tm.Module.CodeGenerator.Infrastructure.Repositories.MySql
 {
     public class ClassRepository : SqlServer.ClassRepository
     {

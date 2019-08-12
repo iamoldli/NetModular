@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.ModuleInfo;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
-using Nm.Module.Admin.Domain.Permission;
-using ModuleInfoEntity = Nm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
+using Tm.Lib.Module.Abstractions;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Domain.Menu;
+using Tm.Module.Admin.Domain.ModuleInfo;
+using Tm.Module.Admin.Domain.ModuleInfo.Models;
+using Tm.Module.Admin.Domain.Permission;
+using ModuleInfoEntity = Tm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
-namespace Nm.Module.Admin.Application.ModuleInfoService
+namespace Tm.Module.Admin.Application.ModuleInfoService
 {
     public class ModuleInfoService : IModuleInfoService
     {

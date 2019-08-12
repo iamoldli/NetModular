@@ -2,12 +2,12 @@
 using System.Data;
 using System.Text;
 using Dapper;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
 using IsolationLevel = System.Data.IsolationLevel;
 
-namespace Nm.Lib.Data.Core
+namespace Tm.Lib.Data.Core
 {
     /// <summary>
     /// 数据库上下文

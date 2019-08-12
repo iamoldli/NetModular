@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 using FluentValidation;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Validation.FluentValidation;
-using Nm.Module.PersonnelFiles.Application.UserService.ViewModels;
+using Tm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Validation.FluentValidation;
+using Tm.Module.PersonnelFiles.Application.UserService.ViewModels;
 
-namespace Nm.Module.PersonnelFiles.Web.Validators
+namespace Tm.Module.PersonnelFiles.Web.Validators
 {
     public class UserUpdateValidator : AbstractValidator<UserUpdateModel>
     {

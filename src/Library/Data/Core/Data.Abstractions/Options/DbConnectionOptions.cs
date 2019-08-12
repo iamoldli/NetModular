@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nm.Lib.Data.Abstractions.Enums;
+using Tm.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Abstractions.Options
+namespace Tm.Lib.Data.Abstractions.Options
 {
     public class DbConnectionOptions
     {

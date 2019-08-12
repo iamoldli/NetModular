@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Core.Internal
+﻿namespace Tm.Lib.Data.Core.Internal
 {
     internal static class StringExtensions
     {

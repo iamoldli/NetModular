@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.MediaTypeService.ViewModels;
-using Nm.Module.Common.Domain.MediaType.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.MediaTypeService.ViewModels;
+using Tm.Module.Common.Domain.MediaType.Models;
 
-namespace Nm.Module.Common.Application.MediaTypeService
+namespace Tm.Module.Common.Application.MediaTypeService
 {
     public interface IMediaTypeService
     {

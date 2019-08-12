@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using Tm.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Config.Models
+namespace Tm.Module.Admin.Domain.Config.Models
 {
     public class ConfigQueryModel : QueryModel
     {

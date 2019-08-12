@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
+﻿namespace Tm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
 {
     /// <summary>
     /// 分组查询对象

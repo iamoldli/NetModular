@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Files;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.AttachmentService.ResultModels;
-using Nm.Module.Common.Application.AttachmentService.ViewModels;
-using Nm.Module.Common.Domain.Attachment.Models;
+using Tm.Lib.Utils.Core.Files;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.AttachmentService.ResultModels;
+using Tm.Module.Common.Application.AttachmentService.ViewModels;
+using Tm.Module.Common.Domain.Attachment.Models;
 
-namespace Nm.Module.Common.Application.AttachmentService
+namespace Tm.Module.Common.Application.AttachmentService
 {
     /// <summary>
     /// 附件表服务

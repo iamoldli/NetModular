@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Module.AspNetCore.Attributes
+namespace Tm.Lib.Module.AspNetCore.Attributes
 {
     /// <summary>
     /// 禁用审计功能

@@ -1,4 +1,4 @@
-namespace Nm.Module.Quartz.Domain.Job
+namespace Tm.Module.Quartz.Domain.Job
 {
     public partial class JobEntity
     {

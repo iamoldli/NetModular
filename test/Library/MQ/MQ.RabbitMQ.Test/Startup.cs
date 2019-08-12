@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.MQ.RabbitMQ;
+using Tm.Lib.MQ.RabbitMQ;
 
 namespace MQ.RabbitMQ.Test
 {

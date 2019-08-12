@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.Menu;
+using Tm.Module.Admin.Domain.Button;
+using Tm.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.MenuService.ViewModels
+namespace Tm.Module.Admin.Application.MenuService.ViewModels
 {
     /// <summary>
     /// 新增菜单

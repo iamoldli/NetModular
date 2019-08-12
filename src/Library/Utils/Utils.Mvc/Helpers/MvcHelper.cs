@@ -6,10 +6,10 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Attributes;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Mvc.Helpers
+namespace Tm.Lib.Utils.Mvc.Helpers
 {
     /// <summary>
     /// MVC帮助类

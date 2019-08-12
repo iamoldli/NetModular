@@ -1,9 +1,9 @@
 using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.Company;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.PersonnelFiles.Application.CompanyService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.Company;
 
-namespace Nm.Module.PersonnelFiles.Application.CompanyService
+namespace Tm.Module.PersonnelFiles.Application.CompanyService
 {
     public class MapperConfig : IMapperConfig
     {

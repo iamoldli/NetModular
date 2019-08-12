@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class DirectoryBuildProps : DirectoryBuildPropsBase
     {
@@ -25,20 +27,20 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
         {
             this.Write("<Project>\r\n  <PropertyGroup>\r\n    <Id>");
             
-            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
+            #line 4 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write("</Id>\r\n    <Name>");
             
-            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
+            #line 5 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Name));
             
             #line default
             #line hidden
             this.Write(@"</Name>
-    <Authors>Oldli</Authors>
+    <Authors>MichaelCheng</Authors>
     <Version>1.0.0</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -53,7 +55,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <Copyright></Copyright>
     <RootNamespacePrefix>");
             
-            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
+            #line 19 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\DirectoryBuildProps.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -61,8 +63,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
             this.Write(@".Module.$(Id)</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <PackageProjectUrl>https://github.com/iamoldli/NetModular</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/chylove1982/NetModular</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/chylove1982/NetModular</RepositoryUrl>
   </PropertyGroup>
 </Project>
 ");

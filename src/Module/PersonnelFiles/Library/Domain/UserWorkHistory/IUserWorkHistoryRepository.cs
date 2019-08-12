@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.PersonnelFiles.Domain.UserWorkHistory.Models;
 
-namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory
+namespace Tm.Module.PersonnelFiles.Domain.UserWorkHistory
 {
     /// <summary>
     /// 用户工作经历仓储

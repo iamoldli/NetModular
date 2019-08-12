@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using Nm.Module.CodeGenerator.Domain.Property;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Module.CodeGenerator.Domain.Property;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.data
 {
     public partial class SchemaOracle : ITemplateHandler
     {

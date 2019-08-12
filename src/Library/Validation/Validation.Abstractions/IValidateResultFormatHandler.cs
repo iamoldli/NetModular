@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Nm.Lib.Validation.Abstractions
+namespace Tm.Lib.Validation.Abstractions
 {
     /// <summary>
     /// 验证结果格式化器

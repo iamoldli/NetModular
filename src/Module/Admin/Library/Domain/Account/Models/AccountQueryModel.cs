@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Query;
+﻿using Tm.Lib.Data.Query;
 using System;
 
-namespace Nm.Module.Admin.Domain.Account.Models
+namespace Tm.Module.Admin.Domain.Account.Models
 {
     public class AccountQueryModel : QueryModel
     {

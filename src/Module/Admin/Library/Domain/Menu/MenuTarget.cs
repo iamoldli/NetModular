@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Module.Admin.Domain.Menu
+namespace Tm.Module.Admin.Domain.Menu
 {
     /// <summary>
     /// 菜单打开方式(只针对链接菜单)

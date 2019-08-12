@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Menu;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.MenuService.ResultModels
+namespace Tm.Module.Admin.Application.MenuService.ResultModels
 {
     public class MenuTreeResultModel : TreeResultModel<MenuTreeResultModel>
     {

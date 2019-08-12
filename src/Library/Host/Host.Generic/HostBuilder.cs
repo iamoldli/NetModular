@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Nm.Lib.Cache.Integration;
-using Nm.Lib.Data.Integration;
-using Nm.Lib.Logging.Serilog.GenericHost;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Lib.Module.GenericHost;
-using Nm.Lib.Utils.Core;
+using Tm.Lib.Cache.Integration;
+using Tm.Lib.Data.Integration;
+using Tm.Lib.Logging.Serilog.GenericHost;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Lib.Module.GenericHost;
+using Tm.Lib.Utils.Core;
 
-namespace Nm.Lib.Host.Generic
+namespace Tm.Lib.Host.Generic
 {
     /// <summary>
     /// 主机生成器

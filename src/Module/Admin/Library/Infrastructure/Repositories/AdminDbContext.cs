@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
+﻿using Tm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Core;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories
+namespace Tm.Module.Admin.Infrastructure.Repositories
 {
     public class AdminDbContext : DbContext
     {

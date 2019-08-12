@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.CodeGenerator.Domain.ModelProperty.Models;
 
-namespace Nm.Module.CodeGenerator.Domain.ModelProperty
+namespace Tm.Module.CodeGenerator.Domain.ModelProperty
 {
     public interface IModelPropertyRepository : IRepository<ModelPropertyEntity>
     {

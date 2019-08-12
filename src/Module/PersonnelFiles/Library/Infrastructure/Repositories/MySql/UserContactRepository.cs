@@ -1,6 +1,6 @@
-using Nm.Lib.Data.Abstractions;
+using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.MySql
+namespace Tm.Module.PersonnelFiles.Infrastructure.Repositories.MySql
 {
     public class UserContactRepository : SqlServer.UserContactRepository
     {

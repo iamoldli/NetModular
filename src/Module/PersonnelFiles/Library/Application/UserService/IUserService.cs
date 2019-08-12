@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.PersonnelFiles.Application.UserService.ViewModels;
-using Nm.Module.PersonnelFiles.Domain.User.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.PersonnelFiles.Application.UserService.ViewModels;
+using Tm.Module.PersonnelFiles.Domain.User.Models;
 
-namespace Nm.Module.PersonnelFiles.Application.UserService
+namespace Tm.Module.PersonnelFiles.Application.UserService
 {
     /// <summary>
     /// 用户信息服务

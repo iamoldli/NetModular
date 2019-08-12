@@ -7,13 +7,15 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class Add : AddBase
     {
@@ -25,7 +27,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         {
             this.Write("<template>\r\n  <");
             
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 3 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
@@ -33,56 +35,56 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             this.Write("-form-dialog ref=\"form\" v-bind=\"form\" v-on=\"on\" :visible.sync=\"visible_\">\r\n    <e" +
                     "l-row>\r\n      <el-col :span=\"20\" :offset=\"1\">\r\n");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 6 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
     foreach(var p in _class.AddModelPropertyList){ 
             
             #line default
             #line hidden
             this.Write("        <el-form-item label=\"");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 7 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
             this.Write("：\" prop=\"");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 7 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
             
             #line default
             #line hidden
             this.Write("\">\r\n          <el-input v-model=\"form.model.");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
             
             #line default
             #line hidden
             this.Write("\" clearable/>\r\n        </el-form-item>\r\n");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
     } 
             
             #line default
             #line hidden
             this.Write("      </el-col>\r\n    </el-row>\r\n  </");
             
-            #line 13 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 13 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("-form-dialog>\r\n</template>\r\n<script>\r\nimport api from \'../../../../api/");
             
-            #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 16 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("\'\r\nimport { mixins } from \'");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 17 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix.ToLower()));
             
             #line default
@@ -90,42 +92,42 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             this.Write("-lib-skins\'\r\nexport default {\r\n  mixins: [mixins.dialog],\r\n  data () {\r\n    retur" +
                     "n {\r\n      form: {\r\n        title: \'添加");
             
-            #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 23 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Remarks));
             
             #line default
             #line hidden
             this.Write("\',\r\n        icon: \'add\',\r\n        action: api.add,\r\n        model: {\r\n");
             
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 27 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
     for(var i = 0;i < _class.AddModelPropertyList.Count;i++){ var p=_class.AddModelPropertyList[i]; 
             
             #line default
             #line hidden
             this.Write("          /** ");
             
-            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 28 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Remarks));
             
             #line default
             #line hidden
             this.Write(" */\r\n          ");
             
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 29 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.CamelName));
             
             #line default
             #line hidden
             this.Write(": \'\'");
             
-            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 29 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(i < _class.AddModelPropertyList.Count-1 ? "," : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            #line 30 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
     } 
             
             #line default

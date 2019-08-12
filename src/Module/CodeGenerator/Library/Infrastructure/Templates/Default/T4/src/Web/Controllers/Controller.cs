@@ -7,7 +7,7 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Controllers
+namespace Tm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Controllers
 {
     using System;
     
@@ -15,7 +15,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+    #line 1 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class Controller : ControllerBase
     {
@@ -29,126 +29,126 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
                     " Microsoft.AspNetCore.Mvc;\r\nusing Microsoft.AspNetCore.Mvc.ModelBinding;\r\nusing " +
                     "");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 7 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Utils.Core.Result;\r\nusing ");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Application.");
             
-            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 8 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Service;\r\nusing ");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Application.");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 9 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Service.ViewModels;\r\nusing ");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Domain.");
             
-            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 10 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 12 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
             this.Write(".Web.Controllers\r\n{\r\n    [Description(\"");
             
-            #line 14 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 14 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Remarks));
             
             #line default
             #line hidden
             this.Write("管理\")]\r\n    public class ");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 15 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Controller : ModuleController\r\n    {\r\n        private readonly I");
             
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 17 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Service _service;\r\n\r\n        public ");
             
-            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 19 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Controller(I");
             
-            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 19 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
             #line hidden
             this.Write("Service service)\r\n        {\r\n            _service = service;\r\n        }\r\n\r\n");
             
-            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 24 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
  if(_class.Method.Query) {
             
             #line default
@@ -156,7 +156,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("        [HttpGet]\r\n        [Description(\"查询\")]\r\n        public Task<IResultModel>" +
                     " Query([FromQuery]");
             
-            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 27 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
@@ -164,13 +164,13 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("QueryModel model)\r\n        {\r\n            return _service.Query(model);\r\n        " +
                     "}\r\n\r\n");
             
-            #line 32 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 32 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 33 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 33 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
  if(_class.Method.Add) {
             
             #line default
@@ -178,7 +178,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("        [HttpPost]\r\n        [Description(\"添加\")]\r\n        public Task<IResultModel" +
                     "> Add(");
             
-            #line 36 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 36 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
@@ -186,13 +186,13 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("AddModel model)\r\n        {\r\n            return _service.Add(model);\r\n        }\r\n\r" +
                     "\n");
             
-            #line 41 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 41 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 42 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 42 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
  if(_class.Method.Delete) {
             
             #line default
@@ -200,20 +200,20 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("        [HttpDelete]\r\n        [Description(\"删除\")]\r\n        public Task<IResultMod" +
                     "el> Delete([BindRequired]");
             
-            #line 45 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 45 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
             #line hidden
             this.Write(" id)\r\n        {\r\n            return _service.Delete(id);\r\n        }\r\n\r\n");
             
-            #line 50 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 50 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
 } 
             
             #line default
             #line hidden
             
-            #line 51 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 51 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
  if(_class.Method.Edit) {
             
             #line default
@@ -221,7 +221,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("        [HttpGet]\r\n        [Description(\"编辑\")]\r\n        public Task<IResultModel>" +
                     " Edit([BindRequired]");
             
-            #line 54 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 54 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.PrimaryKeyTypeName));
             
             #line default
@@ -229,7 +229,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write(" id)\r\n        {\r\n            return _service.Edit(id);\r\n        }\r\n\r\n        [Htt" +
                     "pPost]\r\n        [Description(\"修改\")]\r\n        public Task<IResultModel> Update(");
             
-            #line 61 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 61 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
             
             #line default
@@ -237,7 +237,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web.Co
             this.Write("UpdateModel model)\r\n        {\r\n            return _service.Update(model);\r\n      " +
                     "  }\r\n");
             
-            #line 65 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
+            #line 65 "C:\vsCode\NetModular_chy\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Controllers\Controller.tt"
 } 
             
             #line default

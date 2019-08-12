@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
-using Nm.Module.CodeGenerator.Domain.Project;
-using Nm.Module.CodeGenerator.Domain.Property;
-using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
+using Tm.Lib.Mapper.AutoMapper;
+using Tm.Module.CodeGenerator.Application.ProjectService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Module.CodeGenerator.Domain.Project;
+using Tm.Module.CodeGenerator.Domain.Property;
+using Tm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Application.ProjectService
+namespace Tm.Module.CodeGenerator.Application.ProjectService
 {
     public class MapperConfig : IMapperConfig
     {

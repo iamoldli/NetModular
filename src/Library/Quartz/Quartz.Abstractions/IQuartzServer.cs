@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Quartz;
 
-namespace Nm.Lib.Quartz.Abstractions
+namespace Tm.Lib.Quartz.Abstractions
 {
     /// <summary>
     /// Quartz服务接口

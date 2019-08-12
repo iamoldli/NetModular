@@ -1,8 +1,8 @@
 ﻿using System.Data;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Abstractions
+namespace Tm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 数据库上下文

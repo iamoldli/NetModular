@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Common.Application.AreaService;
-using Nm.Module.Common.Application.AreaService.ViewModels;
-using Nm.Module.Common.Domain.Area;
-using Nm.Module.Common.Domain.Area.Models;
+using Tm.Lib.Auth.Web.Attributes;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Common.Application.AreaService;
+using Tm.Module.Common.Application.AreaService.ViewModels;
+using Tm.Module.Common.Domain.Area;
+using Tm.Module.Common.Domain.Area.Models;
 
-namespace Nm.Module.Common.Web.Controllers
+namespace Tm.Module.Common.Web.Controllers
 {
     [Description("区划代码管理")]
     public class AreaController : ModuleController

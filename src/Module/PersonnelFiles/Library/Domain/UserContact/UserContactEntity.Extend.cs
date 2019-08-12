@@ -1,4 +1,4 @@
-namespace Nm.Module.PersonnelFiles.Domain.UserContact
+namespace Tm.Module.PersonnelFiles.Domain.UserContact
 {
     public partial class UserContactEntity
     {

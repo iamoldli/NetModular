@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using Nm.Lib.Module.Abstractions;
+using Tm.Lib.Module.Abstractions;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace Tm.Lib.Module.AspNetCore
 {
     public class ModuleAssemblyDescriptor : IModuleAssemblyDescriptor
     {

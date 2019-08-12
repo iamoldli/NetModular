@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Nm.Lib.Utils.Core.Extensions;
+using Tm.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Options
+namespace Tm.Lib.Utils.Core.Options
 {
     /// <summary>
     /// 模块通用配置项

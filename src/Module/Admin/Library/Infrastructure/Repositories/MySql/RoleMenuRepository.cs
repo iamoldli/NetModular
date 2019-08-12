@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using Tm.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.MySql
+namespace Tm.Module.Admin.Infrastructure.Repositories.MySql
 {
     public class RoleMenuRepository : SqlServer.RoleMenuRepository
     {

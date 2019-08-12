@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.PersonnelFiles.Domain.Company.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.PersonnelFiles.Domain.Company.Models;
 
-namespace Nm.Module.PersonnelFiles.Domain.Company
+namespace Tm.Module.PersonnelFiles.Domain.Company
 {
     /// <summary>
     /// 公司单位仓储

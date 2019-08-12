@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.CodeGenerator.Application.ClassService.ViewModels
+﻿namespace Tm.Module.CodeGenerator.Application.ClassService.ViewModels
 {
     /// <summary>
     /// 实体方法模型

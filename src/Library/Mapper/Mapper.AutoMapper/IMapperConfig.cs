@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Nm.Lib.Mapper.AutoMapper
+namespace Tm.Lib.Mapper.AutoMapper
 {
     /// <summary>
     /// 对象映射绑定

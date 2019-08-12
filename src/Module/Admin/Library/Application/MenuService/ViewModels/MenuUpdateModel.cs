@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.MenuService.ViewModels
+namespace Tm.Module.Admin.Application.MenuService.ViewModels
 {
     /// <summary>
     /// 新增菜单

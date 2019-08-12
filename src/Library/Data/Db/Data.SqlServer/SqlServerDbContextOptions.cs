@@ -1,11 +1,11 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
+using Tm.Lib.Auth.Abstractions;
+using Tm.Lib.Data.Abstractions.Options;
+using Tm.Lib.Data.Core;
 
-namespace Nm.Lib.Data.SqlServer
+namespace Tm.Lib.Data.SqlServer
 {
     /// <summary>
     /// 数据库上下文配置项SqlServer实现

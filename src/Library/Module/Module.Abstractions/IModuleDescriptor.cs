@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Module.Abstractions
+﻿namespace Tm.Lib.Module.Abstractions
 {
     /// <summary>
     /// 模块描述

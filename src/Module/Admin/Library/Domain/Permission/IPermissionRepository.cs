@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Permission.Models;
+using Tm.Lib.Data.Abstractions;
+using Tm.Module.Admin.Domain.Permission.Models;
 
-namespace Nm.Module.Admin.Domain.Permission
+namespace Tm.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限仓储

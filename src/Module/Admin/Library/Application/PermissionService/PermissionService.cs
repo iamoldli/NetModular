@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.Permission.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.Admin.Domain.Permission;
+using Tm.Module.Admin.Domain.Permission.Models;
 
-namespace Nm.Module.Admin.Application.PermissionService
+namespace Tm.Module.Admin.Application.PermissionService
 {
     public class PermissionService : IPermissionService
     {

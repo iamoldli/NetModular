@@ -1,6 +1,6 @@
 ﻿using Dapper;
 
-namespace Nm.Lib.Data.Abstractions
+namespace Tm.Lib.Data.Abstractions
 {
     /// <summary>
     /// 参数集合

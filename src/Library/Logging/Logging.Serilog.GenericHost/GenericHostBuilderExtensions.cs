@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Nm.Lib.Utils.Core.Helpers;
+using Tm.Lib.Utils.Core.Helpers;
 using Serilog;
 
-namespace Nm.Lib.Logging.Serilog.GenericHost
+namespace Tm.Lib.Logging.Serilog.GenericHost
 {
     public static class WebHostBuilderExtensions
     {

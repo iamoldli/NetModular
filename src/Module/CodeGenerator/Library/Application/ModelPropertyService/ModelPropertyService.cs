@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
-using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.ModelProperty;
-using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
-using Nm.Module.CodeGenerator.Domain.Property;
+using Tm.Lib.Utils.Core.Models;
+using Tm.Lib.Utils.Core.Result;
+using Tm.Module.CodeGenerator.Application.ModelPropertyService.ViewModels;
+using Tm.Module.CodeGenerator.Domain.Class;
+using Tm.Module.CodeGenerator.Domain.ModelProperty;
+using Tm.Module.CodeGenerator.Domain.ModelProperty.Models;
+using Tm.Module.CodeGenerator.Domain.Property;
 
-namespace Nm.Module.CodeGenerator.Application.ModelPropertyService
+namespace Tm.Module.CodeGenerator.Application.ModelPropertyService
 {
     public class ModelPropertyService : IModelPropertyService
     {
