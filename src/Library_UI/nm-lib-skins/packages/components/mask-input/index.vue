@@ -66,6 +66,12 @@ export default {
     showMask: Boolean,
     disabled: Boolean,
     customClass: Array
+  },
+  methods: {
+    reset() {
+      this.value_ = ''
+      this.onChange()
+    }
   }
 }
 </script>
