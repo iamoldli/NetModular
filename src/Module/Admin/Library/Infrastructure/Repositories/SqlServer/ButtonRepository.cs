@@ -48,7 +48,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> ExistsByCode(string code)
+        public Task<bool> ExistsByCode(string code, IDbTransaction transaction)
         {
             return Db.Find(m => m.Code == code).ExistsAsync();
         }

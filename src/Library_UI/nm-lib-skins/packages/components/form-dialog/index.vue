@@ -4,18 +4,15 @@
       <slot />
     </nm-form>
 
+    <template v-slot:footer-left>
+      <slot name="footer-left" />
+    </template>
+
     <template v-slot:footer>
-      <div class="nm-form-footer">
-        <div class="nm-form-footer-left">
-          <slot name="footer-left" />
-        </div>
-        <div class="nm-form-footer-right">
-          <slot name="fotter">
-            <el-button v-if="btnOk" :type="btnOkType" @click="submit" :size="fontSize">{{btnOkText}}</el-button>
-            <el-button v-if="btnReset" type="info" @click="reset" :size="fontSize">重置</el-button>
-          </slot>
-        </div>
-      </div>
+      <slot name="footer">
+        <el-button v-if="btnOk" :type="btnOkType" @click="submit" :size="fontSize">{{btnOkText}}</el-button>
+        <el-button v-if="btnReset" type="info" @click="reset" :size="fontSize">重置</el-button>
+      </slot>
     </template>
   </nm-dialog>
 </template>
@@ -49,6 +46,11 @@ export default {
     width: String,
     /** Dialog 的高度 */
     height: [Number, String],
+    /** 显示尾部 */
+    footer: {
+      type: Boolean,
+      default: true
+    },
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal: {
       type: Boolean,
@@ -124,7 +126,9 @@ export default {
     clearValidateOnOpen: {
       type: Boolean,
       default: true
-    }
+    },
+    /** 是否显示底部关闭按钮 */
+    footerCloseButton: Boolean
   },
   computed: {
     dialog() {
@@ -133,10 +137,11 @@ export default {
         icon: this.icon,
         width: this.width,
         height: this.height,
-        footer: true,
+        footer: this.footer,
         fullscreen: this.fullscreen,
         closeOnClickModal: this.closeOnClickModal,
-        loading: this.showLoading
+        loading: this.showLoading,
+        footerCloseButton: this.footerCloseButton
       }
     },
     form() {

@@ -105,7 +105,7 @@ export default {
 
       const page = {
         name: route.name,
-        path: route.path.toLowerCase(),
+        path: decodeURI(route.path),
         fullPath: route.fullPath,
         meta: route.meta,
         query: route.query,
@@ -126,11 +126,8 @@ export default {
         }
       }
       page.tabName = page.tabName || '未命名'
-
       // 判断是否已打开
-      const notOpend = state.opened.every(
-        p => p.path !== page.path && p.path !== encodeURI(page.path)
-      )
+      const notOpend = state.opened.every(p => p.path !== page.path)
       // 如果当前页面未打开, 加入已打开列表
       if (notOpend) {
         // 已打开列表

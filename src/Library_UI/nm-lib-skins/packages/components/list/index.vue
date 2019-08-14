@@ -279,7 +279,7 @@ export default {
       }
       return []
     },
-    /** 重新绘制布局 */
+    // 重新绘制布局
     doLayout() {
       this.$refs.table.doLayout()
     }

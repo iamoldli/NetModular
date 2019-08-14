@@ -36,7 +36,8 @@ namespace Nm.Module.Admin.Domain.Button
         /// 编码是否存在
         /// </summary>
         /// <param name="code"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
-        Task<bool> ExistsByCode(string code);
+        Task<bool> ExistsByCode(string code, IDbTransaction transaction);
     }
 }

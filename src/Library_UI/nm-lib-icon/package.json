@@ -1,6 +1,6 @@
 {
     "name": "nm-lib-icon",
-    "version": "1.2.8",
+    "version": "1.2.9",
     "description": "NetModular前端图标库",
     "main": "index.js",
 	"scripts": {

@@ -15,18 +15,18 @@
     <!--头部-->
     <template v-slot:title>
       <section v-if="icon" class="nm-dialog-icon">
-        <nm-icon :name="icon"/>
+        <nm-icon :name="icon" />
       </section>
       <section ref="title" class="nm-dialog-title">
         <slot name="title">{{title}}</slot>
       </section>
       <section class="nm-dialog-toolbar">
         <!--工具栏插槽-->
-        <slot name="toolbar"/>
+        <slot name="toolbar" />
         <!--全屏按钮-->
-        <nm-button v-if="fullscreen" :icon="hasFullscreen ? 'fullscreen-c':'fullscreen-o'" @click="toggerFullscreen"/>
+        <nm-button v-if="fullscreen" :icon="hasFullscreen ? 'fullscreen-c':'fullscreen-o'" @click="toggerFullscreen" />
         <!--关闭按钮-->
-        <nm-button icon="close" @click="close"/>
+        <nm-button icon="close" @click="close" />
       </section>
     </template>
 
@@ -41,14 +41,21 @@
     >
       <section class="nm-dialog-content">
         <section class="nm-dialog-main">
-          <slot v-if="noScrollbar"/>
+          <slot v-if="noScrollbar" />
           <nm-scrollbar v-else ref="scrollbar" class="nm-dialog-body-scrollbar">
-            <slot/>
+            <slot />
           </nm-scrollbar>
         </section>
       </section>
       <section v-if="footer" class="nm-dialog-footer">
-        <slot name="footer"/>
+        <div class="nm-form-footer-left">
+          <slot name="footer-left" />
+        </div>
+        <div class="nm-form-footer-right">
+          <slot name="footer" />
+          <!--底部关闭按钮-->
+          <nm-button v-if="footerCloseButton" text="关闭" @click="close" />
+        </div>
       </section>
     </section>
   </el-dialog>
@@ -132,7 +139,9 @@ export default {
     dragMinWidth: {
       type: Number,
       default: 100
-    }
+    },
+    /** 是否显示底部关闭按钮 */
+    footerCloseButton: Boolean
   },
   computed: {
     ...mapState('app/system', ['dialogCloseOnClickModal']),

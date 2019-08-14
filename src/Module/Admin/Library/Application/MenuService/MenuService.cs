@@ -349,7 +349,7 @@ namespace Nm.Module.Admin.Application.MenuService
                 }
                 else
                 {
-                    if (await _buttonRepository.ExistsByCode(newBtn.Code.ToLower()))
+                    if (await _buttonRepository.ExistsByCode(newBtn.Code.ToLower(), transaction))
                     {
                         _logger.LogError($"按钮编码{newBtn.Code}不能重复");
                         result = false;
