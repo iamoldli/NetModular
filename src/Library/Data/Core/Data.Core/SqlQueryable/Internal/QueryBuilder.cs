@@ -6,9 +6,8 @@ using Microsoft.Extensions.Logging;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Core.ExpressionResolve;
-using Nm.Lib.Data.Core.Internal;
-using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
-using StringExtensions = Nm.Lib.Data.Core.Internal.StringExtensions;
+using Nm.Lib.Utils.Core;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 {

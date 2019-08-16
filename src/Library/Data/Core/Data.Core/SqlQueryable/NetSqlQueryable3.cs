@@ -9,9 +9,9 @@ using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
-using Nm.Lib.Data.Core.Internal;
 using Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Utils.Core;
 
 namespace Nm.Lib.Data.Core.SqlQueryable
 {
@@ -20,8 +20,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         where TEntity2 : IEntity, new()
         where TEntity3 : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, bool>> onExpression, JoinType joinType = JoinType.Left)
-            : base(dbSet, queryBody)
+        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, bool>> onExpression, JoinType joinType = JoinType.Left) : base(dbSet, queryBody)
         {
             Check.NotNull(onExpression, nameof(onExpression), "请输入连接条件");
 

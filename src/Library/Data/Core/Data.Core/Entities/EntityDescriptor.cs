@@ -6,7 +6,7 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Core.Entities.Extend;
-using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.Entities
 {
@@ -112,7 +112,7 @@ namespace Nm.Lib.Data.Core.Entities
 
             foreach (var p in properties)
             {
-                var column = new ColumnDescriptorr(p);
+                var column = new ColumnDescriptor(p);
                 if (column.IsPrimaryKey)
                 {
                     PrimaryKey = new PrimaryKeyDescriptor(p);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Utils.Core.Helpers;
 
 namespace Nm.Lib.Data.SqlServer
 {

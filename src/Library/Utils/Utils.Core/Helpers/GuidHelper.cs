@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Nm.Lib.Utils.Core.Attributes;
 
 namespace Nm.Lib.Utils.Core.Helpers
 {
@@ -27,10 +26,9 @@ namespace Nm.Lib.Utils.Core.Helpers
     /// <summary>
     /// Guid帮助类
     /// </summary>
-    [Singleton]
     public class GuidHelper
     {
-        private readonly RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
+        private static readonly RNGCryptoServiceProvider Rng = new RNGCryptoServiceProvider();
 
         /*
          * Database 	GUID Column 	  SequentialGuidType  Value 
@@ -46,10 +44,10 @@ namespace Nm.Lib.Utils.Core.Helpers
         /// </summary>
         /// <param name="guidType"></param>
         /// <returns></returns>
-        public Guid NewSequentialGuid(SequentialGuidType guidType)
+        public static Guid NewSequentialGuid(SequentialGuidType guidType)
         {
             var randomBytes = new byte[10];
-            _rng.GetBytes(randomBytes);
+            Rng.GetBytes(randomBytes);
 
             var timestamp = DateTime.UtcNow.Ticks / 10000L;
             var timestampBytes = BitConverter.GetBytes(timestamp);

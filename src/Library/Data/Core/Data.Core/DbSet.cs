@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
-using Nm.Lib.Data.Core.Internal;
 using Nm.Lib.Data.Core.SqlQueryable;
-using CommonExtensions = Nm.Lib.Data.Core.Internal.CommonExtensions;
+using Nm.Lib.Utils.Core;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core
 {
