@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.components
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -73,22 +75,22 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             
             #line default
             #line hidden
-            this.Write("-form-dialog>\r\n</template>\r\n<script>\r\nimport api from \'../../../../api/");
+            this.Write("-form-dialog>\r\n</template>\r\n<script>\r\nimport { mixins } from \'");
             
             #line 16 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\'\r\nimport { mixins } from \'");
-            
-            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix.ToLower()));
             
             #line default
             #line hidden
-            this.Write("-lib-skins\'\r\nexport default {\r\n  mixins: [mixins.dialog],\r\n  data () {\r\n    retur" +
-                    "n {\r\n      form: {\r\n        title: \'Ìí¼Ó");
+            this.Write("-lib-skins\'\r\nimport api from \'../../../../api/");
+            
+            #line 17 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\'\r\nexport default {\r\n  mixins: [mixins.dialog],\r\n  data () {\r\n    return {\r\n     " +
+                    " form: {\r\n        title: \'Ìí¼Ó");
             
             #line 23 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\components\Add.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_class.Remarks));

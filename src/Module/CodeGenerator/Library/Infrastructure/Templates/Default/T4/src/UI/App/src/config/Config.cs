@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -24,8 +26,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         public virtual string TransformText()
         {
             this.Write("const isDev = process.env.NODE_ENV !== \'production\'\r\n\r\nconst config = {\r\n  baseUr" +
-                    "l: \'\'\r\n}\r\n\r\n// 开发模式\r\nif (isDev) {\r\n  config.baseUrl = \'http://localhost:6220/api" +
-                    "/\'\r\n}\r\nexport default config\r\n");
+                    "l: \'\'\r\n}\r\n\r\n// 开发模式\r\nif (isDev) {\r\n  config.baseUrl = \'http://localhost:");
+            
+            #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\config\Config.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(6220 + _prefix.No));
+            
+            #line default
+            #line hidden
+            this.Write("/api/\'\r\n}\r\nexport default config\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

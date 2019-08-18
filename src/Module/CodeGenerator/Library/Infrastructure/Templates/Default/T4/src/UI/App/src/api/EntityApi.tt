@@ -2,6 +2,9 @@
 import { http } from '<#= _prefix #>-lib-utils'
 const root = '<#= _model.Project.Code #>/<#= _class.Name #>/'
 const crud = http.crud(root)
+const urls = {
+
+}
 
 export default {
   ...crud

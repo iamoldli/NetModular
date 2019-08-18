@@ -95,21 +95,21 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             this.Write(@"-module-admin"": ""^1.0.0""
     },
     ""devDependencies"": {
-        ""@vue/cli-plugin-babel"": ""^3.7.0"",
-        ""@vue/cli-plugin-eslint"": ""^3.7.0"",
-        ""@vue/cli-service"": ""^3.7.0"",
+        ""@vue/cli-plugin-babel"": ""^3.10.0"",
+        ""@vue/cli-plugin-eslint"": ""^3.10.0"",
+        ""@vue/cli-service"": ""^3.10.0"",
         ""@vue/eslint-config-standard"": ""^4.0.0"",
-        ""babel-eslint"": ""^10.0.1"",
-        ""eslint"": ""^5.16.0"",
+        ""babel-eslint"": ""^10.0.2"",
+        ""eslint"": ""^6.1.0"",
         ""eslint-config-elemefe"": ""^0.3.0"",
-        ""eslint-plugin-html"": ""^5.0.5"",
+        ""eslint-plugin-html"": ""^6.0.0"",
         ""eslint-plugin-json"": ""^1.4.0"",
-        ""eslint-plugin-vue"": ""^5.2.2"",
-        ""fibers"": ""^3.1.1"",
-        ""rimraf"": ""^2.6.3"",
-        ""sass"": ""^1.20.1"",
-        ""sass-loader"": ""^7.1.0"",
-        ""uglifyjs-webpack-plugin"": ""^2.1.2"",
+        ""eslint-plugin-vue"": ""^5.2.3"",
+        ""fibers"": ""^4.0.1"",
+        ""rimraf"": ""^3.0.0"",
+        ""sass"": ""^1.22.10"",
+        ""sass-loader"": ""^7.2.0"",
+        ""uglifyjs-webpack-plugin"": ""^2.2.0"",
         ""vue-template-compiler"": ""^2.6.10""
     }
 }

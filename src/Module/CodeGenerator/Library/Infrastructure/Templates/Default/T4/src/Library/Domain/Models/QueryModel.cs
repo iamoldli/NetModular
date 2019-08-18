@@ -11,7 +11,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
 {
     using Nm.Lib.Utils.Core.Extensions;
     using Nm.Module.CodeGenerator.Domain.Property;
-
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -26,7 +27,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing  ");
+            this.Write("using System;\r\nusing ");
             
             #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Models\QueryModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
