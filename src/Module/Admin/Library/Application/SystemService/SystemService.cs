@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Cache.Abstractions;
@@ -12,6 +11,7 @@ using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Config;
 using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Infrastructure;
 
 namespace Nm.Module.Admin.Application.SystemService
 {
@@ -21,8 +21,6 @@ namespace Nm.Module.Admin.Application.SystemService
         /// 系统配置项前缀
         /// </summary>
         private const string SystemConfigPrefix = "sys_";
-
-        private const string SystemConfigCacheKey = "ADMIN_SYSTEM_CONFIG";
 
         private readonly IConfigRepository _configRepository;
         private readonly IModuleInfoService _moduleInfoService;
@@ -46,7 +44,7 @@ namespace Nm.Module.Admin.Application.SystemService
         public async Task<IResultModel<SystemConfigModel>> GetConfig(string host = null)
         {
             var result = new ResultModel<SystemConfigModel>();
-            if (!_cache.TryGetValue(SystemConfigCacheKey, out SystemConfigModel model))
+            if (!_cache.TryGetValue(CacheKeys.SystemConfigCacheKey, out SystemConfigModel model))
             {
                 model = new SystemConfigModel();
 
@@ -98,7 +96,7 @@ namespace Nm.Module.Admin.Application.SystemService
                     }
                 }
 
-                await _cache.SetAsync(SystemConfigCacheKey, model);
+                await _cache.SetAsync(CacheKeys.SystemConfigCacheKey, model);
             }
 
             if (host.NotNull() && model.Logo.NotNull())
@@ -133,7 +131,7 @@ namespace Nm.Module.Admin.Application.SystemService
                 tran.Commit();
             }
 
-            _cache.RemoveAsync(SystemConfigCacheKey).Wait();
+            _cache.RemoveAsync(CacheKeys.SystemConfigCacheKey).Wait();
 
             return ResultModel.Success();
         }

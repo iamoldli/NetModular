@@ -59,21 +59,21 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> ExistsUserName(string userName, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.UserName == userName && m.UserName != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.UserName == userName);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsPhone(string phone, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Phone == phone && m.Phone != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Phone == phone);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsEmail(string email, Guid? id, int type = 0)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Email == email && m.Email != null);
+            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Email == email);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }

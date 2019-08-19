@@ -18,21 +18,12 @@ using Nm.Module.Admin.Domain.Button;
 using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.Role;
+using Nm.Module.Admin.Infrastructure;
 
 namespace Nm.Module.Admin.Application.AccountService
 {
     public class AccountService : IAccountService
     {
-        /// <summary>
-        /// 验证码缓存Key
-        /// </summary>
-        public const string VerifyCodeKey = "ADMIN_VERIFY_CODE_";
-
-        /// <summary>
-        /// 账户权限列表缓存Key
-        /// </summary>
-        public const string AccountPermissionListKey = "ADMIN_ACCOUNT_PERMISSION_LIST_";
-
         //默认密码
         public const string DefaultPassword = "123456";
         private readonly ICacheHandler _cache;
@@ -68,8 +59,9 @@ namespace Nm.Module.Admin.Application.AccountService
                 Base64String = _drawingHelper.DrawVerifyCodeBase64String(out string code, length)
             };
 
+            var key = CacheKeys.VerifyCodeKey + verifyCodeModel.Id;
             //把验证码放到内存缓存中，有效期10分钟
-            _cache.SetAsync(VerifyCodeKey + verifyCodeModel.Id, code, 10);
+            _cache.SetAsync(key, code, 10);
 
             return ResultModel.Success(verifyCodeModel);
         }
@@ -78,7 +70,7 @@ namespace Nm.Module.Admin.Application.AccountService
         {
             var result = new ResultModel<AccountEntity>();
 
-            var verifyCodeKey = VerifyCodeKey + model.PictureId;
+            var verifyCodeKey = CacheKeys.VerifyCodeKey + model.PictureId;
             var systemConfig = (await _systemService.GetConfig()).Data;
             if (systemConfig.LoginVerifyCode)
             {
@@ -363,8 +355,8 @@ namespace Nm.Module.Admin.Application.AccountService
             if (entity == null)
                 return new List<PermissionEntity>();
 
-            var key = AccountPermissionListKey + id;
-            
+            var key = CacheKeys.AccountPermissionListKey + id;
+
             if (!_cache.TryGetValue(key, out List<PermissionEntity> list))
             {
                 list = (await _permissionRepository.QueryByAccount(id)).ToList();
@@ -376,7 +368,7 @@ namespace Nm.Module.Admin.Application.AccountService
 
         public void ClearPermissionListCache(Guid id)
         {
-            _cache.RemoveAsync(AccountPermissionListKey + id).Wait();
+            _cache.RemoveAsync(CacheKeys.AccountPermissionListKey + id).Wait();
         }
 
         #region ==获取账户的菜单树==

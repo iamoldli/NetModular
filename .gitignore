@@ -332,7 +332,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-/packages
 /src/UI/nm-module-admin/package-lock.json
 /src/Web/modules
 /src/UI/nm-module-admin/dist
