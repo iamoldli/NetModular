@@ -29,7 +29,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
                     "l: \'\'\r\n}\r\n\r\n// 开发模式\r\nif (isDev) {\r\n  config.baseUrl = \'http://localhost:");
             
             #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\config\Config.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(6220 + _prefix.No));
+            this.Write(this.ToStringHelper.ToStringWithCulture(6220 + _model.Project.No));
             
             #line default
             #line hidden

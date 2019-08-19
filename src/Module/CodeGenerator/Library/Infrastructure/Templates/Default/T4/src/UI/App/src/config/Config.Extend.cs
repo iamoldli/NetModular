@@ -6,12 +6,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
     public partial class Config : ITemplateHandler
     {
         private readonly TemplateBuildModel _model;
-        private readonly string _prefix;
 
         public Config(TemplateBuildModel model)
         {
             _model = model;
-            _prefix = _model.Project.Prefix.ToLower();
         }
 
         public void Save()
