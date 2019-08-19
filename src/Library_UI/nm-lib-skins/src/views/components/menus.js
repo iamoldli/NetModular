@@ -38,6 +38,7 @@ requireComponent
           menu.name = '基础属性'
           menu.icon = 'property'
         }
+
         indexMenu.children.push(menu)
       })
     componentMenus.children.push(indexMenu)

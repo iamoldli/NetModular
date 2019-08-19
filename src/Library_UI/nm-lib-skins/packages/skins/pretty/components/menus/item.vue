@@ -2,17 +2,17 @@
   <!--节点菜单-->
   <el-submenu v-if="menu.type===0" :index="menu.id+''">
     <template v-slot:title>
-      <nm-icon :name="menu.icon" class="nm-menus-icon" :style="{color:menu.iconColor}"/>
+      <nm-icon :name="menu.icon" class="nm-menus-icon" :style="{color:menu.iconColor}" />
       <span>{{ menu.name }}</span>
     </template>
     <template v-for="item in menu.children">
-      <menu-item v-if="item.show" :key="item.id" :menu="item" :parent-index="menu.id"/>
+      <menu-item v-if="item.show" :key="item.id" :menu="item" :parent-index="menu.id" />
     </template>
   </el-submenu>
 
   <!--链接菜单-->
-  <el-menu-item v-else :index="menu.id+''" :parent-index="parentIndex" @click="go(menu)">
-    <nm-icon :name="menu.icon" class="nm-menus-icon" :style="{color:menu.iconColor}"/>
+  <el-menu-item v-else :index="menu.id+''" :parent-index="parentIndex" @click="go(menu,$event)">
+    <nm-icon :name="menu.icon" class="nm-menus-icon" :style="{color:menu.iconColor}" />
     <span>{{ menu.name }}</span>
   </el-menu-item>
 </template>
@@ -20,7 +20,7 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'MenuItem',
-  data () { return {} },
+  data() { return {} },
   props: {
     parentIndex: {
       type: String,
@@ -30,7 +30,10 @@ export default {
   },
   methods: {
     ...mapActions('app/dialog-menu', { dialogMenuOpen: 'open' }),
-    go (menu) {
+    go(menu, e) {
+      if (e.$el.classList.contains('is-active')) {
+        return
+      }
       // 1、站内路由 2、站外链接
       if (menu.type === 1) {
         this.openRoute(menu)
@@ -39,11 +42,21 @@ export default {
       }
     },
     // 打开路由菜单
-    openRoute (menu) {
-      this.$router.push({ name: menu.routeName, params: { tn_: menu.name } })
+    openRoute(menu) {
+      let route = { name: menu.routeName, params: {} }
+      if (menu.routeQuery) {
+        route.query = JSON.parse(menu.routeQuery)
+      }
+      if (menu.routeParams) {
+        route.params = JSON.parse(menu.routeParams)
+      }
+
+      route.params['tn_'] = menu.name
+
+      this.$router.push(route)
     },
     // 打开链接菜单
-    openLink (menu) {
+    openLink(menu) {
       const target = menu.target
       if (!target || target === 0) {
         window.open(menu.url, '_blank')
@@ -64,7 +77,7 @@ export default {
         this.$router.push({ name: 'iframe', params: { url: encodeURI(menu.url), tn_: menu.name } })
       }
     },
-    getIndex (index) {
+    getIndex(index) {
       if (this.parentIndex === 0) { return index + '' }
       return this.parentIndex + '-' + index
     }

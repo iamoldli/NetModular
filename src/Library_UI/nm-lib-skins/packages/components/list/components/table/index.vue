@@ -127,15 +127,15 @@ export default {
     },
     /** 当表格的排序条件发生变化的时候会触发该事件 */
     onSortChange(val) {
-      this.page.sort = []
+      this.$parent.page.sort = []
       // 将排序信息转化成后端的格式
       if (val.prop !== null) {
-        this.page.sort.push({ field: val.prop, type: val.order === 'ascending' ? 0 : 1 })
+        this.$parent.page.sort.push({ field: val.prop, type: val.order === 'ascending' ? 0 : 1 })
       }
 
       this.refresh()
 
-      this.$parent.$emit('sort-change', this.page.sort, val)
+      this.$parent.$emit('sort-change', this.$parent.page.sort, val)
     },
     /** 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性 */
     onCurrentChange(currentRow, oldCurrentRow) {
