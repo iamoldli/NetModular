@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '项目列表'
   this.icon = 'project'
   this.name = 'codegenerator_project'
@@ -39,7 +39,7 @@ const page = new function() {
       permissions: [`${this.name}_buildcode_post`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {
