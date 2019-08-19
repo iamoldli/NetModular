@@ -7,7 +7,7 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core.Entities;
-using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core
 {

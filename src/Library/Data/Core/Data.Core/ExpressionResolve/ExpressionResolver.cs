@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Text;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Core.Internal;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.ExpressionResolve
 {

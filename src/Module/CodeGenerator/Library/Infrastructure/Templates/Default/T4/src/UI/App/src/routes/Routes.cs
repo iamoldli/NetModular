@@ -25,9 +25,16 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import { loadRoutes } from \'nm-lib-utils\'\r\nconst requireComponent = require.conte" +
-                    "xt(\'../views\', true, /\\page.js$/)\r\nexport default loadRoutes(\r\n  requireComponen" +
-                    "t.keys().map(fileName => requireComponent(fileName).route)\r\n)");
+            this.Write("import { loadRoutes } from \'");
+            
+            #line 2 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\routes\Routes.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
+            
+            #line default
+            #line hidden
+            this.Write("-lib-utils\'\r\nconst requireComponent = require.context(\'../views\', true, /\\page.js" +
+                    "$/)\r\nexport default loadRoutes(\r\n  requireComponent.keys().map(fileName => requi" +
+                    "reComponent(fileName).route)\r\n)");
             return this.GenerationEnvironment.ToString();
         }
     }

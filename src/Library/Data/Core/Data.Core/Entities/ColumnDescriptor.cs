@@ -6,7 +6,7 @@ using Nm.Lib.Data.Abstractions.Entities;
 
 namespace Nm.Lib.Data.Core.Entities
 {
-    public class ColumnDescriptorr : IColumnDescriptor
+    public class ColumnDescriptor : IColumnDescriptor
     {
         /// <summary>
         /// 列名
@@ -23,7 +23,7 @@ namespace Nm.Lib.Data.Core.Entities
         /// </summary>
         public bool IsPrimaryKey { get; }
 
-        public ColumnDescriptorr(PropertyInfo property)
+        public ColumnDescriptor(PropertyInfo property)
         {
             if (property == null)
                 return;

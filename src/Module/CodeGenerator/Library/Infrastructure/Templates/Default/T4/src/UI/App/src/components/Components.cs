@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.components
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -24,14 +26,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         public virtual string TransformText()
         {
             this.Write("export default []\r\n\r\n/**  全局组件注册示例  */\r\n// import DictionarySelect from \'../views" +
-                    "/dictionary/select\'\r\n//\r\n// export default [{\r\n/// /组件名称\r\n// name: \'");
+                    "/dictionary/select\'\r\n//\r\n// export default [{\r\n// //组件名称\r\n// name: \'");
             
             #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\components\Components.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write("-dictionary-select\',\r\n/// /组件对象\r\n// component: DictionarySelect\r\n// }\r\n// ]\r\n");
+            this.Write("-dictionary-select\',\r\n// //组件对象\r\n// component: DictionarySelect\r\n// }\r\n// ]\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -13,8 +13,8 @@
   </<#= _prefix #>-form-dialog>
 </template>
 <script>
-import api from '../../../../api/<#= _class.Name #>'
 import { mixins } from '<#= _prefix.ToLower() #>-lib-skins'
+import api from '../../../../api/<#= _class.Name #>'
 export default {
   mixins: [mixins.dialog],
   data () {

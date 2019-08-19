@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.api
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -44,7 +46,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             
             #line default
             #line hidden
-            this.Write("/\'\r\nconst crud = http.crud(root)\r\n\r\nexport default {\r\n  ...crud\r\n}\r\n");
+            this.Write("/\'\r\nconst crud = http.crud(root)\r\nconst urls = {\r\n\r\n}\r\n\r\nexport default {\r\n  ...c" +
+                    "rud\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

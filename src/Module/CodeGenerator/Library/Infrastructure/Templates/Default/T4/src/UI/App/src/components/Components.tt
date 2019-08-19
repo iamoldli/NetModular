@@ -5,9 +5,9 @@ export default []
 // import DictionarySelect from '../views/dictionary/select'
 //
 // export default [{
-/// /组件名称
+// //组件名称
 // name: '<#= _prefix #>-dictionary-select',
-/// /组件对象
+// //组件对象
 // component: DictionarySelect
 // }
 // ]

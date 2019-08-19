@@ -693,6 +693,46 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Domain\Models\QueryModel.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>QueryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\Package.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Package.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\api\EntityApi.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EntityApi.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\components\Components.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\config\Config.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Config.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\routes\Routes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Routes.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\views\components\Add.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Add.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\views\components\Edit.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Index.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

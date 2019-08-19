@@ -2,7 +2,7 @@
 <#@ import namespace="Nm.Lib.Utils.Core.Extensions" #>
 <#@ import namespace="Nm.Module.CodeGenerator.Domain.Property" #>
 using System;
-using  <#= _prefix #>.Lib.Data.Query;
+using <#= _prefix #>.Lib.Data.Query;
 
 namespace  <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>.Models
 {

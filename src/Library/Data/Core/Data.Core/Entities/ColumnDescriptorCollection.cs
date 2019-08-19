@@ -1,5 +1,5 @@
 ﻿using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Core.Internal;
+using Nm.Lib.Utils.Core.Abstracts;
 
 namespace Nm.Lib.Data.Core.Entities
 {
