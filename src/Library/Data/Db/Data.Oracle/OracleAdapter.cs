@@ -2,6 +2,7 @@
 using System.Text;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Core;
+using Nm.Lib.Utils.Core.Helpers;
 
 namespace Nm.Lib.Data.Oracle
 {
