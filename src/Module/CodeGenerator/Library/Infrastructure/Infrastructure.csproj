@@ -738,6 +738,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Index.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Page.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Page.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\Web\Controllers\Controller.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
