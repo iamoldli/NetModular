@@ -1,9 +1,9 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '区划代码管理'
   this.icon = 'area'
-  this.name = 'Common_Area'
-  this.path = '/Common/Area'
+  this.name = 'common_area'
+  this.path = '/common/area'
 
   // 关联权限
   this.permissions = [
@@ -34,7 +34,7 @@ const page = new function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

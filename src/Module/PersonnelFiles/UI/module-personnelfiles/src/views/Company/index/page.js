@@ -1,9 +1,9 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '公司单位列表'
   this.icon = 'enterprise'
-  this.name = 'PersonnelFiles_Company'
-  this.path = '/PersonnelFiles/Company'
+  this.name = 'personnelfiles_company'
+  this.path = '/personnelfiles/company'
 
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
@@ -32,7 +32,7 @@ const page = new function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

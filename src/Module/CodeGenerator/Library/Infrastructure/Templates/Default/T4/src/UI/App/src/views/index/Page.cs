@@ -35,28 +35,28 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             this.Write("ап╠М\'\r\n  this.name = \'");
             
             #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code.ToLower()));
             
             #line default
             #line hidden
             this.Write("_");
             
             #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name.ToLower()));
             
             #line default
             #line hidden
             this.Write("\'\r\n  this.path = \'/");
             
             #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code.ToLower()));
             
             #line default
             #line hidden
             this.Write("/");
             
             #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\views\index\Page.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name.ToLower()));
             
             #line default
             #line hidden

@@ -1,9 +1,9 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '用户信息列表'
   this.icon = 'user'
-  this.name = 'PersonnelFiles_User'
-  this.path = '/PersonnelFiles/User'
+  this.name = 'personnelfiles_user'
+  this.path = '/personnelfiles/user'
 
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
@@ -65,7 +65,7 @@ const page = new function() {
       ]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

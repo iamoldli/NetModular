@@ -1,6 +1,6 @@
 {
     "name": "nm-module-quartz",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "code": "Quartz",
     "title": "任务调度",
     "description": "任务调度",

@@ -2,8 +2,8 @@
 /** 页面信息 */
 const page = new function() {
   this.title = '<#= _class.Remarks #>列表'
-  this.name = '<#= _model.Project.Code #>_<#= _class.Name #>'
-  this.path = '/<#= _model.Project.Code #>/<#= _class.Name #>'
+  this.name = '<#= _model.Project.Code.ToLower() #>_<#= _class.Name.ToLower() #>'
+  this.path = '/<#= _model.Project.Code.ToLower() #>/<#= _class.Name.ToLower() #>'
   
   // 关联权限
   this.permissions = [`${this.name}_query_get`]

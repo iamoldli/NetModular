@@ -1,8 +1,8 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '字典列表'
-  this.name = 'Common_Dict'
-  this.path = '/Common/Dict'
+  this.name = 'common_dict'
+  this.path = '/common/dict'
   this.buttons = {
     add: {
       text: '添加',
@@ -18,7 +18,7 @@ const page = new function() {
       code: `${this.name}_del`
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

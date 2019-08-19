@@ -1,9 +1,9 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '部门列表'
   this.icon = 'department'
-  this.name = 'PersonnelFiles_Department'
-  this.path = '/PersonnelFiles/Department'
+  this.name = 'personnelfiles_department'
+  this.path = '/personnelfiles/department'
 
   // 关联权限
   this.permissions = [`${this.name}_query_get`, `${this.name}_tree_get`]
@@ -63,7 +63,7 @@ const page = new function() {
       permissions: [`PersonnelFiles_position_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

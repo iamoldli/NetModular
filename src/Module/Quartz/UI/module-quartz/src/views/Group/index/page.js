@@ -1,9 +1,9 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '任务组列表'
   this.icon = 'group'
-  this.name = 'Quartz_Group'
-  this.path = '/Quartz/Group'
+  this.name = 'quartz_group'
+  this.path = '/quartz/group'
 
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
@@ -25,7 +25,7 @@ const page = new function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

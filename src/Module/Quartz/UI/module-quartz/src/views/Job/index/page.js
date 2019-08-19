@@ -1,8 +1,8 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '任务列表'
-  this.name = 'Quartz_Job'
-  this.path = '/Quartz/Job'
+  this.name = 'quartz_job'
+  this.path = '/quartz/job'
 
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
@@ -52,7 +52,7 @@ const page = new function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {
