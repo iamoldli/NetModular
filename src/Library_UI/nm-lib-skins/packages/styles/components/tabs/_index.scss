@@ -1,0 +1,29 @@
+#{$prefix}-tabs {
+    @include flex-column();
+    height: 100%;
+    box-shadow: $box-shadow;
+    box-sizing: border-box;
+
+    .el-tabs__header {
+        display: flex;
+        align-items: stretch;
+        flex-shrink: 0;
+    }
+
+    .el-tabs__content {
+        padding: 0;
+        height: 100%;
+        flex-grow: 1;
+
+        .el-tab-pane {
+            height: 100%;
+        }
+    }
+}
+
+#{$prefix}-pane-list {
+    #{$prefix}-list {
+        border: 0;
+        border-radius: 0;
+    }
+}
