@@ -47,7 +47,7 @@ namespace Nm.Module.Common.AreaCrawling
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-
+            await Task.Delay(1000);//模拟耗时操作，跳过编译告警
         }
 
         public void Dispose()

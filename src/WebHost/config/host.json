@@ -2,7 +2,7 @@
   //地址
   "Urls": "http://*:6220",
   //开启Swagger
-  "Swagger": false,
+  "Swagger": true,
   //代理
   "Proxy": true
 }
