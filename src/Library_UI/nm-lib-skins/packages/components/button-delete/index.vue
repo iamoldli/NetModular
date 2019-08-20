@@ -77,7 +77,9 @@ export default {
       this._delete(async () => {
         await this.action(this.id)
         this.$emit('success')
-      }, this.msg)
+      }, this.msg).catch(() => {
+        console.log('取消')
+      })
     }
   }
 }

@@ -1,16 +1,16 @@
 <template>
   <header class="nm-list-header">
     <div class="nm-list-icon">
-      <nm-icon :name="icon||'list'"/>
+      <nm-icon :name="icon||'list'" />
     </div>
     <div class="nm-list-title">{{title}}</div>
     <div class="nm-list-header-toolbar">
       <!--工具栏插槽-->
-      <slot name="toolbar"/>
+      <slot name="toolbar" />
       <!--刷新按钮-->
-      <nm-button v-if="!noRefresh" icon="refresh" @click="refresh"/>
+      <nm-button v-if="!noRefresh" icon="refresh" @click="refresh" />
       <!--全屏按钮-->
-      <nm-button v-if="!noFullscreen" :icon="fullscreen ? 'min' : 'max'" @click="onFullscreenClict"/>
+      <nm-button v-if="!noFullscreen" :icon="fullscreen ? 'min' : 'max'" @click="onFullscreenClict" />
     </div>
   </header>
 </template>
@@ -31,17 +31,17 @@ export default {
     noRefresh: Boolean
   },
   methods: {
-
-    onFullscreenClict () {
+    onFullscreenClict() {
       this.$emit('update:fullscreen', !this.fullscreen)
     },
-    query () {
+    query() {
+      this.$parent.page.index = 1
       this.$parent.query()
     },
-    reset () {
+    reset() {
       this.$parent.reset()
     },
-    refresh () {
+    refresh() {
       this.$parent.refresh()
     }
   }

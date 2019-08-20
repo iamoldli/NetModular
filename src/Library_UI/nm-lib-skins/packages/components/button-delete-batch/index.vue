@@ -74,18 +74,20 @@ export default {
         msg += '<br/>已选择：' + this.selection.map(item => item[this.showProperty]).join('、')
       }
 
-      await this.$confirm(msg, '提示', {
+      this.$confirm(msg, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         dangerouslyUseHTMLString: true,
         type: 'warning'
+      }).then(async () => {
+        // 执行删除操作
+        if (this.action || typeof action === 'function') {
+          await this.action(this.selection.map(item => item.id))
+          this._success('删除成功~')
+        }
+      }).catch(() => {
+        console.log('取消')
       })
-
-      // 执行删除操作
-      if (this.action || typeof action === 'function') {
-        await this.action(this.selection.map(item => item.id))
-        this._success('删除成功~')
-      }
     }
   }
 }
