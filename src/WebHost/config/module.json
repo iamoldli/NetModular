@@ -13,7 +13,7 @@
   //通用模块
   "Common": {
     //附件上传路径
-    "AttachmentPath": "D:\\Attachment"
+    "AttachmentPath": ""
   },
   //任务调度
   "Quartz": {

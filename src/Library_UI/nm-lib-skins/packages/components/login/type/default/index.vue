@@ -203,14 +203,13 @@ export default {
 
     &-img {
       position: absolute;
-      left: 5px;
-      top: 20px;
+      left: 0;
+      top: 5px;
       padding: 5px;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
-      height: 61px;
+      height: 80px;
       float: left;
-      background: #409eff;
     }
 
     &-title {

@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '系统配置'
   this.icon = 'config'
   this.name = 'admin_system'
@@ -10,7 +10,7 @@ const page = new (function() {
     `${this.name}_config_post`,
     `${this.name}_UploadLogo_post`
   ]
-})()
+}()
 
 /** 路由信息 */
 export const route = {

@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "nm-lib-icon": "^1.2.9",
-        "nm-lib-skins": "^1.4.1",
+        "nm-lib-skins": "^1.4.2",
         "nm-lib-utils": "^1.2.0",
         "nm-module-admin": "^1.3.3",
         "nm-module-code-generator": "^1.2.8",
@@ -33,6 +33,7 @@
         "eslint-plugin-json": "^1.4.0",
         "eslint-plugin-vue": "^5.2.3",
         "fibers": "^4.0.1",
+        "portfinder": "^1.0.23",
         "rimraf": "^3.0.0",
         "sass": "^1.22.10",
         "sass-loader": "^7.3.1",

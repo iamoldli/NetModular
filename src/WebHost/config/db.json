@@ -1,5 +1,5 @@
 {
-  "Logging": true,
+  "Logging": false,
   "Connections": [
     {
       "Name": "Admin",
