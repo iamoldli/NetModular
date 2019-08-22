@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Nm.Lib.Data.SqlServer" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
