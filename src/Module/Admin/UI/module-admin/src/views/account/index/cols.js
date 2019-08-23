@@ -6,6 +6,10 @@ export default [
     show: false
   },
   {
+    name: 'typeName',
+    label: '类型'
+  },
+  {
     name: 'name',
     label: '名称'
   },

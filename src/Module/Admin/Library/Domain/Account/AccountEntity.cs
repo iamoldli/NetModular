@@ -1,4 +1,5 @@
 ﻿using System;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Core.Entities.Extend;
 
@@ -13,7 +14,7 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 类型
         /// </summary>
-        public int Type { get; set; }
+        public AccountType Type { get; set; }
 
         /// <summary>
         /// 用户名

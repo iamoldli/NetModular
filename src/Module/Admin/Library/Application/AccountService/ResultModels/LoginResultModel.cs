@@ -38,6 +38,11 @@ namespace Nm.Module.Admin.Application.AccountService.ResultModels
         /// 按钮编码列表
         /// </summary>
         public IList<string> Buttons { get; set; }
+
+        /// <summary>
+        /// 详情信息(用于扩展登录对象信息)
+        /// </summary>
+        public object Details { get; set; }
     }
 
     /// <summary>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Nm.Lib.Auth.Abstractions;
+using Nm.Module.Admin.Domain.Account;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {
@@ -9,7 +11,7 @@ namespace Nm.Module.Admin.Application.AccountService.ViewModels
         /// <summary>
         /// 类型
         /// </summary>
-        public int Type { get; set; }
+        public AccountType Type { get; set; }
 
         /// <summary>
         /// 用户名

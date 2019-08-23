@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Nm.Lib.Auth.Abstractions;
+using Nm.Module.Admin.Domain.Account;
 
 namespace Nm.Module.Admin.Application.AccountService.ViewModels
 {
@@ -20,6 +21,12 @@ namespace Nm.Module.Admin.Application.AccountService.ViewModels
         /// </summary>
         [Required(ErrorMessage = "请输入密码")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// 账户类型
+        /// </summary>
+        [Required(ErrorMessage = "请选择账户类型")]
+        public AccountType AccountType { get; set; } = AccountType.Admin;
 
         /// <summary>
         /// 平台

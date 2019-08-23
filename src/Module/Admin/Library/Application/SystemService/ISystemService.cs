@@ -21,11 +21,5 @@ namespace Nm.Module.Admin.Application.SystemService
         /// <param name="model"></param>
         /// <returns></returns>
         IResultModel UpdateConfig(SystemConfigModel model);
-
-        /// <summary>
-        /// 系统安装
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel> Install(SystemInstallModel model);
     }
 }

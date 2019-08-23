@@ -145,43 +145,5 @@ namespace Nm.Module.Admin.Application.SystemService
                 Remarks = remarks
             }, tran);
         }
-
-        public async Task<IResultModel> Install(SystemInstallModel model)
-        {
-            await _moduleInfoService.Sync();
-            await _permissionService.Sync(model.Permissions);
-
-            var role = new RoleEntity
-            {
-                Name = "系统管理员"
-            };
-
-            await _roleRepository.AddAsync(role);
-
-            var account = new AccountEntity
-            {
-                UserName = "tdkj",
-                Password = "FDFAEC6B4F80E739A50ADC802C5B537C",
-                Name = "管理员"
-            };
-            await _accountRepository.AddAsync(account);
-
-            await _accountRoleRepository.AddAsync(new AccountRoleEntity { AccountId = account.Id, RoleId = role.Id });
-
-            UpdateConfig(new SystemConfigModel
-            {
-                Title = "腾迪权限管理系统",
-                Auditing = false,
-                Toolbar = new SystemToolbar
-                {
-                    Fullscreen = true,
-                    Skin = true,
-                    Logout = true,
-                    UserInfo = true
-                }
-            });
-
-            return ResultModel.Success();
-        }
     }
 }

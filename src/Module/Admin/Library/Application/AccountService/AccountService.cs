@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Cache.Abstractions;
 using Nm.Lib.Utils.Core.Encrypt;
 using Nm.Lib.Utils.Core.Extensions;
@@ -36,8 +38,9 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly IPermissionRepository _permissionRepository;
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider)
         {
             _cache = cache;
             _mapper = mapper;
@@ -49,6 +52,7 @@ namespace Nm.Module.Admin.Application.AccountService
             _permissionRepository = permissionRepository;
             _drawingHelper = drawingHelper;
             _systemService = systemService;
+            _serviceProvider = serviceProvider;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -82,15 +86,17 @@ namespace Nm.Module.Admin.Application.AccountService
                     return result.Failed("验证码有误");
             }
 
-            var account = await _accountRepository.GetByUserName(model.UserName);
-            if (!CheckAccount(account, out string msg))
-            {
-                return result.Failed(msg);
-            }
+            var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);
 
             var password = EncryptPassword(account.UserName.ToLower(), model.Password);
             if (!account.Password.Equals(password))
                 return result.Failed("密码错误");
+
+            //检测账户状态
+            if (!CheckAccount(account, out string msg))
+            {
+                return result.Failed(msg);
+            }
 
             #region ==修改登录信息==
 
@@ -109,6 +115,7 @@ namespace Nm.Module.Admin.Application.AccountService
         public async Task<IResultModel> LoginInfo(Guid accountId)
         {
             var account = await _accountRepository.GetAsync(accountId);
+            //监测账户状态
             if (!CheckAccount(account, out string msg))
             {
                 return ResultModel.Failed(msg);
@@ -120,11 +127,26 @@ namespace Nm.Module.Admin.Application.AccountService
                 Name = account.Name,
                 Skin = new SkinConfigModel
                 {
+                    //TODO:加载用户的配置信息
                     Name = "pretty",
                     Theme = "",
                     FontSize = ""
                 }
             };
+
+            #region ==获取账户详细信息==
+
+            var detailsBuilders = _serviceProvider.GetServices<ILoginInfoDetailsBuilder>().ToList();
+            if (detailsBuilders.Any())
+            {
+                var detailsBuilder = detailsBuilders.FirstOrDefault(m => m.AccountType == account.Type);
+                if (detailsBuilder != null)
+                {
+                    model.Details = await detailsBuilder.Build(accountId);
+                }
+            }
+
+            #endregion
 
             var getMenuTree = GetAccountMenuTree(accountId);
             var getButtonCodeList = _buttonRepository.QueryCodeByAccount(accountId);

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Models;
 using Nm.Lib.Utils.Core.Result;
@@ -74,7 +75,7 @@ namespace Nm.Module.PersonnelFiles.Application.UserService
 
             var account = new AccountAddModel
             {
-                Type = 1,
+                Type = AccountType.User,
                 UserName = model.UserName,
                 Phone = model.Phone,
                 Email = model.Email,

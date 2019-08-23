@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.Account.Models;
 
@@ -25,7 +26,7 @@ namespace Nm.Module.Admin.Domain.Account
         /// <param name="userName">用户名</param>
         /// <param name="type">账户类型</param>
         /// <returns></returns>
-        Task<AccountEntity> GetByUserName(string userName, int type = 0);
+        Task<AccountEntity> GetByUserName(string userName, AccountType type);
 
         /// <summary>
         /// 修改登录信息
@@ -49,7 +50,7 @@ namespace Nm.Module.Admin.Domain.Account
         /// <param name="id">编号</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsUserName(string userName, Guid? id = null, int type = 0);
+        Task<bool> ExistsUserName(string userName, Guid? id = null, AccountType type = AccountType.Admin);
 
         /// <summary>
         /// 手机号是否存在
@@ -58,7 +59,7 @@ namespace Nm.Module.Admin.Domain.Account
         /// <param name="id">编号</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsPhone(string phone, Guid? id = null, int type = 0);
+        Task<bool> ExistsPhone(string phone, Guid? id = null, AccountType type = AccountType.Admin);
 
         /// <summary>
         /// 邮箱是否存在
@@ -67,6 +68,6 @@ namespace Nm.Module.Admin.Domain.Account
         /// <param name="id">编号</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<bool> ExistsEmail(string email, Guid? id = null, int type = 0);
+        Task<bool> ExistsEmail(string email, Guid? id = null, AccountType type = AccountType.Admin);
     }
 }
