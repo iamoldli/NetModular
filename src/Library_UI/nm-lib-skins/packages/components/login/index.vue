@@ -1,6 +1,6 @@
 <template>
   <div>
-    <default v-if="type==='default'" :actions="actions"/>
+    <default v-if="type==='default'" :account-type="accountType" :actions="actions" />
   </div>
 </template>
 <script>
@@ -12,6 +12,10 @@ export default {
     type: {
       type: String,
       default: 'default'
+    },
+    accountType: {
+      type: Number,
+      default: 0
     },
     actions: Object
   }

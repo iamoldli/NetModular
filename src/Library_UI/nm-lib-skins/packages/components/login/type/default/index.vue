@@ -55,7 +55,8 @@ export default {
         userName: '',
         password: '',
         code: '',
-        pictureId: ''
+        pictureId: '',
+        accountType: this.accountType
       },
       rules: {
         userName: [{
@@ -68,20 +69,23 @@ export default {
           message: '请输入密码',
           trigger: 'blur'
         }],
-        code: [{          validator(rule, value, callback) {
-            if (_this.loginVerifyCode && value === '') {
-              callback(new Error('请输入验证码'))
-            } else {
-              callback()
-            }
-          },
-          trigger: 'blur'
+        code: [{ validator(rule, value, callback) {
+          if (_this.loginVerifyCode && value === '') {
+            callback(new Error('请输入验证码'))
+          } else {
+            callback()
+          }
+        },
+        trigger: 'blur'
         }]
       },
       loading: false
     }
   },
   props: {
+    // 登录账户类型
+    accountType: Number,
+    // 登录涉及到的操作
     actions: Object
   },
   computed: {
@@ -203,12 +207,12 @@ export default {
 
     &-img {
       position: absolute;
-      left: 0;
-      top: 5px;
+      left: 2px;
+      top: 14px;
       padding: 5px;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
-      height: 80px;
+      height: 75px;
       float: left;
     }
 

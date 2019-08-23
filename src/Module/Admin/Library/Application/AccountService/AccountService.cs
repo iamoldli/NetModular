@@ -87,6 +87,10 @@ namespace Nm.Module.Admin.Application.AccountService
             }
 
             var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);
+            if (account == null || account.Deleted)
+            {
+                return result.Failed("账户不存在");
+            }
 
             var password = EncryptPassword(account.UserName.ToLower(), model.Password);
             if (!account.Password.Equals(password))
@@ -164,11 +168,6 @@ namespace Nm.Module.Admin.Application.AccountService
         private bool CheckAccount(AccountEntity account, out string msg)
         {
             msg = "";
-            if (account == null || account.Deleted)
-            {
-                msg = "账户不存在";
-                return false;
-            }
             if (account.Status == AccountStatus.Closed)
             {
                 msg = "该账户已注销，请联系管理员~";
