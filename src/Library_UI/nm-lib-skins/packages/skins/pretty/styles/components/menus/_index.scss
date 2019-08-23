@@ -1,6 +1,6 @@
 @import 'variables';
 
-#{$prefix}-menus {
+#{$prefix}menus {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -36,7 +36,7 @@
             color: $menus-menu-active-color !important;
         }
 
-        #{$prefix}-icon {
+        #{$prefix}icon {
             margin-right: $menus-icon-margin-right;
             font-size: $menus-icon-font-size;
             vertical-align: $menus-icon-vertical-align;

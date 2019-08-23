@@ -1,7 +1,7 @@
 @import 'variables';
 
 /*侧边栏*/
-#{$prefix}-sidebar {
+#{$prefix}sidebar {
     position: relative;
     display: flex;
     width: $sidebar-width;
@@ -12,7 +12,7 @@
     transition: all 0.3s ease-in-out;
 
     /*logo*/
-    #{$prefix}-logo {
+    #{$prefix}logo {
         &-box {
             display: flex;
             height: $logo-box-height;
@@ -45,7 +45,7 @@
         width: $sidebar-hide-width;
 
         /*logo*/
-        #{$prefix}-logo {
+        #{$prefix}logo {
             &-text {
                 display: none;
             }
@@ -53,7 +53,7 @@
     }
 }
 
-#{$prefix}-menu-wapper {
+#{$prefix}menu-wapper {
     position: relative;
     flex-grow: 1;
 

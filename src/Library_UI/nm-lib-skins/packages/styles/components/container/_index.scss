@@ -1,7 +1,7 @@
 @import './variables';
 
 //容器
-#{$prefix}-container {
+#{$prefix}container {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
     height: 100%;
     box-sizing: border-box;
 
-    > #{$prefix}-scrollbar {
+    > #{$prefix}scrollbar {
       .el-scrollbar__wrap {
         overflow-x: hidden;
         .el-scrollbar__view {

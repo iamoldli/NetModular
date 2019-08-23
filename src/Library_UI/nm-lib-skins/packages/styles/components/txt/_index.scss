@@ -1,7 +1,7 @@
 @import 'variables';
 
 
-#{$prefix}-txt {
+#{$prefix}txt {
     position: relative;
     margin-top: 3px;
     font-size: 12px;
@@ -11,7 +11,7 @@
     &-icon {
         padding-left: 21px;
 
-        #{$prefix}-icon {
+        #{$prefix}icon {
             position: absolute;
             top: 0;
             left: 0;

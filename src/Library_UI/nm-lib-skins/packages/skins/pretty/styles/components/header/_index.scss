@@ -1,6 +1,6 @@
 @import 'variables';
 
-#{$prefix}-header {
+#{$prefix}header {
     padding-right: $header-padding-right;
     display: flex;
     flex-shrink: 0;
@@ -15,7 +15,7 @@
         overflow: hidden;
 
         /*侧边栏隐藏切换按钮*/
-        #{$prefix}-sidebar-toggle-btn {
+        #{$prefix}sidebar-toggle-btn {
             position: absolute;
             left: 0;
             @include vertical-center($sidebar-toggle-btn-height);
@@ -28,7 +28,7 @@
             @include toolbar-hover-border();
         }
 
-        #{$prefix}-breadcrumb {
+        #{$prefix}breadcrumb {
             @include vertical-center($header-height);
 
             .el-breadcrumb__item {

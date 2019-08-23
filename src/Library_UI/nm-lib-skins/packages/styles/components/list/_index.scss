@@ -1,6 +1,6 @@
 @import './variables';
 
-#{$prefix}-list {
+#{$prefix}list {
     box-shadow: $list-box-shadow;
     @include flex-column();
     box-sizing: border-box;
@@ -27,7 +27,7 @@
             flex-shrink: 0;
             margin-left: 15px;
 
-            #{$prefix}-button {
+            #{$prefix}button {
                 margin-left: 0;
                 padding: 0;
                 border: none;
@@ -52,7 +52,7 @@
         &-button {
             padding-left: 10px;
 
-            #{$prefix}-button {
+            #{$prefix}button {
                 padding: 7px 10px;
             }
         }
@@ -76,7 +76,7 @@
 
     &-querybar {
 
-        >#{$prefix}-form {
+        >#{$prefix}form {
             padding-bottom: 0 !important;
 
             >.el-form-item {
@@ -108,7 +108,7 @@
             padding-top: 18px !important;
             padding-bottom: 0 !important;
 
-            #{$prefix}-form {
+            #{$prefix}form {
                 padding: 0 !important;
             }
         }
@@ -185,7 +185,7 @@
         }
 
         &.reverse {
-            #{$prefix}-list-footer-left {
+            #{$prefix}list-footer-left {
                 order: 1;
                 text-align: right;
             }
@@ -254,14 +254,14 @@
     }
 
     &-small {
-        #{$prefix}-list-toolbar {
+        #{$prefix}list-toolbar {
             height: $list-small-toolbar-height;
             line-height: $list-small-toolbar-height - 2.2;
         }
     }
 
     &-mini {
-        #{$prefix}-list-toolbar {
+        #{$prefix}list-toolbar {
             height: $list-mini-toolbar-height;
             line-height: $list-mini-toolbar-height - 2.2;
         }

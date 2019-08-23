@@ -1,6 +1,6 @@
 @import 'variables';
 
-#{$prefix}-main {
+#{$prefix}main {
     display: flex;
     align-items: stretch;
     flex-grow: 1;
@@ -9,7 +9,7 @@
 
     @import '../header/index';
 
-    #{$prefix}-content {
+    #{$prefix}content {
         position: relative;
         flex-grow: 1;
         background: $main-background-color;

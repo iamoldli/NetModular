@@ -1,7 +1,7 @@
-#{$prefix}-checkbox-group {
+#{$prefix}checkbox-group {
     min-height: 200px;
 
-    #{$prefix}-box-header {
+    #{$prefix}box-header {
         @include vertical-center(30px !important);
     }
 
@@ -13,7 +13,7 @@
         margin-left: 0 !important;
     }
 
-    #{$prefix}-box-content {
+    #{$prefix}box-content {
         padding: 10px !important;
     }
 }

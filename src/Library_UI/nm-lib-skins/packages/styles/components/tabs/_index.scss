@@ -1,4 +1,4 @@
-#{$prefix}-tabs {
+#{$prefix}tabs {
     @include flex-column();
     height: 100%;
     box-shadow: $box-shadow;
@@ -21,8 +21,8 @@
     }
 }
 
-#{$prefix}-pane-list {
-    #{$prefix}-list {
+#{$prefix}pane-list {
+    #{$prefix}list {
         border: 0;
         border-radius: 0;
     }

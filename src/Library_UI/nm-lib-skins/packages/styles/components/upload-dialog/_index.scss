@@ -1,7 +1,7 @@
-#{$prefix}-upload-dialog {
+#{$prefix}upload-dialog {
     box-shadow: none;
 
-    #{$prefix}-dialog-main {
+    #{$prefix}dialog-main {
         padding: 0 !important;
         @include flex-column();
 

@@ -1,13 +1,13 @@
 @import './variables';
 
 //容器
-#{$prefix}-form-page {
+#{$prefix}form-page {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   height: 100%;
-  #{$prefix}-box-content {
+  #{$prefix}box-content {
     overflow: hidden;
     padding: 0;
   }

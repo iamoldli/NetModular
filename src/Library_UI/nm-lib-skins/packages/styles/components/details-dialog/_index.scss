@@ -1,11 +1,11 @@
 @import './variables';
 
-#{$prefix}-details-dialog {
+#{$prefix}details-dialog {
     >.el-dialog {
         >.el-dialog__body {
-            >#{$prefix}-dialog-body {
-                >#{$prefix}-dialog-content {
-                    >#{$prefix}-scrollbar {
+            >#{$prefix}dialog-body {
+                >#{$prefix}dialog-content {
+                    >#{$prefix}scrollbar {
                         >.el-scrollbar__wrap {
                             >.el-scrollbar__view {
                                 padding: 5px;

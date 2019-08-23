@@ -1,4 +1,4 @@
-#{$prefix}-upload-single {
+#{$prefix}upload-single {
     width: 100%;
     @include flex-row();
 
@@ -13,7 +13,7 @@
 }
 
 .is-error {
-    #{$prefix}-upload-single {
+    #{$prefix}upload-single {
         >.input {
             .el-input__inner {
                 border-color: #F56C6C;

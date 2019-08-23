@@ -1,9 +1,9 @@
-#{$prefix}-button {
-    #{$prefix}-icon {
+#{$prefix}button {
+    #{$prefix}icon {
         transform: scale(1.4);
     }
 
-    #{$prefix}-icon+&-text {
+    #{$prefix}icon+&-text {
         margin-left: 5px;
     }
 }

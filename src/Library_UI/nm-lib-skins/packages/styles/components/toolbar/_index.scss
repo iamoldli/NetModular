@@ -1,7 +1,7 @@
 @import 'variables';
 
 
-#{$prefix}-toolbar {
+#{$prefix}toolbar {
     height: $toolbar-height;
     overflow: hidden;
 
@@ -23,7 +23,7 @@
         font-size: $toolbar-font-size;
         color: #fff !important;
 
-        #{$prefix}-icon {
+        #{$prefix}icon {
             padding-right: 0;
             font-size: 25px;
             transform: scale(1) !important;

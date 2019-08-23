@@ -1,4 +1,4 @@
-#{$prefix}-resizable {
+#{$prefix}resizable {
   /**此光标指示矩形框的边缘可被向上（北）移动。**/
   & {
     position: absolute;
@@ -70,7 +70,7 @@
   }
 }
 
-#{$prefix}-resizable-move-trigger {
+#{$prefix}resizable-move-trigger {
   position: absolute;
   top: 50%;
   height: 100px;
@@ -88,12 +88,12 @@
     left: -1px;
   }
 }
-#{$prefix}-drop-move,
-#{$prefix}-resizable-move {
+#{$prefix}drop-move,
+#{$prefix}resizable-move {
   box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-#{$prefix}-resizable-move-point {
+#{$prefix}resizable-move-point {
   display: inline-block;
   width: 50%;
   transform: translateX(50%);

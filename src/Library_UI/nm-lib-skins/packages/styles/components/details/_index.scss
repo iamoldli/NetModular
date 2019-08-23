@@ -1,6 +1,6 @@
 @import './variables';
 
-#{$prefix}-details {
+#{$prefix}details {
     width: 100%;
     overflow: hidden;
     border: 1px solid $border-color3;
@@ -12,38 +12,38 @@
         &:first-child {
             border-top: none;
 
-            #{$prefix}-details-item-label,
-            #{$prefix}-details-item-content {
+            #{$prefix}details-item-label,
+            #{$prefix}details-item-content {
                 border-top: none;
             }
         }
 
         &-1 {
-            #{$prefix}-details-item {
+            #{$prefix}details-item {
                 width: 100%;
             }
         }
 
         &-2 {
-            #{$prefix}-details-item {
+            #{$prefix}details-item {
                 width: 50%;
             }
         }
 
         &-3 {
-            #{$prefix}-details-item {
+            #{$prefix}details-item {
                 width: 33.3333333%;
             }
         }
 
         &-4 {
-            #{$prefix}-details-item {
+            #{$prefix}details-item {
                 width: 25%;
             }
         }
 
         &-5 {
-            #{$prefix}-details-item {
+            #{$prefix}details-item {
                 width: 20%;
             }
         }

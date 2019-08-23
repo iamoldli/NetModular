@@ -1,4 +1,4 @@
-#{$prefix}-select {
+#{$prefix}select {
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -13,11 +13,11 @@
   &-button {
     flex-shrink: 0;
     padding-left: 3px;
-    #{$prefix}-button {
+    #{$prefix}button {
       padding-left: 10px;
       padding-right: 10px;
 
-      #{$prefix}-icon {
+      #{$prefix}icon {
         padding: 0;
       }
     }
