@@ -52,9 +52,11 @@ namespace Nm.Module.Admin.Web.Controllers
                 var account = result.Data;
                 var claims = new[]
                 {
-                    new Claim("id",account.Id.ToString()),
-                    new Claim("pf",model.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.AccountId,account.Id.ToString()),
+                    new Claim(ClaimsName.AccountType,model.AccountType.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform,model.Platform.ToInt().ToString()),
                 };
+
                 return _loginHandler.Hand(claims);
             }
 

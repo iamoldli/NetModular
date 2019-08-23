@@ -24,7 +24,7 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                var accountId = _contextAccessor?.HttpContext?.User?.FindFirst("id");
+                var accountId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountId);
 
                 if (accountId != null && accountId.Value.NotNull())
                 {
@@ -42,16 +42,28 @@ namespace Nm.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor?.HttpContext?.User == null)
-                    return Platform.UnKnown;
-
-                var pt = _contextAccessor.HttpContext.User.FindFirst("pf");
+                var pt = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.Platform);
                 if (pt != null && pt.Value.NotNull())
                 {
                     return (Platform)pt.Value.ToInt();
                 }
 
-                return Platform.Web;
+                return Platform.UnKnown;
+            }
+        }
+
+        public AccountType AccountType
+        {
+            get
+            {
+                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountType);
+
+                if (ty != null && ty.Value.NotNull())
+                {
+                    return (AccountType)ty.Value.ToInt();
+                }
+
+                return AccountType.UnKnown;
             }
         }
 

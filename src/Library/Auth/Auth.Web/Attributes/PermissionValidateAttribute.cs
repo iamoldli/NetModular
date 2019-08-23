@@ -16,6 +16,11 @@ namespace Nm.Lib.Auth.Web.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class PermissionValidateAttribute : AuthorizeAttribute, IAuthorizationFilter
     {
+        /// <summary>
+        /// 账户类型
+        /// </summary>
+        public AccountType[] AccountTypes { get; set; }
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             //排除匿名访问
@@ -33,6 +38,12 @@ namespace Nm.Lib.Auth.Web.Attributes
             //排除通用接口
             if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(CommonAttribute)))
                 return;
+
+            //验证方式：如果设置了AccountTypes属性，则只要当前登录账户的类型在列表当中就可以访问，否则，需要通过验证权限判断是否能访问
+            if (AccountTypes != null && AccountTypes.Any() && AccountTypes.Contains(loginInfo.AccountType))
+            {
+                return;
+            }
 
             var httpMethod = (HttpMethod)Enum.Parse(typeof(HttpMethod), context.HttpContext.Request.Method);
             var handler = context.HttpContext.RequestServices.GetService<IPermissionValidateHandler>();

@@ -13,6 +13,11 @@ namespace Nm.Lib.Auth.Abstractions
         Guid AccountId { get; }
 
         /// <summary>
+        /// 账户类型
+        /// </summary>
+        AccountType AccountType { get; }
+
+        /// <summary>
         /// 平台
         /// </summary>
         Platform Platform { get; }
