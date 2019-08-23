@@ -76,5 +76,12 @@ namespace Nm.Module.Admin.Application.RoleService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> Select();
+
+        /// <summary>
+        /// 添加指定的角色
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<bool> AddSpecified(RoleAddModel model);
     }
 }

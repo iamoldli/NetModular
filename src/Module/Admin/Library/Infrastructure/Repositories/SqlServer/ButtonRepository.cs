@@ -50,7 +50,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> ExistsByCode(string code, IDbTransaction transaction)
         {
-            return Db.Find(m => m.Code == code).ExistsAsync();
+            return Db.Find(m => m.Code == code).UseTran(transaction).ExistsAsync();
         }
     }
 }

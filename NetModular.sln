@@ -206,7 +206,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.Abstractions", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.Core", "src\Library\Quartz\Quartz.Core\Quartz.Core.csproj", "{AE42AFF1-F76C-4442-8F94-57ABF2B9CDBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quartz.Web", "src\Library\Quartz\Quartz.Web\Quartz.Web.csproj", "{A119A627-0808-443A-AA49-1E352F2C1A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.Web", "src\Library\Quartz\Quartz.Web\Quartz.Web.csproj", "{A119A627-0808-443A-AA49-1E352F2C1A5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

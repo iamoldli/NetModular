@@ -18,5 +18,10 @@ namespace Nm.Module.Admin.Domain.Role
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 是否是指定的角色，如果是其它模块指定的，不允许删除修改
+        /// </summary>
+        public bool IsSpecified { get; set; }
     }
 }

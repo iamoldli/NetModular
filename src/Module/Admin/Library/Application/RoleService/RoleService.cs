@@ -278,6 +278,11 @@ namespace Nm.Module.Admin.Application.RoleService
             return ResultModel.Success(list);
         }
 
+        public Task<bool> AddSpecified(RoleAddModel model)
+        {
+            return Task.FromResult(true);
+        }
+
         /// <summary>
         /// 清除角色关联账户的权限缓存
         /// </summary>
