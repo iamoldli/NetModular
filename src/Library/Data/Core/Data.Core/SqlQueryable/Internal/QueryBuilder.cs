@@ -355,9 +355,9 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             {
                 var sb = new StringBuilder();
 
+                var first = _queryBody.JoinDescriptors.First();
                 if (_queryBody.JoinDescriptors.Count == 1)
                 {
-                    var first = _queryBody.JoinDescriptors.First();
                     if (first.EntityDescriptor.SoftDelete)
                     {
                         sb.AppendFormat("AND {0}=0 ", _sqlAdapter.AppendQuote("Deleted"));
@@ -365,9 +365,15 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 }
                 else
                 {
-                    foreach (var descriptor in _queryBody.JoinDescriptors)
+                    if (first.EntityDescriptor.SoftDelete)
                     {
-                        if (descriptor.EntityDescriptor.SoftDelete)
+                        sb.AppendFormat("AND {0}.{1}=0 ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote("Deleted"));
+                    }
+
+                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
+                    {
+                        var descriptor = _queryBody.JoinDescriptors[i];
+                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
                         {
                             sb.AppendFormat("AND {0}.{1}=0 ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote("Deleted"));
                         }
