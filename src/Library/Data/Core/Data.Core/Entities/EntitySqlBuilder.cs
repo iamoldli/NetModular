@@ -158,7 +158,13 @@ namespace Nm.Lib.Data.Core.Entities
             getSql = "";
             if (!descriptor.PrimaryKey.IsNo())
             {
-                sb.AppendFormat(" WHERE {0}={1};", descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name), descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name));
+                sb.AppendFormat(" WHERE {0}={1} ", descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name), descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name));
+
+                if (descriptor.SoftDelete)
+                {
+                    sb.AppendFormat(" AND {0}=0 ", descriptor.SqlAdapter.AppendQuote("Deleted"));
+                }
+
                 getSql = sb.ToString();
             }
 
@@ -176,8 +182,15 @@ namespace Nm.Lib.Data.Core.Entities
             if (descriptor.PrimaryKey.IsNo())
                 return string.Empty;
 
-            return $"SELECT COUNT(0) FROM {{0}} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)};";
+            var sql = $"SELECT COUNT(0) FROM {{0}} WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)}";
+            if (descriptor.SoftDelete)
+            {
+                sql += $" AND {descriptor.SqlAdapter.AppendQuote("Deleted")}=0 ";
+            }
+
+            return sql;
         }
+
         #endregion
     }
 }

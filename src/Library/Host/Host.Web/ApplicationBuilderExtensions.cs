@@ -1,14 +1,17 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Nm.Lib.Host.Web.Middleware;
 using Nm.Lib.Host.Web.Options;
 using Nm.Lib.Module.AspNetCore;
 using Nm.Lib.Swagger.Core;
+using Nm.Lib.Utils.Core.Interfaces;
 
 namespace Nm.Lib.Host.Web
 {
@@ -118,6 +121,26 @@ namespace Nm.Lib.Host.Web
 
                 app.UseStaticFiles(options);
             }
+
+            return app;
+        }
+
+        /// <summary>
+        /// 启用应用停止处理
+        /// </summary>
+        /// <returns></returns>
+        public static IApplicationBuilder UseShutdownHandler(this IApplicationBuilder app)
+        {
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+
+            applicationLifetime.ApplicationStopping.Register(() =>
+            {
+                var handlers = app.ApplicationServices.GetServices<IAppShutdownHandler>().ToList();
+                foreach (var handler in handlers)
+                {
+                    handler.Handle();
+                }
+            });
 
             return app;
         }

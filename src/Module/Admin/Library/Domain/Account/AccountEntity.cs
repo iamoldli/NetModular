@@ -57,6 +57,11 @@ namespace Nm.Module.Admin.Domain.Account
         public AccountStatus Status { get; set; }
 
         /// <summary>
+        /// 是否锁定，锁定后不允许在账户管理中修改
+        /// </summary>
+        public bool IsLock { get; set; }
+
+        /// <summary>
         /// 注销时间
         /// </summary>
         public DateTime ClosedTime { get; set; } = DateTime.Now;

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Quartz.Abstractions;
 using Nm.Lib.Quartz.Core;
+using Nm.Lib.Utils.Core.Interfaces;
 
 namespace Nm.Lib.Quartz.Web
 {
@@ -50,6 +51,9 @@ namespace Nm.Lib.Quartz.Web
 
             //注入Quartz服务
             services.AddSingleton<IQuartzServer>(server);
+
+            //注入应用关闭事件
+            services.AddSingleton<IAppShutdownHandler, QuartzAppShutdownHandler>();
 
             return services;
         }

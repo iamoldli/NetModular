@@ -34,7 +34,7 @@
       <template v-slot:col-roles="{row}">
         <template v-if="row.roles&&row.roles.length>0">
           <template v-for="(role,index) in row.roles">
-            <nm-button type="text" :key="role.value" :text="role.label" />
+            <el-tag :key="role.value" :text="role.label">{{role.label}}</el-tag>
             <template v-if="index < row.roles.length - 1">、</template>
           </template>
         </template>
@@ -55,7 +55,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <el-dropdown trigger="click">
+        <el-dropdown trigger="click" v-if="!row.isLock">
           <span class="el-dropdown-link">
             操作
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -72,6 +72,7 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        <nm-button v-else type="text" text="锁定" :disabled="true" />
       </template>
     </nm-list>
 

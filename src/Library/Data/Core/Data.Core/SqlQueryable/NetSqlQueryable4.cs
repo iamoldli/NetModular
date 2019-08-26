@@ -205,5 +205,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             return FirstAsync<TEntity>();
         }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> IncludeDeleted()
+        {
+            QueryBody.FilterDeleted = false;
+            return this;
+        }
     }
 }

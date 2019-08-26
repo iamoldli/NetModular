@@ -225,7 +225,7 @@
 
     //操作列
     &-operation {
-        .el-button--text {
+        .el-button--text:not(.is-disabled) {
             &:hover {
                 color: $color-warning;
             }

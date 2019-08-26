@@ -6,7 +6,6 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
 {
     public interface INetSqlQueryable
     {
-
         #region ==ToList==
 
         /// <summary>

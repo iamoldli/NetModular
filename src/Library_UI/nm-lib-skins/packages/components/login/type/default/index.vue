@@ -8,17 +8,25 @@
           <h1 class="nm-login-logo-title">{{title}}</h1>
         </div>
         <el-form ref="form" :model="form" :rules="rules">
+          <el-form-item v-if="options.accountTypeOptions" prop="accountType">
+            <el-select v-model="form.accountType" placeholder="账户类型">
+              <template v-slot:prefix>
+                <nm-icon name="project" />
+              </template>
+              <el-option v-for="item in options.accountTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+          </el-form-item>
           <el-form-item prop="userName">
             <el-input v-model="form.userName" placeholder="用户名">
               <template v-slot:prefix>
-                <nm-icon name="user"></nm-icon>
+                <nm-icon name="user" />
               </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input type="password" v-model="form.password" autocomplete="off" placeholder="密码">
               <template v-slot:prefix>
-                <nm-icon name="password"></nm-icon>
+                <nm-icon name="password" />
               </template>
             </el-input>
           </el-form-item>
@@ -46,6 +54,17 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+// const options = {
+//   // 账户类型选择
+//   accountTypeOptions: Array,
+//   // 登录涉及到的操作
+//   actions: {
+//     // 获取验证码方法
+//     getVerifyCode: null,
+//     // 登录方法
+//     login: null
+//   }
+// }
 export default {
   data() {
     const _this = this
@@ -56,7 +75,7 @@ export default {
         password: '',
         code: '',
         pictureId: '',
-        accountType: this.accountType
+        accountType: 0
       },
       rules: {
         userName: [{
@@ -83,18 +102,17 @@ export default {
     }
   },
   props: {
-    // 登录账户类型
-    accountType: Number,
-    // 登录涉及到的操作
-    actions: Object
+    options: {
+      type: Object
+    }
   },
   computed: {
     ...mapState('app/system', ['title', 'logo', 'loginVerifyCode']),
     getVerifyCode() {
-      return this.actions.getVerifyCode
+      return this.options.actions.getVerifyCode
     },
     login() {
-      return this.actions.login
+      return this.options.actions.login
     }
   },
   mounted() {
@@ -227,7 +245,6 @@ export default {
   }
 
   .nm-icon {
-    padding-top: 5px;
     font-size: 2em;
   }
   .el-input__inner {

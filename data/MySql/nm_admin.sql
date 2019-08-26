@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 06/08/2019 18:17:03
+ Date: 26/08/2019 15:20:46
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,7 @@ CREATE TABLE `account`  (
   `LoginTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '最后登录时间',
   `LoginIP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '最后登录IP',
   `Status` smallint(6) NOT NULL COMMENT '状态：0、未激活 1、正常 2、禁用 3、注销',
+  `IsLock` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否锁定角色',
   `CreatedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '最后修改时间',
@@ -47,11 +48,7 @@ CREATE TABLE `account`  (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 0, 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-08-06 18:12:12', '0.0.0.1', 1, '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', b'0000', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
-INSERT INTO `account` VALUES ('39ef6739-279c-caac-bb19-c6f0da6ab30d', 1, 'laoli', '30CE333E9FCCF4CB1DB39B1D076F8CE6', '老李', '', '', '2019-08-03 09:16:06', '', 0, '2019-08-03 09:16:06', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:18:41', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:16:06', '00000000-0000-0000-0000-000000000000', b'0000', '2019-08-03 09:16:06', '00000000-0000-0000-0000-000000000000');
-INSERT INTO `account` VALUES ('39ef673d-17ca-5b37-97b3-b9e71f25aca0', 1, 'test', 'BE6727FB2B6D32E8EC0C74A134DB6173', 'test', '', '', '2019-08-03 09:20:24', '', 0, '2019-08-03 09:20:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:20:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:20:24', '00000000-0000-0000-0000-000000000000', b'0000', '2019-08-03 09:20:24', '00000000-0000-0000-0000-000000000000');
-INSERT INTO `account` VALUES ('39ef673e-fae6-cda2-24b2-2302c5bf47eb', 1, '123', '91F073E6038FA25343AB5B73CAE3A8D1', '123', '', '', '2019-08-03 09:22:28', '', 0, '2019-08-03 09:22:28', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:22:28', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:22:28', '00000000-0000-0000-0000-000000000000', b'0000', '2019-08-03 09:22:28', '00000000-0000-0000-0000-000000000000');
-INSERT INTO `account` VALUES ('39ef673f-7c49-a598-262a-b909bbec2cc7', 1, '111', '916B10C5B503911E535C76083E4C5742', '111', '', '', '2019-08-03 09:23:01', '', 0, '2019-08-03 09:23:01', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:23:01', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-08-03 09:23:01', '00000000-0000-0000-0000-000000000000', b'0000', '2019-08-03 09:23:01', '00000000-0000-0000-0000-000000000000');
+INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 0, 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-08-26 14:30:28', '0.0.0.1', 1, b'0', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', '2019-04-18 17:30:57', '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000', b'0000', '2019-04-12 11:36:52', '00000000-0000-0000-0000-000000000000');
 
 -- ----------------------------
 -- Table structure for account_role
@@ -68,9 +65,6 @@ CREATE TABLE `account_role`  (
 -- Records of account_role
 -- ----------------------------
 INSERT INTO `account_role` VALUES (7, '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '39eeaf22-855c-9467-d478-06b8a4a085b2');
-INSERT INTO `account_role` VALUES (8, '39ef6739-279c-caac-bb19-c6f0da6ab30d', '39eeaf22-855c-9467-d478-06b8a4a085b2');
-INSERT INTO `account_role` VALUES (9, '39ef673d-17ca-5b37-97b3-b9e71f25aca0', '39eeaf22-855c-9467-d478-06b8a4a085b2');
-INSERT INTO `account_role` VALUES (10, '39ef673e-fae6-cda2-24b2-2302c5bf47eb', '39eeaf22-855c-9467-d478-06b8a4a085b2');
 
 -- ----------------------------
 -- Table structure for auditinfo
@@ -180,7 +174,7 @@ CREATE TABLE `button_permission`  (
   `ButtonCode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '按钮编码',
   `PermissionCode` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编码',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 452 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 451 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of button_permission
@@ -371,7 +365,7 @@ CREATE TABLE `menu_permission`  (
   `MenuCode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单编码',
   `PermissionCode` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限编码',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 167 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 166 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_permission
@@ -615,6 +609,7 @@ CREATE TABLE `role`  (
   `Id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
   `Remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `IsSpecified` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否是指定的角色，如果是其它模块指定的，不允许删除修改',
   `CreatedTime` datetime(0) NOT NULL COMMENT '创建时间',
   `CreatedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
@@ -628,8 +623,7 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('39eeaf22-855c-9467-d478-06b8a4a085b2', '超级管理员', '超级管理员', '2019-06-28 15:21:15', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-28 15:21:15', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', b'0000', '2019-06-28 15:21:15', '00000000-0000-0000-0000-000000000000');
-INSERT INTO `role` VALUES ('39ef7804-0bc0-f0b6-2031-4b8eef4e9fb3', 'test', 'test', '2019-08-06 15:31:38', '00000000-0000-0000-0000-000000000000', '2019-08-06 15:31:38', '00000000-0000-0000-0000-000000000000', b'0001', '2019-08-06 15:43:48', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `role` VALUES ('39eeaf22-855c-9467-d478-06b8a4a085b2', '超级管理员', '超级管理员', b'0', '2019-06-28 15:21:15', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', '2019-06-28 15:21:15', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', b'0000', '2019-06-28 15:21:15', '00000000-0000-0000-0000-000000000000');
 
 -- ----------------------------
 -- Table structure for role_menu

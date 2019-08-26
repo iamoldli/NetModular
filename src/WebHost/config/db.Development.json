@@ -1,35 +1,35 @@
-//{
-//  "Logging": true,
-//  "Connections": [
-//    {
-//      "Name": "Admin",
-//      "Dialect": 0,
-//      "Database": "Nm_Admin",
-//      "ConnString": "Server=.;Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
-//    },
-//    {
-//      "Name": "Common",
-//      "Dialect": 0,
-//      "Database": "Nm_Common",
-//      "ConnString": "Server=.;Database=Nm_Common;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
-//    },
-//    {
-//      "Name": "CodeGenerator",
-//      "Dialect": 0,
-//      "Database": "Nm_CodeGenerator",
-//      "ConnString": "Server=.;Database=Nm_CodeGenerator;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
-//    },
-//    {
-//      "Name": "PersonnelFiles",
-//      "Dialect": 0,
-//      "Database": "Nm_PersonnelFiles",
-//      "ConnString": "Server=.;Database=Nm_PersonnelFiles;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
-//    },
-//    {
-//      "Name": "Quartz",
-//      "Dialect": 0,
-//      "Database": "Nm_Quartz",
-//      "ConnString": "Server=.;Database=Nm_Quartz;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
-//    }
-//  ]
-//}
+{
+  "Logging": true,
+  //"Connections": [
+  //  {
+  //    "Name": "Admin",
+  //    "Dialect": 0,
+  //    "Database": "Nm_Admin",
+  //    "ConnString": "Server=.;Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+  //  },
+  //  {
+  //    "Name": "Common",
+  //    "Dialect": 0,
+  //    "Database": "Nm_Common",
+  //    "ConnString": "Server=.;Database=Nm_Common;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+  //  },
+  //  {
+  //    "Name": "CodeGenerator",
+  //    "Dialect": 0,
+  //    "Database": "Nm_CodeGenerator",
+  //    "ConnString": "Server=.;Database=Nm_CodeGenerator;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+  //  },
+  //  {
+  //    "Name": "PersonnelFiles",
+  //    "Dialect": 0,
+  //    "Database": "Nm_PersonnelFiles",
+  //    "ConnString": "Server=.;Database=Nm_PersonnelFiles;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+  //  },
+  //  {
+  //    "Name": "Quartz",
+  //    "Dialect": 0,
+  //    "Database": "Nm_Quartz",
+  //    "ConnString": "Server=.;Database=Nm_Quartz;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+  //  }
+  //]
+}

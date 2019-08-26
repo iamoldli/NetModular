@@ -102,6 +102,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public int Take { get; set; }
 
+        /// <summary>
+        /// 过滤已删除的
+        /// </summary>
+        public bool FilterDeleted { get; set; } = true;
+
         #endregion
 
         #region ==方法==

@@ -25,7 +25,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<AccountEntity> GetByUserName(string userName, AccountType type)
         {
-            return GetAsync(m => m.Deleted == false && m.UserName.Equals(userName) && m.Type == type);
+            return GetAsync(m => m.UserName.Equals(userName) && m.Type == type);
         }
 
         public Task<bool> UpdateLoginInfo(Guid id, string ip, AccountStatus status = AccountStatus.UnKnown)
@@ -42,7 +42,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public async Task<IList<AccountEntity>> Query(AccountQueryModel model)
         {
             var paging = model.Paging();
-            var query = Db.Find(m => m.Deleted == false);
+            var query = Db.Find();
             query.WhereIf(model.Type != null, m => m.Type == model.Type.Value);
             query.WhereIf(model.UserName.NotNull(), m => m.UserName.Contains(model.UserName));
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
@@ -61,21 +61,21 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> ExistsUserName(string userName, Guid? id, AccountType type = AccountType.Admin)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.UserName == userName);
+            var query = Db.Find(m => m.Type == type && m.UserName == userName);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsPhone(string phone, Guid? id, AccountType type = AccountType.Admin)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Phone == phone);
+            var query = Db.Find(m => m.Type == type && m.Phone == phone);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsEmail(string email, Guid? id, AccountType type = AccountType.Admin)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Type == type && m.Email == email);
+            var query = Db.Find(m => m.Type == type && m.Email == email);
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }

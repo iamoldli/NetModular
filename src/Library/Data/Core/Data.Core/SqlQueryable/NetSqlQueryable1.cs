@@ -341,5 +341,15 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         }
 
         #endregion
+
+        #region ==IncludeDeleted==
+
+        public INetSqlQueryable<TEntity> IncludeDeleted()
+        {
+            QueryBody.FilterDeleted = false;
+            return this;
+        }
+
+        #endregion
     }
 }

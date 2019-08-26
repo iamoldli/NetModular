@@ -13,11 +13,21 @@
         <nm-button-has :options="buttons.add" @click="addPage.visible=true" />
       </template>
 
+      <template v-slot:col-name="{row}">
+        <el-tooltip v-if="row.isSpecified" class="item" effect="dark" content="指定角色" placement="top">
+          <div>
+            <nm-icon class="nm-text-warning" style="font-size:25px" name="star-fill" />
+            <span>{{row.name}}</span>
+          </div>
+        </el-tooltip>
+        <span v-else>{{row.name}}</span>
+      </template>
+
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.edit" @click="edit(row)" />
+        <nm-button-has :options="buttons.edit" @click="edit(row)" :disabled="row.isSpecified" />
         <nm-button-has :options="buttons.bindMenu" @click="bindMenu(row)" />
-        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
+        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isSpecified" />
       </template>
     </nm-list>
 

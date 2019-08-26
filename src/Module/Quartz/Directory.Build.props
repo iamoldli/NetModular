@@ -3,7 +3,7 @@
     <Id>Quartz</Id>
     <Name>任务调度</Name>
     <Authors>Oldli</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

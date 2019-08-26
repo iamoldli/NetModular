@@ -199,13 +199,16 @@ namespace Nm.Module.Admin.Application.AccountService
             return ResultModel.Result(result);
         }
 
+        #region ==管理==
+
         public async Task<IResultModel> BindRole(AccountRoleBindModel model)
         {
-            var exists = await _accountRepository.ExistsAsync(model.AccountId);
-            if (!exists)
+            var account = await _accountRepository.GetAsync(model.AccountId);
+            if (account == null)
                 return ResultModel.Failed("账户不存在");
 
-            exists = await _roleRepository.ExistsAsync(model.RoleId);
+
+            var exists = await _roleRepository.ExistsAsync(model.RoleId);
             if (!exists)
                 return ResultModel.Failed("角色不存在");
 
@@ -294,6 +297,8 @@ namespace Nm.Module.Admin.Application.AccountService
             var entity = await _accountRepository.GetAsync(id);
             if (entity == null)
                 return ResultModel.Failed("账户不存在");
+            if (entity.IsLock)
+                return ResultModel.Failed("账户锁定，不允许修改");
 
             var model = _mapper.Map<AccountUpdateModel>(entity);
             var roles = await _accountRoleRepository.QueryRole(id);
@@ -306,6 +311,8 @@ namespace Nm.Module.Admin.Application.AccountService
             var entity = await _accountRepository.GetAsync(model.Id);
             if (entity == null)
                 return ResultModel.Failed("账户不存在！");
+            if (entity.IsLock)
+                return ResultModel.Failed("账户锁定，不允许修改");
 
             var account = _mapper.Map(model, entity);
 
@@ -353,16 +360,22 @@ namespace Nm.Module.Admin.Application.AccountService
                 return ResultModel.NotExists;
             if (entity.Id == deleter)
                 return ResultModel.Failed("不允许删除自己的账户");
+            if (entity.IsLock)
+                return ResultModel.Failed("账户锁定，不允许删除");
 
             var result = await _accountRepository.SoftDeleteAsync(id);
             return ResultModel.Result(result);
         }
+
+        #endregion
 
         public async Task<IResultModel> ResetPassword(Guid id)
         {
             var account = await _accountRepository.GetAsync(id);
             if (account == null || account.Deleted)
                 return ResultModel.Failed("账户不存在");
+            if (account.IsLock)
+                return ResultModel.Failed("账户锁定，不允许重置密码");
 
             var newPassword = EncryptPassword(account.UserName, DefaultPassword);
             var result = await _accountRepository.UpdatePassword(id, newPassword);

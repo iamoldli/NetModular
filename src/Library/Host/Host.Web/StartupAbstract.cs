@@ -27,6 +27,8 @@ namespace Nm.Lib.Host.Web
         public virtual void Configure(IApplicationBuilder app)
         {
             app.UseWebHost(HostOptions, Env);
+
+            app.UseShutdownHandler();
         }
     }
 }

@@ -201,5 +201,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             return new GroupByQueryable2<TResult, TEntity, TEntity2>(Db, QueryBody, QueryBuilder, expression);
         }
+
+        public INetSqlQueryable<TEntity, TEntity2> IncludeDeleted()
+        {
+            QueryBody.FilterDeleted = false;
+            return this;
+        }
     }
 }

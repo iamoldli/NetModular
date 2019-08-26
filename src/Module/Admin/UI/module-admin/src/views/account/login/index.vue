@@ -1,5 +1,5 @@
 <template>
-  <nm-login :actions="actions" :type="loginSettings.type" :account-type="loginSettings.accountType" />
+  <nm-login :options="options" />
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -7,10 +7,13 @@ import api from '../../../api/account'
 export default {
   computed: {
     ...mapState('module/admin', ['loginSettings']),
-    actions() {
+    options() {
       return {
-        getVerifyCode: api.getVerifyCode,
-        login: this.login
+        actions: {
+          getVerifyCode: api.getVerifyCode,
+          login: this.login
+        },
+        ...this.loginSettings
       }
     }
   },

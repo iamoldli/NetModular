@@ -7,6 +7,7 @@ namespace Nm.WebHost
         public static void Main(string[] args)
         {
             new HostBuilder().Run<Startup>(args);
+
         }
     }
 }

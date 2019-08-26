@@ -97,6 +97,13 @@ const getSystem = async () => {
 }
 
 export default {
+  // 设置登录配置
+  setLoginSettings(settings) {
+    // 设置登录信息
+    callbacks.push(({ store }) => {
+      store.dispatch('module/admin/setLoginSettings', settings)
+    })
+  },
   /**
    * @description 添加模块
    * @param {Object} moduleInfo 模块信息

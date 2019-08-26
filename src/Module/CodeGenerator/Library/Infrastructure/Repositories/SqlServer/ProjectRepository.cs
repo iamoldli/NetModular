@@ -21,7 +21,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
 
-            var query = Db.Find(m => m.Deleted == false);
+            var query = Db.Find();
             query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
             query.WhereIf(model.Code.NotNull(), m => m.Code.Contains(model.Code));
 

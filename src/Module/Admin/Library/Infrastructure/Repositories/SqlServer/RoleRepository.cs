@@ -20,7 +20,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> Exists(string name, Guid? id = null)
         {
-            var query = Db.Find(m => m.Deleted == false && m.Name.Equals(name));
+            var query = Db.Find(m => m.Name.Equals(name));
             query.WhereIf(id != null, m => m.Id != id);
             return query.ExistsAsync();
         }
@@ -28,17 +28,12 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public async Task<IList<RoleEntity>> Query(RoleQueryModel model)
         {
             var paging = model.Paging();
-            var query = Db.Find(m => m.Deleted == false).LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
+            var query = Db.Find().LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
             query.WhereIf(model.Name.NotNull(), (x, y) => x.Name.Contains(model.Name));
             query.Select((x, y) => new { x, Creator = y.Name });
             var list = await query.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
-        }
-
-        public override Task<IList<RoleEntity>> GetAllAsync()
-        {
-            return Db.Find(m => m.Deleted == false).ToListAsync();
         }
     }
 }

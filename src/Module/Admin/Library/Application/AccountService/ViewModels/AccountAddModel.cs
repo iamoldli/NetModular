@@ -41,6 +41,11 @@ namespace Nm.Module.Admin.Application.AccountService.ViewModels
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
+        /// 是否锁定角色
+        /// </summary>
+        public bool IsLockRole { get; set; }
+
+        /// <summary>
         /// 绑定角色列表
         /// </summary>
         [Required(ErrorMessage = "请选择角色")]

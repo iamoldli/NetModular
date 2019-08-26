@@ -46,12 +46,12 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 
         public Task<bool> ExistsBindDept(Guid departmentId)
         {
-            return Db.Find(m => m.Deleted == false && m.DepartmentId == departmentId).ExistsAsync();
+            return Db.Find(m => m.DepartmentId == departmentId).ExistsAsync();
         }
 
         public Task<bool> ExistsBindPosition(Guid positionId)
         {
-            return Db.Find(m => m.Deleted == false && m.DepartmentId == positionId).ExistsAsync();
+            return Db.Find(m => m.DepartmentId == positionId).ExistsAsync();
         }
 
         public Task<int> GetMaxJobNumber()

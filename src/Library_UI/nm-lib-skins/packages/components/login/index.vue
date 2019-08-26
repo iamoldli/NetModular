@@ -1,6 +1,6 @@
 <template>
   <div>
-    <default v-if="type==='default'" :account-type="accountType" :actions="actions" />
+    <default v-if="options.type==='default'" :options="options" />
   </div>
 </template>
 <script>
@@ -9,15 +9,10 @@ export default {
   name: 'Login',
   components: { Default },
   props: {
-    type: {
-      type: String,
-      default: 'default'
-    },
-    accountType: {
-      type: Number,
-      default: 0
-    },
-    actions: Object
+    options: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

@@ -102,7 +102,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
-        public string SoftDeleteSqlBuild( out IQueryParameters parameters)
+        public string SoftDeleteSqlBuild(out IQueryParameters parameters)
         {
             Check.NotNull(_queryBody.TableName, nameof(_queryBody.TableName), "未指定删除表");
 
@@ -230,7 +230,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 #region ==SqlServer分页需要指定排序==
 
                 //SqlServer分页需要指定排序，此处判断是否有主键，有主键默认按照主键排序
-                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && StringExtensions.IsNull(sort))
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && sort.IsNull())
                 {
                     var first = _queryBody.JoinDescriptors.First();
                     if (first.EntityDescriptor.PrimaryKey.IsNo())
@@ -238,14 +238,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                         throw new Exception("SqlServer数据库没有主键的表需要指定排序字段才可以分页查询");
                     }
 
-                    if (_queryBody.JoinDescriptors.Count > 1)
-                    {
-                        sort = $"{_sqlAdapter.AppendQuote(first.Alias)}.{_sqlAdapter.AppendQuote(first.EntityDescriptor.PrimaryKey.Name)}";
-                    }
-                    else
-                    {
-                        sort = first.EntityDescriptor.PrimaryKey.Name;
-                    }
+                    sort = _queryBody.JoinDescriptors.Count > 1 ? $"{_sqlAdapter.AppendQuote(first.Alias)}.{_sqlAdapter.AppendQuote(first.EntityDescriptor.PrimaryKey.Name)}" : first.EntityDescriptor.PrimaryKey.Name;
                 }
 
                 #endregion
@@ -358,6 +351,35 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                 }
             }
 
+            if (_queryBody.FilterDeleted)
+            {
+                var sb = new StringBuilder();
+
+                if (_queryBody.JoinDescriptors.Count == 1)
+                {
+                    var first = _queryBody.JoinDescriptors.First();
+                    if (first.EntityDescriptor.SoftDelete)
+                    {
+                        sb.AppendFormat("AND {0}=0 ", _sqlAdapter.AppendQuote("Deleted"));
+                    }
+                }
+                else
+                {
+                    foreach (var descriptor in _queryBody.JoinDescriptors)
+                    {
+                        if (descriptor.EntityDescriptor.SoftDelete)
+                        {
+                            sb.AppendFormat("AND {0}.{1}=0 ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote("Deleted"));
+                        }
+                    }
+                }
+
+                if (sb.Length > 0)
+                {
+                    whereSql.AppendFormat(" {0}", whereSql.Length > 0 ? sb : sb.Remove(0, 3));
+                }
+            }
+
             return whereSql.ToString();
         }
 
@@ -403,7 +425,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         private void ResolveOrder(StringBuilder sqlBuilder)
         {
             var sql = ResolveOrder();
-            if (StringExtensions.NotNull(sql))
+            if (sql.NotNull())
                 sqlBuilder.AppendFormat(" ORDER BY {0}", sql);
         }
 
@@ -583,9 +605,8 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         {
             var descriptor = _queryBody.JoinDescriptors[descriptorIndex];
 
-            for (var i = 0; i < descriptor.EntityDescriptor.Columns.Count; i++)
+            foreach (var col in descriptor.EntityDescriptor.Columns)
             {
-                var col = descriptor.EntityDescriptor.Columns[i];
                 //单表时不需要别名
                 var isSingleTable = _queryBody.JoinDescriptors.Count <= 1;
                 sqlBuilder.Append(isSingleTable
@@ -609,10 +630,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
             {
                 var funcName = _sqlAdapter.FuncSubstring;
                 var colName = _queryBody.GetColumnName(objExp, fullExpression);
-                var start = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[0]).Value) + 1;
+                var start = ((ConstantExpression)callExp.Arguments[0]).Value.ToInt() + 1;
                 if (callExp.Arguments.Count > 1)
                 {
-                    var length = CommonExtensions.ToInt(((ConstantExpression)callExp.Arguments[1]).Value);
+                    var length = ((ConstantExpression)callExp.Arguments[1]).Value.ToInt();
                     sqlBuilder.AppendFormat("{0}({1},{2},{3}) AS {4},", funcName, colName, start, length, alias);
                 }
                 else

@@ -388,5 +388,15 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         new Task<TEntity> FirstAsync();
 
         #endregion
+
+        #region ==IncludeDeleted==
+
+        /// <summary>
+        /// 包含已删除的数据
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> IncludeDeleted();
+
+        #endregion
     }
 }

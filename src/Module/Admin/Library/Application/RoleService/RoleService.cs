@@ -65,11 +65,13 @@ namespace Nm.Module.Admin.Application.RoleService
 
         public async Task<IResultModel> Delete(Guid id)
         {
-            var exist = await _repository.ExistsAsync(id);
-            if (!exist)
+            var role = await _repository.GetAsync(id);
+            if (role == null)
                 return ResultModel.Failed("角色不存在");
+            if (role.IsSpecified)
+                return ResultModel.Failed("指定角色不允许删除");
 
-            exist = await _accountRoleRepository.ExistsByRole(id);
+            var exist = await _accountRoleRepository.ExistsByRole(id);
             if (exist)
                 return ResultModel.Failed("有账户绑定了该角色，请先删除对应绑定关系");
 
@@ -98,6 +100,9 @@ namespace Nm.Module.Admin.Application.RoleService
             if (entity == null)
                 return ResultModel.NotExists;
 
+            if (entity.IsSpecified)
+                return ResultModel.Failed("指定角色不允许编辑");
+
             var model = _mapper.Map<RoleUpdateModel>(entity);
             return ResultModel.Success(model);
         }
@@ -108,6 +113,9 @@ namespace Nm.Module.Admin.Application.RoleService
                 return ResultModel.HasExists;
 
             var role = await _repository.GetAsync(model.Id);
+            if (role.IsSpecified)
+                return ResultModel.Failed("指定角色不允许编辑");
+
             _mapper.Map(model, role);
 
             var result = await _repository.UpdateAsync(role);
