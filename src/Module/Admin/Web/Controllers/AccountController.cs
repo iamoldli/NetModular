@@ -54,7 +54,7 @@ namespace Nm.Module.Admin.Web.Controllers
                 {
                     new Claim(ClaimsName.AccountId,account.Id.ToString()),
                     new Claim(ClaimsName.AccountType,model.AccountType.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform,model.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform,model.Platform.ToInt().ToString())
                 };
 
                 return _loginHandler.Hand(claims);

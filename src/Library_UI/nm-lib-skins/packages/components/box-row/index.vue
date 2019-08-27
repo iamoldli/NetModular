@@ -10,7 +10,7 @@ export default {
     /** 间隔 */
     gutter: {
       type: Number,
-      default: 20
+      default: 5
     },
     /** 高度 */
     height: {
