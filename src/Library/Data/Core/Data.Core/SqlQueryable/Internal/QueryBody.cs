@@ -153,12 +153,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
                     }
                 }
             }
-            else if (IsGroupBy && expression.Body.NodeType == ExpressionType.Call &&
-                     expression.Body is MethodCallExpression callExpression)
+            else if (IsGroupBy && expression.Body.NodeType == ExpressionType.Call && expression.Body is MethodCallExpression callExpression)
             {
                 SetOrderByMethod(expression, callExpression, sortType);
             }
-
         }
 
         private void SetOrderByForMember(MemberExpression memberExp, LambdaExpression fullExpression, SortType sortType)

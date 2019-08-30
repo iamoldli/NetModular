@@ -12,7 +12,7 @@ namespace Nm.Lib.Data.Oracle
     /// </summary>
     public class OracleDbContextOptions : DbContextOptionsAbstract
     {
-        public OracleDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new OracleAdapter(options.Database), loggerFactory, loginInfo)
+        public OracleDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new OracleAdapter(options), loggerFactory, loginInfo)
         {
         }
 

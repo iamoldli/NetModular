@@ -11,6 +11,7 @@ using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable
 {
@@ -96,6 +97,90 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         public INetSqlQueryable<TEntity> WhereIf(bool condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
         {
             Where(condition ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(string condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition.NotNull())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(string condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition.NotNull() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(Guid? condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition != null && condition.Value.NotEmpty())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(Guid? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition != null && condition.Value.NotEmpty() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(int? condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(int? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(long? condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(long? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(DateTime? condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(DateTime? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, Expression<Func<TEntity, bool>> expression)
+        {
+            if (condition.NotEmpty())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
+        {
+            Where(condition.NotEmpty() ? ifExpression : elseExpression);
             return this;
         }
 

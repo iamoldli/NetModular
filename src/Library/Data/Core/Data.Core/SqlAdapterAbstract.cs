@@ -2,19 +2,20 @@
 using System.Text;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Options;
 
 namespace Nm.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {
-        protected SqlAdapterAbstract(string database)
+        protected SqlAdapterAbstract(DbConnectionOptions options)
         {
-            _database = database;
+            Options = options;
         }
 
-        protected readonly string _database;
+        public DbConnectionOptions Options { get; }
 
-        public abstract string Database {  get; }
+        public abstract string Database { get; }
 
         public virtual SqlDialect SqlDialect => SqlDialect.SqlServer;
 

@@ -12,7 +12,6 @@ using Nm.Lib.Utils.Core.Options;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ClassService;
 using Nm.Module.CodeGenerator.Application.ClassService.ViewModels;
-using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Class.Models;
 using Nm.Module.CodeGenerator.Infrastructure.Options;

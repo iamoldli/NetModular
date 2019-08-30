@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -21,7 +20,6 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<bool> DeleteByButton(string buttonCode, IDbTransaction transaction)
         {
             return Db.Find(e => e.ButtonCode == buttonCode).UseTran(transaction).DeleteAsync();
-
         }
     }
 }

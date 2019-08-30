@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nm.Module.Common.Infrastructure
+﻿namespace Nm.Module.Common.Infrastructure
 {
     /// <summary>
     /// 缓存键

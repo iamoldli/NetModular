@@ -23,22 +23,23 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Reposi
         {
             var paging = model.Paging();
 
-<# if(_class.IsSoftDelete){ #>
-            var query = Db.Find(m => m.Deleted == false);
-<# }else{ #>
             var query = Db.Find();
-<# } #>
 
+<# if(_class.IsEntityBase){ #>
+			var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
+			if (!paging.OrderBy.Any())
+            {
+                joinQuery.OrderByDescending((x, y) => x.Id);
+            }
+			joinQuery.Select((x, y) => new { x, Creator = y.Name });
+
+            var result = await joinQuery.PaginationAsync(paging);
+<# } else {#>
             if (!paging.OrderBy.Any())
             {
                 query.OrderByDescending(m => m.Id);
             }
 
-<# if(_class.IsEntityBase){ #>
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .Select((x, y) => new { x, Creator = y.Name })
-                .PaginationAsync(paging);
-<# } else {#>
             var result = await query.PaginationAsync(paging);
 <# } #>
 

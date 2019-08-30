@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Menu;
@@ -24,21 +23,23 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
             var query = Db.Find();
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
-            query.WhereIf(model.RouteName.NotNull(), m => m.RouteName.Contains(model.RouteName));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.RouteName, m => m.RouteName.Contains(model.RouteName));
 
             if (model.ParentId == null)
                 model.ParentId = Guid.Empty;
+
             query.Where(m => m.ParentId == model.ParentId);
+
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderBy(m => m.Sort);
+                joinQuery.OrderBy((x, y) => x.Sort);
             }
 
-            var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .Select((x, y) => new { x, CreatorName = y.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((x, y) => new { x, CreatorName = y.Name });
+            var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
         }

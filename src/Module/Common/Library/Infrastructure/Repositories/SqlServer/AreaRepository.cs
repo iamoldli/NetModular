@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Area.Models;
 
@@ -20,7 +19,7 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find(m => m.ParentId == model.ParentId);
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
 
             var result = await query.PaginationAsync(paging);
 

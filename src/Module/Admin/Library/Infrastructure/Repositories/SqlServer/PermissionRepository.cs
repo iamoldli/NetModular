@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Button;
@@ -33,10 +32,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             query.Where(m => m.Controller.Equals(entity.Controller));
             query.Where(m => m.Action.Equals(entity.Action));
             query.Where(m => m.HttpMethod.Equals(entity.HttpMethod));
-
-            query.WhereIf(entity.Id != Guid.Empty, m => m.Id != entity.Id);
-
+            query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
             query.UseTran(transaction);
+
             return query.ExistsAsync();
         }
 
@@ -55,20 +53,22 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
             var query = Db.Find();
 
-            query.WhereIf(model.ModuleCode.NotNull(), m => m.ModuleCode.Equals(model.ModuleCode));
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
-            query.WhereIf(model.Controller.NotNull(), m => m.Controller.Equals(model.Controller));
-            query.WhereIf(model.Action.NotNull(), m => m.Action.Equals(model.Action));
+            query.WhereNotNull(model.ModuleCode, m => m.ModuleCode.Equals(model.ModuleCode));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Controller, m => m.Controller.Equals(model.Controller));
+            query.WhereNotNull(model.Action, m => m.Action.Equals(model.Action));
+
+            var joinQuery = query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
+                .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id));
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((x, y, z) => x.Id);
             }
 
-            var list = await query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
-                 .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id))
-                 .Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name }).PaginationAsync(paging);
+            joinQuery.Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name });
 
+            var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
         }

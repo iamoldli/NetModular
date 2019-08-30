@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Common.Domain.MediaType;
 using Nm.Module.Common.Domain.MediaType.Models;
 
@@ -25,7 +24,7 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
             var query = Db.Find();
-            query.WhereIf(model.Ext.NotNull(), m => m.Ext.Contains(model.Ext));
+            query.WhereNotNull(model.Ext, m => m.Ext.Contains(model.Ext));
 
             if (!paging.OrderBy.Any())
             {

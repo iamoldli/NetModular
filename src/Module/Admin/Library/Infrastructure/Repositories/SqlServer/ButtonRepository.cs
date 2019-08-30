@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Button;
@@ -25,7 +24,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find(m => m.MenuCode == model.MenuCode)
-                .WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+                .WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
 
             var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
                 .Select((x, y) => new { x, Creator = y.Name })

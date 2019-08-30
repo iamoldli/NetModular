@@ -5,7 +5,6 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.ProjectService.ResultModels;
 using Nm.Module.CodeGenerator.Application.ProjectService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
-using Nm.Module.CodeGenerator.Domain.Project;
 using Nm.Module.CodeGenerator.Domain.Project.Models;
 
 namespace Nm.Module.CodeGenerator.Application.ProjectService

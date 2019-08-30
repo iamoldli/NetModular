@@ -12,7 +12,7 @@ namespace Nm.Lib.Data.SqlServer
     /// </summary>
     public class SqlServerDbContextOptions : DbContextOptionsAbstract
     {
-        public SqlServerDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SqlServerAdapter(options.Database), loggerFactory, loginInfo)
+        public SqlServerDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SqlServerAdapter(options), loggerFactory, loginInfo)
         {
         }
 

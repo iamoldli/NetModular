@@ -19,7 +19,7 @@ namespace Nm.Lib.Data.MySql
         /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="loginInfo"></param>
-        public MySqlDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new MySqlAdapter(options.Database), loggerFactory, loginInfo)
+        public MySqlDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new MySqlAdapter(options), loggerFactory, loginInfo)
         {
         }
 

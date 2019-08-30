@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.PersonnelFiles.Domain.Department;
 using Nm.Module.PersonnelFiles.Domain.Position;
@@ -25,20 +24,21 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
             query.WhereIf(model.Number != null && model.Number > 0, m => m.JobNo == model.Number);
+
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .LeftJoin<DepartmentEntity>((t1, t2, t3) => t1.DepartmentId == t3.Id)
+                .LeftJoin<PositionEntity>((t1, t2, t3, t4) => t1.PositionId == t4.Id);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((t1, t2, t3, t4) => t1.Id);
             }
 
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .LeftJoin<DepartmentEntity>((t1, t2, t3) => t1.DepartmentId == t3.Id)
-                .LeftJoin<PositionEntity>((t1, t2, t3, t4) => t1.PositionId == t4.Id)
-                .Select((t1, t2, t3, t4) => new { t1, Creator = t2.Name, DepartmentName = t3.Name, PositionName = t4.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((t1, t2, t3, t4) => new { t1, Creator = t2.Name, DepartmentName = t3.Name, PositionName = t4.Name });
 
+            var result = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
 
             return result;

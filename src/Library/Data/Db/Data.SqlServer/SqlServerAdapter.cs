@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Text;
+using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Helpers;
 
 namespace Nm.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {
-        public SqlServerAdapter(string database) : base(database)
+        public SqlServerAdapter(DbConnectionOptions options) : base(options)
         {
         }
 
-        public override string Database => AppendQuote(_database) + "..";
+        public override string Database => AppendQuote(Options.Database) + "..";
 
         /// <summary>
         /// 左引号
@@ -35,11 +37,32 @@ namespace Nm.Lib.Data.SqlServer
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take)
         {
             var sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("SELECT {0} FROM {1}", select, table);
-            if (!string.IsNullOrWhiteSpace(where))
-                sqlBuilder.AppendFormat(" WHERE {0}", where);
 
-            sqlBuilder.AppendFormat(" ORDER BY {0} OFFSET {1} ROW FETCH NEXT {2} ROW ONLY", sort, skip, take);
+            if (Options.Version.IsNull() || Options.Version.ToInt() >= 2012)
+            {
+                #region ==2012+版本==
+
+                sqlBuilder.AppendFormat("SELECT {0} FROM {1}", @select, table);
+                if (!string.IsNullOrWhiteSpace(where))
+                    sqlBuilder.AppendFormat(" WHERE {0}", @where);
+
+                sqlBuilder.AppendFormat(" ORDER BY {0} OFFSET {1} ROW FETCH NEXT {2} ROW ONLY", sort, skip, take);
+
+                #endregion
+            }
+            else
+            {
+                #region ==2018及以下版本==
+
+                sqlBuilder.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {0}) AS RowNum,{1} FROM {2}", sort, @select, table);
+                if (!string.IsNullOrWhiteSpace(where))
+                    sqlBuilder.AppendFormat(" WHERE {0}", @where);
+
+                sqlBuilder.AppendFormat(") AS T WHERE T.RowNum BETWEEN {0} AND {1}", skip, take);
+
+                #endregion
+            }
+
             return sqlBuilder.ToString();
         }
 

@@ -698,6 +698,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryModel.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SqlServerRepository.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\UI\App\Package.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

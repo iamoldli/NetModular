@@ -12,6 +12,7 @@ using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.GroupByQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
 using Nm.Lib.Utils.Core;
+using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable
 {
@@ -101,6 +102,90 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             Where(condition ? ifExpression : elseExpression);
 
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(string condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition.NotNull())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(string condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition.NotNull() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(Guid? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition != null && condition.Value.NotEmpty())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(Guid? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition != null && condition.Value.NotEmpty() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(int? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(int? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(long? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(long? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(DateTime? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition != null)
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(DateTime? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotEmpty(Guid condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        {
+            if (condition.NotEmpty())
+                Where(expression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotEmpty(Guid condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        {
+            Where(condition.NotEmpty() ? ifExpression : elseExpression);
             return this;
         }
 

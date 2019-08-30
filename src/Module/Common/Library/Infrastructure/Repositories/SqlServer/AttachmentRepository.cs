@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Common.Domain.Attachment;
 using Nm.Module.Common.Domain.Attachment.Models;
@@ -22,16 +21,18 @@ namespace Nm.Module.Common.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
-            query.WhereIf(model.Name.NotNull(), m => m.FileName.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.FileName.Contains(model.Name));
+
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((x, y) => x.Id);
             }
 
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .Select((x, y) => new { x, Creator = y.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((x, y) => new { x, Creator = y.Name });
+
+            var result = await joinQuery.PaginationAsync(paging);
 
             model.TotalCount = paging.TotalCount;
 

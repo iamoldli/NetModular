@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.CodeGenerator.Domain.ModelProperty;
 using Nm.Module.CodeGenerator.Domain.ModelProperty.Models;
@@ -24,15 +23,18 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find(m => m.ClassId == model.ClassId && m.ModelType == model.ModelType);
+
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .LeftJoin<ModelPropertyEntity>((x, y, z) => x.EnumId == z.Id);
+
             if (!paging.OrderBy.Any())
             {
-                query.OrderBy(m => m.Sort);
+                joinQuery.OrderBy((x, y, z) => x.Sort);
             }
 
-            var list = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .LeftJoin<ModelPropertyEntity>((x, y, z) => x.EnumId == z.Id)
-                .Select((x, y, z) => new { x, Creator = y.Name, EnumName = z.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((x, y, z) => new { x, Creator = y.Name, EnumName = z.Name });
+
+            var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
         }
@@ -50,7 +52,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
         public Task<bool> Exists(ModelPropertyEntity entity)
         {
             var query = Db.Find(m => m.ClassId == entity.ClassId && m.ModelType == entity.ModelType && m.Name == entity.Name);
-            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
+            query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
             return query.ExistsAsync();
         }
 

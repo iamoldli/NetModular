@@ -6,7 +6,6 @@ using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.Account.Models;
 
@@ -44,10 +43,10 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
             var query = Db.Find();
             query.WhereIf(model.Type != null, m => m.Type == model.Type.Value);
-            query.WhereIf(model.UserName.NotNull(), m => m.UserName.Contains(model.UserName));
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
-            query.WhereIf(model.Phone.NotNull(), m => m.Phone == model.Phone);
-            query.WhereIf(model.Email.NotNull(), m => m.Email == model.Email);
+            query.WhereNotNull(model.UserName, m => m.UserName.Contains(model.UserName));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Phone, m => m.Phone == model.Phone);
+            query.WhereNotNull(model.Email, m => m.Email == model.Email);
 
             if (!paging.OrderBy.Any())
             {
@@ -62,21 +61,21 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<bool> ExistsUserName(string userName, Guid? id, AccountType type = AccountType.Admin)
         {
             var query = Db.Find(m => m.Type == type && m.UserName == userName);
-            query.WhereIf(id != null, m => m.Id != id);
+            query.WhereNotNull(id, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsPhone(string phone, Guid? id, AccountType type = AccountType.Admin)
         {
             var query = Db.Find(m => m.Type == type && m.Phone == phone);
-            query.WhereIf(id != null, m => m.Id != id);
+            query.WhereNotNull(id, m => m.Id != id);
             return query.ExistsAsync();
         }
 
         public Task<bool> ExistsEmail(string email, Guid? id, AccountType type = AccountType.Admin)
         {
             var query = Db.Find(m => m.Type == type && m.Email == email);
-            query.WhereIf(id != null, m => m.Id != id);
+            query.WhereNotNull(id, m => m.Id != id);
             return query.ExistsAsync();
         }
     }

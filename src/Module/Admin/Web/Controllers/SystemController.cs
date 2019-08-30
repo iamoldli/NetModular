@@ -16,7 +16,6 @@ using Nm.Lib.Utils.Mvc.Extensions;
 using Nm.Lib.Utils.Mvc.Helpers;
 using Nm.Module.Admin.Application.SystemService;
 using Nm.Module.Admin.Application.SystemService.ViewModels;
-using Nm.Module.Admin.Web.Core;
 
 namespace Nm.Module.Admin.Web.Controllers
 {

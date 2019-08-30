@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.PersonnelFiles.Domain.UserEducationHistory;
 using Nm.Module.PersonnelFiles.Domain.UserEducationHistory.Models;
 
@@ -20,8 +19,8 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
 
-            var query = Db.Find(m=>m.UserId==model.UserId);
-            query.WhereIf(model.SchoolName.NotNull(), m => m.SchoolName.Contains(model.SchoolName));
+            var query = Db.Find(m => m.UserId == model.UserId);
+            query.WhereNotNull(model.SchoolName, m => m.SchoolName.Contains(model.SchoolName));
 
             if (!paging.OrderBy.Any())
             {

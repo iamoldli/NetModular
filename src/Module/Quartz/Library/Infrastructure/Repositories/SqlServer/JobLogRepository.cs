@@ -21,8 +21,8 @@ namespace Nm.Module.Quartz.Infrastructure.Repositories.SqlServer
 
             var query = Db.Find();
             query.Where(m => m.JobId == model.JobId);
-            query.WhereIf(model.StartDate != null, m => m.CreatedTime >= model.StartDate.Value);
-            query.WhereIf(model.EndDate != null, m => m.CreatedTime < model.EndDate.Value.AddDays(1));
+            query.WhereNotNull(model.StartDate, m => m.CreatedTime >= model.StartDate.Value);
+            query.WhereNotNull(model.EndDate, m => m.CreatedTime < model.EndDate.Value.AddDays(1));
 
             if (!paging.OrderBy.Any())
             {

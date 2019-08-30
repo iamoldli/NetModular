@@ -25,6 +25,7 @@
       '/': {
         nav: [
           { text: '首页', link: '/' },
+          { text: '更新日志', link: '/update/2019-08-30' },
           { text: '指南', link: '/guide/' },
           {
             text: '选择语言',
@@ -36,6 +37,11 @@
           { text: 'GitHub', link: 'https://github.com/iamoldli/NetModular' }
         ],
         sidebar: [
+          {
+            title: '更新日志',
+            collapsable: false,
+            children: [['/update/2019-08-30', '2019-08-30']]
+          },
           {
             title: '指南',
             collapsable: false,

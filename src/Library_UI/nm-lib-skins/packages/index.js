@@ -12,6 +12,8 @@ import Mixins from './mixins/'
 import Directive from './directive'
 import dayjs from 'dayjs'
 import token from './router/token'
+import echarts from 'echarts'
+import VCharts from 'v-charts'
 
 // 附加自定义样式
 const appendCustomCss = system => {
@@ -58,6 +60,9 @@ export default {
 
     // 加载饿了么框架
     Vue.use(ElementUI)
+
+    // 加载v-charts组件
+    Vue.use(VCharts)
 
     // 加载图标
     Vue.use(Icon)

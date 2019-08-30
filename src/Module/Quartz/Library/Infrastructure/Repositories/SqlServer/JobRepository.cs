@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Quartz.Domain.Job;
 using Nm.Module.Quartz.Domain.Job.Models;
@@ -22,17 +21,17 @@ namespace Nm.Module.Quartz.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
 
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((x, y) => x.Id);
             }
 
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .Select((x, y) => new { x, Creator = y.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((x, y) => new { x, Creator = y.Name });
 
+            var result = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
 
             return result;
@@ -41,7 +40,7 @@ namespace Nm.Module.Quartz.Infrastructure.Repositories.SqlServer
         public Task<bool> Exists(JobEntity entity)
         {
             var query = Db.Find(m => m.Code == entity.Code && m.Group == entity.Group);
-            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
+            query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
 
             return query.ExistsAsync();
         }
@@ -53,7 +52,7 @@ namespace Nm.Module.Quartz.Infrastructure.Repositories.SqlServer
 
         public Task<bool> UpdateStatus(string jobKey, JobStatus status)
         {
-            return Db.Find(m => m.JobKey == jobKey).UpdateAsync(m => new JobEntity {Status = status}, false);
+            return Db.Find(m => m.JobKey == jobKey).UpdateAsync(m => new JobEntity { Status = status }, false);
         }
     }
 }

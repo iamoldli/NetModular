@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Text;
 using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Options;
 
 namespace Nm.Lib.Data.Abstractions
 {
     public interface ISqlAdapter
     {
         #region ==属性==
+
+        /// <summary>
+        /// 数据库连接配置项
+        /// </summary>
+        DbConnectionOptions Options { get; }
 
         /// <summary>
         /// 数据库名称

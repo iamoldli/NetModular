@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.PersonnelFiles.Domain.Department;
 using Nm.Module.PersonnelFiles.Domain.Department.Models;
@@ -27,16 +26,17 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
 
             var parentId = model.ParentId ?? Guid.Empty;
             query.Where(m => m.ParentId == parentId);
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
+
+            var joinQuery = query.LeftJoin<UserEntity>((x, y) => x.Leader == y.Id)
+                .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy == z.Id);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderBy(m => m.Sort);
+                joinQuery.OrderBy((x, y, z) => x.Sort);
             }
 
-            var joinQuery = query.LeftJoin<UserEntity>((x, y) => x.Leader == y.Id)
-                .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy == z.Id)
-                .Select((x, y, z) => new { x, LeaderName = y.Name, Creator = z.Name });
+            joinQuery.Select((x, y, z) => new { x, LeaderName = y.Name, Creator = z.Name });
 
             var result = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
@@ -52,9 +52,9 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
         public Task<bool> Exists(DepartmentEntity entity)
         {
             var query = Db.Find(m => m.Name == entity.Name && m.ParentId == entity.ParentId);
-            query.WhereIf(entity.ParentId.IsEmpty(), m => m.CompanyId == entity.CompanyId);
-            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
-            
+            query.WhereNotEmpty(entity.ParentId, m => m.CompanyId == entity.CompanyId);
+            query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
+
             return query.ExistsAsync();
         }
 

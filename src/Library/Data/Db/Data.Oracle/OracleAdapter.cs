@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Nm.Lib.Data.Abstractions.Enums;
+using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Utils.Core.Helpers;
 
@@ -8,11 +9,11 @@ namespace Nm.Lib.Data.Oracle
 {
     internal class OracleAdapter : SqlAdapterAbstract
     {
-        public OracleAdapter(string database) : base(database)
+        public OracleAdapter(DbConnectionOptions options) : base(options)
         {
         }
 
-        public override string Database => AppendQuote(_database) + ".";
+        public override string Database => AppendQuote(Options.Database) + ".";
 
         public override SqlDialect SqlDialect => SqlDialect.Oracle;
 

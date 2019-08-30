@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -165,47 +167,34 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write("QueryModel model)\r\n        {\r\n            var paging = model.Paging();\r\n\r\n");
-            
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
- if(_class.IsSoftDelete){ 
-            
-            #line default
-            #line hidden
-            this.Write("            var query = Db.Find(m => m.Deleted == false);\r\n");
+            this.Write("QueryModel model)\r\n        {\r\n            var paging = model.Paging();\r\n\r\n       " +
+                    "     var query = Db.Find();\r\n\r\n");
             
             #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
- }else{ 
-            
-            #line default
-            #line hidden
-            this.Write("            var query = Db.Find();\r\n");
-            
-            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n            if (!paging.OrderBy.Any())\r\n            {\r\n                query.Or" +
-                    "derByDescending(m => m.Id);\r\n            }\r\n\r\n");
-            
-            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  if(_class.IsEntityBase){ 
             
             #line default
             #line hidden
-            this.Write("            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedB" +
-                    "y == y.Id)\r\n                .Select((x, y) => new { x, Creator = y.Name })\r\n    " +
-                    "            .PaginationAsync(paging);\r\n");
+            this.Write(@"			var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
+			if (!paging.OrderBy.Any())
+            {
+                joinQuery.OrderByDescending((x, y) => x.Id);
+            }
+			joinQuery.Select((x, y) => new { x, Creator = y.Name });
+
+            var result = await joinQuery.PaginationAsync(paging);
+");
             
-            #line 41 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } else {
             
             #line default
             #line hidden
-            this.Write("            var result = await query.PaginationAsync(paging);\r\n");
+            this.Write("            if (!paging.OrderBy.Any())\r\n            {\r\n                query.Orde" +
+                    "rByDescending(m => m.Id);\r\n            }\r\n\r\n            var result = await query" +
+                    ".PaginationAsync(paging);\r\n");
             
-            #line 43 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
+            #line 44 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.tt"
  } 
             
             #line default

@@ -12,7 +12,7 @@ namespace Nm.Lib.Data.SQLite
     /// </summary>
     public class SQLiteDbContextOptions : DbContextOptionsAbstract
     {
-        public SQLiteDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SQLiteAdapter(options.Database), loggerFactory, loginInfo)
+        public SQLiteDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SQLiteAdapter(options), loggerFactory, loginInfo)
         {
         }
 

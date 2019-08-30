@@ -4,8 +4,8 @@
 @import './mixins';
 //动画
 @import './animation/index';
-//颜色
-@import './color';
+//格式化
+@import './helper';
 //覆盖element样式
 @import './element';
 //进度条
@@ -37,6 +37,8 @@
 @import './components/drag-sort-dialog/index';
 //抽屉
 @import './components/drawer/index';
+//flex
+@import './components/flex/index';
 //表单
 @import './components/form/index';
 //对话框表单

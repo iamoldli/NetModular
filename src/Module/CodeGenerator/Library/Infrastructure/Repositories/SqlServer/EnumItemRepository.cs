@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.CodeGenerator.Domain.EnumItem;
 using Nm.Module.CodeGenerator.Domain.EnumItem.Models;
 
@@ -21,7 +20,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
             var query = Db.Find(m => m.EnumId == model.EnumId);
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(model.Name));
+            query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
             if (!paging.OrderBy.Any())
             {
                 query.OrderBy(m => m.Value);
@@ -40,7 +39,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
         public Task<bool> Exists(EnumItemEntity entity)
         {
             return Db.Find(m => m.EnumId == entity.EnumId && (m.Name.Equals(entity.Name) || m.Value == entity.Value))
-                .WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id)
+                .WhereNotEmpty(entity.Id, m => m.Id != entity.Id)
                 .ExistsAsync();
         }
     }

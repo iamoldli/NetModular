@@ -22,6 +22,11 @@ namespace Nm.Lib.Data.Abstractions.Options
         public SqlDialect Dialect { get; set; }
 
         /// <summary>
+        /// 数据库版本
+        /// </summary>
+        public string Version { get; set; }
+
+        /// <summary>
         /// 连接字符串
         /// </summary>
         public string ConnString { get; set; }

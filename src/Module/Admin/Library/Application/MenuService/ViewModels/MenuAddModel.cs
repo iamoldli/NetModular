@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.Admin.Domain.Button;
 using Nm.Module.Admin.Domain.Menu;
 
 namespace Nm.Module.Admin.Application.MenuService.ViewModels

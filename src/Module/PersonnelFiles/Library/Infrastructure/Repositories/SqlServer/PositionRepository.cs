@@ -25,21 +25,22 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
 
             var query = Db.Find();
-            query.WhereIf(model.DepartmentId.NotEmpty(), m => m.DepartmentId == model.DepartmentId);
-            query.WhereIf(model.Name.NotNull(), m => m.Name.Contains(m.Name));
-            query.WhereIf(model.Code.NotNull(), m => m.Code == model.Code);
+            query.WhereNotEmpty(model.DepartmentId, m => m.DepartmentId == model.DepartmentId);
+            query.WhereNotNull(model.Name, m => m.Name.Contains(m.Name));
+            query.WhereNotNull(model.Code, m => m.Code == model.Code);
+
+            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
+                .LeftJoin<DepartmentEntity>((x, y, z) => x.DepartmentId == z.Id)
+                .LeftJoin<CompanyEntity>((x, y, z, m) => z.CompanyId == m.Id);
 
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((x, y, z, m) => x.Id);
             }
 
-            var result = await query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id)
-                .LeftJoin<DepartmentEntity>((x, y, z) => x.DepartmentId == z.Id)
-                .LeftJoin<CompanyEntity>((x, y, z, m) => z.CompanyId == m.Id)
-                .Select((x, y, z, m) => new { x, DepartmentName = z.Name, CompanyName = m.Name, Creator = y.Name })
-                .PaginationAsync(paging);
+            joinQuery.Select((x, y, z, m) => new { x, DepartmentName = z.Name, CompanyName = m.Name, Creator = y.Name });
 
+            var result = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
 
             return result;
@@ -58,7 +59,7 @@ namespace Nm.Module.PersonnelFiles.Infrastructure.Repositories.SqlServer
                 query.Where(m => m.Name == entity.Name);
             }
 
-            query.WhereIf(entity.Id.NotEmpty(), m => m.Id != entity.Id);
+            query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
 
             return query.ExistsAsync();
         }
