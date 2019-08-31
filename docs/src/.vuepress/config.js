@@ -25,8 +25,8 @@
       '/': {
         nav: [
           { text: '首页', link: '/' },
-          { text: '更新日志', link: '/update/2019-08-30' },
           { text: '指南', link: '/guide/' },
+          { text: '更新日志', link: '/update/2019-08-30' },
           {
             text: '选择语言',
             items: [
@@ -48,7 +48,8 @@
             children: [
               ['/guide/', '介绍'],
               ['/guide/GetingStart', '快速上手'],
-              ['/guide/CreateModule', '创建一个模块']
+              ['/guide/CreateModule', '创建一个模块'],
+              ['/guide/CodeGuidelines', '代码规范']
             ]
           },
           {

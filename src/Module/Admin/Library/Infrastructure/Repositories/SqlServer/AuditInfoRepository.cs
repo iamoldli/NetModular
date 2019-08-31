@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Lib.Data.Query;
+using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.AuditInfo;
 using Nm.Module.Admin.Domain.AuditInfo.Models;
 using Nm.Module.Admin.Domain.ModuleInfo;
+using Nm.Module.Admin.Infrastructure.Repositories.SqlServer.Sql;
 
 namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 {
@@ -59,6 +61,12 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                     Creator = y.Name,
                     ModuleName = z.Name
                 }).FirstAsync<AuditInfoEntity>();
+        }
+
+        public virtual Task<IEnumerable<ChatDataRow>> QueryLatestWeekPv()
+        {
+            var sql = string.Format(AuditInfoSql.QueryLatestWeekPv, Db.EntityDescriptor.TableName);
+            return Db.QueryAsync<ChatDataRow>(sql);
         }
     }
 }

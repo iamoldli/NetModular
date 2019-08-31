@@ -6,7 +6,7 @@
 }
 
 /*文本颜色*/
-#{$prefix}-text {
+#{$prefix}text {
     &-info {
         color: $color-info;
     }
@@ -29,7 +29,7 @@
 }
 
 /*背景颜色*/
-#{$prefix}-bg {
+#{$prefix}bg {
     &-info {
         background-color: $color-info;
     }
@@ -53,46 +53,46 @@
 
 /*内边距*/
 @for $i from 0 through 30 {
-    #{$prefix}-p-#{$i} {
+    #{$prefix}p-#{$i} {
         padding: #{$i}px !important;
     }
 
-    #{$prefix}-p-t-#{$i} {
+    #{$prefix}p-t-#{$i} {
         padding-top: #{$i}px !important;
     }
 
-    #{$prefix}-p-b-#{$i} {
+    #{$prefix}p-b-#{$i} {
         padding-bottom: #{$i}px !important;
     }
 
-    #{$prefix}-p-l-#{$i} {
+    #{$prefix}p-l-#{$i} {
         padding-left: #{$i}px !important;
     }
 
-    #{$prefix}-p-r-#{$i} {
+    #{$prefix}p-r-#{$i} {
         padding-right: #{$i}px !important;
     }
 }
 
 /*外边距*/
 @for $i from 0 through 30 {
-    #{$prefix}-m-#{$i} {
+    #{$prefix}m-#{$i} {
         margin: #{$i}px !important;
     }
 
-    #{$prefix}-m-t-#{$i} {
+    #{$prefix}m-t-#{$i} {
         margin-top: #{$i}px !important;
     }
 
-    #{$prefix}-m-b-#{$i} {
+    #{$prefix}m-b-#{$i} {
         margin-bottom: #{$i}px !important;
     }
 
-    #{$prefix}-m-l-#{$i} {
+    #{$prefix}m-l-#{$i} {
         margin-left: #{$i}px !important;
     }
 
-    #{$prefix}-m-r-#{$i} {
+    #{$prefix}m-r-#{$i} {
         margin-right: #{$i}px !important;
     }
 }

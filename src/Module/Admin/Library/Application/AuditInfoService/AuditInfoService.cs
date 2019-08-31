@@ -45,5 +45,11 @@ namespace Nm.Module.Admin.Application.AuditInfoService
 
             return ResultModel.Success(entity);
         }
+
+        public async Task<IResultModel> QueryLatestWeekPv()
+        {
+            var list = await _repository.QueryLatestWeekPv();
+            return ResultModel.Success(list);
+        }
     }
 }

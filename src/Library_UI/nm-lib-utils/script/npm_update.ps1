@@ -1,2 +1,3 @@
 cd ../
-npm --registry https://registry.npmjs.org/ update
+npm --registry https://registry.npmjs.org
+pause

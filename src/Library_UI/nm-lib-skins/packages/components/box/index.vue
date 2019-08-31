@@ -28,7 +28,7 @@
           <!--全屏按钮-->
           <nm-button v-if="fullscreen" :icon="this.fullscreen_ ? 'min' : 'max'" @click="onFullscreen" />
           <!--刷新按钮-->
-          <nm-button v-if="refresh" icon="refresh" @click="refreshAction" />
+          <nm-button v-if="refresh" icon="refresh" @click="onRefresh" />
           <!--折叠按钮-->
           <nm-button v-if="collapse" :icon="this.collapse_ ? 'angle-down':'angle-up'" @click="onCollapse" />
         </div>
@@ -174,6 +174,13 @@ export default {
 
         // 全屏事件
         this.$emit('fullscreen-change', this.fullscreen_)
+      }
+    },
+    onRefresh() {
+      if (this.refreshAction) {
+        this.refreshAction().then(() => {
+          this.$emit('refresh')
+        })
       }
     }
   }

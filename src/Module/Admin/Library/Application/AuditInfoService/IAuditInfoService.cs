@@ -30,5 +30,11 @@ namespace Nm.Module.Admin.Application.AuditInfoService
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IResultModel> Details(int id);
+
+        /// <summary>
+        /// 查询最近一周访问记录
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultModel> QueryLatestWeekPv();
     }
 }

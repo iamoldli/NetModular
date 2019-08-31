@@ -14,7 +14,7 @@
       ></el-date-picker>
     </template>
     <template v-slot:toolbar>
-      <nm-button icon="refresh"/>
+      <nm-button icon="refresh" />
     </template>
     <div ref="chart" style="width:100%;height:100%"></div>
   </nm-box>
@@ -155,7 +155,7 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
+                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [{
                   offset: 0,
                   color: '#4889fb' // 0% 处的颜色
                 }, {

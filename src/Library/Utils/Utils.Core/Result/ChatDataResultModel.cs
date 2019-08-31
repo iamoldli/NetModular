@@ -1,9 +1,9 @@
 ﻿namespace Nm.Lib.Utils.Core.Result
 {
     /// <summary>
-    /// 图表数据返回模型
+    /// 图表数据行
     /// </summary>
-    public struct ChartDataResultModel
+    public class ChatDataRow
     {
         /// <summary>
         /// 键

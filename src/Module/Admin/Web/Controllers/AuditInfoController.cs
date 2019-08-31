@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nm.Lib.Auth.Web.Attributes;
 using Nm.Lib.Module.AspNetCore.Attributes;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Admin.Application.AuditInfoService;
@@ -33,6 +34,14 @@ namespace Nm.Module.Admin.Web.Controllers
         public Task<IResultModel> Details([BindRequired]int id)
         {
             return _service.Details(id);
+        }
+
+        [HttpGet]
+        [DisableAuditing]
+        [Common]
+        public Task<IResultModel> QueryLatestWeekPv()
+        {
+            return _service.QueryLatestWeekPv();
         }
     }
 }

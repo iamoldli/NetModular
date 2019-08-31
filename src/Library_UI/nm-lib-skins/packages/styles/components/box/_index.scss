@@ -1,6 +1,6 @@
 @import './variables';
 
-#{$prefix}-box {
+#{$prefix}box {
     box-shadow: $box-box-shadow;
     @include flex-column();
     box-sizing: border-box;
@@ -10,7 +10,7 @@
     border-style: solid;
     border-color: $border-color2;
 
-    >#{$prefix}-box-header {
+    >#{$prefix}box-header {
         padding: $box-header-padding;
         background-color: $box-background-color;
         display: flex;
@@ -21,7 +21,7 @@
         border-bottom: 1px solid $border-color3;
         box-sizing: border-box;
 
-        #{$prefix}-box-header-icon {
+        #{$prefix}box-header-icon {
             padding: $box-header-icon-padding;
             width: $box-header-icon-width;
             font-size: $box-header-icon-font-size;
@@ -29,21 +29,21 @@
             flex-shrink: 0;
         }
 
-        #{$prefix}-box-header-title {
+        #{$prefix}box-header-title {
             flex-grow: 1;
             font-size: $box-header-title-font-size;
             font-weight: $box-header-title-font-weight;
         }
 
-        #{$prefix}-box-header-toolbar-before {
+        #{$prefix}box-header-toolbar-before {
             flex-grow: 1;
         }
 
-        #{$prefix}-box-header-toolbar {
+        #{$prefix}box-header-toolbar {
             position: relative;
             flex-shrink: 0;
 
-            #{$prefix}-button {
+            #{$prefix}button {
                 margin-left: 0;
                 padding: 0;
                 border: none;
@@ -66,7 +66,7 @@
         }
     }
 
-    >#{$prefix}-box-dialog {
+    >#{$prefix}box-dialog {
         position: relative;
         border-bottom-left-radius: $box-border-radius;
         border-bottom-right-radius: $box-border-radius;
@@ -76,14 +76,14 @@
         align-items: stretch;
         flex-grow: 1;
 
-        >#{$prefix}-box-content {
+        >#{$prefix}box-content {
             position: relative;
             padding: $box-content-padding;
             flex-grow: 1;
             box-sizing: border-box;
         }
 
-        >#{$prefix}-box-footer {
+        >#{$prefix}box-footer {
             padding: $box-footer-padding;
             flex-shrink: 0;
             height: $box-footer-height;
@@ -95,8 +95,8 @@
     }
 
     &.has-height {
-        >#{$prefix}-box-dialog {
-            >#{$prefix}-box-content {
+        >#{$prefix}box-dialog {
+            >#{$prefix}box-content {
                 position: absolute;
                 padding-left: 0;
                 padding-right: 0;
@@ -124,22 +124,22 @@
     }
 
     &.small {
-        #{$prefix}-box-header {
+        #{$prefix}box-header {
             @include vertical-center($box-small-header-height);
         }
 
-        #{$prefix}-box-footer {
+        #{$prefix}box-footer {
             height: $box-small-footer-height;
             line-height: $box-small-footer-height - 3px;
         }
     }
 
     &.mini {
-        #{$prefix}-box-header {
+        #{$prefix}box-header {
             @include vertical-center($box-mini-header-height);
         }
 
-        #{$prefix}-box-footer {
+        #{$prefix}box-footer {
             height: $box-mini-footer-height;
             line-height: $box-mini-footer-height - 3px;
         }
@@ -148,13 +148,13 @@
     &.page {
         height: 100%;
 
-        >#{$prefix}-box-dialog {
+        >#{$prefix}box-dialog {
             padding: 0;
 
-            >#{$prefix}-box-content {
+            >#{$prefix}box-content {
                 padding: 0;
 
-                >#{$prefix}-box-wrapper {
+                >#{$prefix}box-wrapper {
                     position: absolute;
                     width: 100%;
                     height: 100%;
@@ -168,11 +168,11 @@
     }
 
     &.no-padding {
-        >#{$prefix}-box-dialog {
+        >#{$prefix}box-dialog {
 
-            >#{$prefix}-box-content {
+            >#{$prefix}box-content {
 
-                >#{$prefix}-box-wrapper {
+                >#{$prefix}box-wrapper {
 
                     .el-scrollbar__view {
                         padding: 0 !important;
@@ -207,7 +207,7 @@
     }
 
     &.title-bold {
-        #{$prefix}-box-header-title {
+        #{$prefix}box-header-title {
             font-weight: 600;
         }
     }
