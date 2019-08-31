@@ -58,7 +58,7 @@ namespace Nm.Lib.Data.SqlServer
                 if (!string.IsNullOrWhiteSpace(where))
                     sqlBuilder.AppendFormat(" WHERE {0}", @where);
 
-                sqlBuilder.AppendFormat(") AS T WHERE T.RowNum BETWEEN {0} AND {1}", skip, take);
+                sqlBuilder.AppendFormat(") AS T WHERE T.RowNum BETWEEN {0} AND {1}", skip, skip+take);
 
                 #endregion
             }
