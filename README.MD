@@ -6,6 +6,20 @@ NetModular
 
 NetModular is a modular quickly develop solution for .NET Standard.
 
+## Develop Environment
+
+> IDE
+>
+> > [Visual Studio 2017+](https://visualstudio.microsoft.com/zh-hans/downloads/)、[Visual Studio Code](https://code.visualstudio.com/)
+
+> Back-End
+>
+> > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+
+> Front-End
+>
+> > [Node.js 10+](https://nodejs.org/en/)、[Vue.js 2.6+](https://cn.vuejs.org/)、[Vue CLI](https://cli.vuejs.org/zh/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[VueRouter](https://router.vuejs.org/zh/)、[Element-UI](https://element.eleme.cn/#/zh-CN/component/installation)
+
 ## Demo
 
 [https://nm.iamoldli.com/](https://nm.iamoldli.com/)  
