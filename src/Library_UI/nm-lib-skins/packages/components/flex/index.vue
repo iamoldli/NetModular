@@ -4,7 +4,7 @@
       <section class="nm-flex_top" :style="{height:fixMode==='top'?fix:''}">
         <slot name="top" />
       </section>
-      <section class="nm-flex_bottom" :style="{height:fixMode==='bottom'?fix:''}">
+      <section class="nm-flex_bottom" :style="{height:fixMode==='bottom'?fix:'',paddingTop:gutter?gutter+'px':0}">
         <slot name="bottom" />
       </section>
     </template>
@@ -12,7 +12,7 @@
       <section class="nm-flex_left" :style="{width:fixMode==='left'?fix:''}">
         <slot name="left" />
       </section>
-      <section class="nm-flex_right" :style="{width:fixMode==='right'?fix:''}">
+      <section class="nm-flex_right" :style="{width:fixMode==='right'?fix:'',paddingLeft:gutter?gutter+'px':0}">
         <slot name="right" />
       </section>
     </template>
@@ -45,7 +45,9 @@ export default {
     height: {
       type: String,
       default: '100%'
-    }
+    },
+    /** 间隔 */
+    gutter: Number
   }
 }
 </script>

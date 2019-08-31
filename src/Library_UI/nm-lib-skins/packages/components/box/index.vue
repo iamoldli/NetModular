@@ -116,14 +116,14 @@ export default {
         this.border ? 'border' : '',
         this.titleBold ? 'title-bold' : '']
 
-      if (['success', 'primary', 'info', 'warning', 'error'].includes(this.borderColor)) {
+      if (['success', 'primary', 'info', 'warning', 'danger'].includes(this.borderColor)) {
         classArr.push(this.borderColor)
       }
       return classArr
     },
     style_() {
       let style = { height: this.height }
-      if (!['success', 'primary', 'info', 'warning', 'error'].includes(this.borderColor)) {
+      if (!['success', 'primary', 'info', 'warning', 'danger'].includes(this.borderColor)) {
         style.borderTopCoder = this.borderColor
       }
       return style
