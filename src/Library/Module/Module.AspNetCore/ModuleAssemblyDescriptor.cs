@@ -7,6 +7,8 @@ namespace Nm.Lib.Module.AspNetCore
     {
         public Assembly Web { get; set; }
 
+        public Assembly Api { get; set; }
+
         public Assembly Application { get; set; }
 
         public Assembly Domain { get; set; }

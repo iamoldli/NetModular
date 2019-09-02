@@ -60,7 +60,7 @@ namespace Nm.Lib.Module.AspNetCore
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor) module)?.Initializer.ConfigureServices(services);
+                ((ModuleDescriptor)module)?.Initializer.ConfigureServices(services);
             }
 
             return services;
@@ -99,6 +99,7 @@ namespace Nm.Lib.Module.AspNetCore
                 services.AddSingletonFromAssembly(descriptor.Infrastructure);
                 services.AddSingletonFromAssembly(descriptor.Application);
                 services.AddSingletonFromAssembly(descriptor.Web);
+                services.AddSingletonFromAssembly(descriptor.Api);
             }
         }
     }

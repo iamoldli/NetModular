@@ -28,7 +28,14 @@ namespace Nm.Lib.Validation.FluentValidation
                 {
                     if (module.AssemblyDescriptor != null && module.AssemblyDescriptor is ModuleAssemblyDescriptor descriptor)
                     {
-                        fv.RegisterValidatorsFromAssembly(descriptor.Web);
+                        if (descriptor.Web != null)
+                        {
+                            fv.RegisterValidatorsFromAssembly(descriptor.Web);
+                        }
+                        else
+                        {
+                            fv.RegisterValidatorsFromAssembly(descriptor.Api);
+                        }
                     }
                 }
             });
