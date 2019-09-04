@@ -34,13 +34,12 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.JoinDescriptors.Add(new QueryJoinDescriptor
             {
                 Type = joinType,
-                Alias = "T5",
-                EntityDescriptor = EntityDescriptorCollection.Get<TEntity5>(),
+                Alias = "T7",
+                EntityDescriptor = EntityDescriptorCollection.Get<TEntity7>(),
                 On = onExpression
             });
 
-            QueryBody.WhereDelegateType = typeof(Func<,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3),
-                typeof(TEntity4), typeof(TEntity5), typeof(bool));
+            QueryBody.WhereDelegateType = typeof(Func<,,,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3), typeof(TEntity4), typeof(TEntity5), typeof(TEntity6), typeof(TEntity7), typeof(bool));
         }
 
         #region ==UseTran==

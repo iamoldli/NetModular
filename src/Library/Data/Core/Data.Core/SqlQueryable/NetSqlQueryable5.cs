@@ -37,8 +37,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
                 On = onExpression
             });
 
-            QueryBody.WhereDelegateType = typeof(Func<,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3),
-                typeof(TEntity4), typeof(TEntity5), typeof(bool));
+            QueryBody.WhereDelegateType = typeof(Func<,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3), typeof(TEntity4), typeof(TEntity5), typeof(bool));
         }
 
         #region ==UseTran==
