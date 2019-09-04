@@ -92,7 +92,7 @@ namespace Nm.Module.Admin.Application.AccountService
                 return result.Failed("账户不存在");
             }
 
-            var password = EncryptPassword(account.UserName.ToLower(), model.Password);
+            var password = EncryptPassword(account.UserName, model.Password);
             if (!account.Password.Equals(password))
                 return result.Failed("密码错误");
 
@@ -266,7 +266,7 @@ namespace Nm.Module.Admin.Application.AccountService
             if (account.Password.IsNull())
                 account.Password = DefaultPassword;
 
-            account.Password = EncryptPassword(account.UserName.ToLower(), account.Password);
+            account.Password = EncryptPassword(account.UserName, account.Password);
 
             using (var tran = _accountRepository.BeginTransaction())
             {
@@ -467,7 +467,7 @@ namespace Nm.Module.Admin.Application.AccountService
         /// <returns></returns>
         public string EncryptPassword(string userName, string password)
         {
-            return Md5Encrypt.Encrypt($"{userName}_{password}");
+            return Md5Encrypt.Encrypt($"{userName.ToLower()}_{password}");
         }
     }
 

@@ -66,7 +66,7 @@
             </template>
 
             <template slot-scope="{row}">
-              <slot :name="'col-'+col.name" :row="row">{{col.format?$dayjs(row[col.name]).format(col.format):row[col.name]}}</slot>
+              <slot :name="'col-'+col.name" :row="row" :rows="rows">{{col.format?$dayjs(row[col.name]).format(col.format):row[col.name]}}</slot>
             </template>
           </el-table-column>
         </template>
@@ -78,7 +78,7 @@
           </template>
           <template slot-scope="{row}">
             <div class="nm-list-operation">
-              <slot name="col-operation" :row="row" />
+              <slot name="col-operation" :row="row" :rows="rows" />
             </div>
           </template>
         </el-table-column>
