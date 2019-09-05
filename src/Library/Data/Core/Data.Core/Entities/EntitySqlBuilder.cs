@@ -14,11 +14,11 @@ namespace Nm.Lib.Data.Core.Entities
             var deleteSql = BuildDeleteSql(descriptor, out string deleteSingleSql);
             var softDeleteSql = BuildSoftDeleteSql(descriptor, out string softDeleteSingleSql);
             var updateSql = BuildUpdateSql(descriptor, out string updateSingleSql);
-            var querySql = BuildQuerySql(descriptor, out string getSql);
+            var querySql = BuildQuerySql(descriptor, out string getSql, out string getAdnRowLockSql);
             var existsSql = BuildExistsSql(descriptor);
 
             return new EntitySql(descriptor, insertSql, batchInsertSql, deleteSingleSql, deleteSql, softDeleteSql,
-                softDeleteSingleSql, updateSingleSql, updateSql, getSql, querySql, existsSql, batchInsertColumnList);
+                softDeleteSingleSql, updateSingleSql, updateSql, getSql, getAdnRowLockSql, querySql, existsSql, batchInsertColumnList);
         }
 
         #region ==Private Methods==
@@ -139,7 +139,7 @@ namespace Nm.Lib.Data.Core.Entities
         /// <summary>
         /// 设置查询语句
         /// </summary>
-        private string BuildQuerySql(IEntityDescriptor descriptor, out string getSql)
+        private string BuildQuerySql(IEntityDescriptor descriptor, out string getSql, out string getAndRowLockSql)
         {
             var sb = new StringBuilder("SELECT ");
             for (var i = 0; i < descriptor.Columns.Count; i++)
@@ -155,17 +155,30 @@ namespace Nm.Lib.Data.Core.Entities
             sb.Append(" FROM {0} ");
 
             var querySql = sb.ToString();
-            getSql = "";
+            getSql = querySql;
+            getAndRowLockSql = querySql;
+            // SqlServer行锁
+            if (descriptor.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SqlServer)
+            {
+                getAndRowLockSql += " WITH (ROWLOCK, UPDLOCK) ";
+            }
+
             if (!descriptor.PrimaryKey.IsNo())
             {
-                sb.AppendFormat(" WHERE {0}={1} ", descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name), descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name));
+                getSql += $" WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)} ";
+                getAndRowLockSql += $" WHERE {descriptor.SqlAdapter.AppendQuote(descriptor.PrimaryKey.Name)}={descriptor.SqlAdapter.AppendParameter(descriptor.PrimaryKey.PropertyInfo.Name)} ";
 
                 if (descriptor.SoftDelete)
                 {
-                    sb.AppendFormat(" AND {0}=0 ", descriptor.SqlAdapter.AppendQuote("Deleted"));
+                    getSql += $" AND {descriptor.SqlAdapter.AppendQuote("Deleted")}=0 ";
+                    getAndRowLockSql += $" AND {descriptor.SqlAdapter.AppendQuote("Deleted")}=0 ";
                 }
 
-                getSql = sb.ToString();
+                //MySql行锁
+                if (descriptor.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.MySql)
+                {
+                    getAndRowLockSql += " FOR UPDATE;";
+                }
             }
 
             return querySql;
@@ -190,7 +203,6 @@ namespace Nm.Lib.Data.Core.Entities
 
             return sql;
         }
-
         #endregion
     }
 }

@@ -56,6 +56,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         private readonly string _get;
 
         /// <summary>
+        /// 查询单条语句并行锁
+        /// </summary>
+        private readonly string _getAndRowLock;
+
+        /// <summary>
         /// 查询语句
         /// </summary>
         private readonly string _query;
@@ -67,11 +72,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
 
         private readonly IEntityDescriptor _descriptor;
 
-        private ISqlAdapter _adapter;
+        private readonly ISqlAdapter _adapter;
 
         #endregion
 
-        public EntitySql(IEntityDescriptor descriptor, string insert, string batchInsert, string deleteSingle, string delete, string softDelete, string softDeleteSingle, string updateSingle, string update, string get, string query, string exists, List<IColumnDescriptor> batchInsertColumnList)
+        public EntitySql(IEntityDescriptor descriptor, string insert, string batchInsert, string deleteSingle, string delete, string softDelete, string softDeleteSingle, string updateSingle, string update, string get, string getAndRowLock, string query, string exists, List<IColumnDescriptor> batchInsertColumnList)
         {
             _descriptor = descriptor;
             _adapter = _descriptor.SqlAdapter;
@@ -84,6 +89,7 @@ namespace Nm.Lib.Data.Abstractions.Entities
             _updateSingle = updateSingle;
             _update = update;
             _get = get;
+            _getAndRowLock = getAndRowLock;
             _query = query;
             _exists = exists;
             BatchInsertColumnList = batchInsertColumnList;
@@ -297,6 +303,29 @@ namespace Nm.Lib.Data.Abstractions.Entities
             }
 
             return _defaultGet;
+        }
+
+        #endregion
+
+        #region ==查询单个实体==
+
+        private string _defaultGetAdnRowLock;
+        /// <summary>
+        /// 获取单个实体语句(行锁)
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public string GetAdnRowLock(string tableName)
+        {
+            if (tableName.NotNull())
+                return string.Format(_getAndRowLock, _adapter.AppendQuote(tableName));
+
+            if (_defaultGetAdnRowLock.IsNull())
+            {
+                _defaultGetAdnRowLock = string.Format(_getAndRowLock, _adapter.AppendQuote(_descriptor.TableName));
+            }
+
+            return _defaultGetAdnRowLock;
         }
 
         #endregion

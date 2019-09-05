@@ -338,8 +338,9 @@ namespace Nm.Lib.Data.Abstractions
         /// <param name="id"></param>
         /// <param name="transaction">事务</param>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="rowLock">行锁</param>
         /// <returns></returns>
-        TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null);
+        TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false);
 
         /// <summary>
         /// 根据主键查询
@@ -347,8 +348,9 @@ namespace Nm.Lib.Data.Abstractions
         /// <param name="id"></param>
         /// <param name="transaction">事务</param>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="rowLock">行锁</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null);
+        Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false);
 
         #endregion
 

@@ -198,9 +198,9 @@ namespace Nm.Lib.Data.Core
             return Db.Get(id);
         }
 
-        public virtual TEntity Get(dynamic id, IDbTransaction transaction)
+        public virtual TEntity Get(dynamic id, IDbTransaction transaction, bool rowLock = false)
         {
-            return Db.Get(id, transaction);
+            return Db.Get(id, transaction, null, rowLock);
         }
 
         public virtual Task<TEntity> GetAsync(dynamic id)
@@ -208,9 +208,9 @@ namespace Nm.Lib.Data.Core
             return Db.GetAsync(id);
         }
 
-        public virtual Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction)
+        public virtual Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction, bool rowLock = false)
         {
-            return Db.GetAsync(id, transaction);
+            return Db.GetAsync(id, transaction, null, rowLock);
         }
 
         protected virtual TEntity Get(Expression<Func<TEntity, bool>> @where)

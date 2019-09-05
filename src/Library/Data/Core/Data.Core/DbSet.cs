@@ -482,16 +482,18 @@ namespace Nm.Lib.Data.Core
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
             return dynParams;
         }
-        public TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<TEntity>(_sql.Get(tableName), dynParams, transaction);
+            var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
+            return QuerySingleOrDefault<TEntity>(sql, dynParams, transaction);
         }
 
-        public Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefaultAsync<TEntity>(_sql.Get(tableName), dynParams, transaction);
+            var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
+            return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, transaction);
         }
 
         #endregion
