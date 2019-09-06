@@ -32,7 +32,14 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<IList<ConfigEntity>> QueryByPrefix(string prefix)
         {
-            return Db.Find(m => m.Key.StartsWith(prefix)).ToListAsync();
+            var status = new List<ConfigStatus>
+            {
+                ConfigStatus.Add,
+                ConfigStatus.Delete,
+                ConfigStatus.Modified
+            };
+
+            return Db.Find(m => status.Contains(m.Status)).ToListAsync();
         }
 
         public async Task<IList<ConfigEntity>> Query(ConfigQueryModel model)
@@ -47,7 +54,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 joinQuery.OrderByDescending((x, y) => x.Id);
             }
 
-            joinQuery.Select((x, y) => new {x, Creator = y.Name});
+            joinQuery.Select((x, y) => new { x, Creator = y.Name });
 
             var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;

@@ -23,5 +23,7 @@ namespace Nm.Module.Admin.Domain.Config
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
+
+        public ConfigStatus Status { get; set; }
     }
 }

@@ -370,7 +370,18 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
                     var valueType = objExp.Type.GetGenericArguments()[0];
                     var isValueType = false;
                     var list = new List<string>();
-                    if (valueType == typeof(string))
+                    if (valueType.IsEnum)
+                    {
+                        isValueType = true;
+                        if (value is List<object> valueList)
+                        {
+                            foreach (var c in valueList)
+                            {
+                                list.Add(Enum.Parse(valueType, c).ToInt().ToString());
+                            }
+                        }
+                    }
+                    else if (valueType == typeof(string))
                     {
                         list = value as List<string>;
                     }
@@ -462,7 +473,6 @@ namespace Nm.Lib.Data.Core.ExpressionResolve
 
                     if (list == null)
                         return;
-
 
                     //值类型不带引号
                     if (isValueType)
