@@ -47,7 +47,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 joinQuery.OrderByDescending((x, y) => x.Id);
             }
 
-            joinQuery.Select((x, y) => new {x, Creator = y.Name});
+            joinQuery.Select((x, y) => new { x, Creator = y.Name });
 
             var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
