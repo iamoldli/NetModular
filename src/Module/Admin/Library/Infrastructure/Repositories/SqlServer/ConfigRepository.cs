@@ -32,14 +32,7 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<IList<ConfigEntity>> QueryByPrefix(string prefix)
         {
-            var status = new List<ConfigStatus>
-            {
-                ConfigStatus.Add,
-                ConfigStatus.Delete,
-                ConfigStatus.Modified
-            };
-
-            return Db.Find(m => status.Contains(m.Status)).ToListAsync();
+            return Db.Find(m => m.Key.StartsWith(prefix)).ToListAsync();
         }
 
         public async Task<IList<ConfigEntity>> Query(ConfigQueryModel model)
