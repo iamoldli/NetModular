@@ -78,7 +78,6 @@ export default {
         await this.action(this.id)
         this.$emit('success')
       }, this.msg).catch(() => {
-        console.log('取消')
       })
     }
   }

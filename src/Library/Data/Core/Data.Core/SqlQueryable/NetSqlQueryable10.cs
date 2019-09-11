@@ -29,18 +29,20 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         where TEntity9 : IEntity, new()
         where TEntity10 : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9, TEntity10, bool>> onExpression, JoinType joinType = JoinType.Left)
+        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9, TEntity10, bool>> onExpression, JoinType joinType = JoinType.Left, string tableName = null)
             : base(dbSet, queryBody)
         {
             Check.NotNull(onExpression, nameof(onExpression), "请输入连接条件");
 
-            QueryBody.JoinDescriptors.Add(new QueryJoinDescriptor
+            var t10 = new QueryJoinDescriptor
             {
                 Type = joinType,
                 Alias = "T10",
                 EntityDescriptor = EntityDescriptorCollection.Get<TEntity10>(),
-                On = onExpression
-            });
+                On = onExpression,
+            };
+            t10.TableName = tableName.NotNull() ? tableName : t10.EntityDescriptor.TableName;
+            QueryBody.JoinDescriptors.Add(t10);
 
             QueryBody.WhereDelegateType = typeof(Func<,,,,,,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3),
                 typeof(TEntity4), typeof(TEntity5), typeof(TEntity6), typeof(TEntity7), typeof(TEntity8), typeof(TEntity9), typeof(TEntity10), typeof(bool));

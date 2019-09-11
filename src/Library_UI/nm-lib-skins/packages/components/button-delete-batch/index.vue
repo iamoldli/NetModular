@@ -12,7 +12,7 @@
     :native-type="nativeType"
     @click="remove"
   >
-    <nm-icon v-if="!noIcon" name="batch-delete"/>
+    <nm-icon v-if="!noIcon" name="batch-delete" />
     <span v-if="!circle&&text" class="nm-button-text">{{text}}</span>
   </el-button>
 </template>
@@ -58,12 +58,12 @@ export default {
     noIcon: Boolean
   },
   computed: {
-    getSize () {
+    getSize() {
       return this.size || this.fontSize
     }
   },
   methods: {
-    async remove () {
+    async remove() {
       if (!this.selection || this.selection.length < 1) {
         this._error('请选择要删除的数据~')
         return
@@ -86,7 +86,6 @@ export default {
           this._success('删除成功~')
         }
       }).catch(() => {
-        console.log('取消')
       })
     }
   }

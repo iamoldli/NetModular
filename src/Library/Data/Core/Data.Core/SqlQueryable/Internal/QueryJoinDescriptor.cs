@@ -28,5 +28,10 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// 连接条件
         /// </summary>
         public LambdaExpression On { get; set; }
+
+        /// <summary>
+        /// 自定义表名称
+        /// </summary>
+        public string TableName { get; set; }
     }
 }

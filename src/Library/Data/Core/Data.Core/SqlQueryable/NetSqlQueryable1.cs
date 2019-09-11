@@ -17,13 +17,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 {
     internal class NetSqlQueryable<TEntity> : NetSqlQueryableAbstract, INetSqlQueryable<TEntity> where TEntity : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression, string tableName) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter), tableName)
+        public NetSqlQueryable(IDbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> whereExpression, string tableName = null) : base(dbSet, new QueryBody(dbSet.DbContext.Options.SqlAdapter))
         {
             QueryBody.JoinDescriptors.Add(new QueryJoinDescriptor
             {
                 Type = JoinType.UnKnown,
                 Alias = "T1",
                 EntityDescriptor = EntityDescriptorCollection.Get<TEntity>(),
+                TableName = tableName.NotNull() ? tableName : Db.EntityDescriptor.TableName
             });
             QueryBody.WhereDelegateType = typeof(Func<,>).MakeGenericType(typeof(TEntity), typeof(bool));
 
@@ -208,19 +209,19 @@ namespace Nm.Lib.Data.Core.SqlQueryable
 
         #region ==Join==
 
-        public INetSqlQueryable<TEntity, TEntity2> LeftJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new()
+        public INetSqlQueryable<TEntity, TEntity2> LeftJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new()
         {
-            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression);
+            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression, JoinType.Left, tableName);
         }
 
-        public INetSqlQueryable<TEntity, TEntity2> InnerJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new()
+        public INetSqlQueryable<TEntity, TEntity2> InnerJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new()
         {
-            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression, JoinType.Inner);
+            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression, JoinType.Inner, tableName);
         }
 
-        public INetSqlQueryable<TEntity, TEntity2> RightJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new()
+        public INetSqlQueryable<TEntity, TEntity2> RightJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new()
         {
-            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression, JoinType.Right);
+            return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody, onExpression, JoinType.Right, tableName);
         }
 
         #endregion

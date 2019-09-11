@@ -236,24 +236,27 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <typeparam name="TEntity5"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> LeftJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression) where TEntity5 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> LeftJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression, string tableName = null) where TEntity5 : IEntity, new();
 
         /// <summary>
         /// 内连接
         /// </summary>
         /// <typeparam name="TEntity5"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> InnerJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression) where TEntity5 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> InnerJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression, string tableName = null) where TEntity5 : IEntity, new();
 
         /// <summary>
         /// 右连接
         /// </summary>
         /// <typeparam name="TEntity5"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> RightJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression) where TEntity5 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> RightJoin<TEntity5>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> onExpression, string tableName = null) where TEntity5 : IEntity, new();
 
         #endregion
 

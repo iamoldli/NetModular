@@ -30,11 +30,6 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public IDbTransaction Transaction { get; private set; }
 
-        /// <summary>
-        /// 用户指定的表名称，对于多表连接的查询，该名称为第一张表的名称
-        /// </summary>
-        public string TableName { get; set; }
-
         public Type WhereDelegateType { get; set; }
 
         /// <summary>

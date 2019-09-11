@@ -237,24 +237,27 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <typeparam name="TEntity6"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> LeftJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression) where TEntity6 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> LeftJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression, string tableName = null) where TEntity6 : IEntity, new();
 
         /// <summary>
         /// 内连接
         /// </summary>
         /// <typeparam name="TEntity6"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> InnerJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression) where TEntity6 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> InnerJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression, string tableName = null) where TEntity6 : IEntity, new();
 
         /// <summary>
         /// 右连接
         /// </summary>
         /// <typeparam name="TEntity6"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> RightJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression) where TEntity6 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> RightJoin<TEntity6>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, bool>> onExpression, string tableName = null) where TEntity6 : IEntity, new();
 
         #endregion
 

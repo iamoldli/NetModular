@@ -5,7 +5,6 @@ const period = '.'
 const minus = '-'
 const minusRegExp = /-/
 const nonDigitsRegExp = /\D+/g
-const number = 'number'
 const digitRegExp = /\d/
 const caretTrap = '[]'
 
@@ -79,7 +78,7 @@ export default function createNumberMask({
       }
     }
 
-    if (integerLimit && typeof integerLimit === number) {
+    if (integerLimit && typeof integerLimit === 'number') {
       const thousandsSeparatorRegex =
         thousandsSeparatorSymbol === '.' ? '[.]' : `${thousandsSeparatorSymbol}`
       const numberOfThousandSeparators = (
@@ -113,7 +112,7 @@ export default function createNumberMask({
       mask.push(decimalSymbol, caretTrap)
 
       if (fraction) {
-        if (typeof decimalLimit === number) {
+        if (typeof decimalLimit === 'number') {
           fraction = fraction.slice(0, decimalLimit)
         }
 

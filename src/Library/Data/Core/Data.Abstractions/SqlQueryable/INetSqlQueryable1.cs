@@ -233,25 +233,29 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// <summary>
         /// 左连接
         /// </summary>
+        /// <param name="onExpression">on表达式</param>
+        /// <param name="tableName">自定义表名</param>
         /// <typeparam name="TEntity2"></typeparam>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2> LeftJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2> LeftJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new();
 
         /// <summary>
         /// 内连接
         /// </summary>
         /// <typeparam name="TEntity2"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2> InnerJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2> InnerJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new();
 
         /// <summary>
         /// 右连接
         /// </summary>
         /// <typeparam name="TEntity2"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2> RightJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression) where TEntity2 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2> RightJoin<TEntity2>(Expression<Func<TEntity, TEntity2, bool>> onExpression, string tableName = null) where TEntity2 : IEntity, new();
 
         #endregion
 

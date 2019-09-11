@@ -12,6 +12,13 @@ Http.prototype.init = action => {
   action(axios)
 }
 
+// 序列化参数为Url形式
+Http.prototype.stringify = params => {
+  return qs.stringify(params, {
+    allowDots: true
+  })
+}
+
 Http.prototype.post = (url, params, config) => {
   return axios.post(url, params, config)
 }

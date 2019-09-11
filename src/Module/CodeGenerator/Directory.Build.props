@@ -3,7 +3,7 @@
     <Id>CodeGenerator</Id>
     <Name>代码生成</Name>
     <Authors>Oldli</Authors>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

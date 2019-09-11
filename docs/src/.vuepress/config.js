@@ -26,7 +26,8 @@
         nav: [
           { text: '首页', link: '/' },
           { text: '指南', link: '/guide/' },
-          { text: '更新日志', link: '/update/2019-09-04' },
+          { text: '更新日志', link: '/update/2019-09-12' },
+          { text: '赞助', link: '/Sponsor' },
           {
             text: '选择语言',
             items: [
@@ -48,7 +49,24 @@
             ]
           },
           {
-            title: '基础平台',
+            title: '基础',
+            collapsable: false,
+            children: [
+              ['/fundamentals/', '预览'],
+              ['/fundamentals/Utils', '通用库'],
+              ['/fundamentals/DI', '依赖注入'],
+              ['/fundamentals/Options', '配置项'],
+              ['/fundamentals/Logging', '日志'],
+              ['/fundamentals/Mapper', '对象映射']
+            ]
+          },
+          {
+            title: '高级',
+            collapsable: false,
+            children: [['/advanced/', '预览'], ['/advanced/Modular', '模块化']]
+          },
+          {
+            title: '平台搭建',
             collapsable: false,
             children: [
               ['/platform/', '说明'],
@@ -66,6 +84,7 @@
             title: '更新日志',
             collapsable: false,
             children: [
+              ['/update/2019-09-12', '2019-09-12'],
               ['/update/2019-09-04', '2019-09-04'],
               ['/update/2019-08-30', '2019-08-30']
             ]

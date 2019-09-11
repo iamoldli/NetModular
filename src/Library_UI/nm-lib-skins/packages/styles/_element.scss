@@ -45,19 +45,6 @@ body {
     top: 5px !important;
 }
 
-.el-tabs__item {
-    #{$prefix}icon {
-        position: relative;
-        top: 2px;
-        padding-right: 2px;
-        font-size: 1.4em;
-    }
-}
-
-.el-tree-node__expand-icon {
-    color: #c0c4cc;
-}
-
 .el-input-number {
     width: 100% !important;
 }
@@ -94,3 +81,18 @@ body {
 @include input-icon('--medium', 4px, 22px, 30px);
 @include input-icon('--small', 1px, 19px, 25px);
 @include input-icon('--mini', 2px, 18px, 22px);
+
+/********************* Tree **********************/
+.el-tree {
+    user-select: none;
+}
+
+/********************* Tabs **********************/
+.el-tabs__item {
+    #{$prefix}icon {
+        position: relative;
+        top: 2px;
+        padding-right: 2px;
+        font-size: 1.4em;
+    }
+}

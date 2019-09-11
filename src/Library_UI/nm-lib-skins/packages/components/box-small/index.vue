@@ -1,11 +1,11 @@
 <template>
   <div :class="class_" :style="style_">
     <div class="inner">
-      <p class="value">
+      <div class="value">
         {{value}}
         <span v-if="unit" class="unit">{{unit}}</span>
-      </p>
-      <p v-if="label" class="label">{{label}}</p>
+      </div>
+      <div v-if="label" class="label">{{label}}</div>
     </div>
     <div v-if="icon" class="icon">
       <nm-icon :name="icon" />
@@ -23,7 +23,7 @@ export default {
     /** 文本 */
     label: String,
     /** 值 */
-    value: String,
+    value: [String, Number],
     /** 单位 */
     unit: String,
     /** 图标 */

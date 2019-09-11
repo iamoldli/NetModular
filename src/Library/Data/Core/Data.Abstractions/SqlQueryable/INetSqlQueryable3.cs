@@ -236,24 +236,27 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <typeparam name="TEntity4"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> LeftJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression) where TEntity4 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> LeftJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression, string tableName = null) where TEntity4 : IEntity, new();
 
         /// <summary>
         /// 内连接
         /// </summary>
         /// <typeparam name="TEntity4"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> InnerJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression) where TEntity4 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> InnerJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression, string tableName = null) where TEntity4 : IEntity, new();
 
         /// <summary>
         /// 右连接
         /// </summary>
         /// <typeparam name="TEntity4"></typeparam>
         /// <param name="onExpression"></param>
+        /// <param name="tableName">自定义表名</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> RightJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression) where TEntity4 : IEntity, new();
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> RightJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression, string tableName = null) where TEntity4 : IEntity, new();
 
         #endregion
 

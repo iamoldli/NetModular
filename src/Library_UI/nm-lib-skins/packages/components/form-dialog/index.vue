@@ -9,6 +9,7 @@
     </template>
 
     <template v-slot:footer>
+      <slot name="footer-buttons" />
       <slot name="footer">
         <el-button v-if="btnOk" :type="btnOkType" @click="submit" :size="fontSize">{{btnOkText}}</el-button>
         <el-button v-if="btnReset" type="info" @click="reset" :size="fontSize">重置</el-button>

@@ -96,3 +96,23 @@
         margin-right: #{$i}px !important;
     }
 }
+
+/*字体大小*/
+@for $i from 0 through 50 {
+    #{$prefix}size-#{$i} {
+        font-size: #{$i}px !important;
+    }
+}
+
+
+.nm-center {
+    text-align: center;
+}
+
+.nm-left {
+    text-align: left;
+}
+
+.nm-right {
+    text-align: right;
+}
