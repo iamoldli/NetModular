@@ -1,10 +1,10 @@
 <template>
-  <section id="nm-container" class="nm-container" :class="{'is-horizontal':horizontal}">
+  <section class="nm-container" :class="{'is-horizontal':horizontal}">
     <section class="nm-container-main">
       <nm-scrollbar v-if="scrollbar" :horizontal="horizontal">
-        <slot/>
+        <slot />
       </nm-scrollbar>
-      <slot v-else/>
+      <slot v-else />
     </section>
   </section>
 </template>
