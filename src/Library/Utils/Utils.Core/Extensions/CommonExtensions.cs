@@ -175,9 +175,7 @@ namespace Nm.Lib.Utils.Core.Extensions
             Boolean.TryParse(s.ToString(), out bool result);
             return result;
         }
-
-
-
+        
         /// <summary>
         /// 泛型转换，转换失败会抛出异常
         /// </summary>

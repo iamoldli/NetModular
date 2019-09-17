@@ -8,9 +8,10 @@ namespace MQ.RabbitMQ.Test
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            await new HostBuilder().Run<Startup>(args, ConfigureServices);
+            var logger = new Logger();
+            logger.Debug("测试");
         }
 
         /// <summary>
@@ -21,6 +22,14 @@ namespace MQ.RabbitMQ.Test
         static void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
         {
             services.AddRabbitMQ(env.EnvironmentName);
+        }
+    }
+
+    public class Logger
+    {
+        public void Debug(string msg)
+        {
+            //写入文件
         }
     }
 }

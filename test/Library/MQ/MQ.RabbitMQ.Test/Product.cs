@@ -1,13 +1,13 @@
 ﻿namespace MQ.RabbitMQ.Test
 {
-    public class Product
+public interface Product
+{
+    private readonly Logger _logger = new Logger();
+    public void Create()
     {
-        public int Id { get; set; }
+        //创建商品
 
-        public string Title { get; set; }
-
-        public int Store { get; set; }
-
-        public decimal Price { get; set; }
+        _logger.Debug("创建产品");
     }
+}
 }

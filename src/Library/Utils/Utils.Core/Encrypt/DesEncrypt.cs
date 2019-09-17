@@ -11,7 +11,7 @@ namespace Nm.Lib.Utils.Core.Encrypt
     /// </summary>
     public class DesEncrypt
     {
-        private const string Key = "tdkj.!@#";
+        private const string Key = "oldli!@#";
 
         /// <summary>
         /// DES+Base64加密
