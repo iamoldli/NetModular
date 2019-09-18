@@ -8,6 +8,7 @@
       }
     },
     "WriteTo": [
+      //输入到控制台
       {
         "Name": "Console",
         "Args": {
@@ -15,6 +16,7 @@
           "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
         }
       },
+      //输出到文件
       {
         "Name": "File",
         "Args": {

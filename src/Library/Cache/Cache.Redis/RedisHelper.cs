@@ -210,7 +210,7 @@ namespace Nm.Lib.Cache.Redis
             {
                 return Db.SetRemoveAsync(key, JsonConvert.SerializeObject(obj));
             }
-            return Db.SetAddAsync(key, obj.ToString());
+            return Db.SetRemoveAsync(key, obj.ToString());
         }
 
         public Task<bool> SetContainsAsync<T>(string key, T obj)
