@@ -9,12 +9,10 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Nam
     /// </summary>
     public enum <#= _enum.Name #>
     {
-        [Description("未知")]
-        UnKnown,
 <# for(var i=0;i<_enum.ItemList.Count;i++){ #>
 <# var item = _enum.ItemList[i]; #>
         [Description("<#= item.Remarks #>")]
-        <#= item.Name #><#= i == _enum.ItemList.Count - 1 ? "" : "," #>
+        <#= item.Name #> = <#= item.Value #><#= i == _enum.ItemList.Count - 1 ? "" : "," #>
 <#    } #>
     }
 }
