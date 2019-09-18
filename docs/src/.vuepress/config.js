@@ -63,7 +63,16 @@
           {
             title: '高级',
             collapsable: false,
-            children: [['/advanced/', '预览'], ['/advanced/Modular', '模块化']]
+            children: [
+              ['/advanced/', '预览'],
+              ['/advanced/Modular', '模块化原理'],
+              ['/advanced/Data', '数据访问'],
+              ['/advanced/Cache', '缓存'],
+              ['/advanced/FluentValidation', '模型验证'],
+              ['/advanced/Auth', '身份认证'],
+              ['/advanced/Swagger', '接口文档'],
+              ['/advanced/RabbitMQ', 'RabbitMQ']
+            ]
           },
           {
             title: '平台搭建',
