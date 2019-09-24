@@ -19,23 +19,23 @@
       //模块名称
       "Name": "Admin",
       //数据库名称
-      "Database": "T_Admin"
+      "Database": "Nm_Admin"
     },
     {
       "Name": "CodeGenerator",
-      "Database": "T_CodeGenerator"
+      "Database": "Nm_CodeGenerator"
     },
     {
       "Name": "Common",
-      "Database": "T_Common"
+      "Database": "Nm_Common"
     },
     {
       "Name": "PersonnelFiles",
-      "Database": "T_PersonnelFiles"
+      "Database": "Nm_PersonnelFiles"
     },
     {
       "Name": "Quartz",
-      "Database": "T_Quartz"
+      "Database": "Nm_Quartz"
     }
   ]
 }

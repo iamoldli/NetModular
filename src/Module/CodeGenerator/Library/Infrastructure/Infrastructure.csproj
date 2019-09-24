@@ -748,6 +748,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Page.tt</DependentUpon>
     </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Csproj.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\Web\Controllers\Controller.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
