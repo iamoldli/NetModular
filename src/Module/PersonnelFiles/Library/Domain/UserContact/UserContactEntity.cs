@@ -18,6 +18,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         /// <summary>
         /// QQ
         /// </summary>
+        [Length(20)]
         public string QQ { get; set; }
 
         /// <summary>
@@ -33,6 +34,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         /// <summary>
         /// 省份编码
         /// </summary>
+        [Length(12)]
         public string ProvinceCode { get; set; }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         /// <summary>
         /// 城市编码
         /// </summary>
+        [Length(12)]
         public string CityCode { get; set; }
 
         /// <summary>
@@ -53,6 +56,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         /// <summary>
         /// 区县编码
         /// </summary>
+        [Length(12)]
         public string AreaCode { get; set; }
 
         /// <summary>
@@ -63,17 +67,19 @@ namespace Nm.Module.PersonnelFiles.Domain.UserContact
         /// <summary>
         /// 城镇编码
         /// </summary>
+        [Length(12)]
         public string TownCode { get; set; }
 
         /// <summary>
         /// 城镇名称
         /// </summary>
+        [Length(100)]
         public string TownName { get; set; }
 
         /// <summary>
         /// 详细地址
         /// </summary>
+        [Length(200)]
         public string Address { get; set; }
-
     }
 }

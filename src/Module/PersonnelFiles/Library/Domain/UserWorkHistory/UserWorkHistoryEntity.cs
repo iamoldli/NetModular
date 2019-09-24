@@ -18,6 +18,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory
         /// <summary>
         /// 企业名称
         /// </summary>
+        [Length(100)]
         public string EnterpriseName { get; set; }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserWorkHistory
         /// <summary>
         /// 离职原因
         /// </summary>
+        [Length(300)]
         public string DimissionReason { get; set; }
-
     }
 }

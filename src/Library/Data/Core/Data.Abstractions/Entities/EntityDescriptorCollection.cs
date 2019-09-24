@@ -7,18 +7,16 @@ namespace Nm.Lib.Data.Abstractions.Entities
     /// <summary>
     /// 实体信息集合
     /// </summary>
-    public class EntityDescriptorCollection
+    public class EntityDescriptorCollection : List<IEntityDescriptor>
     {
-        private static readonly List<IEntityDescriptor> List = new List<IEntityDescriptor>();
-
         /// <summary>
         /// 添加实体集合
         /// </summary>
         /// <param name="entityDescriptor"></param>
-        public static void Add(IEntityDescriptor entityDescriptor)
+        public new void Add(IEntityDescriptor entityDescriptor)
         {
-            if (List.All(m => m.EntityType != entityDescriptor.EntityType))
-                List.Add(entityDescriptor);
+            if (this.All(m => m.EntityType != entityDescriptor.EntityType))
+                base.Add(entityDescriptor);
         }
 
         /// <summary>
@@ -26,9 +24,9 @@ namespace Nm.Lib.Data.Abstractions.Entities
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public static IEntityDescriptor Get<TEntity>() where TEntity : IEntity, new()
+        public IEntityDescriptor Get<TEntity>() where TEntity : IEntity, new()
         {
-            var entity = List.FirstOrDefault(m => m.EntityType == typeof(TEntity));
+            var entity = this.FirstOrDefault(m => m.EntityType == typeof(TEntity));
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(TEntity), "实体不存在");

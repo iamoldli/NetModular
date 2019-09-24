@@ -29,16 +29,19 @@ namespace Nm.Module.Admin.Domain.Account
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(250)]
         public string Name { get; set; }
 
         /// <summary>
         /// 手机号
         /// </summary>
+        [Length(20)]
         public string Phone { get; set; } = string.Empty;
 
         /// <summary>
         /// 邮箱
         /// </summary>
+        [Length(300)]
         public string Email { get; set; } = string.Empty;
 
         /// <summary>

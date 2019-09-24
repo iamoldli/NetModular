@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data;
 using System.Text;
+using System.Threading.Tasks;
 using Dapper;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
+using Nm.Lib.Utils.Core.Helpers;
 using IsolationLevel = System.Data.IsolationLevel;
 
 namespace Nm.Lib.Data.Core
@@ -34,6 +36,15 @@ namespace Nm.Lib.Data.Core
         {
             Options = options;
             LoginInfo = Options.LoginInfo;
+
+            if (options.DbOptions.CreateDatabase)
+            {
+                options.CreateDatabaseEvent?.Before(this).GetAwaiter().GetResult();
+
+                options.SqlAdapter.CreateDatabase(options.EntityDescriptors);
+
+                options.CreateDatabaseEvent?.After(this).GetAwaiter().GetResult();
+            }
         }
 
         #endregion
@@ -53,15 +64,14 @@ namespace Nm.Lib.Data.Core
                 conn.Open();
 
                 var sql = new StringBuilder();
-                foreach (var c in Options.DbOptions.Connections)
+                foreach (var c in Options.DbOptions.Modules)
                 {
                     var connString = "";
-                    foreach (var param in c.ConnString.Split(';'))
+                    foreach (var param in c.ConnectionString.Split(';'))
                     {
                         var temp = param.Split('=');
                         var key = temp[0];
-                        if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) ||
-                            key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
+                        if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
                         {
                             connString = temp[1];
                             break;

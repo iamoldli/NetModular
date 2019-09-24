@@ -13,6 +13,7 @@ namespace Nm.Module.Admin.Domain.Permission
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(250)]
         public string Name { get; set; }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace Nm.Module.Admin.Domain.Permission
         /// <summary>
         /// 唯一编码
         /// </summary>
+        [Length(200)]
         public string Code { get; set; }
     }
 }

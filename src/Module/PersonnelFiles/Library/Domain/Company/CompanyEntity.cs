@@ -12,11 +12,13 @@ namespace Nm.Module.PersonnelFiles.Domain.Company
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>
         /// 地址
         /// </summary>
+        [Length(200)]
         public string Address { get; set; }
 
         /// <summary>

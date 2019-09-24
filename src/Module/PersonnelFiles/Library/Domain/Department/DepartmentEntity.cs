@@ -18,6 +18,7 @@ namespace Nm.Module.PersonnelFiles.Domain.Department
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>
@@ -34,6 +35,5 @@ namespace Nm.Module.PersonnelFiles.Domain.Department
         /// 排序
         /// </summary>
         public int Sort { get; set; }
-
     }
 }

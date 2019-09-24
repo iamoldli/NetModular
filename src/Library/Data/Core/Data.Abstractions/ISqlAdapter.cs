@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
 
@@ -10,9 +11,14 @@ namespace Nm.Lib.Data.Abstractions
         #region ==属性==
 
         /// <summary>
-        /// 数据库连接配置项
+        /// 数据库配置项
         /// </summary>
-        DbConnectionOptions Options { get; }
+        DbOptions DbOptions { get; }
+
+        /// <summary>
+        /// 数据库模块
+        /// </summary>
+        DbModuleOptions Options { get; }
 
         /// <summary>
         /// 数据库名称
@@ -154,6 +160,12 @@ namespace Nm.Lib.Data.Abstractions
         /// </summary>
         /// <returns></returns>
         Guid GenerateSequentialGuid();
+
+        /// <summary>
+        /// 创建数据库
+        /// </summary>
+        /// <param name="entityDescriptors">实体信息集合</param>
+        void CreateDatabase(EntityDescriptorCollection entityDescriptors);
 
         #endregion
     }

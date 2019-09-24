@@ -17,6 +17,7 @@ namespace Nm.Module.Admin.Domain.Role
         /// <summary>
         /// 备注
         /// </summary>
+        [Length(300)]
         public string Remarks { get; set; }
 
         /// <summary>

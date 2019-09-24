@@ -54,7 +54,7 @@ namespace Nm.Lib.Host.Web
             //添加MVC功能
             services.AddMvc(c =>
             {
-                if (env.IsDevelopment())
+                if (hostOptions.Swagger || env.IsDevelopment())
                 {
                     //API分组约定
                     c.Conventions.Add(new ApiExplorerGroupConvention());

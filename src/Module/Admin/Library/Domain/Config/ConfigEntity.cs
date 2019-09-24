@@ -12,16 +12,19 @@ namespace Nm.Module.Admin.Domain.Config
         /// <summary>
         /// 键名
         /// </summary>
+        [Length(250)]
         public string Key { get; set; }
 
         /// <summary>
         /// 值
         /// </summary>
+        [Length(500)]
         public string Value { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
+        [Length(250)]
         public string Remarks { get; set; }
     }
 }

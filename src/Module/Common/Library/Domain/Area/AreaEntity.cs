@@ -27,11 +27,13 @@ namespace Nm.Module.Common.Domain.Area
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>
         /// 拼音
         /// </summary>
+        [Length(400)]
         public string Pinyin { get; set; }
 
         /// <summary>

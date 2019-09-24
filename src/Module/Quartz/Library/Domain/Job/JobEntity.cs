@@ -18,6 +18,7 @@ namespace Nm.Module.Quartz.Domain.Job
         /// <summary>
         /// 任务唯一键
         /// </summary>
+        [Length(100)]
         public string JobKey { get; set; }
 
         /// <summary>
@@ -28,16 +29,19 @@ namespace Nm.Module.Quartz.Domain.Job
         /// <summary>
         /// 任务名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>
         /// 任务编码
         /// </summary>
+        [Length(100)]
         public string Code { get; set; }
 
         /// <summary>
         /// 任务类
         /// </summary>
+        [Length(300)]
         public string JobClass { get; set; }
 
         /// <summary>

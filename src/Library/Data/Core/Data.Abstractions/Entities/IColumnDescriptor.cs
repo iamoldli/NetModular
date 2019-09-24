@@ -18,5 +18,30 @@ namespace Nm.Lib.Data.Abstractions.Entities
         /// 是否主键
         /// </summary>
         bool IsPrimaryKey { get; }
+
+        /// <summary>
+        /// 长度
+        /// </summary>
+        int Length { get; }
+
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        bool Max { get; }
+
+        /// <summary>
+        /// 可空的
+        /// </summary>
+        bool Nullable { get; }
+
+        /// <summary>
+        /// 精度位数
+        /// </summary>
+        int PrecisionM { get; }
+
+        /// <summary>
+        /// 精度小数
+        /// </summary>
+        int PrecisionD { get; }
     }
 }

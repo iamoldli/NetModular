@@ -1,35 +1,41 @@
 {
+  //是否开启日志
   "Logging": false,
-  "Connections": [
+  //数据库类型 0、SqlServer 1、MySql 2、SQLite
+  "Dialect": 1,
+  //数据库版本
+  "Version": "",
+  //数据库地址
+  "Server": "localhost",
+  //用户名
+  "UserId": "root",
+  //密码
+  "Password": "root",
+  //是否创建数据库和表
+  "CreateDatabase": true,
+  //模块列表
+  "Modules": [
     {
+      //模块名称
       "Name": "Admin",
-      "Dialect": 1,
-      "Database": "Nm_Admin",
-      "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      //数据库名称
+      "Database": "T_Admin"
     },
     {
       "Name": "CodeGenerator",
-      "Dialect": 1,
-      "Database": "Nm_CodeGenerator",
-      "ConnString": "Server=localhost;Database=nm_codegenerator;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "T_CodeGenerator"
     },
     {
       "Name": "Common",
-      "Dialect": 1,
-      "Database": "Nm_Common",
-      "ConnString": "Server=localhost;Database=nm_common;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "T_Common"
     },
     {
       "Name": "PersonnelFiles",
-      "Dialect": 1,
-      "Database": "Nm_PersonnelFiles",
-      "ConnString": "Server=localhost;Database=nm_personnelfiles;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "T_PersonnelFiles"
     },
     {
       "Name": "Quartz",
-      "Dialect": 1,
-      "Database": "Nm_Quartz",
-      "ConnString": "Server=localhost;Database=nm_quartz;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "T_Quartz"
     }
   ]
 }

@@ -29,6 +29,7 @@ namespace Nm.Module.Admin.Domain.AuditInfo
         /// <summary>
         /// 控制器描述
         /// </summary>
+        [Nullable]
         public string ControllerDesc { get; set; }
 
         /// <summary>
@@ -39,16 +40,21 @@ namespace Nm.Module.Admin.Domain.AuditInfo
         /// <summary>
         /// 操作描述
         /// </summary>
+        [Nullable]
         public string ActionDesc { get; set; }
 
         /// <summary>
         /// 参数(Json序列化)
         /// </summary>
+        [Max]
+        [Nullable]
         public string Parameters { get; set; }
 
         /// <summary>
         /// 返回值(Json序列化)
         /// </summary>
+        [Max]
+        [Nullable]
         public string Result { get; set; }
 
         /// <summary>
@@ -64,6 +70,7 @@ namespace Nm.Module.Admin.Domain.AuditInfo
         /// <summary>
         /// 浏览器信息
         /// </summary>
+        [Length(500)]
         public string BrowserInfo { get; set; }
 
         /// <summary>

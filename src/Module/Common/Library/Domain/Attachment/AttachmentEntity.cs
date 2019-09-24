@@ -17,11 +17,13 @@ namespace Nm.Module.Common.Domain.Attachment
         /// <summary>
         /// 分组
         /// </summary>
+        [Length(100)]
         public string Group { get; set; }
 
         /// <summary>
         /// 附件名称
         /// </summary>
+        [Length(100)]
         public string FileName { get; set; }
 
         /// <summary>
@@ -42,6 +44,7 @@ namespace Nm.Module.Common.Domain.Attachment
         /// <summary>
         /// 文件大小中文名
         /// </summary>
+        [Length(20)]
         public string SizeCn { get; set; }
 
         /// <summary>
@@ -52,11 +55,13 @@ namespace Nm.Module.Common.Domain.Attachment
         /// <summary>
         /// 存储路径
         /// </summary>
+        [Length(200)]
         public string Path { get; set; }
 
         /// <summary>
         /// 完整路径
         /// </summary>
+        [Length(300)]
         public string FullPath { get; set; }
 
         /// <summary>
@@ -67,6 +72,7 @@ namespace Nm.Module.Common.Domain.Attachment
         /// <summary>
         /// 多媒体类型
         /// </summary>
+        [Length(100)]
         public string MediaType { get; set; }
     }
 }

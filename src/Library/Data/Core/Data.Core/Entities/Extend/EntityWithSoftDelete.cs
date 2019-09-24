@@ -24,6 +24,7 @@ namespace Nm.Lib.Data.Core.Entities.Extend
         /// <summary>
         /// 删除人
         /// </summary>
+        [Nullable]
         public TDeletedByKey DeletedBy { get; set; } = default(TDeletedByKey);
 
         /// <summary>

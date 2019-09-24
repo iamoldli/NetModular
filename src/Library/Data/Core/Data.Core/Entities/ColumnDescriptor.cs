@@ -23,6 +23,16 @@ namespace Nm.Lib.Data.Core.Entities
         /// </summary>
         public bool IsPrimaryKey { get; }
 
+        public int Length { get; }
+
+        public bool Max { get; }
+
+        public bool Nullable { get; }
+
+        public int PrecisionM { get; }
+
+        public int PrecisionD { get; }
+
         public ColumnDescriptor(PropertyInfo property)
         {
             if (property == null)
@@ -37,6 +47,25 @@ namespace Nm.Lib.Data.Core.Entities
             if (!IsPrimaryKey)
             {
                 IsPrimaryKey = property.Name.Equals("Id", StringComparison.OrdinalIgnoreCase);
+            }
+
+            var lengthAtt = property.GetCustomAttribute<LengthAttribute>();
+            if (lengthAtt != null)
+            {
+                Length = lengthAtt.Length < 1 ? 50 : lengthAtt.Length;
+            }
+
+            var maxAtt = property.GetCustomAttribute<MaxAttribute>();
+            Max = maxAtt != null;
+
+            var nullableAtt = property.GetCustomAttribute<NullableAttribute>();
+            Nullable = nullableAtt != null;
+
+            var precisionAtt = property.GetCustomAttribute<PrecisionAttribute>();
+            if (precisionAtt != null)
+            {
+                PrecisionM = precisionAtt.M;
+                PrecisionD = precisionAtt.D;
             }
         }
     }

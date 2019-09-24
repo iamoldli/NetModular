@@ -18,6 +18,7 @@ namespace Nm.Module.PersonnelFiles.Domain.Position
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>

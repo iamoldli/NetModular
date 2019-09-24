@@ -13,6 +13,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
         string TableName { get; }
 
         /// <summary>
+        /// 不创建表
+        /// </summary>
+        bool Ignore { get; }
+
+        /// <summary>
         /// 实体类型
         /// </summary>
         Type EntityType { get; }

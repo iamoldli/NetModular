@@ -1,9 +1,9 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
-using Oracle.ManagedDataAccess.Client;
 
 namespace Nm.Lib.Data.Oracle
 {
@@ -12,13 +12,13 @@ namespace Nm.Lib.Data.Oracle
     /// </summary>
     public class OracleDbContextOptions : DbContextOptionsAbstract
     {
-        public OracleDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new OracleAdapter(options), loggerFactory, loginInfo)
+        public OracleDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new OracleAdapter(dbOptions, options), loggerFactory, loginInfo)
         {
         }
 
         public override IDbConnection NewConnection()
         {
-            return new OracleConnection(ConnectionString);
+            throw new Exception();
         }
     }
 }

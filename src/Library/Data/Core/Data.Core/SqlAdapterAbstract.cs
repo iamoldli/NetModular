@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Nm.Lib.Data.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
 
@@ -8,15 +9,18 @@ namespace Nm.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {
-        protected SqlAdapterAbstract(DbConnectionOptions options)
+        protected SqlAdapterAbstract(DbOptions dbOptions,DbModuleOptions options)
         {
+            DbOptions = dbOptions;
             Options = options;
         }
 
-        public DbConnectionOptions Options { get; }
+        public DbOptions DbOptions { get; }
+
+        public DbModuleOptions Options { get; }
 
         public abstract string Database { get; }
-
+        
         public virtual SqlDialect SqlDialect => SqlDialect.SqlServer;
 
         /// <summary>
@@ -134,5 +138,7 @@ namespace Nm.Lib.Data.Core
         public abstract string GenerateFirstSql(string select, string table, string where, string sort);
 
         public abstract Guid GenerateSequentialGuid();
+
+        public abstract void CreateDatabase(EntityDescriptorCollection entityDescriptors);
     }
 }

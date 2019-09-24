@@ -101,6 +101,5 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
             }).ToList();
             return ResultModel.Success(list);
         }
-
     }
 }

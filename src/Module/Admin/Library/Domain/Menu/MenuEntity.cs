@@ -38,16 +38,19 @@ namespace Nm.Module.Admin.Domain.Menu
         /// <summary>
         /// 路由参数
         /// </summary>
+        [Length(500)]
         public string RouteParams { get; set; }
 
         /// <summary>
         /// 路由参数
         /// </summary>
+        [Length(500)]
         public string RouteQuery { get; set; }
 
         /// <summary>
         /// 链接
         /// </summary>
+        [Length(300)]
         public string Url { get; set; }
 
         /// <summary>
@@ -58,6 +61,7 @@ namespace Nm.Module.Admin.Domain.Menu
         /// <summary>
         /// 图标颜色
         /// </summary>
+        [Nullable]
         public string IconColor { get; set; }
 
         /// <summary>
@@ -83,11 +87,13 @@ namespace Nm.Module.Admin.Domain.Menu
         /// <summary>
         /// 对话框宽度
         /// </summary>
+        [Nullable]
         public string DialogWidth { get; set; }
 
         /// <summary>
         /// 对话框高度
         /// </summary>
+        [Nullable]
         public string DialogHeight { get; set; }
 
         /// <summary>
@@ -98,6 +104,7 @@ namespace Nm.Module.Admin.Domain.Menu
         /// <summary>
         /// 备注
         /// </summary>
+        [Nullable]
         public string Remarks { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
+using Nm.Lib.Utils.Core;
 
 namespace Nm.Lib.Data.SqlServer
 {
@@ -12,13 +13,19 @@ namespace Nm.Lib.Data.SqlServer
     /// </summary>
     public class SqlServerDbContextOptions : DbContextOptionsAbstract
     {
-        public SqlServerDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SqlServerAdapter(options), loggerFactory, loginInfo)
+        public SqlServerDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SqlServerAdapter(dbOptions, options), loggerFactory, loginInfo)
         {
+            Check.NotNull(dbOptions.Server, nameof(dbOptions.Server), "数据库服务器地址不能为空");
+            Check.NotNull(dbOptions.UserId, nameof(dbOptions.UserId), "数据库用户名不能为空");
+            Check.NotNull(dbOptions.Password, nameof(dbOptions.Password), "数据库密码不能为空");
+
+            options.Version = dbOptions.Version;
+            options.ConnectionString = $"Server={DbOptions.Server};Database={DbModuleOptions.Database};Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
         }
 
         public override IDbConnection NewConnection()
         {
-            return new SqlConnection(ConnectionString);
+            return new SqlConnection(DbModuleOptions.ConnectionString);
         }
     }
 }

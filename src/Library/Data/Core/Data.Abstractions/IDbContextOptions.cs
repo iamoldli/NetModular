@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
+using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
 
 namespace Nm.Lib.Data.Abstractions
@@ -11,19 +13,9 @@ namespace Nm.Lib.Data.Abstractions
     public interface IDbContextOptions
     {
         /// <summary>
-        /// 名称
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         /// 数据库适配器
         /// </summary>
         ISqlAdapter SqlAdapter { get; }
-
-        /// <summary>
-        /// 数据库连接字符串
-        /// </summary>
-        string ConnectionString { get; }
 
         /// <summary>
         /// 创建新的连接
@@ -45,5 +37,20 @@ namespace Nm.Lib.Data.Abstractions
         /// 所有数据库配置信息
         /// </summary>
         DbOptions DbOptions { get; }
+
+        /// <summary>
+        /// 数据库模块信息
+        /// </summary>
+        DbModuleOptions DbModuleOptions { get; }
+
+        /// <summary>
+        /// 实体集合
+        /// </summary>
+        EntityDescriptorCollection EntityDescriptors { get; }
+
+        /// <summary>
+        /// 创建数据库事件
+        /// </summary>
+        ICreateDatabaseEvent CreateDatabaseEvent { get; set; }
     }
 }

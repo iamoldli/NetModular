@@ -31,14 +31,14 @@ namespace Nm.Lib.Data.Integration
             var cfgHelper = new ConfigurationHelper();
             var dbOptions = cfgHelper.Get<DbOptions>("Db", environmentName);
 
-            if (dbOptions?.Connections == null || !dbOptions.Connections.Any())
+            if (dbOptions?.Modules == null || !dbOptions.Modules.Any())
                 return;
 
             CheckOptions(dbOptions);
 
             services.AddSingleton(dbOptions);
 
-            foreach (var options in dbOptions.Connections)
+            foreach (var options in dbOptions.Modules)
             {
                 var module = modules.FirstOrDefault(m => m.Id.EqualsIgnoreCase(options.Name));
                 if (module != null)
@@ -52,13 +52,13 @@ namespace Nm.Lib.Data.Integration
 
         private static void CheckOptions(DbOptions options)
         {
-            foreach (var dbConnectionOptions in options.Connections)
+            foreach (var dbModuleOptions in options.Modules)
             {
-                Check.NotNull(dbConnectionOptions.Name, "dbConnectionOptions.Name", "数据库配置项名称不能为空");
-                Check.NotNull(dbConnectionOptions.ConnString, "dbConnectionOptions.ConnString", "数据库配置项连接字符串不能为空");
-                if (dbConnectionOptions.Database.IsNull())
+                Check.NotNull(dbModuleOptions.Name, "DbModuleOptions.Name", "数据库配置项名称不能为空");
+
+                if (dbModuleOptions.Database.IsNull())
                 {
-                    dbConnectionOptions.Database = dbConnectionOptions.Name;
+                    dbModuleOptions.Database = dbModuleOptions.Name;
                 }
             }
         }
@@ -66,14 +66,14 @@ namespace Nm.Lib.Data.Integration
         /// <summary>
         /// 添加数据库上下文
         /// </summary>
-        private static void AddDbContext(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options, DbOptions dbOptions)
+        private static void AddDbContext(this IServiceCollection services, IModuleDescriptor module, DbModuleOptions options, DbOptions dbOptions)
         {
             var dbContextType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
             if (dbContextType != null)
             {
                 var assemblyHelper = new AssemblyHelper();
-                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + options.Dialect;
-                var dbContextOptionsTypeName = options.Dialect + "DbContextOptions";
+                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + dbOptions.Dialect;
+                var dbContextOptionsTypeName = dbOptions.Dialect + "DbContextOptions";
 
                 var dbContextOptionsType = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(dbContextOptionsAssemblyName)).GetType($"{dbContextOptionsAssemblyName}.{dbContextOptionsTypeName}");
 
@@ -84,16 +84,21 @@ namespace Nm.Lib.Data.Integration
 
                 var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, loginInfo);
 
+                var createDatabaseEvent = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => typeof(ICreateDatabaseEvent).IsAssignableFrom(m));
+                if (createDatabaseEvent != null)
+                {
+                    contextOptions.CreateDatabaseEvent = (ICreateDatabaseEvent)Activator.CreateInstance(createDatabaseEvent);
+                }
                 var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions);
                 services.AddSingleton(typeof(IDbContext), sp => dbContext);
-                services.AddRepositories(module, options, dbContext);
+                services.AddRepositories(module, dbContext, dbOptions);
             }
         }
 
         /// <summary>
         /// 添加仓储
         /// </summary>
-        private static void AddRepositories(this IServiceCollection services, IModuleDescriptor module, DbConnectionOptions options, IDbContext dbContext)
+        private static void AddRepositories(this IServiceCollection services, IModuleDescriptor module, IDbContext dbContext, DbOptions dbOptions)
         {
             var interfaceList = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsInterface && typeof(IRepository<>).IsImplementType(t)).ToList();
 
@@ -101,7 +106,7 @@ namespace Nm.Lib.Data.Integration
                 return;
 
             //根据仓储的命名空间名称来注入不同数据库的仓储
-            var entityNamespacePrefix = $"{module.AssemblyDescriptor.Infrastructure.GetName().Name}.Repositories.{options.Dialect}.";
+            var entityNamespacePrefix = $"{module.AssemblyDescriptor.Infrastructure.GetName().Name}.Repositories.{dbOptions.Dialect}.";
             foreach (var serviceType in interfaceList)
             {
                 var implementType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.FullName.NotNull() && m.FullName.StartsWith(entityNamespacePrefix) && serviceType.IsAssignableFrom(m));
@@ -117,7 +122,7 @@ namespace Nm.Lib.Data.Integration
         /// </summary>
         /// <param name="module"></param>
         /// <param name="options"></param>
-        private static void LoadEntityTypes(IModuleDescriptor module, DbConnectionOptions options)
+        private static void LoadEntityTypes(IModuleDescriptor module, DbModuleOptions options)
         {
             options.EntityTypes = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
         }

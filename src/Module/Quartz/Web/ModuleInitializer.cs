@@ -61,7 +61,8 @@ namespace Nm.Module.Quartz.Web
             var sp = services.BuildServiceProvider();
             var options = sp.GetService<IOptionsMonitor<QuartzOptions>>().CurrentValue;
             var quartzProps = new NameValueCollection();
-            var quartzDbOptions = sp.GetService<DbOptions>().Connections.FirstOrDefault(m => m.Name.EqualsIgnoreCase("quartz"));
+            var dbOptions = sp.GetService<DbOptions>();
+            var quartzDbOptions = dbOptions.Modules.FirstOrDefault(m => m.Name.EqualsIgnoreCase("quartz"));
             if (quartzDbOptions != null)
             {
                 quartzProps["quartz.scheduler.instanceName"] = options.InstanceName;
@@ -69,8 +70,8 @@ namespace Nm.Module.Quartz.Web
                 quartzProps["quartz.jobStore.driverDelegateType"] = "Quartz.Impl.AdoJobStore.StdAdoDelegate,Quartz";
                 quartzProps["quartz.jobStore.tablePrefix"] = options.TablePrefix;
                 quartzProps["quartz.jobStore.dataSource"] = "default";
-                quartzProps["quartz.dataSource.default.connectionString"] = quartzDbOptions.ConnString;
-                quartzProps["quartz.dataSource.default.provider"] = GetProvider(quartzDbOptions.Dialect);
+                quartzProps["quartz.dataSource.default.connectionString"] = quartzDbOptions.ConnectionString;
+                quartzProps["quartz.dataSource.default.provider"] = GetProvider(dbOptions.Dialect);
                 quartzProps["quartz.serializer.type"] = options.SerializerType;
             }
 

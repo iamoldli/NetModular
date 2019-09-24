@@ -43,31 +43,37 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <summary>
         /// 籍贯
         /// </summary>
+        [Nullable]
         public string Native { get; set; }
 
         /// <summary>
         /// 出生日期
         /// </summary>
+        [Nullable]
         public DateTime? Birthday { get; set; }
 
         /// <summary>
         /// 民族
         /// </summary>
+        [Nullable]
         public string Nation { get; set; }
 
         /// <summary>
         /// 学历
         /// </summary>
+        [Nullable]
         public string Education { get; set; }
 
         /// <summary>
         /// 照片关联的附件编号
         /// </summary>
-        public Guid? Picture { get; set; }
+        [Nullable]
+        public Guid Picture { get; set; }
 
         /// <summary>
         /// 身份证号
         /// </summary>
+        [Nullable]
         public string IdCardNo { get; set; }
 
         /// <summary>
@@ -78,6 +84,8 @@ namespace Nm.Module.PersonnelFiles.Domain.User
         /// <summary>
         /// 邮箱
         /// </summary>
+        [Length(250)]
+        [Nullable]
         public string Email { get; set; }
     }
 }

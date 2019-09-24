@@ -23,6 +23,7 @@ namespace Nm.Module.Quartz.Domain.JobLog
         /// <summary>
         /// 内容信息
         /// </summary>
+        [Max]
         public string Msg { get; set; }
 
         /// <summary>

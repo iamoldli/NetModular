@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
@@ -9,7 +10,7 @@ namespace Nm.Lib.Data.Oracle
 {
     internal class OracleAdapter : SqlAdapterAbstract
     {
-        public OracleAdapter(DbConnectionOptions options) : base(options)
+        public OracleAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
         {
         }
 
@@ -58,6 +59,11 @@ namespace Nm.Lib.Data.Oracle
         public override Guid GenerateSequentialGuid()
         {
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsBinary);
+        }
+
+        public override void CreateDatabase(EntityDescriptorCollection entityDescriptors)
+        {
+            throw new NotImplementedException();
         }
     }
 }

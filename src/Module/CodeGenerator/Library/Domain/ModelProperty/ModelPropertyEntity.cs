@@ -46,6 +46,7 @@ namespace Nm.Module.CodeGenerator.Domain.ModelProperty
         /// <summary>
         /// 备注
         /// </summary>
+        [Length(200)]
         public string Remarks { get; set; }
 
         /// <summary>

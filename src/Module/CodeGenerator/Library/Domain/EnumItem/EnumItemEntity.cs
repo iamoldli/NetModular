@@ -28,6 +28,7 @@ namespace Nm.Module.CodeGenerator.Domain.EnumItem
         /// <summary>
         /// 备注
         /// </summary>
+        [Length(200)]
         public string Remarks { get; set; }
     }
 }

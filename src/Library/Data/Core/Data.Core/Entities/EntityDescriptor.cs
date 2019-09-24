@@ -28,6 +28,11 @@ namespace Nm.Lib.Data.Core.Entities
         public string TableName { get; private set; }
 
         /// <summary>
+        /// 不创建表
+        /// </summary>
+        public bool Ignore { get; private set; }
+
+        /// <summary>
         /// 实体类型
         /// </summary>
         public Type EntityType { get; }
@@ -71,6 +76,8 @@ namespace Nm.Lib.Data.Core.Entities
 
             SetTableName();
 
+            SetIgnore();
+
             SetColumns();
 
             Sql = sqlBuilder.Build(this);
@@ -89,6 +96,15 @@ namespace Nm.Lib.Data.Core.Entities
         {
             var tableArr = EntityType.GetCustomAttribute<TableAttribute>(false);
             TableName = tableArr != null ? tableArr.Name : EntityType.Name;
+        }
+
+        /// <summary>
+        /// 设置是否不创建表
+        /// </summary>
+        private void SetIgnore()
+        {
+            var ignoreArr = EntityType.GetCustomAttribute<IgnoreAttribute>(false);
+            Ignore = ignoreArr != null;
         }
 
         /// <summary>

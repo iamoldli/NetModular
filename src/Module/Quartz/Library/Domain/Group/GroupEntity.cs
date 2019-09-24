@@ -12,11 +12,13 @@ namespace Nm.Module.Quartz.Domain.Group
         /// <summary>
         /// 名称
         /// </summary>
+        [Length(100)]
         public string Name { get; set; }
 
         /// <summary>
         /// 编码
         /// </summary>
+        [Length(100)]
         public string Code { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             {
                 Type = JoinType.UnKnown,
                 Alias = "T1",
-                EntityDescriptor = EntityDescriptorCollection.Get<TEntity>(),
+                EntityDescriptor = Db.DbContext.Options.EntityDescriptors.Get<TEntity>(),
                 TableName = tableName.NotNull() ? tableName : Db.EntityDescriptor.TableName
             });
             QueryBody.WhereDelegateType = typeof(Func<,>).MakeGenericType(typeof(TEntity), typeof(bool));

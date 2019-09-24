@@ -22,6 +22,7 @@ namespace Nm.Module.Admin.Domain.Button
         /// <summary>
         /// 图标
         /// </summary>
+        [Nullable]
         public string Icon { get; set; }
 
         /// <summary>

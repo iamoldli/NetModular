@@ -27,7 +27,8 @@ namespace Nm.Module.Admin.Domain.ModuleInfo
         /// <summary>
         /// 备注
         /// </summary>
+        [Length(200)]
+        [Nullable]
         public string Remarks { get; set; }
-
     }
 }

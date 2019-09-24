@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
@@ -9,7 +10,7 @@ namespace Nm.Lib.Data.SQLite
 {
     internal class SQLiteAdapter : SqlAdapterAbstract
     {
-        public SQLiteAdapter(DbConnectionOptions options) : base(options)
+        public SQLiteAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
         {
         }
 
@@ -56,6 +57,11 @@ namespace Nm.Lib.Data.SQLite
         public override Guid GenerateSequentialGuid()
         {
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
+        }
+
+        public override void CreateDatabase(EntityDescriptorCollection entityDescriptors)
+        {
+            throw new NotImplementedException();
         }
     }
 }

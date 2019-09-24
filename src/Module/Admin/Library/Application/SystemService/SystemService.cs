@@ -141,7 +141,7 @@ namespace Nm.Module.Admin.Application.SystemService
             return _configRepository.UpdateAsync(new ConfigEntity
             {
                 Key = key,
-                Value = value.ToString(),
+                Value = value != null ? value.ToString() : string.Empty,
                 Remarks = remarks
             }, tran);
         }

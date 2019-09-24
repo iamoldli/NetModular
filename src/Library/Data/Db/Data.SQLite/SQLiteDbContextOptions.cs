@@ -12,13 +12,15 @@ namespace Nm.Lib.Data.SQLite
     /// </summary>
     public class SQLiteDbContextOptions : DbContextOptionsAbstract
     {
-        public SQLiteDbContextOptions(DbOptions dbOptions, DbConnectionOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SQLiteAdapter(options), loggerFactory, loginInfo)
+        public SQLiteDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SQLiteAdapter(dbOptions, options), loggerFactory, loginInfo)
         {
+            options.Version = dbOptions.Version;
+            options.ConnectionString = $"Data Source={dbOptions.Server}";
         }
 
         public override IDbConnection NewConnection()
         {
-            return new SQLiteConnection(ConnectionString);
+            return new SQLiteConnection(DbModuleOptions.ConnectionString);
         }
     }
 }

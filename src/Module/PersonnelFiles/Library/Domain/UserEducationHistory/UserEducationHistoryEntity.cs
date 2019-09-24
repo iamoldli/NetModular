@@ -18,6 +18,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserEducationHistory
         /// <summary>
         /// 学校名称
         /// </summary>
+        [Length(100)]
         public string SchoolName { get; set; }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace Nm.Module.PersonnelFiles.Domain.UserEducationHistory
         /// <summary>
         /// 专业
         /// </summary>
+        [Length(100)]
         public string Profession { get; set; }
     }
 }
