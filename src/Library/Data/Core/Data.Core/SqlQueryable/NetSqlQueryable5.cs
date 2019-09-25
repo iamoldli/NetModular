@@ -33,7 +33,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             {
                 Type = joinType,
                 Alias = "T5",
-                EntityDescriptor = Db.DbContext.Options.EntityDescriptors.Get<TEntity5>(),
+                EntityDescriptor = EntityDescriptorCollection.Get<TEntity5>(),
                 On = onExpression,
             };
             t5.TableName = tableName.NotNull() ? tableName : t5.EntityDescriptor.TableName;

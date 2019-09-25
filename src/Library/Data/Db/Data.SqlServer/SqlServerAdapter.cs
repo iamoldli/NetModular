@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
@@ -90,7 +91,7 @@ namespace Nm.Lib.Data.SqlServer
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAtEnd);
         }
 
-        public override void CreateDatabase(EntityDescriptorCollection entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
         {
             var connStr = $"Server={DbOptions.Server};Database=master;Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
             using (var con = new SqlConnection(connStr))

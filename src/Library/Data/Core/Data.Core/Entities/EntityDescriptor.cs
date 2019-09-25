@@ -23,6 +23,11 @@ namespace Nm.Lib.Data.Core.Entities
         public string Database { get; }
 
         /// <summary>
+        /// 模块名称
+        /// </summary>
+        public string ModuleName { get; }
+
+        /// <summary>
         /// 表名称
         /// </summary>
         public string TableName { get; private set; }
@@ -62,8 +67,10 @@ namespace Nm.Lib.Data.Core.Entities
 
         #region ==构造器==
 
-        public EntityDescriptor(Type entityType, ISqlAdapter sqlAdapter, IEntitySqlBuilder sqlBuilder)
+        public EntityDescriptor(string moduleName, Type entityType, ISqlAdapter sqlAdapter, IEntitySqlBuilder sqlBuilder)
         {
+            ModuleName = moduleName;
+
             SqlAdapter = sqlAdapter;
 
             EntityType = entityType;

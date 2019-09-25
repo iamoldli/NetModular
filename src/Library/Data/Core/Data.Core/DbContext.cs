@@ -41,7 +41,7 @@ namespace Nm.Lib.Data.Core
             {
                 options.CreateDatabaseEvent?.Before(this).GetAwaiter().GetResult();
 
-                options.SqlAdapter.CreateDatabase(options.EntityDescriptors);
+                options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(options.DbModuleOptions.Name));
 
                 options.CreateDatabaseEvent?.After(this).GetAwaiter().GetResult();
             }

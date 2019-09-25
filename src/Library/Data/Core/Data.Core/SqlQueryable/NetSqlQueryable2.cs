@@ -28,7 +28,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             {
                 Type = joinType,
                 Alias = "T2",
-                EntityDescriptor = Db.DbContext.Options.EntityDescriptors.Get<TEntity2>(),
+                EntityDescriptor = EntityDescriptorCollection.Get<TEntity2>(),
                 On = onExpression
             };
             t2.TableName = tableName.NotNull() ? tableName : t2.EntityDescriptor.TableName;

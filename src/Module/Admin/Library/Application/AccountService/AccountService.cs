@@ -15,6 +15,7 @@ using Nm.Module.Admin.Application.AccountService.ViewModels;
 using Nm.Module.Admin.Application.SystemService;
 using Nm.Module.Admin.Domain.Account;
 using Nm.Module.Admin.Domain.Account.Models;
+using Nm.Module.Admin.Domain.AccountConfig;
 using Nm.Module.Admin.Domain.AccountRole;
 using Nm.Module.Admin.Domain.Button;
 using Nm.Module.Admin.Domain.Menu;
@@ -31,6 +32,7 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IAccountRepository _accountRepository;
+        private readonly IAccountConfigRepository _accountConfigRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IMenuRepository _menuRepository;
         private readonly IRoleRepository _roleRepository;
@@ -40,7 +42,7 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly ISystemService _systemService;
         private readonly IServiceProvider _serviceProvider;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider, IAccountConfigRepository accountConfigRepository)
         {
             _cache = cache;
             _mapper = mapper;
@@ -53,6 +55,7 @@ namespace Nm.Module.Admin.Application.AccountService
             _drawingHelper = drawingHelper;
             _systemService = systemService;
             _serviceProvider = serviceProvider;
+            _accountConfigRepository = accountConfigRepository;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -468,6 +471,35 @@ namespace Nm.Module.Admin.Application.AccountService
         public string EncryptPassword(string userName, string password)
         {
             return Md5Encrypt.Encrypt($"{userName.ToLower()}_{password}");
+        }
+
+        public async Task<IResultModel> SkinUpdate(Guid id, AccountSkinUpdateModel model)
+        {
+            var configInfo = await _accountConfigRepository.GetByAccount(id);
+            if (configInfo == null)
+            {
+                configInfo = new AccountConfigEntity
+                {
+                    AccountId = id,
+                    Skins = model.Skins,
+                    Theme = model.Theme,
+                    FontSize = model.FontSize
+                };
+
+                if (await _accountConfigRepository.AddAsync(configInfo))
+                    return ResultModel.Success();
+            }
+            else
+            {
+                configInfo.Skins = model.Skins;
+                configInfo.Theme = model.Theme;
+                configInfo.FontSize = model.FontSize;
+
+                if (await _accountConfigRepository.UpdateAsync(configInfo))
+                    return ResultModel.Success();
+            }
+
+            return ResultModel.Failed();
         }
     }
 

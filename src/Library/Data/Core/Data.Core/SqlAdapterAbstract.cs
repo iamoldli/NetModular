@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
@@ -139,6 +140,6 @@ namespace Nm.Lib.Data.Core
 
         public abstract Guid GenerateSequentialGuid();
 
-        public abstract void CreateDatabase(EntityDescriptorCollection entityDescriptors);
+        public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors);
     }
 }

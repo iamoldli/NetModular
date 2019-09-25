@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
@@ -165,7 +166,7 @@ namespace Nm.Lib.Data.Abstractions
         /// 创建数据库
         /// </summary>
         /// <param name="entityDescriptors">实体信息集合</param>
-        void CreateDatabase(EntityDescriptorCollection entityDescriptors);
+        void CreateDatabase(List<IEntityDescriptor> entityDescriptors);
 
         #endregion
     }

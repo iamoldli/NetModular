@@ -44,11 +44,6 @@ namespace Nm.Lib.Data.Abstractions
         DbModuleOptions DbModuleOptions { get; }
 
         /// <summary>
-        /// 实体集合
-        /// </summary>
-        EntityDescriptorCollection EntityDescriptors { get; }
-
-        /// <summary>
         /// 创建数据库事件
         /// </summary>
         ICreateDatabaseEvent CreateDatabaseEvent { get; set; }

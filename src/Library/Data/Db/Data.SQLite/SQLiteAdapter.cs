@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
@@ -59,7 +60,7 @@ namespace Nm.Lib.Data.SQLite
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(EntityDescriptorCollection entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
         {
             throw new NotImplementedException();
         }

@@ -108,5 +108,11 @@ namespace Nm.Module.Admin.Application.AccountService
         /// <param name="password"></param>
         /// <returns></returns>
         string EncryptPassword(string userName, string password);
+
+        /// <summary>
+        /// 皮肤修改
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultModel> SkinUpdate(Guid id, AccountSkinUpdateModel model);
     }
 }

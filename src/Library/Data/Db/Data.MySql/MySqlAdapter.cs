@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
 using Nm.Lib.Data.Abstractions.Entities;
@@ -61,27 +62,25 @@ namespace Nm.Lib.Data.MySql
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(EntityDescriptorCollection entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
         {
             var connStr = $"Server={DbOptions.Server};Database=mysql;Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
-            using (var con = new MySqlConnection(connStr))
+            using var con = new MySqlConnection(connStr);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = $"CREATE DATABASE IF NOT EXISTS {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = $"USE `{Options.Database}`;";
+            cmd.ExecuteNonQuery();
+
+            foreach (var entityDescriptor in entityDescriptors)
             {
-                con.Open();
-                var cmd = con.CreateCommand();
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = $"CREATE DATABASE IF NOT EXISTS {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = $"USE `{Options.Database}`;";
-                cmd.ExecuteNonQuery();
-
-                foreach (var entityDescriptor in entityDescriptors)
+                if (!entityDescriptor.Ignore)
                 {
-                    if (!entityDescriptor.Ignore)
-                    {
-                        cmd.CommandText = CreateTableSql(entityDescriptor);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.CommandText = CreateTableSql(entityDescriptor);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

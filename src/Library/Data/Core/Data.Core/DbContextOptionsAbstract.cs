@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Microsoft.Extensions.Logging;
@@ -32,20 +31,18 @@ namespace Nm.Lib.Data.Core
             SqlAdapter = sqlAdapter;
             LoggerFactory = loggerFactory;
             LoginInfo = loginInfo;
-            EntityDescriptors = new EntityDescriptorCollection();
 
             if (options.EntityTypes != null && options.EntityTypes.Any())
             {
                 foreach (var entityType in options.EntityTypes)
                 {
-                    EntityDescriptors.Add(new EntityDescriptor(entityType, sqlAdapter, new EntitySqlBuilder()));
+                    EntityDescriptorCollection.Add(new EntityDescriptor(options.Name, entityType, sqlAdapter, new EntitySqlBuilder()));
                 }
             }
         }
 
         public DbModuleOptions DbModuleOptions { get; }
 
-        public EntityDescriptorCollection EntityDescriptors { get; }
         public ICreateDatabaseEvent CreateDatabaseEvent { get; set; }
 
         public ISqlAdapter SqlAdapter { get; }

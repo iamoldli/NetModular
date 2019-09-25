@@ -1,4 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using System;
+using System.Threading.Tasks;
+using Nm.Lib.Data.Abstractions;
 
 namespace Nm.Module.Admin.Domain.AccountConfig
 {
@@ -7,6 +9,11 @@ namespace Nm.Module.Admin.Domain.AccountConfig
     /// </summary>
     public interface IAccountConfigRepository : IRepository<AccountConfigEntity>
     {
-
+        /// <summary>
+        /// 查询指定账户的配置信息
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        Task<AccountConfigEntity> GetByAccount(Guid accountId);
     }
 }

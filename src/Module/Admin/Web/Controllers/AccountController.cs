@@ -129,5 +129,13 @@ namespace Nm.Module.Admin.Web.Controllers
         {
             return _service.ResetPassword(id);
         }
+
+        [HttpPost]
+        [Description("皮肤修改")]
+        [Common]
+        public Task<IResultModel> SkinUpdate(AccountSkinUpdateModel model)
+        {
+            return _service.SkinUpdate(_loginInfo.AccountId, model);
+        }
     }
 }

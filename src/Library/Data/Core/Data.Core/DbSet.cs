@@ -41,7 +41,7 @@ namespace Nm.Lib.Data.Core
         public DbSet(IDbContext context)
         {
             DbContext = context;
-            EntityDescriptor = DbContext.Options.EntityDescriptors.Get<TEntity>();
+            EntityDescriptor = EntityDescriptorCollection.Get<TEntity>();
             _sqlAdapter = context.Options.SqlAdapter;
             _sql = EntityDescriptor.Sql;
 

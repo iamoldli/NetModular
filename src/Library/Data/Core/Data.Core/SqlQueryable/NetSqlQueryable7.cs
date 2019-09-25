@@ -35,7 +35,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             {
                 Type = joinType,
                 Alias = "T7",
-                EntityDescriptor = Db.DbContext.Options.EntityDescriptors.Get<TEntity7>(),
+                EntityDescriptor = EntityDescriptorCollection.Get<TEntity7>(),
                 On = onExpression,
             };
             t7.TableName = tableName.NotNull() ? tableName : t7.EntityDescriptor.TableName;

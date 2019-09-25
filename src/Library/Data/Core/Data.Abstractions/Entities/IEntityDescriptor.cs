@@ -8,6 +8,11 @@ namespace Nm.Lib.Data.Abstractions.Entities
     public interface IEntityDescriptor
     {
         /// <summary>
+        /// 模块名称
+        /// </summary>
+        string ModuleName { get; }
+
+        /// <summary>
         /// 表名称
         /// </summary>
         string TableName { get; }
