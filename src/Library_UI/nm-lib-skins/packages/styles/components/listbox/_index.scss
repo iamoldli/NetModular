@@ -1,5 +1,3 @@
-@import './variables';
-
 //列表
 #{$prefix}listbox {
     #{$prefix}box-body {
@@ -12,20 +10,20 @@
 
     &-count {
         position: absolute;
-        right: $listbox-count-right;
-        color: $listbox-count-color;
+        right: 5px;
+        color: $text-color3;
     }
 
     &-item {
         position: relative;
-        padding: $listbox-item-padding;
+        padding: 0 10px;
         box-sizing: border-box;
-        @include vertical-center($listbox-item-height);
+        @include vertical-center(40px);
         border-bottom: 1px dashed $border-color4;
-        font-size: $listbox-item-font-size;
+        font-size: 14px;
         cursor: pointer;
         user-select: none;
-        border-left: 2px solid $listbox-item-border-left-color;
+        border-left: 2px solid $color-primary;
         text-align: right;
 
         &-text {
@@ -41,7 +39,7 @@
         }
 
         &:hover {
-            background-color: $listbox-item-hover-background-color;
+            background-color: rgba(200, 200, 200, 0.2);
         }
 
         #{$prefix}button {

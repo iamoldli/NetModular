@@ -1,5 +1,3 @@
-@import 'variables';
-
 #{$prefix}main {
     display: flex;
     align-items: stretch;
@@ -12,6 +10,5 @@
     #{$prefix}content {
         position: relative;
         flex-grow: 1;
-        background: $main-background-color;
     }
 }

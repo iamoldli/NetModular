@@ -1,16 +1,13 @@
-@import 'variables';
-
 #{$prefix}header {
-    padding-right: $header-padding-right;
+    padding-right: 0;
     display: flex;
     flex-shrink: 0;
-    height: $header-height;
+    height: 50px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    background: $header-background;
 
     &-left {
         position: relative;
-        padding-left: $sidebar-toggle-btn-width;
+        padding-left: 50px;
         flex-shrink: 0;
         overflow: hidden;
 
@@ -18,10 +15,10 @@
         #{$prefix}sidebar-toggle-btn {
             position: absolute;
             left: 0;
-            @include vertical-center($sidebar-toggle-btn-height);
-            width: $sidebar-toggle-btn-width;
-            font-size: $sidebar-toggle-btn-font-size;
-            color: $sidebar-toggle-btn-color;
+            @include vertical-center(50px);
+            width: 50px;
+            font-size: 25px;
+            color: #fff;
             text-align: center;
             cursor: pointer;
 
@@ -29,28 +26,14 @@
         }
 
         #{$prefix}breadcrumb {
-            @include vertical-center($header-height);
-
-            .el-breadcrumb__item {
-                .el-breadcrumb__inner {
-                    color: $header-breadcrumb-color;
-
-                    &.is-link {
-                        color: $header-breadcrumb-link-color;
-                    }
-                }
-
-                .el-breadcrumb__separator {
-                    color: $header-breadcrumb-separator-color;
-                }
-            }
+            @include vertical-center(50px);
         }
     }
 
     &-right {
         display: flex;
         flex-grow: 1;
-        @include vertical-center($header-height);
+        @include vertical-center(50px);
         justify-content: flex-end;
     }
 
@@ -61,7 +44,7 @@
         @include toolbar-hover-border();
 
         .el-dropdown {
-            color: $header-userinfo-dropdown-color;
+            color: #fff;
         }
     }
 }

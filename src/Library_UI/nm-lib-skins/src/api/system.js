@@ -21,7 +21,8 @@ const get = () => {
         resolve()
       })
     },
-    getLoginInfo: accountApi.get
+    getLoginInfo: accountApi.get,
+    saveSkin: accountApi.skinUpdate
   }
 }
 

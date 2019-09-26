@@ -9,7 +9,8 @@ const urls = {
   updatePassword: root + 'updatepassword',
   getLoginInfo: root + 'logininfo',
   bindRole: root + 'bindrole',
-  resetPassword: root + 'ResetPassword'
+  resetPassword: root + 'ResetPassword',
+  skinUpdate: root + 'SkinUpdate'
 }
 
 /*
@@ -61,6 +62,14 @@ const resetPassword = id => {
   return http.post(urls.resetPassword + '?id=' + id)
 }
 
+/**
+ * @description 皮肤修改
+ * @param {} params
+ */
+const skinUpdate = params => {
+  return http.post(urls.skinUpdate, params)
+}
+
 export default {
   ...crud,
   getVerifyCode,
@@ -69,5 +78,6 @@ export default {
   updatePassword,
   getLoginInfo,
   bindRole,
-  resetPassword
+  resetPassword,
+  skinUpdate
 }

@@ -1,0 +1,103 @@
+#{$prefix}main {
+    @include flex-row();
+    flex-grow: 1;
+    overflow: hidden;
+
+    &-left {
+        position: relative;
+        flex-shrink: 0;
+        width: 240px;
+        background-color: #344058;
+        transition: all 0.25s ease-in;
+
+    }
+
+    &-right {
+        @include flex-column();
+        flex-grow: 1;
+
+        &-top {
+            position: relative;
+            flex-shrink: 0;
+            height: 50px;
+            overflow: hidden;
+
+            >div {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        #{$prefix}sidebar-toggle-btn {
+            padding: 0 5px;
+            flex-shrink: 0;
+            background-color: #ebf1f6;
+
+            a {
+                padding: 0 8px;
+                display: inline-block;
+                height: 50px;
+                line-height: 50px;
+                font-size: 25px;
+                text-align: center;
+                background-color: #fff;
+                color: #909090;
+                cursor: pointer;
+                text-decoration: none;
+                box-sizing: border-box;
+                border-bottom: 1px solid #dcdfe6;
+                border-left: 1px solid #dcdfe6;
+
+                &:hover {
+                    color: #444;
+                }
+            }
+        }
+
+
+        #{$prefix}content {
+            position: relative;
+            flex-grow: 1;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+    }
+
+    &.collapse {
+        #{$prefix}main-left {
+            width: 70px;
+        }
+    }
+
+    @mixin main-right($height) {
+        #{$prefix}main-right {
+            &-top {
+                height: $height;
+
+                #{$prefix}sidebar-toggle-btn {
+
+                    a {
+                        height: $height;
+                        line-height: $height;
+                    }
+                }
+            }
+        }
+    }
+
+    &.mini {
+        @include main-right(35px);
+    }
+
+    &.small {
+        @include main-right(40px);
+
+    }
+
+    &.medium {
+        @include main-right(45px);
+    }
+}
+
+@import '../../../../pretty//styles/components/menus/index';

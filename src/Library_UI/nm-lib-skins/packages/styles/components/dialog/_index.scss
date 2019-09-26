@@ -1,6 +1,4 @@
-@import './variables';
-
-//容器
+//对话框
 #{$prefix}dialog {
 
     >.el-dialog {
@@ -10,15 +8,14 @@
             padding: 0;
             @include flex-row();
             flex-shrink: 0;
-            @include vertical-center($dialog-header-height);
+            @include vertical-center(40px);
             box-sizing: border-box;
-            background-color: $dialog-header-background-color;
             border-bottom: 1px solid #eee;
 
             #{$prefix}dialog-icon {
-                padding: $dialog-icon-padding;
+                padding: 0 5px;
                 flex-shrink: 0;
-                font-size: $dialog-icon-font-size;
+                font-size: 25px;
             }
 
             #{$prefix}dialog-title {
@@ -37,7 +34,7 @@
                     border: none;
                     outline: 0;
                     cursor: pointer;
-                    font-size: $dialog-toolbar-font-size;
+                    font-size: 20px;
 
                     &:hover {
                         color: $text-color1;
@@ -75,7 +72,7 @@
                 }
 
                 >#{$prefix}dialog-footer {
-                    padding: $dialog-footer-padding;
+                    padding: 5px 10px;
                     flex-shrink: 0;
                     text-align: right;
                     z-index: 1;

@@ -14,6 +14,9 @@ import dayjs from 'dayjs'
 import token from './router/token'
 import echarts from 'echarts'
 import VCharts from 'v-charts'
+// 皮肤
+import SkinPretty from './skins/pretty/index'
+import SkinClassics from './skins/classics/index'
 
 // 附加自定义样式
 const appendCustomCss = system => {
@@ -31,7 +34,19 @@ const appendCustomCss = system => {
   }
 }
 
+/** 注册皮肤 */
+const useSkin = skin => {
+  // 注册组件
+  Vue.component('skin-' + skin.skin.code.toLowerCase(), skin.component)
+  // 注册状态
+  store.registerModule('app/skins/' + skin.skin.code, skin.store)
+  // 添加到列表
+  store.commit('app/skins/useSkin', skin.skin)
+}
+
 export default {
+  /** 注册皮肤 */
+  useSkin,
   /**
    * @description 加载皮肤组件
    */
@@ -77,7 +92,11 @@ export default {
     Vue.use(Directive)
 
     // 使用状态
-    const store = UseStore(storeConfig)
+    UseStore(storeConfig)
+
+    // 注册皮肤
+    useSkin(SkinPretty)
+    useSkin(SkinClassics)
 
     // 使用路由
     const router = UseRouter(routerConfig, store, system)

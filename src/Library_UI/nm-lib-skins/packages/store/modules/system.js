@@ -46,6 +46,8 @@ export default {
     updatePassword: null,
     /** 查询登录信息方法 */
     getLoginInfo: null,
+    /** 保存皮肤配置信息方法 */
+    saveSkin: null,
     /** 模块列表 */
     modules: []
   },

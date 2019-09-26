@@ -1,15 +1,8 @@
-import pretty from '../../skins/pretty/store'
-import classics from '../../skins/classics/store'
-function storeLocalStore (state) {
-  window.localStorage.setItem('skins', JSON.stringify(state))
-}
-function getStoreLocalStore () {
-  window.localStorage.getItem('skins')
-}
 // 皮肤
 export default {
   namespaced: true,
   state: {
+    initialized: false,
     /** 当前皮肤 */
     current: {
       /** 名称 */
@@ -23,7 +16,7 @@ export default {
     list: []
   },
   getters: {
-    fontSize (state) {
+    fontSize(state) {
       return state.current.fontSize
     }
   },
@@ -32,7 +25,7 @@ export default {
      * @description 初始化皮肤信息
      * @param {*} skin
      */
-    init ({ commit }, skin) {
+    init({ commit, dispatch }, skin) {
       if (skin) {
         commit('init', skin)
       }
@@ -44,29 +37,34 @@ export default {
      * @param {Object} state 状态
      * @param {Object} skin 皮肤
      */
-    init (state, skin) {
-      let oldSkin = getStoreLocalStore()
-      if (oldSkin != null) {
-        state.current = JSON.parse(oldSkin)
+    init(state, skin) {
+      state.current = skin
+      if (state.current.skin === '') {
+        state.current.skin = 'pretty'
       }
-      if (skin.fontSize === '') {
-        state.current.fontSize = 'small'
+      if (skin.theme === '') {
+        state.current.theme = 'default'
       }
+      if (skin.fontSize === 'default') {
+        state.current.fontSize = ''
+      }
+
+      /** 设置body的类 */
+      document.body.className = `nm-skin-${state.current.name} theme-${state.current.theme} font-size-${state.current.fontSize}`
+      state.initialized = true
+    },
+    /**
+     * @description 注册皮肤
+     */
+    useSkin(state, skin) {
+      state.list.push(skin)
     },
     /**
      * @description 皮肤切换
      * @param {Object} state 状态
      */
-    toggle (state, name) {
-      state.name = name
-    },
-    themeChange (state, name) {
-      state.current.theme = name.theme
-      storeLocalStore(state.current)
+    toggle(state, skin) {
+      state.current = Object.assign({}, skin)
     }
-  },
-  modules: {
-    pretty,
-    classics
   }
 }

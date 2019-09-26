@@ -27,7 +27,8 @@ namespace Nm.Lib.Data.MySql
             Check.NotNull(dbOptions.Password, nameof(dbOptions.Password), "数据库密码不能为空");
 
             options.Version = dbOptions.Version;
-            options.ConnectionString = $"Server={DbOptions.Server};Database={options.Database};Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
+            var port = DbOptions.Port > 0 ? DbOptions.Port : 3306;
+            options.ConnectionString = $"Server={DbOptions.Server};Database={options.Database};Port={port};Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
         }
 
         public override IDbConnection NewConnection()

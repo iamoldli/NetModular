@@ -1,0 +1,83 @@
+/***********进度条 nprogress************/
+#nprogress {
+    .bar {
+        background: $nprogress-bar-background-color !important;
+    }
+
+    .peg {
+        box-shadow: $nprogress-peg-box-shadow !important;
+    }
+}
+
+/***********盒子 box************/
+#{$prefix}box {
+    border-color: $box-border-color;
+
+    >#{$prefix}box-header {
+        background-color: $box-header-background-color;
+    }
+
+    >#{$prefix}box-dialog {
+        background-color: $box-dialog-background-color;
+    }
+}
+
+/***********对话框 dialog************/
+#{$prefix}dialog {
+
+    >.el-dialog {
+        >.el-dialog__header {
+            background-color: $dialog-header-background-color;
+        }
+    }
+}
+
+/***********抽屉 drawer************/
+#{$prefix}drawer {
+
+    >#{$prefix}drawer-dialog {
+
+        >#{$prefix}drawer-header {
+            background-color: $drawer-header-background-color;
+        }
+    }
+}
+
+/***********列表页 list************/
+#{$prefix}list {
+    &-header {
+        background-color: $list-header-background-color;
+    }
+
+    &-body {
+
+        &-table {
+
+            &-header {
+                color: $list-table-header-color;
+            }
+        }
+    }
+}
+
+/***********分割窗口 split************/
+#{$prefix}split-wrapper {
+    #{$prefix}split-trigger {
+        border-color: $split-trigger-background-color;
+    }
+
+    #{$prefix}split-trigger-vertical,
+    #{$prefix}split-trigger-horizontal {
+        background: $split-trigger-background-color;
+    }
+}
+
+/***********标签导航 tabnav************/
+#{$prefix}tabnav {
+    &-control {
+        &-btn {
+            border-left-color: $tabnav-control-btn-border-color;
+            border-bottom-color: $tabnav-control-btn-border-color;
+        }
+    }
+}

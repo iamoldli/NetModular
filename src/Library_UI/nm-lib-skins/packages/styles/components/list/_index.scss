@@ -1,10 +1,8 @@
-@import './variables';
-
 #{$prefix}list {
-    box-shadow: $list-box-shadow;
+    box-shadow: $box-shadow;
     @include flex-column();
     box-sizing: border-box;
-    border-radius: $list-border-radius;
+    border-radius: 3px;
     overflow: hidden;
     height: 100%;
     background-color: #fff;
@@ -12,12 +10,11 @@
 
     //头部
     &-header {
-        padding: $list-header-padding;
-        background-color: $list-background-color;
+        padding: 0 5px;
         display: flex;
         align-items: stretch;
         flex-shrink: 0;
-        @include vertical-center($list-header-height);
+        @include vertical-center(40px);
         box-sizing: border-box;
         border-bottom: 1px solid $border-color3;
 
@@ -33,7 +30,7 @@
                 border: none;
                 background-color: transparent;
                 cursor: pointer;
-                padding: $list-header-tool-padding;
+                padding: 10px 7px;
                 color: $text-color3;
                 user-select: none;
                 outline: none;
@@ -60,9 +57,9 @@
 
     //图标
     &-icon {
-        padding: $list-header-icon-padding;
-        width: $list-header-icon-width;
-        font-size: $list-header-icon-font-size;
+        padding: 0;
+        width: 30px;
+        font-size: 1.5rem;
         text-align: center;
         flex-shrink: 0;
     }
@@ -70,8 +67,8 @@
     //标题
     &-title {
         flex-grow: 1;
-        font-size: $list-header-title-font-size;
-        font-weight: $list-header-title-font-weight;
+        font-size: 16px;
+        font-weight: 400;
     }
 
     &-querybar {
@@ -164,11 +161,11 @@
     }
 
     &-footer {
-        padding: $list-footer-padding;
+        padding: 0 5px;
         display: flex;
         flex-direction: row;
         align-items: stretch;
-        @include vertical-center($list-footer-height);
+        @include vertical-center(40px);
 
         &-left {
             flex-grow: 1;
@@ -255,15 +252,15 @@
 
     &-small {
         #{$prefix}list-toolbar {
-            height: $list-small-toolbar-height;
-            line-height: $list-small-toolbar-height - 2.2;
+            height: 40px;
+            line-height: 37.8px;
         }
     }
 
     &-mini {
         #{$prefix}list-toolbar {
-            height: $list-mini-toolbar-height;
-            line-height: $list-mini-toolbar-height - 2.2;
+            height: 35px;
+            line-height: 32.8px;
         }
     }
 }

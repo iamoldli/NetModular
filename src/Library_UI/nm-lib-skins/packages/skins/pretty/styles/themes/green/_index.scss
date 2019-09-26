@@ -1,0 +1,5 @@
+@import './variables';
+
+&.theme-green {
+    @import '../theme';
+}

@@ -1,11 +1,10 @@
 <template>
-  <div id="app" :class="current.theme">
+  <div id="app" v-if="initialized" :class="current.theme">
     <template v-if="inFrame">
-      <skin-pretty v-if="current.name==='pretty'"/>
-      <skin-classics v-else-if="current.name==='classics'"/>
+      <component :is="`skin-${current.name.toLowerCase()}`"></component>
     </template>
     <template v-else>
-      <router-view/>
+      <router-view />
     </template>
 
     <!--对话框菜单-->
@@ -16,22 +15,19 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import SkinPretty from './skins/pretty'
-import SkinClassics from './skins/classics'
 export default {
-  components: { SkinPretty, SkinClassics },
   computed: {
-    ...mapState('app/skins', ['current']),
+    ...mapState('app/skins', ['initialized', 'current']),
     ...mapState('app/dialog-menu', { dialogMenu: state => state }),
     // 是否在框架中显示
-    inFrame () {
+    inFrame() {
       return !this.$route.meta || this.$route.meta.frameIn !== false
     },
     dialogNemuVisible: {
-      get () {
+      get() {
         return this.dialogMenu.visible
       },
-      set () {
+      set() {
         this.dialogMenuClose()
       }
     }

@@ -31,7 +31,7 @@ const get = () => {
     /** 皮肤设置 */
     skin: {
       /** 名称 */
-      name: 'pretty',
+      name: 'classics',
       /** 主题 */
       theme: '',
       /** 字号 medium/small/mini */
@@ -40,4 +40,11 @@ const get = () => {
   }
 }
 
-export default { login, get }
+const skinUpdate = () => {
+  console.log('保存皮肤配置')
+  return new Promise(resolve => {
+    resolve()
+  })
+}
+
+export default { login, get, skinUpdate }

@@ -1,6 +1,15 @@
+import sidebar from '../../pretty/store/modules/sidebar'
 export default {
   namespaced: true,
   state: {
-    name: 'classics'
+    menus: []
+  },
+  mutations: {
+    setMenus(state, menus) {
+      state.menus = menus
+    }
+  },
+  modules: {
+    sidebar
   }
 }

@@ -1,9 +1,6 @@
 /*前缀*/
 $prefix: '.nm-';
 
-/**主题颜色**/
-$theme-color: #03a9f4;
-
 /***************************颜色 Start*********************/
 $color: #333;
 $color-info: #909399;
@@ -28,14 +25,45 @@ $border-color4: #f2f6fc;
 /***************************边框颜色 End*********************/
 
 /***************************z-index*************************/
+/*盒子全屏时坐标*/
 $z-index-box-fullscreen:1800;
 
+/*抽屉坐标*/
 $z-index-drawer-modal:1802;
 $z-index-drawer-dialog:1804;
 
+/*列表页坐标*/
 $z-index-query-box:1806;
 $z-index-query-advanced:1808;
 $z-index-query-fullscreen:1810;
 
-
+/*阴影*/
 $box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+/*进度条*/
+$nprogress-bar-background-color:$color-warning;
+$nprogress-peg-box-shadow:0 0 10px $color-warning,
+0 0 5px $color-warning;
+
+/**************************组件*************************/
+
+/*盒子 box*/
+$box-border-color: $border-color2;
+$box-header-background-color: #fff;
+$box-dialog-background-color: $box-header-background-color;
+
+/*对话框 dialog*/
+$dialog-header-background-color:#F8F8F8;
+
+/*抽屉 drawer*/
+$drawer-header-background-color: $dialog-header-background-color;
+
+/*列表页 list*/
+$list-header-background-color: $dialog-header-background-color;
+$list-table-header-color:rgb(3, 2, 2);
+
+/*分割窗口 split*/
+$split-trigger-background-color:#f0f0f0;
+
+/*标签导航 tabnav*/
+$tabnav-control-btn-border-color:#e4e7ed;

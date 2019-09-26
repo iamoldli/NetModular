@@ -19,8 +19,9 @@ namespace Nm.Lib.Data.SqlServer
             Check.NotNull(dbOptions.UserId, nameof(dbOptions.UserId), "数据库用户名不能为空");
             Check.NotNull(dbOptions.Password, nameof(dbOptions.Password), "数据库密码不能为空");
 
-            options.Version = dbOptions.Version;
-            options.ConnectionString = $"Server={DbOptions.Server};Database={DbModuleOptions.Database};Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
+            options.Version = DbOptions.Version;
+            var server = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server;
+            options.ConnectionString = $"Server={server};Database={DbModuleOptions.Database};Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
         }
 
         public override IDbConnection NewConnection()

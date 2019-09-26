@@ -1,23 +1,19 @@
-@import 'variables';
-
 /*侧边栏*/
 #{$prefix}sidebar {
     position: relative;
     display: flex;
-    width: $sidebar-width;
+    width: 230px;
     align-items: stretch;
     flex-direction: column;
     flex-shrink: 0;
-    background-color: $sidebar-background-color;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.25s ease-in;
 
     /*logo*/
     #{$prefix}logo {
         &-box {
             display: flex;
-            height: $logo-box-height;
+            height: 50px;
             flex-shrink: 0;
-            background-color: $logo-box-background-color;
             overflow: hidden;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 0 4px rgba(0, 0, 0, .26),
@@ -26,23 +22,21 @@
         }
 
         &-img {
-            margin: $logo-img-margin;
-            width: $logo-img-width;
-            height: $logo-img-height;
+            margin: 5px 11px;
+            width: 40px;
+            height: 40px;
         }
 
         &-text {
             text-align: center;
-            height: $logo-text-height;
-            line-height: $logo-text-height;
-            font-size: $logo-text-font-size;
-            color: $logo-text-color;
+            @include vertical-center(50px);
+            font-size: 20px;
             white-space: nowrap;
         }
     }
 
     &.collapse {
-        width: $sidebar-hide-width;
+        width: 65px;
 
         /*logo*/
         #{$prefix}logo {

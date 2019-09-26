@@ -1,5 +1,5 @@
-@import './variables';
-//工具栏
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
 
 #{$prefix}skin-pretty {
     #{$prefix}wrapper {
@@ -10,9 +10,10 @@
         align-items: stretch;
     }
 
+    @import './components/sidebar/index';
+    @import './components/main/index';
 
-    @import './themes/default';
-    @import './themes/config/index';
+    @import './themes/index';
 
     #{$prefix}header-userinfo-dropdown {
         #{$prefix}button {

@@ -29,6 +29,11 @@ namespace Nm.Lib.Data.Abstractions.Options
         public string Server { get; set; }
 
         /// <summary>
+        /// 端口号
+        /// </summary>
+        public int Port { get; set; }
+
+        /// <summary>
         /// 用户Id
         /// </summary>
         public string UserId { get; set; }

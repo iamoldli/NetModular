@@ -20,27 +20,29 @@
         height: 100%;
         background: #fff;
         z-index: $z-index-drawer-dialog;
+        box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2),
+            0 16px 24px 2px rgba(0, 0, 0, .14),
+            0 6px 30px 5px rgba(0, 0, 0, .12);
 
         >#{$prefix}drawer-header {
             @include flex-row();
-            padding: $drawer-header-padding;
-            background-color: $drawer-background-color;
-            @include vertical-center($drawer-header-height);
-            border-bottom: 1px solid $drawer-header-border-bottom-color;
+            padding: 0 10px;
+            @include vertical-center(40px);
+            border-bottom: 1px solid $border-color1;
             box-sizing: border-box;
 
             >#{$prefix}drawer-header-icon {
-                padding: $drawer-header-icon-padding;
-                width: $drawer-header-icon-width;
-                font-size: $drawer-header-icon-font-size;
+                padding: 0 5px 0 0;
+                width: 30px;
+                font-size: 1.5rem;
                 text-align: center;
                 flex-shrink: 0;
             }
 
             >#{$prefix}drawer-header-title {
                 flex-grow: 1;
-                font-size: $drawer-header-title-font-size;
-                font-weight: $drawer-header-title-font-weight;
+                font-size: 16px;
+                font-weight: 400;
             }
 
             >#{$prefix}drawer-header-toolbar {
@@ -76,7 +78,7 @@
 
         >#{$prefix}drawer-body {
             position: relative;
-            padding: $drawer-body-padding;
+            padding: 0;
             flex-grow: 1;
 
             &>#{$prefix}drawer-body-wrapper {
@@ -92,10 +94,10 @@
 
 
         >#{$prefix}drawer-footer {
-            padding: $drawer-footer-padding;
+            padding: 0 10px;
             flex-shrink: 0;
-            @include vertical-center($drawer-footer-height);
-            border-top: 1px solid $drawer-footer-border-top-color;
+            @include vertical-center(50px);
+            border-top: 1px solid $border-color1;
             text-align: right;
         }
     }

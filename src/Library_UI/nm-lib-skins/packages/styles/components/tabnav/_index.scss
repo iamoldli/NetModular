@@ -1,5 +1,3 @@
-@import 'variables';
-
 #{$prefix}tabnav {
     display: flex;
     flex-direction: row;
@@ -12,13 +10,13 @@
 
         .el-tabs__nav-next,
         .el-tabs__nav-prev {
-            font-size: $tabnav-navbtn-font-size;
-            width: $tabnav-navbtn-width;
+            font-size: 20px;
+            width: 30px;
             text-align: center;
         }
 
         .el-tabs__nav-wrap.is-scrollable {
-            padding: 0 $tabnav-navbtn-width;
+            padding: 0 30px;
         }
 
         .el-tabs__header {
@@ -26,7 +24,7 @@
             border-bottom: 1px solid $border-color1;
 
             .el-tabs__nav {
-                padding: 0 5px;
+                padding: 0;
                 border: none;
                 border-radius: 0 !important;
 
@@ -35,8 +33,6 @@
                     padding: 0 20px !important;
                     margin: 5px 2px;
                     user-select: none;
-                    height: 30px;
-                    line-height: 30px;
                     border-left: none;
                     background-color: #fff;
                     border-radius: 2px;
@@ -51,7 +47,7 @@
 
                     &:hover {
                         padding-right: 25px !important;
-                        color: $theme-color;
+                        color: #03a9f4;
 
                         .el-icon-close {
                             display: inline-block;
@@ -60,18 +56,17 @@
 
                     &.is-active {
                         padding-left: 25px !important;
-                        color: $theme-color;
+                        color: #03a9f4;
 
                         &::before {
                             content: ' ';
                             position: absolute;
                             left: 9px;
-                            top: 10px;
                             display: inline-block;
                             width: 10px;
                             height: 10px;
                             border-radius: 5px;
-                            background-color: $theme-color;
+                            background-color: #03a9f4;
                         }
 
                         .el-icon-close {
@@ -101,13 +96,14 @@
 
         &-btn {
             display: inline-block;
-            width: $tabnav-control-btn-width;
+            width: 30px;
             text-align: center;
-            @include vertical-center($tabnav-control-btn-height);
+            @include vertical-center(40px);
             cursor: pointer;
-            border-left: 1px solid $tabnav-control-btn-border-color;
-            border-bottom: 1px solid $tabnav-control-btn-border-color;
-            font-size: $tabnav-control-btn-font-size;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            font-size: 16px;
+            box-sizing: border-box;
         }
 
         &-icon {
@@ -115,4 +111,52 @@
             font-weight: bold;
         }
     }
+
+    @mixin tabnav-size($height, $fontSize, $beforeTop) {
+        #{$prefix}tabnav {
+
+            &-tabs {
+
+                .el-tabs__header {
+
+                    .el-tabs__nav {
+
+                        .el-tabs__item {
+                            @include vertical-center($height);
+                            font-size: $fontSize;
+
+                            &::before {
+                                top: $beforeTop;
+                            }
+                        }
+                    }
+
+                    .el-tabs__nav-prev,
+                    .el-tabs__nav-next {
+                        line-height: $height+15px;
+                    }
+                }
+            }
+
+            &-control {
+                &-btn {
+                    @include vertical-center($height+10);
+                }
+            }
+        }
+    }
+
+    &.mini {
+        @include tabnav-size(25px, 12px, 8px);
+    }
+
+    &.small {
+        @include tabnav-size(30px, 12px, 10px);
+    }
+
+    &.medium {
+        @include tabnav-size(35px, 14px, 12px);
+    }
+
+    @include tabnav-size(40px, 15px, 15px);
 }

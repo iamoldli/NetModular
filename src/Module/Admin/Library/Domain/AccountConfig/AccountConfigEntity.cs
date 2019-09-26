@@ -18,7 +18,7 @@ namespace Nm.Module.Admin.Domain.AccountConfig
         /// <summary>
         /// 皮肤
         /// </summary>
-        public string Skins { get; set; }
+        public string Skin { get; set; }
 
         /// <summary>
         /// 主题

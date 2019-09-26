@@ -1,49 +1,65 @@
-@import 'variables';
+  #{$prefix}menus {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
 
-#{$prefix}menus {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+      .el-scrollbar {
+          height: 100%;
 
-    .el-scrollbar {
-        height: 100%;
+          .el-scrollbar__wrap {
+              overflow-x: hidden;
 
-        .el-scrollbar__wrap {
-            overflow-x: hidden;
-        }
+              .el-scrollbar__view {
+                  padding: 0 10px;
+              }
+          }
+      }
 
-    }
-}
+      .no-menus {
+          margin: 5px 5%;
+          padding: 35px 0;
+          width: 90%;
+          height: 150px;
+          line-height: 2;
+          text-align: center;
+          background-color: #29d;
+          color: #fff;
+          border-radius: 5px;
+          box-sizing: border-box;
 
-.el-menu,
-.el-menu--vertical {
-    border: none;
-    background-color: $menus-background-color;
+          #{$prefix}icon {
+              font-size: 50px
+          }
+      }
+  }
 
-    .el-menu-item,
-    .el-submenu__title {
-        color: $menus-menu-color;
+  /**这些代码需要放在body下**/
+  .el-menu,
+  .el-menu--vertical {
+      border: none;
 
-        &:hover,
-        &:focus,
-        &:active {
-            color: $menus-menu-hover-color;
-            background-color: rgba(0, 0, 0, .04) !important;
-        }
+      .el-menu-item,
+      .el-submenu__title {
+          margin: 5px 0;
+          height: 45px;
+          line-height: 45px;
+          border-radius: 5px;
+          font-size: 15px;
 
-        &.is-active {
-            background: $menus-menu-active-background-color !important;
-            color: $menus-menu-active-color !important;
-        }
+          #{$prefix}icon {
+              margin-right: 15px;
+              font-size: 25px;
+              vertical-align: -0.25em;
+          }
+      }
+  }
 
-        #{$prefix}icon {
-            margin-right: $menus-icon-margin-right;
-            font-size: $menus-icon-font-size;
-            vertical-align: $menus-icon-vertical-align;
-        }
-    }
+  .el-menu--collapse {
+      width: 55px;
 
-    .el-menu--inline {
-        background: rgba(0, 0, 0, .3) !important;
-    }
-}
+      >.el-menu-item,
+      >.el-submenu>.el-submenu__title {
+          padding: 0 15px !important;
+      }
+  }

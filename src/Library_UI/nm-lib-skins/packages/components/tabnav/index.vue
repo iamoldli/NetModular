@@ -1,5 +1,6 @@
 <template>
-  <section class="nm-tabnav">
+  <section :class="['nm-tabnav',fontSize]">
+    <slot name="before" />
     <div class="nm-tabnav-tabs">
       <el-tabs :value="current.path" type="card" :closable="true" @tab-click="click" @edit="edit">
         <el-tab-pane label="首页" :name="defaultPage"></el-tab-pane>

@@ -1,0 +1,112 @@
+#{$prefix}header {
+    position: relative;
+    @include flex-row();
+    flex-shrink: 0;
+    height: 80px;
+    background-color: #03a9f4;
+
+    /*logo*/
+    &-logo {
+        @include flex-row();
+        flex-shrink: 0;
+        height: 100%;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        z-index: 1;
+
+        &-img {
+            flex-shrink: 0;
+            margin: 5px 11px;
+            width: 60px;
+            height: 60px;
+        }
+
+        &-text {
+            flex-grow: 1;
+            text-align: center;
+            @include vertical-center(80px);
+            font-size: 30px;
+            color: #fff;
+            white-space: nowrap;
+        }
+    }
+
+    &-nav {
+        display: inline-block;
+        flex-grow: 1;
+        margin-left: 15px;
+        overflow: hidden;
+
+        &-item {
+            padding: 0 3px;
+            float: left;
+
+            a {
+                position: relative;
+                padding: 10px 15px;
+                display: inline-block;
+                text-decoration: none;
+                color: #e4e7ed;
+                text-align: center;
+                height: 80px;
+                box-sizing: border-box;
+                cursor: pointer;
+                transition: background-color 0.25s ease-in-out;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    width: 0;
+                    height: 3px;
+                    background: #e6a23c;
+                    transition: all .25s ease-in-out;
+                }
+            }
+
+            &-icon {
+                font-size: 35px;
+            }
+
+            &-text {
+                display: block;
+                margin-top: 5px;
+                font-size: 14px;
+            }
+
+            &:hover,
+            &.active {
+
+                a {
+                    color: #fff;
+                    background-color: #29d;
+
+                    &::after {
+                        left: 0;
+                        width: 100%;
+                    }
+
+                }
+            }
+        }
+    }
+
+    &-toolbar {
+        #{$prefix}toolbar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 80px;
+            background-color: #03a9f4;
+
+            &-button {
+                width: 50px;
+
+                #{$prefix}icon {
+                    font-size: 35px;
+                }
+            }
+        }
+    }
+}

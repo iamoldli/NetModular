@@ -92,6 +92,8 @@ const getSystem = async () => {
   system.getLoginInfo = api.getLoginInfo
   // 修改密码方法
   system.updatePassword = api.updatePassword
+  // 皮肤修改方法
+  system.saveSkin = api.skinUpdate
 
   return system
 }

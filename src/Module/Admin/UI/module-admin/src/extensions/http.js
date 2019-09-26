@@ -2,6 +2,7 @@ import { http } from 'nm-lib-utils'
 import { token, store } from 'nm-lib-skins'
 import routerConfig from '../router'
 import { Message } from 'element-ui'
+const isDev = process.env.NODE_ENV !== 'production'
 
 // 消息提醒显示时长(ms)
 const messageDuration = 1500
@@ -119,6 +120,10 @@ export default baseUrl => {
               )
               break
             default:
+              if (isDev) {
+                console.error(error.response.data.msg)
+              }
+
               Message.error({
                 message: '系统异常，请联系管理员~',
                 duration: messageDuration

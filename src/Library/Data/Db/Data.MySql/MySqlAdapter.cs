@@ -64,7 +64,8 @@ namespace Nm.Lib.Data.MySql
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
         {
-            var connStr = $"Server={DbOptions.Server};Database=mysql;Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
+            var port = DbOptions.Port > 0 ? DbOptions.Port : 3306;
+            var connStr = $"Server={DbOptions.Server};Database=mysql;Port={port};Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
             using var con = new MySqlConnection(connStr);
             con.Open();
             var cmd = con.CreateCommand();

@@ -18,6 +18,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { open } from '../../../../utils/menu'
 export default {
   name: 'MenuItem',
   data() { return {} },
@@ -34,48 +35,8 @@ export default {
       if (e.$el.classList.contains('is-active')) {
         return
       }
-      // 1、站内路由 2、站外链接
-      if (menu.type === 1) {
-        this.openRoute(menu)
-      } else if (menu.type === 2) {
-        this.openLink(menu)
-      }
-    },
-    // 打开路由菜单
-    openRoute(menu) {
-      let route = { name: menu.routeName, params: {} }
-      if (menu.routeQuery) {
-        route.query = JSON.parse(menu.routeQuery)
-      }
-      if (menu.routeParams) {
-        route.params = JSON.parse(menu.routeParams)
-      }
 
-      route.params['tn_'] = menu.name
-
-      this.$router.push(route)
-    },
-    // 打开链接菜单
-    openLink(menu) {
-      const target = menu.target
-      if (!target || target === 0) {
-        window.open(menu.url, '_blank')
-      } else if (target === 1) {
-        window.open(menu.url, '_self')
-      } else if (target === 2) {
-        // Dialog模式
-        this.dialogMenuOpen({
-          title: menu.name,
-          icon: menu.icon,
-          url: menu.url,
-          width: menu.dialogWidth,
-          height: menu.dialogHeight,
-          fullscreen: menu.dialogFullscreen
-        })
-      } else if (target === 3 || target === 4) {
-        // 当前皮肤下，容器内和内容区一样
-        this.$router.push({ name: 'iframe', params: { url: encodeURI(menu.url), tn_: menu.name } })
-      }
+      open(this.$router, menu)
     },
     getIndex(index) {
       if (this.parentIndex === 0) { return index + '' }

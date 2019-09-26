@@ -1,0 +1,17 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+#{$prefix}skin-classics {
+    #{$prefix}wrapper {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        @include flex-column();
+    }
+
+    @import './components/header/index';
+    @import './components/main/index';
+
+    @import './themes/index';
+
+}

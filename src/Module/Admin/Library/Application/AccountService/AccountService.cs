@@ -141,6 +141,15 @@ namespace Nm.Module.Admin.Application.AccountService
                 }
             };
 
+            //加载配置信息
+            var config = await _accountConfigRepository.GetByAccount(accountId);
+            if (config != null)
+            {
+                model.Skin.Name = config.Skin;
+                model.Skin.Theme = config.Theme;
+                model.Skin.FontSize = config.FontSize;
+            }
+
             #region ==获取账户详细信息==
 
             var detailsBuilders = _serviceProvider.GetServices<ILoginInfoDetailsBuilder>().ToList();
@@ -201,8 +210,6 @@ namespace Nm.Module.Admin.Application.AccountService
 
             return ResultModel.Result(result);
         }
-
-        #region ==管理==
 
         public async Task<IResultModel> BindRole(AccountRoleBindModel model)
         {
@@ -370,8 +377,6 @@ namespace Nm.Module.Admin.Application.AccountService
             return ResultModel.Result(result);
         }
 
-        #endregion
-
         public async Task<IResultModel> ResetPassword(Guid id)
         {
             var account = await _accountRepository.GetAsync(id);
@@ -481,7 +486,7 @@ namespace Nm.Module.Admin.Application.AccountService
                 configInfo = new AccountConfigEntity
                 {
                     AccountId = id,
-                    Skins = model.Skins,
+                    Skin = model.Name,
                     Theme = model.Theme,
                     FontSize = model.FontSize
                 };
@@ -491,7 +496,7 @@ namespace Nm.Module.Admin.Application.AccountService
             }
             else
             {
-                configInfo.Skins = model.Skins;
+                configInfo.Skin = model.Name;
                 configInfo.Theme = model.Theme;
                 configInfo.FontSize = model.FontSize;
 

@@ -93,30 +93,29 @@ namespace Nm.Lib.Data.SqlServer
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
         {
-            var connStr = $"Server={DbOptions.Server};Database=master;Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
-            using (var con = new SqlConnection(connStr))
+            var server = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server;
+            var connStr = $"Server={server};Database=master;Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
+            using var con = new SqlConnection(connStr);
+            con.Open();
+
+            var cmd = con.CreateCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandText = $"IF NOT EXISTS (SELECT * FROM sysdatabases WHERE name = '{Options.Database}') CREATE DATABASE [{Options.Database}]";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = $"USE [{Options.Database}];";
+            cmd.ExecuteNonQuery();
+
+            foreach (var entityDescriptor in entityDescriptors)
             {
-                con.Open();
-
-                var cmd = con.CreateCommand();
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = $"IF NOT EXISTS (SELECT * FROM sysdatabases WHERE name = '{Options.Database}') CREATE DATABASE [{Options.Database}]";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = $"USE [{Options.Database}];";
-                cmd.ExecuteNonQuery();
-
-                foreach (var entityDescriptor in entityDescriptors)
+                if (!entityDescriptor.Ignore)
                 {
-                    if (!entityDescriptor.Ignore)
+                    cmd.CommandText = $"SELECT TOP 1 1 FROM sysobjects WHERE id = OBJECT_ID(N'{entityDescriptor.TableName}') AND xtype = 'U';";
+                    var obj = cmd.ExecuteScalar();
+                    if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = $"SELECT TOP 1 1 FROM sysobjects WHERE id = OBJECT_ID(N'{entityDescriptor.TableName}') AND xtype = 'U';";
-                        var obj = cmd.ExecuteScalar();
-                        if (obj.ToInt() < 1)
-                        {
-                            cmd.CommandText = CreateTableSql(entityDescriptor);
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
@@ -171,7 +170,8 @@ namespace Nm.Lib.Data.SqlServer
         /// <summary>
         /// 属性转换为列
         /// </summary>
-        /// <param name="propertyInfo"></param>
+        /// <param name="column"></param>
+        /// <param name="def"></param>
         /// <returns></returns>
         public string Property2Column(IColumnDescriptor column, out string def)
         {

@@ -2,20 +2,23 @@ import { db } from 'nm-lib-utils'
 
 // 解析路由菜单和面包屑信息
 let routeMenus = new Map()
-const resolveRouteMenus = (menu, bc) => {
+const resolveRouteMenus = (menu, rootId, bc) => {
   let bc_ = Object.assign([], bc)
   if (menu.type === 1) {
     bc_.push({
       title: menu.name,
       route: ''
     })
+    menu.rootId = rootId
     routeMenus.set(menu.routeName, { menu, breadcrumb: bc_ })
   } else if (menu.type === 0) {
     bc_.push({
       title: menu.name,
       route: ''
     })
-    menu.children.map(m => resolveRouteMenus(m, bc_))
+    menu.children.map(m => {
+      resolveRouteMenus(m, rootId, bc_)
+    })
   }
 }
 
@@ -97,7 +100,9 @@ export default {
     },
     /** 初始化路由菜单数组 */
     initRouteMenus({ commit }, account) {
-      account.menus.map(m => resolveRouteMenus(m))
+      account.menus.map(m => {
+        resolveRouteMenus(m, m.id)
+      })
       commit('initRouteMenus', routeMenus)
     },
     /** 是否拥有指定按钮权限 */

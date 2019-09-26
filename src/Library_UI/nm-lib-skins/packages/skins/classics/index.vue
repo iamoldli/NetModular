@@ -1,18 +1,16 @@
 <template>
-  <section style="position:relative;height:100%">
-    <h1>经典皮肤
-      <el-button @click="skinToggle('classics')">主题切换</el-button>
-    </h1>
-    <div style="position:relative;height:100%">
-      <router-view/>
-    </div>
-  </section>
+  <div class="nm-wrapper">
+    <nm-header />
+    <nm-main />
+  </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import NmHeader from './components/header'
+import NmMain from './components/main'
 export default {
-  methods: {
-    ...mapMutations('app', ['skinToggle'])
-  }
+  components: { NmHeader, NmMain }
 }
 </script>
+<style lang="scss">
+@import "./styles/_index.scss";
+</style>
