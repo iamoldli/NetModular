@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "nm-lib-icon": "^1.2.9",
-        "nm-lib-skins": "^1.5.0",
+        "nm-lib-skins": "^1.5.1",
         "nm-lib-utils": "^1.2.1",
         "nm-module-admin": "^1.3.6",
         "nm-module-code-generator": "^1.2.8",

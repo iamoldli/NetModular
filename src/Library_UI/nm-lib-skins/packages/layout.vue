@@ -1,7 +1,7 @@
 <template>
-  <div id="app" v-if="initialized" :class="current.theme">
+  <div id="app" :class="current.theme">
     <template v-if="inFrame">
-      <component :is="`skin-${current.name.toLowerCase()}`"></component>
+      <component v-if="initialized" :is="`skin-${current.name.toLowerCase()}`"></component>
     </template>
     <template v-else>
       <router-view />
