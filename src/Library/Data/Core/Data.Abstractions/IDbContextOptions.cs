@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using Microsoft.Extensions.Logging;
 using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
 
 namespace Nm.Lib.Data.Abstractions
@@ -46,6 +44,6 @@ namespace Nm.Lib.Data.Abstractions
         /// <summary>
         /// 创建数据库事件
         /// </summary>
-        ICreateDatabaseEvent CreateDatabaseEvent { get; set; }
+        IDatabaseCreateEvents DatabaseCreateEvents { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Options;
@@ -91,21 +92,39 @@ namespace Nm.Lib.Data.SqlServer
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAtEnd);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
-            var server = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server;
-            var connStr = $"Server={server};Database=master;Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
-            using var con = new SqlConnection(connStr);
-            con.Open();
+            var connStrBuilder = new SqlConnectionStringBuilder
+            {
+                DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
+                UserID = DbOptions.UserId,
+                Password = DbOptions.Password,
+                MultipleActiveResultSets = true,
+                InitialCatalog = "master"
+            };
 
+            using var con = new SqlConnection(connStrBuilder.ToString());
+            con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = $"IF NOT EXISTS (SELECT * FROM sysdatabases WHERE name = '{Options.Database}') CREATE DATABASE [{Options.Database}]";
-            cmd.ExecuteNonQuery();
+
+            //判断数据库是否已存在
+            cmd.CommandText = $"SELECT TOP 1 FROM sysdatabases WHERE name = '{Options.Database}'";
+            var exist = cmd.ExecuteScalar().ToInt() > 0;
+            if (!exist)
+            {
+                //执行创建前事件
+                events?.Before().GetAwaiter().GetResult();
+
+                //创建数据库
+                cmd.CommandText = $"CREATE DATABASE [{Options.Database}]";
+                cmd.ExecuteNonQuery();
+            }
 
             cmd.CommandText = $"USE [{Options.Database}];";
             cmd.ExecuteNonQuery();
 
+            //创建表
             foreach (var entityDescriptor in entityDescriptors)
             {
                 if (!entityDescriptor.Ignore)
@@ -118,6 +137,12 @@ namespace Nm.Lib.Data.SqlServer
                         cmd.ExecuteNonQuery();
                     }
                 }
+            }
+
+            if (!exist)
+            {
+                //执行创建后事件
+                events?.After().GetAwaiter().GetResult();
             }
         }
 

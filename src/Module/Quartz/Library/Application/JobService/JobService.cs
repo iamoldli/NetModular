@@ -9,6 +9,7 @@ using Nm.Module.Quartz.Domain.Job;
 using Nm.Module.Quartz.Domain.Job.Models;
 using Nm.Module.Quartz.Domain.JobLog;
 using Nm.Module.Quartz.Domain.JobLog.Models;
+using Nm.Module.Quartz.Infrastructure.Repositories;
 using Quartz;
 
 namespace Nm.Module.Quartz.Application.JobService
@@ -20,14 +21,16 @@ namespace Nm.Module.Quartz.Application.JobService
         private readonly IJobLogRepository _logRepository;
         private readonly ILogger _logger;
         private readonly IQuartzServer _quartzServer;
+        private readonly QuartzDbContext _dbContext;
 
-        public JobService(IMapper mapper, IJobRepository repository, ILogger<JobService> logger, IQuartzServer quartzServer, IJobLogRepository logRepository)
+        public JobService(IMapper mapper, IJobRepository repository, ILogger<JobService> logger, IQuartzServer quartzServer, IJobLogRepository logRepository, QuartzDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
             _quartzServer = quartzServer;
             _logRepository = logRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(JobQueryModel model)
@@ -52,9 +55,9 @@ namespace Nm.Module.Quartz.Application.JobService
                 return ResultModel.Failed($"当前任务组{entity.Group}已存在任务编码${entity.Code}");
             }
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                if (await _repository.AddAsync(entity, tran))
+                if (await _repository.AddAsync(entity, uow))
                 {
                     var result = await AddJob(entity);
                     if (!result.Successful)
@@ -62,7 +65,7 @@ namespace Nm.Module.Quartz.Application.JobService
                         return result;
                     }
 
-                    tran.Commit();
+                    uow.Commit();
 
                     return ResultModel.Success();
                 }
@@ -105,7 +108,7 @@ namespace Nm.Module.Quartz.Application.JobService
                 return ResultModel.Failed($"当前任务组{entity.Group}已存在任务编码${entity.Code}");
             }
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 //未运行状态修改为暂停
                 if (oldStatus != JobStatus.Running)
@@ -119,7 +122,7 @@ namespace Nm.Module.Quartz.Application.JobService
                     await _quartzServer.DeleteJob(oldJobKey);
                 }
 
-                if (await _repository.UpdateAsync(entity, tran))
+                if (await _repository.UpdateAsync(entity, uow))
                 {
                     var result = await AddJob(entity, entity.Status == JobStatus.Running);
                     if (!result.Successful)
@@ -127,7 +130,7 @@ namespace Nm.Module.Quartz.Application.JobService
                         return result;
                     }
 
-                    tran.Commit();
+                    uow.Commit();
                     return ResultModel.Success();
                 }
             }
@@ -175,7 +178,7 @@ namespace Nm.Module.Quartz.Application.JobService
             if (entity.Status != JobStatus.Pause)
             {
                 entity.Status = JobStatus.Pause;
-                using (var tran = _repository.BeginTransaction())
+                using (var uow = _dbContext.NewUnitOfWork())
                 {
                     if (await _repository.UpdateAsync(entity))
                     {
@@ -185,7 +188,7 @@ namespace Nm.Module.Quartz.Application.JobService
 
                             await _quartzServer.PauseJob(jobKey);
 
-                            tran.Commit();
+                            uow.Commit();
 
                             return ResultModel.Success("已暂停");
                         }
@@ -212,9 +215,9 @@ namespace Nm.Module.Quartz.Application.JobService
             {
                 var oldStatus = entity.Status;
                 entity.Status = JobStatus.Running;
-                using (var tran = _repository.BeginTransaction())
+                using (var uow = _dbContext.NewUnitOfWork())
                 {
-                    if (await _repository.UpdateAsync(entity))
+                    if (await _repository.UpdateAsync(entity, uow))
                     {
                         try
                         {
@@ -239,7 +242,7 @@ namespace Nm.Module.Quartz.Application.JobService
                                 await _quartzServer.ResumeJob(jobKey);
                             }
 
-                            tran.Commit();
+                            uow.Commit();
 
                             return ResultModel.Success("已启动");
                         }

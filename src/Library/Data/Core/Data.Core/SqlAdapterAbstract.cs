@@ -10,7 +10,7 @@ namespace Nm.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {
-        protected SqlAdapterAbstract(DbOptions dbOptions,DbModuleOptions options)
+        protected SqlAdapterAbstract(DbOptions dbOptions, DbModuleOptions options)
         {
             DbOptions = dbOptions;
             Options = options;
@@ -21,7 +21,7 @@ namespace Nm.Lib.Data.Core
         public DbModuleOptions Options { get; }
 
         public abstract string Database { get; }
-        
+
         public virtual SqlDialect SqlDialect => SqlDialect.SqlServer;
 
         /// <summary>
@@ -140,6 +140,6 @@ namespace Nm.Lib.Data.Core
 
         public abstract Guid GenerateSequentialGuid();
 
-        public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors);
+        public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null);
     }
 }

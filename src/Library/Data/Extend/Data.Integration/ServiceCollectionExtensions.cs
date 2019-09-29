@@ -77,21 +77,28 @@ namespace Nm.Lib.Data.Integration
 
                 var dbContextOptionsType = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(dbContextOptionsAssemblyName)).GetType($"{dbContextOptionsAssemblyName}.{dbContextOptionsTypeName}");
 
-                //日志工厂
-                var loggerFactory = dbOptions.Logging ? services.BuildServiceProvider().GetService<ILoggerFactory>() : null;
-                //登录信息
-                var loginInfo = services.BuildServiceProvider().GetService<ILoginInfo>();
+                var sp = services.BuildServiceProvider();
 
+                //日志工厂
+                var loggerFactory = dbOptions.Logging ? sp.GetService<ILoggerFactory>() : null;
+                //登录信息
+                var loginInfo = sp.GetService<ILoginInfo>();
+
+                //数据库上下文配置项
                 var contextOptions = (IDbContextOptions)Activator.CreateInstance(dbContextOptionsType, dbOptions, options, loggerFactory, loginInfo);
 
-                var createDatabaseEvent = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => typeof(ICreateDatabaseEvent).IsAssignableFrom(m));
+                //数据库创建事件
+                var createDatabaseEvent = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => typeof(IDatabaseCreateEvents).IsAssignableFrom(m));
                 if (createDatabaseEvent != null)
                 {
-                    contextOptions.CreateDatabaseEvent = (ICreateDatabaseEvent)Activator.CreateInstance(createDatabaseEvent);
+                    contextOptions.DatabaseCreateEvents = (IDatabaseCreateEvents)Activator.CreateInstance(createDatabaseEvent);
                 }
-                var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions);
-                services.AddSingleton(typeof(IDbContext), sp => dbContext);
-                services.AddRepositories(module, dbContext, dbOptions);
+
+                //注入数据库上下文
+                var dbContext = Activator.CreateInstance(dbContextType, contextOptions, sp);
+                services.AddSingleton(dbContextType, dbContext);
+
+                services.AddRepositories(module, (IDbContext)dbContext, dbOptions);
             }
         }
 

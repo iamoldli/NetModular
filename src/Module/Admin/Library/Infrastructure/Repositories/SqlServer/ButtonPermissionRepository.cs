@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
 using Nm.Module.Admin.Domain.ButtonPermission;
@@ -17,9 +16,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.PermissionCode.Equals(permissionCode)).ExistsAsync();
         }
 
-        public Task<bool> DeleteByButton(string buttonCode, IDbTransaction transaction)
+        public Task<bool> DeleteByButton(string buttonCode, IUnitOfWork uow)
         {
-            return Db.Find(e => e.ButtonCode == buttonCode).UseTran(transaction).DeleteAsync();
+            return Db.Find(e => e.ButtonCode == buttonCode).UseUow(uow).DeleteAsync();
         }
     }
 }

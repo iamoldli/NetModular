@@ -87,7 +87,7 @@ namespace Nm.Module.Quartz.Web
                 case SqlDialect.MySql:
                     return "MySql";
                 case SqlDialect.SQLite:
-                    return "SQLite-10";
+                    return "SQLite-Microsoft";
                 case SqlDialect.Oracle:
                     return "OracleODP";
             }

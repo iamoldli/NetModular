@@ -46,11 +46,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
                 typeof(TEntity4), typeof(TEntity5), typeof(TEntity6), typeof(TEntity7), typeof(TEntity8), typeof(bool));
         }
 
-        #region ==UseTran==
+        #region ==UseUow==
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8> UseTran(IDbTransaction transaction)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8> UseUow(IUnitOfWork uow)
         {
-            QueryBody.UseTran(transaction);
+            QueryBody.UseUow(uow);
             return this;
         }
 

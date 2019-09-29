@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Utils.Core.Helpers;
+using Nm.Lib.Utils.Core.Extensions;
 using IsolationLevel = System.Data.IsolationLevel;
 
 namespace Nm.Lib.Data.Core
@@ -17,6 +17,11 @@ namespace Nm.Lib.Data.Core
     public abstract class DbContext : IDbContext
     {
         #region ==属性==
+
+        /// <summary>
+        /// 服务提供器
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; }
 
         /// <summary>
         /// 登录信息
@@ -32,18 +37,21 @@ namespace Nm.Lib.Data.Core
 
         #region ==构造函数==
 
-        protected DbContext(IDbContextOptions options)
+        protected DbContext(IDbContextOptions options, IServiceProvider serviceProvider)
         {
             Options = options;
+            ServiceProvider = serviceProvider;
             LoginInfo = Options.LoginInfo;
 
             if (options.DbOptions.CreateDatabase)
             {
-                options.CreateDatabaseEvent?.Before(this).GetAwaiter().GetResult();
+                if (options.DatabaseCreateEvents != null)
+                {
+                    options.DatabaseCreateEvents.DbContext = this;
+                }
 
-                options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(options.DbModuleOptions.Name));
+                options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(options.DbModuleOptions.Name), options.DatabaseCreateEvents);
 
-                options.CreateDatabaseEvent?.After(this).GetAwaiter().GetResult();
             }
         }
 
@@ -51,6 +59,11 @@ namespace Nm.Lib.Data.Core
 
         #region ==方法==
 
+        /// <summary>
+        /// 创建新的连接
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
         public IDbConnection NewConnection(IDbTransaction transaction = null)
         {
             if (transaction != null)
@@ -66,19 +79,8 @@ namespace Nm.Lib.Data.Core
                 var sql = new StringBuilder();
                 foreach (var c in Options.DbOptions.Modules)
                 {
-                    var connString = "";
-                    foreach (var param in c.ConnectionString.Split(';'))
-                    {
-                        var temp = param.Split('=');
-                        var key = temp[0];
-                        if (key.Equals("Data Source", StringComparison.OrdinalIgnoreCase) || key.Equals("DataSource", StringComparison.OrdinalIgnoreCase))
-                        {
-                            connString = temp[1];
-                            break;
-                        }
-                    }
-
-                    sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", connString, conn.Database);
+                    var dbFilePath = Path.Combine(Options.DbOptions.Server.NotNull() ? Options.DbOptions.Server : AppContext.BaseDirectory, "Db", Options.DbModuleOptions.Database);
+                    sql.AppendFormat("ATTACH DATABASE '{0}.db' as '{1}';", dbFilePath, c.Database);
                 }
 
                 conn.ExecuteAsync(sql.ToString());
@@ -87,24 +89,26 @@ namespace Nm.Lib.Data.Core
             return conn;
         }
 
-        public IDbTransaction BeginTransaction()
+        public IUnitOfWork NewUnitOfWork()
         {
+            //SQLite数据库开启事务时会包 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
-                return null;
+                return new UnitOfWork(null);
 
-            var conn = NewConnection();
-            conn.Open();
-            return conn.BeginTransaction();
+            var con = NewConnection();
+            con.Open();
+            return new UnitOfWork(con.BeginTransaction());
         }
 
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        public IUnitOfWork NewUnitOfWork(IsolationLevel isolationLevel)
         {
+            //SQLite数据库开启事务时会包 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
-                return null;
+                return new UnitOfWork(null);
 
-            var conn = NewConnection();
-            conn.Open();
-            return conn.BeginTransaction(isolationLevel);
+            var con = NewConnection();
+            con.Open();
+            return new UnitOfWork(con.BeginTransaction(isolationLevel));
         }
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()

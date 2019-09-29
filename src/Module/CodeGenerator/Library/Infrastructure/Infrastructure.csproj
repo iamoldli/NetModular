@@ -252,14 +252,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Startup.cs</LastGenOutput>
     </None>
-    <None Update="Templates\Default\T4\src\WebHost\appsettings.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>appsettings.cs</LastGenOutput>
-    </None>
-    <None Update="Templates\Default\T4\src\WebHost\appsettingsDevelopment.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>appsettingsDevelopment.cs</LastGenOutput>
-    </None>
     <None Update="Templates\Default\T4\src\WebHost\config\db.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>db.cs</LastGenOutput>
@@ -747,6 +739,21 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Page.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\config\db.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\config\dbDevelopment.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dbDevelopment.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\WebHost\config\logging.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>logging.tt</DependentUpon>
     </Compile>
     <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
       <DesignTime>True</DesignTime>

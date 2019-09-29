@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 
 namespace Nm.Module.Admin.Domain.ButtonPermission
@@ -21,8 +20,8 @@ namespace Nm.Module.Admin.Domain.ButtonPermission
         /// 通过按钮编号删除所有对应菜单与权限关系
         /// </summary>
         /// <param name="buttonCode"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> DeleteByButton(string buttonCode, IDbTransaction transaction);
+        Task<bool> DeleteByButton(string buttonCode, IUnitOfWork uow);
     }
 }

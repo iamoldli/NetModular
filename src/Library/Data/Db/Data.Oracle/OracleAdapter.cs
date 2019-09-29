@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
@@ -62,7 +63,7 @@ namespace Nm.Lib.Data.Oracle
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsBinary);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
             throw new NotImplementedException();
         }

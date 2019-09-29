@@ -20,8 +20,15 @@ namespace Nm.Lib.Data.SqlServer
             Check.NotNull(dbOptions.Password, nameof(dbOptions.Password), "数据库密码不能为空");
 
             options.Version = DbOptions.Version;
-            var server = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server;
-            options.ConnectionString = $"Server={server};Database={DbModuleOptions.Database};Uid={DbOptions.UserId};Pwd={DbOptions.Password};MultipleActiveResultSets=true;";
+            var connStrBuilder = new SqlConnectionStringBuilder
+            {
+                DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
+                UserID = DbOptions.UserId,
+                Password = DbOptions.Password,
+                MultipleActiveResultSets = true,
+                InitialCatalog = DbModuleOptions.Database
+            };
+            options.ConnectionString = connStrBuilder.ToString();
         }
 
         public override IDbConnection NewConnection()

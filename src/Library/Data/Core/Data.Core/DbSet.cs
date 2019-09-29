@@ -52,7 +52,7 @@ namespace Nm.Lib.Data.Core
 
         #region ==Insert==
 
-        public bool Insert(TEntity entity, IDbTransaction transaction = null, string tableName = null)
+        public bool Insert(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
 
@@ -63,7 +63,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsInt())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = ExecuteScalar<int>(sql, entity, transaction);
+                var id = ExecuteScalar<int>(sql, entity, uow);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -78,7 +78,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsLong())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = ExecuteScalar<long>(sql, entity, transaction);
+                var id = ExecuteScalar<long>(sql, entity, uow);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -98,15 +98,15 @@ namespace Nm.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return Execute(sql, entity, transaction) > 0;
+                return Execute(sql, entity, uow) > 0;
             }
 
             _logger?.LogDebug("Insert:({0})", sql);
-            return Execute(sql, entity, transaction) > 0;
+            return Execute(sql, entity, uow) > 0;
 
         }
 
-        public async Task<bool> InsertAsync(TEntity entity, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> InsertAsync(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
             SetCreatedBy(entity);
@@ -117,7 +117,7 @@ namespace Nm.Lib.Data.Core
             {
                 sql += _sqlAdapter.IdentitySql;
 
-                var id = await ExecuteScalarAsync<int>(sql, entity, transaction);
+                var id = await ExecuteScalarAsync<int>(sql, entity, uow);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -132,7 +132,7 @@ namespace Nm.Lib.Data.Core
             if (EntityDescriptor.PrimaryKey.IsLong())
             {
                 sql += _sqlAdapter.IdentitySql;
-                var id = await ExecuteScalarAsync<long>(sql, entity, transaction);
+                var id = await ExecuteScalarAsync<long>(sql, entity, uow);
                 if (id > 0)
                 {
                     EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
@@ -151,12 +151,12 @@ namespace Nm.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return await ExecuteAsync(sql, entity, transaction) > 0;
+                return await ExecuteAsync(sql, entity, uow) > 0;
             }
 
             _logger?.LogDebug("Insert:({0})", sql);
 
-            return await ExecuteAsync(sql, entity, transaction) > 0;
+            return await ExecuteAsync(sql, entity, uow) > 0;
 
         }
 
@@ -164,16 +164,16 @@ namespace Nm.Lib.Data.Core
 
         #region ==BatchInsert==
 
-        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, IDbTransaction transaction = null, string tableName = null)
+        public bool BatchInsert(List<TEntity> entityList, int flushSize = 10000, IUnitOfWork uow = null, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
 
             //判断有没有事务
             var hasTran = true;
-            if (transaction == null)
+            if (uow == null)
             {
-                transaction = DbContext.BeginTransaction();
+                uow = DbContext.NewUnitOfWork();
                 hasTran = false;
             }
 
@@ -249,7 +249,7 @@ namespace Nm.Lib.Data.Core
                         else if (mod == 0 || t == entityList.Count - 1)
                         {
                             sqlBuilder.Append(";");
-                            Execute(sqlBuilder.ToString(), transaction: transaction);
+                            Execute(sqlBuilder.ToString(), uow: uow);
                         }
                     }
 
@@ -257,29 +257,29 @@ namespace Nm.Lib.Data.Core
                 }
 
                 if (!hasTran)
-                    transaction.Commit();
+                    uow.Commit();
 
                 return true;
             }
             catch
             {
                 if (!hasTran)
-                    transaction.Rollback();
+                    uow.Rollback();
 
                 throw;
             }
         }
 
-        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, IUnitOfWork uow = null, string tableName = null)
         {
             if (entityList == null || !entityList.Any())
                 return false;
 
             //判断有没有事务
             var hasTran = true;
-            if (transaction == null)
+            if (uow == null)
             {
-                transaction = DbContext.BeginTransaction();
+                uow = DbContext.NewUnitOfWork();
                 hasTran = false;
             }
 
@@ -357,7 +357,7 @@ namespace Nm.Lib.Data.Core
                         else if (mod == 0 || t == entityList.Count - 1)
                         {
                             sqlBuilder.Append(";");
-                            await ExecuteAsync(sqlBuilder.ToString(), transaction: transaction);
+                            await ExecuteAsync(sqlBuilder.ToString(), uow: uow);
                         }
                     }
 
@@ -365,14 +365,14 @@ namespace Nm.Lib.Data.Core
                 }
 
                 if (!hasTran)
-                    transaction.Commit();
+                    uow.Commit();
 
                 return true;
             }
             catch
             {
                 if (!hasTran)
-                    transaction.Rollback();
+                    uow.Rollback();
 
                 throw;
             }
@@ -391,16 +391,16 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool Delete(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public bool Delete(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return Execute(_sql.DeleteSingle(tableName), dynParams, transaction) > 0;
+            return Execute(_sql.DeleteSingle(tableName), dynParams, uow) > 0;
         }
 
-        public async Task<bool> DeleteAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> DeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams, transaction) > 0;
+            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams, uow) > 0;
         }
 
         #endregion
@@ -425,23 +425,23 @@ namespace Nm.Lib.Data.Core
             return dynParams;
         }
 
-        public bool SoftDelete(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public bool SoftDelete(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
 
-            return Execute(_sql.SoftDeleteSingle(tableName), dynParams, transaction) > 0;
+            return Execute(_sql.SoftDeleteSingle(tableName), dynParams, uow) > 0;
         }
 
-        public async Task<bool> SoftDeleteAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             if (!EntityDescriptor.SoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
-            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams, transaction) > 0;
+            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams, uow) > 0;
         }
 
         #endregion
@@ -458,16 +458,16 @@ namespace Nm.Lib.Data.Core
             SetModifiedBy(entity);
         }
 
-        public bool Update(TEntity entity, IDbTransaction transaction = null, string tableName = null)
+        public bool Update(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return Execute(_sql.UpdateSingle(tableName), entity, transaction) > 0;
+            return Execute(_sql.UpdateSingle(tableName), entity, uow) > 0;
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> UpdateAsync(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity, transaction) > 0;
+            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity, uow) > 0;
         }
 
         #endregion
@@ -482,142 +482,159 @@ namespace Nm.Lib.Data.Core
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
             return dynParams;
         }
-        public TEntity Get(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false)
+
+        public TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
             var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
-            return QuerySingleOrDefault<TEntity>(sql, dynParams, transaction);
+            return QuerySingleOrDefault<TEntity>(sql, dynParams, uow);
         }
 
-        public Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction = null, string tableName = null, bool rowLock = false)
+        public Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
             var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
-            return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, transaction);
+            return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, uow);
         }
 
         #endregion
 
         #region ==Exists==
 
-        public bool Exists(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public bool Exists(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams, transaction) > 0;
+            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams, uow) > 0;
         }
 
-        public async Task<bool> ExistsAsync(dynamic id, IDbTransaction transaction = null, string tableName = null)
+        public async Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams, transaction)) > 0;
+            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams, uow)) > 0;
         }
 
         #endregion
 
         #region ==Execute==
 
-        public int Execute(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public int Execute(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).Execute(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).Execute(sql, param, tran, commandType: commandType);
         }
 
-        public Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<int> ExecuteAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).ExecuteAsync(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteAsync(sql, param, tran, commandType: commandType);
         }
 
         #endregion
 
         #region ==ExecuteScalar==
 
-        public T ExecuteScalar<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public T ExecuteScalar<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).ExecuteScalar<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteScalar<T>(sql, param, tran, commandType: commandType);
         }
 
-        public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).ExecuteScalarAsync<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteScalarAsync<T>(sql, param, tran, commandType: commandType);
         }
 
         #endregion
 
         #region ==QueryFirstOrDefault==
 
-        public dynamic QueryFirstOrDefault(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public dynamic QueryFirstOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryFirstOrDefault(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryFirstOrDefault(sql, param, tran, commandType: commandType);
         }
 
-        public T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public T QueryFirstOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryFirstOrDefault<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryFirstOrDefault<T>(sql, param, tran, commandType: commandType);
         }
 
-        public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryFirstOrDefaultAsync(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync(sql, param, tran, commandType: commandType);
         }
 
-        public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryFirstOrDefaultAsync<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
 
         #endregion
 
         #region ==QuerySingleOrDefault==
 
-        public dynamic QuerySingleOrDefault(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public dynamic QuerySingleOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QuerySingleOrDefault(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QuerySingleOrDefault(sql, param, tran, commandType: commandType);
         }
 
-        public T QuerySingleOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public T QuerySingleOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QuerySingleOrDefault<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QuerySingleOrDefault<T>(sql, param, tran, commandType: commandType);
         }
 
-        public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QuerySingleOrDefaultAsync(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync(sql, param, tran, commandType: commandType);
         }
 
-        public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QuerySingleOrDefaultAsync<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
 
         #endregion
 
         #region ==Query==
 
-        public IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public IEnumerable<dynamic> Query(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).Query(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).Query(sql, param, tran, commandType: commandType);
         }
 
-        public IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public IEnumerable<T> Query<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).Query<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).Query<T>(sql, param, tran, commandType: commandType);
         }
 
-        public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryAsync(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryAsync(sql, param, tran, commandType: commandType);
         }
 
-        public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, CommandType? commandType = null)
+        public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
-            return DbContext.NewConnection(transaction).QueryAsync<T>(sql, param, transaction, commandType: commandType);
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).QueryAsync<T>(sql, param, tran, commandType: commandType);
         }
 
         public INetSqlQueryable<TEntity> Find()
@@ -788,6 +805,16 @@ namespace Nm.Lib.Data.Core
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取事务
+        /// </summary>
+        /// <param name="uow"></param>
+        /// <returns></returns>
+        private IDbTransaction GetTransaction(IUnitOfWork uow)
+        {
+            return uow?.Transaction;
         }
 
         #endregion

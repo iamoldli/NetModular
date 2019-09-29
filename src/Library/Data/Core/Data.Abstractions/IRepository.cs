@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions.Entities;
@@ -13,23 +12,6 @@ namespace Nm.Lib.Data.Abstractions
     /// <typeparam name="TEntity"></typeparam>
     public interface IRepository<TEntity> where TEntity : IEntity, new()
     {
-        #region ==Transaction==
-
-        /// <summary>
-        /// 开启事务
-        /// </summary>
-        /// <returns></returns>
-        IDbTransaction BeginTransaction();
-
-        /// <summary>
-        /// 开启事务
-        /// </summary>
-        /// <param name="isolationLevel">隔离级别</param>
-        /// <returns></returns>
-        IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
-
-        #endregion
-
         #region ==Exists==
 
         /// <summary>
@@ -43,9 +25,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 判断是否存在
         /// </summary>
         /// <param name="where"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Exists(Expression<Func<TEntity, bool>> where, IDbTransaction transaction);
+        bool Exists(Expression<Func<TEntity, bool>> where, IUnitOfWork uow);
 
         /// <summary>
         /// 判断是否存在
@@ -58,9 +40,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 判断是否存在
         /// </summary>
         /// <param name="where"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, IDbTransaction transaction);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, IUnitOfWork uow);
 
         /// <summary>
         /// 根据id判断是否存在
@@ -74,9 +56,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 根据id判断是否存在
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Exists(dynamic id, IDbTransaction transaction);
+        bool Exists(dynamic id, IUnitOfWork uow);
 
         /// <summary>
         /// 根据id判断是否存在
@@ -89,9 +71,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 根据id判断是否存在
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> ExistsAsync(dynamic id, IDbTransaction transaction);
+        Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow);
 
         #endregion
 
@@ -108,9 +90,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 新增
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Add(TEntity entity, IDbTransaction transaction);
+        bool Add(TEntity entity, IUnitOfWork uow);
 
         /// <summary>
         /// 新增
@@ -123,9 +105,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 新增
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> AddAsync(TEntity entity, IDbTransaction transaction);
+        Task<bool> AddAsync(TEntity entity, IUnitOfWork uow);
 
         /// <summary>
         /// 批量新增
@@ -138,9 +120,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 批量新增
         /// </summary>
         /// <param name="list">实体集合</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Add(List<TEntity> list, IDbTransaction transaction);
+        bool Add(List<TEntity> list, IUnitOfWork uow);
 
         /// <summary>
         /// 批量新增
@@ -153,9 +135,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 批量新增
         /// </summary>
         /// <param name="list">实体集合</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> AddAsync(List<TEntity> list, IDbTransaction transaction);
+        Task<bool> AddAsync(List<TEntity> list, IUnitOfWork uow);
 
         #endregion
 
@@ -172,9 +154,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 删除
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Delete(dynamic id, IDbTransaction transaction);
+        bool Delete(dynamic id, IUnitOfWork uow);
 
         /// <summary>
         /// 删除
@@ -187,9 +169,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 删除
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(dynamic id, IDbTransaction transaction);
+        Task<bool> DeleteAsync(dynamic id, IUnitOfWork uow);
 
         #endregion
 
@@ -206,9 +188,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 更新
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool Update(TEntity entity, IDbTransaction transaction);
+        bool Update(TEntity entity, IUnitOfWork uow);
 
         /// <summary>
         /// 更新
@@ -221,9 +203,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 更新
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(TEntity entity, IDbTransaction transaction);
+        Task<bool> UpdateAsync(TEntity entity, IUnitOfWork uow);
 
         #endregion
 
@@ -240,10 +222,10 @@ namespace Nm.Lib.Data.Abstractions
         /// 根据主键查询
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <param name="rowLock">行锁</param>
         /// <returns></returns>
-        TEntity Get(dynamic id, IDbTransaction transaction, bool rowLock = false);
+        TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false);
 
         /// <summary>
         /// 根据主键查询
@@ -256,10 +238,10 @@ namespace Nm.Lib.Data.Abstractions
         /// 根据主键查询
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <param name="rowLock">行锁</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction, bool rowLock = false);
+        Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false);
 
         #endregion
 
@@ -274,9 +256,9 @@ namespace Nm.Lib.Data.Abstractions
         /// <summary>
         /// 查询全部
         /// </summary>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        IList<TEntity> GetAll(IDbTransaction transaction);
+        IList<TEntity> GetAll(IUnitOfWork uow);
 
         /// <summary>
         /// 查询全部
@@ -287,9 +269,9 @@ namespace Nm.Lib.Data.Abstractions
         /// <summary>
         /// 查询全部
         /// </summary>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<IList<TEntity>> GetAllAsync(IDbTransaction transaction);
+        Task<IList<TEntity>> GetAllAsync(IUnitOfWork uow);
 
         #endregion
 
@@ -306,9 +288,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 软删除
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        bool SoftDelete(dynamic id, IDbTransaction transaction);
+        bool SoftDelete(dynamic id, IUnitOfWork uow);
 
         /// <summary>
         /// 软删除
@@ -321,9 +303,9 @@ namespace Nm.Lib.Data.Abstractions
         /// 软删除
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="transaction">事务</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task<bool> SoftDeleteAsync(dynamic id, IDbTransaction transaction);
+        Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow);
 
         #endregion
     }

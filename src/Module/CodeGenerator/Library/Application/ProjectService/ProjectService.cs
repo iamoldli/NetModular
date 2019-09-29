@@ -20,6 +20,7 @@ using Nm.Module.CodeGenerator.Domain.Project;
 using Nm.Module.CodeGenerator.Domain.Project.Models;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Infrastructure.Options;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Default;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
@@ -37,8 +38,9 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
         private readonly IEnumItemRepository _enumItemRepository;
         private readonly IModelPropertyRepository _modelPropertyRepository;
         private readonly IClassMethodRepository _classMethodRepository;
+        private readonly CodeGeneratorDbContext _dbContext;
 
-        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository)
+        public ProjectService(IProjectRepository repository, IMapper mapper, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, IClassRepository classRepository, IPropertyRepository propertyRepository, IEnumRepository enumRepository, IEnumItemRepository enumItemRepository, IModelPropertyRepository modelPropertyRepository, IOptionsMonitor<CodeGeneratorOptions> codeGeneratorOptions, IClassMethodRepository classMethodRepository, CodeGeneratorDbContext dbContext)
         {
             _repository = repository;
             _mapper = mapper;
@@ -48,6 +50,7 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             _enumItemRepository = enumItemRepository;
             _modelPropertyRepository = modelPropertyRepository;
             _classMethodRepository = classMethodRepository;
+            _dbContext = dbContext;
             _codeGeneratorOptions = codeGeneratorOptions.CurrentValue;
             _commonOptions = optionsMonitor.CurrentValue;
         }
@@ -75,21 +78,21 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             if (entity == null)
                 return ResultModel.NotExists;
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                var result = await _repository.SoftDeleteAsync(id, tran);
+                var result = await _repository.SoftDeleteAsync(id, uow);
                 if (result)
                 {
-                    result = await _classRepository.DeleteByProject(id, tran);
+                    result = await _classRepository.DeleteByProject(id, uow);
                     if (result)
                     {
-                        result = await _propertyRepository.DeleteByProject(id, tran);
+                        result = await _propertyRepository.DeleteByProject(id, uow);
                         if (result)
                         {
-                            result = await _modelPropertyRepository.DeleteByProject(id, tran);
+                            result = await _modelPropertyRepository.DeleteByProject(id, uow);
                             if (result)
                             {
-                                tran.Commit();
+                                uow.Commit();
                                 return ResultModel.Success();
                             }
                         }

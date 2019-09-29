@@ -2,10 +2,10 @@
 {
   "Serilog": {
     "MinimumLevel": {
-      "Default": "Debug",
+      "Default": "Error",
       "Override": {
-        "Microsoft": "Debug",
-        "System": "Debug"
+        "Microsoft": "Error",
+        "System": "Error"
       }
     },
     "WriteTo": [

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
@@ -62,20 +63,42 @@ namespace Nm.Lib.Data.MySql
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
-            var port = DbOptions.Port > 0 ? DbOptions.Port : 3306;
-            var connStr = $"Server={DbOptions.Server};Database=mysql;Port={port};Uid={DbOptions.UserId};Pwd={DbOptions.Password};Allow User Variables=True;charset=utf8;SslMode=none;";
-            using var con = new MySqlConnection(connStr);
+            var connStrBuilder = new MySqlConnectionStringBuilder
+            {
+                Server = DbOptions.Server,
+                Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
+                Database = "mysql",
+                UserID = DbOptions.UserId,
+                Password = DbOptions.Password,
+                AllowUserVariables = true,
+                CharacterSet = "utf8",
+                SslMode = MySqlSslMode.None
+            };
+
+            using var con = new MySqlConnection(connStrBuilder.ToString());
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = $"CREATE DATABASE IF NOT EXISTS {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
-            cmd.ExecuteNonQuery();
+
+            //判断数据库是否已存在
+            cmd.CommandText = $"SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{Options.Database}' LIMIT 1;";
+            var exist = cmd.ExecuteScalar().ToInt() > 0;
+            if (!exist)
+            {
+                //执行创建前事件
+                events?.Before().GetAwaiter().GetResult();
+
+                //创建数据库
+                cmd.CommandText = $"CREATE DATABASE {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+                cmd.ExecuteNonQuery();
+            }
 
             cmd.CommandText = $"USE `{Options.Database}`;";
             cmd.ExecuteNonQuery();
 
+            //创建表
             foreach (var entityDescriptor in entityDescriptors)
             {
                 if (!entityDescriptor.Ignore)
@@ -83,6 +106,12 @@ namespace Nm.Lib.Data.MySql
                     cmd.CommandText = CreateTableSql(entityDescriptor);
                     cmd.ExecuteNonQuery();
                 }
+            }
+
+            if (!exist)
+            {
+                //执行创建后事件
+                events?.After().GetAwaiter().GetResult();
             }
         }
 

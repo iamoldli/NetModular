@@ -43,7 +43,7 @@ namespace Nm.Lib.Data.Core
 
         public DbModuleOptions DbModuleOptions { get; }
 
-        public ICreateDatabaseEvent CreateDatabaseEvent { get; set; }
+        public IDatabaseCreateEvents DatabaseCreateEvents { get; set; }
 
         public ISqlAdapter SqlAdapter { get; }
 

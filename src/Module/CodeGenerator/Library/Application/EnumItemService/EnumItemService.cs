@@ -7,6 +7,7 @@ using Nm.Lib.Utils.Core.Result;
 using Nm.Module.CodeGenerator.Application.EnumItemService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.EnumItem;
 using Nm.Module.CodeGenerator.Domain.EnumItem.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.EnumItemService
 {
@@ -14,11 +15,13 @@ namespace Nm.Module.CodeGenerator.Application.EnumItemService
     {
         private readonly IMapper _mapper;
         private readonly IEnumItemRepository _repository;
+        private readonly CodeGeneratorDbContext _dbContext;
 
-        public EnumItemService(IMapper mapper, IEnumItemRepository repository)
+        public EnumItemService(IMapper mapper, IEnumItemRepository repository, CodeGeneratorDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(EnumItemQueryModel model)
@@ -98,26 +101,26 @@ namespace Nm.Module.CodeGenerator.Application.EnumItemService
                 return ResultModel.Failed("不包含数据");
             }
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 foreach (var option in model.Options)
                 {
-                    var entity = await _repository.GetAsync(option.Id, tran);
+                    var entity = await _repository.GetAsync(option.Id, uow);
                     if (entity == null)
                     {
-                        tran.Rollback();
+                        uow.Rollback();
                         return ResultModel.Failed();
                     }
 
                     entity.Value = option.Sort;
-                    if (!await _repository.UpdateAsync(entity, tran))
+                    if (!await _repository.UpdateAsync(entity, uow))
                     {
-                        tran.Rollback();
+                        uow.Rollback();
                         return ResultModel.Failed();
                     }
                 }
 
-                tran.Commit();
+                uow.Commit();
             }
 
             return ResultModel.Success();

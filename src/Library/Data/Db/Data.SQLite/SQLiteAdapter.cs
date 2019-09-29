@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using Microsoft.Data.Sqlite;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 using Nm.Lib.Data.Abstractions.Enums;
 using Nm.Lib.Data.Abstractions.Options;
 using Nm.Lib.Data.Core;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Helpers;
 
 namespace Nm.Lib.Data.SQLite
@@ -60,9 +64,138 @@ namespace Nm.Lib.Data.SQLite
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
-            throw new NotImplementedException();
+            var dbFilePath = Path.Combine(DbOptions.Server.NotNull() ? DbOptions.Server : AppContext.BaseDirectory, "Db");
+            if (!Directory.Exists(dbFilePath))
+            {
+                Directory.CreateDirectory(dbFilePath);
+            }
+
+            dbFilePath = Path.Combine(dbFilePath, Options.Database) + ".db";
+
+            //判断是否存在
+            var exist = File.Exists(dbFilePath);
+            if (!exist)
+            {
+                //执行创建前事件
+                events?.Before().GetAwaiter().GetResult();
+            }
+
+            var connStrBuilder = new SqliteConnectionStringBuilder
+            {
+                DataSource = $"{dbFilePath}",
+                Mode = SqliteOpenMode.ReadWriteCreate
+            };
+
+            using var con = new SqliteConnection(connStrBuilder.ToString());
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            foreach (var entityDescriptor in entityDescriptors)
+            {
+                if (!entityDescriptor.Ignore)
+                {
+                    cmd.CommandText = $"SELECT 1 FROM sqlite_master WHERE type = 'table' and name='{entityDescriptor.TableName}';";
+                    var obj = cmd.ExecuteScalar();
+                    if (obj.ToInt() < 1)
+                    {
+                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            if (!exist)
+            {
+                //执行创建前事件
+                events?.After().GetAwaiter().GetResult();
+            }
+        }
+
+        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        {
+            var columns = entityDescriptor.Columns;
+            var sql = new StringBuilder();
+            sql.AppendFormat("CREATE TABLE {0}(", AppendQuote(entityDescriptor.TableName));
+
+            for (int i = 0; i < columns.Count; i++)
+            {
+                var column = columns[i];
+
+                sql.AppendFormat("`{0}` ", column.Name);
+                sql.AppendFormat("{0} ", Property2Column(column));
+
+                if (column.IsPrimaryKey)
+                {
+                    sql.Append("PRIMARY KEY ");
+
+                    if (entityDescriptor.PrimaryKey.IsInt() || entityDescriptor.PrimaryKey.IsLong())
+                    {
+                        sql.Append("AUTOINCREMENT ");
+                    }
+                }
+
+                if (!column.Nullable)
+                {
+                    sql.Append("NOT NULL ");
+                }
+
+                if (i < columns.Count - 1)
+                {
+                    sql.Append(",");
+                }
+            }
+
+            sql.Append(")");
+
+            return sql.ToString();
+        }
+
+        /// <summary>
+        /// 属性转换为列
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
+        public string Property2Column(IColumnDescriptor column)
+        {
+            var propertyType = column.PropertyInfo.PropertyType;
+            var isNullable = propertyType.IsNullable();
+            if (isNullable)
+            {
+                propertyType = Nullable.GetUnderlyingType(propertyType);
+                if (propertyType == null)
+                    throw new Exception("Property2Column error");
+            }
+
+            if (propertyType.IsEnum)
+                return "integer";
+
+            if (propertyType == typeof(Guid))
+                return "UNIQUEIDENTIFIER";
+
+            var typeCode = Type.GetTypeCode(propertyType);
+            if (typeCode == TypeCode.Char || typeCode == TypeCode.String)
+                return "text";
+
+            switch (typeCode)
+            {
+                case TypeCode.Boolean:
+                case TypeCode.Byte:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                    return "integer";
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
+                    var d = column.PrecisionD < 1 ? 4 : column.PrecisionD;
+                    return $"DECIMAL({m},{d})";
+                default:
+                    return "text";
+            }
         }
     }
 }

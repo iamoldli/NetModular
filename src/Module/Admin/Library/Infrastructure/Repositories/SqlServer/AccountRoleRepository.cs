@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -23,9 +22,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.AccountId == accountId && m.RoleId == roleId).DeleteAsync();
         }
 
-        public Task<bool> DeleteByAccount(Guid accountId, IDbTransaction transaction)
+        public Task<bool> DeleteByAccount(Guid accountId, IUnitOfWork uow)
         {
-            return Db.Find(m => m.AccountId == accountId).UseTran(transaction).DeleteAsync();
+            return Db.Find(m => m.AccountId == accountId).UseUow(uow).DeleteAsync();
         }
 
         public Task<bool> Exists(Guid accountId, Guid roleId)

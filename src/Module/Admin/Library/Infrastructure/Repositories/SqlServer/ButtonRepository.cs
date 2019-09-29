@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -33,9 +32,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IDbTransaction transaction)
+        public Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IUnitOfWork uow)
         {
-            return Db.Find(m => m.MenuCode == menuCode).UseTran(transaction).ToListAsync();
+            return Db.Find(m => m.MenuCode == menuCode).UseUow(uow).ToListAsync();
         }
 
         public Task<IList<string>> QueryCodeByAccount(Guid accountId)
@@ -47,9 +46,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync<string>();
         }
 
-        public Task<bool> ExistsByCode(string code, IDbTransaction transaction)
+        public Task<bool> ExistsByCode(string code, IUnitOfWork uow)
         {
-            return Db.Find(m => m.Code == code).UseTran(transaction).ExistsAsync();
+            return Db.Find(m => m.Code == code).UseUow(uow).ExistsAsync();
         }
     }
 }

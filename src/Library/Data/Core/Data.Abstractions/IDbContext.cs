@@ -1,5 +1,5 @@
-﻿using System.Data;
-using System.Threading.Tasks;
+﻿using System;
+using System.Data;
 using Nm.Lib.Auth.Abstractions;
 using Nm.Lib.Data.Abstractions.Entities;
 
@@ -10,6 +10,11 @@ namespace Nm.Lib.Data.Abstractions
     /// </summary>
     public interface IDbContext
     {
+        /// <summary>
+        /// 服务提供器
+        /// </summary>
+        IServiceProvider ServiceProvider { get; }
+
         /// <summary>
         /// 登录信息
         /// </summary>
@@ -23,21 +28,21 @@ namespace Nm.Lib.Data.Abstractions
         /// <summary>
         /// 创建新的连接
         /// </summary>
+        /// <param name="transaction">事务</param>
         /// <returns></returns>
         IDbConnection NewConnection(IDbTransaction transaction = null);
 
         /// <summary>
-        /// 开启事务
+        /// 创建新的工作单元
         /// </summary>
         /// <returns></returns>
-        IDbTransaction BeginTransaction();
+        IUnitOfWork NewUnitOfWork();
 
         /// <summary>
-        /// 开启事务
+        /// 创建新的工作单元
         /// </summary>
-        /// <param name="isolationLevel">隔离级别</param>
         /// <returns></returns>
-        IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
+        IUnitOfWork NewUnitOfWork(IsolationLevel isolationLevel);
 
         /// <summary>
         /// 获取数据集

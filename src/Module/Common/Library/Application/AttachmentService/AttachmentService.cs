@@ -12,6 +12,7 @@ using Nm.Module.Common.Domain.Attachment;
 using Nm.Module.Common.Domain.Attachment.Models;
 using Nm.Module.Common.Domain.AttachmentOwner;
 using Nm.Module.Common.Domain.MediaType;
+using Nm.Module.Common.Infrastructure.Repositories;
 using FileInfo = Nm.Lib.Utils.Core.Files.FileInfo;
 
 namespace Nm.Module.Common.Application.AttachmentService
@@ -23,14 +24,16 @@ namespace Nm.Module.Common.Application.AttachmentService
         private readonly IAttachmentRepository _repository;
         private readonly IAttachmentOwnerRepository _ownerRepository;
         private readonly IMediaTypeRepository _mediaTypeRepository;
+        private readonly CommonDbContext _dbContext;
 
-        public AttachmentService(IAttachmentRepository repository, IAttachmentOwnerRepository ownerRepository, IOptionsMonitor<ModuleCommonOptions> moduleCommonOptionsMonitor, IMediaTypeRepository mediaTypeRepository, IMapper mapper)
+        public AttachmentService(IAttachmentRepository repository, IAttachmentOwnerRepository ownerRepository, IOptionsMonitor<ModuleCommonOptions> moduleCommonOptionsMonitor, IMediaTypeRepository mediaTypeRepository, IMapper mapper, CommonDbContext dbContext)
         {
             _repository = repository;
             _ownerRepository = ownerRepository;
             _moduleCommonOptions = moduleCommonOptionsMonitor.CurrentValue;
             _mediaTypeRepository = mediaTypeRepository;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(AttachmentQueryModel model)
@@ -55,7 +58,7 @@ namespace Nm.Module.Common.Application.AttachmentService
 
             if (await _repository.DeleteAsync(id))
             {
-               
+
                 return ResultModel.Success();
             }
 
@@ -85,14 +88,19 @@ namespace Nm.Module.Common.Application.AttachmentService
                 entity.MediaType = mediaType.Value;
             }
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 if (await _repository.AddAsync(entity))
                 {
                     //如果需要授权访问附件，需要添加拥有者关联信息
-                    if (!model.Auth || await _ownerRepository.AddAsync(new AttachmentOwnerEntity { AttachmentId = entity.Id, AccountId = model.AccountId }, tran))
+                    var ownerEntity = new AttachmentOwnerEntity
                     {
-                        tran.Commit();
+                        AttachmentId = entity.Id,
+                        AccountId = model.AccountId
+                    };
+                    if (!model.Auth || await _ownerRepository.AddAsync(ownerEntity, uow))
+                    {
+                        uow.Commit();
 
                         var resultModel = _mapper.Map<AttachmentUploadResultModel>(entity);
 

@@ -26,9 +26,9 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
         #region ==属性==
 
         /// <summary>
-        /// 事务
+        /// 工作单元
         /// </summary>
-        public IDbTransaction Transaction { get; private set; }
+        public IUnitOfWork Uow { get; private set; }
 
         public Type WhereDelegateType { get; set; }
 
@@ -106,9 +106,9 @@ namespace Nm.Lib.Data.Core.SqlQueryable.Internal
 
         #region ==方法==
 
-        public void UseTran(IDbTransaction transaction)
+        public void UseUow(IUnitOfWork uow)
         {
-            Transaction = transaction;
+            Uow = uow;
         }
 
         public void SetWhere(LambdaExpression whereExpression)

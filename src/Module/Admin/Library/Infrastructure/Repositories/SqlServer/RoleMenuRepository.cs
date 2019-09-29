@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -22,9 +21,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
                 .ToListAsync();
         }
 
-        public Task<bool> DeleteByMenuId(Guid menuId, IDbTransaction transaction)
+        public Task<bool> DeleteByMenuId(Guid menuId, IUnitOfWork uow)
         {
-            return Db.Find(e => e.MenuId == menuId).UseTran(transaction).DeleteAsync();
+            return Db.Find(e => e.MenuId == menuId).UseUow(uow).DeleteAsync();
         }
 
         public Task<bool> ExistsWidthMenu(Guid menuId)
@@ -32,9 +31,9 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(e => e.MenuId == menuId).ExistsAsync();
         }
 
-        public Task<bool> DeleteByRoleId(Guid roleId, IDbTransaction transaction)
+        public Task<bool> DeleteByRoleId(Guid roleId, IUnitOfWork uow)
         {
-            return Db.Find(e => e.RoleId == roleId).UseTran(transaction).DeleteAsync();
+            return Db.Find(e => e.RoleId == roleId).UseUow(uow).DeleteAsync();
         }
     }
 }

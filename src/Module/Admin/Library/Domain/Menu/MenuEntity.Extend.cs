@@ -1,4 +1,5 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
+﻿using System.Collections.Generic;
+using Nm.Lib.Data.Abstractions.Attributes;
 using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Module.Admin.Domain.Menu
@@ -22,5 +23,10 @@ namespace Nm.Module.Admin.Domain.Menu
         /// </summary>
         [Ignore]
         public string TargetName => Target.ToDescription();
+
+        /// <summary>
+        /// 子菜单
+        /// </summary>
+        public IList<MenuEntity> Children { get; set; }
     }
 }

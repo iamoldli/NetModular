@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions.Entities;
@@ -20,14 +19,14 @@ namespace Nm.Lib.Data.Abstractions.SqlQueryable
         where TEntity7 : IEntity, new()
         where TEntity8 : IEntity, new()
     {
-        #region ==使用事务==
+        #region ==使用工作单元==
 
         /// <summary>
-        /// 使用事务
+        /// 使用工作单元
         /// </summary>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8> UseTran(IDbTransaction transaction);
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8> UseUow(IUnitOfWork uow);
 
         #endregion
 

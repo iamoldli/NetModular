@@ -15,6 +15,7 @@ using Nm.Module.Admin.Domain.Role;
 using Nm.Module.Admin.Domain.Role.Models;
 using Nm.Module.Admin.Domain.RoleMenu;
 using Nm.Module.Admin.Domain.RoleMenuButton;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.RoleService
 {
@@ -29,7 +30,9 @@ namespace Nm.Module.Admin.Application.RoleService
         private readonly IMenuRepository _menuRepository;
         private readonly IAccountService _accountService;
 
-        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository)
+        private readonly AdminDbContext _dbContext;
+
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, AdminDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
@@ -39,6 +42,7 @@ namespace Nm.Module.Admin.Application.RoleService
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
             _menuRepository = menuRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(RoleQueryModel model)
@@ -75,18 +79,18 @@ namespace Nm.Module.Admin.Application.RoleService
             if (exist)
                 return ResultModel.Failed("有账户绑定了该角色，请先删除对应绑定关系");
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                var result = await _repository.SoftDeleteAsync(id, tran);
+                var result = await _repository.SoftDeleteAsync(id, uow);
                 if (result)
                 {
-                    result = await _roleMenuRepository.DeleteByRoleId(id, tran);
+                    result = await _roleMenuRepository.DeleteByRoleId(id, uow);
                     if (result)
                     {
-                        result = await _roleMenuButtonRepository.DeleteByRole(id, tran);
+                        result = await _roleMenuButtonRepository.DeleteByRole(id, uow);
                         if (result)
                         {
-                            tran.Commit();
+                            uow.Commit();
                         }
                     }
                 }
@@ -150,14 +154,14 @@ namespace Nm.Module.Admin.Application.RoleService
              * 1、清除已有的绑定数据
              * 2、添加新的绑定数据
              */
-            using (var tran = _roleMenuRepository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                var clear = await _roleMenuRepository.DeleteByRoleId(model.Id, tran);
+                var clear = await _roleMenuRepository.DeleteByRoleId(model.Id, uow);
                 if (clear)
                 {
-                    if (entityList == null || !entityList.Any() || await _roleMenuRepository.AddAsync(entityList, tran))
+                    if (entityList == null || !entityList.Any() || await _roleMenuRepository.AddAsync(entityList, uow))
                     {
-                        tran.Commit();
+                        uow.Commit();
                         await ClearAccountPermissionCache(model.Id);
                         return ResultModel.Success();
                     }
@@ -236,14 +240,14 @@ namespace Nm.Module.Admin.Application.RoleService
 
             #region ==批量添加指定菜单的所有按钮==
 
-            using (var tran = _roleMenuRepository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                result = await _roleMenuButtonRepository.Delete(model.RoleId, model.MenuId, tran);
+                result = await _roleMenuButtonRepository.Delete(model.RoleId, model.MenuId, uow);
                 if (result)
                 {
                     if (model.Checked)
                     {
-                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName, tran);
+                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName, uow);
                         var entities = buttons.Select(m => new RoleMenuButtonEntity
                         {
                             RoleId = model.RoleId,
@@ -251,9 +255,9 @@ namespace Nm.Module.Admin.Application.RoleService
                             ButtonId = m.Id
                         }).ToList();
 
-                        if (await _roleMenuButtonRepository.AddAsync(entities, tran))
+                        if (await _roleMenuButtonRepository.AddAsync(entities, uow))
                         {
-                            tran.Commit();
+                            uow.Commit();
                             await ClearAccountPermissionCache(model.RoleId);
 
                             return ResultModel.Success();
@@ -261,7 +265,7 @@ namespace Nm.Module.Admin.Application.RoleService
                     }
                     else
                     {
-                        tran.Commit();
+                        uow.Commit();
                         await ClearAccountPermissionCache(model.RoleId);
 
                         return ResultModel.Success();

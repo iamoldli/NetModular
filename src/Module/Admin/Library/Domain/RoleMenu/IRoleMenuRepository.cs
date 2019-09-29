@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 
@@ -22,17 +21,17 @@ namespace Nm.Module.Admin.Domain.RoleMenu
         /// 根据角色编号删除对应关联信息
         /// </summary>
         /// <param name="roleId"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> DeleteByRoleId(Guid roleId, IDbTransaction transaction);
+        Task<bool> DeleteByRoleId(Guid roleId, IUnitOfWork uow);
 
         /// <summary>
         /// 根据菜单编号删除对应关联信息
         /// </summary>
         /// <param name="menuId"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> DeleteByMenuId(Guid menuId, IDbTransaction transaction);
+        Task<bool> DeleteByMenuId(Guid menuId, IUnitOfWork uow);
 
         /// <summary>
         /// 判断是否存在指定菜单的关联

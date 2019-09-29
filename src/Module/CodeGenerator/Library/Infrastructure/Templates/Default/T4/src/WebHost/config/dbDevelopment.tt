@@ -1,4 +1,4 @@
 <#@ template language="C#" #>
 {
-    "Logging": true,
+    "Logging": true
 }

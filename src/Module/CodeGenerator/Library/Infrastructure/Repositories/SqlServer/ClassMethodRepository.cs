@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Core;
@@ -14,14 +13,14 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
 
         }
 
-        public Task<bool> DeleteByClass(Guid classId, IDbTransaction transaction)
+        public Task<bool> DeleteByClass(Guid classId, IUnitOfWork uow)
         {
-            return Db.Find(m => m.ClassId == classId).UseTran(transaction).DeleteAsync();
+            return Db.Find(m => m.ClassId == classId).UseUow(uow).DeleteAsync();
         }
 
-        public Task<ClassMethodEntity> GetByClass(Guid classId, IDbTransaction transaction)
+        public Task<ClassMethodEntity> GetByClass(Guid classId, IUnitOfWork uow)
         {
-            return Db.Find(m => m.ClassId == classId).UseTran(transaction).FirstAsync();
+            return Db.Find(m => m.ClassId == classId).UseUow(uow).FirstAsync();
         }
     }
 }

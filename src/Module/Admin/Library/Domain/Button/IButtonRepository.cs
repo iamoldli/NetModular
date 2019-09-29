@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 using Nm.Module.Admin.Domain.Button.Models;
@@ -22,9 +21,9 @@ namespace Nm.Module.Admin.Domain.Button
         /// 根据菜单编号查询按钮列表
         /// </summary>
         /// <param name="menuCode"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IDbTransaction transaction);
+        Task<IList<ButtonEntity>> QueryByMenu(string menuCode, IUnitOfWork uow);
 
         /// <summary>
         /// 查询指定账户拥有的按钮编码列表
@@ -36,8 +35,8 @@ namespace Nm.Module.Admin.Domain.Button
         /// 编码是否存在
         /// </summary>
         /// <param name="code"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> ExistsByCode(string code, IDbTransaction transaction);
+        Task<bool> ExistsByCode(string code, IUnitOfWork uow);
     }
 }

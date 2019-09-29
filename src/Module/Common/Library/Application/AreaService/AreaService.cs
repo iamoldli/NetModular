@@ -3,6 +3,7 @@ using System.Data;
 using System.Threading.Tasks;
 using AutoMapper;
 using Nm.Lib.Cache.Abstractions;
+using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Result;
 using Nm.Module.Common.Application.AreaService.ViewModels;
@@ -10,6 +11,7 @@ using Nm.Module.Common.Domain.Area;
 using Nm.Module.Common.Domain.Area.Models;
 using Nm.Module.Common.Infrastructure;
 using Nm.Module.Common.Infrastructure.AreaCrawling;
+using Nm.Module.Common.Infrastructure.Repositories;
 
 namespace Nm.Module.Common.Application.AreaService
 {
@@ -18,12 +20,14 @@ namespace Nm.Module.Common.Application.AreaService
         private readonly ICacheHandler _cache;
         private readonly IMapper _mapper;
         private readonly IAreaRepository _repository;
+        private readonly CommonDbContext _dbContext;
 
-        public AreaService(IMapper mapper, IAreaRepository repository, ICacheHandler cache)
+        public AreaService(IMapper mapper, IAreaRepository repository, ICacheHandler cache, CommonDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
             _cache = cache;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(AreaQueryModel model)
@@ -103,31 +107,31 @@ namespace Nm.Module.Common.Application.AreaService
 
         public async Task<IResultModel> CrawlInsert(IList<AreaCrawlingModel> list)
         {
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 foreach (var m in list)
                 {
                     var entity = _mapper.Map<AreaEntity>(m);
-                    await CrawlingInsert(entity, m.Children, tran);
+                    await CrawlingInsert(entity, m.Children, uow);
                 }
 
-                tran.Commit();
+                uow.Commit();
             }
 
             return ResultModel.Success();
         }
 
         //插入爬取的数据
-        private async Task CrawlingInsert(AreaEntity entity, List<AreaCrawlingModel> children, IDbTransaction transaction)
+        private async Task CrawlingInsert(AreaEntity entity, List<AreaCrawlingModel> children, IUnitOfWork uow)
         {
-            if (await _repository.AddAsync(entity, transaction))
+            if (await _repository.AddAsync(entity, uow))
             {
                 foreach (var child in children)
                 {
                     var childEntity = _mapper.Map<AreaEntity>(child);
                     childEntity.Level = entity.Level + 1;
                     childEntity.ParentId = entity.Id;
-                    await CrawlingInsert(childEntity, child.Children, transaction);
+                    await CrawlingInsert(childEntity, child.Children, uow);
                 }
             }
         }

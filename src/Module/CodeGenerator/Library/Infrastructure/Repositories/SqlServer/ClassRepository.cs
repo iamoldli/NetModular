@@ -50,9 +50,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Repositories.SqlServer
                 .ExistsAsync();
         }
 
-        public Task<bool> DeleteByProject(Guid projectId, IDbTransaction transaction)
+        public Task<bool> DeleteByProject(Guid projectId, IUnitOfWork uow)
         {
-            return Db.Find(m => m.ProjectId == projectId).UseTran(transaction).DeleteAsync();
+            return Db.Find(m => m.ProjectId == projectId).UseUow(uow).DeleteAsync();
         }
     }
 }

@@ -166,7 +166,8 @@ namespace Nm.Lib.Data.Abstractions
         /// 创建数据库
         /// </summary>
         /// <param name="entityDescriptors">实体信息集合</param>
-        void CreateDatabase(List<IEntityDescriptor> entityDescriptors);
+        /// <param name="events">创建事件</param>
+        void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null);
 
         #endregion
     }

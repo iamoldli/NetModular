@@ -41,11 +41,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.WhereDelegateType = typeof(Func<,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3), typeof(TEntity4), typeof(bool));
         }
 
-        #region ==UseTran==
+        #region ==UseUow==
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> UseTran(IDbTransaction transaction)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> UseUow(IUnitOfWork uow)
         {
-            QueryBody.UseTran(transaction);
+            QueryBody.UseUow(uow);
             return this;
         }
 

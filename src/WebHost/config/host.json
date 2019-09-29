@@ -4,5 +4,5 @@
   //开启Swagger
   "Swagger": false,
   //代理
-  "Proxy": true
+  "Proxy": false
 }

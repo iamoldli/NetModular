@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,39 +25,58 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("{\r\n  \"Logging\": false,\r\n  \"Connections\": [\r\n    {\r\n      \"Name\": \"Admin\",\r\n      " +
-                    "\"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Server={数据库地址}" +
-                    ";Database=");
+            this.Write(@"{
+  //是否开启日志
+  ""Logging"": false,
+  //数据库类型 0、SqlServer 1、MySql 2、SQLite
+  ""Dialect"": 0,
+  //数据库版本
+  ""Version"": """",
+  //数据库地址
+  ""Server"": """",
+  //端口号
+  ""Port"": ,
+  //用户名
+  ""UserId"": """",
+  //密码
+  ""Password"": """",
+  //是否创建数据库和表
+  ""CreateDatabase"": false,
+  //模块列表
+  ""Modules"": [
+    {
+      //模块名称
+      ""Name"": ""Admin"",
+      //数据库名称
+      ""Database"": """);
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 25 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
-            this.Write("_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;\"\r\n    },\r\n    {\r\n      \"Name\"" +
-                    ": \"");
+            this.Write("_Admin\"\r\n    },\r\n    {\r\n      \"Name\": \"");
             
-            #line 12 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
-            this.Write("\",\r\n      \"Dialect\": 0,\r\n      \"Database\": \"{数据库名称}\",\r\n      \"ConnString\": \"Serve" +
-                    "r={数据库地址};Database=");
+            this.Write("\",\r\n      \"Database\": \"");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("_");
             
-            #line 15 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
+            #line 29 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\config\db.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
             #line hidden
-            this.Write(";Uid=sa;Pwd=sa;MultipleActiveResultSets=true;\"\r\n    }\r\n  ]\r\n}");
+            this.Write("\"\r\n    }\r\n  ]\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -31,11 +31,11 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             Where(whereExpression);
         }
 
-        #region ==UseTran==
+        #region ==UseUow==
 
-        public INetSqlQueryable<TEntity> UseTran(IDbTransaction transaction)
+        public INetSqlQueryable<TEntity> UseUow(IUnitOfWork uow)
         {
-            QueryBody.UseTran(transaction);
+            QueryBody.UseUow(uow);
             return this;
         }
 
@@ -244,14 +244,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public Task<int> DeleteWithAffectedNumAsync()
         {
             var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         #endregion
@@ -274,14 +274,14 @@ namespace Nm.Lib.Data.Core.SqlQueryable
         {
             var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public Task<int> SoftDeleteWithAffectedNumAsync()
         {
             var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         #endregion
@@ -306,7 +306,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.SetModifiedBy = setModifiedBy;
             var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true)
@@ -315,7 +315,7 @@ namespace Nm.Lib.Data.Core.SqlQueryable
             QueryBody.SetModifiedBy = setModifiedBy;
             var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Transaction);
+            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         #endregion

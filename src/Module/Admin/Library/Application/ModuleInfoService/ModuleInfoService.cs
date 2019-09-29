@@ -7,6 +7,7 @@ using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.ModuleInfo;
 using Nm.Module.Admin.Domain.ModuleInfo.Models;
 using Nm.Module.Admin.Domain.Permission;
+using Nm.Module.Admin.Infrastructure.Repositories;
 using ModuleInfoEntity = Nm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
 namespace Nm.Module.Admin.Application.ModuleInfoService
@@ -17,13 +18,15 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
         private readonly IPermissionRepository _permissionRepository;
         private readonly IMenuRepository _menuRepository;
         private readonly IModuleCollection _moduleCollection;
+        private readonly AdminDbContext _dbContext;
 
-        public ModuleInfoService(IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository, IModuleCollection moduleCollection)
+        public ModuleInfoService(IModuleInfoRepository repository, IPermissionRepository permissionRepository, IMenuRepository menuRepository, IModuleCollection moduleCollection, AdminDbContext dbContext)
         {
             _repository = repository;
             _permissionRepository = permissionRepository;
             _menuRepository = menuRepository;
             _moduleCollection = moduleCollection;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(ModuleInfoQueryModel model)
@@ -45,15 +48,15 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
                 Version = m.Version
             });
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 foreach (var moduleInfo in modules)
                 {
-                    if (!await _repository.Exists(moduleInfo, tran))
+                    if (!await _repository.Exists(moduleInfo, uow))
                     {
                         if (!await _repository.AddAsync(moduleInfo))
                         {
-                            tran.Rollback();
+                            uow.Rollback();
                             return ResultModel.Failed();
                         }
                     }
@@ -61,13 +64,13 @@ namespace Nm.Module.Admin.Application.ModuleInfoService
                     {
                         if (!await _repository.UpdateByCode(moduleInfo))
                         {
-                            tran.Rollback();
+                            uow.Rollback();
                             return ResultModel.Failed();
                         }
                     }
                 }
 
-                tran.Commit();
+                uow.Commit();
             }
 
             return ResultModel.Success();

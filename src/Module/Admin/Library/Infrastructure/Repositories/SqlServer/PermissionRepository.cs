@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
@@ -26,14 +25,14 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<bool> Exists(PermissionEntity entity, IDbTransaction transaction)
+        public Task<bool> Exists(PermissionEntity entity, IUnitOfWork uow)
         {
             var query = Db.Find(m => m.ModuleCode.Equals(entity.ModuleCode));
             query.Where(m => m.Controller.Equals(entity.Controller));
             query.Where(m => m.Action.Equals(entity.Action));
             query.Where(m => m.HttpMethod.Equals(entity.HttpMethod));
             query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
-            query.UseTran(transaction);
+            query.UseUow(uow);
 
             return query.ExistsAsync();
         }
@@ -122,10 +121,10 @@ namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> UpdateForSync(PermissionEntity entity, IDbTransaction transaction)
+        public Task<bool> UpdateForSync(PermissionEntity entity, IUnitOfWork uow)
         {
             return Db.Find(m => m.ModuleCode == entity.ModuleCode && m.Controller == entity.Controller && m.Action == entity.Action)
-                .UseTran(transaction)
+                .UseUow(uow)
                 .UpdateAsync(m => new PermissionEntity { Name = entity.Name });
         }
     }

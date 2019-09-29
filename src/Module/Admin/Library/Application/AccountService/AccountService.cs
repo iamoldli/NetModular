@@ -22,6 +22,7 @@ using Nm.Module.Admin.Domain.Menu;
 using Nm.Module.Admin.Domain.Permission;
 using Nm.Module.Admin.Domain.Role;
 using Nm.Module.Admin.Infrastructure;
+using Nm.Module.Admin.Infrastructure.Repositories;
 
 namespace Nm.Module.Admin.Application.AccountService
 {
@@ -41,8 +42,9 @@ namespace Nm.Module.Admin.Application.AccountService
         private readonly DrawingHelper _drawingHelper;
         private readonly ISystemService _systemService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly AdminDbContext _dbContext;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider, IAccountConfigRepository accountConfigRepository)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext)
         {
             _cache = cache;
             _mapper = mapper;
@@ -56,6 +58,7 @@ namespace Nm.Module.Admin.Application.AccountService
             _systemService = systemService;
             _serviceProvider = serviceProvider;
             _accountConfigRepository = accountConfigRepository;
+            _dbContext = dbContext;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -180,6 +183,11 @@ namespace Nm.Module.Admin.Application.AccountService
         private bool CheckAccount(AccountEntity account, out string msg)
         {
             msg = "";
+            if (account == null)
+            {
+                msg = "账户不存在";
+                return false;
+            }
             if (account.Status == AccountStatus.Closed)
             {
                 msg = "该账户已注销，请联系管理员~";
@@ -278,22 +286,22 @@ namespace Nm.Module.Admin.Application.AccountService
 
             account.Password = EncryptPassword(account.UserName, account.Password);
 
-            using (var tran = _accountRepository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                if (await _accountRepository.AddAsync(account, tran))
+                if (await _accountRepository.AddAsync(account, uow))
                 {
                     if (model.Roles != null && model.Roles.Any())
                     {
                         var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
-                        if (await _accountRoleRepository.AddAsync(accountRoleList, tran))
+                        if (await _accountRoleRepository.AddAsync(accountRoleList, uow))
                         {
-                            tran.Commit();
+                            uow.Commit();
                             return result.Success(account.Id);
                         }
                     }
                     else
                     {
-                        tran.Commit();
+                        uow.Commit();
                         return result.Success(account.Id);
                     }
                 }
@@ -330,20 +338,20 @@ namespace Nm.Module.Admin.Application.AccountService
             if (!exists.Successful)
                 return exists;
 
-            using (var tran = _accountRepository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
-                var result = await _accountRepository.UpdateAsync(account, tran);
+                var result = await _accountRepository.UpdateAsync(account, uow);
                 if (result)
                 {
-                    result = await _accountRoleRepository.DeleteByAccount(account.Id, tran);
+                    result = await _accountRoleRepository.DeleteByAccount(account.Id, uow);
                     if (result)
                     {
                         if (model.Roles != null && model.Roles.Any())
                         {
                             var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
-                            if (await _accountRoleRepository.AddAsync(accountRoleList, tran))
+                            if (await _accountRoleRepository.AddAsync(accountRoleList, uow))
                             {
-                                tran.Commit();
+                                uow.Commit();
                                 ClearPermissionListCache(account.Id);
 
                                 return ResultModel.Success();
@@ -351,7 +359,7 @@ namespace Nm.Module.Admin.Application.AccountService
                         }
                         else
                         {
-                            tran.Commit();
+                            uow.Commit();
                             ClearPermissionListCache(account.Id);
 
                             return ResultModel.Success();

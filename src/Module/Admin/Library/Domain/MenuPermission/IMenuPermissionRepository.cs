@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Nm.Lib.Data.Abstractions;
 
@@ -21,17 +20,17 @@ namespace Nm.Module.Admin.Domain.MenuPermission
         /// 通过权限编号删除所有对应菜单与权限关系
         /// </summary>
         /// <param name="permissionCode">权限编码</param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> DeleteByPermission(string permissionCode, IDbTransaction transaction);
+        Task<bool> DeleteByPermission(string permissionCode, IUnitOfWork uow);
 
         /// <summary>
         /// 通过菜单编号删除所有对应菜单与权限关系
         /// </summary>
         /// <param name="menuCode"></param>
-        /// <param name="transaction"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> DeleteByMenu(string menuCode, IDbTransaction transaction);
+        Task<bool> DeleteByMenu(string menuCode, IUnitOfWork uow);
 
         /// <summary>
         /// 通过菜单编号获取所有对应菜单与权限关系

@@ -8,30 +8,30 @@ using Nm.Module.Admin.Domain.Role;
 
 namespace Nm.Module.Admin.Infrastructure.Repositories
 {
-    public class CreateDatabaseEvent : ICreateDatabaseEvent
+    public class CreateDatabaseEvent : IDatabaseCreateEvents
     {
-        public Task Before(IDbContext dbContext)
+        public IDbContext DbContext { get; set; }
+
+        public Task Before()
         {
             return Task.CompletedTask;
         }
 
-        public async Task After(IDbContext dbContext)
+        public async Task After()
         {
-            if (!await dbContext.Set<RoleEntity>().Find().ExistsAsync())
+            if (!await DbContext.Set<RoleEntity>().Find().ExistsAsync())
             {
-                var roleId = await AddRole(dbContext);
-                await AddAccount(dbContext, roleId);
+                var roleId = await AddRole();
+                await AddAccount(roleId);
             }
         }
 
         /// <summary>
         /// 创建角色
         /// </summary>
-        /// <param name="dbContext"></param>
-        /// <returns></returns>
-        private async Task<Guid> AddRole(IDbContext dbContext)
+        private async Task<Guid> AddRole()
         {
-            var db = dbContext.Set<RoleEntity>();
+            var db = DbContext.Set<RoleEntity>();
             var role = new RoleEntity
             {
                 Name = "超级管理员",
@@ -51,9 +51,12 @@ namespace Nm.Module.Admin.Infrastructure.Repositories
             return role.Id;
         }
 
-        private async Task AddAccount(IDbContext dbContext, Guid roleId)
+        /// <summary>
+        /// 创建管理员账户
+        /// </summary>
+        private async Task AddAccount(Guid roleId)
         {
-            var db = dbContext.Set<AccountEntity>();
+            var db = DbContext.Set<AccountEntity>();
             var account = new AccountEntity
             {
                 UserName = "admin",
@@ -70,12 +73,15 @@ namespace Nm.Module.Admin.Infrastructure.Repositories
 
             await db.InsertAsync(account);
 
-            await AddAccountRole(dbContext, account.Id, roleId);
+            await AddAccountRole(account.Id, roleId);
         }
 
-        private Task AddAccountRole(IDbContext dbContext, Guid accountId, Guid roleId)
+        /// <summary>
+        /// 绑定管理员与角色
+        /// </summary>
+        private Task AddAccountRole(Guid accountId, Guid roleId)
         {
-            var db = dbContext.Set<AccountRoleEntity>();
+            var db = DbContext.Set<AccountRoleEntity>();
 
             var accountRole = new AccountRoleEntity
             {

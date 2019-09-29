@@ -8,6 +8,7 @@ using Nm.Module.CodeGenerator.Application.PropertyService.ViewModels;
 using Nm.Module.CodeGenerator.Domain.Class;
 using Nm.Module.CodeGenerator.Domain.Property;
 using Nm.Module.CodeGenerator.Domain.Property.Models;
+using Nm.Module.CodeGenerator.Infrastructure.Repositories;
 
 namespace Nm.Module.CodeGenerator.Application.PropertyService
 {
@@ -16,12 +17,14 @@ namespace Nm.Module.CodeGenerator.Application.PropertyService
         private readonly IMapper _mapper;
         private readonly IPropertyRepository _repository;
         private readonly IClassRepository _classRepository;
+        private readonly CodeGeneratorDbContext _dbContext;
 
-        public PropertyService(IMapper mapper, IPropertyRepository repository, IClassRepository classRepository)
+        public PropertyService(IMapper mapper, IPropertyRepository repository, IClassRepository classRepository, CodeGeneratorDbContext dbContext)
         {
             _mapper = mapper;
             _repository = repository;
             _classRepository = classRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<IResultModel> Query(PropertyQueryModel model)
@@ -107,26 +110,26 @@ namespace Nm.Module.CodeGenerator.Application.PropertyService
                 return ResultModel.Failed("不包含数据");
             }
 
-            using (var tran = _repository.BeginTransaction())
+            using (var uow = _dbContext.NewUnitOfWork())
             {
                 foreach (var option in model.Options)
                 {
-                    var entity = await _repository.GetAsync(option.Id, tran);
+                    var entity = await _repository.GetAsync(option.Id, uow);
                     if (entity == null)
                     {
-                        tran.Rollback();
+                        uow.Rollback();
                         return ResultModel.Failed();
                     }
 
                     entity.Sort = option.Sort;
-                    if (!await _repository.UpdateAsync(entity, tran))
+                    if (!await _repository.UpdateAsync(entity, uow))
                     {
-                        tran.Rollback();
+                        uow.Rollback();
                         return ResultModel.Failed();
                     }
                 }
 
-                tran.Commit();
+                uow.Commit();
             }
 
             return ResultModel.Success();

@@ -30,20 +30,6 @@ namespace Nm.Lib.Data.Core
             Db = context.Set<TEntity>();
         }
 
-        #region ==Transaction==
-
-        public IDbTransaction BeginTransaction()
-        {
-            return DbContext.BeginTransaction();
-        }
-
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
-        {
-            return DbContext.BeginTransaction(isolationLevel);
-        }
-
-        #endregion
-
         #region ==Exists==
 
         public virtual bool Exists(Expression<Func<TEntity, bool>> where)
@@ -51,9 +37,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find(where).Exists();
         }
 
-        public virtual bool Exists(Expression<Func<TEntity, bool>> where, IDbTransaction transaction)
+        public virtual bool Exists(Expression<Func<TEntity, bool>> where, IUnitOfWork uow)
         {
-            return Db.Find(where).UseTran(transaction).Exists();
+            return Db.Find(where).UseUow(uow).Exists();
         }
 
         public virtual Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where)
@@ -61,9 +47,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find(where).ExistsAsync();
         }
 
-        public virtual Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, IDbTransaction transaction)
+        public virtual Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> where, IUnitOfWork uow)
         {
-            return Db.Find(where).UseTran(transaction).ExistsAsync();
+            return Db.Find(where).UseUow(uow).ExistsAsync();
         }
 
         public virtual bool Exists(dynamic id)
@@ -71,9 +57,9 @@ namespace Nm.Lib.Data.Core
             return Db.Exists(id);
         }
 
-        public virtual bool Exists(dynamic id, IDbTransaction transaction)
+        public virtual bool Exists(dynamic id, IUnitOfWork uow)
         {
-            return Db.Exists(id, transaction);
+            return Db.Exists(id, uow);
         }
 
         public virtual Task<bool> ExistsAsync(dynamic id)
@@ -81,9 +67,9 @@ namespace Nm.Lib.Data.Core
             return Db.ExistsAsync(id);
         }
 
-        public virtual Task<bool> ExistsAsync(dynamic id, IDbTransaction transaction)
+        public virtual Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow)
         {
-            return Db.ExistsAsync(id, transaction);
+            return Db.ExistsAsync(id, uow);
         }
 
         #endregion
@@ -98,12 +84,12 @@ namespace Nm.Lib.Data.Core
             return Db.Insert(entity);
         }
 
-        public virtual bool Add(TEntity entity, IDbTransaction transaction)
+        public virtual bool Add(TEntity entity, IUnitOfWork uow)
         {
             if (entity == null)
                 return false;
 
-            return Db.Insert(entity, transaction);
+            return Db.Insert(entity, uow);
         }
 
         public virtual Task<bool> AddAsync(TEntity entity)
@@ -114,12 +100,12 @@ namespace Nm.Lib.Data.Core
             return Db.InsertAsync(entity);
         }
 
-        public virtual Task<bool> AddAsync(TEntity entity, IDbTransaction transaction)
+        public virtual Task<bool> AddAsync(TEntity entity, IUnitOfWork uow)
         {
             if (entity == null)
                 return Task.FromResult(false);
 
-            return Db.InsertAsync(entity, transaction);
+            return Db.InsertAsync(entity, uow);
         }
 
         public virtual bool Add(List<TEntity> list)
@@ -127,18 +113,18 @@ namespace Nm.Lib.Data.Core
             return Db.BatchInsert(list);
         }
 
-        public virtual bool Add(List<TEntity> list, IDbTransaction transaction)
+        public virtual bool Add(List<TEntity> list, IUnitOfWork uow)
         {
-            return Db.BatchInsert(list, transaction: transaction);
+            return Db.BatchInsert(list, uow: uow);
         }
         public virtual Task<bool> AddAsync(List<TEntity> list)
         {
             return Db.BatchInsertAsync(list);
         }
 
-        public virtual Task<bool> AddAsync(List<TEntity> list, IDbTransaction transaction)
+        public virtual Task<bool> AddAsync(List<TEntity> list, IUnitOfWork uow)
         {
-            return Db.BatchInsertAsync(list, transaction: transaction);
+            return Db.BatchInsertAsync(list, uow: uow);
         }
 
         #endregion
@@ -150,9 +136,9 @@ namespace Nm.Lib.Data.Core
             return Db.Delete(id);
         }
 
-        public virtual bool Delete(dynamic id, IDbTransaction transaction)
+        public virtual bool Delete(dynamic id, IUnitOfWork uow)
         {
-            return Db.Delete(id, transaction);
+            return Db.Delete(id, uow);
         }
 
         public virtual Task<bool> DeleteAsync(dynamic id)
@@ -160,9 +146,9 @@ namespace Nm.Lib.Data.Core
             return Db.DeleteAsync(id);
         }
 
-        public virtual Task<bool> DeleteAsync(dynamic id, IDbTransaction transaction)
+        public virtual Task<bool> DeleteAsync(dynamic id, IUnitOfWork uow)
         {
-            return Db.DeleteAsync(id, transaction);
+            return Db.DeleteAsync(id, uow);
         }
 
         #endregion
@@ -174,9 +160,9 @@ namespace Nm.Lib.Data.Core
             return Db.Update(entity);
         }
 
-        public virtual bool Update(TEntity entity, IDbTransaction transaction)
+        public virtual bool Update(TEntity entity, IUnitOfWork uow)
         {
-            return Db.Update(entity, transaction);
+            return Db.Update(entity, uow);
         }
 
         public virtual Task<bool> UpdateAsync(TEntity entity)
@@ -184,9 +170,9 @@ namespace Nm.Lib.Data.Core
             return Db.UpdateAsync(entity);
         }
 
-        public virtual Task<bool> UpdateAsync(TEntity entity, IDbTransaction transaction)
+        public virtual Task<bool> UpdateAsync(TEntity entity, IUnitOfWork uow)
         {
-            return Db.UpdateAsync(entity, transaction);
+            return Db.UpdateAsync(entity, uow);
         }
 
         #endregion
@@ -198,9 +184,9 @@ namespace Nm.Lib.Data.Core
             return Db.Get(id);
         }
 
-        public virtual TEntity Get(dynamic id, IDbTransaction transaction, bool rowLock = false)
+        public virtual TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false)
         {
-            return Db.Get(id, transaction, null, rowLock);
+            return Db.Get(id, uow, null, rowLock);
         }
 
         public virtual Task<TEntity> GetAsync(dynamic id)
@@ -208,9 +194,9 @@ namespace Nm.Lib.Data.Core
             return Db.GetAsync(id);
         }
 
-        public virtual Task<TEntity> GetAsync(dynamic id, IDbTransaction transaction, bool rowLock = false)
+        public virtual Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false)
         {
-            return Db.GetAsync(id, transaction, null, rowLock);
+            return Db.GetAsync(id, uow, null, rowLock);
         }
 
         protected virtual TEntity Get(Expression<Func<TEntity, bool>> @where)
@@ -218,9 +204,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find(where).First();
         }
 
-        protected virtual TEntity Get(Expression<Func<TEntity, bool>> @where, IDbTransaction transaction)
+        protected virtual TEntity Get(Expression<Func<TEntity, bool>> @where, IUnitOfWork uow)
         {
-            return Db.Find(where).UseTran(transaction).First();
+            return Db.Find(where).UseUow(uow).First();
         }
 
         protected virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> @where)
@@ -228,9 +214,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find(where).FirstAsync<TEntity>();
         }
 
-        protected virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> @where, IDbTransaction transaction)
+        protected virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> @where, IUnitOfWork uow)
         {
-            return Db.Find(where).UseTran(transaction).FirstAsync<TEntity>();
+            return Db.Find(where).UseUow(uow).FirstAsync<TEntity>();
         }
 
         #endregion
@@ -242,9 +228,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find().ToList<TEntity>();
         }
 
-        public virtual IList<TEntity> GetAll(IDbTransaction transaction)
+        public virtual IList<TEntity> GetAll(IUnitOfWork uow)
         {
-            return Db.Find().UseTran(transaction).ToList<TEntity>();
+            return Db.Find().UseUow(uow).ToList<TEntity>();
         }
 
         public virtual Task<IList<TEntity>> GetAllAsync()
@@ -252,9 +238,9 @@ namespace Nm.Lib.Data.Core
             return Db.Find().ToListAsync<TEntity>();
         }
 
-        public virtual Task<IList<TEntity>> GetAllAsync(IDbTransaction transaction)
+        public virtual Task<IList<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
-            return Db.Find().UseTran(transaction).ToListAsync<TEntity>();
+            return Db.Find().UseUow(uow).ToListAsync<TEntity>();
         }
 
         #endregion
@@ -266,9 +252,9 @@ namespace Nm.Lib.Data.Core
             return Db.SoftDelete(id);
         }
 
-        public bool SoftDelete(dynamic id, IDbTransaction transaction)
+        public bool SoftDelete(dynamic id, IUnitOfWork uow)
         {
-            return Db.SoftDelete(id, transaction);
+            return Db.SoftDelete(id, uow);
         }
 
         public Task<bool> SoftDeleteAsync(dynamic id)
@@ -276,9 +262,9 @@ namespace Nm.Lib.Data.Core
             return Db.SoftDeleteAsync(id);
         }
 
-        public Task<bool> SoftDeleteAsync(dynamic id, IDbTransaction transaction)
+        public Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow)
         {
-            return Db.SoftDeleteAsync(id, transaction);
+            return Db.SoftDeleteAsync(id, uow);
         }
 
         #endregion
