@@ -66,7 +66,12 @@ namespace Nm.Lib.Data.SQLite
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
-            var dbFilePath = Path.Combine(DbOptions.Server.NotNull() ? DbOptions.Server : AppContext.BaseDirectory, "Db");
+            string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
+            if (DbOptions.Server.NotNull())
+            {
+                dbFilePath = Path.GetFullPath(DbOptions.Server);
+            }
+
             if (!Directory.Exists(dbFilePath))
             {
                 Directory.CreateDirectory(dbFilePath);

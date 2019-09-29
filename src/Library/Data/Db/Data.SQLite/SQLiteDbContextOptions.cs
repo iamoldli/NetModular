@@ -21,7 +21,14 @@ namespace Nm.Lib.Data.SQLite
             SqlMapper.AddTypeHandler<Guid>(new GuidTypeHandler());
 
             options.Version = dbOptions.Version;
-            var dbFilePath = Path.Combine(DbOptions.Server.NotNull() ? DbOptions.Server : AppContext.BaseDirectory, "Db", options.Database);
+            string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
+            if (DbOptions.Server.NotNull())
+            {
+                dbFilePath = Path.GetFullPath(DbOptions.Server);
+            }
+
+            dbFilePath = Path.Combine(dbFilePath, options.Database);
+
             var connStrBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = $"{dbFilePath}.db",
