@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Infrastructure.Repositories
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -65,8 +67,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write("DbContext(IDbContextOptions options) : base(options)\r\n        {\r\n        }\r\n    }" +
-                    "\r\n}\r\n");
+            this.Write("DbContext(IDbContextOptions options, IServiceProvider serviceProvider) : base(opt" +
+                    "ions, serviceProvider)\r\n        {\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -6,7 +6,7 @@ namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Infrastructure.Reposi
 {
     public class <#= _model.Project.Code #>DbContext : DbContext
     {
-        public <#= _model.Project.Code #>DbContext(IDbContextOptions options) : base(options)
+        public <#= _model.Project.Code #>DbContext(IDbContextOptions options, IServiceProvider serviceProvider) : base(options, serviceProvider)
         {
         }
     }
