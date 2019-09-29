@@ -109,7 +109,7 @@ namespace Nm.Lib.Data.SqlServer
             cmd.CommandType = System.Data.CommandType.Text;
 
             //判断数据库是否已存在
-            cmd.CommandText = $"SELECT TOP 1 FROM sysdatabases WHERE name = '{Options.Database}'";
+            cmd.CommandText = $"SELECT TOP 1 1 FROM sysdatabases WHERE name = '{Options.Database}'";
             var exist = cmd.ExecuteScalar().ToInt() > 0;
             if (!exist)
             {

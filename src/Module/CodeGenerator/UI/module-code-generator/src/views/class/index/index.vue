@@ -11,16 +11,10 @@
         <nm-button type="success" text="添加" icon="add" @click="add" />
       </template>
 
-      <!--配置属性-->
-      <template v-slot:col-name="{row}">
-        <el-tooltip class="item" effect="dark" content="点击编辑属性" placement="top">
-          <nm-button :text="row.name" type="text" @click="manageProperty(row)" />
-        </el-tooltip>
-      </template>
-
       <template v-slot:col-operation="{row}">
         <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" />
-        <nm-button text="模型" icon="entity" type="text" @click="openModelManage(row)" />
+        <nm-button text="属性" icon="entity" type="text" @click="manageProperty(row)" />
+        <nm-button text="视图模型" icon="entity" type="text" @click="openModelManage(row)" />
         <nm-button text="生成代码" icon="download" type="text" @click="buildCode(row)" />
         <!-- <nm-button text="预览代码" icon="display" type="text" @click="codePreview(row)" /> -->
         <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" />

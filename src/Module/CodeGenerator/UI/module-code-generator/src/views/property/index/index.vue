@@ -3,41 +3,41 @@
     <nm-list ref="list" v-bind="list">
       <template v-slot:querybar>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="list.model.name" clearable/>
+          <el-input v-model="list.model.name" clearable />
         </el-form-item>
       </template>
 
       <template v-slot:querybar-buttons="{total}">
-        <nm-button type="success" text="添加" icon="add" @click="add(total)"/>
-        <nm-button type="warning" text="排序" icon="sort" @click="openSort"/>
+        <nm-button type="success" text="添加" icon="add" @click="add(total)" />
+        <nm-button type="warning" text="排序" icon="sort" @click="openSort" />
       </template>
 
       <template v-slot:col-name="{row}">
         <el-tooltip v-if="row.isInherit" effect="dark" content="继承自基类实体" placement="top">
-          <nm-icon class="icon-inherit" name="star-fill"/>
+          <nm-icon class="icon-inherit" name="star-fill" />
         </el-tooltip>
         <el-tooltip v-if="row.isPrimaryKey" effect="dark" content="主键" placement="top">
-          <nm-icon class="icon-primarykey" name="key"/>
+          <nm-icon class="icon-primarykey" name="key" />
         </el-tooltip>
         <span>{{row.name}}</span>
       </template>
 
       <template v-slot:col-nullable="{row}">
-        <el-switch :value="row.nullable" @change="updateNullable(row)" :disabled="row.isInherit"/>
+        <el-switch :value="row.nullable" @change="updateNullable(row)" :disabled="row.isInherit" />
       </template>
 
       <template v-slot:col-showInList="{row}">
-        <el-switch :value="row.showInList" @change="updateShowInList(row)" :disabled="row.isInherit"/>
+        <el-switch :value="row.showInList" @change="updateShowInList(row)" :disabled="row.isInherit" />
       </template>
 
       <template v-slot:col-operation="{row}">
-        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" :disabled="row.isInherit"/>
-        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isInherit"/>
+        <nm-button text="编辑" icon="edit" type="text" @click="edit(row)" :disabled="row.isInherit" />
+        <nm-button-delete :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isInherit" />
       </template>
     </nm-list>
-    <add-page :total="total" :parent="parent" :visible.sync="dialog.add" @success="refresh"/>
-    <edit-page :id="curr.id" :parent="parent" :visible.sync="dialog.edit" @success="refresh"/>
-    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh"/>
+    <add-page :total="total" :parent="parent" :visible.sync="dialog.add" @success="refresh" />
+    <edit-page :id="curr.id" :parent="parent" :visible.sync="dialog.edit" @success="refresh" />
+    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh" />
   </nm-list-dialog>
 </template>
 <script>
@@ -49,7 +49,7 @@ import EditPage from '../components/edit'
 export default {
   mixins: [mixins.dialog],
   components: { AddPage, EditPage },
-  data () {
+  data() {
     return {
       curr: { id: '' },
       total: 0,
@@ -80,7 +80,7 @@ export default {
     }
   },
   computed: {
-    dragSort () {
+    dragSort() {
       return {
         queryAction: this.querySortList,
         updateAction: api.updateSortList
@@ -88,34 +88,34 @@ export default {
     }
   },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.list.refresh()
     },
-    add (total) {
+    add(total) {
       this.total = total
       this.dialog.add = true
     },
-    edit (row) {
+    edit(row) {
       this.curr = row
       this.dialog.edit = true
     },
-    updateNullable (row) {
+    updateNullable(row) {
       row.nullable = !row.nullable
       const { id, nullable } = row
       api.updateNullable({ id, nullable })
     },
-    updateShowInList (row) {
+    updateShowInList(row) {
       row.showInList = !row.showInList
       const { id, showInList } = row
       api.updateShowInList({ id, showInList })
     },
-    querySortList () {
+    querySortList() {
       return api.querySortList(this.parent.id)
     },
-    openSort () {
+    openSort() {
       this.dialog.sort = true
     },
-    onOpen () {
+    onOpen() {
       this.$nextTick(() => {
         this.$refs.list.reset()
         this.list.model.classId = this.parent.id

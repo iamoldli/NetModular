@@ -39,26 +39,31 @@ namespace Nm.Module.Common.Domain.Area
         /// <summary>
         /// 简拼
         /// </summary>
+        [Nullable]
         public string Jianpin { get; set; }
 
         /// <summary>
         /// 区号
         /// </summary>
+        [Nullable]
         public string AreaCode { get; set; }
 
         /// <summary>
         /// 邮编
         /// </summary>
+        [Nullable]
         public string ZipCode { get; set; }
 
         /// <summary>
         /// 精度
         /// </summary>
+        [Nullable]
         public string Longitude { get; set; }
 
         /// <summary>
         /// 纬度
         /// </summary>
+        [Nullable]
         public string Latitude { get; set; }
     }
 }

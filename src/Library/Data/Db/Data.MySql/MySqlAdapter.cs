@@ -183,7 +183,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
 
                 return "SMALLINT(3)";
@@ -208,7 +208,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
                 return "BIT";
             }
@@ -217,7 +217,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
                 return "TINYINT(1)";
             }
@@ -226,7 +226,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
                 return "INT";
             }
@@ -235,7 +235,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
                 return "BIGINT";
             }
@@ -244,7 +244,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(NOW())";
+                    def = "DEFAULT CURRENT_TIMESTAMP(0)";
                 }
                 return "DATETIME(0)";
             }
@@ -253,7 +253,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
 
                 var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
@@ -266,7 +266,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
 
                 var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
@@ -279,7 +279,7 @@ namespace Nm.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT(0)";
+                    def = "DEFAULT 0";
                 }
 
                 var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;

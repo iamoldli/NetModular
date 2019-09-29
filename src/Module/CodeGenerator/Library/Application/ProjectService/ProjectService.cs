@@ -142,6 +142,8 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService
             //创建项目生成对象
             var projectBuildModel = _mapper.Map<ProjectBuildModel>(project);
 
+            projectBuildModel.Prefix = _codeGeneratorOptions.Prefix;
+
             var id = Guid.NewGuid().ToString();
             var rootPath = Path.Combine(_commonOptions.TempPath, _codeGeneratorOptions.BuildCodePath);
             var buildModel = new TemplateBuildModel

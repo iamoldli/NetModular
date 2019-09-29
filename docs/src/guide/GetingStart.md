@@ -42,44 +42,49 @@
 
 根据自己的数据库配置信息，编辑`db.json`文件，配置信息说明：
 
+已 SQLite 为例，也是代码中的默认配置
+
 ```json
 {
-  //是否输出SQL日志
-  "Logging": true,
-  "Connections": [
+  //是否开启日志
+  "Logging": false,
+  //数据库类型 0、SqlServer 1、MySql 2、SQLite
+  "Dialect": 2,
+  //数据库版本
+  "Version": "",
+  //数据库地址
+  "Server": "..\\..\\data\\SQLite",
+  //端口号
+  "Port": 0,
+  //用户名
+  "UserId": "",
+  //密码
+  "Password": "",
+  //是否创建数据库和表
+  "CreateDatabase": false,
+  //模块列表
+  "Modules": [
     {
-      // 模块名称
+      //模块名称
       "Name": "Admin",
-      // 数据库类型 0：SqlServer 1：MySql 2：SQLite
-      "Dialect": 1,
-      // 数据库名称
-      "Database": "Nm_Admin",
-      // 连接字符串
-      "ConnString": "Server=localhost;Database=nm_admin;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      //数据库名称
+      "Database": "Nm_Admin"
     },
     {
       "Name": "CodeGenerator",
-      "Dialect": 1,
-      "Database": "Nm_CodeGenerator",
-      "ConnString": "Server=localhost;Database=nm_codegenerator;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "Nm_CodeGenerator"
     },
     {
       "Name": "Common",
-      "Dialect": 1,
-      "Database": "Nm_Common",
-      "ConnString": "Server=localhost;Database=nm_common;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "Nm_Common"
     },
     {
       "Name": "PersonnelFiles",
-      "Dialect": 1,
-      "Database": "Nm_PersonnelFiles",
-      "ConnString": "Server=localhost;Database=nm_personnelfiles;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "Nm_PersonnelFiles"
     },
     {
       "Name": "Quartz",
-      "Dialect": 1,
-      "Database": "Nm_Quartz",
-      "ConnString": "Server=localhost;Database=nm_quartz;Uid=root;Pwd=root;Allow User Variables=True;charset=utf8;SslMode=none;"
+      "Database": "Nm_Quartz"
     }
   ]
 }
@@ -89,7 +94,7 @@
 
 ### Note
 
-切换不同的数据库，请修改对应的数据库连接字符串！
+切换不同的数据库，请修改对应的连接信息！
 
 :::
 

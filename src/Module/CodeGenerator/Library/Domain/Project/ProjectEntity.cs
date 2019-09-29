@@ -21,11 +21,6 @@ namespace Nm.Module.CodeGenerator.Domain.Project
         public int No { get; set; }
 
         /// <summary>
-        /// 前缀
-        /// </summary>
-        public string Prefix { get; set; }
-
-        /// <summary>
         /// 编码
         /// </summary>
         public string Code { get; set; }

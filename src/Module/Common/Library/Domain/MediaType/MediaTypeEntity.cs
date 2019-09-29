@@ -17,6 +17,7 @@ namespace Nm.Module.Common.Domain.MediaType
         /// <summary>
         /// 值
         /// </summary>
+        [Length(200)]
         public string Value { get; set; }
     }
 }

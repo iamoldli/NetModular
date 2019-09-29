@@ -56,7 +56,6 @@ export default {
         title: page.title,
         cols,
         action: api.query,
-        operationWidth: 240,
         model: {
           name: '',
           code: ''

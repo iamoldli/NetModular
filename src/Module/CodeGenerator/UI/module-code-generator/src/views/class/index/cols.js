@@ -7,7 +7,7 @@ export default [
   },
   {
     name: 'name',
-    label: '类名',
+    label: '实体名',
     width: 250
   },
   {
