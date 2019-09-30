@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -44,7 +46,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <!--设置打包路径-->
     <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
     <!--取消生成目录附加目标框架目录-->
