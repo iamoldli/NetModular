@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Templates\Default\T4\data\SchemaOracle.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SchemaOracle.cs</LastGenOutput>
-    </None>
     <None Update="Templates\Default\T4\src\Library\Infrastructure\Options\ModuleOptionsConfigure.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModuleOptionsConfigure.cs</LastGenOutput>
@@ -31,14 +27,6 @@
     <None Update="Templates\Default\T4\src\WebHost\config\cacheDevelopment.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>cacheDevelopment.cs</LastGenOutput>
-    </None>
-    <None Update="Templates\Default\T4\data\SchemaSQLite.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SchemaSQLite.cs</LastGenOutput>
-    </None>
-    <None Update="Templates\Default\T4\data\SchemaMySql.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SchemaMySql.cs</LastGenOutput>
     </None>
     <None Update="Templates\Default\T4\PublishScript.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -527,11 +515,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DirectoryBuildProps.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\data\SchemaSqlServer.*">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SchemaSqlServer.tt</DependentUpon>
-    </Compile>
     <Compile Update="Templates\Default\T4\src\UI\App\vscode\settings.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -637,16 +620,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Main.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\data\SchemaMySql.*">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SchemaMySql.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\data\SchemaSQLite.*">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SchemaSQLite.tt</DependentUpon>
-    </Compile>
     <Compile Update="Templates\Default\T4\PublishScript.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -672,23 +645,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModuleBuildTargets.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\data\SchemaOracle.*">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SchemaOracle.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Templates\Default\T4\data\SchemaOracle - 复制.cs">
-      <DependentUpon>SchemaOracle.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="Templates\Default\T4\src\Library\Domain\Models\QueryModel.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DbContext.tt</DependentUpon>
     </Compile>
     <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.cs">
       <DesignTime>True</DesignTime>

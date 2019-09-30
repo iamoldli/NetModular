@@ -22,6 +22,11 @@
     //表前缀
     "TablePrefix": "QRTZ_",
     //序列化方式
-    "SerializerType": "JSON" 
-  }
+    "SerializerType": "JSON"
+  },
+  //代码生成器
+  "CodeGenerator": {
+    //项目前缀
+    "Prefix": "Nm"
+  } 
 }
