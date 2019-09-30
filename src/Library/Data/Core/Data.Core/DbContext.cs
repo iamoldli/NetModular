@@ -79,8 +79,14 @@ namespace Nm.Lib.Data.Core
                 var sql = new StringBuilder();
                 foreach (var c in Options.DbOptions.Modules)
                 {
-                    var dbFilePath = Path.Combine(Options.DbOptions.Server.NotNull() ? Options.DbOptions.Server : AppContext.BaseDirectory, "Db", Options.DbModuleOptions.Database);
-                    sql.AppendFormat("ATTACH DATABASE '{0}.db' as '{1}';", dbFilePath, c.Database);
+                    string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
+                    if (Options.DbOptions.Server.NotNull())
+                    {
+                        dbFilePath = Path.GetFullPath(Options.DbOptions.Server);
+                    }
+                    dbFilePath = Path.Combine(dbFilePath, c.Database) + ".db";
+
+                    sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", dbFilePath, c.Database);
                 }
 
                 conn.ExecuteAsync(sql.ToString());
