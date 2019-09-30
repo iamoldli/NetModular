@@ -93,29 +93,32 @@ namespace Nm.Lib.Data.SQLite
                 Mode = SqliteOpenMode.ReadWriteCreate
             };
 
-            using var con = new SqliteConnection(connStrBuilder.ToString());
-            con.Open();
-            var cmd = con.CreateCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            foreach (var entityDescriptor in entityDescriptors)
+            using (var con = new SqliteConnection(connStrBuilder.ToString()))
             {
-                if (!entityDescriptor.Ignore)
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.Text;
+
+                foreach (var entityDescriptor in entityDescriptors)
                 {
-                    cmd.CommandText = $"SELECT 1 FROM sqlite_master WHERE type = 'table' and name='{entityDescriptor.TableName}';";
-                    var obj = cmd.ExecuteScalar();
-                    if (obj.ToInt() < 1)
+                    if (!entityDescriptor.Ignore)
                     {
-                        cmd.CommandText = CreateTableSql(entityDescriptor);
-                        cmd.ExecuteNonQuery();
+                        cmd.CommandText =
+                            $"SELECT 1 FROM sqlite_master WHERE type = 'table' and name='{entityDescriptor.TableName}';";
+                        var obj = cmd.ExecuteScalar();
+                        if (obj.ToInt() < 1)
+                        {
+                            cmd.CommandText = CreateTableSql(entityDescriptor);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
-            }
 
-            if (!exist)
-            {
-                //执行创建前事件
-                events?.After().GetAwaiter().GetResult();
+                if (!exist)
+                {
+                    //执行创建前事件
+                    events?.After().GetAwaiter().GetResult();
+                }
             }
         }
 

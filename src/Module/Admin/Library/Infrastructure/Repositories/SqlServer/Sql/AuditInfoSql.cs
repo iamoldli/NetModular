@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer.Sql
+﻿namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer.Sql
 {
     public static class AuditInfoSql
     {

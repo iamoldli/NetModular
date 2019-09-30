@@ -77,41 +77,45 @@ namespace Nm.Lib.Data.MySql
                 SslMode = MySqlSslMode.None
             };
 
-            using var con = new MySqlConnection(connStrBuilder.ToString());
-            con.Open();
-            var cmd = con.CreateCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-
-            //判断数据库是否已存在
-            cmd.CommandText = $"SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{Options.Database}' LIMIT 1;";
-            var exist = cmd.ExecuteScalar().ToInt() > 0;
-            if (!exist)
+            using (var con = new MySqlConnection(connStrBuilder.ToString()))
             {
-                //执行创建前事件
-                events?.Before().GetAwaiter().GetResult();
+                con.Open();
+                var cmd = con.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.Text;
 
-                //创建数据库
-                cmd.CommandText = $"CREATE DATABASE {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
-                cmd.ExecuteNonQuery();
-            }
-
-            cmd.CommandText = $"USE `{Options.Database}`;";
-            cmd.ExecuteNonQuery();
-
-            //创建表
-            foreach (var entityDescriptor in entityDescriptors)
-            {
-                if (!entityDescriptor.Ignore)
+                //判断数据库是否已存在
+                cmd.CommandText =
+                    $"SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{Options.Database}' LIMIT 1;";
+                var exist = cmd.ExecuteScalar().ToInt() > 0;
+                if (!exist)
                 {
-                    cmd.CommandText = CreateTableSql(entityDescriptor);
+                    //执行创建前事件
+                    events?.Before().GetAwaiter().GetResult();
+
+                    //创建数据库
+                    cmd.CommandText =
+                        $"CREATE DATABASE {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
                     cmd.ExecuteNonQuery();
                 }
-            }
 
-            if (!exist)
-            {
-                //执行创建后事件
-                events?.After().GetAwaiter().GetResult();
+                cmd.CommandText = $"USE `{Options.Database}`;";
+                cmd.ExecuteNonQuery();
+
+                //创建表
+                foreach (var entityDescriptor in entityDescriptors)
+                {
+                    if (!entityDescriptor.Ignore)
+                    {
+                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                if (!exist)
+                {
+                    //执行创建后事件
+                    events?.After().GetAwaiter().GetResult();
+                }
             }
         }
 

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Host.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.MQ.RabbitMQ;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 

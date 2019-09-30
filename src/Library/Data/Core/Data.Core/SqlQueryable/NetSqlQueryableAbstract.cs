@@ -7,7 +7,6 @@ using Nm.Lib.Data.Abstractions;
 using Nm.Lib.Data.Abstractions.Pagination;
 using Nm.Lib.Data.Abstractions.SqlQueryable;
 using Nm.Lib.Data.Core.SqlQueryable.Internal;
-using Nm.Lib.Utils.Core.Extensions;
 
 namespace Nm.Lib.Data.Core.SqlQueryable
 {

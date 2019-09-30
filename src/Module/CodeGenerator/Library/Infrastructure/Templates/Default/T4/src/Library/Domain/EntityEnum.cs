@@ -9,9 +9,6 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Library.Domain
 {
-    using System.Linq;
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
