@@ -19,11 +19,6 @@ namespace Nm.Module.CodeGenerator.Application.ProjectService.ViewModels
         public int No { get; set; }
 
         /// <summary>
-        /// 前缀
-        /// </summary>
-        public string Prefix { get; set; }
-
-        /// <summary>
         /// 编码
         /// </summary>
         [Required(ErrorMessage = "请输入项目编码")]
