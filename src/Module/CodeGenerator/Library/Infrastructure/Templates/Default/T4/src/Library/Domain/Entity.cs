@@ -11,7 +11,8 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
 {
     using Nm.Lib.Utils.Core.Extensions;
     using Nm.Module.CodeGenerator.Domain.Property;
-
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -36,7 +37,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             this.Write(".Lib.Data.Abstractions.Attributes;\r\n");
             
             #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
- if(_baseEntityName=="_baseEntityName"||_baseEntityName.StartsWith("Entity<")){ 
+ if(_baseEntityName=="IEntity" || _baseEntityName=="Entity" || _baseEntityName.StartsWith("Entity<")){ 
             
             #line default
             #line hidden
@@ -120,7 +121,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             this.Write("\r\n    {\r\n");
             
             #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
-  foreach(var p in _propertyList){ if(p.IsInherit) continue;
+ foreach(var p in _propertyList){ if(p.IsInherit) continue;
             
             #line default
             #line hidden
@@ -131,30 +132,96 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Librar
             
             #line default
             #line hidden
-            this.Write("\r\n        /// </summary>\r\n        public ");
+            this.Write("\r\n        /// </summary>\r\n");
             
             #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ if(p.Nullable){ 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t[Nullable]\r\n");
+            
+            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 27 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ if(p.Type == PropertyType.String){ 
+            
+            #line default
+            #line hidden
+            
+            #line 28 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ if(p.Length == 0){ 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t[Max]\r\n");
+            
+            #line 30 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("        [Length(");
+            
+            #line 31 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(p.Length));
+            
+            #line default
+            #line hidden
+            this.Write(")]\r\n");
+            
+            #line 32 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 33 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 34 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ if(p.Type == PropertyType.Decimal||p.Type == PropertyType.Double){ 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t[Precision]\r\n");
+            
+            #line 36 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("        public ");
+            
+            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Type == PropertyType.Enum ? p.Enum.Name : p.Type.ToDescription()));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(p.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }");
             
-            #line 24 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+            #line 37 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetDefaultValue(p)));
             
             #line default
             #line hidden
             this.Write("\r\n\r\n");
             
-            #line 26 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
+            #line 39 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Library\Domain\Entity.tt"
  } 
             
             #line default

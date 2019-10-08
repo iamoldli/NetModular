@@ -173,6 +173,7 @@ namespace Nm.Lib.Cache.Redis
         /// </summary>
         /// <param name="key"></param>
         /// <param name="field"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public Task<long> HashDecrementAsync(string key, string field, long value = 1)
         {
@@ -184,6 +185,7 @@ namespace Nm.Lib.Cache.Redis
         /// </summary>
         /// <param name="key"></param>
         /// <param name="field"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public Task<long> HashIncrementAsync(string key, string field, long value = 1)
         {
@@ -222,7 +224,7 @@ namespace Nm.Lib.Cache.Redis
             return Db.SetContainsAsync(key, obj.ToString());
         }
 
-        public Task<long> SetLengthAsync<T>(string key)
+        public Task<long> SetLengthAsync(string key)
         {
             return Db.SetLengthAsync(key);
         }

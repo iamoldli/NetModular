@@ -1,4 +1,5 @@
 ﻿<#@ template language="C#" #>
+using System;
 using <#= _prefix #>.Lib.Data.Abstractions;
 using <#= _prefix #>.Lib.Data.Core;
 

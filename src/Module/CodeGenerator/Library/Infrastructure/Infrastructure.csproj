@@ -648,6 +648,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Templates\Default\T4\src\DirectoryBuildProps.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DirectoryBuildProps.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Default\T4\src\Library\Domain\Entity.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Entity.tt</DependentUpon>
+    </Compile>
     <Compile Update="Templates\Default\T4\src\Library\Domain\Models\QueryModel.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
