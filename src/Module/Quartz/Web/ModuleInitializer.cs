@@ -25,10 +25,18 @@ namespace Nm.Module.Quartz.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            var sp = services.BuildServiceProvider();
+            var options = sp.GetService<IOptionsMonitor<QuartzOptions>>().CurrentValue;
+            //未启用
+            if (!options.Enabled)
+                return;
+
+            var dbOptions = sp.GetService<DbOptions>();
+
             services.AddTransient<IJobLogger, JobLogger>();
             services.AddSingleton<ISchedulerListener, SchedulerListener>();
 
-            var quartzProps = GetQuartzProps(services);
+            var quartzProps = GetQuartzProps(options, dbOptions);
 
             services.AddQuartz(quartzProps);
         }
@@ -54,14 +62,11 @@ namespace Nm.Module.Quartz.Web
         /// <summary>
         /// 获取Quartz属性
         /// </summary>
-        /// <param name="services"></param>
         /// <returns></returns>
-        private NameValueCollection GetQuartzProps(IServiceCollection services)
+        private NameValueCollection GetQuartzProps(QuartzOptions options, DbOptions dbOptions)
         {
-            var sp = services.BuildServiceProvider();
-            var options = sp.GetService<IOptionsMonitor<QuartzOptions>>().CurrentValue;
+
             var quartzProps = new NameValueCollection();
-            var dbOptions = sp.GetService<DbOptions>();
             var quartzDbOptions = dbOptions.Modules.FirstOrDefault(m => m.Name.EqualsIgnoreCase("quartz"));
             if (quartzDbOptions != null)
             {

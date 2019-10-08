@@ -134,6 +134,7 @@ namespace Nm.Module.Admin.Application.AccountService
             var model = new LoginResultModel
             {
                 Id = account.Id,
+                Type = account.Type,
                 Name = account.Name,
                 Skin = new SkinConfigModel
                 {

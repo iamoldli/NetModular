@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Nm.Lib.Auth.Abstractions;
 using Nm.Module.Admin.Domain.Menu;
 
 namespace Nm.Module.Admin.Application.AccountService.ResultModels
@@ -13,6 +14,11 @@ namespace Nm.Module.Admin.Application.AccountService.ResultModels
         /// 账户标识
         /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public AccountType Type { get; set; }
 
         /// <summary>
         /// 用户名

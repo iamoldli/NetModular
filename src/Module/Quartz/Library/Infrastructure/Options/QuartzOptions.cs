@@ -8,6 +8,11 @@ namespace Nm.Module.Quartz.Infrastructure.Options
     public class QuartzOptions : IModuleOptions
     {
         /// <summary>
+        /// 启用
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
         /// 实例名称
         /// </summary>
         public string InstanceName { get; set; }

@@ -40,7 +40,7 @@ namespace Nm.Lib.Cache.Redis
             return Db.StringSetAsync(key, obj.ToString());
         }
 
-        public async Task<T> StringGetAsync<T>(string key, T obj)
+        public async Task<T> StringGetAsync<T>(string key)
         {
             var cache = await Db.StringGetAsync(key);
             if (cache.HasValue)
@@ -246,6 +246,48 @@ namespace Nm.Lib.Cache.Redis
         }
 
         #endregion
+
+        /// <summary>
+        /// 删除键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> KeyDeleteAsync(string key)
+        {
+            return Db.KeyDeleteAsync(key);
+        }
+
+        /// <summary>
+        /// 是否存在键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> KeyExistsAsync(string key)
+        {
+            return Db.KeyExistsAsync(key);
+        }
+
+        /// <summary>
+        /// 设置过期时间
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <returns></returns>
+        public Task<bool> KeyExpireAsync(string key, DateTime? expiry)
+        {
+            return Db.KeyExpireAsync(key, expiry);
+        }
+
+        /// <summary>
+        /// 设置过期时间
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <returns></returns>
+        public Task<bool> KeyExpireAsync(string key, TimeSpan? expiry)
+        {
+            return Db.KeyExpireAsync(key, expiry);
+        }
 
         public void Dispose()
         {
