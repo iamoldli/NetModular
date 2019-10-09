@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 129.211.40.240
  Source Server Type    : MySQL
- Source Server Version : 80015
- Source Host           : localhost:3306
+ Source Server Version : 80016
+ Source Host           : 129.211.40.240:13306
  Source Schema         : nm_admin
 
  Target Server Type    : MySQL
- Target Server Version : 80015
+ Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 29/09/2019 14:59:47
+ Date: 09/10/2019 15:16:37
 */
 
 SET NAMES utf8mb4;
@@ -46,6 +46,11 @@ CREATE TABLE `account`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of account
+-- ----------------------------
+INSERT INTO `account` VALUES ('2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', 0, 'admin', 'E739279CB28CDAFD7373618313803524', '管理员', '', '', '2019-10-09 15:16:15', '121.8.183.66', 1, b'0', '2019-10-09 00:00:00', '00000000-0000-0000-0000-000000000000', '2019-10-09 00:00:00', '00000000-0000-0000-0000-000000000000', '2019-10-09 00:00:00', '00000000-0000-0000-0000-000000000000', b'0', '2019-10-09 00:00:00', '00000000-0000-0000-0000-000000000000');
+
+-- ----------------------------
 -- Table structure for account_config
 -- ----------------------------
 DROP TABLE IF EXISTS `account_config`;
@@ -59,6 +64,11 @@ CREATE TABLE `account_config`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of account_config
+-- ----------------------------
+INSERT INTO `account_config` VALUES (1, '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a', 'classics', 'blue-light', 'medium');
+
+-- ----------------------------
 -- Table structure for account_role
 -- ----------------------------
 DROP TABLE IF EXISTS `account_role`;
@@ -70,44 +80,31 @@ CREATE TABLE `account_role`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of account_role
+-- ----------------------------
+INSERT INTO `account_role` VALUES (2, '2E23D1D9-4A72-ACC2-F6FF-39ED21CB6A4A', '39f08d5b-173b-1cbb-7381-407c87b2e8e2');
+
+-- ----------------------------
 -- Table structure for auditinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `auditinfo`;
 CREATE TABLE `auditinfo`  (
   `Id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `Area` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `Controller` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ControllerDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `Action` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ActionDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `Parameters` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `Result` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `ExecutionTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `ExecutionDuration` bigint(20) NOT NULL DEFAULT 0,
-  `BrowserInfo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `Platform` smallint(3) NOT NULL DEFAULT 0,
-  `IP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `AccountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '账户编号',
+  `Area` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区域',
+  `Controller` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '控制器',
+  `ControllerDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '控制器说明',
+  `Action` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作',
+  `ActionDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作说明',
+  `Parameters` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '参数',
+  `Result` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '返回数据',
+  `ExecutionTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '方法开始执行时间',
+  `ExecutionDuration` bigint(20) NOT NULL COMMENT '方法执行总用时(ms)',
+  `BrowserInfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '浏览器信息',
+  `Platform` smallint(6) NOT NULL COMMENT '平台',
+  `IP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of auditinfo
--- ----------------------------
-INSERT INTO `auditinfo` VALUES (1, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":0,\"Rows\":[]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:42:56', 155, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (2, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Add', '添加', '{\"model\":{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\"}}', '{\"Value\":{\"Code\":1,\"Data\":null,\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:43:04', 63, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (3, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\",\"CreatedTime\":\"2019-09-29T13:43:04\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:43:04\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Deleted\":false,\"DeletedTime\":\"2019-09-29T13:43:04\",\"DeletedBy\":\"00000000-0000-0000-0000-000000000000\",\"Deleter\":null,\"Id\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:43:04', 65, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (4, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\",\"CreatedTime\":\"2019-09-29T13:43:04\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:43:04\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Deleted\":false,\"DeletedTime\":\"2019-09-29T13:43:04\",\"DeletedBy\":\"00000000-0000-0000-0000-000000000000\",\"Deleter\":null,\"Id\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:43:32', 83, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (5, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\",\"CreatedTime\":\"2019-09-29T13:43:04\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:43:04\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Deleted\":false,\"DeletedTime\":\"2019-09-29T13:43:04\",\"DeletedBy\":\"00000000-0000-0000-0000-000000000000\",\"Deleter\":null,\"Id\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:43:36', 51, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (6, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\",\"CreatedTime\":\"2019-09-29T13:43:04\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:43:04\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Deleted\":false,\"DeletedTime\":\"2019-09-29T13:43:04\",\"DeletedBy\":\"00000000-0000-0000-0000-000000000000\",\"Deleter\":null,\"Id\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:43:58', 54, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (7, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'Query', '查询', '{\"model\":{\"ProjectId\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\",\"Name\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":0,\"Rows\":[]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:01', 48, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (8, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'BaseEntityTypeSelect', '获取基类类型下拉列表', '{}', '{\"Value\":{\"Code\":1,\"Data\":[{\"Label\":\"IEntity\",\"Value\":0,\"Disabled\":false,\"Data\":null},{\"Label\":\"Entity<int>\",\"Value\":1,\"Disabled\":false,\"Data\":null},{\"Label\":\"Entity<long>\",\"Value\":2,\"Disabled\":false,\"Data\":null},{\"Label\":\"Entity<Guid>\",\"Value\":3,\"Disabled\":false,\"Data\":null},{\"Label\":\"Entity<String>\",\"Value\":4,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBase<int>\",\"Value\":5,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBase<long>\",\"Value\":6,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBase<Guid>\",\"Value\":7,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBase<String>\",\"Value\":8,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityWithSoftDelete<int>\",\"Value\":9,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityWithSoftDelete<long>\",\"Value\":10,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityWithSoftDelete<Guid>\",\"Value\":11,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityWithSoftDelete<String>\",\"Value\":12,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBaseWithSoftDelete<int>\",\"Value\":13,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBaseWithSoftDelete<long>\",\"Value\":14,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBaseWithSoftDelete<Guid>\",\"Value\":15,\"Disabled\":false,\"Data\":null},{\"Label\":\"EntityBaseWithSoftDelete<String>\",\"Value\":16,\"Disabled\":false,\"Data\":null}],\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:02', 108, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (9, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'Add', '添加', '{\"model\":{\"ProjectId\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\",\"Name\":\"test\",\"TableName\":\"test\",\"BaseEntityType\":6,\"Remarks\":\"test\",\"Method\":{\"Query\":true,\"Add\":true,\"Delete\":true,\"Edit\":true}}}', '{\"Value\":{\"Code\":1,\"Data\":null,\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:07', 104, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (10, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'Query', '查询', '{\"model\":{\"ProjectId\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\",\"Name\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"ProjectId\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\",\"Name\":\"test\",\"TableName\":\"test\",\"BaseEntityType\":6,\"Remarks\":\"test\",\"BaseEntityName\":\"EntityBase<long>\",\"CreatedTime\":\"2019-09-29T13:44:07\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:07\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:07', 148, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (11, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Property', '实体属性管理', 'Query', '查询', '{\"model\":{\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":5,\"Rows\":[{\"ProjectId\":\"00000000-0000-0000-0000-000000000000\",\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":\"Id\",\"IsPrimaryKey\":true,\"IsInherit\":true,\"Type\":4,\"Length\":0,\"Precision\":0,\"Scale\":0,\"EnumId\":\"00000000-0000-0000-0000-000000000000\",\"Nullable\":false,\"Remarks\":\"主键\",\"Sort\":0,\"ShowInList\":true,\"HasDefaultValue\":false,\"TypeName\":\"long\",\"EnumName\":null,\"CreatedTime\":\"2019-09-29T13:44:06\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:06\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0320-345a-d618-433c5e71e25b\"},{\"ProjectId\":\"00000000-0000-0000-0000-000000000000\",\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":\"CreatedBy\",\"IsPrimaryKey\":false,\"IsInherit\":true,\"Type\":8,\"Length\":0,\"Precision\":0,\"Scale\":0,\"EnumId\":\"00000000-0000-0000-0000-000000000000\",\"Nullable\":false,\"Remarks\":\"创建人\",\"Sort\":1000,\"ShowInList\":false,\"HasDefaultValue\":false,\"TypeName\":\"Guid\",\"EnumName\":null,\"CreatedTime\":\"2019-09-29T13:44:06\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:06\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0324-7e10-9bbb-3c8775f7f0f7\"},{\"ProjectId\":\"00000000-0000-0000-0000-000000000000\",\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":\"CreatedTime\",\"IsPrimaryKey\":false,\"IsInherit\":true,\"Type\":9,\"Length\":0,\"Precision\":0,\"Scale\":0,\"EnumId\":\"00000000-0000-0000-0000-000000000000\",\"Nullable\":false,\"Remarks\":\"创建时间\",\"Sort\":1001,\"ShowInList\":false,\"HasDefaultValue\":false,\"TypeName\":\"DateTime\",\"EnumName\":null,\"CreatedTime\":\"2019-09-29T13:44:06\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:06\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0324-03c4-e862-4c753af5b19e\"},{\"ProjectId\":\"00000000-0000-0000-0000-000000000000\",\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":\"ModifiedBy\",\"IsPrimaryKey\":false,\"IsInherit\":true,\"Type\":8,\"Length\":0,\"Precision\":0,\"Scale\":0,\"EnumId\":\"00000000-0000-0000-0000-000000000000\",\"Nullable\":false,\"Remarks\":\"修改人\",\"Sort\":1002,\"ShowInList\":false,\"HasDefaultValue\":false,\"TypeName\":\"Guid\",\"EnumName\":null,\"CreatedTime\":\"2019-09-29T13:44:06\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:06\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0324-ee77-252f-722ce73131a7\"},{\"ProjectId\":\"00000000-0000-0000-0000-000000000000\",\"ClassId\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\",\"Name\":\"ModifiedTime\",\"IsPrimaryKey\":false,\"IsInherit\":true,\"Type\":9,\"Length\":0,\"Precision\":0,\"Scale\":0,\"EnumId\":\"00000000-0000-0000-0000-000000000000\",\"Nullable\":false,\"Remarks\":\"修改时间\",\"Sort\":1003,\"ShowInList\":false,\"HasDefaultValue\":false,\"TypeName\":\"DateTime\",\"EnumName\":null,\"CreatedTime\":\"2019-09-29T13:44:06\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:44:06\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Id\":\"39f08db9-0324-64e6-3172-d08452718329\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:33', 211, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (12, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'Delete', '删除', '{\"id\":\"39f08db9-0319-2c56-0709-3f88cf4dee22\"}', '{\"Value\":{\"Code\":1,\"Data\":null,\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:50', 136, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (13, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Class', '实体管理', 'Query', '查询', '{\"model\":{\"ProjectId\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\",\"Name\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":0,\"Rows\":[]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:44:50', 81, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
-INSERT INTO `auditinfo` VALUES (14, '39f08d5b-177c-a334-34e7-408ef121c6e0', 'CodeGenerator', 'Project', '项目管理', 'Query', '查询', '{\"model\":{\"Name\":null,\"Code\":null,\"Page\":{\"Index\":1,\"Size\":15,\"Sort\":null},\"TotalCount\":0}}', '{\"Value\":{\"Code\":1,\"Data\":{\"Total\":1,\"Rows\":[{\"Name\":\"test\",\"No\":0,\"Prefix\":\"\",\"Code\":\"test\",\"CreatedTime\":\"2019-09-29T13:43:04\",\"CreatedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"ModifiedTime\":\"2019-09-29T13:43:04\",\"ModifiedBy\":\"39f08d5b-177c-a334-34e7-408ef121c6e0\",\"Creator\":\"管理员\",\"Modifier\":null,\"Deleted\":false,\"DeletedTime\":\"2019-09-29T13:43:04\",\"DeletedBy\":\"00000000-0000-0000-0000-000000000000\",\"Deleter\":null,\"Id\":\"39f08db8-0e2f-df8f-81d4-b7ffe9ec3fc7\"}]},\"Msg\":\"success\"},\"Formatters\":[],\"ContentTypes\":[],\"DeclaredType\":\"Nm.Lib.Utils.Core.Result.IResultModel, Nm.Lib.Utils.Core, Version=1.2.15.0, Culture=neutral, PublicKeyToken=null\",\"StatusCode\":null}', '2019-09-29 13:45:05', 153, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 0, '::1');
+) ENGINE = InnoDB AUTO_INCREMENT = 39799 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for button
@@ -150,8 +147,8 @@ INSERT INTO `button` VALUES ('39f08dae-d23c-c202-2cc8-d4ac00483563', 'common_are
 INSERT INTO `button` VALUES ('39f08dae-d240-6179-e176-bd044f544712', 'common_area', '删除', 'delete', 'common_area_del', '2019-09-29 13:32:59', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:32:59', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08dae-e147-307d-4b87-1742fa9e5885', 'common_attachment', '删除', 'delete', 'common_attachment_del', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08dae-e157-e486-3d68-06e5152d5e50', 'common_attachment', '导出', 'export', 'common_attachment_export', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `button` VALUES ('39f08daf-10f0-4af0-c82e-525f06a2f2c5', 'quartz_group', '添加', 'add', 'quartz_group_add', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `button` VALUES ('39f08daf-10f7-7c83-9eec-048c3b1c9884', 'quartz_group', '删除', 'delete', 'quartz_group_del', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0');
+INSERT INTO `button` VALUES ('39f08daf-10f0-4af0-c82e-525f06a2f2c5', 'quartz_group', '添加', 'add', 'quartz_group_add', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:37', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39f08daf-10f7-7c83-9eec-048c3b1c9884', 'quartz_group', '删除', 'delete', 'quartz_group_del', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:37', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `button` VALUES ('39f08daf-4498-7ee7-797c-a2ab7871b505', 'quartz_job', '添加', 'add', 'quartz_job_add', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08daf-44a9-d1bc-755d-c3369034e10a', 'quartz_job', '编辑', 'edit', 'quartz_job_edit', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08daf-44ad-ac06-083a-c5a44b8e99dc', 'quartz_job', '暂停', 'pause', 'quartz_job_pause', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0');
@@ -174,9 +171,9 @@ INSERT INTO `button` VALUES ('39f08daf-a6b0-0ea0-58c4-918941c668b2', 'admin_acco
 INSERT INTO `button` VALUES ('39f08daf-a6b9-a4ac-5953-a4e4074ef3b0', 'admin_account', '删除', 'delete', 'admin_account_del', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08daf-a6cc-8c2f-e31a-9c91f6c6afce', 'admin_account', '重置密码', 'refresh', 'admin_account_reset_password', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08daf-b45e-0264-f197-063f969d3aa0', 'admin_auditinfo', '详情', 'detail', 'admin_auditinfo_details', '2019-09-29 13:33:57', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:57', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `button` VALUES ('39f08daf-f905-e02f-341a-bbc0b80cbf5e', 'admin_config', '添加', 'add', 'admin_config_add', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `button` VALUES ('39f08daf-f909-628c-9a0a-2c23a57b9103', 'admin_config', '编辑', 'edit', 'admin_config_edit', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `button` VALUES ('39f08daf-f915-e1f1-d7d8-ebd21adbebe6', 'admin_config', '删除', 'delete', 'admin_config_del', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0');
+INSERT INTO `button` VALUES ('39f08daf-f905-e02f-341a-bbc0b80cbf5e', 'admin_config', '添加', 'add', 'admin_config_add', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39f08daf-f909-628c-9a0a-2c23a57b9103', 'admin_config', '编辑', 'edit', 'admin_config_edit', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `button` VALUES ('39f08daf-f915-e1f1-d7d8-ebd21adbebe6', 'admin_config', '删除', 'delete', 'admin_config_del', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `button` VALUES ('39f08db3-ea6b-6af7-1ef5-a226af30fbe4', 'codegenerator_project', '添加', 'add', 'codegenerator_project_add', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08db3-ea80-e0e3-69ea-af5ab431ac6f', 'codegenerator_project', '编辑', 'edit', 'codegenerator_project_edit', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `button` VALUES ('39f08db3-eaa7-e42f-34fb-25baaaf55e87', 'codegenerator_project', '删除', 'delete', 'codegenerator_project_del', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0');
@@ -194,7 +191,7 @@ CREATE TABLE `button_permission`  (
   `ButtonCode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `PermissionCode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of button_permission
@@ -238,8 +235,6 @@ INSERT INTO `button_permission` VALUES (36, 'common_area_edit', 'common_area_upd
 INSERT INTO `button_permission` VALUES (37, 'common_area_del', 'common_area_delete_delete');
 INSERT INTO `button_permission` VALUES (38, 'common_attachment_del', 'common_attachment_delete_delete');
 INSERT INTO `button_permission` VALUES (39, 'common_attachment_export', 'common_attachment_export_get');
-INSERT INTO `button_permission` VALUES (40, 'quartz_group_add', 'quartz_group_add_post');
-INSERT INTO `button_permission` VALUES (41, 'quartz_group_del', 'quartz_group_delete_delete');
 INSERT INTO `button_permission` VALUES (42, 'quartz_job_add', 'quartz_job_add_post');
 INSERT INTO `button_permission` VALUES (43, 'quartz_job_edit', 'quartz_job_edit_get');
 INSERT INTO `button_permission` VALUES (44, 'quartz_job_edit', 'quartz_job_update_post');
@@ -270,10 +265,6 @@ INSERT INTO `button_permission` VALUES (68, 'admin_account_edit', 'admin_account
 INSERT INTO `button_permission` VALUES (69, 'admin_account_del', 'admin_account_delete_delete');
 INSERT INTO `button_permission` VALUES (70, 'admin_account_reset_password', 'admin_account_updatepassword_post');
 INSERT INTO `button_permission` VALUES (71, 'admin_auditinfo_details', 'admin_auditinfo_details_get');
-INSERT INTO `button_permission` VALUES (72, 'admin_config_add', 'admin_config_add_post');
-INSERT INTO `button_permission` VALUES (73, 'admin_config_edit', 'admin_config_edit_get');
-INSERT INTO `button_permission` VALUES (74, 'admin_config_edit', 'admin_config_update_post');
-INSERT INTO `button_permission` VALUES (75, 'admin_config_del', 'admin_config_delete_delete');
 INSERT INTO `button_permission` VALUES (76, 'codegenerator_project_add', 'codegenerator_project_add_post');
 INSERT INTO `button_permission` VALUES (77, 'codegenerator_project_edit', 'codegenerator_project_edit_get');
 INSERT INTO `button_permission` VALUES (78, 'codegenerator_project_edit', 'codegenerator_project_update_post');
@@ -283,6 +274,12 @@ INSERT INTO `button_permission` VALUES (81, 'codegenerator_enum_add', 'codegener
 INSERT INTO `button_permission` VALUES (82, 'codegenerator_enum_edit', 'codegenerator_enum_edit_get');
 INSERT INTO `button_permission` VALUES (83, 'codegenerator_enum_edit', 'codegenerator_enum_update_post');
 INSERT INTO `button_permission` VALUES (84, 'codegenerator_enum_del', 'codegenerator_enum_delete_delete');
+INSERT INTO `button_permission` VALUES (85, 'admin_config_add', 'admin_config_add_post');
+INSERT INTO `button_permission` VALUES (86, 'admin_config_edit', 'admin_config_edit_get');
+INSERT INTO `button_permission` VALUES (87, 'admin_config_edit', 'admin_config_update_post');
+INSERT INTO `button_permission` VALUES (88, 'admin_config_del', 'admin_config_delete_delete');
+INSERT INTO `button_permission` VALUES (89, 'quartz_group_add', 'quartz_group_add_post');
+INSERT INTO `button_permission` VALUES (90, 'quartz_group_del', 'quartz_group_delete_delete');
 
 -- ----------------------------
 -- Table structure for config
@@ -298,7 +295,7 @@ CREATE TABLE `config`  (
   `ModifiedTime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `ModifiedBy` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of config
@@ -364,7 +361,7 @@ INSERT INTO `menu` VALUES ('39f08dae-5e15-ecf9-fd83-439ed212a310', 'PersonnelFil
 INSERT INTO `menu` VALUES ('39f08dae-8858-4e6a-b14d-9dc3537cb68b', 'PersonnelFiles', 1, '39f08dac-e585-f2d5-3037-58c6397135a5', '人员信息', 'personnelfiles_user', '', '', '', 'user', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:32:40', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:32:40', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08dae-d22c-4988-0dd9-098fe905e5bd', 'Common', 1, '39f08dad-0641-fb8c-d3ab-b3bdcb803500', '区划代码', 'common_area', '', '', '', 'area', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:32:59', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:32:59', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08dae-e142-29fb-f4d4-4f8574d5d3b6', 'Common', 1, '39f08dad-0641-fb8c-d3ab-b3bdcb803500', '附件管理', 'common_attachment', '', '', '', 'attachment', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:03', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `menu` VALUES ('39f08daf-10e1-d0ef-f1be-27d6254133fe', 'Quartz', 1, '39f08dad-3e6f-5955-ccdf-96b081a39bdd', '任务组', 'quartz_group', '', '', '', 'group', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0');
+INSERT INTO `menu` VALUES ('39f08daf-10e1-d0ef-f1be-27d6254133fe', 'Quartz', 1, '39f08dad-3e6f-5955-ccdf-96b081a39bdd', '任务组', 'quartz_group', '', '', '', 'basic-data', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:15', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:37', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('39f08daf-4489-44fd-b2ca-06acd10db080', 'Quartz', 1, '39f08dad-3e6f-5955-ccdf-96b081a39bdd', '任务列表', 'quartz_job', '', '', '', 'tag', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:28', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08daf-7355-6fb9-cfe6-b9804de226f9', 'Admin', 1, '39f08dac-9b84-9a56-20b9-26789223a74f', '模块管理', 'admin_moduleinfo', '', '', '', 'product', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:40', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:40', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08daf-8081-2b67-5f77-3c4119b2ab66', 'Admin', 1, '39f08dac-9b84-9a56-20b9-26789223a74f', '权限列表', 'admin_permission', '', '', '', 'verifycode', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:43', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:43', '39f08d5b-177c-a334-34e7-408ef121c6e0');
@@ -373,8 +370,8 @@ INSERT INTO `menu` VALUES ('39f08daf-9b05-80d5-a7f5-21e450af9b70', 'Admin', 1, '
 INSERT INTO `menu` VALUES ('39f08daf-a689-5e91-dce9-e6d0088d29dc', 'Admin', 1, '39f08dac-9b84-9a56-20b9-26789223a74f', '账户管理', 'admin_account', '', '', '', 'user', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:53', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08daf-b44b-8fbf-3a88-629dc0922e84', 'Admin', 1, '39f08dac-9b84-9a56-20b9-26789223a74f', '审计日志', 'admin_auditinfo', '', '', '', 'log', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:33:57', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:33:57', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08daf-e02b-bd7b-be06-12eeee0f4da4', 'Admin', 1, '39f08dac-84e1-54e2-22ee-e5d7e3606f90', '系统配置', 'admin_system', '', '', '', 'system', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:34:08', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:40:00', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `menu` VALUES ('39f08daf-f8f6-2dad-42c0-c73c787c6def', 'Admin', 1, '39f08dac-84e1-54e2-22ee-e5d7e3606f90', '配置项', 'admin_config', '', '', '', '', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `menu` VALUES ('39f08db0-067d-fc37-84cb-b5283891fcce', 'Admin', 1, '39f08dac-84e1-54e2-22ee-e5d7e3606f90', '图标管理', 'admin_icon', '', '', '', '', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:34:18', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:34:18', '39f08d5b-177c-a334-34e7-408ef121c6e0');
+INSERT INTO `menu` VALUES ('39f08daf-f8f6-2dad-42c0-c73c787c6def', 'Admin', 1, '39f08dac-84e1-54e2-22ee-e5d7e3606f90', '配置项', 'admin_config', '', '', '', 'tag', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:34:14', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:07', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `menu` VALUES ('39f08db0-067d-fc37-84cb-b5283891fcce', 'Admin', 1, '39f08dac-84e1-54e2-22ee-e5d7e3606f90', '图标管理', 'admin_icon', '', '', '', 'photo', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:34:18', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:15:24', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 INSERT INTO `menu` VALUES ('39f08db3-ea1d-1eab-35a7-70bf9342e718', 'CodeGenerator', 1, '39f08dad-6b9b-0fa4-767f-3b85eebbd534', '项目列表', 'codegenerator_project', '', '', '', 'project', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:38:33', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 INSERT INTO `menu` VALUES ('39f08db3-f74c-72f6-f901-26a8a0677346', 'CodeGenerator', 1, '39f08dad-6b9b-0fa4-767f-3b85eebbd534', '枚举列表', 'codegenerator_enum', '', '', '', '', '', 1, b'1', 0, 0, '', '', b'1', '', '2019-09-29 13:38:36', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 13:38:36', '39f08d5b-177c-a334-34e7-408ef121c6e0');
 
@@ -387,7 +384,7 @@ CREATE TABLE `menu_permission`  (
   `MenuCode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `PermissionCode` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_permission
@@ -399,7 +396,6 @@ INSERT INTO `menu_permission` VALUES (4, 'personnelfiles_user', 'personnelfiles_
 INSERT INTO `menu_permission` VALUES (5, 'common_area', 'common_area_query_get');
 INSERT INTO `menu_permission` VALUES (6, 'common_area', 'common_area_querychildren_get');
 INSERT INTO `menu_permission` VALUES (7, 'common_attachment', 'common_attachment_query_get');
-INSERT INTO `menu_permission` VALUES (8, 'quartz_group', 'quartz_group_query_get');
 INSERT INTO `menu_permission` VALUES (9, 'quartz_job', 'quartz_job_query_get');
 INSERT INTO `menu_permission` VALUES (10, 'admin_moduleinfo', 'admin_moduleinfo_query_get');
 INSERT INTO `menu_permission` VALUES (11, 'admin_permission', 'admin_permission_query_get');
@@ -408,11 +404,12 @@ INSERT INTO `menu_permission` VALUES (13, 'admin_menu', 'admin_menu_tree_get');
 INSERT INTO `menu_permission` VALUES (14, 'admin_role', 'admin_role_query_get');
 INSERT INTO `menu_permission` VALUES (15, 'admin_account', 'admin_account_query_get');
 INSERT INTO `menu_permission` VALUES (16, 'admin_auditinfo', 'admin_auditinfo_query_get');
-INSERT INTO `menu_permission` VALUES (19, 'admin_config', 'admin_config_query_get');
 INSERT INTO `menu_permission` VALUES (20, 'codegenerator_project', 'codegenerator_project_query_get');
 INSERT INTO `menu_permission` VALUES (21, 'codegenerator_enum', 'codegenerator_enum_query_get');
 INSERT INTO `menu_permission` VALUES (22, 'admin_system', 'admin_system_config_post');
 INSERT INTO `menu_permission` VALUES (23, 'admin_system', 'admin_system_uploadlogo_post');
+INSERT INTO `menu_permission` VALUES (24, 'admin_config', 'admin_config_query_get');
+INSERT INTO `menu_permission` VALUES (25, 'quartz_group', 'quartz_group_query_get');
 
 -- ----------------------------
 -- Table structure for moduleinfo
@@ -434,11 +431,11 @@ CREATE TABLE `moduleinfo`  (
 -- ----------------------------
 -- Records of moduleinfo
 -- ----------------------------
-INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba44-6817-6d57-fd07e0c9a482', '权限管理', 'Admin', '1.2.6', NULL, '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba7a-b9a9-eba5-99bc7035b59b', '代码生成', 'CodeGenerator', '1.2.2', NULL, '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba95-78b5-1bce-75ff8a247679', '通用模块', 'Common', '1.2.2', NULL, '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `moduleinfo` VALUES ('39f08d5b-baa9-01a1-49d2-d841bc8c1dc3', '人事档案', 'PersonnelFiles', '1.2.2', NULL, '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0');
-INSERT INTO `moduleinfo` VALUES ('39f08d5b-bab9-54cd-1705-1312a597b6b3', '任务调度', 'Quartz', '1.0.4', NULL, '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0');
+INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba44-6817-6d57-fd07e0c9a482', '权限管理', 'Admin', '1.2.6', '', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:16:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba7a-b9a9-eba5-99bc7035b59b', '代码生成', 'CodeGenerator', '1.2.2', '', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:16:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('39f08d5b-ba95-78b5-1bce-75ff8a247679', '通用模块', 'Common', '1.2.2', '', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:16:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('39f08d5b-baa9-01a1-49d2-d841bc8c1dc3', '人事档案', 'PersonnelFiles', '1.2.2', '', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:16:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
+INSERT INTO `moduleinfo` VALUES ('39f08d5b-bab9-54cd-1705-1312a597b6b3', '任务调度', 'Quartz', '1.0.4', '', '2019-09-29 12:02:13', '39f08d5b-177c-a334-34e7-408ef121c6e0', '2019-10-09 15:16:42', '2e23d1d9-4a72-acc2-f6ff-39ed21cb6a4a');
 
 -- ----------------------------
 -- Table structure for permission
@@ -642,7 +639,7 @@ CREATE TABLE `role_menu`  (
   `RoleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
@@ -684,7 +681,7 @@ CREATE TABLE `role_menu_button`  (
   `MenuId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ButtonId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu_button
