@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Swagger.Core.Filters;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Nm.Lib.Swagger.Core
 {
@@ -23,7 +22,7 @@ namespace Nm.Lib.Swagger.Core
                 {
                     foreach (var moduleInfo in modules)
                     {
-                        c.SwaggerDoc(moduleInfo.Id, new Info
+                        c.SwaggerDoc(moduleInfo.Id, new OpenApiInfo
                         {
                             Title = moduleInfo.Name,
                             Version = moduleInfo.Version
@@ -31,19 +30,21 @@ namespace Nm.Lib.Swagger.Core
                     }
                 }
 
-                //添加设置Token的按钮
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                var securityScheme = new OpenApiSecurityScheme
                 {
                     Description = "JWT认证请求头格式: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
-                });
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme= "Bearer"
+                };
+
+                //添加设置Token的按钮
+                c.AddSecurityDefinition("Bearer", securityScheme);
 
                 //添加Jwt验证设置
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                    { "Bearer", Enumerable.Empty<string>() },
-                });
+                var securityRequirement = new OpenApiSecurityRequirement { { securityScheme, new List<string>() } };
+                c.AddSecurityRequirement(securityRequirement);
 
                 //链接转小写过滤器
                 c.DocumentFilter<LowercaseDocumentFilter>();

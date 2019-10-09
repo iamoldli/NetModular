@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -13,10 +13,10 @@ namespace Nm.Lib.Host.Web.Middleware
     public class ExceptionHandleMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IHostingEnvironment _env;
+        private readonly IHostEnvironment _env;
         private readonly ILogger _logger;
 
-        public ExceptionHandleMiddleware(RequestDelegate next, IHostingEnvironment env, ILogger<ExceptionHandleMiddleware> logger)
+        public ExceptionHandleMiddleware(RequestDelegate next, IHostEnvironment env, ILogger<ExceptionHandleMiddleware> logger)
         {
             _next = next;
             _env = env;

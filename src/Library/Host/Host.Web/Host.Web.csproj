@@ -1,13 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
+    <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
+    <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
+    <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
+    <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Swagger\Swagger.Core\Swagger.Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
+    <ProjectReference Include="..\..\Utils\Utils.Mvc\Utils.Mvc.csproj" />
+    <ProjectReference Include="..\..\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Update="config_example\cache.Development.json">
       <Pack>true</Pack>
@@ -58,19 +75,6 @@
     <None Update="config_example\mq.json">
       <Pack>true</Pack>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
-    <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
-    <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
-    <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
-    <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
-    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\Swagger\Swagger.Core\Swagger.Core.csproj" />
-    <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
-    <ProjectReference Include="..\..\Utils\Utils.Mvc\Utils.Mvc.csproj" />
-    <ProjectReference Include="..\..\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
   </ItemGroup>
 
 </Project>

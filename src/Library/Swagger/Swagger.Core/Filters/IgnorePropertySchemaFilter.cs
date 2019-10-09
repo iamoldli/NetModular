@@ -1,21 +1,21 @@
 ﻿using System.Linq;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 using Nm.Lib.Swagger.Abstractions.Attributes;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Nm.Lib.Swagger.Core.Filters
 {
     public class IgnorePropertySchemaFilter : ISchemaFilter
     {
-        public void Apply(Schema schema, SchemaFilterContext context)
+        public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
             if (schema?.Properties == null)
             {
                 return;
             }
 
-            var ignoreProperties = context.SystemType.GetProperties().Where(t => t.GetCustomAttribute<IgnorePropertyAttribute>() != null);
+            var ignoreProperties = context.ApiModel.Type.GetProperties().Where(t => t.GetCustomAttribute<IgnorePropertyAttribute>() != null);
 
             foreach (var ignorePropertyInfo in ignoreProperties)
             {

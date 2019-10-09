@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -8,6 +7,7 @@ using Nm.Lib.Utils.Core.Options;
 using Nm.Module.Admin.Web.Core;
 using Nm.Module.Admin.Web.Filters;
 using System.IO;
+using Microsoft.Extensions.Hosting;
 using Nm.Lib.Auth.Web;
 using Nm.Lib.Module.AspNetCore;
 
@@ -21,7 +21,7 @@ namespace Nm.Module.Admin.Web
             services.AddScoped<IPermissionValidateHandler, PermissionValidateHandler>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             var options = app.ApplicationServices.GetService<IOptionsMonitor<ModuleCommonOptions>>().CurrentValue;
 

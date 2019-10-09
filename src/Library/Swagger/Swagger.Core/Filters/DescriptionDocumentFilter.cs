@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 using Nm.Lib.Utils.Core.Extensions;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Nm.Lib.Swagger.Core.Filters
@@ -14,7 +14,7 @@ namespace Nm.Lib.Swagger.Core.Filters
     /// </summary>
     public class DescriptionDocumentFilter : IDocumentFilter
     {
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             SetControllerDescription(swaggerDoc, context);
             SetActionDescription(swaggerDoc, context);
@@ -25,10 +25,10 @@ namespace Nm.Lib.Swagger.Core.Filters
         /// </summary>
         /// <param name="swaggerDoc"></param>
         /// <param name="context"></param>
-        private void SetControllerDescription(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        private void SetControllerDescription(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             if (swaggerDoc.Tags == null)
-                swaggerDoc.Tags = new List<Tag>();
+                swaggerDoc.Tags = new List<OpenApiTag>();
 
             foreach (var apiDescription in context.ApiDescriptions)
             {
@@ -41,7 +41,7 @@ namespace Nm.Lib.Swagger.Core.Filters
                         controllerName = controllerName.Remove(controllerName.Length - 10);
                         if (swaggerDoc.Tags.All(t => t.Name != controllerName))
                         {
-                            swaggerDoc.Tags.Add(new Tag
+                            swaggerDoc.Tags.Add(new OpenApiTag
                             {
                                 Name = controllerName,
                                 Description = descAttr.Description
@@ -57,30 +57,25 @@ namespace Nm.Lib.Swagger.Core.Filters
         /// </summary>
         /// <param name="swaggerDoc"></param>
         /// <param name="context"></param>
-        private void SetActionDescription(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        private void SetActionDescription(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             foreach (var path in swaggerDoc.Paths)
             {
                 if (TryGetActionDescription(path.Key, context, out string description))
                 {
-                    if (path.Value.Get != null)
-                        path.Value.Get.Summary = description;
-                    else if (path.Value.Post != null)
-                        path.Value.Post.Summary = description;
-                    else if (path.Value.Delete != null)
-                        path.Value.Delete.Summary = description;
-                    else if (path.Value.Put != null)
-                        path.Value.Put.Summary = description;
-                    else if (path.Value.Head != null)
-                        path.Value.Head.Summary = description;
-                    else if (path.Value.Options != null)
-                        path.Value.Options.Summary = description;
-                    else if (path.Value.Patch != null)
-                        path.Value.Patch.Summary = description;
+                    if (path.Value != null && path.Value.Operations != null && path.Value.Operations.Any())
+                    {
+                        var operation = path.Value.Operations.FirstOrDefault();
+                        operation.Value.Description = description;
+                        operation.Value.Summary = description;
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// 获取说明
+        /// </summary>
         private bool TryGetActionDescription(string path, DocumentFilterContext context, out string description)
         {
             foreach (var apiDescription in context.ApiDescriptions)

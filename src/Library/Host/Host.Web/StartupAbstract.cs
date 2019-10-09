@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Host.Web.Options;
+using Microsoft.Extensions.Hosting;
 using Nm.Lib.Utils.Core.Helpers;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
 
 namespace Nm.Lib.Host.Web
 {
     public abstract class StartupAbstract
     {
         protected readonly HostOptions HostOptions;
-        protected readonly IHostingEnvironment Env;
+        protected readonly IHostEnvironment Env;
 
-        protected StartupAbstract(IHostingEnvironment env)
+        protected StartupAbstract(IHostEnvironment env)
         {
             Env = env;
             var cfgHelper = new ConfigurationHelper();

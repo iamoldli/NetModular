@@ -1,17 +1,17 @@
 ﻿using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Nm.Lib.Host.Web.Middleware;
-using Nm.Lib.Host.Web.Options;
 using Nm.Lib.Module.AspNetCore;
 using Nm.Lib.Swagger.Core;
 using Nm.Lib.Utils.Core.Interfaces;
+using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
 
 namespace Nm.Lib.Host.Web
 {
@@ -24,7 +24,7 @@ namespace Nm.Lib.Host.Web
         /// <param name="hostOptions"></param>
         /// <param name="env"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostingEnvironment env)
+        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostEnvironment env)
         {
             //异常处理
             app.UseExceptionHandle();
@@ -51,19 +51,21 @@ namespace Nm.Lib.Host.Web
                 });
             }
 
-            //身份认证
-            app.UseAuthentication();
+            //路由
+            app.UseRouting();
 
             //CORS
-            app.UseCors(builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyMethod();
-                builder.AllowAnyHeader();
-                builder.AllowCredentials();
+            app.UseCors("Default");
 
-                //下载文件时，文件名称会保存在headers的Content-Disposition属性里面
-                builder.WithExposedHeaders("Content-Disposition");
+            //认证
+            app.UseAuthentication();
+
+            //授权
+            app.UseAuthorization();
+
+            //配置端点
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
             });
 
             //开启Swagger
@@ -71,8 +73,6 @@ namespace Nm.Lib.Host.Web
             {
                 app.UseCustomSwagger();
             }
-
-            app.UseMvc();
 
             return app;
         }
@@ -131,7 +131,7 @@ namespace Nm.Lib.Host.Web
         /// <returns></returns>
         public static IApplicationBuilder UseShutdownHandler(this IApplicationBuilder app)
         {
-            var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
 
             applicationLifetime.ApplicationStopping.Register(() =>
             {

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Nm.Lib.Swagger.Core.Filters
@@ -9,9 +9,15 @@ namespace Nm.Lib.Swagger.Core.Filters
     /// </summary>
     public class LowercaseDocumentFilter : IDocumentFilter
     {
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
-            swaggerDoc.Paths = swaggerDoc.Paths.ToDictionary(entry => LowercaseEverythingButParameters(entry.Key), entry => entry.Value);
+            var paths = new OpenApiPaths();
+            foreach (var path in swaggerDoc.Paths)
+            {
+                paths.Add(LowercaseEverythingButParameters(path.Key), path.Value);
+            }
+
+            swaggerDoc.Paths = paths;
         }
 
         private static string LowercaseEverythingButParameters(string key)

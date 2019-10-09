@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Nm.Lib.Module.AspNetCore
 {
@@ -21,7 +21,7 @@ namespace Nm.Lib.Module.AspNetCore
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        void Configure(IApplicationBuilder app, IHostingEnvironment env);
+        void Configure(IApplicationBuilder app, IHostEnvironment env);
 
         /// <summary>
         /// 配置MVC

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Nm.Lib.Module.Abstractions;
 using Nm.Lib.Utils.Core.Extensions;
@@ -13,7 +13,7 @@ namespace Nm.Lib.Module.AspNetCore
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostingEnvironment env)
+        public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostEnvironment env)
         {
             app.UseUpload();
 

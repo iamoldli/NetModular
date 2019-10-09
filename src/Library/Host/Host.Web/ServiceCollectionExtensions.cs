@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Nm.Lib.Auth.Jwt;
 using Nm.Lib.Cache.Integration;
 using Nm.Lib.Data.Integration;
-using Nm.Lib.Host.Web.Options;
 using Nm.Lib.Mapper.AutoMapper;
 using Nm.Lib.Module.AspNetCore;
 using Nm.Lib.Swagger.Core;
@@ -13,6 +13,7 @@ using Nm.Lib.Swagger.Core.Conventions;
 using Nm.Lib.Utils.Core;
 using Nm.Lib.Utils.Mvc;
 using Nm.Lib.Validation.FluentValidation;
+using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
 
 namespace Nm.Lib.Host.Web
 {
@@ -25,7 +26,7 @@ namespace Nm.Lib.Host.Web
         /// <param name="hostOptions"></param>
         /// <param name="env">环境</param>
         /// <returns></returns>
-        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostingEnvironment env)
+        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostEnvironment env)
         {
             services.AddSingleton(hostOptions);
 
@@ -67,13 +68,23 @@ namespace Nm.Lib.Host.Web
                 }
 
             })
-            .AddJsonOptions(options =>
+            .AddNewtonsoftJson(options =>
             {
                 //设置日期格式化格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             })
             .AddValidators(services)//添加验证器
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            //CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
+            });
 
             //添加数据库，数据库依赖ILoginInfo，所以需要在添加身份认证以及MVC后添加数据库
             services.AddDb(env.EnvironmentName, modules);
