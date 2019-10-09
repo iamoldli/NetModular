@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,10 +25,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>nets" +
-                    "tandard2.0</TargetFramework>\r\n    <GenerateDocumentationFile>false</GenerateDocu" +
-                    "mentationFile>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageReference Inclu" +
-                    "de=\"");
+            this.Write("<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>netc" +
+                    "oreapp3.0</TargetFramework>\r\n    <GenerateDocumentationFile>false</GenerateDocum" +
+                    "entationFile>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageReference Includ" +
+                    "e=\"");
             
             #line 10 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\Csproj.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
