@@ -4,7 +4,7 @@
 NetModular
 </h1>
 
-NetModular is a modular quickly develop solution for .NET Standard.
+NetModular is a modular quickly develop solution for .Net Core 3.0+.
 
 ## Develop Environment
 
