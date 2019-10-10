@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Nm.Lib.Host.Generic;
 using Nm.Module.Common.Infrastructure.AreaCrawling;
-using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
+using IHostEnvironment = Microsoft.Extensions.Hosting.IHostEnvironment;
 
 namespace Nm.Module.Common.AreaCrawling
 {
@@ -18,7 +18,7 @@ namespace Nm.Module.Common.AreaCrawling
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        static void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
+        static void ConfigureServices(IServiceCollection services, IHostEnvironment env)
         {
             services.AddSingleton<IAreaCrawlingHandler, AreaCrawlingHandler>();
         }
