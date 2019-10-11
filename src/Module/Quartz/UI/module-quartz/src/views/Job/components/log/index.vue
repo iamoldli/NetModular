@@ -21,8 +21,10 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/Job'
 import cols from './cols'
+
+const api = $api.quartz.job
+
 export default {
   mixins: [mixins.dialog],
   data() {

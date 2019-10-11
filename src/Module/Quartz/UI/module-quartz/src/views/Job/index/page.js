@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '任务列表'
   this.name = 'quartz_job'
   this.path = '/quartz/job'
@@ -52,7 +52,7 @@ const page = new (function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

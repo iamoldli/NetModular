@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="企业名称：" prop="enterpriseName">
-          <el-input v-model="form.model.enterpriseName" autofocus clearable/>
+          <el-input v-model="form.model.enterpriseName" autofocus clearable />
         </el-form-item>
       </el-col>
     </el-row>
@@ -15,34 +15,36 @@
       </el-col>
       <el-col :span="10">
         <el-form-item label="职位：" prop="position">
-          <el-input v-model="form.model.position" clearable/>
+          <el-input v-model="form.model.position" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="联系人：" prop="contact">
-          <el-input v-model="form.model.contact" clearable/>
+          <el-input v-model="form.model.contact" clearable />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="联系电话：" prop="contactPhone">
-          <el-input v-model="form.model.contactPhone" clearable/>
+          <el-input v-model="form.model.contactPhone" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="离职原因：" prop="dimissionReason">
-          <el-input type="textarea" v-model="form.model.dimissionReason" clearable/>
+          <el-input type="textarea" v-model="form.model.dimissionReason" clearable />
         </el-form-item>
       </el-col>
     </el-row>
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/UserWorkHistory'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.personnelFiles.userWorkHistory
+
 export default {
   mixins: [mixins.formDialogEdit],
   data() {

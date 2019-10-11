@@ -26,10 +26,11 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Group'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
+
+const api = $api.quartz.group
 
 export default {
   name: page.name,

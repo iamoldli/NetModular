@@ -22,7 +22,9 @@
 </template>
 <script>
 import mixins from '../upload-mixins'
-import api from '../../../../api/Attachment'
+
+// 接口
+const api = $api.common.attachment
 
 export default {
   mixins: [mixins],

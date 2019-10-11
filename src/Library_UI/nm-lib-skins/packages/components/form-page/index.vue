@@ -140,6 +140,7 @@ export default {
     /** 重置 */
     reset() {
       this.$refs.form.reset()
+      this.$emit('reset')
     },
     /** 清除验证信息 */
     clearValidate() {

@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="键：" prop="key">
-          <el-input v-model="form.model.key"/>
+          <el-input v-model="form.model.key" />
         </el-form-item>
         <el-form-item label="值：" prop="value">
           <el-input type="textarea" :rows="5" v-model="form.model.value"></el-input>
@@ -16,8 +16,11 @@
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/config'
 import { mixins } from 'nm-lib-skins'
+
+// 接口
+const api = $api.admin.config
+
 export default {
   mixins: [mixins.formDialogEdit],
   data() {

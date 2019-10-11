@@ -1,7 +1,7 @@
 {
     "name": "nm-module-quartz",
     "version": "1.0.3",
-    "code": "Quartz",
+    "code": "quartz",
     "title": "任务调度",
     "description": "任务调度",
     "main": "src/index.js",

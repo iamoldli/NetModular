@@ -21,7 +21,7 @@
         "echarts": "^4.2.1",
         "element-ui": "^2.11.1",
         "nm-lib-icon": "^1.2.9",
-        "nm-lib-utils": "^1.2.0",
+        "nm-lib-utils": "^1.2.2",
         "nprogress": "^0.2.0",
         "screenfull": "^4.2.1",
         "v-charts": "^1.19.0",

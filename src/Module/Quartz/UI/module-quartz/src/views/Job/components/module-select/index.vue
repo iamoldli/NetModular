@@ -1,6 +1,8 @@
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/Job'
+
+const api = $api.quartz.job
+
 export default {
   mixins: [mixins.select],
   data() {

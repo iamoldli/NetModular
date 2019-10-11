@@ -3,41 +3,43 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name" autofocus clearable/>
+          <el-input v-model="form.model.name" autofocus clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="地址：" prop="address">
-          <el-input v-model="form.model.address" clearable/>
+          <el-input v-model="form.model.address" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="联系人：" prop="contact">
-          <el-input v-model="form.model.contact" clearable/>
+          <el-input v-model="form.model.contact" clearable />
         </el-form-item>
       </el-col>
       <el-col :span="10">
         <el-form-item label="联系电话：" prop="phone">
-          <el-input v-model="form.model.phone" clearable/>
+          <el-input v-model="form.model.phone" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="传真：" prop="fax">
-          <el-input v-model="form.model.fax" clearable/>
+          <el-input v-model="form.model.fax" clearable />
         </el-form-item>
       </el-col>
     </el-row>
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/Company'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.personnelFiles.company
+
 export default {
   mixins: [mixins.dialog],
   data() {

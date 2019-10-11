@@ -8,7 +8,9 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/User'
+
+const api = $api.personnelFiles.user
+
 export default {
   mixins: [mixins.drawer],
   data() {

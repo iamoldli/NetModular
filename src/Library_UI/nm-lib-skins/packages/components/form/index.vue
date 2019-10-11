@@ -103,6 +103,7 @@ export default {
     reset() {
       this.resetChildren(this.$refs.form)
       this.$refs.form.resetFields()
+      this.$emit('reset')
     },
     /** 重置子组件 */
     resetChildren(vnode) {

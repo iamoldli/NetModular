@@ -80,10 +80,11 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/Job'
 import ModuleSelect from '../module-select'
 import JobSelect from '../job-select'
-import GroupSelect from '../../../Group/components/select'
+import GroupSelect from '../../../group/components/select'
+
+const api = $api.quartz.job
 
 export default {
   mixins: [mixins.formDialogEdit],

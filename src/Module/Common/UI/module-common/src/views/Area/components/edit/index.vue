@@ -46,8 +46,11 @@
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/Area'
 import { mixins } from 'nm-lib-skins'
+
+// 接口
+const api = $api.common.area
+
 export default {
   mixins: [mixins.formDialogEdit],
   data() {

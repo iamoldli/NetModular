@@ -27,12 +27,14 @@
   </nm-list-dialog>
 </template>
 <script>
-import api from '../../../../api/Position'
 import { mixins } from 'nm-lib-skins'
 import page from '../../index/page'
 import cols from './cols'
-import AddPage from '../../../Position/components/add'
-import EditPage from '../../../Position/components/edit'
+import AddPage from '../../../position/components/add'
+import EditPage from '../../../position/components/edit'
+
+const api = $api.personnelFiles.department
+
 export default {
   components: { AddPage, EditPage },
   mixins: [mixins.dialog],

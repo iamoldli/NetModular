@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="院校名称：" prop="schoolName">
-          <el-input v-model="form.model.schoolName" autofocus clearable/>
+          <el-input v-model="form.model.schoolName" autofocus clearable />
         </el-form-item>
       </el-col>
     </el-row>
@@ -17,22 +17,24 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="学历：" prop="level">
-          <el-input v-model="form.model.level" clearable/>
+          <el-input v-model="form.model.level" clearable />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="专业：" prop="profession">
-          <el-input v-model="form.model.profession" clearable/>
+          <el-input v-model="form.model.profession" clearable />
         </el-form-item>
       </el-col>
     </el-row>
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/UserEducationHistory'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.personnelFiles.userEducationHistory
+
 export default {
   mixins: [mixins.dialog],
   data() {

@@ -1,6 +1,8 @@
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/Position'
+
+const api = $api.personnelFiles.position
+
 export default {
   mixins: [mixins.select],
   data() {

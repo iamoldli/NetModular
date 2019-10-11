@@ -23,9 +23,10 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Position'
 import page from './page'
 import cols from './cols'
+
+const api = $api.personnelFiles.position
 
 export default {
   name: page.name,

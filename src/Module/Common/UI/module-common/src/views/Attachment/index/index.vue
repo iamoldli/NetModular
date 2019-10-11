@@ -17,9 +17,12 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Attachment'
 import page from './page'
 import cols from './cols'
+
+// 接口
+const api = $api.common.attachment
+
 export default {
   name: page.name,
   data() {

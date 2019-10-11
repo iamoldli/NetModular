@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '字典列表'
   this.name = 'common_dict'
   this.path = '/common/dict'
@@ -18,7 +18,7 @@ const page = new (function() {
       code: `${this.name}_del`
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

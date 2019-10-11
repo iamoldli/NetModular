@@ -37,7 +37,8 @@
 </template>
 <script>
 import mixins from '../mixins'
-import api from '../../../../../../api/User'
+
+const api = $api.personnelFiles.user
 
 export default {
   mixins: [mixins],

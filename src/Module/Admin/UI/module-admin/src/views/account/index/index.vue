@@ -84,11 +84,13 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import api from '../../../api/account.js'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+// 接口
+const api = $api.admin.account
 
 export default {
   name: page.name,

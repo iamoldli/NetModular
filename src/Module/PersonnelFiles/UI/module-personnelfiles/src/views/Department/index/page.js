@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '部门列表'
   this.icon = 'department'
   this.name = 'personnelfiles_department'
@@ -63,7 +63,7 @@ const page = new (function() {
       permissions: [`PersonnelFiles_position_delete_delete`]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

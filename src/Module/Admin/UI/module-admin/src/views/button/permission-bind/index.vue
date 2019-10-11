@@ -1,23 +1,26 @@
 <template>
   <nm-dialog v-bind="dialog" :visible.sync="visible_" @open="onOpen">
-    <bind-page ref="bind" :query="query" :action="action"/>
+    <bind-page ref="bind" :query="query" :action="action" />
   </nm-dialog>
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
 import BindPage from '../../permission/components/bind'
-import api from '../../../api/button'
+
+// 接口
+const api = $api.admin.button
+
 export default {
   mixins: [mixins.dialog],
   components: { BindPage },
-  data () {
+  data() {
     return {
       id_: ''
     }
   },
   props: ['id', 'name'],
   computed: {
-    dialog () {
+    dialog() {
       return {
         noScrollbar: true,
         title: `权限绑定(${this.name})`,
@@ -28,13 +31,13 @@ export default {
     }
   },
   methods: {
-    query () {
+    query() {
       return api.getPermissionList(this.id)
     },
-    action (list) {
+    action(list) {
       return api.bindPermission({ id: this.id, permissionList: list })
     },
-    onOpen () {
+    onOpen() {
       if (this.id && this.id !== this.id_) {
         this.$nextTick(() => {
           this.$refs.bind.refresh()

@@ -88,9 +88,10 @@
 </template>
 <script>
 import mixins from '../mixins'
-import api from '../../../../../../api/User'
-import DepartmentSelect from '../../../../../Department/components/select'
-import PositionSelect from '../../../../../Position/components/select'
+import DepartmentSelect from '../../../../../department/components/select'
+import PositionSelect from '../../../../../position/components/select'
+
+const api = $api.personnelFiles.user
 
 export default {
   mixins: [mixins],

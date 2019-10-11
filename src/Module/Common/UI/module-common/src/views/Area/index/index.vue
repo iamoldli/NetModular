@@ -48,11 +48,14 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Area'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+// 接口
+const api = $api.common.area
+
 export default {
   name: page.name,
   components: { AddPage, EditPage },

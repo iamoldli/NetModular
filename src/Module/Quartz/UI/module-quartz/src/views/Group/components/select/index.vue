@@ -1,6 +1,8 @@
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/Group'
+
+const api = $api.quartz.group
+
 export default {
   mixins: [mixins.select],
   data() {

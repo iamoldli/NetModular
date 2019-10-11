@@ -6,8 +6,6 @@
   </el-col>
 </template>
 <script>
-import api from '../../../../api/Area'
-
 export default {
   data() {
     return {
@@ -29,7 +27,7 @@ export default {
       this.list = []
 
       if (this.parentCode) {
-        let data = await api.queryChildren(this.parentCode)
+        let data = await $api.common.area.queryChildren(this.parentCode)
         this.list = data.map(item => {
           return {
             label: item.name,

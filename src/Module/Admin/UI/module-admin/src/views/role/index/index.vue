@@ -40,12 +40,14 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/role'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import BindMenuPage from '../components/menu-bind'
+
+// 接口
+const api = $api.admin.role
 
 export default {
   name: page.name,

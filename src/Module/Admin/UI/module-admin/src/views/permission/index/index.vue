@@ -49,11 +49,13 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/permission'
-import systemApi from '../../../api/system'
 import page from './page'
 import cols from './cols'
 import ModuleInfoSelect from '../../moduleInfo/components/select'
+
+// 接口
+const api = $api.admin.permission
+const systemApi = $api.admin.system
 
 export default {
   name: page.name,

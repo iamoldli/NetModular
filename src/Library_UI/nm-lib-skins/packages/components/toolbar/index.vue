@@ -1,9 +1,9 @@
 <template>
   <div class="nm-toolbar">
-    <nm-userinfo v-if="toolbar.userInfo"/>
-    <nm-skin-toggle v-if="toolbar.skin"/>
-    <nm-fullscreen v-if="toolbar.fullscreen"/>
-    <nm-logout v-if="toolbar.logout"/>
+    <nm-userinfo v-if="toolbar.userInfo" />
+    <nm-skin-toggle v-if="toolbar.skin" />
+    <nm-fullscreen v-if="toolbar.fullscreen" />
+    <nm-logout v-if="toolbar.logout" />
   </div>
 </template>
 <script>

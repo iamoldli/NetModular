@@ -62,12 +62,13 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Job'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import JobLog from '../components/log'
+
+const api = $api.quartz.job
 
 export default {
   name: page.name,

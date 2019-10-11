@@ -1,8 +1,8 @@
 <template>
-  <section :class="['td-tabs',this.fullscreen_?'fullscreen':'']">
-    <section class="td-tabs-toolbar">
+  <section :class="['nm-tabs',this.fullscreen_?'fullscreen':'']">
+    <section class="nm-tabs-toolbar">
       <!--全屏按钮-->
-      <td-button v-if="fullscreen" :icon="this.fullscreen_ ? 'min' : 'max'" @click="onFullscreen" />
+      <nm-button v-if="fullscreen" :icon="this.fullscreen_ ? 'min' : 'max'" @click="onFullscreen" />
     </section>
     <slot />
   </section>

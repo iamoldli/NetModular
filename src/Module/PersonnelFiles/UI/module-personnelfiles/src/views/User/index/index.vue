@@ -51,15 +51,17 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/User'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import DetailsPage from '../components/details'
 import PictureShow from '../components/picture-show'
-import WorkHistory from '../../UserWorkHistory/index'
-import EducationHistory from '../../UserEducationHistory/index'
+import WorkHistory from '../../userWorkHistory/index'
+import EducationHistory from '../../userEducationHistory/index'
+
+const api = $api.personnelFiles.user
+
 export default {
   name: page.name,
   components: { AddPage, EditPage, DetailsPage, PictureShow, WorkHistory, EducationHistory },

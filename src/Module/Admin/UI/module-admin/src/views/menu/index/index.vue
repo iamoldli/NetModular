@@ -76,11 +76,13 @@
 <script>
 import { mapMutations } from 'vuex'
 import page from './page'
-import api from '../../../api/menu'
 import cols from './cols.js'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import MenuTree from '../components/tree'
+
+// 接口
+const api = $api.admin.menu
 
 export default {
   name: page.name,

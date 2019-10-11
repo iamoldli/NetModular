@@ -1,11 +1,11 @@
 <template>
   <section class="nm-main">
-    <nm-header/>
-    <nm-tabnav/>
+    <nm-header />
+    <nm-tabnav />
     <section class="nm-content">
       <transition name="fade-transverse">
         <keep-alive :include="keepAlive">
-          <router-view :key="$route.path"/>
+          <router-view :key="$route.path" />
         </keep-alive>
       </transition>
     </section>

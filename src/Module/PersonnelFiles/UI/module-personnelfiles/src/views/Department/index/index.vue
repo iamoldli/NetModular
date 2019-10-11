@@ -39,13 +39,15 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Department'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import Tree from '../components/tree'
 import PositionPage from '../components/position'
+
+const api = $api.personnelFiles.department
+
 export default {
   name: page.name,
   components: { AddPage, EditPage, PositionPage, Tree },

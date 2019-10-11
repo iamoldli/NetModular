@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '区划代码管理'
   this.icon = 'area'
   this.name = 'common_area'
@@ -34,7 +34,7 @@ const page = new (function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

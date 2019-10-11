@@ -176,6 +176,7 @@ export default {
       } else {
         this.$refs.form.reset()
       }
+      this.$emit('reset')
     },
     /** 清除验证信息 */
     clearValidate() {

@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '附件管理'
   this.icon = 'attachment'
   this.name = 'common_attachment'
@@ -25,7 +25,7 @@ const page = new (function() {
       permissions: [`${this.name}_export_get`]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {

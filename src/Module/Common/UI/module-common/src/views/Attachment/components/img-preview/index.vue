@@ -5,7 +5,10 @@
   </div>
 </template>
 <script>
-import api from '../../../../api/Attachment'
+
+// 接口
+const api = $api.common.attachment
+
 export default {
   name: '',
   data() {

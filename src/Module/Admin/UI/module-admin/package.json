@@ -1,5 +1,6 @@
 {
     "name": "nm-module-admin",
+    "code": "admin",
     "version": "1.3.6",
     "description": "NetModular前端Admin模块组件",
     "author": "Oldli",
@@ -18,7 +19,7 @@
     "dependencies": {
         "nm-lib-icon": "^1.2.9",
         "nm-lib-skins": "^1.5.0",
-        "nm-lib-utils": "^1.2.1"
+        "nm-lib-utils": "^1.2.3"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.11.0",

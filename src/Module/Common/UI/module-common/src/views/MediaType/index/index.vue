@@ -4,34 +4,36 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="扩展名：" prop="ext">
-          <el-input v-model="list.model.ext" clearable/>
+          <el-input v-model="list.model.ext" clearable />
         </el-form-item>
       </template>
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button type="success" :text="buttons.add.text" :icon="buttons.add.icon" @click="add" v-nm-has="buttons.add"/>
+        <nm-button-has :options="buttons.add" @click="add" />
       </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button :text="buttons.edit.text" :icon="buttons.edit.icon" type="text" @click="edit(row)" v-nm-has="buttons.edit"/>
-        <nm-button-delete :id="row.id" :action="removeAction" @success="refresh" v-nm-has="buttons.del"/>
+        <nm-button-has :options="buttons.edit" @click="edit(row)" />
+        <nm-button-delete :options="buttons.del" :id="row.id" :action="removeAction" @success="refresh" />
       </template>
     </nm-list>
 
     <!--添加-->
-    <add-page :visible.sync="dialog.add" @success="refresh"/>
+    <add-page :visible.sync="dialog.add" @success="refresh" />
     <!--编辑-->
-    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh"/>
+    <edit-page :id="curr.id" :visible.sync="dialog.edit" @success="refresh" />
   </nm-container>
 </template>
 <script>
-import api from '../../../api/MediaType'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+// 接口
+const api = $api.common.mediaType
 
 export default {
   name: page.name,

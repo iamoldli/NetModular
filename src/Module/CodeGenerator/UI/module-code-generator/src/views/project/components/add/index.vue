@@ -8,6 +8,9 @@
         <el-form-item label="编号：" prop="no">
           <el-input v-model.number="form.model.no" />
         </el-form-item>
+        <el-form-item label="前缀：" prop="prefix">
+          <el-input v-model="form.model.prefix" />
+        </el-form-item>
         <el-form-item label="编码：" prop="code">
           <el-input v-model="form.model.code" />
         </el-form-item>
@@ -16,8 +19,10 @@
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/project.js'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.codeGenerator.project
+
 export default {
   mixins: [mixins.dialog],
   data() {
@@ -31,6 +36,7 @@ export default {
         model: {
           name: '',
           no: 0,
+          prefix: '',
           code: ''
         },
         rules: {

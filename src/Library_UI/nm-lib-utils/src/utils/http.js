@@ -81,9 +81,9 @@ Http.prototype.crud = root => {
   }
 }
 
-if (!window.$Http) window.$Http = new Http()
+if (!window.$http) window.$http = new Http()
 
-const http = window.$Http
+const http = window.$http
 
 export { http }
 

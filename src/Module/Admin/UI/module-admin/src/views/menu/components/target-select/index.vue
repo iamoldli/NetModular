@@ -1,11 +1,10 @@
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/menu'
 export default {
   mixins: [mixins.select],
-  data () {
+  data() {
     return {
-      action: api.getTargetSelect
+      action: $api.admin.menu.getTargetSelect
     }
   }
 }

@@ -27,11 +27,12 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/Company'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+const api = $api.personnelFiles.company
 
 export default {
   name: page.name,

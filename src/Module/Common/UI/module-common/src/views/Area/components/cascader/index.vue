@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import api from '../../../../api/Area'
 export default {
   data() {
     return {

@@ -91,11 +91,6 @@ export default {
     onChange2(val) {
       this.demo2 = JSON.stringify(val)
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.model = { province: { code: '110000000000' } }
-    }, 2000)
   }
 }
 </script>

@@ -1,3 +1,4 @@
+import './api'
 import store from './store'
 import routes from './routes'
 import components from './components'

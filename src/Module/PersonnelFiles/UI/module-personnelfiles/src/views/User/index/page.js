@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new (function() {
+const page = new function() {
   this.title = '用户信息列表'
   this.icon = 'user'
   this.name = 'personnelfiles_user'
@@ -65,7 +65,7 @@ const page = new (function() {
       ]
     }
   }
-})()
+}()
 
 /** 路由信息 */
 export const route = {
