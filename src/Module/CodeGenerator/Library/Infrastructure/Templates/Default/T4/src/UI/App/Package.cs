@@ -9,6 +9,9 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 {
+    using Nm.Lib.Utils.Core.Extensions;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -25,35 +28,35 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         {
             this.Write("{\r\n    \"name\": \"");
             
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code.ToLower()));
             
             #line default
             #line hidden
             this.Write("-");
             
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 4 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.WebUIDicName));
             
             #line default
             #line hidden
             this.Write("\",\r\n    \"version\": \"1.0.0\",\r\n    \"code\": \"");
             
-            #line 5 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
+            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code.FirstCharToLower()));
             
             #line default
             #line hidden
             this.Write("\",\r\n    \"title\": \"");
             
-            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Name));
             
             #line default
             #line hidden
             this.Write("\",\r\n    \"description\": \"");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Name));
             
             #line default
@@ -71,28 +74,28 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
     ""dependencies"": {
         """);
             
-            #line 18 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("-lib-icon\": \"^1.0.0\",\r\n        \"");
             
-            #line 19 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("-lib-skins\": \"^1.0.0\",\r\n        \"");
             
-            #line 20 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write("-lib-utils\": \"^1.0.0\",\r\n        \"");
             
-            #line 21 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
+            #line 22 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\Package.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default

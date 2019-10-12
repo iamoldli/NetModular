@@ -1,25 +1,27 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.api
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.api.components
 {
-    public partial class EntityApi : ITemplateHandler
+    public partial class Entity : ITemplateHandler
     {
         private readonly TemplateBuildModel _model;
-        private readonly string _prefix;
         private ClassBuildModel _class;
 
-        public EntityApi(TemplateBuildModel model)
+        public Entity(TemplateBuildModel model)
         {
             _model = model;
-            _prefix = model.Project.Prefix.ToLower();
         }
 
         public void Save()
         {
             var dir = Path.Combine(_model.RootPath, _model.Project.Code,
-                $"src/UI/{_model.Project.WebUIDicName}/src/api");
+                $"src/UI/{_model.Project.WebUIDicName}/src/api/components");
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
@@ -35,7 +37,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 
                     var content = TransformText();
 
-                    var filePath = Path.Combine(dir, $"{_class.Name}.js");
+                    var filePath = Path.Combine(dir, $"{_class.Name.FirstCharToLower()}.js");
                     File.WriteAllText(filePath, content);
                 }
             }

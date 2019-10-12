@@ -16,6 +16,11 @@ namespace Nm.Lib.Data.Abstractions.Options
         public string Database { get; set; }
 
         /// <summary>
+        /// 表前缀
+        /// </summary>
+        public string Prefix { get; set; }
+
+        /// <summary>
         /// 数据库版本
         /// </summary>
         public string Version { get; set; }

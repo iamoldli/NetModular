@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,9 +25,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import store from \'./store\'\r\nimport routes from \'./routes\'\r\nimport components fro" +
-                    "m \'./components\'\r\nimport module from \'./module\'\r\n\r\nexport default {\r\n  module,\r\n" +
-                    "  routes,\r\n  store,\r\n  components\r\n}\r\n");
+            this.Write("import \'./api\'\r\nimport store from \'./store\'\r\nimport routes from \'./routes\'\r\nimpor" +
+                    "t components from \'./components\'\r\nimport module from \'./module\'\r\n\r\nexport defaul" +
+                    "t {\r\n  module,\r\n  routes,\r\n  store,\r\n  components\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

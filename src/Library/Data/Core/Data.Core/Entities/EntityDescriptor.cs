@@ -103,6 +103,16 @@ namespace Nm.Lib.Data.Core.Entities
         {
             var tableArr = EntityType.GetCustomAttribute<TableAttribute>(false);
             TableName = tableArr != null ? tableArr.Name : EntityType.Name;
+
+            //判断有没有设置前缀
+            if (SqlAdapter.Options.Prefix.NotNull())
+            {
+                var prefixIgnoreArr = EntityType.GetCustomAttribute<TableAttribute>(false);
+                if (prefixIgnoreArr != null)
+                {
+                    TableName = SqlAdapter.Options.Prefix + TableName;
+                }
+            }
         }
 
         /// <summary>

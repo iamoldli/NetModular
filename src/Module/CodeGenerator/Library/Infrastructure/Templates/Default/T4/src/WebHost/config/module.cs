@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost.config
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,9 +25,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("{\r\n//文件上传路径\r\n  \"UploadPath\": \"\", \r\n  //临时文件路径\r\n  \"TempPath\": \"\",\r\n  //权限管理模块配置\r\n " +
-                    " \"Admin\": {\r\n    //是否开启审计功能\r\n    \"Auditing\": true,\r\n    //是否开启权限验证\r\n    \"Permiss" +
-                    "ionValidate\": true\r\n  }\r\n}");
+            this.Write("{\r\n  //文件上传路径\r\n  \"UploadPath\": \"\", \r\n  //临时文件路径\r\n  \"TempPath\": \"\",\r\n  //权限管理模块配置\r" +
+                    "\n  \"Admin\": {\r\n    //是否开启审计功能\r\n    \"Auditing\": true,\r\n    //是否开启权限验证\r\n    \"Permi" +
+                    "ssionValidate\": true\r\n  }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

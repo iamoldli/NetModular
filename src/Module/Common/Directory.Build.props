@@ -3,7 +3,7 @@
     <Id>Common</Id>
     <Name>通用模块</Name>
     <Authors>Oldli</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0-beta1</Version>
     <Description>$(Name) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHost
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,7 +25,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.AspNetCore.Hosting;\r\nusing ");
+            this.Write("using Microsoft.Extensions.Hosting;\r\nusing ");
             
             #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\WebHost\Startup.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
@@ -45,7 +47,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.WebHos
             #line default
             #line hidden
             this.Write(".WebHost\r\n{\r\n    public class Startup : StartupAbstract\r\n    {\r\n        public St" +
-                    "artup(IHostingEnvironment env) : base(env)\r\n        {\r\n        }\r\n    }\r\n}\r\n");
+                    "artup(IHostEnvironment env) : base(env)\r\n        {\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

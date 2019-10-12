@@ -1,4 +1,4 @@
-import { http } from 'nm-lib-utils'
+import 'nm-lib-utils'
 import { token, store } from 'nm-lib-skins'
 import routerConfig from '../router'
 import { Message } from 'element-ui'
@@ -9,7 +9,7 @@ const messageDuration = 1500
 
 export default baseUrl => {
   // 初始化请求
-  http.init(axios => {
+  $http.init(axios => {
     // 接口根路径
     axios.defaults.baseURL = baseUrl
 

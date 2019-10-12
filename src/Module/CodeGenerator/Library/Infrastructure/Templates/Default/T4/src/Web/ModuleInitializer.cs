@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,25 +25,25 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.AspNetCore.Builder;\r\nusing Microsoft.AspNetCore.Hosting;\r\nusing M" +
-                    "icrosoft.AspNetCore.Mvc;\r\nusing Microsoft.Extensions.Configuration;\r\nusing Micro" +
-                    "soft.Extensions.DependencyInjection;\r\nusing ");
+            this.Write("using Microsoft.AspNetCore.Builder;\r\nusing Microsoft.AspNetCore.Mvc;\r\nusing Micro" +
+                    "soft.Extensions.DependencyInjection;\r\nusing Microsoft.Extensions.Hosting;\r\nusing" +
+                    " ");
             
-            #line 7 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
+            #line 6 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Lib.Module.AspNetCore;\r\n\r\nnamespace ");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
+            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
             
             #line default
             #line hidden
             this.Write(".Module.");
             
-            #line 9 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
+            #line 8 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\Web\ModuleInitializer.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
             
             #line default
@@ -63,7 +65,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         /// </summary>
         /// <param name=""app""></param>
         /// <param name=""env""></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
         }
 
@@ -73,7 +75,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.Web
         /// <param name=""mvcOptions""></param>
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
-                   
+            
         }
     }
 }

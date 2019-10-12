@@ -7,15 +7,17 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.api
+namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.api.components
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\api\EntityApi.tt"
+    #line 1 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\api\components\Entity.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class EntityApi : EntityApiBase
+    public partial class Entity : EntityBase
     {
 #line hidden
         /// <summary>
@@ -23,29 +25,9 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import { http } from \'");
-            
-            #line 2 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\api\EntityApi.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_prefix));
-            
-            #line default
-            #line hidden
-            this.Write("-lib-utils\'\r\nconst root = \'");
-            
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\api\EntityApi.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Project.Code));
-            
-            #line default
-            #line hidden
-            this.Write("/");
-            
-            #line 3 "D:\MyProject\NetModular\src\Module\CodeGenerator\Library\Infrastructure\Templates\Default\T4\src\UI\App\src\api\EntityApi.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_class.Name));
-            
-            #line default
-            #line hidden
-            this.Write("/\'\r\nconst crud = http.crud(root)\r\nconst urls = {\r\n\r\n}\r\n\r\nexport default {\r\n  ...c" +
-                    "rud\r\n}\r\n");
+            this.Write("import module from \'../../module\'\r\n\r\nexport default name => {\r\n  const root = `${" +
+                    "module.code}/${name}/`\r\n  const crud = $http.crud(root)\r\n\r\n  return {\r\n    ...cr" +
+                    "ud\r\n  }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -57,7 +39,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class EntityApiBase
+    public class EntityBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

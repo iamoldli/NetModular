@@ -20,6 +20,8 @@
     {
       //模块名称
       "Name": "Admin",
+      //表前缀
+      "Prefix": "",
       //数据库名称
       "Database": "Nm_Admin"
     },

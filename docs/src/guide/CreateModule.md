@@ -12,7 +12,7 @@
 
 ## 1、添加项目
 
-打开代码生成器中的项目列表，点击添加按钮，填写模块名称、编码，前缀可以填写 Nm
+打开代码生成器中的项目列表，点击添加按钮，填写模块名称、编码
 
 <nm-img id="20190918152255"/>
 
@@ -100,25 +100,37 @@
 
 ## 6、创建数据库
 
-创建 nm_blog 数据库，并执行 data/MySql/Schema.sql 文件创建数据库表
-
-修改数据库连接信息，修改方法可以参考 [快速启动](./GetingStart.html#配置数据库)
+编辑`db.json`配置文件，默认采用 SQLite 数据库，并且开启了自动创建数据库和表功能，其他数据库可自行修改，如果需要 Admin 模块的数据，可从根目录的 data 目录中拷贝到 WebHost 的 debug 目录
 
 ```json
 {
+  //是否开启日志
   "Logging": false,
-  "Connections": [
+  //数据库类型 0、SqlServer 1、MySql 2、SQLite
+  "Dialect": 2,
+  //数据库版本
+  "Version": "",
+  //数据库地址
+  "Server": "",
+  //端口号
+  "Port": 0,
+  //用户名
+  "UserId": "",
+  //密码
+  "Password": "",
+  //是否创建数据库和表
+  "CreateDatabase": true,
+  //模块列表
+  "Modules": [
     {
+      //模块名称
       "Name": "Admin",
-      "Dialect": 0,
-      "Database": "{数据库名称}",
-      "ConnString": "Server={数据库地址};Database=Nm_Admin;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+      //数据库名称
+      "Database": "Nm_Admin"
     },
     {
       "Name": "Blog",
-      "Dialect": 0,
-      "Database": "{数据库名称}",
-      "ConnString": "Server={数据库地址};Database=Nm_Blog;Uid=sa;Pwd=sa;MultipleActiveResultSets=true;"
+      "Database": "Nm_Blog"
     }
   ]
 }
@@ -134,7 +146,7 @@
 
 ## 7、升级包
 
-代码生成器没有办法保证生成的代码引用的 Nuget 都是最新版本的，所以需要手动取更新下包版本
+代码生成器没有办法保证生成的代码中引用的 Nuget 都是最新版本的，所以需要手动取更新下包版本
 
 ## 8、运行
 

@@ -4,7 +4,6 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Nm.WebHost</RootNamespace>
     <AssemblyName>Nm.WebHost</AssemblyName>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>

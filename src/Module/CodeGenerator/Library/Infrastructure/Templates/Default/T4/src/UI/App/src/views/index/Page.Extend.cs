@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using Nm.Lib.Utils.Core.Extensions;
 using Nm.Module.CodeGenerator.Infrastructure.Templates.Models;
 
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
@@ -22,7 +23,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
                 {
                     _class = classModel;
 
-                    var dir = Path.Combine(_model.RootPath, _model.Project.Code, $"src/UI/{_model.Project.WebUIDicName}/src/views", _class.Name, "index");
+                    var dir = Path.Combine(_model.RootPath, _model.Project.Code, $"src/UI/{_model.Project.WebUIDicName}/src/views", _class.Name.FirstCharToLower(), "index");
                     if (!Directory.Exists(dir))
                         Directory.CreateDirectory(dir);
 
