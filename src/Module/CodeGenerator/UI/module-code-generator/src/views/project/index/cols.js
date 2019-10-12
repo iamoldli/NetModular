@@ -14,11 +14,6 @@ export default [
     label: '编号'
   },
   {
-    name: 'prefix',
-    label: '前缀',
-    width: 150
-  },
-  {
     name: 'code',
     label: '编码'
   },
