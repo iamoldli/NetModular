@@ -23,7 +23,11 @@
       //表前缀
       "Prefix": "",
       //数据库名称
-      "Database": "Nm_Admin"
+      "Database": "Nm_Admin",
+      //自定义连接信息
+      "ConnectionString": "",
+      //自定义版本号
+      "Version": "" 
     },
     {
       "Name": "CodeGenerator",
