@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Nm.Lib.Host.Web.Options;
+using Microsoft.Extensions.Hosting;
 using Nm.Lib.Logging.Serilog;
 using Nm.Lib.Utils.Core.Extensions;
 using Nm.Lib.Utils.Core.Helpers;
+using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
 
 namespace Nm.Lib.Host.Web
 {
@@ -27,7 +28,7 @@ namespace Nm.Lib.Host.Web
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args"></param>
         /// <returns></returns>
-        public IWebHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
+        public IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
             var cfgHelper = new ConfigurationHelper();
 
@@ -37,10 +38,13 @@ namespace Nm.Lib.Host.Web
             if (hostOptions.Urls.IsNull())
                 hostOptions.Urls = "http://*:5000";
 
-            return Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
-                .UseStartup<TStartup>()
-                .UseLogging()
-                .UseUrls(hostOptions.Urls);
+            return Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder.UseStartup<TStartup>()
+                            .UseLogging()
+                            .UseUrls(hostOptions.Urls);
+                    });
         }
     }
 }

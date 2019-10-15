@@ -29,42 +29,41 @@ namespace Nm.Lib.Host.Generic
         {
             // 解决乱码问题
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                   .ConfigureHostConfiguration(configHost =>
+                   {
+                       configHost.AddEnvironmentVariables();
+                       configHost.AddCommandLine(args);
+                   })
+                   .ConfigureServices((hostContext, services) =>
+                    {
+                        var envName = hostContext.HostingEnvironment.EnvironmentName;
 
-            var host = new Microsoft.Extensions.Hosting.HostBuilder()
-                .ConfigureHostConfiguration(configHost =>
-                {
-                    configHost.AddEnvironmentVariables();
-                    configHost.AddCommandLine(args);
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    var envName = hostContext.HostingEnvironment.EnvironmentName;
+                        services.AddUtils();
 
-                    services.AddUtils();
+                        //加载模块
+                        var modules = services.AddModules(envName);
 
-                    //加载模块
-                    var modules = services.AddModules(envName);
+                        //添加对象映射
+                        services.AddMappers(modules);
 
-                    //添加对象映射
-                    services.AddMappers(modules);
+                        //添加缓存
+                        services.AddCache(envName);
 
-                    //添加缓存
-                    services.AddCache(envName);
+                        //添加数据库
+                        services.AddDb(envName, modules);
 
-                    //添加数据库
-                    services.AddDb(envName, modules);
+                        //自定义服务
+                        configureServices?.Invoke(services, hostContext.HostingEnvironment);
 
-                    //自定义服务
-                    configureServices?.Invoke(services, hostContext.HostingEnvironment);
+                        //添加主机服务
+                        services.AddHostedService<TStartup>();
 
-                    //添加主机服务
-                    services.AddHostedService<TStartup>();
-
-                    //添加HttpClient相关
-                    services.AddHttpClient();
-                })
-                .UseLogging()
-                .Build();
+                        //添加HttpClient相关
+                        services.AddHttpClient();
+                    })
+                    .UseLogging()
+                    .Build();
 
             return host;
         }

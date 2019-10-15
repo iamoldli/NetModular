@@ -138,7 +138,7 @@ npm run serve
 
 <nm-img id="20190821145614"/>
 
-访问[http://localhost:5220/app](http://localhost:5220/app)浏览，默认账户密码为 admin/admin
+访问[http://localhost:5220/app/](http://localhost:5220/app/)浏览，默认账户密码为 admin/admin
 
 ## 发布
 
