@@ -2,7 +2,7 @@
 home: true
 heroImage: /images/logo.png
 actionText: 快速上手 →
-actionLink: /guide/
+actionLink: /guide/GetingStart
 features:
   - title: 模块化
     details: 以模块化为思想，以业务领域为理念，以包管理(nuget\npm)为基础，充分解耦业务功能，使业务最大化的得到复用，极大减少重复开发时间，结合在线代码生成器，让您“一天一模块，三天一系统”不再是梦想。

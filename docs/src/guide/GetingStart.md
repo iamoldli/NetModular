@@ -116,6 +116,8 @@ dotnet watch run
 
 #### 可访问[http://localhost:6220/swagger/index.html](http://localhost:6220/swagger/index.html)浏览接口文档。
 
+_为什么用 6220 作为默认端口号，因为我对象生日是 6 月 22~_
+
 <nm-img id="20190821145531"/>
 
 ## 启动前端
