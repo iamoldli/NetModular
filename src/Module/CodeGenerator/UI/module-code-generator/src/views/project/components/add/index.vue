@@ -16,8 +16,10 @@
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/project.js'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.codeGenerator.project
+
 export default {
   mixins: [mixins.dialog],
   data() {

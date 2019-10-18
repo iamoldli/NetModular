@@ -18,24 +18,27 @@ namespace Nm.Lib.Data.SQLite
     {
         public SQLiteDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new SQLiteAdapter(dbOptions, options), loggerFactory, loginInfo)
         {
-            SqlMapper.AddTypeHandler<Guid>(new GuidTypeHandler());
+            SqlMapper.AddTypeHandler(new GuidTypeHandler());
 
-            options.Version = dbOptions.Version;
-            string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
-            if (DbOptions.Server.NotNull())
+            if (options.ConnectionString.IsNull())
             {
-                dbFilePath = Path.GetFullPath(DbOptions.Server);
+                options.Version = dbOptions.Version;
+                string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
+                if (DbOptions.Server.NotNull())
+                {
+                    dbFilePath = Path.GetFullPath(DbOptions.Server);
+                }
+
+                dbFilePath = Path.Combine(dbFilePath, options.Database);
+
+                var connStrBuilder = new SqliteConnectionStringBuilder
+                {
+                    DataSource = $"{dbFilePath}.db",
+                    Mode = SqliteOpenMode.ReadWriteCreate
+                };
+
+                options.ConnectionString = connStrBuilder.ToString();
             }
-
-            dbFilePath = Path.Combine(dbFilePath, options.Database);
-
-            var connStrBuilder = new SqliteConnectionStringBuilder
-            {
-                DataSource = $"{dbFilePath}.db",
-                Mode = SqliteOpenMode.ReadWriteCreate
-            };
-
-            options.ConnectionString = connStrBuilder.ToString();
         }
 
         public override IDbConnection NewConnection()

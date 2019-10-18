@@ -2,11 +2,9 @@ import http from './extensions/http'
 import routerConfig from './router/'
 import store from './store/'
 import Skins from 'nm-lib-skins'
-import systemApi from './api/system'
-import api from './api/account'
-import configApi from './api/config'
 import admin from './module'
 import components from './components'
+import './api'
 
 // 全局组件列表
 let globalComponents = components
@@ -17,9 +15,13 @@ let callbacks = []
 // 模块列表
 let modules = [admin]
 
-// 设置模块状态，默认导入admin模块
+/**
+ * @description 设置模块状态，默认导入admin模块
+ */
 const storeConfig = {
-  modules: { module: { namespaced: true, modules: { admin: store } } }
+  modules: {
+    module: { namespaced: true, modules: { admin: store } }
+  }
 }
 
 /**
@@ -52,6 +54,7 @@ const injectCallback = moduleInfo => {
     callbacks.push(moduleInfo.callback)
   }
 }
+
 /**
  * @description 注入模块
  */
@@ -73,14 +76,14 @@ const injectModule = () => {
  */
 const getSystem = async () => {
   // 获取系统信息
-  const system = await systemApi.getConfig()
+  const system = await $api.admin.system.getConfig()
 
   // 模块列表
   system.modules = modules
 
   // 退出方法
   system.logout = redirect => {
-    api.logout()
+    $api.admin.account.logout()
     routerConfig.$router.push({
       name: 'login',
       query: {
@@ -89,11 +92,11 @@ const getSystem = async () => {
     })
   }
   // 查询登陆信息方法
-  system.getLoginInfo = api.getLoginInfo
+  system.getLoginInfo = $api.admin.account.getLoginInfo
   // 修改密码方法
-  system.updatePassword = api.updatePassword
+  system.updatePassword = $api.admin.account.updatePassword
   // 皮肤修改方法
-  system.saveSkin = api.skinUpdate
+  system.saveSkin = $api.admin.account.skinUpdate
 
   return system
 }
@@ -125,9 +128,6 @@ export default {
     // 加载本地token
     callbacks.push(({ store, Vue }) => {
       store.dispatch('app/token/load', null, { root: true })
-
-      // 注册获取配置项的方法为全局属性
-      Vue.prototype.$config = configApi.getValue
     })
 
     // 注入模块

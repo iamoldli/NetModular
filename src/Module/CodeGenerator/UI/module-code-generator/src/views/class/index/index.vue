@@ -29,13 +29,15 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../api/class.js'
 import cols from './cols.js'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import PropertyPage from '../../property/index'
-import ModelManagePage from '../../model-property/index'
+import ModelManagePage from '../../modelProperty/index'
 import CodePreview from '../components/code-preview'
+
+const api = $api.codeGenerator.class
+
 export default {
   mixins: [mixins.dialog, mixins.loading],
   components: { AddPage, EditPage, PropertyPage, ModelManagePage, CodePreview },

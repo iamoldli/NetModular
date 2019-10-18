@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.views.index
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -59,13 +61,13 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             #line default
             #line hidden
             this.Write(@"'
-  
+
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
 
   // 按钮
   this.buttons = {
-     add: {
+    add: {
       text: '添加',
       type: 'success',
       icon: 'add',

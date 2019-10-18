@@ -49,11 +49,13 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/auditinfo'
 import page from './page'
-import cols from './cols.js'
+import cols from './cols'
 import DetailsPage from '../components/details'
 import ModuleInfoSelect from '../../moduleInfo/components/select'
+
+// 接口
+const api = $api.admin.auditInfo
 
 export default {
   name: page.name,

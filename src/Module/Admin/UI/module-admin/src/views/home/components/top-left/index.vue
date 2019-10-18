@@ -7,7 +7,9 @@
   </nm-box>
 </template>
 <script>
-import api from '../../../../api/auditinfo'
+// 接口
+const api = $api.admin.auditInfo
+
 export default {
   data() {
     return {

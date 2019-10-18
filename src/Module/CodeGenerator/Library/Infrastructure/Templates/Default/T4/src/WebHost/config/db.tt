@@ -3,19 +3,19 @@
   //是否开启日志
   "Logging": false,
   //数据库类型 0、SqlServer 1、MySql 2、SQLite
-  "Dialect": 0,
+  "Dialect": 2,
   //数据库版本
   "Version": "",
   //数据库地址
   "Server": "",
   //端口号
-  "Port": ,
+  "Port": 0,
   //用户名
   "UserId": "",
   //密码
   "Password": "",
   //是否创建数据库和表
-  "CreateDatabase": false,
+  "CreateDatabase": true,
   //模块列表
   "Modules": [
     {

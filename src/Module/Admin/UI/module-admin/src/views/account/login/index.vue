@@ -3,7 +3,10 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import api from '../../../api/account'
+
+// 接口
+const api = $api.admin.account
+
 export default {
   computed: {
     ...mapState('module/admin', ['loginSettings']),

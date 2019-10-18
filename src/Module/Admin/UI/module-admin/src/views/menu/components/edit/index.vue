@@ -1,20 +1,22 @@
 <template>
   <nm-dialog v-bind="dialog" @open="onOpen" :visible.sync="visible_">
-    <node-menu ref="node" v-if="model.type===0" :model="model" :parent="parent" v-on="on"/>
-    <route-menu ref="route" v-else-if="model.type===1" :model="model" :parent="parent" v-on="on"/>
-    <link-menu ref="link" v-else :model="model" :parent="parent" v-on="on"/>
+    <node-menu ref="node" v-if="model.type===0" :model="model" :parent="parent" v-on="on" />
+    <route-menu ref="route" v-else-if="model.type===1" :model="model" :parent="parent" v-on="on" />
+    <link-menu ref="link" v-else :model="model" :parent="parent" v-on="on" />
     <template v-slot:footer>
-      <nm-button text="保存" type="success" @click="onSubmit"/>
-      <nm-button text="重置" type="info" @click="onReset"/>
+      <nm-button text="保存" type="success" @click="onSubmit" />
+      <nm-button text="重置" type="info" @click="onReset" />
     </template>
   </nm-dialog>
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/menu'
 import NodeMenu from './components/node'
 import RouteMenu from './components/route'
 import LinkMenu from './components/link'
+
+const api = $api.admin.menu
+
 export default {
   mixins: [mixins.dialog],
   components: { NodeMenu, RouteMenu, LinkMenu },

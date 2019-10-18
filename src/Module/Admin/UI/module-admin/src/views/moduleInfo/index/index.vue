@@ -24,9 +24,11 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/moduleInfo'
 import page from './page'
 import cols from './cols'
+
+// 接口
+const api = $api.admin.moduleInfo
 
 export default {
   name: page.name,

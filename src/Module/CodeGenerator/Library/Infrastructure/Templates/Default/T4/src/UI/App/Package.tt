@@ -1,8 +1,9 @@
 <#@ template language="C#" #>
+<#@ import namespace="Nm.Lib.Utils.Core.Extensions" #>
 {
     "name": "<#= _model.Project.Code.ToLower() #>-<#= _model.Project.WebUIDicName #>",
     "version": "1.0.0",
-    "code": "<#= _model.Project.Code #>",
+    "code": "<#= _model.Project.Code.FirstCharToLower() #>",
     "title": "<#= _model.Project.Name #>",
     "description": "<#= _model.Project.Name #>",
     "main": "src/index.js",

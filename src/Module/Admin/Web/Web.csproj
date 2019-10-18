@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\..\Library\Utils\Utils.Mvc\Utils.Mvc.csproj" />
     <ProjectReference Include="..\..\..\Library\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />
+    <ProjectReference Include="..\Library\Quartz\Quartz.csproj" />
   </ItemGroup>
     
 </Project>

@@ -4,9 +4,12 @@
   </el-checkbox-group>
 </template>
 <script>
-import api from '../../../../api/role'
+
+// 接口
+const api = $api.admin.role
+
 export default {
-  data () {
+  data() {
     return {
       options: [],
       checked_: this.checked
@@ -16,17 +19,14 @@ export default {
     checked: Array
   },
   methods: {
-    refresh () {
+    refresh() {
       api.select().then(data => {
         this.options = data
       })
-    },
-    onChange (value) {
-      console.log(value)
     }
   },
   watch: {
-    checked () {
+    checked() {
       this.checked_ = this.checked
     }
   }

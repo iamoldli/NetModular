@@ -64,27 +64,20 @@ Http.prototype.crud = root => {
   }
   return {
     query(params) {
-      return http.get(`${root}query`, params)
+      return $http.get(`${root}query`, params)
     },
     add(params) {
-      return http.post(`${root}add`, params)
+      return $http.post(`${root}add`, params)
     },
     remove(id) {
-      return http.delete(`${root}delete`, { id })
+      return $http.delete(`${root}delete`, { id })
     },
     edit(id) {
-      return http.get(`${root}edit`, { id })
+      return $http.get(`${root}edit`, { id })
     },
     update(params) {
-      return http.post(`${root}update`, params)
+      return $http.post(`${root}update`, params)
     }
   }
 }
-
-if (!window.$Http) window.$Http = new Http()
-
-const http = window.$Http
-
-export { http }
-
-export default http
+if (!window.$http) window.$http = new Http()

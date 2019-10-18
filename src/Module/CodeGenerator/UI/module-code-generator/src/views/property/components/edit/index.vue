@@ -3,52 +3,52 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="所属类：">
-          <el-input v-model="parent.name" disabled/>
+          <el-input v-model="parent.name" disabled />
         </el-form-item>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name"/>
+          <el-input v-model="form.model.name" />
         </el-form-item>
         <el-form-item label="类型：" prop="type">
-          <type-select v-model="form.model.type"/>
+          <type-select v-model="form.model.type" />
         </el-form-item>
         <el-form-item v-show="showLength" label="长度：" prop="length">
-          <el-input v-model.number="form.model.length"/>
+          <el-input v-model.number="form.model.length" />
         </el-form-item>
         <el-form-item v-show="showPrecision" label="精度：" prop="precision">
-          <el-input v-model.number="form.model.precision"/>
+          <el-input v-model.number="form.model.precision" />
         </el-form-item>
         <el-form-item v-show="showScale" label="刻度：" prop="scale">
-          <el-input v-model.number="form.model.scale"/>
+          <el-input v-model.number="form.model.scale" />
         </el-form-item>
         <el-form-item v-show="showEnum" label="枚举：" prop="enumId">
-          <enum-select v-model="form.model.enumId"/>
+          <enum-select v-model="form.model.enumId" />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="6" :offset="1">
         <el-form-item label="可空：" prop="nullable">
-          <el-switch v-model="form.model.nullable"/>
+          <el-switch v-model="form.model.nullable" />
         </el-form-item>
       </el-col>
       <el-col :span="7">
         <el-form-item label="列表显示：" prop="showInList">
-          <el-switch v-model="form.model.showInList"/>
+          <el-switch v-model="form.model.showInList" />
         </el-form-item>
       </el-col>
       <el-col :span="6">
         <el-form-item label="包含默认值：" prop="hasDefaultValue">
-          <el-switch v-model="form.model.hasDefaultValue"/>
+          <el-switch v-model="form.model.hasDefaultValue" />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="备注：" prop="remarks">
-          <el-input v-model="form.model.remarks"/>
+          <el-input v-model="form.model.remarks" />
         </el-form-item>
         <el-form-item label="序号：" prop="sort">
-          <el-input type="number" v-model.number="form.model.sort"/>
+          <el-input type="number" v-model.number="form.model.sort" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -56,10 +56,12 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/property'
-import enumApi from '../../../../api/enum'
 import TypeSelect from '../type-select'
 import EnumSelect from '../../../enum/components/select'
+
+const api = $api.codeGenerator.property
+const enumApi = $api.codeGenerator.enum
+
 export default {
   mixins: [mixins.formDialogEdit],
   components: { TypeSelect, EnumSelect },

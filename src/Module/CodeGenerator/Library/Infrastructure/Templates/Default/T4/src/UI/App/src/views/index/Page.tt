@@ -4,13 +4,13 @@ const page = new function() {
   this.title = '<#= _class.Remarks #>列表'
   this.name = '<#= _model.Project.Code.ToLower() #>_<#= _class.Name.ToLower() #>'
   this.path = '/<#= _model.Project.Code.ToLower() #>/<#= _class.Name.ToLower() #>'
-  
+
   // 关联权限
   this.permissions = [`${this.name}_query_get`]
 
   // 按钮
   this.buttons = {
-     add: {
+    add: {
       text: '添加',
       type: 'success',
       icon: 'add',

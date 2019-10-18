@@ -11,8 +11,11 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../../api/role'
 import MenuBind from '../../../menu/components/bind'
+
+// 接口
+const api = $api.admin.role
+
 export default {
   components: { MenuBind },
   mixins: [mixins.dialog],

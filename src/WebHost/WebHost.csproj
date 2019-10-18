@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Nm.WebHost</RootNamespace>
     <AssemblyName>Nm.WebHost</AssemblyName>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <UserSecretsId>15e8173e-67c3-4537-b48d-fb628d17da07</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

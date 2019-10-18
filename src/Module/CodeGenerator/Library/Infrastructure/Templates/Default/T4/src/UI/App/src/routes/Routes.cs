@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App.src.routes
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -32,7 +34,7 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
             #line hidden
             this.Write("-lib-utils\'\r\nconst requireComponent = require.context(\'../views\', true, /\\page.js" +
                     "$/)\r\nexport default loadRoutes(\r\n  requireComponent.keys().map(fileName => requi" +
-                    "reComponent(fileName).route)\r\n)");
+                    "reComponent(fileName).route)\r\n)\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

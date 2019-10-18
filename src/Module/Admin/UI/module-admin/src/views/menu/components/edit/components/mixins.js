@@ -1,10 +1,9 @@
-import api from '../../../../../api/menu'
 export default {
   data() {
     return {
       form: {
         noLoading: true,
-        action: api.update,
+        action: $api.admin.menu.update,
         model: {
           // 所属模块
           moduleCode: '',

@@ -38,12 +38,13 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../api/project.js'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
 import ClassPage from '../../class/index'
+
+const api = $api.codeGenerator.project
 
 export default {
   name: page.name,

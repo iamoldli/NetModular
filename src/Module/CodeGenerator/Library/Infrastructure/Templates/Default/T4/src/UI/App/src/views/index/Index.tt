@@ -1,4 +1,5 @@
 <#@ template language="C#" #>
+<#@ import namespace="Nm.Lib.Utils.Core.Extensions" #>
 <template>
   <<#= _prefix #>-container>
     <<#= _prefix #>-list ref="list" v-bind="list">
@@ -35,11 +36,12 @@
   </<#= _prefix #>-container>
 </template>
 <script>
-import api from '../../../api/<#= _class.Name #>'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+const api = $api.<#= _model.Project.Code.FirstCharToLower() #>.<#= _class.Name.FirstCharToLower() #>
 
 export default {
   name: page.name,

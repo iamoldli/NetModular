@@ -42,10 +42,12 @@
 </template>
 <script>
 import { mixins } from 'nm-lib-skins'
-import api from '../../../api/property'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
+
+const api = $api.codeGenerator.property
+
 export default {
   mixins: [mixins.dialog],
   components: { AddPage, EditPage },

@@ -15,7 +15,7 @@
   >
     <div class="nm-menu-tree-node" slot-scope="{ node, data }">
       <div class="nm-menu-tree-node-label">
-        <nm-icon v-if="showIcon" :name="data.menu.icon"/>
+        <nm-icon v-if="showIcon" :name="data.menu.icon" />
         {{ node.label }}
       </div>
     </div>
@@ -23,7 +23,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import api from '../../../../api/menu'
 
 export default {
   data() {
@@ -82,7 +81,7 @@ export default {
     // 刷新菜单树
     refresh() {
       // 树根节点
-      api.getTree().then(data => {
+      $api.admin.menu.getTree().then(data => {
         this.rootMenu.children = this.menus2Tree(data)
         this.tree = [this.rootMenu]
         this.setCheckedKeys()

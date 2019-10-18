@@ -20,6 +20,14 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModuleOptionsConfigure.cs</LastGenOutput>
     </None>
+    <None Update="Templates\Default\T4\src\UI\App\src\api\components\Entity.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Entity.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Default\T4\src\UI\App\src\api\Index.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
+    </None>
     <None Update="Templates\Default\T4\src\WebHost\config\cache.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>cache.cs</LastGenOutput>
@@ -79,10 +87,6 @@
     <None Update="Templates\Default\T4\src\UI\App\src\components\Components.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Components.cs</LastGenOutput>
-    </None>
-    <None Update="Templates\Default\T4\src\UI\App\src\api\EntityApi.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EntityApi.cs</LastGenOutput>
     </None>
     <None Update="Templates\Default\T4\src\UI\App\Browserslistrc.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -287,6 +291,10 @@
     <None Update="Templates\Default\T4\src\UI\App\vscode\settings.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>settings.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Default\T4\src\UI\App\src\api\Index.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -645,108 +653,38 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModuleBuildTargets.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Templates\Default\T4\src\DirectoryBuildProps.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DirectoryBuildProps.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\Library\Domain\Entity.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\Library\Domain\Models\QueryModel.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>QueryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Repositories\DbContext.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\Library\Infrastructure\Repositories\SqlServerRepository.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SqlServerRepository.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\Package.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Package.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\api\EntityApi.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EntityApi.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\components\Components.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\config\Config.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Config.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\routes\Routes.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Routes.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\views\components\Add.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Add.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\views\components\Edit.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Edit.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Index.cs">
+    <Compile Update="Templates\Default\T4\src\UI\App\src\api\Index.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Index.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\UI\App\src\views\index\Page.cs">
+    <Compile Update="Templates\Default\T4\src\UI\App\src\api\components\Entity.*">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Page.tt</DependentUpon>
+      <DependentUpon>Entity.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Templates\Default\T4\src\WebHost\config\db.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\WebHost\config\dbDevelopment.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dbDevelopment.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Templates\Default\T4\src\WebHost\config\logging.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>logging.tt</DependentUpon>
     </Compile>
     <Compile Update="Templates\Default\T4\src\WebHost\Csproj.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Csproj.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\Web\Controllers\Controller.cs">
+    <Compile Update="Templates\Default\T4\src\WebHost\Startup.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Controller.tt</DependentUpon>
+      <DependentUpon>Startup.tt</DependentUpon>
     </Compile>
-    <Compile Update="Templates\Default\T4\src\Web\Csproj.cs">
+    <Compile Update="Templates\Default\T4\src\Web\ModuleInitializer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Csproj.tt</DependentUpon>
+      <DependentUpon>ModuleInitializer.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

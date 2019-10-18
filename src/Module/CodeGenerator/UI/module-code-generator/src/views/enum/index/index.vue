@@ -40,12 +40,13 @@
   </nm-container>
 </template>
 <script>
-import api from '../../../api/enum'
 import page from './page'
 import cols from './cols'
 import AddPage from '../components/add'
 import EditPage from '../components/edit'
-import ItemPage from '../../enum-item/index'
+import ItemPage from '../../enumItem/index'
+
+const api = $api.codeGenerator.enum
 
 export default {
   name: page.name,

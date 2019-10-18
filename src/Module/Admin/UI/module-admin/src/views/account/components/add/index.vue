@@ -3,35 +3,38 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form-item label="用户名：" prop="userName">
-          <el-input v-model="form.model.userName"/>
+          <el-input v-model="form.model.userName" />
         </el-form-item>
         <el-form-item label="角色：" prop="roles">
-          <role-select ref="roles" multiple v-model="form.model.roles" :clearable="false"/>
+          <role-select ref="roles" multiple v-model="form.model.roles" :clearable="false" />
         </el-form-item>
         <el-form-item label="名称：" prop="name">
-          <el-input v-model="form.model.name"/>
+          <el-input v-model="form.model.name" />
         </el-form-item>
         <el-form-item label="密码：" prop="password">
-          <el-input v-model="form.model.password" placeholder="默认密码123456" clearable/>
+          <el-input v-model="form.model.password" placeholder="默认密码123456" clearable />
         </el-form-item>
         <el-form-item label="手机：" prop="phone">
-          <el-input type="number" v-model="form.model.phone" clearable/>
+          <el-input type="number" v-model="form.model.phone" clearable />
         </el-form-item>
         <el-form-item label="邮箱：" prop="email">
-          <el-input type="email" v-model="form.model.email" clearable/>
+          <el-input type="email" v-model="form.model.email" clearable />
         </el-form-item>
       </el-col>
     </el-row>
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/account'
 import { mixins } from 'nm-lib-skins'
 import RoleSelect from '../../../role/components/select'
+
+// 接口
+const api = $api.admin.account
+
 export default {
   mixins: [mixins.dialog],
   components: { RoleSelect },
-  data () {
+  data() {
     return {
       form: {
         title: '添加账户',
@@ -71,10 +74,10 @@ export default {
     }
   },
   methods: {
-    onSuccess () {
+    onSuccess() {
       this.$emit('success')
     },
-    onOpen () {
+    onOpen() {
       this.$nextTick(() => {
         this.$refs.roles.refresh()
         this.$refs.form.reset()

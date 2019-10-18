@@ -1,6 +1,6 @@
 {
     "name": "nm-lib-utils",
-    "version": "1.2.2",
+    "version": "1.2.4",
     "description": "NetModular前端常用工具集",
     "main": "src/index.js",
     "author": "Oldli",
@@ -24,6 +24,7 @@
         "store": "^2.0.12"
     },
     "devDependencies": {
+        "@vue/eslint-config-standard": "^4.0.0",
         "eslint": "^5.15.1",
         "eslint-config-standard": "^12.0.0",
         "eslint-plugin-import": "^2.16.0",

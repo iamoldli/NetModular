@@ -22,8 +22,11 @@
   </nm-drawer>
 </template>
 <script>
-import api from '../../../../api/auditinfo'
 import { mixins } from 'nm-lib-skins'
+
+// 接口
+const api = $api.admin.auditInfo
+
 export default {
   mixins: [mixins.drawer],
   data() {

@@ -89,8 +89,11 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import api from '../../../api/system'
 import page from './page'
+
+// 接口
+const api = $api.admin.system
+
 export default {
   name: page.name,
   data() {

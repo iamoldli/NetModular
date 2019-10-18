@@ -1,6 +1,7 @@
 <#@ template language="C#" #>
+<#@ import namespace="Nm.Lib.Utils.Core.Extensions" #>
 <template>
-  <<#= _prefix #>-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
+<<#= _prefix #>-form-dialog ref="form" v-bind="form" v-on="on" :visible.sync="visible_">
     <el-row>
       <el-col :span="20" :offset="1">
 <#    foreach(var p in _class.EditModelPropertyList){ #>
@@ -14,7 +15,9 @@
 </template>
 <script>
 import { mixins } from '<#= _prefix.ToLower() #>-lib-skins'
-import api from '../../../../api/<#= _class.Name #>'
+
+const api = $api.<#= _model.Project.Code.FirstCharToLower() #>.<#= _class.Name.FirstCharToLower() #>
+
 export default {
   mixins: [mixins.formDialogEdit],
   data () {

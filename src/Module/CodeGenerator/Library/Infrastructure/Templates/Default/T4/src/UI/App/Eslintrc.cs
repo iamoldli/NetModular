@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -36,6 +38,10 @@ namespace Nm.Module.CodeGenerator.Infrastructure.Templates.Default.T4.src.UI.App
   },
   parserOptions: {
     parser: 'babel-eslint'
+  }, 
+  globals: {
+      $http: 'readonly',
+      $api: 'readonly'
   }
 }
 ");

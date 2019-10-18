@@ -25,8 +25,10 @@
   </nm-form-dialog>
 </template>
 <script>
-import api from '../../../../api/class.js'
 import { mixins } from 'nm-lib-skins'
+
+const api = $api.codeGenerator.class
+
 export default {
   mixins: [mixins.formDialogEdit],
   data() {
