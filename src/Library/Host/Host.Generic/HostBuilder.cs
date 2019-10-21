@@ -30,6 +30,7 @@ namespace Nm.Lib.Host.Generic
             // 解决乱码问题
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                   .UseDefaultServiceProvider(options => { options.ValidateOnBuild = false; })
                    .ConfigureHostConfiguration(configHost =>
                    {
                        configHost.AddEnvironmentVariables();

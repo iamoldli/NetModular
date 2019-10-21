@@ -39,6 +39,7 @@ namespace Nm.Lib.Host.Web
                 hostOptions.Urls = "http://*:5000";
 
             return Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                    .UseDefaultServiceProvider(options => { options.ValidateOnBuild = false; })
                     .ConfigureWebHostDefaults(webBuilder =>
                     {
                         webBuilder.UseStartup<TStartup>()
