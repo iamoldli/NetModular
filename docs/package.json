@@ -12,8 +12,13 @@
   "author": "Oldli",
   "license": "ISC",
   "devDependencies": {
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
+    "@vue/babel-preset-jsx": "^1.1.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.2.0",
     "vuepress": "^1.0.3"
+  },
+  "dependencies": {
+    "nm-lib-skins": "^1.5.3"
   }
 }
