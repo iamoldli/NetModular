@@ -81,3 +81,5 @@ Http.prototype.crud = root => {
   }
 }
 if (!window.$http) window.$http = new Http()
+
+export default window.$http
