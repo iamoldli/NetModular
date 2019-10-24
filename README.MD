@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/iamoldli/NetModular/blob/master/docs/src/.vuepress/public/images/logo.png" alt="NetModular" width="175"/>
+  <img src="https://github.com/iamoldli/NetModular.Docs/blob/master/src/.vuepress/public/images/logo.png" alt="NetModular" width="175"/>
 <br>
 NetModular
 </h1>
