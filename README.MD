@@ -4,9 +4,9 @@
 NetModular
 </h1>
 
-NetModular is a modular quickly develop solution for .Net Core 3.0+.
+NetModular is a modular quickly develop solution for .Net Core 2.2+.
 
-## Develop Environment
+## Develop Environment(开发环境)
 
 > IDE
 >
@@ -14,18 +14,28 @@ NetModular is a modular quickly develop solution for .Net Core 3.0+.
 
 > Back-End
 >
-> > [.Net Core 3.0+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+> > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 
 > Front-End
 >
 > > [Node.js 10+](https://nodejs.org/en/)、[Vue.js 2.6+](https://cn.vuejs.org/)、[Vue CLI](https://cli.vuejs.org/zh/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[VueRouter](https://router.vuejs.org/zh/)、[Element-UI](https://element.eleme.cn/#/zh-CN/component/installation)
 
-## Demo
+## Demo(示例)
 
 [https://nm.iamoldli.com/](https://nm.iamoldli.com/)  
 Account: admin  
 Password: admin
 
-## Documentation
+## Documentation(文档)
 
 For full documentation please see [https://nm.iamoldli.com/docs/](https://nm.iamoldli.com/docs/)
+
+## Modules(模块列表)
+
+> [Common(通用模块)](https://github.com/iamoldli/Nm.Module.Common)
+
+> [CodeGenerator(代码生成器)](https://github.com/iamoldli/Nm.Module.CodeGenerator)
+
+> [Quartz(任务调度)](https://github.com/iamoldli/Nm.Module.Quartz)
+
+> [PersonnelFiles(人事档案)](https://github.com/iamoldli/Nm.Module.PersonnelFiles)
