@@ -1,6 +1,0 @@
-<#@ template language="C#" #>
-module.exports = {
-  plugins: {
-    autoprefixer: {}
-  }
-}

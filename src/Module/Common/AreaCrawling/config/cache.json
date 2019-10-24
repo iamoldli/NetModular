@@ -1,7 +1,0 @@
-﻿{
-  // 0、MemoryCache 1、Redis
-  "Mode": 0,
-  "Redis": {
-    "ConnectionString": "127.0.0.1"
-  }
-}
