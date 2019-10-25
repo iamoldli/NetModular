@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Nm.Lib.Data.Abstractions
+namespace NetModular.Lib.Data.Abstractions
 {
     /// <summary>
     /// 工作单元

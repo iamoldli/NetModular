@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.Permission.Models;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Domain.Permission.Models;
 
-namespace Nm.Module.Admin.Application.PermissionService
+namespace NetModular.Module.Admin.Application.PermissionService
 {
     /// <summary>
     /// 权限服务

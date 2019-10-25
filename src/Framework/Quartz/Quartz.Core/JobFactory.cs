@@ -2,7 +2,7 @@
 using Quartz;
 using Quartz.Spi;
 
-namespace Nm.Lib.Quartz.Core
+namespace NetModular.Lib.Quartz.Core
 {
     public class JobFactory : IJobFactory
     {

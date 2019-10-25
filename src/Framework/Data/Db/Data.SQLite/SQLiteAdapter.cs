@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Data.Sqlite;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.SQLite
+namespace NetModular.Lib.Data.SQLite
 {
     internal class SQLiteAdapter : SqlAdapterAbstract
     {

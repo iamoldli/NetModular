@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Quartz.Abstractions;
+using NetModular.Lib.Quartz.Abstractions;
 using Quartz;
 
-namespace Nm.Lib.Quartz.Core
+namespace NetModular.Lib.Quartz.Core
 {
     public abstract class JobTaskAbstract : IJobTask
     {

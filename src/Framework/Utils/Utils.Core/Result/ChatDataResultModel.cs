@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Utils.Core.Result
+﻿namespace NetModular.Lib.Utils.Core.Result
 {
     /// <summary>
     /// 图表数据行

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Abstractions
+namespace NetModular.Lib.Data.Abstractions
 {
     /// <summary>
     /// 数据库上下文

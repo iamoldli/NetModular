@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace NetModular.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 绘图帮助类

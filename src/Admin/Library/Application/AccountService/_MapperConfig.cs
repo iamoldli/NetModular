@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Nm.Lib.Mapper.AutoMapper;
-using Nm.Module.Admin.Application.AccountService.ResultModels;
-using Nm.Module.Admin.Application.AccountService.ViewModels;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.Menu;
+using NetModular.Lib.Mapper.AutoMapper;
+using NetModular.Module.Admin.Application.AccountService.ResultModels;
+using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using NetModular.Module.Admin.Domain.Account;
+using NetModular.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.AccountService
+namespace NetModular.Module.Admin.Application.AccountService
 {
     public class MapperConfig : IMapperConfig
     {

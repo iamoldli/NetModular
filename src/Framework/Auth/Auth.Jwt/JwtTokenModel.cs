@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Auth.Jwt
+﻿namespace NetModular.Lib.Auth.Jwt
 {
     /// <summary>
     /// JWT令牌

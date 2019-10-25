@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Nm.Lib.Cache.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
 using StackExchange.Redis;
 
-namespace Nm.Lib.Cache.Redis
+namespace NetModular.Lib.Cache.Redis
 {
     public class RedisCacheHandler : ICacheHandler
     {

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Utils.Core.Attributes;
+using NetModular.Lib.Utils.Core.Attributes;
 
-namespace Nm.Lib.Utils.Core
+namespace NetModular.Lib.Utils.Core
 {
     public static class ServiceCollectionExtensions
     {

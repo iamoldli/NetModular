@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Lib.Utils.Mvc.Extensions;
-using Nm.Lib.Utils.Mvc.Helpers;
-using Nm.Module.Admin.Application.SystemService;
-using Nm.Module.Admin.Application.SystemService.ViewModels;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Options;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Mvc.Extensions;
+using NetModular.Lib.Utils.Mvc.Helpers;
+using NetModular.Module.Admin.Application.SystemService;
+using NetModular.Module.Admin.Application.SystemService.ViewModels;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("系统")]
     public class SystemController : ModuleController

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nm.Lib.Utils.Core.Result
+namespace NetModular.Lib.Utils.Core.Result
 {
     public class TreeResultModel<T> where T : class, new()
     {

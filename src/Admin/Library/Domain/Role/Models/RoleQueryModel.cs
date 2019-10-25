@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Role.Models
+namespace NetModular.Module.Admin.Domain.Role.Models
 {
     public class RoleQueryModel : QueryModel
     {

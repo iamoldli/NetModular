@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.ModuleInfoService;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.ModuleInfoService;
+using NetModular.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("模块信息")]
     public class ModuleInfoController : ModuleController

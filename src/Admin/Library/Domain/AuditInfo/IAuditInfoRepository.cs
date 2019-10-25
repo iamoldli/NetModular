@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.AuditInfo.Models;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Domain.AuditInfo.Models;
 
-namespace Nm.Module.Admin.Domain.AuditInfo
+namespace NetModular.Module.Admin.Domain.AuditInfo
 {
     /// <summary>
     /// 审计信息仓储

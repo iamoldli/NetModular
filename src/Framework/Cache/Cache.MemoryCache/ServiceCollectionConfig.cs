@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Cache.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
 
-namespace Nm.Lib.Cache.MemoryCache
+namespace NetModular.Lib.Cache.MemoryCache
 {
     public class ServiceCollectionConfig : IServiceCollectionConfig
     {

@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.Admin.Application.AccountService.ViewModels
+﻿namespace NetModular.Module.Admin.Application.AccountService.ViewModels
 {
     /// <summary>
     /// 账户皮肤配置信息修改

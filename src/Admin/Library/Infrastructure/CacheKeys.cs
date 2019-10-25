@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.Admin.Infrastructure
+﻿namespace NetModular.Module.Admin.Infrastructure
 {
     public static class CacheKeys
     {

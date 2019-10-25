@@ -2,9 +2,9 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
+using NetModular.Lib.Module.Abstractions;
 
-namespace Nm.Lib.Mapper.AutoMapper
+namespace NetModular.Lib.Mapper.AutoMapper
 {
     public static class ServiceCollectionExtensions
     {

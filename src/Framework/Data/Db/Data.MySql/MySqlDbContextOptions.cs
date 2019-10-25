@@ -1,13 +1,13 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.MySql
+namespace NetModular.Lib.Data.MySql
 {
     /// <summary>
     /// MySql数据库上下文配置项

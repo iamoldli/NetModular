@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nm.Lib.Data.Abstractions
+namespace NetModular.Lib.Data.Abstractions
 {
     /// <summary>
     /// 数据库创建事件

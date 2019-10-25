@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Auth.Web;
+using NetModular.Lib.Auth.Web;
 
-namespace Nm.Module.Admin.Web
+namespace NetModular.Module.Admin.Web
 {
     [Area("Admin")]
     public abstract class ModuleController : ControllerAbstract

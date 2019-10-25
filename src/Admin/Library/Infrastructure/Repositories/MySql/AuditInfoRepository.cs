@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Infrastructure.Repositories.MySql.Sql;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Infrastructure.Repositories.MySql.Sql;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.MySql
+namespace NetModular.Module.Admin.Infrastructure.Repositories.MySql
 {
     public class AuditInfoRepository : SqlServer.AuditInfoRepository
     {

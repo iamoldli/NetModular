@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
 
-namespace Nm.Lib.Data.Oracle
+namespace NetModular.Lib.Data.Oracle
 {
     /// <summary>
     /// Oracle数据库上下文配置项

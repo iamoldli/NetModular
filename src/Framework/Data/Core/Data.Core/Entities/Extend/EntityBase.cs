@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Abstractions.Attributes;
 
-namespace Nm.Lib.Data.Core.Entities.Extend
+namespace NetModular.Lib.Data.Core.Entities.Extend
 {
     public class EntityBase<TKey> : Entity<TKey>
     {

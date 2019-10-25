@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Nm.Lib.Host.Web.Middleware;
-using Nm.Lib.Module.AspNetCore;
-using Nm.Lib.Swagger.Core;
-using Nm.Lib.Utils.Core.Interfaces;
-using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
+using NetModular.Lib.Host.Web.Middleware;
+using NetModular.Lib.Module.AspNetCore;
+using NetModular.Lib.Swagger.Core;
+using NetModular.Lib.Utils.Core.Interfaces;
+using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
-namespace Nm.Lib.Host.Web
+namespace NetModular.Lib.Host.Web
 {
     public static class ApplicationBuilderExtensions
     {

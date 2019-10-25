@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Enums;
-using Nm.Lib.Utils.Mvc.Helpers;
-using Nm.Module.Admin.Domain.Permission;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Utils.Core.Attributes;
+using NetModular.Lib.Utils.Core.Enums;
+using NetModular.Lib.Utils.Mvc.Helpers;
+using NetModular.Module.Admin.Domain.Permission;
 
-namespace Nm.Module.Admin.Web.Core
+namespace NetModular.Module.Admin.Web.Core
 {
     [Singleton]
     public class PermissionHelper

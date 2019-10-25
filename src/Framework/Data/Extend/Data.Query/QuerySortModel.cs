@@ -1,7 +1,7 @@
 ﻿
-using Nm.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Query
+namespace NetModular.Lib.Data.Query
 {
     /// <summary>
     /// 查询排序模型

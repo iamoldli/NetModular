@@ -116,6 +116,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.Web", "src\Framework\Quartz\Quartz.Web\Quartz.Web.csproj", "{A119A627-0808-443A-AA49-1E352F2C1A5E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{235A2FD4-BD93-4729-A689-0F26D7E60610}"
+	ProjectSection(SolutionItems) = preProject
+		src\Admin\Directory.Build.props = src\Admin\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{48576B23-B438-4B9B-8E7C-90C9B25ED4E4}"
 EndProject

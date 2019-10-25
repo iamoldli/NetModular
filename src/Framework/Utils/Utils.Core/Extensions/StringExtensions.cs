@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace NetModular.Lib.Utils.Core.Extensions
 {
     public static class StringExtensions
     {

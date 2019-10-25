@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nm.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Domain.Permission;
 
-namespace Nm.Module.Admin.Application.SystemService.ViewModels
+namespace NetModular.Module.Admin.Application.SystemService.ViewModels
 {
     public class SystemInstallModel
     {

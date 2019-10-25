@@ -1,13 +1,12 @@
-﻿using Nm.Lib.Host.Web;
+﻿using NetModular.Lib.Host.Web;
 
-namespace Nm.WebHost
+namespace NetModular.Module.Admin.WebHost
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             new HostBuilder().Run<Startup>(args);
-
         }
     }
 }

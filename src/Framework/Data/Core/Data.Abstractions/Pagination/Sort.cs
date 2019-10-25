@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions.Enums;
+﻿using NetModular.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Abstractions.Pagination
+namespace NetModular.Lib.Data.Abstractions.Pagination
 {
     /// <summary>
     /// 排序规则

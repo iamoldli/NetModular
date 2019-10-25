@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Module.Admin.Domain.Menu
+namespace NetModular.Module.Admin.Domain.Menu
 {
     public partial class MenuEntity
     {

@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Dapper;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Quartz.Core;
-using Nm.Module.Admin.Infrastructure.Repositories;
+using NetModular.Lib.Quartz.Abstractions;
+using NetModular.Lib.Quartz.Core;
+using NetModular.Module.Admin.Infrastructure.Repositories;
 
-namespace Nm.Module.Admin.Quartz
+namespace NetModular.Module.Admin.Quartz
 {
     [Description("定时还原Admin数据库任务")]
     public class DbRestoreJob : JobTaskAbstract

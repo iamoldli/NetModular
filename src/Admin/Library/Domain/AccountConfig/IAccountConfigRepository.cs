@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Domain.AccountConfig
+namespace NetModular.Module.Admin.Domain.AccountConfig
 {
     /// <summary>
     /// 账户配置仓储

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Auth.Abstractions
+namespace NetModular.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 登录信息

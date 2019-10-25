@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Nm.Lib.Quartz.Abstractions
+namespace NetModular.Lib.Quartz.Abstractions
 {
     /// <summary>
     /// 工作任务日志记录器接口

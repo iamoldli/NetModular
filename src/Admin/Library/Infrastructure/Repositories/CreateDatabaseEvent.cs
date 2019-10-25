@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Encrypt;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Role;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Encrypt;
+using NetModular.Module.Admin.Domain.Account;
+using NetModular.Module.Admin.Domain.AccountRole;
+using NetModular.Module.Admin.Domain.Role;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories
+namespace NetModular.Module.Admin.Infrastructure.Repositories
 {
     public class CreateDatabaseEvent : IDatabaseCreateEvents
     {

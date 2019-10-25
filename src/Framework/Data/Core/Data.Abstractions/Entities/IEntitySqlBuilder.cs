@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Data.Abstractions.Entities
+﻿namespace NetModular.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 实体Sql生成器

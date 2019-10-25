@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Nm.Lib.Data.Query;
+using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Button.Models
+namespace NetModular.Module.Admin.Domain.Button.Models
 {
     public class ButtonQueryModel : QueryModel
     {

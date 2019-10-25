@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Result;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace NetModular.Module.Admin.Domain.Account
 {
     public partial class AccountEntity
     {

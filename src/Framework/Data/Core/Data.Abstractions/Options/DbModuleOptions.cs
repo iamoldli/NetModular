@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nm.Lib.Data.Abstractions.Options
+namespace NetModular.Lib.Data.Abstractions.Options
 {
     public class DbModuleOptions
     {

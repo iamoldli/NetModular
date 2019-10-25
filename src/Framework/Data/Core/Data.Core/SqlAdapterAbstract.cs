@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Options;
 
-namespace Nm.Lib.Data.Core
+namespace NetModular.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {

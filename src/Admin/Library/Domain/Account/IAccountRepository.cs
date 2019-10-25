@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Account.Models;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Module.Admin.Domain.Account.Models;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace NetModular.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户仓储

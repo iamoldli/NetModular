@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Lib.Validation.Abstractions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Validation.Abstractions;
 
-namespace Nm.Lib.Validation.FluentValidation
+namespace NetModular.Lib.Validation.FluentValidation
 {
     public class ValidateResultFormatHandler : IValidateResultFormatHandler
     {

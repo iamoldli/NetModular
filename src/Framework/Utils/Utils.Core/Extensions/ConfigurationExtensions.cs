@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace NetModular.Lib.Utils.Core.Extensions
 {
     public static class ConfigurationExtensions
     {

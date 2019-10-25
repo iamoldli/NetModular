@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 
-namespace Nm.Lib.Host.Web.Middleware
+namespace NetModular.Lib.Host.Web.Middleware
 {
     public static class ExceptionHandleMiddlewareExtensions
     {

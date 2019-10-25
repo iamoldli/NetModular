@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Utils.Core.Extensions
+namespace NetModular.Lib.Utils.Core.Extensions
 {
     public static class GuidExtensions
     {

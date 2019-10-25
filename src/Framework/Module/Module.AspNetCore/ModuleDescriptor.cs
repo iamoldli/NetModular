@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Module.Abstractions;
+﻿using NetModular.Lib.Module.Abstractions;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace NetModular.Lib.Module.AspNetCore
 {
     public class ModuleDescriptor : IModuleDescriptor
     {

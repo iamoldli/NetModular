@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
+namespace NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
 {
     public interface IGroupByQueryable
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Data.Abstractions.Enums
+namespace NetModular.Lib.Data.Abstractions.Enums
 {
     /// <summary>
     /// 主键类型

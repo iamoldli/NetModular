@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Helpers;
-using Nm.Lib.Utils.Core.Options;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Utils.Core.Options;
 
-namespace Nm.Lib.Module.GenericHost
+namespace NetModular.Lib.Module.GenericHost
 {
     public static class ServiceCollectionExtensions
     {

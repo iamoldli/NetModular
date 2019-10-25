@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.MenuService.ViewModels
+namespace NetModular.Module.Admin.Application.MenuService.ViewModels
 {
     /// <summary>
     /// 新增菜单

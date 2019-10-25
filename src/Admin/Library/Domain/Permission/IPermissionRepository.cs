@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Permission.Models;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Module.Admin.Domain.Permission.Models;
 
-namespace Nm.Module.Admin.Domain.Permission
+namespace NetModular.Module.Admin.Domain.Permission
 {
     /// <summary>
     /// 权限仓储

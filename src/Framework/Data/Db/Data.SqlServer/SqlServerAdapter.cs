@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.SqlServer
+namespace NetModular.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {

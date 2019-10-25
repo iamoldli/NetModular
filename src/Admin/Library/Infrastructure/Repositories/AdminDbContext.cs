@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Core;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories
+namespace NetModular.Module.Admin.Infrastructure.Repositories
 {
     public class AdminDbContext : DbContext
     {

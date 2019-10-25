@@ -1,7 +1,7 @@
 ﻿using System;
 using Dapper;
 
-namespace Nm.Lib.Data.SQLite
+namespace NetModular.Lib.Data.SQLite
 {
     public class GuidTypeHandler : SqlMapper.TypeHandler<Guid>
     {

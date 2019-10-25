@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using Nm.Lib.Module.Abstractions;
+using NetModular.Lib.Module.Abstractions;
 
-namespace Nm.Lib.Module.GenericHost
+namespace NetModular.Lib.Module.GenericHost
 {
     public class ModuleAssemblyDescriptor : IModuleAssemblyDescriptor
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
-using Nm.Lib.Cache.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
 
-namespace Nm.Lib.Cache.MemoryCache
+namespace NetModular.Lib.Cache.MemoryCache
 {
     public class MemoryCacheHandler : ICacheHandler
     {

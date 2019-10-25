@@ -1,13 +1,13 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.SqlServer
+namespace NetModular.Lib.Data.SqlServer
 {
     /// <summary>
     /// 数据库上下文配置项SqlServer实现

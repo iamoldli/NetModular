@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Nm.Lib.Utils.Core.Abstracts
+namespace NetModular.Lib.Utils.Core.Abstracts
 {
     public abstract class CollectionAbstract<TEntity> : IList<TEntity>
     {

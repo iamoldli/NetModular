@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.Button.Models;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Module.Admin.Domain.Button.Models;
 
-namespace Nm.Module.Admin.Domain.Button
+namespace NetModular.Module.Admin.Domain.Button
 {
     /// <summary>
     /// 按钮仓储

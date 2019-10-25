@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Admin.Domain.RoleMenuButton
+namespace NetModular.Module.Admin.Domain.RoleMenuButton
 {
     /// <summary>
     /// 角色菜单按钮

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Utils.Core.Files
+namespace NetModular.Lib.Utils.Core.Files
 {
     /// <summary>
     /// 文件大小单位

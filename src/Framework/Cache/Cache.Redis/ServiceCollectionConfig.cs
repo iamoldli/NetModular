@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Cache.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
 
-namespace Nm.Lib.Cache.Redis
+namespace NetModular.Lib.Cache.Redis
 {
     public class ServiceCollectionConfig : IServiceCollectionConfig
     {

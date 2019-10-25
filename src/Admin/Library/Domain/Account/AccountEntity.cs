@@ -1,9 +1,9 @@
 ﻿using System;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Core.Entities.Extend;
 
-namespace Nm.Module.Admin.Domain.Account
+namespace NetModular.Module.Admin.Domain.Account
 {
     /// <summary>
     /// 账户

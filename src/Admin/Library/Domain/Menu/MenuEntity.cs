@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities.Extend;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Core.Entities.Extend;
 
-namespace Nm.Module.Admin.Domain.Menu
+namespace NetModular.Module.Admin.Domain.Menu
 {
     /// <summary>
     /// 菜单

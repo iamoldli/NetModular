@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Domain.ButtonPermission
+namespace NetModular.Module.Admin.Domain.ButtonPermission
 {
     /// <summary>
     /// 按钮权限仓储

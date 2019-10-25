@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Nm.Lib.Swagger.Core.Filters
+namespace NetModular.Lib.Swagger.Core.Filters
 {
     /// <summary>
     /// 把接口地址转换为小写

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Utils.Core.Enums
+namespace NetModular.Lib.Utils.Core.Enums
 {
     /// <summary>
     /// 请求方法类型

@@ -1,15 +1,15 @@
-﻿using Nm.Lib.Host.Web;
-using System;
+﻿using System;
 using System.Linq;
 using ElectronNET.API;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Nm.Lib.Logging.Serilog;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
-using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
+using NetModular.Lib.Host.Web;
+using NetModular.Lib.Logging.Serilog;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
+using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
-namespace Nm.Lib.Host.Electron
+namespace NetModular.Lib.Host.Electron
 {
     /// <summary>
     /// 主机生成器

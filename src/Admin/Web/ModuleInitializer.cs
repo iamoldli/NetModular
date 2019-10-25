@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Utils.Core.Options;
-using Nm.Module.Admin.Web.Core;
-using Nm.Module.Admin.Web.Filters;
+using NetModular.Lib.Utils.Core.Options;
+using NetModular.Module.Admin.Web.Core;
+using NetModular.Module.Admin.Web.Filters;
 using System.IO;
 using Microsoft.Extensions.Hosting;
-using Nm.Lib.Auth.Web;
-using Nm.Lib.Module.AspNetCore;
+using NetModular.Lib.Auth.Web;
+using NetModular.Lib.Module.AspNetCore;
 
-namespace Nm.Module.Admin.Web
+namespace NetModular.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {

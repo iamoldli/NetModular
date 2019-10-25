@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.MySql
+namespace NetModular.Lib.Data.MySql
 {
     internal class MySqlAdapter : SqlAdapterAbstract
     {

@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+﻿using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Admin.Domain.ButtonPermission
+namespace NetModular.Module.Admin.Domain.ButtonPermission
 {
     /// <summary>
     /// 按钮权限

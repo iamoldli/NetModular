@@ -2,11 +2,11 @@
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Module.AspNetCore;
-using Nm.Lib.Validation.Abstractions;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Module.AspNetCore;
+using NetModular.Lib.Validation.Abstractions;
 
-namespace Nm.Lib.Validation.FluentValidation
+namespace NetModular.Lib.Validation.FluentValidation
 {
     public static class ServiceCollectionExtensions
     {

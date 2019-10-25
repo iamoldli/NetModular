@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.RoleService.ViewModels
+namespace NetModular.Module.Admin.Application.RoleService.ViewModels
 {
     public class RoleAddModel
     {

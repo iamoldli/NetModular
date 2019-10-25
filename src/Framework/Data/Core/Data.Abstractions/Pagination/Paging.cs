@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nm.Lib.Data.Abstractions.Pagination
+namespace NetModular.Lib.Data.Abstractions.Pagination
 {
     /// <summary>
     /// 分页类

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Auth.Web;
-using Nm.Lib.Utils.Core.Enums;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Module.Admin.Application.AccountService;
-using Nm.Module.Admin.Application.SystemService;
-using Nm.Module.Admin.Application.SystemService.ViewModels;
-using Nm.Module.Admin.Infrastructure.Options;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Web;
+using NetModular.Lib.Utils.Core.Enums;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Module.Admin.Application.AccountService;
+using NetModular.Module.Admin.Application.SystemService;
+using NetModular.Module.Admin.Application.SystemService.ViewModels;
+using NetModular.Module.Admin.Infrastructure.Options;
 
-namespace Nm.Module.Admin.Web.Core
+namespace NetModular.Module.Admin.Web.Core
 {
     /// <summary>
     /// 权限验证

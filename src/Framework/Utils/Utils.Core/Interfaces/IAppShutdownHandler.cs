@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nm.Lib.Utils.Core.Interfaces
+namespace NetModular.Lib.Utils.Core.Interfaces
 {
     /// <summary>
     /// 应用关闭处理接口

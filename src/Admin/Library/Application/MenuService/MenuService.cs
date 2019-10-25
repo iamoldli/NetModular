@@ -4,25 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.AccountService;
-using Nm.Module.Admin.Application.MenuService.ResultModels;
-using Nm.Module.Admin.Application.MenuService.ViewModels;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.ButtonPermission;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.Menu.Models;
-using Nm.Module.Admin.Domain.MenuPermission;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.RoleMenu;
-using Nm.Module.Admin.Domain.RoleMenuButton;
-using Nm.Module.Admin.Infrastructure.Repositories;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Models;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.AccountService;
+using NetModular.Module.Admin.Application.MenuService.ResultModels;
+using NetModular.Module.Admin.Application.MenuService.ViewModels;
+using NetModular.Module.Admin.Domain.AccountRole;
+using NetModular.Module.Admin.Domain.Button;
+using NetModular.Module.Admin.Domain.ButtonPermission;
+using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.Menu.Models;
+using NetModular.Module.Admin.Domain.MenuPermission;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Domain.RoleMenu;
+using NetModular.Module.Admin.Domain.RoleMenuButton;
+using NetModular.Module.Admin.Infrastructure.Repositories;
 
-namespace Nm.Module.Admin.Application.MenuService
+namespace NetModular.Module.Admin.Application.MenuService
 {
     public class MenuService : IMenuService
     {

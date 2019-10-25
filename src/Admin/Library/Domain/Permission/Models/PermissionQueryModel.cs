@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Permission.Models
+namespace NetModular.Module.Admin.Domain.Permission.Models
 {
     public class PermissionQueryModel : QueryModel
     {

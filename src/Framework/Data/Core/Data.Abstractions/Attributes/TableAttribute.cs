@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Data.Abstractions.Attributes
+namespace NetModular.Lib.Data.Abstractions.Attributes
 {
     /// <summary>
     /// 表名称，指定实体类在数据库中对应的表名称

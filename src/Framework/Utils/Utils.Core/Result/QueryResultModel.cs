@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Nm.Lib.Utils.Core.Result
+namespace NetModular.Lib.Utils.Core.Result
 {
     /// <summary>
     /// 查询结果模型

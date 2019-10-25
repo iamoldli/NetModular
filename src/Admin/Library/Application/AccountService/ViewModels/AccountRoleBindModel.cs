@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.AccountService.ViewModels
+namespace NetModular.Module.Admin.Application.AccountService.ViewModels
 {
     /// <summary>
     /// 账户角色绑定模型

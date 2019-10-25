@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nm.Lib.Cache.Abstractions
+namespace NetModular.Lib.Cache.Abstractions
 {
     /// <summary>
     /// 缓存处理器

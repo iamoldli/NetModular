@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Nm.Module.Admin.Application.AccountService.ViewModels
+namespace NetModular.Module.Admin.Application.AccountService.ViewModels
 {
     public class UpdatePasswordModel
     {

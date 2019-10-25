@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Utils.Core.Extensions;
+﻿using NetModular.Lib.Utils.Core.Extensions;
 using RabbitMQ.Client;
 
-namespace Nm.Lib.MQ.RabbitMQ
+namespace NetModular.Lib.MQ.RabbitMQ
 {
     /// <summary>
     /// 消费者

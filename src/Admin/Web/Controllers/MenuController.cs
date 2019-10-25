@@ -3,17 +3,17 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Models;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.MenuService;
-using Nm.Module.Admin.Application.MenuService.ViewModels;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.Menu.Models;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Models;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.MenuService;
+using NetModular.Module.Admin.Application.MenuService.ViewModels;
+using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.Menu.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("菜单管理")]
     public class MenuController : ModuleController

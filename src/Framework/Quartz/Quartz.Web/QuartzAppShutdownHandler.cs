@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Quartz.Abstractions;
-using Nm.Lib.Utils.Core.Interfaces;
+using NetModular.Lib.Quartz.Abstractions;
+using NetModular.Lib.Utils.Core.Interfaces;
 
-namespace Nm.Lib.Quartz.Web
+namespace NetModular.Lib.Quartz.Web
 {
     public class QuartzAppShutdownHandler : IAppShutdownHandler
     {

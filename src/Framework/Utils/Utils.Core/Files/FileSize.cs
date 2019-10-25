@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Utils.Core.Extensions;
+﻿using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Files
+namespace NetModular.Lib.Utils.Core.Files
 {
     /// <summary>
     /// 文件大小

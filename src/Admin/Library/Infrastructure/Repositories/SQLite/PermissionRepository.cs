@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using NetModular.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SQLite
+namespace NetModular.Module.Admin.Infrastructure.Repositories.SQLite
 {
     public class PermissionRepository : SqlServer.PermissionRepository
     {

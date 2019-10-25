@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.ConfigService.ViewModels;
-using Nm.Module.Admin.Domain.Config;
-using Nm.Module.Admin.Domain.Config.Models;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.ConfigService.ViewModels;
+using NetModular.Module.Admin.Domain.Config;
+using NetModular.Module.Admin.Domain.Config.Models;
 
-namespace Nm.Module.Admin.Application.ConfigService
+namespace NetModular.Module.Admin.Application.ConfigService
 {
     public class ConfigService : IConfigService
     {

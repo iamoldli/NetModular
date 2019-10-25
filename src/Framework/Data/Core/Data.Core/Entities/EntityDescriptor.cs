@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Core.Entities.Extend;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Core.Entities.Extend;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace NetModular.Lib.Data.Core.Entities
 {
     /// <summary>
     /// 实体描述

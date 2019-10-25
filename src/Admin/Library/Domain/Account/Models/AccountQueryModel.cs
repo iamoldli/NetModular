@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Query;
+﻿using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Account.Models
+namespace NetModular.Module.Admin.Domain.Account.Models
 {
     public class AccountQueryModel : QueryModel
     {

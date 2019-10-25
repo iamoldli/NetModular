@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Module.Admin.Domain.AccountConfig;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Core;
+using NetModular.Module.Admin.Domain.AccountConfig;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AccountConfigRepository : RepositoryAbstract<AccountConfigEntity>, IAccountConfigRepository
     {

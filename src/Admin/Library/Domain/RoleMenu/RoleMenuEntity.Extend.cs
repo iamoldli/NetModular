@@ -1,7 +1,7 @@
-﻿using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Module.Admin.Domain.Menu;
+﻿using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Domain.RoleMenu
+namespace NetModular.Module.Admin.Domain.RoleMenu
 {
     public partial class RoleMenuEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Entities;
 
-namespace Nm.Lib.Data.Core.Entities
+namespace NetModular.Lib.Data.Core.Entities
 {
     /// <summary>
     /// 包含指定类型主键的实体

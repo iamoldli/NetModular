@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Cache.Integration
+namespace NetModular.Lib.Cache.Integration
 {
     public static class ServiceCollectionExtensions
     {
@@ -25,14 +25,7 @@ namespace Nm.Lib.Cache.Integration
 
             services.AddSingleton(cacheOptions);
 
-            var ns = typeof(ServiceCollectionExtensions).Namespace;
-
-            Check.NotNull(ns, "Namespace is null");
-
-            var name = ns.Replace("Integration", cacheOptions.Mode.ToString());
-
-            var assemblyHelper = new AssemblyHelper();
-            var assembly = assemblyHelper.Load(m => m.Name.Equals(name)).FirstOrDefault();
+            var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Cache.{cacheOptions.Mode.ToString()}");
 
             Check.NotNull(assembly, cacheOptions.Mode + "缓存实现程序集未找到");
 

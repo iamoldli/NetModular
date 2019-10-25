@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.SystemService.ViewModels;
-using Nm.Module.Admin.Domain.Config;
-using Nm.Module.Admin.Infrastructure;
-using Nm.Module.Admin.Infrastructure.Repositories;
+using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.SystemService.ViewModels;
+using NetModular.Module.Admin.Domain.Config;
+using NetModular.Module.Admin.Infrastructure;
+using NetModular.Module.Admin.Infrastructure.Repositories;
 
-namespace Nm.Module.Admin.Application.SystemService
+namespace NetModular.Module.Admin.Application.SystemService
 {
     public class SystemService : ISystemService
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace NetModular.Lib.Module.AspNetCore
 {
     /// <summary>
     /// 模块初始化器接口

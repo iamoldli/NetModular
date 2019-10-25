@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Module.Admin.Domain.ModuleInfo.Models;
 
-namespace Nm.Module.Admin.Domain.ModuleInfo
+namespace NetModular.Module.Admin.Domain.ModuleInfo
 {
     /// <summary>
     /// 模块仓储

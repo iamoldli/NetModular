@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Quartz.Abstractions;
+using NetModular.Lib.Quartz.Abstractions;
 
-namespace Nm.Lib.Quartz.Core
+namespace NetModular.Lib.Quartz.Core
 {
     public class JobLogger : IJobLogger
     {

@@ -3,12 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable;
-using Nm.Lib.Data.Core.SqlQueryable.Internal;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Pagination;
+using NetModular.Lib.Data.Abstractions.SqlQueryable;
+using NetModular.Lib.Data.Core.SqlQueryable.Internal;
 
-namespace Nm.Lib.Data.Core.SqlQueryable
+namespace NetModular.Lib.Data.Core.SqlQueryable
 {
     internal abstract class NetSqlQueryableAbstract : INetSqlQueryable
     {

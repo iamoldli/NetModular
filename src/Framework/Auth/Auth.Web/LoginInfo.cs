@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Auth.Web
+namespace NetModular.Lib.Auth.Web
 {
     /// <summary>
     /// 登录信息

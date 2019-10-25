@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.ButtonPermission;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.MenuPermission;
-using Nm.Module.Admin.Domain.ModuleInfo;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.Permission.Models;
-using Nm.Module.Admin.Domain.RoleMenu;
-using Nm.Module.Admin.Domain.RoleMenuButton;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Data.Query;
+using NetModular.Module.Admin.Domain.Account;
+using NetModular.Module.Admin.Domain.AccountRole;
+using NetModular.Module.Admin.Domain.Button;
+using NetModular.Module.Admin.Domain.ButtonPermission;
+using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.MenuPermission;
+using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Domain.Permission.Models;
+using NetModular.Module.Admin.Domain.RoleMenu;
+using NetModular.Module.Admin.Domain.RoleMenuButton;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class PermissionRepository : RepositoryAbstract<PermissionEntity>, IPermissionRepository
     {

@@ -1,7 +1,7 @@
 ﻿using System.Data;
-using Nm.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions;
 
-namespace Nm.Lib.Data.Core
+namespace NetModular.Lib.Data.Core
 {
     /// <summary>
     /// 工作单元

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Nm.Lib.Utils.Core.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace NetModular.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 配置帮助类

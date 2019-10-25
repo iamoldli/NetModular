@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace NetModular.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 实体的SQL语句

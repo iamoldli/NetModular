@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
 using Newtonsoft.Json;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Nm.Lib.MQ.RabbitMQ
+namespace NetModular.Lib.MQ.RabbitMQ
 {
     // ReSharper disable once InconsistentNaming
     /// <summary>

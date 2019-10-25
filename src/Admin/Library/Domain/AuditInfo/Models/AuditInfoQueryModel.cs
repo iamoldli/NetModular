@@ -1,7 +1,7 @@
 ﻿using System;
-using Nm.Lib.Data.Query;
+using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.AuditInfo.Models
+namespace NetModular.Module.Admin.Domain.AuditInfo.Models
 {
     public class AuditInfoQueryModel : QueryModel
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nm.Module.Admin.Application.AccountService.ViewModels
+namespace NetModular.Module.Admin.Application.AccountService.ViewModels
 {
     public class AccountUpdateModel
     {

@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Core;
-using Nm.Lib.Data.Query;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.AuditInfo;
-using Nm.Module.Admin.Domain.AuditInfo.Models;
-using Nm.Module.Admin.Domain.ModuleInfo;
-using Nm.Module.Admin.Infrastructure.Repositories.SqlServer.Sql;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Core;
+using NetModular.Lib.Data.Query;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Domain.Account;
+using NetModular.Module.Admin.Domain.AuditInfo;
+using NetModular.Module.Admin.Domain.AuditInfo.Models;
+using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Infrastructure.Repositories.SqlServer.Sql;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SqlServer
+namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
     public class AuditInfoRepository : RepositoryAbstract<AuditInfoEntity>, IAuditInfoRepository
     {

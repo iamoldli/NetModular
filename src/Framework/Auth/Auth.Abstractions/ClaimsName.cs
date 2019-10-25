@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Auth.Abstractions
+﻿namespace NetModular.Lib.Auth.Abstractions
 {
     /// <summary>
     /// Claims名称

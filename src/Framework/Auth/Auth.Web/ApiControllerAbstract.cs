@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Validation.Abstractions;
+using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Validation.Abstractions;
 
-namespace Nm.Lib.Auth.Web
+namespace NetModular.Lib.Auth.Web
 {
     /// <summary>
     /// 控制器抽象

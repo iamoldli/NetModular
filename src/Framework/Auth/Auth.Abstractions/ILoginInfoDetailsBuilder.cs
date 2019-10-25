@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Nm.Lib.Auth.Abstractions
+namespace NetModular.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 登录信息详情生成器

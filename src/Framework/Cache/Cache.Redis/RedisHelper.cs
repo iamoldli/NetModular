@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Cache.Redis
+namespace NetModular.Lib.Cache.Redis
 {
     public class RedisHelper : IDisposable
     {

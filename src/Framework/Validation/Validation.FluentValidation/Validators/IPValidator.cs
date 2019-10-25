@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using FluentValidation.Validators;
 
-namespace Nm.Lib.Validation.FluentValidation.Validators
+namespace NetModular.Lib.Validation.FluentValidation.Validators
 {
     /// <summary>
     /// IP验证

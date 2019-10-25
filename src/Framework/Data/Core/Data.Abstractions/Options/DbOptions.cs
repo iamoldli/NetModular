@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nm.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Abstractions.Options
+namespace NetModular.Lib.Data.Abstractions.Options
 {
     /// <summary>
     /// 数据库配置项

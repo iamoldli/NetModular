@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.AuditInfo;
-using Nm.Module.Admin.Domain.AuditInfo.Models;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Domain.AuditInfo;
+using NetModular.Module.Admin.Domain.AuditInfo.Models;
 
-namespace Nm.Module.Admin.Application.AuditInfoService
+namespace NetModular.Module.Admin.Application.AuditInfoService
 {
     /// <summary>
     /// 审计服务

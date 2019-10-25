@@ -1,4 +1,4 @@
-﻿namespace Nm.Module.Admin.Infrastructure.Repositories.MySql.Sql
+﻿namespace NetModular.Module.Admin.Infrastructure.Repositories.MySql.Sql
 {
     public static class AuditInfoSql
     {

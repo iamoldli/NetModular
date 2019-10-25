@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Utils.Core.Result;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Utils.Core.Result;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.SQLite
+namespace NetModular.Module.Admin.Infrastructure.Repositories.SQLite
 {
     public class AuditInfoRepository : SqlServer.AuditInfoRepository
     {

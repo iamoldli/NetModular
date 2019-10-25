@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Abstractions;
+﻿using NetModular.Lib.Data.Abstractions;
 
-namespace Nm.Module.Admin.Infrastructure.Repositories.MySql
+namespace NetModular.Module.Admin.Infrastructure.Repositories.MySql
 {
     public class MenuRepository : SqlServer.MenuRepository
     {

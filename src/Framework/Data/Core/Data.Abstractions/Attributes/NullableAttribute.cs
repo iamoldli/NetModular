@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Data.Abstractions.Attributes
+namespace NetModular.Lib.Data.Abstractions.Attributes
 {
     /// <summary>
     /// 可空的

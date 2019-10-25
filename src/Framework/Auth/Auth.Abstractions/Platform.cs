@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Nm.Lib.Auth.Abstractions
+namespace NetModular.Lib.Auth.Abstractions
 {
     /// <summary>
     /// 平台类型

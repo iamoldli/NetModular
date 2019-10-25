@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.ModuleInfo;
-using Nm.Module.Admin.Domain.ModuleInfo.Models;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Infrastructure.Repositories;
-using ModuleInfoEntity = Nm.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Domain.ModuleInfo.Models;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Infrastructure.Repositories;
+using ModuleInfoEntity = NetModular.Module.Admin.Domain.ModuleInfo.ModuleInfoEntity;
 
-namespace Nm.Module.Admin.Application.ModuleInfoService
+namespace NetModular.Module.Admin.Application.ModuleInfoService
 {
     public class ModuleInfoService : IModuleInfoService
     {

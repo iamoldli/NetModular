@@ -1,7 +1,7 @@
 ﻿using Quartz;
 using System.Threading.Tasks;
 
-namespace Nm.Lib.Quartz.Abstractions
+namespace NetModular.Lib.Quartz.Abstractions
 {
     public interface IJobTask : IJob
     {

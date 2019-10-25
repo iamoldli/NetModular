@@ -1,6 +1,6 @@
-﻿using Nm.Lib.Data.Query;
+﻿using NetModular.Lib.Data.Query;
 
-namespace Nm.Module.Admin.Domain.Config.Models
+namespace NetModular.Module.Admin.Domain.Config.Models
 {
     public class ConfigQueryModel : QueryModel
     {

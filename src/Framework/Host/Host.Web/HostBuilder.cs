@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Nm.Lib.Logging.Serilog;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
-using HostOptions = Nm.Lib.Host.Web.Options.HostOptions;
+using NetModular.Lib.Logging.Serilog;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
+using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
-namespace Nm.Lib.Host.Web
+namespace NetModular.Lib.Host.Web
 {
     /// <summary>
     /// WebHost构造器

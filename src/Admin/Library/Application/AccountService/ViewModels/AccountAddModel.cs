@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Nm.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions;
 
-namespace Nm.Module.Admin.Application.AccountService.ViewModels
+namespace NetModular.Module.Admin.Application.AccountService.ViewModels
 {
     public class AccountAddModel
     {

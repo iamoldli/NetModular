@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nm.Lib.Data.Abstractions.Entities
+namespace NetModular.Lib.Data.Abstractions.Entities
 {
     /// <summary>
     /// 实体信息

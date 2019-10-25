@@ -4,16 +4,16 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Options;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Data.Integration
+namespace NetModular.Lib.Data.Integration
 {
     public static class ServiceCollectionExtensions
     {
@@ -71,8 +71,7 @@ namespace Nm.Lib.Data.Integration
             var dbContextType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
             if (dbContextType != null)
             {
-                var assemblyHelper = new AssemblyHelper();
-                var dbContextOptionsAssemblyName = assemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + dbOptions.Dialect;
+                var dbContextOptionsAssemblyName = AssemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + dbOptions.Dialect;
                 var dbContextOptionsTypeName = dbOptions.Dialect + "DbContextOptions";
 
                 var dbContextOptionsType = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(dbContextOptionsAssemblyName)).GetType($"{dbContextOptionsAssemblyName}.{dbContextOptionsTypeName}");

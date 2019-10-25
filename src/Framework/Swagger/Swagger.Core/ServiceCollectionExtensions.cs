@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Swagger.Core.Filters;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Swagger.Core.Filters;
 
-namespace Nm.Lib.Swagger.Core
+namespace NetModular.Lib.Swagger.Core
 {
     public static class ServiceCollectionExtensions
     {

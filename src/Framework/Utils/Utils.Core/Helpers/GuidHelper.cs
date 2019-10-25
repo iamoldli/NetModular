@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Nm.Lib.Utils.Core.Helpers
+namespace NetModular.Lib.Utils.Core.Helpers
 {
     /// <summary>
     /// 有序Guid类型

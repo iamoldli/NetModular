@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Nm.Lib.Data.Abstractions;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Pagination;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 
-namespace Nm.Lib.Data.Core.SqlQueryable.Internal
+namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 查询主体信息

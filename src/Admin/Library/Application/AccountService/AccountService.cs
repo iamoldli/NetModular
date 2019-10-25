@@ -4,27 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Cache.Abstractions;
-using Nm.Lib.Utils.Core.Encrypt;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.AccountService.ResultModels;
-using Nm.Module.Admin.Application.AccountService.ViewModels;
-using Nm.Module.Admin.Application.SystemService;
-using Nm.Module.Admin.Domain.Account;
-using Nm.Module.Admin.Domain.Account.Models;
-using Nm.Module.Admin.Domain.AccountConfig;
-using Nm.Module.Admin.Domain.AccountRole;
-using Nm.Module.Admin.Domain.Button;
-using Nm.Module.Admin.Domain.Menu;
-using Nm.Module.Admin.Domain.Permission;
-using Nm.Module.Admin.Domain.Role;
-using Nm.Module.Admin.Infrastructure;
-using Nm.Module.Admin.Infrastructure.Repositories;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Utils.Core.Encrypt;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.AccountService.ResultModels;
+using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using NetModular.Module.Admin.Application.SystemService;
+using NetModular.Module.Admin.Domain.Account;
+using NetModular.Module.Admin.Domain.Account.Models;
+using NetModular.Module.Admin.Domain.AccountConfig;
+using NetModular.Module.Admin.Domain.AccountRole;
+using NetModular.Module.Admin.Domain.Button;
+using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.Permission;
+using NetModular.Module.Admin.Domain.Role;
+using NetModular.Module.Admin.Infrastructure;
+using NetModular.Module.Admin.Infrastructure.Repositories;
 
-namespace Nm.Module.Admin.Application.AccountService
+namespace NetModular.Module.Admin.Application.AccountService
 {
     public class AccountService : IAccountService
     {

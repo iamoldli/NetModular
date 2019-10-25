@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Module.Admin.Domain.Menu;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Module.Admin.Domain.Menu;
 
-namespace Nm.Module.Admin.Application.AccountService.ResultModels
+namespace NetModular.Module.Admin.Application.AccountService.ResultModels
 {
     /// <summary>
     /// 账户登录信息

@@ -1,4 +1,4 @@
-﻿namespace Nm.Lib.Cache.Abstractions
+﻿namespace NetModular.Lib.Cache.Abstractions
 {
     /// <summary>
     /// 缓存方式

@@ -6,9 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Nm.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Core.Result;
 
-namespace Nm.Lib.Host.Web.Middleware
+namespace NetModular.Lib.Host.Web.Middleware
 {
     public class ExceptionHandleMiddleware
     {

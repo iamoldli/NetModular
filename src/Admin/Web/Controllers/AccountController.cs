@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Abstractions;
-using Nm.Lib.Auth.Web;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.AccountService;
-using Nm.Module.Admin.Application.AccountService.ViewModels;
-using Nm.Module.Admin.Domain.Account.Models;
+using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Web;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.AccountService;
+using NetModular.Module.Admin.Application.AccountService.ViewModels;
+using NetModular.Module.Admin.Domain.Account.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("账户管理")]
     public class AccountController : ModuleController

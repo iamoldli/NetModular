@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Quartz;
 
-namespace Nm.Lib.Quartz.Abstractions
+namespace NetModular.Lib.Quartz.Abstractions
 {
     /// <summary>
     /// Quartz服务接口

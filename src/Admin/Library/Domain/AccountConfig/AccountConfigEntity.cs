@@ -1,8 +1,8 @@
 ﻿using System;
-using Nm.Lib.Data.Abstractions.Attributes;
-using Nm.Lib.Data.Core.Entities;
+using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Core.Entities;
 
-namespace Nm.Module.Admin.Domain.AccountConfig
+namespace NetModular.Module.Admin.Domain.AccountConfig
 {
     /// <summary>
     /// 账户配置信息

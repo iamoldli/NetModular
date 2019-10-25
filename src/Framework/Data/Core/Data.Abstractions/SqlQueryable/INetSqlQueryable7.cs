@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
-using Nm.Lib.Data.Abstractions.Pagination;
-using Nm.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Pagination;
+using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 
-namespace Nm.Lib.Data.Abstractions.SqlQueryable
+namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 {
     public interface INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> : INetSqlQueryable
         where TEntity : IEntity, new()

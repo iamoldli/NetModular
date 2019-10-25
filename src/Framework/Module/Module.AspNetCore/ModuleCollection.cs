@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using Nm.Lib.Module.Abstractions;
-using Nm.Lib.Utils.Core;
-using Nm.Lib.Utils.Core.Extensions;
-using Nm.Lib.Utils.Core.Helpers;
+using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Nm.Lib.Module.AspNetCore
+namespace NetModular.Lib.Module.AspNetCore
 {
     public class ModuleCollection : IModuleCollection
     {
@@ -17,8 +17,7 @@ namespace Nm.Lib.Module.AspNetCore
 
         public ModuleCollection()
         {
-            var assemblyHelper = new AssemblyHelper();
-            var allAssembly = assemblyHelper.Load();
+            var allAssembly = AssemblyHelper.Load();
             foreach (var assembly in allAssembly)
             {
                 var resources = assembly.GetManifestResourceNames();
@@ -40,12 +39,12 @@ namespace Nm.Lib.Module.AspNetCore
                         //此处默认模块命名空间前缀与当前项目相同
                         var assemblyDescriptor = new ModuleAssemblyDescriptor
                         {
-                            Domain = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Domain")).FirstOrDefault(),
-                            Infrastructure = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Infrastructure")).FirstOrDefault(),
-                            Application = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Application")).FirstOrDefault(),
-                            Quartz = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Quartz")).FirstOrDefault(),
-                            Web = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Web")).FirstOrDefault(),
-                            Api = assemblyHelper.Load(m => m.Name.EndsWith("Module." + moduleDescriptor.Id + ".Api")).FirstOrDefault()
+                            Domain = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Domain"),
+                            Infrastructure = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Infrastructure"),
+                            Application = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Application"),
+                            Quartz = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Quartz"),
+                            Web = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Web"),
+                            Api = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Api"),
                         };
 
                         Check.NotNull(assemblyDescriptor.Domain, moduleDescriptor.Id + "模块的Domain程序集未发现");

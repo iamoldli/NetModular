@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Nm.Lib.Data.Abstractions.Entities;
-using Nm.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
 
-namespace Nm.Lib.Data.Core.SqlQueryable.Internal
+namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {
     /// <summary>
     /// 查询表连接信息

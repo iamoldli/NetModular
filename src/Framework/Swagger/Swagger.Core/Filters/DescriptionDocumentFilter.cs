@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
-using Nm.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Extensions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Nm.Lib.Swagger.Core.Filters
+namespace NetModular.Lib.Swagger.Core.Filters
 {
     /// <summary>
     /// 控制器和方法的描述信息处理

@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nm.Lib.Auth.Web.Attributes;
-using Nm.Lib.Module.AspNetCore.Attributes;
-using Nm.Lib.Utils.Core.Result;
-using Nm.Module.Admin.Application.AuditInfoService;
-using Nm.Module.Admin.Domain.AuditInfo.Models;
+using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Core.Result;
+using NetModular.Module.Admin.Application.AuditInfoService;
+using NetModular.Module.Admin.Domain.AuditInfo.Models;
 
-namespace Nm.Module.Admin.Web.Controllers
+namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("审计信息")]
     public class AuditInfoController : ModuleController

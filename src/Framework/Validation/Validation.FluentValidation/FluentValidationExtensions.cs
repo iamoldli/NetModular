@@ -1,8 +1,8 @@
 ﻿using System;
 using FluentValidation;
-using Nm.Lib.Validation.FluentValidation.Validators;
+using NetModular.Lib.Validation.FluentValidation.Validators;
 
-namespace Nm.Lib.Validation.FluentValidation
+namespace NetModular.Lib.Validation.FluentValidation
 {
     /// <summary>
     /// 
