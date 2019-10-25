@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>NetModular数据访问抽象层</Description>
+    <Description>NetModular data abstractions</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

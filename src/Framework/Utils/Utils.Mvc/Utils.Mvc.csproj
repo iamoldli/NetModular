@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular utils for Mvc</Description>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <Description>NetModular基础模块MVC相关扩展</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>NetModular数据访问核心实现层</Description>
+    <Description>NetModular data core</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

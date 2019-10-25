@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>NetModular身份认证JWT实现</Description>
+    <Description>NetModular auth for JWT</Description>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

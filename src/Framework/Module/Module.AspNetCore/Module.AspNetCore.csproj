@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular module for AspNetCore</Description>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

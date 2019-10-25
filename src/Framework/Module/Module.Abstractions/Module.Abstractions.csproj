@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular module abstractions</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>模块抽象库</Description>
   </PropertyGroup>
 
   <ItemGroup>

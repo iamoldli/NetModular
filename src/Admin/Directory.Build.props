@@ -4,7 +4,7 @@
     <Name>权限管理</Name>
     <Authors>Oldli</Authors>
     <Version>1.4.1</Version>
-    <Description>$(Name) - $(MSBuildProjectName)</Description>
+    <Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <LangVersion>Latest</LangVersion>
     <RootNamespacePrefix>NetModular.Module.$(Id)</RootNamespacePrefix>

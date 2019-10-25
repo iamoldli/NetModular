@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular utils</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>NetModular基础模块</Description>
   </PropertyGroup>
 
   <ItemGroup>

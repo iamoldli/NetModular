@@ -2,7 +2,7 @@
 
 
   <PropertyGroup>
-    <Description>NetModular模型验证库抽象层</Description>
+    <Description>NetModular model validate abstractions</Description>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

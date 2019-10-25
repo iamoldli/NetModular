@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>NetModular数据访问SQLite数据库实现</Description>
+    <Description>NetModular data implement for SQLite</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

@@ -1,6 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular cache implement for Redis</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>NetModular logging with serilog for GenericHost</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
