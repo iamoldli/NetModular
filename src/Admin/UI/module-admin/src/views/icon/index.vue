@@ -17,7 +17,7 @@
 </template>
 <script>
 import page from './page'
-import { iconData } from 'nm-lib-icon'
+import iconData from 'netmodular-ui/packages/components/icon-picker/data'
 
 export default {
   name: page.name,
