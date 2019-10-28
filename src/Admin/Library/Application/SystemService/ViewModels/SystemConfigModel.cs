@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NetModular.Module.Admin.Application.SystemService.ViewModels
 {
