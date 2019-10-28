@@ -1,75 +1,23 @@
-import http from './extensions/http'
-import routerConfig from './router/'
-import store from './store/'
-import Skins from 'nm-lib-skins'
-import admin from './module'
-import components from './components'
+import NetModularUI from 'netmodular-ui'
 import './api'
+import module from './module'
+import routes from './routes'
+import store from './store'
+import components from './components'
+import NetmodularSkinsClassics from 'netmodular-skins-classics'
 
-// 全局组件列表
-let globalComponents = components
-
-// 回调方法列表
-let callbacks = []
+const admin = {
+  module,
+  routes,
+  store,
+  components,
+  callback({ store }) {
+    store.dispatch('app/token/load', null, { root: true })
+  }
+}
 
 // 模块列表
 let modules = [admin]
-
-/**
- * @description 设置模块状态，默认导入admin模块
- */
-const storeConfig = {
-  modules: {
-    module: { namespaced: true, modules: { admin: store } }
-  }
-}
-
-/**
- * @description 注入路由信息
- * @param {Object} moduleInfo 模块信息
- */
-const injectRoutes = moduleInfo => {
-  if (moduleInfo.routes) {
-    routerConfig.routes = routerConfig.routes.concat(moduleInfo.routes)
-  }
-}
-
-/**
- * @description 注入状态信息
- * @param {Object} moduleInfo 模块信息
- */
-const injectStore = moduleInfo => {
-  if (moduleInfo.store) {
-    storeConfig.modules.module.modules[moduleInfo.module.code] =
-      moduleInfo.store
-  }
-}
-
-/**
- * @description 注入回调方法
- * @param {Object} moduleInfo 模块信息
- */
-const injectCallback = moduleInfo => {
-  if (moduleInfo.callback) {
-    callbacks.push(moduleInfo.callback)
-  }
-}
-
-/**
- * @description 注入模块
- */
-const injectModule = () => {
-  modules.forEach(m => {
-    injectRoutes(m)
-    injectStore(m)
-    injectCallback(m)
-
-    // 添加全局组件
-    if (m.components) {
-      globalComponents = globalComponents.concat(m.components)
-    }
-  })
-}
 
 /**
  * @description 获取系统信息
@@ -80,69 +28,54 @@ const getSystem = async () => {
 
   // 模块列表
   system.modules = modules
-
-  // 退出方法
-  system.logout = redirect => {
-    $api.admin.account.logout()
-    routerConfig.$router.push({
-      name: 'login',
-      query: {
-        redirect
-      }
-    })
+  system.actions = {
+    /** 登录 */
+    login: $api.admin.account.login,
+    /** 获取验证码 */
+    getVerifyCode: $api.admin.account.getVerifyCode,
+    // 查询登陆信息方法
+    getLoginInfo: $api.admin.account.getLoginInfo,
+    // 修改密码方法
+    updatePassword: $api.admin.account.updatePassword,
+    // 皮肤修改方法
+    saveSkin: $api.admin.account.skinUpdate
   }
-  // 查询登陆信息方法
-  system.getLoginInfo = $api.admin.account.getLoginInfo
-  // 修改密码方法
-  system.updatePassword = $api.admin.account.updatePassword
-  // 皮肤修改方法
-  system.saveSkin = $api.admin.account.skinUpdate
-
   return system
 }
 
 export default {
-  // 设置登录配置
-  setLoginSettings(settings) {
-    // 设置登录信息
-    callbacks.push(({ store }) => {
-      store.dispatch('module/admin/setLoginSettings', settings)
-    })
-  },
   /**
-   * @description 添加模块
+   * @description 注册模块
    * @param {Object} moduleInfo 模块信息
    */
-  addModule(moduleInfo) {
+  registerModule(moduleInfo) {
     if (moduleInfo) {
       modules.push(moduleInfo)
     }
   },
   /**
+   * @description 注册皮肤
+   * @param {object} skin 皮肤
+   */
+  registerSkin(skin) {
+    NetModularUI.useSkin(skin)
+  },
+  /**
    * @description 启动
    */
   async start(config) {
-    // 接口请求地址
-    http(config.baseUrl)
+    // 设置接口信息
+    NetModularUI.configApi(config)
+    // 使用皮肤
+    NetModularUI.registerSkin(NetmodularSkinsClassics)
 
-    // 加载本地token
-    callbacks.push(({ store, Vue }) => {
-      store.dispatch('app/token/load', null, { root: true })
-    })
-
-    // 注入模块
-    injectModule()
-
+    // 查询系统信息
     const system = await getSystem()
 
     // 设置个时间，防止等待页面闪烁
     setTimeout(() => {
-      Skins.use({
-        system,
-        routerConfig,
-        storeConfig,
-        globalComponents,
-        callbacks
+      NetModularUI.use({
+        system
       })
     }, 1000)
   }

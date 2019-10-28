@@ -7,6 +7,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const outputDir = '../../WebHost/wwwroot/app'
 
 // 增加环境变量
+process.env.VUE_APP_COPYRIGHT = '版权所有：尼古拉斯·老李 | 用代码改变世界'
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
 
 module.exports = {
@@ -18,10 +19,10 @@ module.exports = {
   transpileDependencies: ['nm-.*', 'element-ui'],
   configureWebpack: {
     plugins: [
-      // 复制nm-lib-skins/public目录下的文件到输出目录
+      // 复制netmodular-ui/public目录下的文件到输出目录
       new CopyWebpackPlugin([
         {
-          from: path.join(__dirname, 'node_modules/nm-lib-skins/public'),
+          from: path.join(__dirname, 'node_modules/netmodular-ui/public'),
           to: path.join(__dirname, outputDir),
           ignore: ['index.html']
         }
@@ -38,10 +39,10 @@ module.exports = {
     config.plugins.delete('prefetch').delete('preload')
 
     /**
-     * 设置index.html模板路径，使用nm-lib-skins/public中的模板
+     * 设置index.html模板路径，使用netmodular-ui/public中的模板
      */
     config.plugin('html').tap(args => {
-      args[0].template = './node_modules/nm-lib-skins/public/index.html'
+      args[0].template = './node_modules/netmodular-ui/public/index.html'
       return args
     })
 
@@ -81,7 +82,7 @@ module.exports = {
             skins: {
               name: 'chunk-skins',
               priority: 10,
-              test: /[\\/]node_modules[\\/]nm-lib-skins(.*)/
+              test: /[\\/]node_modules[\\/]netmodular-ui(.*)/
             }
           }
         })

@@ -10,7 +10,7 @@
   </nm-dialog>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 import NodeMenu from './components/node'
 import RouteMenu from './components/route'
 import LinkMenu from './components/link'

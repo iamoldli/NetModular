@@ -1,4 +1,3 @@
-import { token } from 'nm-lib-skins'
 import module from '../../module'
 
 export default name => {
@@ -27,18 +26,7 @@ export default name => {
    * @param {*} params
    */
   const login = async params => {
-    var data = await $http.post(urls.login, params)
-    if (data) {
-      token.set(data)
-    }
-    return data
-  }
-
-  /**
-   * @description 退出
-   */
-  const logout = () => {
-    token.remove()
+    return $http.post(urls.login, params)
   }
 
   /**
@@ -82,7 +70,6 @@ export default name => {
     ...crud,
     getVerifyCode,
     login,
-    logout,
     updatePassword,
     getLoginInfo,
     bindRole,

@@ -23,7 +23,22 @@ namespace NetModular.Module.Admin.Application.AccountService.ResultModels
         /// <summary>
         /// 用户名
         /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public string Email { get; set; }
 
         /// <summary>
         /// 头像

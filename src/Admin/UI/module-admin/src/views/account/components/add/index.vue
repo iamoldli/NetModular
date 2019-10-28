@@ -25,7 +25,7 @@
   </nm-form-dialog>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 import RoleSelect from '../../../role/components/select'
 
 // 接口

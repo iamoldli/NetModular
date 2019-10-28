@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using NetModular.Lib.Utils.Core.Models;
+using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Module.Admin.Application.SystemService.ViewModels
 {
@@ -41,11 +44,6 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         public bool Auditing { get; set; }
 
         /// <summary>
-        /// 启用登陆验证码功能
-        /// </summary>
-        public bool LoginVerifyCode { get; set; }
-
-        /// <summary>
         /// 开启权限验证
         /// </summary>
         public bool PermissionValidate { get; set; }
@@ -59,6 +57,21 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         /// 自定义Css样式
         /// </summary>
         public string CustomCss { get; set; }
+
+        /// <summary>
+        /// 菜单只能打开一个
+        /// </summary>
+        public bool MenuUniqueOpened { get; set; }
+
+        /// <summary>
+        /// 设置对话框是否可以点击模态框关闭
+        /// </summary>
+        public bool DialogCloseOnClickModal { get; set; }
+
+        /// <summary>
+        /// 登录配置项
+        /// </summary>
+        public SystemLoginOptions LoginOptions { get; set; } = new SystemLoginOptions();
     }
 
     /// <summary>
@@ -85,6 +98,22 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         /// 用户信息
         /// </summary>
         public bool UserInfo { get; set; }
+    }
+
+    /// <summary>
+    /// 系统登录设置
+    /// </summary>
+    public class SystemLoginOptions
+    {
+        /// <summary>
+        /// 登录页类型
+        /// </summary>
+        public string Type { get; set; }
+        
+        /// <summary>
+        /// 启用验证码功能
+        /// </summary>
+        public bool VerifyCode { get; set; }
     }
 
     /// <summary>
@@ -128,11 +157,6 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         public const string Auditing = "sys_auditing";
 
         /// <summary>
-        /// 启用登录验证码功能
-        /// </summary>
-        public const string LoginVerifyCode = "sys_verify_code";
-
-        /// <summary>
         /// 工具栏：全屏按钮
         /// </summary>
         public const string ToolbarFullscreen = "sys_toolbar_fullscreen";
@@ -156,5 +180,26 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         /// 自定义css样式
         /// </summary>
         public const string CustomCss = "sys_toolbar_customcss";
+
+        /// <summary>
+        /// 菜单只能打开一个
+        /// </summary>
+        public const string MenuUniqueOpened = "sys_menu_unique_opened";
+
+        /// <summary>
+        /// 点击模态框关闭对话框
+        /// </summary>
+        public const string DialogCloseOnClickModal = "sys_dialog_close_on_click_modal";
+
+        /// <summary>
+        /// 登录页面类型
+        /// </summary>
+        public const string LoginOptionsType = "sys_login_options_type";
+
+        /// <summary>
+        /// 启用登录验证码功能
+        /// </summary>
+        public const string LoginOptionsVerifyCode = "sys_login_options_verify_code";
+
     }
 }

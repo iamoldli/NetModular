@@ -10,7 +10,7 @@
   </nm-dialog>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 import MenuBind from '../../../menu/components/bind'
 
 // 接口

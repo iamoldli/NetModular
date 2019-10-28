@@ -19,7 +19,7 @@
   </nm-split>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 import MenuTree from '../tree'
 export default {
   components: { MenuTree },

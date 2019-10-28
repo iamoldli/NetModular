@@ -23,15 +23,33 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="1">
           <el-form-item label="个人信息页：" prop="userInfoPage">
-            <el-input v-model="form.model.userInfoPage" />
+            <el-input v-model="form.model.userInfoPage" placeholder="路由名称，默认为userinfo" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-divider content-position="left">登录控制</el-divider>
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
-          <el-form-item label="启用验证码：" prop="loginVerifyCode">
-            <el-switch v-model="form.model.loginVerifyCode" />
+          <el-form-item label="登录页：" prop="type">
+            <el-input v-model="form.model.loginOptions.type" placeholder="请输入登录页名称，默认default" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item label="启用验证码：" prop="verifyCode">
+            <el-switch v-model="form.model.loginOptions.verifyCode" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-divider content-position="left">组件设置</el-divider>
+      <el-row :gutter="20">
+        <el-col :span="5" :offset="1">
+          <el-form-item labelWidth="160px" label="菜单只能打开一个" prop="menuUniqueOpened">
+            <el-switch v-model="form.model.menuUniqueOpened" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item labelWidth="200px" label="点击模态框可关闭对话框" prop="dialogCloseOnClickModal">
+            <el-switch v-model="form.model.dialogCloseOnClickModal" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -113,14 +131,19 @@ export default {
           buttonPermission: false,
           permissionValidate: false,
           auditing: false,
-          loginVerifyCode: false,
           toolbar: {
             fullscreen: false,
             skin: false,
             logout: false,
             userInfo: false
           },
-          customCss: ''
+          customCss: '',
+          loginOptions: {
+            type: '',
+            verifyCode: false
+          },
+          menuUniqueOpened: false,
+          dialogCloseOnClickModal: false
         }
       }
     }

@@ -13,7 +13,7 @@
   </nm-form-dialog>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 
 // 接口
 const api = $api.admin.role

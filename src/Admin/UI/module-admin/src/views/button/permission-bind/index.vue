@@ -4,7 +4,7 @@
   </nm-dialog>
 </template>
 <script>
-import { mixins } from 'nm-lib-skins'
+import { mixins } from 'netmodular-ui'
 import BindPage from '../../permission/components/bind'
 
 // 接口

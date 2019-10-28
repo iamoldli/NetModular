@@ -63,10 +63,7 @@ namespace NetModular.Module.Admin.Application.SystemService
                         case SystemConfigKey.Auditing:
                             model.Auditing = config.Value.ToBool();
                             break;
-                        case SystemConfigKey.LoginVerifyCode:
-                            model.LoginVerifyCode = config.Value.ToBool();
-                            break;
-                        case SystemConfigKey.ToolbarFullscreen:
+                     case SystemConfigKey.ToolbarFullscreen:
                             model.Toolbar.Fullscreen = config.Value.ToBool();
                             break;
                         case SystemConfigKey.ToolbarSkin:
@@ -80,6 +77,18 @@ namespace NetModular.Module.Admin.Application.SystemService
                             break;
                         case SystemConfigKey.CustomCss:
                             model.CustomCss = config.Value;
+                            break;
+                        case SystemConfigKey.MenuUniqueOpened:
+                            model.MenuUniqueOpened = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.DialogCloseOnClickModal:
+                            model.DialogCloseOnClickModal = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.LoginOptionsType:
+                            model.LoginOptions.Type = config.Value;
+                            break;
+                        case SystemConfigKey.LoginOptionsVerifyCode:
+                            model.LoginOptions.VerifyCode = config.Value.ToBool();
                             break;
                     }
                 }
@@ -109,12 +118,15 @@ namespace NetModular.Module.Admin.Application.SystemService
                 Update(SystemConfigKey.ButtonPermission, model.ButtonPermission, "启用按钮权限", uow).Wait();
                 Update(SystemConfigKey.PermissionValidate, model.PermissionValidate, "启用权限验证功能", uow).Wait();
                 Update(SystemConfigKey.Auditing, model.Auditing, "启用审计日志", uow).Wait();
-                Update(SystemConfigKey.LoginVerifyCode, model.LoginVerifyCode, "启用登录验证码功能", uow).Wait();
                 Update(SystemConfigKey.ToolbarFullscreen, model.Toolbar.Fullscreen, "显示工具栏全屏按钮", uow).Wait();
                 Update(SystemConfigKey.ToolbarSkin, model.Toolbar.Skin, "显示工具栏皮肤按钮", uow).Wait();
                 Update(SystemConfigKey.ToolbarLogout, model.Toolbar.Logout, "显示工具栏退出按钮", uow).Wait();
                 Update(SystemConfigKey.ToolbarUserInfo, model.Toolbar.UserInfo, "显示工具栏用户信息按钮", uow).Wait();
                 Update(SystemConfigKey.CustomCss, model.CustomCss, "自定义CSS样式", uow).Wait();
+                Update(SystemConfigKey.MenuUniqueOpened, model.MenuUniqueOpened, "菜单只能打开一个", uow).Wait();
+                Update(SystemConfigKey.DialogCloseOnClickModal, model.DialogCloseOnClickModal, "点击模态框关闭对话框", uow).Wait();
+                Update(SystemConfigKey.LoginOptionsType, model.LoginOptions.Type, "登录页类型", uow).Wait();
+                Update(SystemConfigKey.LoginOptionsVerifyCode, model.LoginOptions.VerifyCode, "启用登录验证码功能", uow).Wait();
 
                 uow.Commit();
             }

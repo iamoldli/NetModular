@@ -82,7 +82,7 @@ namespace NetModular.Module.Admin.Application.AccountService
 
             var verifyCodeKey = CacheKeys.VerifyCodeKey + model.PictureId;
             var systemConfig = (await _systemService.GetConfig()).Data;
-            if (systemConfig.LoginVerifyCode)
+            if (systemConfig.LoginOptions.VerifyCode)
             {
                 if (model.Code.IsNull())
                     return result.Failed("请输入验证码");
@@ -135,7 +135,10 @@ namespace NetModular.Module.Admin.Application.AccountService
             {
                 Id = account.Id,
                 Type = account.Type,
+                UserName = account.UserName,
                 Name = account.Name,
+                Phone = account.Phone,
+                Email = account.Email,
                 Skin = new SkinConfigModel
                 {
                     //TODO:加载用户的配置信息
