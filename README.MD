@@ -20,6 +20,10 @@ NetModular is a modular quickly develop solution for .Net Core 2.2+.
 >
 > > [Node.js 10+](https://nodejs.org/en/)、[Vue.js 2.6+](https://cn.vuejs.org/)、[Vue CLI](https://cli.vuejs.org/zh/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[VueRouter](https://router.vuejs.org/zh/)、[Element-UI](https://element.eleme.cn/#/zh-CN/component/installation)
 
+## UI Framework(前端框架)
+
+Please see [NetModular.UI](https://github.com/iamoldli/NetModular.UI)
+
 ## Demo(示例)
 
 [https://nm.iamoldli.com/](https://nm.iamoldli.com/)  
@@ -29,6 +33,8 @@ Password: admin
 ## Documentation(文档)
 
 For full documentation please see [https://nm.iamoldli.com/docs/](https://nm.iamoldli.com/docs/)
+
+Documentation source please see [NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
 
 ## Modules(模块列表)
 
