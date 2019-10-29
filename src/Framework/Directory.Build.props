@@ -14,7 +14,6 @@
     <Company>Oldli</Company>
     <Copyright>Oldli</Copyright>
     <PackageProjectUrl>https://nm.iamoldli.com/docs/</PackageProjectUrl>
-    <PackageIcon>https://github.com/iamoldli/NetModular.Docs/blob/master/src/.vuepress/public/images/logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
   </PropertyGroup>
 </Project>
