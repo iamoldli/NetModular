@@ -43,11 +43,27 @@ namespace NetModular.Lib.Swagger.Core
                 c.AddSecurityDefinition("Bearer", securityScheme);
 
                 //添加Jwt验证设置
-                var securityRequirement = new OpenApiSecurityRequirement { { securityScheme, new List<string>() } };
-                c.AddSecurityRequirement(securityRequirement);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
 
-                //链接转小写过滤器
-                c.DocumentFilter<LowercaseDocumentFilter>();
+                        },
+                        new List<string>()
+                    }
+                });
+
+            //链接转小写过滤器
+            c.DocumentFilter<LowercaseDocumentFilter>();
 
                 //描述信息处理
                 c.DocumentFilter<DescriptionDocumentFilter>();

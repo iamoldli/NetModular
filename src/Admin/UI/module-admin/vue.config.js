@@ -16,7 +16,7 @@ module.exports = {
   devServer: {
     port: 5220
   },
-  transpileDependencies: ['nm-.*', 'element-ui'],
+  transpileDependencies: ['netmodular-.*', 'element-ui'],
   configureWebpack: {
     plugins: [
       // 复制netmodular-ui/public目录下的文件到输出目录
@@ -80,7 +80,7 @@ module.exports = {
               test: /[\\/]node_modules[\\/]element-ui(.*)/
             },
             skins: {
-              name: 'chunk-skins',
+              name: 'chunk-netmodular-ui',
               priority: 10,
               test: /[\\/]node_modules[\\/]netmodular-ui(.*)/
             }
