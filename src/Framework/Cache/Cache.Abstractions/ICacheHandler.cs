@@ -60,7 +60,7 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <typeparam name="T"></typeparam>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
-        void Set<T>(string key, T value);
+        bool Set<T>(string key, T value);
 
         /// <summary>
         /// 设置
@@ -69,7 +69,7 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <param name="expires">有效期(分钟)</param>
-        void Set<T>(string key, T value, int expires);
+        bool Set<T>(string key, T value, int expires);
 
         /// <summary>
         /// 设置
@@ -78,7 +78,7 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        Task SetAsync<T>(string key, T value);
+        Task<bool> SetAsync<T>(string key, T value);
 
         /// <summary>
         /// 设置
@@ -88,20 +88,20 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <param name="value">值</param>
         /// <param name="expires">有效期(分钟)</param>
         /// <returns></returns>
-        Task SetAsync<T>(string key, T value, int expires);
+        Task<bool> SetAsync<T>(string key, T value, int expires);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="key"></param>
-        void Remove(string key);
+        bool Remove(string key);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task RemoveAsync(string key);
+        Task<bool> RemoveAsync(string key);
 
         /// <summary>
         /// 指定键是否存在

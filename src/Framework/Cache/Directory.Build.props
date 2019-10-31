@@ -1,0 +1,7 @@
+﻿<Project>
+  <PropertyGroup>
+    <Version>1.4.3</Version>
+  </PropertyGroup>
+
+  <Import Project="$(SolutionDir)\src\Framework\Directory.Build.props" />
+</Project>

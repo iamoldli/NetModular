@@ -46,35 +46,40 @@ namespace NetModular.Lib.Cache.MemoryCache
             return _cache.TryGetValue(key, out value);
         }
 
-        public void Set<T>(string key, T value)
+        public bool Set<T>(string key, T value)
         {
             _cache.Set(key, value);
+            return true;
         }
 
-        public void Set<T>(string key, T value, int expires)
+        public bool Set<T>(string key, T value, int expires)
         {
             _cache.Set(key, value, new TimeSpan(0, 0, expires, 0));
+            return true;
         }
 
-        public Task SetAsync<T>(string key, T value)
+        public Task<bool> SetAsync<T>(string key, T value)
         {
-            return Task.FromResult(_cache.Set(key, value));
+            Set(key, value);
+            return Task.FromResult(true);
         }
 
-        public Task SetAsync<T>(string key, T value, int expires)
+        public Task<bool> SetAsync<T>(string key, T value, int expires)
         {
-            return Task.FromResult(_cache.Set(key, value, new TimeSpan(0, 0, expires, 0)));
+            Set(key, value, expires);
+            return Task.FromResult(true);
         }
 
-        public void Remove(string key)
-        {
-            _cache.Remove(key);
-        }
-
-        public Task RemoveAsync(string key)
+        public bool Remove(string key)
         {
             _cache.Remove(key);
-            return Task.CompletedTask;
+            return true;
+        }
+
+        public Task<bool> RemoveAsync(string key)
+        {
+            _cache.Remove(key);
+            return Task.FromResult(true);
         }
 
         public bool Exists(string key)

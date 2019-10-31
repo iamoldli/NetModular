@@ -14,6 +14,7 @@ namespace NetModular.Lib.Cache.Redis
     {
         private readonly ConnectionMultiplexer _redis;
         public IDatabase Db;
+        private readonly string _prefix;
 
         public RedisHelper(RedisOptions options)
         {
@@ -21,6 +22,7 @@ namespace NetModular.Lib.Cache.Redis
 
             _redis = ConnectionMultiplexer.Connect(options.ConnectionString);
             Db = _redis.GetDatabase();
+            _prefix = options.Prefix ?? string.Empty;
         }
 
         public IDatabase GetDb(int db = -1)
@@ -28,21 +30,57 @@ namespace NetModular.Lib.Cache.Redis
             return _redis.GetDatabase(db);
         }
 
+        /// <summary>
+        /// 获取键(附加前缀)
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public string GetKey(string key)
+        {
+            return _prefix + key;
+        }
+
         #region ==String==
 
-        public Task<bool> StringSetAsync<T>(string key, T obj)
+        public bool StringSet<T>(string key, T obj, TimeSpan? expiry = null)
         {
             if (IsBaseType<T>())
             {
-                return Db.StringSetAsync(key, JsonConvert.SerializeObject(obj));
+                return Db.StringSet(GetKey(key), JsonConvert.SerializeObject(obj), expiry);
             }
 
-            return Db.StringSetAsync(key, obj.ToString());
+            return Db.StringSet(GetKey(key), obj.ToString(), expiry);
+        }
+
+        public Task<bool> StringSetAsync<T>(string key, T obj, TimeSpan? expiry = null)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.StringSetAsync(GetKey(key), JsonConvert.SerializeObject(obj), expiry);
+            }
+
+            return Db.StringSetAsync(GetKey(key), obj.ToString(), expiry);
+        }
+
+        public T StringGet<T>(string key)
+        {
+            var cache = Db.StringGet(GetKey(key));
+            if (cache.HasValue)
+            {
+                if (IsBaseType<T>())
+                {
+                    return JsonConvert.DeserializeObject<T>(cache);
+                }
+
+                return cache.To<T>();
+            }
+
+            return default;
         }
 
         public async Task<T> StringGetAsync<T>(string key)
         {
-            var cache = await Db.StringGetAsync(key);
+            var cache = await Db.StringGetAsync(GetKey(key));
             if (cache.HasValue)
             {
                 if (IsBaseType<T>())
@@ -62,9 +100,31 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        public long StringDecrement(string key, long value = 1)
+        {
+            return Db.StringDecrement(GetKey(key), value);
+        }
+
+        /// <summary>
+        /// 字符串减去数值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public Task<long> StringDecrementAsync(string key, long value = 1)
         {
-            return Db.StringDecrementAsync(key, value);
+            return Db.StringDecrementAsync(GetKey(key), value);
+        }
+
+        /// <summary>
+        /// 字符串增加数值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public long StringIncrement(string key, long value = 1)
+        {
+            return Db.StringIncrement(GetKey(key), value);
         }
 
         /// <summary>
@@ -75,7 +135,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public Task<long> StringIncrementAsync(string key, long value = 1)
         {
-            return Db.StringIncrementAsync(key, value);
+            return Db.StringIncrementAsync(GetKey(key), value);
         }
 
         #endregion
@@ -90,14 +150,55 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="field"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public Task HashSetAsync<T>(string key, string field, T obj)
+        public bool HashSet<T>(string key, string field, T obj)
         {
             if (IsBaseType<T>())
             {
-                return Db.HashSetAsync(key, field, JsonConvert.SerializeObject(obj));
+                return Db.HashSet(GetKey(key), field, JsonConvert.SerializeObject(obj));
             }
 
-            return Db.HashSetAsync(key, field, obj.ToString());
+            return Db.HashSet(GetKey(key), field, obj.ToString());
+        }
+
+        /// <summary>
+        /// 设置值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="field"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public Task<bool> HashSetAsync<T>(string key, string field, T obj)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.HashSetAsync(GetKey(key), field, JsonConvert.SerializeObject(obj));
+            }
+
+            return Db.HashSetAsync(GetKey(key), field, obj.ToString());
+        }
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public T HashGet<T>(string key, string field)
+        {
+            var cache = Db.HashGet(GetKey(key), field);
+            if (cache.HasValue)
+            {
+                if (IsBaseType<T>())
+                {
+                    return JsonConvert.DeserializeObject<T>(cache);
+                }
+
+                return cache.To<T>();
+            }
+
+            return default;
         }
 
         /// <summary>
@@ -109,7 +210,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public async Task<T> HashGetAsync<T>(string key, string field)
         {
-            var cache = await Db.HashGetAsync(key, field);
+            var cache = await Db.HashGetAsync(GetKey(key), field);
             if (cache.HasValue)
             {
                 if (IsBaseType<T>())
@@ -129,9 +230,26 @@ namespace NetModular.Lib.Cache.Redis
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
+        public IList<T> HashValues<T>(string key)
+        {
+            var cache = Db.HashValues(GetKey(key));
+            if (cache.Any())
+            {
+                return cache.Select(m => IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m) : m.To<T>()).ToList();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 获取所有值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public async Task<IList<T>> HashValuesAsync<T>(string key)
         {
-            var cache = await Db.HashValuesAsync(key);
+            var cache = await Db.HashValuesAsync(GetKey(key));
             if (cache.Any())
             {
                 return cache.Select(m => IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m) : m.To<T>()).ToList();
@@ -146,9 +264,37 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="key"></param>
         /// <param name="field"></param>
         /// <returns></returns>
-        public Task HashDeleteAsync(string key, string field)
+        public bool HashDelete(string key, string field)
         {
-            return Db.HashDeleteAsync(key, field);
+            return Db.HashDelete(GetKey(key), field);
+        }
+
+        /// <summary>
+        /// 删除值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public Task<bool> HashDeleteAsync(string key, string field)
+        {
+            return Db.HashDeleteAsync(GetKey(key), field);
+        }
+
+        /// <summary>
+        /// 获取所有键值集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public IList<KeyValuePair<string, T>> HashGetAll<T>(string key)
+        {
+            var cache = Db.HashGetAll(GetKey(key));
+            if (cache.Any())
+            {
+                return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m.Value) : m.Value.To<T>())).ToList();
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -159,7 +305,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public async Task<IList<KeyValuePair<string, T>>> HashGetAllAsync<T>(string key)
         {
-            var cache = await Db.HashGetAllAsync(key);
+            var cache = await Db.HashGetAllAsync(GetKey(key));
             if (cache.Any())
             {
                 return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m.Value) : m.Value.To<T>())).ToList();
@@ -175,9 +321,33 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="field"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        public long HashDecrement(string key, string field, long value = 1)
+        {
+            return Db.HashDecrement(GetKey(key), field, value);
+        }
+
+        /// <summary>
+        /// 数值减
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public Task<long> HashDecrementAsync(string key, string field, long value = 1)
         {
-            return Db.HashDecrementAsync(key, field, value);
+            return Db.HashDecrementAsync(GetKey(key), field, value);
+        }
+
+        /// <summary>
+        /// 数值加
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public long HashIncrement(string key, string field, long value = 1)
+        {
+            return Db.HashIncrement(GetKey(key), field, value);
         }
 
         /// <summary>
@@ -189,49 +359,98 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public Task<long> HashIncrementAsync(string key, string field, long value = 1)
         {
-            return Db.HashIncrementAsync(key, field, value);
+            return Db.HashIncrementAsync(GetKey(key), field, value);
         }
 
         #endregion
 
         #region ==Set==
 
+        public bool SetAdd<T>(string key, T obj)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.SetAdd(GetKey(key), JsonConvert.SerializeObject(obj));
+            }
+
+            return Db.SetAdd(GetKey(key), obj.ToString());
+        }
+
         public Task<bool> SetAddAsync<T>(string key, T obj)
         {
             if (IsBaseType<T>())
             {
-                return Db.SetAddAsync(key, JsonConvert.SerializeObject(obj));
+                return Db.SetAddAsync(GetKey(key), JsonConvert.SerializeObject(obj));
             }
 
-            return Db.SetAddAsync(key, obj.ToString());
+            return Db.SetAddAsync(GetKey(key), obj.ToString());
+        }
+
+        public bool SetRemove<T>(string key, T obj)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.SetRemove(GetKey(key), JsonConvert.SerializeObject(obj));
+            }
+            return Db.SetRemove(GetKey(key), obj.ToString());
         }
 
         public Task<bool> SetRemoveAsync<T>(string key, T obj)
         {
             if (IsBaseType<T>())
             {
-                return Db.SetRemoveAsync(key, JsonConvert.SerializeObject(obj));
+                return Db.SetRemoveAsync(GetKey(key), JsonConvert.SerializeObject(obj));
             }
-            return Db.SetRemoveAsync(key, obj.ToString());
+            return Db.SetRemoveAsync(GetKey(key), obj.ToString());
+        }
+
+        public bool SetContains<T>(string key, T obj)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.SetContains(GetKey(key), JsonConvert.SerializeObject(obj));
+            }
+            return Db.SetContains(GetKey(key), obj.ToString());
         }
 
         public Task<bool> SetContainsAsync<T>(string key, T obj)
         {
             if (IsBaseType<T>())
             {
-                return Db.SetContainsAsync(key, JsonConvert.SerializeObject(obj));
+                return Db.SetContainsAsync(GetKey(key), JsonConvert.SerializeObject(obj));
             }
-            return Db.SetContainsAsync(key, obj.ToString());
+            return Db.SetContainsAsync(GetKey(key), obj.ToString());
+        }
+
+        public long SetLength(string key)
+        {
+            return Db.SetLength(GetKey(key));
         }
 
         public Task<long> SetLengthAsync(string key)
         {
-            return Db.SetLengthAsync(key);
+            return Db.SetLengthAsync(GetKey(key));
+        }
+
+        public T SetPop<T>(string key)
+        {
+            var cache = Db.SetPop(GetKey(key));
+            if (cache.HasValue)
+            {
+                if (IsBaseType<T>())
+                {
+                    return JsonConvert.DeserializeObject<T>(cache);
+                }
+
+                return cache.To<T>();
+            }
+
+            return default;
         }
 
         public async Task<T> SetPopAsync<T>(string key)
         {
-            var cache = await Db.SetPopAsync(key);
+            var cache = await Db.SetPopAsync(GetKey(key));
             if (cache.HasValue)
             {
                 if (IsBaseType<T>())
@@ -252,9 +471,29 @@ namespace NetModular.Lib.Cache.Redis
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        public bool KeyDelete(string key)
+        {
+            return Db.KeyDelete(GetKey(key));
+        }
+
+        /// <summary>
+        /// 删除键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Task<bool> KeyDeleteAsync(string key)
         {
-            return Db.KeyDeleteAsync(key);
+            return Db.KeyDeleteAsync(GetKey(key));
+        }
+
+        /// <summary>
+        /// 是否存在键
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool KeyExists(string key)
+        {
+            return Db.KeyExists(GetKey(key));
         }
 
         /// <summary>
@@ -264,7 +503,18 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public Task<bool> KeyExistsAsync(string key)
         {
-            return Db.KeyExistsAsync(key);
+            return Db.KeyExistsAsync(GetKey(key));
+        }
+
+        /// <summary>
+        /// 设置过期时间
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <returns></returns>
+        public bool KeyExpire(string key, DateTime? expiry)
+        {
+            return Db.KeyExpire(GetKey(key), expiry);
         }
 
         /// <summary>
@@ -275,7 +525,18 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public Task<bool> KeyExpireAsync(string key, DateTime? expiry)
         {
-            return Db.KeyExpireAsync(key, expiry);
+            return Db.KeyExpireAsync(GetKey(key), expiry);
+        }
+
+        /// <summary>
+        /// 设置过期时间
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <returns></returns>
+        public bool KeyExpire(string key, TimeSpan? expiry)
+        {
+            return Db.KeyExpire(GetKey(key), expiry);
         }
 
         /// <summary>
@@ -286,7 +547,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public Task<bool> KeyExpireAsync(string key, TimeSpan? expiry)
         {
-            return Db.KeyExpireAsync(key, expiry);
+            return Db.KeyExpireAsync(GetKey(key), expiry);
         }
 
         public void Dispose()

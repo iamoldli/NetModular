@@ -1,50 +1,36 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using NetModular.Lib.Cache.Abstractions;
-using StackExchange.Redis;
 
 namespace NetModular.Lib.Cache.Redis
 {
     public class RedisCacheHandler : ICacheHandler
     {
-        private readonly IDatabase _db;
+        private readonly RedisHelper _helper;
 
         public RedisCacheHandler(RedisHelper helper)
         {
-            _db = helper.GetDb();
+            _helper = helper;
         }
 
         public string Get(string key)
         {
-            return _db.StringGet(key);
+            return _helper.StringGet<string>(key);
         }
 
         public T Get<T>(string key)
         {
-            var value = _db.StringGet(key);
-            if (value.HasValue)
-            {
-                return JsonConvert.DeserializeObject<T>(value);
-            }
-
-            return default;
+            return _helper.StringGet<T>(key);
         }
 
-        public async Task<string> GetAsync(string key)
+        public Task<string> GetAsync(string key)
         {
-            return await _db.StringGetAsync(key);
+            return _helper.StringGetAsync<string>(key);
         }
 
-        public async Task<T> GetAsync<T>(string key)
+        public Task<T> GetAsync<T>(string key)
         {
-            var value = await _db.StringGetAsync(key);
-            if (value.HasValue)
-            {
-                return JsonConvert.DeserializeObject<T>(value);
-            }
-
-            return default;
+            return _helper.StringGetAsync<T>(key);
         }
 
         public bool TryGetValue(string key, out string value)
@@ -71,48 +57,44 @@ namespace NetModular.Lib.Cache.Redis
             return false;
         }
 
-        public void Set<T>(string key, T value)
+        public bool Set<T>(string key, T value)
         {
-            var valueJson = JsonConvert.SerializeObject(value);
-            _db.StringSet(key, valueJson);
+            return _helper.StringSet(key, value);
         }
 
-        public void Set<T>(string key, T value, int expires)
+        public bool Set<T>(string key, T value, int expires)
         {
-            var valueJson = JsonConvert.SerializeObject(value);
-            _db.StringSet(key, valueJson, new TimeSpan(0, 0, expires, 0));
+            return _helper.StringSet(key, value, new TimeSpan(0, 0, expires, 0));
         }
 
-        public Task SetAsync<T>(string key, T value)
+        public Task<bool> SetAsync<T>(string key, T value)
         {
-            var valueJson = JsonConvert.SerializeObject(value);
-            return _db.StringSetAsync(key, valueJson);
+            return _helper.StringSetAsync(key, value);
         }
 
-        public Task SetAsync<T>(string key, T value, int expires)
+        public Task<bool> SetAsync<T>(string key, T value, int expires)
         {
-            var valueJson = JsonConvert.SerializeObject(value);
-            return _db.StringSetAsync(key, valueJson, new TimeSpan(0, 0, expires, 0));
+            return _helper.StringSetAsync(key, value, new TimeSpan(0, 0, expires, 0));
         }
 
-        public void Remove(string key)
+        public bool Remove(string key)
         {
-            _db.KeyDelete(key);
+            return _helper.KeyDelete(key);
         }
 
-        public Task RemoveAsync(string key)
+        public Task<bool> RemoveAsync(string key)
         {
-            return _db.KeyDeleteAsync(key);
+            return _helper.KeyDeleteAsync(key);
         }
 
         public bool Exists(string key)
         {
-            return _db.KeyExists(key);
+            return _helper.KeyExists(key);
         }
 
         public Task<bool> ExistsAsync(string key)
         {
-            return _db.KeyExistsAsync(key);
+            return _helper.KeyExistsAsync(key);
         }
     }
 }

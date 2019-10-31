@@ -1,7 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
     <Authors>Oldli</Authors>
-    <Version>1.4.1</Version>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <LangVersion>Latest</LangVersion>
     <RootNamespacePrefix>NetModular.Lib</RootNamespacePrefix>
