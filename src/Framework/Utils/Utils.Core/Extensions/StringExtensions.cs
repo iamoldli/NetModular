@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace NetModular.Lib.Utils.Core.Extensions
 {
@@ -62,6 +63,31 @@ namespace NetModular.Lib.Utils.Core.Extensions
 
             string str = s.First().ToString().ToUpper() + s.Substring(1);
             return str;
+        }
+
+        /// <summary>
+        /// 转为Base64，UTF-8格式
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToBase64(this string s)
+        {
+            return s.ToBase64(Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 转为Base64
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string ToBase64(this string s, Encoding encoding)
+        {
+            if (s.IsNull())
+                return string.Empty;
+
+            var bytes = encoding.GetBytes(s);
+            return bytes.ToBase64();
         }
     }
 }

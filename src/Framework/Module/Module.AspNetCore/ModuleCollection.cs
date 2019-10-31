@@ -51,20 +51,14 @@ namespace NetModular.Lib.Module.AspNetCore
                         Check.NotNull(assemblyDescriptor.Infrastructure, moduleDescriptor.Id + "模块的Infrastructure程序集未发现");
                         Check.NotNull(assemblyDescriptor.Application, moduleDescriptor.Id + "模块的Application程序集未发现");
 
-                        var controllerAssembly = assemblyDescriptor.Web;
-                        if (controllerAssembly == null)
+                        var controllerAssembly = assemblyDescriptor.Web ?? assemblyDescriptor.Api;
+                        if (controllerAssembly != null)
                         {
-                            controllerAssembly = assemblyDescriptor.Api;
-                        }
-                        if (controllerAssembly == null)
-                        {
-                            throw new DllNotFoundException("模块的Web程序集或Api程序集未发现");
-                        }
-
-                        var initializerType = controllerAssembly.GetTypes().FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
-                        if (initializerType != null && (initializerType != typeof(IModuleInitializer)))
-                        {
-                            moduleDescriptor.Initializer = (IModuleInitializer)Activator.CreateInstance(initializerType);
+                            var initializerType = controllerAssembly.GetTypes().FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+                            if (initializerType != null && (initializerType != typeof(IModuleInitializer)))
+                            {
+                                moduleDescriptor.Initializer = (IModuleInitializer)Activator.CreateInstance(initializerType);
+                            }
                         }
 
                         moduleDescriptor.AssemblyDescriptor = assemblyDescriptor;

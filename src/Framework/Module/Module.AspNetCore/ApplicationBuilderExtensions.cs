@@ -23,7 +23,7 @@ namespace NetModular.Lib.Module.AspNetCore
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).Initializer.Configure(app, env);
+                ((ModuleDescriptor)module).Initializer?.Configure(app, env);
             }
 
             //解析模块信息

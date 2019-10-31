@@ -28,13 +28,10 @@ namespace NetModular.Lib.Validation.FluentValidation
                 {
                     if (module.AssemblyDescriptor != null && module.AssemblyDescriptor is ModuleAssemblyDescriptor descriptor)
                     {
-                        if (descriptor.Web != null)
+                        var assembly = descriptor.Web ?? descriptor.Api;
+                        if (assembly != null)
                         {
-                            fv.RegisterValidatorsFromAssembly(descriptor.Web);
-                        }
-                        else
-                        {
-                            fv.RegisterValidatorsFromAssembly(descriptor.Api);
+                            fv.RegisterValidatorsFromAssembly(assembly);
                         }
                     }
                 }
