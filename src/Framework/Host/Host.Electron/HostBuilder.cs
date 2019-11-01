@@ -49,8 +49,8 @@ namespace NetModular.Lib.Host.Electron
                 {
                     webBuilder
                         .UseElectron(args)
-                        .UseStartup<TStartup>()
                         .UseLogging()
+                        .UseStartup<TStartup>()
                         .UseUrls(hostOptions.Urls);
                 });
         }

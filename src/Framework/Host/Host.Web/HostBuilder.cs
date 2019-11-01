@@ -42,8 +42,8 @@ namespace NetModular.Lib.Host.Web
                     .UseDefaultServiceProvider(options => { options.ValidateOnBuild = false; })
                     .ConfigureWebHostDefaults(webBuilder =>
                     {
-                        webBuilder.UseStartup<TStartup>()
-                            .UseLogging()
+                        webBuilder.UseLogging()
+                            .UseStartup<TStartup>()
                             .UseUrls(hostOptions.Urls);
                     });
         }
