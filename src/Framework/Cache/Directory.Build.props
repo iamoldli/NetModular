@@ -3,5 +3,5 @@
     <Version>1.4.3</Version>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)\src\Framework\Directory.Build.props" />
+  <Import Project="..\Directory.Build.props" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Module.AspNetCore;
 
 namespace NetModular.Lib.Swagger.Core
 {
@@ -18,9 +19,12 @@ namespace NetModular.Lib.Swagger.Core
             app.UseSwaggerUI(c =>
             {
                 if (modules == null) return;
-
+               
                 foreach (var moduleInfo in modules)
                 {
+                    if (((ModuleDescriptor)moduleInfo).Initializer == null)
+                        continue;
+
                     c.SwaggerEndpoint($"/swagger/{moduleInfo.Id}/swagger.json", moduleInfo.Name);
                 }
             });

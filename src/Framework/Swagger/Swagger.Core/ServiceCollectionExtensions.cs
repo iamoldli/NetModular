@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Module.AspNetCore;
 using NetModular.Lib.Swagger.Core.Filters;
 
 namespace NetModular.Lib.Swagger.Core
@@ -22,6 +23,9 @@ namespace NetModular.Lib.Swagger.Core
                 {
                     foreach (var moduleInfo in modules)
                     {
+                        if (((ModuleDescriptor)moduleInfo).Initializer == null)
+                            continue;
+
                         c.SwaggerDoc(moduleInfo.Id, new OpenApiInfo
                         {
                             Title = moduleInfo.Name,
@@ -36,7 +40,7 @@ namespace NetModular.Lib.Swagger.Core
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme= "Bearer"
+                    Scheme = "Bearer"
                 };
 
                 //添加设置Token的按钮
@@ -62,8 +66,8 @@ namespace NetModular.Lib.Swagger.Core
                     }
                 });
 
-            //链接转小写过滤器
-            c.DocumentFilter<LowercaseDocumentFilter>();
+                //链接转小写过滤器
+                c.DocumentFilter<LowercaseDocumentFilter>();
 
                 //描述信息处理
                 c.DocumentFilter<DescriptionDocumentFilter>();

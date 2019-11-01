@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
     <ProjectReference Include="..\Swagger.Abstractions\Swagger.Abstractions.csproj" />
   </ItemGroup>
 
