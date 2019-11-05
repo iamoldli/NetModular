@@ -1,15 +1,20 @@
 ﻿using Microsoft.AspNetCore.Builder;
+#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+#if NETCOREAPP3_0
+using Microsoft.Extensions.Hosting;
+#endif
 using Microsoft.Extensions.Options;
 using NetModular.Lib.Utils.Core.Options;
 using NetModular.Module.Admin.Web.Core;
 using NetModular.Module.Admin.Web.Filters;
-using System.IO;
-using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore;
+using System.IO;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -21,7 +26,11 @@ namespace NetModular.Module.Admin.Web
             services.AddScoped<IPermissionValidateHandler, PermissionValidateHandler>();
         }
 
+#if NETSTANDARD2_0
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+#elif NETCOREAPP3_0
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
+#endif
         {
             var options = app.ApplicationServices.GetService<IOptionsMonitor<ModuleCommonOptions>>().CurrentValue;
 
@@ -30,6 +39,7 @@ namespace NetModular.Module.Admin.Web
             {
                 Directory.CreateDirectory(logoPath);
             }
+
             //开放logo访问权限
             app.UseStaticFiles(new StaticFileOptions
             {

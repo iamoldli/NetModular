@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+#if NETCOREAPP3_0
 using Microsoft.Extensions.Hosting;
+#endif
 using NetModular.Lib.Logging.Serilog;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
@@ -28,6 +30,23 @@ namespace NetModular.Lib.Host.Web
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args"></param>
         /// <returns></returns>
+#if NETSTANDARD2_0
+        public IWebHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
+        {
+            var cfgHelper = new ConfigurationHelper();
+
+            //加载主机配置项
+            var hostOptions = cfgHelper.Get<HostOptions>("Host") ?? new HostOptions();
+
+            if (hostOptions.Urls.IsNull())
+                hostOptions.Urls = "http://*:5000";
+
+            return Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
+                .UseLogging()
+                .UseStartup<TStartup>()
+                .UseUrls(hostOptions.Urls);
+        }
+#elif NETCOREAPP3_0
         public IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
             var cfgHelper = new ConfigurationHelper();
@@ -47,5 +66,6 @@ namespace NetModular.Lib.Host.Web
                             .UseUrls(hostOptions.Urls);
                     });
         }
+#endif
     }
 }

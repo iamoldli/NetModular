@@ -2,8 +2,13 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.Extensions.DependencyInjection;
+#if NETCOREAPP3_0
 using Microsoft.Extensions.Hosting;
+#endif
 using Microsoft.Extensions.Options;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
@@ -13,7 +18,11 @@ namespace NetModular.Lib.Module.AspNetCore
 {
     public static class ApplicationBuilderExtensions
     {
+#if NETSTANDARD2_0
+        public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostingEnvironment env)
+#elif NETCOREAPP3_0
         public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostEnvironment env)
+#endif
         {
             app.UseUpload();
 

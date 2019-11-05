@@ -1,12 +1,17 @@
 ﻿using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+#if NETCOREAPP3_0
 using Microsoft.Extensions.Hosting;
+#endif
 using NetModular.Lib.Host.Web.Middleware;
 using NetModular.Lib.Module.AspNetCore;
 using NetModular.Lib.Swagger.Core;
@@ -24,7 +29,11 @@ namespace NetModular.Lib.Host.Web
         /// <param name="hostOptions"></param>
         /// <param name="env"></param>
         /// <returns></returns>
+#if NETSTANDARD2_0
+        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+#elif NETCOREAPP3_0
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostEnvironment env)
+#endif
         {
             //异常处理
             app.UseExceptionHandle();
@@ -51,8 +60,10 @@ namespace NetModular.Lib.Host.Web
                 });
             }
 
+#if NETCOREAPP3_0
             //路由
             app.UseRouting();
+#endif
 
             //CORS
             app.UseCors("Default");
@@ -60,13 +71,16 @@ namespace NetModular.Lib.Host.Web
             //认证
             app.UseAuthentication();
 
+#if NETCOREAPP3_0
             //授权
             app.UseAuthorization();
 
             //配置端点
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
+#endif
 
             //开启Swagger
             if (hostOptions.Swagger || env.IsDevelopment())
@@ -131,8 +145,11 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
         public static IApplicationBuilder UseShutdownHandler(this IApplicationBuilder app)
         {
+#if NETSTANDARD2_0
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Hosting.IApplicationLifetime>();
+#elif NETCOREAPP3_0
             var applicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
-
+#endif
             applicationLifetime.ApplicationStopping.Register(() =>
             {
                 var handlers = app.ApplicationServices.GetServices<IAppShutdownHandler>().ToList();

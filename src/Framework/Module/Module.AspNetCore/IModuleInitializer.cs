@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
+#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+#if NETCOREAPP3_0
 using Microsoft.Extensions.Hosting;
+#endif
 
 namespace NetModular.Lib.Module.AspNetCore
 {
@@ -21,7 +26,11 @@ namespace NetModular.Lib.Module.AspNetCore
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+#if NETSTANDARD2_0
+        void Configure(IApplicationBuilder app, IHostingEnvironment env);
+#elif NETCOREAPP3_0
         void Configure(IApplicationBuilder app, IHostEnvironment env);
+#endif
 
         /// <summary>
         /// 配置MVC

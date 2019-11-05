@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+#if NETCOREAPP3_0
 using Microsoft.Extensions.Hosting;
+#endif
 using NetModular.Lib.Auth.Jwt;
 using NetModular.Lib.Cache.Integration;
 using NetModular.Lib.Data.Integration;
@@ -26,7 +30,11 @@ namespace NetModular.Lib.Host.Web
         /// <param name="hostOptions"></param>
         /// <param name="env">环境</param>
         /// <returns></returns>
+#if NETSTANDARD2_0
+        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostingEnvironment env)
+#elif NETCOREAPP3_0
         public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostEnvironment env)
+#endif
         {
             services.AddSingleton(hostOptions);
 
@@ -68,13 +76,25 @@ namespace NetModular.Lib.Host.Web
                 }
 
             })
+#if NETSTANDARD2_0
+            .AddJsonOptions(options =>
+            {
+                //设置日期格式化格式
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            })
+#elif NETCOREAPP3_0
             .AddNewtonsoftJson(options =>
             {
                 //设置日期格式化格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             })
+#endif
             .AddValidators(services)//添加验证器
+#if NETSTANDARD2_0
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+#elif NETCOREAPP3_0
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+#endif
 
             //CORS
             services.AddCors(options =>
