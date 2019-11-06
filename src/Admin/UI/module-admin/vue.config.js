@@ -1,6 +1,6 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 // 开发环境
 const isDev = process.env.NODE_ENV === 'development'
 // 打包输出路径
@@ -56,15 +56,14 @@ module.exports = {
       // 非开发环境
       .when(!isDev, config => {
         config.optimization.minimizer([
-          new UglifyJsPlugin({
-            uglifyOptions: {
-              // 移除 console
-              // 其它优化选项 https://segmentfault.com/a/1190000010874406
-              warnings: false,
+          new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false, // Must be set to true if using source-maps in production
+            terserOptions: {
               compress: {
                 drop_console: true,
-                drop_debugger: true,
-                pure_funcs: ['console.log']
+                drop_debugger: true
               }
             }
           })
