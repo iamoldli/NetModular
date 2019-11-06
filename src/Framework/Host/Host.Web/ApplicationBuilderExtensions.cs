@@ -88,6 +88,10 @@ namespace NetModular.Lib.Host.Web
                 app.UseCustomSwagger();
             }
 
+#if NETSTANDARD2_0
+            app.UseMvc();
+#endif
+
             return app;
         }
 
