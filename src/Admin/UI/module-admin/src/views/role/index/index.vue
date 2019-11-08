@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.add" @click="addPage.visible=true" />
+        <nm-button v-bind="buttons.add" @click="addPage.visible=true" />
       </template>
 
       <template v-slot:col-name="{row}">
@@ -25,9 +25,9 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-has :options="buttons.edit" @click="edit(row)" :disabled="row.isSpecified" />
-        <nm-button-has :options="buttons.bindMenu" @click="bindMenu(row)" />
-        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isSpecified" />
+        <nm-button v-bind="buttons.edit" @click="edit(row)" :disabled="row.isSpecified" />
+        <nm-button v-bind="buttons.bindMenu" @click="bindMenu(row)" />
+        <nm-button-delete v-bind="buttons.del" :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isSpecified" />
       </template>
     </nm-list>
 

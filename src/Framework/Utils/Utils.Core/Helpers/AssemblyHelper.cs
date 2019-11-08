@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
-using Newtonsoft.Json;
 
 namespace NetModular.Lib.Utils.Core.Helpers
 {
@@ -23,7 +22,6 @@ namespace NetModular.Lib.Utils.Core.Helpers
             if (predicate != null)
                 list = DependencyContext.Default.RuntimeLibraries.Where(predicate).ToList();
 
-            var str = JsonConvert.SerializeObject(list);
             return list.Select(m =>
             {
                 try

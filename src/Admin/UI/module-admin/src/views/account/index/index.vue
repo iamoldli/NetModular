@@ -27,7 +27,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons="{total}">
-        <nm-button-has :options="buttons.add" @click="add(total)" />
+        <nm-button v-bind="buttons.add" @click="add(total)" />
       </template>
 
       <!--角色-->
@@ -62,13 +62,13 @@
           </span>
           <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
             <el-dropdown-item>
-              <nm-button-has :options="buttons.edit" @click="edit(row)" />
+              <nm-button v-bind="buttons.edit" @click="edit(row)" />
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button-has :options="buttons.resetPassword" @click="resetPassword(row)" />
+              <nm-button v-bind="buttons.resetPassword" @click="resetPassword(row)" />
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button-delete :options="buttons.del" :disabled="row.id===accountId" :action="removeAction" :id="row.id" @success="refresh" />
+              <nm-button-delete v-bind="buttons.del" :disabled="row.id===accountId" :action="removeAction" :id="row.id" @success="refresh" />
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

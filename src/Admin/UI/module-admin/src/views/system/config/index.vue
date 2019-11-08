@@ -31,7 +31,9 @@
       <el-row :gutter="20">
         <el-col :span="5" :offset="1">
           <el-form-item label="登录页：" prop="type">
-            <el-input v-model="form.model.loginOptions.type" placeholder="请输入登录页名称，默认default" />
+            <el-select v-model="form.model.loginOptions.type">
+              <el-option v-for="item in loginOptions.typeOptions" :key="item" :label="item" :value="item"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="5">
@@ -149,6 +151,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('app/system', ['loginOptions']),
     ...mapState('app/token', ['accessToken']),
     logoUpload() {
       return {

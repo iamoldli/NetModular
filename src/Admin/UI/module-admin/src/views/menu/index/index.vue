@@ -20,8 +20,8 @@
 
           <!--按钮-->
           <template v-slot:querybar-buttons="{total}">
-            <nm-button-has :options="buttons.add" @click="add(total)" />
-            <nm-button-has :options="buttons.sort" @click="openSort" />
+            <nm-button v-bind="buttons.add" @click="add(total)" />
+            <nm-button v-bind="buttons.sort" @click="openSort" />
           </template>
 
           <!--类型-->
@@ -53,10 +53,10 @@
               </span>
               <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
                 <el-dropdown-item>
-                  <nm-button-has :options="buttons.edit" @click="edit(row)" />
+                  <nm-button v-bind="buttons.edit" @click="edit(row)" />
                 </el-dropdown-item>
                 <el-dropdown-item>
-                  <nm-button-delete :options="buttons.del" :action="remove" :id="row.id" @success="refresh(true)" />
+                  <nm-button-delete v-bind="buttons.del" :action="remove" :id="row.id" @success="refresh(true)" />
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>

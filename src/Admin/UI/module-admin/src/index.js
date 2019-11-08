@@ -72,6 +72,11 @@ export default {
     // 查询系统信息
     const system = await getSystem()
 
+    // 设置账户类型
+    if (config.accountTypes) {
+      system.loginOptions.accountTypes = config.accountTypes
+    }
+
     // 设置个时间，防止等待页面闪烁
     setTimeout(() => {
       NetModularUI.use({

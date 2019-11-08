@@ -5,24 +5,23 @@
         <el-color-picker v-model="color" size="small" style="position: absolute;top:3px;left:-40px" />
         <el-input class="nm-icon-picker-panel-filter" v-model="filter" placeholder="请输入英文或中文名称" clearable></el-input>
       </template>
-      <div v-for="icon in iconList" :key="icon.code" class="nm-admin-icon-item">
+      <div v-for="icon in filterList" :key="icon" class="nm-admin-icon-item">
         <div class="icon">
-          <nm-icon :name="icon.code" :style="{color}" />
+          <nm-icon :name="icon" :style="{color}" />
         </div>
-        <span class="text">{{icon.name}}</span>
-        <span class="code">{{icon.code}}</span>
+        <span class="text">{{icon}}</span>
       </div>
     </nm-box>
   </nm-container>
 </template>
 <script>
 import page from './page'
-import iconData from 'netmodular-ui/packages/components/icon-picker/data'
 
 export default {
   name: page.name,
   data() {
     return {
+      list: [],
       color: '#333',
       filter: '',
       box: {
@@ -35,15 +34,24 @@ export default {
     }
   },
   computed: {
-    iconList() {
-      if (!this.filter) { return iconData }
+    filterList() {
+      if (!this.filter) { return this.list }
 
       let list = []
-      iconData.forEach(icon => {
-        if (icon.name.indexOf(this.filter) > -1 || icon.code.indexOf(this.filter) > -1) { list.push(icon) }
+      this.list.forEach(icon => {
+        if (icon.indexOf(this.filter) > -1 || icon.indexOf(this.filter) > -1) { list.push(icon) }
       })
       return list
     }
+  },
+  created() {
+    var symbols = document.querySelectorAll('body>svg>symbol')
+    symbols.forEach(m => {
+      this.list.push(m.id.replace('icon-', ''))
+    })
+  },
+  destroyed() {
+    this.list = null
   }
 }
 </script>

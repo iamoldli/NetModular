@@ -39,7 +39,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.sync" @click="sync" />
+        <nm-button v-bind="buttons.sync" @click="sync" />
       </template>
 
       <template v-slot:col-moduleName="{row}">

@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button-has :options="buttons.sync" @click="sync" />
+        <nm-button v-bind="buttons.sync" @click="sync" />
       </template>
 
       <!--是否显示-->
@@ -18,7 +18,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{row}">
-        <nm-button-delete :options="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
+        <nm-button-delete v-bind="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
   </nm-container>
