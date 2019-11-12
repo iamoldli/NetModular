@@ -20,6 +20,7 @@ namespace NetModular.Lib.Data.Core
             if (Transaction != null)
             {
                 Transaction.Commit();
+                Transaction?.Connection?.Close();
                 Transaction = null;
             }
         }
@@ -27,6 +28,7 @@ namespace NetModular.Lib.Data.Core
         public void Rollback()
         {
             Transaction?.Rollback();
+            Transaction?.Connection.Close();
         }
 
         public void Dispose()
