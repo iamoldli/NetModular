@@ -10,10 +10,7 @@ const admin = {
   module,
   routes,
   store,
-  components,
-  callback({ store }) {
-    store.dispatch('app/token/load', null, { root: true })
-  }
+  components
 }
 
 // 模块列表
