@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Threading.Tasks;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -50,6 +51,12 @@ namespace NetModular.Lib.Data.Abstractions
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new();
+
+        /// <summary>
+        /// 创建数据库和表
+        /// </summary>
+        /// <returns></returns>
+        void CreateDatabase();
     }
 
     /// <summary>

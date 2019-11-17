@@ -9,6 +9,7 @@ using Dapper;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.SqlQueryable;
 using NetModular.Lib.Data.Core.SqlQueryable;
 using NetModular.Lib.Utils.Core;
@@ -62,6 +63,7 @@ namespace NetModular.Lib.Data.Core
 
             if (EntityDescriptor.PrimaryKey.IsInt())
             {
+                //自增主键
                 sql += _sqlAdapter.IdentitySql;
                 var id = ExecuteScalar<int>(sql, entity, uow);
                 if (id > 0)
@@ -75,8 +77,10 @@ namespace NetModular.Lib.Data.Core
 
                 return false;
             }
+
             if (EntityDescriptor.PrimaryKey.IsLong())
             {
+                //自增主键
                 sql += _sqlAdapter.IdentitySql;
                 var id = ExecuteScalar<long>(sql, entity, uow);
                 if (id > 0)
@@ -179,7 +183,7 @@ namespace NetModular.Lib.Data.Core
 
             try
             {
-                if (_sqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                if (_sqlAdapter.SqlDialect == SqlDialect.SQLite)
                 {
                     #region ==SQLite使用Dapper的官方方法==
 
@@ -285,7 +289,7 @@ namespace NetModular.Lib.Data.Core
 
             try
             {
-                if (_sqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
+                if (_sqlAdapter.SqlDialect == SqlDialect.SQLite)
                 {
                     #region ==SQLite使用Dapper的官方方法==
 
@@ -486,14 +490,14 @@ namespace NetModular.Lib.Data.Core
         public TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
-            var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
+            var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
             return QuerySingleOrDefault<TEntity>(sql, dynParams, uow);
         }
 
         public Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
         {
             var dynParams = GetParameters(id);
-            var sql = rowLock ? _sql.GetAdnRowLock(tableName) : _sql.Get(tableName);
+            var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
             return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, uow);
         }
 
@@ -639,12 +643,12 @@ namespace NetModular.Lib.Data.Core
 
         public INetSqlQueryable<TEntity> Find()
         {
-            return new NetSqlQueryable<TEntity>(this, null, null);
+            return new NetSqlQueryable<TEntity>(this, null);
         }
 
         public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression)
         {
-            return new NetSqlQueryable<TEntity>(this, expression, null);
+            return new NetSqlQueryable<TEntity>(this, expression);
         }
 
         public INetSqlQueryable<TEntity> Find(string tableName)
@@ -735,12 +739,21 @@ namespace NetModular.Lib.Data.Core
         /// <param name="value"></param>
         private void AppendValue(StringBuilder sqlBuilder, Type type, object value)
         {
-            if (type.IsEnum || type == typeof(bool))
-                sqlBuilder.AppendFormat("{0}", CommonExtensions.ToInt(value));
+            if (type.IsEnum)
+            {
+                sqlBuilder.AppendFormat("{0}", value.ToInt());
+            }
+            else if (type == typeof(bool))
+            {
+                sqlBuilder.AppendFormat("{0}",
+                    EntityDescriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL
+                        ? value
+                        : value.ToInt());
+            }
             else if (type == typeof(string) || type == typeof(char) || type == typeof(Guid))
                 sqlBuilder.AppendFormat("'{0}'", value);
             else if (type == typeof(DateTime))
-                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", CommonExtensions.ToDateTime(value));
+                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", value.ToDateTime());
             else
                 sqlBuilder.AppendFormat("{0}", value);
         }

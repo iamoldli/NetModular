@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Abstractions.Entities
@@ -111,11 +112,13 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Insert(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_insert, _adapter.AppendQuote(tableName));
+            {
+                return string.Format(_insert, GetTableName(tableName));
+            }
 
             if (_defaultInsert.IsNull())
             {
-                _defaultInsert = string.Format(_insert, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultInsert = string.Format(_insert, GetTableName(_descriptor.TableName));
             }
 
             return _defaultInsert;
@@ -134,11 +137,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string BatchInsert(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_batchInsert, _adapter.AppendQuote(tableName));
+                return string.Format(_batchInsert, GetTableName(tableName));
 
             if (_defaultBatchInsert.IsNull())
             {
-                _defaultBatchInsert = string.Format(_batchInsert, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultBatchInsert = string.Format(_batchInsert, GetTableName(_descriptor.TableName));
             }
 
             return _defaultBatchInsert;
@@ -157,11 +160,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string DeleteSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_deleteSingle, _adapter.AppendQuote(tableName));
+                return string.Format(_deleteSingle, GetTableName(tableName));
 
             if (_defaultDeleteSingle.IsNull())
             {
-                _defaultDeleteSingle = string.Format(_deleteSingle, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultDeleteSingle = string.Format(_deleteSingle, GetTableName(_descriptor.TableName));
             }
 
             return _defaultDeleteSingle;
@@ -180,11 +183,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Delete(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_delete, _adapter.AppendQuote(tableName));
+                return string.Format(_delete, GetTableName(tableName));
 
             if (_defaultDelete.IsNull())
             {
-                _defaultDelete = string.Format(_delete, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultDelete = string.Format(_delete, GetTableName(_descriptor.TableName));
             }
 
             return _defaultDelete;
@@ -203,11 +206,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string SoftDeleteSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_softDeleteSingle, _adapter.AppendQuote(tableName));
+                return string.Format(_softDeleteSingle, GetTableName(tableName));
 
             if (_defaultSoftDeleteSingle.IsNull())
             {
-                _defaultSoftDeleteSingle = string.Format(_softDeleteSingle, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultSoftDeleteSingle = string.Format(_softDeleteSingle, GetTableName(_descriptor.TableName));
             }
 
             return _defaultSoftDeleteSingle;
@@ -226,11 +229,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string SoftDelete(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_softDelete, _adapter.AppendQuote(tableName));
+                return string.Format(_softDelete, GetTableName(tableName));
 
             if (_defaultSoftDelete.IsNull())
             {
-                _defaultSoftDelete = string.Format(_softDelete, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultSoftDelete = string.Format(_softDelete, GetTableName(_descriptor.TableName));
             }
 
             return _defaultSoftDelete;
@@ -249,11 +252,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string UpdateSingle(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_updateSingle, _adapter.AppendQuote(tableName));
+                return string.Format(_updateSingle, GetTableName(tableName));
 
             if (_defaultUpdateSingle.IsNull())
             {
-                _defaultUpdateSingle = string.Format(_updateSingle, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultUpdateSingle = string.Format(_updateSingle, GetTableName(_descriptor.TableName));
             }
 
             return _defaultUpdateSingle;
@@ -272,11 +275,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Update(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_update, _adapter.AppendQuote(tableName));
+                return string.Format(_update, GetTableName(tableName));
 
             if (_defaultUpdate.IsNull())
             {
-                _defaultUpdate = string.Format(_update, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultUpdate = string.Format(_update, GetTableName(_descriptor.TableName));
             }
 
             return _defaultUpdate;
@@ -295,11 +298,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Get(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_get, _adapter.AppendQuote(tableName));
+                return string.Format(_get, GetTableName(tableName));
 
             if (_defaultGet.IsNull())
             {
-                _defaultGet = string.Format(_get, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultGet = string.Format(_get, GetTableName(_descriptor.TableName));
             }
 
             return _defaultGet;
@@ -310,19 +313,20 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         #region ==查询单个实体==
 
         private string _defaultGetAdnRowLock;
+
         /// <summary>
         /// 获取单个实体语句(行锁)
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        public string GetAdnRowLock(string tableName)
+        public string GetAndRowLock(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_getAndRowLock, _adapter.AppendQuote(tableName));
+                return string.Format(_getAndRowLock, GetTableName(tableName));
 
             if (_defaultGetAdnRowLock.IsNull())
             {
-                _defaultGetAdnRowLock = string.Format(_getAndRowLock, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultGetAdnRowLock = string.Format(_getAndRowLock, GetTableName(_descriptor.TableName));
             }
 
             return _defaultGetAdnRowLock;
@@ -341,11 +345,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Query(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_query, _adapter.AppendQuote(tableName));
+                return string.Format(_query, GetTableName(tableName));
 
             if (_defaultQuery.IsNull())
             {
-                _defaultQuery = string.Format(_query, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultQuery = string.Format(_query, GetTableName(_descriptor.TableName));
             }
 
             return _defaultQuery;
@@ -364,16 +368,22 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         public string Exists(string tableName)
         {
             if (tableName.NotNull())
-                return string.Format(_exists, _adapter.AppendQuote(tableName));
+                return string.Format(_exists, GetTableName(tableName));
 
             if (_defaultExists.IsNull())
             {
-                _defaultExists = string.Format(_exists, _adapter.AppendQuote(_descriptor.TableName));
+                _defaultExists = string.Format(_exists, GetTableName(_descriptor.TableName));
             }
 
             return _defaultExists;
         }
 
         #endregion
+
+        private string GetTableName(string tableName)
+        {
+            //PostgreSQL数据库需要带上模式(schema)
+            return _adapter.SqlDialect == SqlDialect.PostgreSQL ? $"{_adapter.Database}{_adapter.AppendQuote(tableName)}" : _adapter.AppendQuote(tableName);
+        }
     }
 }

@@ -43,15 +43,14 @@ namespace NetModular.Lib.Data.Core
             ServiceProvider = serviceProvider;
             LoginInfo = Options.LoginInfo;
 
-            if (options.DbOptions.CreateDatabase)
+            if (Options.DbOptions.CreateDatabase)
             {
-                if (options.DatabaseCreateEvents != null)
+                if (Options.DatabaseCreateEvents != null)
                 {
-                    options.DatabaseCreateEvents.DbContext = this;
+                    Options.DatabaseCreateEvents.DbContext = this;
                 }
 
-                options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(options.DbModuleOptions.Name), options.DatabaseCreateEvents);
-
+                CreateDatabase();
             }
         }
 
@@ -120,6 +119,11 @@ namespace NetModular.Lib.Data.Core
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()
         {
             return new DbSet<TEntity>(this);
+        }
+
+        public void CreateDatabase()
+        {
+            Options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(Options.DbModuleOptions.Name), Options.DatabaseCreateEvents);
         }
 
         #endregion

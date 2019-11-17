@@ -18,6 +18,10 @@
         /// </summary>
         SQLite,
         /// <summary>
+        /// PostgreSQL
+        /// </summary>
+        PostgreSQL,
+        /// <summary>
         /// Oracle
         /// </summary>
         Oracle

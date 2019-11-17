@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
@@ -43,8 +44,6 @@ namespace NetModular.Lib.Data.Integration
                 var module = modules.FirstOrDefault(m => m.Id.EqualsIgnoreCase(options.Name));
                 if (module != null)
                 {
-                    LoadEntityTypes(module, options);
-
                     services.AddDbContext(module, options, dbOptions);
                 }
             }
@@ -60,6 +59,12 @@ namespace NetModular.Lib.Data.Integration
                 {
                     dbModuleOptions.Database = dbModuleOptions.Name;
                 }
+
+                //MySql数据库和PostgreSQL模式名称转小写
+                if (options.Dialect == SqlDialect.MySql || options.Dialect == SqlDialect.PostgreSQL)
+                {
+                    dbModuleOptions.Database = dbModuleOptions.Database.ToLower();
+                }
             }
         }
 
@@ -71,6 +76,9 @@ namespace NetModular.Lib.Data.Integration
             var dbContextType = module.AssemblyDescriptor.Infrastructure.GetTypes().FirstOrDefault(m => m.Name.EqualsIgnoreCase(options.Name + "DbContext"));
             if (dbContextType != null)
             {
+                //加载实体列表
+                LoadEntityTypes(module, options);
+
                 var dbContextOptionsAssemblyName = AssemblyHelper.GetCurrentAssemblyName().Replace("Integration", "") + dbOptions.Dialect;
                 var dbContextOptionsTypeName = dbOptions.Dialect + "DbContextOptions";
 

@@ -101,49 +101,46 @@ namespace NetModular.Lib.Data.SqlServer
                 InitialCatalog = "master"
             };
 
-            using (var con = new SqlConnection(connStrBuilder.ToString()))
+            using var con = new SqlConnection(connStrBuilder.ToString());
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            //判断数据库是否已存在
+            cmd.CommandText = $"SELECT TOP 1 1 FROM sysdatabases WHERE name = '{Options.Database}'";
+            var exist = cmd.ExecuteScalar().ToInt() > 0;
+            if (!exist)
             {
+                //执行创建前事件
+                events?.Before().GetAwaiter().GetResult();
 
-                con.Open();
-                var cmd = con.CreateCommand();
-                cmd.CommandType = System.Data.CommandType.Text;
-
-                //判断数据库是否已存在
-                cmd.CommandText = $"SELECT TOP 1 1 FROM sysdatabases WHERE name = '{Options.Database}'";
-                var exist = cmd.ExecuteScalar().ToInt() > 0;
-                if (!exist)
-                {
-                    //执行创建前事件
-                    events?.Before().GetAwaiter().GetResult();
-
-                    //创建数据库
-                    cmd.CommandText = $"CREATE DATABASE [{Options.Database}]";
-                    cmd.ExecuteNonQuery();
-                }
-
-                cmd.CommandText = $"USE [{Options.Database}];";
+                //创建数据库
+                cmd.CommandText = $"CREATE DATABASE [{Options.Database}]";
                 cmd.ExecuteNonQuery();
+            }
 
-                //创建表
-                foreach (var entityDescriptor in entityDescriptors)
+            cmd.CommandText = $"USE [{Options.Database}];";
+            cmd.ExecuteNonQuery();
+
+            //创建表
+            foreach (var entityDescriptor in entityDescriptors)
+            {
+                if (!entityDescriptor.Ignore)
                 {
-                    if (!entityDescriptor.Ignore)
+                    cmd.CommandText = $"SELECT TOP 1 1 FROM sysobjects WHERE id = OBJECT_ID(N'{entityDescriptor.TableName}') AND xtype = 'U';";
+                    var obj = cmd.ExecuteScalar();
+                    if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = $"SELECT TOP 1 1 FROM sysobjects WHERE id = OBJECT_ID(N'{entityDescriptor.TableName}') AND xtype = 'U';";
-                        var obj = cmd.ExecuteScalar();
-                        if (obj.ToInt() < 1)
-                        {
-                            cmd.CommandText = CreateTableSql(entityDescriptor);
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.ExecuteNonQuery();
                     }
                 }
+            }
 
-                if (!exist)
-                {
-                    //执行创建后事件
-                    events?.After().GetAwaiter().GetResult();
-                }
+            if (!exist)
+            {
+                //执行创建后事件
+                events?.After().GetAwaiter().GetResult();
             }
         }
 

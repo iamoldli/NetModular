@@ -67,7 +67,7 @@ namespace NetModular.Lib.Data.Core.Entities
 
         #region ==构造器==
 
-        public EntityDescriptor(string moduleName, Type entityType, ISqlAdapter sqlAdapter, IEntitySqlBuilder sqlBuilder)
+        public EntityDescriptor(string moduleName, Type entityType, ISqlAdapter sqlAdapter)
         {
             ModuleName = moduleName;
 
@@ -87,7 +87,8 @@ namespace NetModular.Lib.Data.Core.Entities
 
             SetColumns();
 
-            Sql = sqlBuilder.Build(this);
+            var sqlBuilder = new EntitySqlBuilder(this);
+            Sql = sqlBuilder.Build();
 
             IsEntityBase = EntityType.IsSubclassOfGeneric(typeof(EntityBase<>)) || EntityType.IsSubclassOfGeneric(typeof(EntityBaseWithSoftDelete<,>));
         }
@@ -102,7 +103,20 @@ namespace NetModular.Lib.Data.Core.Entities
         private void SetTableName()
         {
             var tableArr = EntityType.GetCustomAttribute<TableAttribute>(false);
-            TableName = tableArr != null ? tableArr.Name : EntityType.Name;
+
+            if (tableArr != null)
+            {
+                TableName = tableArr.Name;
+            }
+            else
+            {
+                TableName = EntityType.Name;
+                //去掉Entity后缀
+                if (TableName.EndsWith("Entity"))
+                {
+                    TableName = TableName.Substring(0, TableName.Length - 6);
+                }
+            }
 
             //判断有没有设置前缀
             if (SqlAdapter.Options.Prefix.NotNull())

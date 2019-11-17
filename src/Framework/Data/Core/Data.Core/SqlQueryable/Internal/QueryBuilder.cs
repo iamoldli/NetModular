@@ -67,7 +67,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             Check.NotNull(updateSql, nameof(updateSql), "生成更新sql异常");
 
 
-            sqlBuilder.AppendFormat("UPDATE {0} SET ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("UPDATE {0} SET ", GetTableName(tableName));
             sqlBuilder.Append(updateSql);
 
             SetModifiedBy(sqlBuilder, parameters);
@@ -91,7 +91,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
 
-            sqlBuilder.AppendFormat("DELETE FROM {0} ", _sqlAdapter.AppendQuote(tableName));
+            sqlBuilder.AppendFormat("DELETE FROM {0} ", GetTableName(tableName));
 
             var whereSql = ResolveWhere(parameters);
             Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
@@ -111,8 +111,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             parameters = new QueryParameters();
 
-            var sqlBuilder = new StringBuilder($"UPDATE {_sqlAdapter.AppendQuote(tableName)} SET ");
-            sqlBuilder.AppendFormat("{0}=1,", _sqlAdapter.AppendQuote("Deleted"));
+            var sqlBuilder = new StringBuilder($"UPDATE {GetTableName(tableName)} SET ");
+            sqlBuilder.AppendFormat("{0}={1},", _sqlAdapter.AppendQuote("Deleted"), _sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "TRUE" : "1");
             sqlBuilder.AppendFormat("{0}={1},", _sqlAdapter.AppendQuote("DeletedTime"), _sqlAdapter.AppendParameter("P1"));
             parameters.Add(DateTime.Now);
             sqlBuilder.AppendFormat("{0}={1} ", _sqlAdapter.AppendQuote("DeletedBy"), _sqlAdapter.AppendParameter("P2"));
@@ -167,7 +167,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             var func = _queryBody.Function;
             Check.NotNull(func, nameof(func), "函数解析失败");
 
-            var memberExpression = func.Body as MemberExpression;
+            MemberExpression memberExpression = null;
+            if (func.Body.NodeType == ExpressionType.MemberAccess)
+            {
+                memberExpression = func.Body as MemberExpression;
+            }
+            else if (func.Body.NodeType == ExpressionType.Convert)
+            {
+                memberExpression = (func.Body as UnaryExpression)?.Operand as MemberExpression;
+            }
+
             if (memberExpression == null)
                 throw new ArgumentException("无法解析表达式", nameof(func));
 
@@ -313,11 +322,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             if (_queryBody.JoinDescriptors.Count == 1)
             {
-                sqlBuilder.AppendFormat(" {0}{1} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.TableName));
+                sqlBuilder.AppendFormat(" {0} ", GetTableName(first.TableName));
                 return;
             }
 
-            sqlBuilder.AppendFormat(" {0}{1} AS {2} ", first.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(first.TableName), _sqlAdapter.AppendQuote(first.Alias));
+            sqlBuilder.AppendFormat(" {0} AS {1} ", GetTableName(first.TableName), _sqlAdapter.AppendQuote(first.Alias));
 
             for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
             {
@@ -335,7 +344,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         break;
                 }
 
-                sqlBuilder.AppendFormat("JOIN {0}{1} AS {2} ON ", descriptor.EntityDescriptor.SqlAdapter.Database, _sqlAdapter.AppendQuote(descriptor.TableName), _sqlAdapter.AppendQuote(descriptor.Alias));
+                sqlBuilder.AppendFormat("JOIN {0} AS {1} ON ", GetTableName(descriptor.TableName), _sqlAdapter.AppendQuote(descriptor.Alias));
 
                 sqlBuilder.Append(_resolver.Resolve(descriptor.On, parameters));
             }
@@ -356,6 +365,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             if (_queryBody.FilterDeleted)
             {
+                var val = _sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
                 var sb = new StringBuilder();
 
                 var first = _queryBody.JoinDescriptors.First();
@@ -363,14 +373,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 {
                     if (first.EntityDescriptor.SoftDelete)
                     {
-                        sb.AppendFormat("AND {0}=0 ", _sqlAdapter.AppendQuote("Deleted"));
+                        sb.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote("Deleted"), val);
                     }
                 }
                 else
                 {
                     if (first.EntityDescriptor.SoftDelete)
                     {
-                        sb.AppendFormat("AND {0}.{1}=0 ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote("Deleted"));
+                        sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote("Deleted"), val);
                     }
 
                     for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
@@ -378,7 +388,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         var descriptor = _queryBody.JoinDescriptors[i];
                         if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
                         {
-                            sb.AppendFormat("AND {0}.{1}=0 ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote("Deleted"));
+                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote("Deleted"), val);
                         }
                     }
                 }
@@ -761,6 +771,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 var p2 = parameters.Add(DateTime.Now);
                 sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedTime"), p2);
             }
+        }
+
+        private string GetTableName(string tableName)
+        {
+            return $"{_sqlAdapter.Database}{_sqlAdapter.AppendQuote(tableName)}";
         }
     }
 }

@@ -8,8 +8,7 @@
         /// <summary>
         /// 生成
         /// </summary>
-        /// <param name="descriptor"></param>
         /// <returns></returns>
-        EntitySql Build(IEntityDescriptor descriptor);
+        EntitySql Build();
     }
 }

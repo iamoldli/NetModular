@@ -51,7 +51,6 @@ namespace NetModular.Lib.Data.Abstractions
         /// <returns></returns>
         bool Exists(dynamic id);
 
-
         /// <summary>
         /// 根据id判断是否存在
         /// </summary>

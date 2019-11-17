@@ -54,6 +54,11 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public bool Encrypt { get; set; }
 
         /// <summary>
+        /// PostgreSQL的数据库名称
+        /// </summary>
+        public string NpgsqlDatabaseName { get; set; }
+
+        /// <summary>
         /// 模块列表
         /// </summary>
         public List<DbModuleOptions> Modules { get; set; }

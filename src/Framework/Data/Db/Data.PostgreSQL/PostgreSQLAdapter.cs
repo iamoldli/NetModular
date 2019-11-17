@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MySql.Data.MySqlClient;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -9,47 +8,42 @@ using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
+using Npgsql;
 
-namespace NetModular.Lib.Data.MySql
+namespace NetModular.Lib.Data.PostgreSQL
 {
-    internal class MySqlAdapter : SqlAdapterAbstract
+    internal class PostgreSQLAdapter : SqlAdapterAbstract
     {
-        public MySqlAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
+        public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
         {
         }
 
         public override string Database => AppendQuote(Options.Database) + ".";
 
-        public override SqlDialect SqlDialect => SqlDialect.MySql;
-
-        /// <summary>
-        /// 左引号
-        /// </summary>
-        public override char LeftQuote => '`';
-
-        /// <summary>
-        /// 右引号
-        /// </summary>
-        public override char RightQuote => '`';
+        public override SqlDialect SqlDialect => SqlDialect.PostgreSQL;
 
         /// <summary>
         /// 获取最后新增ID语句
         /// </summary>
-        public override string IdentitySql => "SELECT LAST_INSERT_ID() ID;";
+        public override string IdentitySql => "RETURNING \"Id\";";
 
         public override string FuncLength => "CHAR_LENGTH";
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take)
         {
             var sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("SELECT {0} FROM {1}", select, table);
+            sqlBuilder.AppendFormat("SELECT {0} FROM {1} ", select, table);
             if (!string.IsNullOrWhiteSpace(where))
-                sqlBuilder.AppendFormat(" WHERE {0}", where);
+                sqlBuilder.AppendFormat("WHERE {0} ", where);
 
             if (!string.IsNullOrWhiteSpace(sort))
-                sqlBuilder.AppendFormat(" ORDER BY {0}", sort);
+                sqlBuilder.AppendFormat("ORDER BY {0} ", sort);
 
-            sqlBuilder.AppendFormat(" LIMIT {0},{1}", skip, take);
+            sqlBuilder.AppendFormat("LIMIT {0} ", take);
+            if (skip > 0)
+            {
+                sqlBuilder.AppendFormat("OFFSET {0} ", skip);
+            }
             return sqlBuilder.ToString();
         }
 
@@ -65,25 +59,27 @@ namespace NetModular.Lib.Data.MySql
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
         {
-            var connStrBuilder = new MySqlConnectionStringBuilder
+            var connStrBuilder = new NpgsqlConnectionStringBuilder
             {
-                Server = DbOptions.Server,
-                Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
-                Database = "mysql",
-                UserID = DbOptions.UserId,
-                Password = DbOptions.Password,
-                AllowUserVariables = true,
-                CharacterSet = "utf8",
-                SslMode = MySqlSslMode.None
+                Host = DbOptions.Server,
+                Port = DbOptions.Port > 0 ? DbOptions.Port : 5432,
+                Database = "postgres",
+                Username = DbOptions.UserId,
+                Password = DbOptions.Password
             };
 
-            using var con = new MySqlConnection(connStrBuilder.ToString());
+            if (DbOptions.NpgsqlDatabaseName.NotNull())
+            {
+                connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
+            }
+
+            using var con = new NpgsqlConnection(connStrBuilder.ToString());
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;
 
             //判断数据库是否已存在
-            cmd.CommandText = $"SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{Options.Database}' LIMIT 1;";
+            cmd.CommandText = $"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;";
             var exist = cmd.ExecuteScalar().ToInt() > 0;
             if (!exist)
             {
@@ -91,12 +87,9 @@ namespace NetModular.Lib.Data.MySql
                 events?.Before().GetAwaiter().GetResult();
 
                 //创建数据库
-                cmd.CommandText = $"CREATE DATABASE {Options.Database} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+                cmd.CommandText = $"CREATE SCHEMA {Options.Database};";
                 cmd.ExecuteNonQuery();
             }
-
-            cmd.CommandText = $"USE `{Options.Database}`;";
-            cmd.ExecuteNonQuery();
 
             //创建表
             foreach (var entityDescriptor in entityDescriptors)
@@ -119,28 +112,21 @@ namespace NetModular.Lib.Data.MySql
         {
             var columns = entityDescriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}(", AppendQuote(entityDescriptor.TableName));
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName));
 
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
 
-                sql.AppendFormat("`{0}` ", column.Name);
+                sql.AppendFormat("{0} ", AppendQuote(column.Name));
                 sql.AppendFormat("{0} ", Property2Column(column, out string def));
 
                 if (column.IsPrimaryKey)
                 {
                     sql.Append("PRIMARY KEY ");
-
-                    if (entityDescriptor.PrimaryKey.IsInt() || entityDescriptor.PrimaryKey.IsLong())
-                    {
-                        sql.Append("AUTO_INCREMENT ");
-                    }
-
-                    def = string.Empty;
                 }
 
-                if (!column.Nullable)
+                if (!column.Nullable && !column.IsPrimaryKey)
                 {
                     sql.Append("NOT NULL ");
                 }
@@ -156,7 +142,7 @@ namespace NetModular.Lib.Data.MySql
                 }
             }
 
-            sql.Append(") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;");
+            sql.Append(");");
 
             return sql.ToString();
         }
@@ -186,14 +172,14 @@ namespace NetModular.Lib.Data.MySql
                     def = "DEFAULT 0";
                 }
 
-                return "SMALLINT(3)";
+                return "SMALLINT";
             }
 
             if (propertyType == typeof(Guid))
-                return "CHAR(36)";
+                return "UUID";
 
             var typeCode = Type.GetTypeCode(propertyType);
-            if (typeCode == TypeCode.Char || typeCode == TypeCode.String)
+            if (typeCode == TypeCode.String)
             {
                 if (column.Max)
                     return "TEXT";
@@ -204,13 +190,18 @@ namespace NetModular.Lib.Data.MySql
                 return $"VARCHAR({column.Length})";
             }
 
+            if (typeCode == TypeCode.Char)
+            {
+                return $"CHAR({column.Length})";
+            }
+
             if (typeCode == TypeCode.Boolean)
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT 0";
+                    def = "DEFAULT FALSE";
                 }
-                return "BIT";
+                return "boolean";
             }
 
             if (typeCode == TypeCode.Byte)
@@ -219,20 +210,44 @@ namespace NetModular.Lib.Data.MySql
                 {
                     def = "DEFAULT 0";
                 }
-                return "TINYINT(1)";
+                return "SMALLINT";
             }
 
-            if (typeCode == TypeCode.Int16 || typeCode == TypeCode.Int32)
+            if (typeCode == TypeCode.Int16)
             {
+                if (column.IsPrimaryKey)
+                {
+                    return "SMALLSERIAL";
+                }
+
                 if (!isNullable)
                 {
                     def = "DEFAULT 0";
                 }
-                return "INT";
+                return "SMALLINT";
+            }
+
+            if (typeCode == TypeCode.Int32)
+            {
+                if (column.IsPrimaryKey)
+                {
+                    return "SERIAL";
+                }
+
+                if (!isNullable)
+                {
+                    def = "DEFAULT 0";
+                }
+                return "INTEGER";
             }
 
             if (typeCode == TypeCode.Int64)
             {
+                if (column.IsPrimaryKey)
+                {
+                    return "BIGSERIAL";
+                }
+
                 if (!isNullable)
                 {
                     def = "DEFAULT 0";
@@ -244,48 +259,19 @@ namespace NetModular.Lib.Data.MySql
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT CURRENT_TIMESTAMP(0)";
+                    def = "DEFAULT CURRENT_TIMESTAMP";
                 }
-                return "DATETIME(0)";
+                return "TIMESTAMP";
             }
 
-            if (typeCode == TypeCode.Decimal)
+            if (typeCode == TypeCode.Decimal || typeCode == TypeCode.Double || typeCode == TypeCode.Single)
             {
                 if (!isNullable)
                 {
                     def = "DEFAULT 0";
                 }
 
-                var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
-                var d = column.PrecisionD < 1 ? 4 : column.PrecisionD;
-
-                return $"DECIMAL({m},{d})";
-            }
-
-            if (typeCode == TypeCode.Double)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-
-                var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
-                var d = column.PrecisionD < 1 ? 4 : column.PrecisionD;
-
-                return $"DOUBLE({m},{d})";
-            }
-
-            if (typeCode == TypeCode.Single)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-
-                var m = column.PrecisionM < 1 ? 18 : column.PrecisionM;
-                var d = column.PrecisionD < 1 ? 4 : column.PrecisionD;
-
-                return $"FLOAT({m},{d})";
+                return "MONEY";
             }
 
             return string.Empty;
