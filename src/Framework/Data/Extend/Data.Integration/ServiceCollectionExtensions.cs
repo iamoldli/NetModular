@@ -66,6 +66,12 @@ namespace NetModular.Lib.Data.Integration
                     dbModuleOptions.Database = dbModuleOptions.Database.ToLower();
                 }
             }
+
+            //PostgreSQL数据库名称转小写
+            if (options.NpgsqlDatabaseName.NotNull() && options.Dialect == SqlDialect.PostgreSQL)
+            {
+                options.NpgsqlDatabaseName = options.NpgsqlDatabaseName.ToLower();
+            }
         }
 
         /// <summary>

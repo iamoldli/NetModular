@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dapper;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -72,25 +73,31 @@ namespace NetModular.Lib.Data.PostgreSQL
 
             if (DbOptions.NpgsqlDatabaseName.NotNull())
             {
+                using var con1 = new NpgsqlConnection(connStrBuilder.ToString());
+                con1.Open();
+                var existsDatabase = con1.ExecuteScalar($"SELECT 1 FROM pg_catalog.pg_database u where u.datname='{DbOptions.NpgsqlDatabaseName}';").ToInt() > 0;
+                if (!existsDatabase)
+                {
+                    //创建数据库
+                    con1.Execute($"CREATE DATABASE {DbOptions.NpgsqlDatabaseName};");
+                }
+                con1.Close();
+
                 connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
             }
 
             using var con = new NpgsqlConnection(connStrBuilder.ToString());
             con.Open();
-            var cmd = con.CreateCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
 
             //判断数据库是否已存在
-            cmd.CommandText = $"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;";
-            var exist = cmd.ExecuteScalar().ToInt() > 0;
+            var exist = con.ExecuteScalar($"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;").ToInt() > 0;
             if (!exist)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
 
                 //创建数据库
-                cmd.CommandText = $"CREATE SCHEMA {Options.Database};";
-                cmd.ExecuteNonQuery();
+                con.Execute($"CREATE SCHEMA {Options.Database};");
             }
 
             //创建表
@@ -98,8 +105,7 @@ namespace NetModular.Lib.Data.PostgreSQL
             {
                 if (!entityDescriptor.Ignore)
                 {
-                    cmd.CommandText = CreateTableSql(entityDescriptor);
-                    cmd.ExecuteNonQuery();
+                    con.Execute(CreateTableSql(entityDescriptor));
                 }
             }
 
@@ -108,6 +114,8 @@ namespace NetModular.Lib.Data.PostgreSQL
                 //执行创建后事件
                 events?.After().GetAwaiter().GetResult();
             }
+
+            con.Close();
         }
 
         private string CreateTableSql(IEntityDescriptor entityDescriptor)
