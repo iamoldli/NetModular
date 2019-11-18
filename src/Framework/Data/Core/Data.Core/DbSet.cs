@@ -398,13 +398,17 @@ namespace NetModular.Lib.Data.Core
         public bool Delete(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return Execute(_sql.DeleteSingle(tableName), dynParams, uow) > 0;
+            var sql = _sql.DeleteSingle(tableName);
+            _logger?.LogDebug("Delete:{@sql}", sql);
+            return Execute(sql, dynParams, uow) > 0;
         }
 
         public async Task<bool> DeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
             var dynParams = GetDeleteParameters(id);
-            return await ExecuteAsync(_sql.DeleteSingle(tableName), dynParams, uow) > 0;
+            var sql = _sql.DeleteSingle(tableName);
+            _logger?.LogDebug("DeleteAsync:{@sql}", sql);
+            return await ExecuteAsync(sql, dynParams, uow) > 0;
         }
 
         #endregion
@@ -435,8 +439,9 @@ namespace NetModular.Lib.Data.Core
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
-
-            return Execute(_sql.SoftDeleteSingle(tableName), dynParams, uow) > 0;
+            var sql = _sql.SoftDeleteSingle(tableName);
+            _logger?.LogDebug("SoftDelete:{@sql}", sql);
+            return Execute(sql, dynParams, uow) > 0;
         }
 
         public async Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
@@ -445,7 +450,9 @@ namespace NetModular.Lib.Data.Core
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
-            return await ExecuteAsync(_sql.SoftDeleteSingle(tableName), dynParams, uow) > 0;
+            var sql = _sql.SoftDeleteSingle(tableName);
+            _logger?.LogDebug("SoftDeleteAsync:{@sql}", sql);
+            return await ExecuteAsync(sql, dynParams, uow) > 0;
         }
 
         #endregion
@@ -465,13 +472,17 @@ namespace NetModular.Lib.Data.Core
         public bool Update(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return Execute(_sql.UpdateSingle(tableName), entity, uow) > 0;
+            var sql = _sql.UpdateSingle(tableName);
+            _logger?.LogDebug("Update:{@sql}", sql);
+            return Execute(sql, entity, uow) > 0;
         }
 
         public async Task<bool> UpdateAsync(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             UpdateCheck(entity);
-            return await ExecuteAsync(_sql.UpdateSingle(tableName), entity, uow) > 0;
+            var sql = _sql.UpdateSingle(tableName);
+            _logger?.LogDebug("UpdateAsync:{@sql}", sql);
+            return await ExecuteAsync(sql, entity, uow) > 0;
         }
 
         #endregion
@@ -491,6 +502,7 @@ namespace NetModular.Lib.Data.Core
         {
             var dynParams = GetParameters(id);
             var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
+            _logger?.LogDebug("Get:{@sql}", sql);
             return QuerySingleOrDefault<TEntity>(sql, dynParams, uow);
         }
 
@@ -498,6 +510,7 @@ namespace NetModular.Lib.Data.Core
         {
             var dynParams = GetParameters(id);
             var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
+            _logger?.LogDebug("GetAsync:{@sql}", sql);
             return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, uow);
         }
 
@@ -512,7 +525,10 @@ namespace NetModular.Lib.Data.Core
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return QuerySingleOrDefault<int>(_sql.Exists(tableName), dynParams, uow) > 0;
+            var sql = _sql.Exists(tableName);
+            _logger?.LogDebug("Exists:{@sql}", sql);
+
+            return QuerySingleOrDefault<int>(sql, dynParams, uow) > 0;
         }
 
         public async Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
@@ -522,7 +538,9 @@ namespace NetModular.Lib.Data.Core
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            return (await QuerySingleOrDefaultAsync<int>(_sql.Exists(tableName), dynParams, uow)) > 0;
+            var sql = _sql.Exists(tableName);
+            _logger?.LogDebug("ExistsAsync:{@sql}", sql);
+            return (await QuerySingleOrDefaultAsync<int>(sql, dynParams, uow)) > 0;
         }
 
         #endregion
