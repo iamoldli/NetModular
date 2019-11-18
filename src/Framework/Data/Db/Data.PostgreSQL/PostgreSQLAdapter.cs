@@ -25,9 +25,11 @@ namespace NetModular.Lib.Data.PostgreSQL
         /// <summary>
         /// 获取最后新增ID语句
         /// </summary>
-        public override string IdentitySql => "RETURNING \"Id\";";
+        public override string IdentitySql => "RETURNING \"id\";";
 
         public override string FuncLength => "CHAR_LENGTH";
+
+        public override bool ToLower => true;
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take)
         {
@@ -112,13 +114,13 @@ namespace NetModular.Lib.Data.PostgreSQL
         {
             var columns = entityDescriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName));
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName.ToLower()));
 
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
 
-                sql.AppendFormat("{0} ", AppendQuote(column.Name));
+                sql.AppendFormat("{0} ", AppendQuote(column.Name.ToLower()));
                 sql.AppendFormat("{0} ", Property2Column(column, out string def));
 
                 if (column.IsPrimaryKey)

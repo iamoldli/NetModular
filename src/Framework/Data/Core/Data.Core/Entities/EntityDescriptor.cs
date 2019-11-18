@@ -127,6 +127,11 @@ namespace NetModular.Lib.Data.Core.Entities
                     TableName = SqlAdapter.Options.Prefix + TableName;
                 }
             }
+
+            if (SqlAdapter.ToLower)
+            {
+                TableName = TableName.ToLower();
+            }
         }
 
         /// <summary>

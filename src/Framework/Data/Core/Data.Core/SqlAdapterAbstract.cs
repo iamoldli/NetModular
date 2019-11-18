@@ -52,6 +52,8 @@ namespace NetModular.Lib.Data.Core
 
         public virtual string FuncUpper => "UPPER";
 
+        public virtual bool ToLower => false;
+
         /// <summary>
         /// 附加引号
         /// </summary>
@@ -59,7 +61,11 @@ namespace NetModular.Lib.Data.Core
         /// <returns></returns>
         public string AppendQuote(string value)
         {
-            return $"{LeftQuote}{value?.Trim()}{RightQuote}";
+            var val = value?.Trim();
+            if (val != null && ToLower)
+                val = val.ToLower();
+
+            return $"{LeftQuote}{val}{RightQuote}";
         }
 
         /// <summary>

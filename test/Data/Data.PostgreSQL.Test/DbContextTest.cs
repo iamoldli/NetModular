@@ -37,7 +37,7 @@ namespace Data.PostgreSQL.Test
             try
             {
                 using var con = DbContext.NewConnection();
-                con.Execute("DROP TABLE nm_blog.\"Article\";DROP TABLE nm_blog.\"Category\";DROP SCHEMA nm_blog;");
+                con.Execute("DROP TABLE nm_blog.article;DROP TABLE nm_blog.category;DROP SCHEMA nm_blog;");
             }
             catch
             {

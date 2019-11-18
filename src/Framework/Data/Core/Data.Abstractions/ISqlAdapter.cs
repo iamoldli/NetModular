@@ -71,6 +71,11 @@ namespace NetModular.Lib.Data.Abstractions
         /// </summary>
         string FuncUpper { get; }
 
+        /// <summary>
+        /// 命名小写
+        /// </summary>
+        bool ToLower { get; }
+
         #endregion
 
         #region ==方法==

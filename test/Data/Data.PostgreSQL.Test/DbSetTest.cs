@@ -301,7 +301,7 @@ namespace Data.PostgreSQL.Test
         {
             var val = await _db.Find().GroupBy(m => new { m.ReadCount }).Select(m => new { m.Key.ReadCount }).FirstAsync();
 
-            Assert.True(val.ReadCount > 0);
+            Assert.True(val.readcount > 0);
         }
 
         [Fact]
