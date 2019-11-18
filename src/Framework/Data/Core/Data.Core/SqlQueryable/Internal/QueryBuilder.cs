@@ -344,7 +344,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         break;
                 }
 
-                sqlBuilder.AppendFormat("JOIN {0} AS {1} ON ", GetTableName(descriptor.TableName), _sqlAdapter.AppendQuote(descriptor.Alias));
+                sqlBuilder.AppendFormat("JOIN {0} AS {1} ON ", GetTableName(descriptor.TableName, descriptor.EntityDescriptor.SqlAdapter.Database), _sqlAdapter.AppendQuote(descriptor.Alias));
 
                 sqlBuilder.Append(_resolver.Resolve(descriptor.On, parameters));
             }
@@ -773,9 +773,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private string GetTableName(string tableName)
+        private string GetTableName(string tableName, string database = null)
         {
-            return $"{_sqlAdapter.Database}{_sqlAdapter.AppendQuote(tableName)}";
+            return $"{database ?? _sqlAdapter.Database}{_sqlAdapter.AppendQuote(tableName)}";
         }
     }
 }
