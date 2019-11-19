@@ -119,72 +119,21 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         INetSqlQueryable<TEntity> WhereNotNull(string condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
 
         /// <summary>
-        /// GUID不为Null以及Empty的时候添加过滤
+        /// 字符串不为Null以及空字符串的时候添加过滤
         /// </summary>
         /// <param name="condition"></param>
         /// <param name="expression"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(Guid? condition, Expression<Func<TEntity, bool>> expression);
+        INetSqlQueryable<TEntity> WhereNotNull(object condition, Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
-        /// GUID不为Null以及Empty的时候添加ifExpression，反之添加elseExpression
+        /// 字符串不为Null以及空字符串的时候添加ifExpression，反之添加elseExpression
         /// </summary>
         /// <param name="condition"></param>
         /// <param name="ifExpression"></param>
         /// <param name="elseExpression"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(Guid? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
-
-        /// <summary>
-        /// 数值不为Null的时候添加过滤
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(int? condition, Expression<Func<TEntity, bool>> expression);
-
-        /// <summary>
-        /// 数值不为Null的时候添加ifExpression，反之添加elseExpression
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="ifExpression"></param>
-        /// <param name="elseExpression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(int? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
-
-        /// <summary>
-        /// 数值不为Null的时候添加过滤
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(long? condition, Expression<Func<TEntity, bool>> expression);
-
-        /// <summary>
-        /// 数值不为Null的时候添加ifExpression，反之添加elseExpression
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="ifExpression"></param>
-        /// <param name="elseExpression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(long? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
-
-        /// <summary>
-        /// 日期不为Null的时候添加过滤
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(DateTime? condition, Expression<Func<TEntity, bool>> expression);
-
-        /// <summary>
-        /// 日期不为Null的时候添加ifExpression，反之添加elseExpression
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="ifExpression"></param>
-        /// <param name="elseExpression"></param>
-        /// <returns></returns>
-        INetSqlQueryable<TEntity> WhereNotNull(DateTime? condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
+        INetSqlQueryable<TEntity> WhereNotNull(object condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression);
 
         /// <summary>
         /// GUID不为空的时候添加过滤条件

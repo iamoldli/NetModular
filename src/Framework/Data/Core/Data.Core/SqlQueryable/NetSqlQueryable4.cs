@@ -119,21 +119,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(Guid? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
-        {
-            if (condition != null && condition.Value.NotEmpty())
-                Where(expression);
-
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(Guid? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
-        {
-            Where(condition != null && condition.Value.NotEmpty() ? ifExpression : elseExpression);
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(int? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(object condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
         {
             if (condition != null)
                 Where(expression);
@@ -141,35 +127,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(int? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
-        {
-            Where(condition != null ? ifExpression : elseExpression);
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(long? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
-        {
-            if (condition != null)
-                Where(expression);
-
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(long? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
-        {
-            Where(condition != null ? ifExpression : elseExpression);
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(DateTime? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> expression)
-        {
-            if (condition != null)
-                Where(expression);
-
-            return this;
-        }
-
-        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(DateTime? condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> WhereNotNull(object condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> elseExpression)
         {
             Where(condition != null ? ifExpression : elseExpression);
             return this;
