@@ -1,45 +1,45 @@
 {
-    "name": "netmodular-module-admin",
-    "code": "admin",
-    "version": "1.0.3",
-    "description": "NetModular前端Admin模块组件",
-    "author": "Oldli",
-    "license": "ISC",
-    "main": "src/index.js",
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint",
-        "cm": "rimraf node_modules",
-        "cc": "rimraf node_modules/.cache",
-        "i": "cd ./script && npm_install.ps1",
-        "up": "cd ./script && npm_update.ps1",
-        "pub": "cd ./script && npm_publish.ps1"
-    },
-    "dependencies": {
-        "netmodular-ui": "^1.0.0",
-        "netmodular-skins-classics": "^1.0.0"
-    },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.11.0",
-        "@vue/cli-plugin-eslint": "^3.11.0",
-        "@vue/cli-service": "^3.11.0",
-        "@vue/eslint-config-standard": "^4.0.0",
-        "babel-eslint": "^10.0.3",
-        "eslint": "^6.4.0",
-        "eslint-config-elemefe": "^0.3.0",
-        "eslint-plugin-html": "^6.0.0",
-        "eslint-plugin-json": "^1.4.0",
-        "eslint-plugin-vue": "^5.2.3",
-        "fibers": "^4.0.1",
-        "rimraf": "^3.0.0",
-        "sass": "^1.22.12",
-        "sass-loader": "^7.3.1",
-        "terser-webpack-plugin": "^2.2.1",
-        "vue-template-compiler": "^2.6.10"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/iamoldli/NetModular"
-    }
+  "name": "netmodular-module-admin",
+  "code": "admin",
+  "version": "1.0.4",
+  "description": "NetModular前端Admin模块组件",
+  "author": "Oldli",
+  "license": "ISC",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "cm": "rimraf node_modules",
+    "cc": "rimraf node_modules/.cache",
+    "i": "cd ./script && npm_install.ps1",
+    "up": "cd ./script && npm_update.ps1",
+    "pub": "cd ./script && npm_publish.ps1"
+  },
+  "dependencies": {
+    "netmodular-ui": "^1.0.0",
+    "netmodular-skins-classics": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-router": "^4.0.0",
+    "@vue/cli-plugin-vuex": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "prettier": "^1.18.2",
+    "raw-loader": "^3.1.0",
+    "rimraf": "^3.0.0",
+    "sass": "^1.22.10",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamoldli/NetModular"
+  }
 }

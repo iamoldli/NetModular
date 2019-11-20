@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '配置项管理'
   this.name = 'admin_config'
   this.path = '/admin/config'
@@ -31,7 +31,7 @@ const page = new function() {
       permissions: [`${this.name}_delete_delete`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

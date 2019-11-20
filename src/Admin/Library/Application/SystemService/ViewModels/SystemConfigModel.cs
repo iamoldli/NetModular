@@ -69,6 +69,11 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         /// 登录配置项
         /// </summary>
         public SystemLoginOptions LoginOptions { get; set; } = new SystemLoginOptions();
+
+        /// <summary>
+        /// 版权声明
+        /// </summary>
+        public string Copyright { get; set; }
     }
 
     /// <summary>
@@ -198,5 +203,9 @@ namespace NetModular.Module.Admin.Application.SystemService.ViewModels
         /// </summary>
         public const string LoginOptionsVerifyCode = "sys_login_options_verify_code";
 
+        /// <summary>
+        /// 版权申明
+        /// </summary>
+        public const string Copyright = "sys_copyright";
     }
 }

@@ -16,7 +16,6 @@ module.exports = {
   devServer: {
     port: 5220
   },
-  transpileDependencies: ['netmodular-.*', 'element-ui'],
   configureWebpack: {
     plugins: [
       // 复制netmodular-ui/public目录下的文件到输出目录

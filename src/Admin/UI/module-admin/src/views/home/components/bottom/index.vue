@@ -73,7 +73,7 @@ export default {
               fontSize: 15,
               margin: 8,
               interval: 0,
-              formatter: function (val) {
+              formatter: function(val) {
                 return val.split('').join('\n')
               }
             },
@@ -138,7 +138,6 @@ export default {
             min: 0,
             boundaryGap: [0.2, 0.2]
           }
-
         ],
         series: [
           {
@@ -155,13 +154,23 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                  offset: 0,
-                  color: '#4889fb' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#15b3ff' // 100% 处的颜色
-                }], false)
+                color: new this.$echarts.graphic.LinearGradient(
+                  0,
+                  1,
+                  0,
+                  0,
+                  [
+                    {
+                      offset: 0,
+                      color: '#4889fb' // 0% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: '#15b3ff' // 100% 处的颜色
+                    }
+                  ],
+                  false
+                )
               }
             },
             barWidth: '40%',
@@ -196,7 +205,7 @@ export default {
       let chart = this.$echarts.init(this.$refs.chart)
       this.chart = chart
       this.chart.setOption(this.options)
-      window.addEventListener('resize', function () {
+      window.addEventListener('resize', function() {
         chart.resize()
       })
     }

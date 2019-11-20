@@ -1,12 +1,6 @@
 <template>
   <nm-dialog no-scrollbar width="70%" height="70%" title="绑定菜单" icon="bind" :visible.sync="visible_" :loading="loading">
-    <menu-bind
-      :id="id"
-      :menu-query-action="menuQueryAction"
-      :menu-update-action="menuUpdateAction"
-      :button-query-action="buttonQueryAction"
-      :button-update-action="buttonUpdateAction"
-    />
+    <menu-bind :id="id" :menu-query-action="menuQueryAction" :menu-update-action="menuUpdateAction" :button-query-action="buttonQueryAction" :button-update-action="buttonUpdateAction" />
   </nm-dialog>
 </template>
 <script>

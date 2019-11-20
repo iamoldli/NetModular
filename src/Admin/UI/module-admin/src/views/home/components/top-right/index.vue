@@ -14,7 +14,7 @@
       ></el-date-picker>
     </template>
     <template v-slot:toolbar>
-      <nm-button icon="refresh"/>
+      <nm-button icon="refresh" />
     </template>
     <div ref="chart" style="width:100%;height:100%"></div>
   </nm-box>
@@ -55,11 +55,7 @@ export default {
             show: false,
             alignWithLabel: true
           },
-          data: [
-            '武汉', '襄阳', '黄冈', '荆门', '十堰', '随州',
-            '鄂州', '恩施', '宜昌', '孝感', '咸宁', '仙桃',
-            '潜江', '天门', '黄石', '荆州', '神农架'
-          ]
+          data: ['武汉', '襄阳', '黄冈', '荆门', '十堰', '随州', '鄂州', '恩施', '宜昌', '孝感', '咸宁', '仙桃', '潜江', '天门', '黄石', '荆州', '神农架']
         },
         yAxis: {
           axisLine: {
@@ -82,59 +78,56 @@ export default {
             }
           }
         },
-        series: [{
-          type: 'line',
-          symbol: 'circle',
-          symbolSize: 7,
-          lineStyle: {
-            color: 'rgb(33,148,246)',
-            shadowBlur: 12,
-            shadowColor: 'rgb(33,148,246,0.9)',
-            shadowOffsetX: 1,
-            shadowOffsetY: 1
-          },
-          itemStyle: {
-            color: 'rgb(33,148,246)',
-            borderWidth: 1,
-            borderColor: '#FFF'
-          },
-          label: {
-            show: false,
-            distance: 1,
-            emphasis: {
-              show: true,
-              offset: [25, -2],
-              color: '#FFF',
-              padding: [8, 20, 8, 6],
-              // width:60,
-              height: 36,
-              formatter: function (params) {
-                var name = params.name
-                var value = params.data
-                var str = name + '\n数据量：' + value
-                return str
-              },
-              rich: {
-                bg: {
-                  width: 78,
-                  // height:42,
-                  color: '#FFF',
-                  padding: [20, 0, 20, 10]
+        series: [
+          {
+            type: 'line',
+            symbol: 'circle',
+            symbolSize: 7,
+            lineStyle: {
+              color: 'rgb(33,148,246)',
+              shadowBlur: 12,
+              shadowColor: 'rgb(33,148,246,0.9)',
+              shadowOffsetX: 1,
+              shadowOffsetY: 1
+            },
+            itemStyle: {
+              color: 'rgb(33,148,246)',
+              borderWidth: 1,
+              borderColor: '#FFF'
+            },
+            label: {
+              show: false,
+              distance: 1,
+              emphasis: {
+                show: true,
+                offset: [25, -2],
+                color: '#FFF',
+                padding: [8, 20, 8, 6],
+                // width:60,
+                height: 36,
+                formatter: function(params) {
+                  var name = params.name
+                  var value = params.data
+                  var str = name + '\n数据量：' + value
+                  return str
                 },
-                br: {
-                  width: '100%',
-                  height: '100%'
+                rich: {
+                  bg: {
+                    width: 78,
+                    // height:42,
+                    color: '#FFF',
+                    padding: [20, 0, 20, 10]
+                  },
+                  br: {
+                    width: '100%',
+                    height: '100%'
+                  }
                 }
-
               }
-            }
-          },
-          data: [
-            2000, 1800, 2800, 900, 1600, 2000,
-            3000, 2030, 1356, 1900, 4000, 3000,
-            2000, 3000, 4200, 3200, 3800
-          ]
-        }]
+            },
+            data: [2000, 1800, 2800, 900, 1600, 2000, 3000, 2030, 1356, 1900, 4000, 3000, 2000, 3000, 4200, 3200, 3800]
+          }
+        ]
       }
     }
   },
@@ -143,7 +136,7 @@ export default {
       let chart = this.$echarts.init(this.$refs.chart)
       this.chart = chart
       this.chart.setOption(this.options)
-      window.addEventListener('resize', function () {
+      window.addEventListener('resize', function() {
         chart.resize()
       })
     }

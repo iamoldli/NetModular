@@ -26,15 +26,15 @@
       </template>
 
       <!--按钮-->
-      <template v-slot:querybar-buttons="{total}">
+      <template v-slot:querybar-buttons="{ total }">
         <nm-button v-bind="buttons.add" @click="add(total)" />
       </template>
 
       <!--角色-->
-      <template v-slot:col-roles="{row}">
-        <template v-if="row.roles&&row.roles.length>0">
-          <template v-for="(role,index) in row.roles">
-            <el-tag :key="role.value" :text="role.label">{{role.label}}</el-tag>
+      <template v-slot:col-roles="{ row }">
+        <template v-if="row.roles && row.roles.length > 0">
+          <template v-for="(role, index) in row.roles">
+            <el-tag :key="role.value" :text="role.label">{{ role.label }}</el-tag>
             <template v-if="index < row.roles.length - 1">、</template>
           </template>
         </template>
@@ -42,19 +42,19 @@
       </template>
 
       <!--状态-->
-      <template v-slot:col-status="{row}">
-        <el-tag v-if="row.status===0" type="info">未激活</el-tag>
-        <el-tag v-else-if="row.status===1" type="success">正常</el-tag>
-        <el-tag v-else-if="row.status===2" type="warning">禁用</el-tag>
-        <el-tag v-else-if="row.status===3" type="danger">注销</el-tag>
+      <template v-slot:col-status="{ row }">
+        <el-tag v-if="row.status === 0" type="info">未激活</el-tag>
+        <el-tag v-else-if="row.status === 1" type="success">正常</el-tag>
+        <el-tag v-else-if="row.status === 2" type="warning">禁用</el-tag>
+        <el-tag v-else-if="row.status === 3" type="danger">注销</el-tag>
       </template>
 
       <!--登录时间-->
-      <template v-slot:col-loginTime="{row}">{{row.status===0?'未登录':row.loginTime}}</template>
-      <template v-slot:col-loginIP="{row}">{{row.status===0?'未登录':row.loginIP}}</template>
+      <template v-slot:col-loginTime="{ row }">{{ row.status === 0 ? '未登录' : row.loginTime }}</template>
+      <template v-slot:col-loginIP="{ row }">{{ row.status === 0 ? '未登录' : row.loginIP }}</template>
 
       <!--操作列-->
-      <template v-slot:col-operation="{row}">
+      <template v-slot:col-operation="{ row }">
         <el-dropdown trigger="click" v-if="!row.isLock">
           <span class="el-dropdown-link">
             操作
@@ -68,7 +68,7 @@
               <nm-button v-bind="buttons.resetPassword" @click="resetPassword(row)" />
             </el-dropdown-item>
             <el-dropdown-item>
-              <nm-button-delete v-bind="buttons.del" :disabled="row.id===accountId" :action="removeAction" :id="row.id" @success="refresh" />
+              <nm-button-delete v-bind="buttons.del" :disabled="row.id === accountId" :action="removeAction" :id="row.id" @success="refresh" />
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -143,7 +143,7 @@ export default {
     },
     resetPassword(row) {
       this._confirm(`您确定要重置账户(${row.name})的密码吗？`).then(() => {
-        api.resetPassword(row.id).then(data => {
+        api.resetPassword(row.id).then(() => {
           this._success('已重置')
         })
       })

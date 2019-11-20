@@ -21,18 +21,18 @@
               </el-form-item>
               <el-form-item label="控制器：" prop="controller">
                 <nm-select ref="controllerSelect" :method="getAllControllerAction" v-model="list.model.controller" @change="onControllerChange">
-                  <template v-slot:default="{options}">
+                  <template v-slot:default="{ options }">
                     <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                      <span>{{option.label}}({{option.value}})</span>
+                      <span>{{ option.label }}({{ option.value }})</span>
                     </el-option>
                   </template>
                 </nm-select>
               </el-form-item>
               <el-form-item label="方法：" prop="action">
                 <nm-select ref="actionSelect" :method="getAllAction" v-model="list.model.action">
-                  <template v-slot:default="{options}">
+                  <template v-slot:default="{ options }">
                     <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                      <span>{{option.label}}({{option.value}})</span>
+                      <span>{{ option.label }}({{ option.value }})</span>
                     </el-option>
                   </template>
                 </nm-select>
@@ -42,7 +42,7 @@
         </template>
 
         <!--操作列-->
-        <template v-slot:col-operation="{row}">
+        <template v-slot:col-operation="{ row }">
           <nm-button v-if="notIn(row)" icon="add" type="success" circle @click="add(row)" />
           <el-tag v-else type="warning" disable-transitions>已选</el-tag>
         </template>
@@ -129,13 +129,15 @@ export default {
     },
     save() {
       this.loading = true
-      this.action(this.permissionList).then(data => {
-        this._success('绑定成功')
-        this.loading = false
-        this.$emit('success')
-      }).catch(() => {
-        this.loading = false
-      })
+      this.action(this.permissionList)
+        .then(() => {
+          this._success('绑定成功')
+          this.loading = false
+          this.$emit('success')
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     refresh() {
       this.querySelection()

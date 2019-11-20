@@ -26,6 +26,11 @@
             <el-input v-model="form.model.userInfoPage" placeholder="路由名称，默认为userinfo" />
           </el-form-item>
         </el-col>
+        <el-col :span="10">
+          <el-form-item label="版权申明：" prop="copyright">
+            <el-input v-model="form.model.copyright" placeholder="" />
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-divider content-position="left">登录控制</el-divider>
       <el-row :gutter="20">
@@ -145,7 +150,8 @@ export default {
             verifyCode: false
           },
           menuUniqueOpened: false,
-          dialogCloseOnClickModal: false
+          dialogCloseOnClickModal: false,
+          copyright: ''
         }
       }
     }
@@ -190,7 +196,7 @@ export default {
       }
       return true
     },
-    handleLogoSuccess(res, file) {
+    handleLogoSuccess(res) {
       if (res.code === 1) {
         this.form.model.logo = res.data.fullPath
         this.form.model.logoUrl = res.data.url

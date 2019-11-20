@@ -24,23 +24,23 @@
         </el-row>
       </template>
 
-      <template v-slot:col-moduleName="{row}">
-        <span>{{row.moduleName}}({{row.area}})</span>
+      <template v-slot:col-moduleName="{ row }">
+        <span>{{ row.moduleName }}({{ row.area }})</span>
       </template>
 
-      <template v-slot:col-controller="{row}">
-        <span>{{row.controllerDesc}}({{row.controller}})</span>
+      <template v-slot:col-controller="{ row }">
+        <span>{{ row.controllerDesc }}({{ row.controller }})</span>
       </template>
 
-      <template v-slot:col-action="{row}">
-        <span>{{row.actionDesc}}({{row.action}})</span>
+      <template v-slot:col-action="{ row }">
+        <span>{{ row.actionDesc }}({{ row.action }})</span>
       </template>
-      <template v-slot:col-executionDuration="{row}">
-        <span>{{row.executionDuration}}ms</span>
+      <template v-slot:col-executionDuration="{ row }">
+        <span>{{ row.executionDuration }}ms</span>
       </template>
 
       <!--操作列-->
-      <template v-slot:col-operation="{row}">
+      <template v-slot:col-operation="{ row }">
         <nm-button v-bind="buttons.details" @click="details(row)" />
       </template>
     </nm-list>

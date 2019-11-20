@@ -1,14 +1,14 @@
 <template>
   <nm-drawer v-bind="drawer" :visible.sync="visible_">
     <el-form label-width="120px" disabled>
-      <el-form-item label="账户：">{{model.creator}}</el-form-item>
-      <el-form-item label="模块：">{{model.moduleName}}({{model.area}})</el-form-item>
-      <el-form-item label="控制器：">{{model.controller}}({{model.controllerDesc}})</el-form-item>
-      <el-form-item label="方法：">{{model.action}}({{model.actionDesc}})</el-form-item>
-      <el-form-item label="执行时间：">{{model.executionTime}}</el-form-item>
-      <el-form-item label="用时：">{{model.executionDuration}}ms</el-form-item>
-      <el-form-item label="IP：">{{model.ip}}</el-form-item>
-      <el-form-item label="平台：">{{model.platformName}}</el-form-item>
+      <el-form-item label="账户：">{{ model.creator }}</el-form-item>
+      <el-form-item label="模块：">{{ model.moduleName }}({{ model.area }})</el-form-item>
+      <el-form-item label="控制器：">{{ model.controller }}({{ model.controllerDesc }})</el-form-item>
+      <el-form-item label="方法：">{{ model.action }}({{ model.actionDesc }})</el-form-item>
+      <el-form-item label="执行时间：">{{ model.executionTime }}</el-form-item>
+      <el-form-item label="用时：">{{ model.executionDuration }}ms</el-form-item>
+      <el-form-item label="IP：">{{ model.ip }}</el-form-item>
+      <el-form-item label="平台：">{{ model.platformName }}</el-form-item>
       <el-form-item label="浏览器信息：">
         <el-input type="textarea" :value="model.browserInfo" :rows="5" />
       </el-form-item>
@@ -55,7 +55,9 @@ export default {
   },
   watch: {
     id() {
-      if (this.id > 0) { this.get() }
+      if (this.id > 0) {
+        this.get()
+      }
     }
   }
 }

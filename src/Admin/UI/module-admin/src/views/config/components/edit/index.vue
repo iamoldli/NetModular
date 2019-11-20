@@ -37,12 +37,8 @@ export default {
           remarks: ''
         },
         rules: {
-          key: [
-            { required: true, message: '请输入键', trigger: 'blur' }
-          ],
-          value: [
-            { required: true, message: '请输入值', trigger: 'blur' }
-          ]
+          key: [{ required: true, message: '请输入键', trigger: 'blur' }],
+          value: [{ required: true, message: '请输入值', trigger: 'blur' }]
         }
       }
     }

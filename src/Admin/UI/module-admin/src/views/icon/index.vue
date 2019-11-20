@@ -7,9 +7,9 @@
       </template>
       <div v-for="icon in filterList" :key="icon" class="nm-admin-icon-item">
         <div class="icon">
-          <nm-icon :name="icon" :style="{color}" />
+          <nm-icon :name="icon" :style="{ color }" />
         </div>
-        <span class="text">{{icon}}</span>
+        <span class="text">{{ icon }}</span>
       </div>
     </nm-box>
   </nm-container>
@@ -35,11 +35,15 @@ export default {
   },
   computed: {
     filterList() {
-      if (!this.filter) { return this.list }
+      if (!this.filter) {
+        return this.list
+      }
 
       let list = []
       this.list.forEach(icon => {
-        if (icon.indexOf(this.filter) > -1 || icon.indexOf(this.filter) > -1) { list.push(icon) }
+        if (icon.indexOf(this.filter) > -1 || icon.indexOf(this.filter) > -1) {
+          list.push(icon)
+        }
       })
       return list
     }

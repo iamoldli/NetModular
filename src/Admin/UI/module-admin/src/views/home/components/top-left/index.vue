@@ -31,7 +31,7 @@ export default {
       const data = await api.queryLatestWeekPv()
       let rows = []
       data.map(m => {
-        rows.push({ '日期': m.key, '数量': m.value })
+        rows.push({ 日期: m.key, 数量: m.value })
       })
       this.chartData.rows = rows
     }

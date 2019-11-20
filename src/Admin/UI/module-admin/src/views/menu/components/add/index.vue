@@ -2,27 +2,21 @@
   <nm-dialog v-bind="dialog" @open="onOpen" :visible.sync="visible_">
     <el-tabs class="nm-dialog-tabs" v-model="tab" type="card" @tab-click="setProps">
       <el-tab-pane name="node">
-        <span slot="label">
-          <nm-icon name="node"/>节点
-        </span>
-        <node-menu ref="node" :parent="parent" :sort="sort" v-on="on"/>
+        <span slot="label"> <nm-icon name="node" />节点 </span>
+        <node-menu ref="node" :parent="parent" :sort="sort" v-on="on" />
       </el-tab-pane>
       <el-tab-pane name="route">
-        <span slot="label">
-          <nm-icon name="link"/>路由菜单
-        </span>
-        <route-menu ref="route" :parent="parent" :sort="sort" v-on="on"/>
+        <span slot="label"> <nm-icon name="link" />路由菜单 </span>
+        <route-menu ref="route" :parent="parent" :sort="sort" v-on="on" />
       </el-tab-pane>
       <el-tab-pane name="link">
-        <span slot="label">
-          <nm-icon name="transmit"/>链接菜单
-        </span>
-        <link-menu ref="link" :parent="parent" :sort="sort" v-on="on"/>
+        <span slot="label"> <nm-icon name="transmit" />链接菜单 </span>
+        <link-menu ref="link" :parent="parent" :sort="sort" v-on="on" />
       </el-tab-pane>
     </el-tabs>
     <template v-slot:footer>
-      <nm-button text="添加" type="success" @click="onSubmit"/>
-      <nm-button text="重置" type="info" @click="onReset"/>
+      <nm-button text="添加" type="success" @click="onSubmit" />
+      <nm-button text="重置" type="info" @click="onReset" />
     </template>
   </nm-dialog>
 </template>

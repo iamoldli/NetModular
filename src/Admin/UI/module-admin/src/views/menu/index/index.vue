@@ -19,20 +19,20 @@
           </template>
 
           <!--按钮-->
-          <template v-slot:querybar-buttons="{total}">
+          <template v-slot:querybar-buttons="{ total }">
             <nm-button v-bind="buttons.add" @click="add(total)" />
             <nm-button v-bind="buttons.sort" @click="openSort" />
           </template>
 
           <!--类型-->
-          <template v-slot:col-typeName="{row}">
-            <el-tag type="success" v-if="row.type===0">{{row.typeName}}</el-tag>
-            <el-tag type="warning" v-if="row.type===1">{{row.typeName}}</el-tag>
-            <el-tag v-if="row.type===2">{{row.typeName}}</el-tag>
+          <template v-slot:col-typeName="{ row }">
+            <el-tag type="success" v-if="row.type === 0">{{ row.typeName }}</el-tag>
+            <el-tag type="warning" v-if="row.type === 1">{{ row.typeName }}</el-tag>
+            <el-tag v-if="row.type === 2">{{ row.typeName }}</el-tag>
           </template>
 
           <!--图标-->
-          <template v-slot:col-icon="{row}">
+          <template v-slot:col-icon="{ row }">
             <el-tooltip :content="row.icon" effect="dark" placement="right" v-if="row.icon">
               <label>
                 <nm-icon :name="row.icon" size="20px" />
@@ -42,10 +42,10 @@
           </template>
 
           <!--是否显示-->
-          <template v-slot:col-show="{row}">{{row.show?'是':'否'}}</template>
+          <template v-slot:col-show="{ row }">{{ row.show ? '是' : '否' }}</template>
 
           <!--操作列-->
-          <template v-slot:col-operation="{row}">
+          <template v-slot:col-operation="{ row }">
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">
                 操作
@@ -122,7 +122,9 @@ export default {
     }
   },
   computed: {
-    title() { return '菜单列表—' + this.menu.name },
+    title() {
+      return '菜单列表—' + this.menu.name
+    },
     dragSort() {
       return {
         queryAction: this.querySortList,
@@ -136,7 +138,9 @@ export default {
       this.list.model.parentId = this.menu.id
       this.$refs.list.refresh()
       // 刷新菜单树
-      if (refreshTree) { this.refreshTree() }
+      if (refreshTree) {
+        this.refreshTree()
+      }
     },
     refreshTree() {
       this.$refs.tree.refresh()

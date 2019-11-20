@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '权限列表'
   this.icon = 'verifycode'
   this.name = 'admin_permission'
@@ -18,7 +18,7 @@ const page = new function() {
       permissions: [`${this.name}_sync_post`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

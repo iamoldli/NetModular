@@ -10,21 +10,21 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button v-bind="buttons.add" @click="addPage.visible=true" />
+        <nm-button v-bind="buttons.add" @click="addPage.visible = true" />
       </template>
 
-      <template v-slot:col-name="{row}">
+      <template v-slot:col-name="{ row }">
         <el-tooltip v-if="row.isSpecified" class="item" effect="dark" content="指定角色" placement="top">
           <div>
             <nm-icon class="nm-text-warning" style="font-size:25px" name="star-fill" />
-            <span>{{row.name}}</span>
+            <span>{{ row.name }}</span>
           </div>
         </el-tooltip>
-        <span v-else>{{row.name}}</span>
+        <span v-else>{{ row.name }}</span>
       </template>
 
       <!--操作列-->
-      <template v-slot:col-operation="{row}">
+      <template v-slot:col-operation="{ row }">
         <nm-button v-bind="buttons.edit" @click="edit(row)" :disabled="row.isSpecified" />
         <nm-button v-bind="buttons.bindMenu" @click="bindMenu(row)" />
         <nm-button-delete v-bind="buttons.del" :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isSpecified" />
@@ -93,7 +93,6 @@ export default {
         visible: true
       }
     }
-
   }
 }
 </script>

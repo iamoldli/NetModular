@@ -75,7 +75,6 @@ export default {
         }
       }
     }
-
   },
   methods: {
     // 刷新菜单树
@@ -149,10 +148,14 @@ export default {
     onCheck(data, options) {
       let selection = []
       options.checkedNodes.map(m => {
-        if (m.menu.id) { selection.push(m.menu) }
+        if (m.menu.id) {
+          selection.push(m.menu)
+        }
       })
       options.halfCheckedNodes.map(m => {
-        if (m.menu.id) { selection.push(m.menu) }
+        if (m.menu.id) {
+          selection.push(m.menu)
+        }
       })
       this.$emit('check', selection)
     },
@@ -160,7 +163,9 @@ export default {
       this.$emit('check-change', data, checked, indeterminate)
     },
     getFullPath(node, path) {
-      if (!path) { path = '' }
+      if (!path) {
+        path = ''
+      }
       if (node && typeof node.key !== 'undefined') {
         path = `${node.label} ${this.pathSeparator} ${path}`
         path = this.getFullPath(node.parent, path)

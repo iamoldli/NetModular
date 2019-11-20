@@ -17,18 +17,18 @@
             </el-form-item>
             <el-form-item label="控制器：" prop="controller">
               <nm-select ref="controllerSelect" :method="getAllControllerAction" v-model="list.model.controller" @change="onControllerChange">
-                <template v-slot:default="{options}">
+                <template v-slot:default="{ options }">
                   <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                    <span>{{option.label}}({{option.value}})</span>
+                    <span>{{ option.label }}({{ option.value }})</span>
                   </el-option>
                 </template>
               </nm-select>
             </el-form-item>
             <el-form-item label="方法：" prop="action">
               <nm-select ref="actionSelect" :method="getAllAction" v-model="list.model.action">
-                <template v-slot:default="{options}">
+                <template v-slot:default="{ options }">
                   <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                    <span>{{option.label}}({{option.value}})</span>
+                    <span>{{ option.label }}({{ option.value }})</span>
                   </el-option>
                 </template>
               </nm-select>
@@ -42,8 +42,8 @@
         <nm-button v-bind="buttons.sync" @click="sync" />
       </template>
 
-      <template v-slot:col-moduleName="{row}">
-        <span>{{`${row.moduleName}(${row.moduleCode})`}}</span>
+      <template v-slot:col-moduleName="{ row }">
+        <span>{{ `${row.moduleName}(${row.moduleCode})` }}</span>
       </template>
     </nm-list>
   </nm-container>
@@ -90,7 +90,7 @@ export default {
     sync() {
       this._confirm('您确认要同步权限信息吗', '同步权限信息').then(() => {
         this.list.loading = true
-        api.sync().then(data => {
+        api.sync().then(() => {
           this.list.loading = false
           this._success('同步成功')
           this.refresh()

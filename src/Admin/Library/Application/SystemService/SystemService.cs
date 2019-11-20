@@ -63,7 +63,7 @@ namespace NetModular.Module.Admin.Application.SystemService
                         case SystemConfigKey.Auditing:
                             model.Auditing = config.Value.ToBool();
                             break;
-                     case SystemConfigKey.ToolbarFullscreen:
+                        case SystemConfigKey.ToolbarFullscreen:
                             model.Toolbar.Fullscreen = config.Value.ToBool();
                             break;
                         case SystemConfigKey.ToolbarSkin:
@@ -89,6 +89,9 @@ namespace NetModular.Module.Admin.Application.SystemService
                             break;
                         case SystemConfigKey.LoginOptionsVerifyCode:
                             model.LoginOptions.VerifyCode = config.Value.ToBool();
+                            break;
+                        case SystemConfigKey.Copyright:
+                            model.Copyright = config.Value;
                             break;
                     }
                 }
@@ -127,6 +130,7 @@ namespace NetModular.Module.Admin.Application.SystemService
                 Update(SystemConfigKey.DialogCloseOnClickModal, model.DialogCloseOnClickModal, "点击模态框关闭对话框", uow).Wait();
                 Update(SystemConfigKey.LoginOptionsType, model.LoginOptions.Type, "登录页类型", uow).Wait();
                 Update(SystemConfigKey.LoginOptionsVerifyCode, model.LoginOptions.VerifyCode, "启用登录验证码功能", uow).Wait();
+                Update(SystemConfigKey.Copyright, model.Copyright, "版权申明", uow).Wait();
 
                 uow.Commit();
             }

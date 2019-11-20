@@ -1,7 +1,7 @@
 <template>
   <nm-dialog v-bind="dialog" @open="onOpen" :visible.sync="visible_">
-    <node-menu ref="node" v-if="model.type===0" :model="model" :parent="parent" v-on="on" />
-    <route-menu ref="route" v-else-if="model.type===1" :model="model" :parent="parent" v-on="on" />
+    <node-menu ref="node" v-if="model.type === 0" :model="model" :parent="parent" v-on="on" />
+    <route-menu ref="route" v-else-if="model.type === 1" :model="model" :parent="parent" v-on="on" />
     <link-menu ref="link" v-else :model="model" :parent="parent" v-on="on" />
     <template v-slot:footer>
       <nm-button text="保存" type="success" @click="onSubmit" />

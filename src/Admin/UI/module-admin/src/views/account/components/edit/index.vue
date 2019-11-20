@@ -50,21 +50,11 @@ export default {
           email: ''
         },
         rules: {
-          name: [
-            { required: true, message: '请输入名称' }
-          ],
-          userName: [
-            { required: true, message: '请输入用户名' }
-          ],
-          password: [
-            { min: 6, message: '密码长度不能小于6位' }
-          ],
-          phone: [
-            { len: 11, message: '请输入正确的手机号' }
-          ],
-          email: [
-            { type: 'email', message: '请输入正确的邮箱地址' }
-          ]
+          name: [{ required: true, message: '请输入名称' }],
+          userName: [{ required: true, message: '请输入用户名' }],
+          password: [{ min: 6, message: '密码长度不能小于6位' }],
+          phone: [{ len: 11, message: '请输入正确的手机号' }],
+          email: [{ type: 'email', message: '请输入正确的邮箱地址' }]
         }
       }
     }

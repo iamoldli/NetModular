@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '菜单管理'
   this.icon = 'menu'
   this.name = 'admin_menu'
@@ -37,7 +37,7 @@ const page = new function() {
       permissions: [`${this.name}_sort_get`, `${this.name}_sort_post`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

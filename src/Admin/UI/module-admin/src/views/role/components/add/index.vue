@@ -32,9 +32,7 @@ export default {
           remarks: ''
         },
         rules: {
-          name: [
-            { required: true, message: '请输入名称', trigger: 'blur' }
-          ]
+          name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
         }
       },
       on: {

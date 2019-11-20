@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '角色管理'
   this.icon = 'role'
   this.name = 'admin_role'
@@ -36,15 +36,10 @@ const page = new function() {
       type: 'text',
       icon: 'bind',
       code: `${this.name}_bind_menu`,
-      permissions: [
-        `${this.name}_menulist_get`,
-        `${this.name}_bindmenu_post`,
-        `${this.name}_menubuttonlist_get`,
-        `${this.name}_bindmenubutton_post`
-      ]
+      permissions: [`${this.name}_menulist_get`, `${this.name}_bindmenu_post`, `${this.name}_menubuttonlist_get`, `${this.name}_bindmenubutton_post`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

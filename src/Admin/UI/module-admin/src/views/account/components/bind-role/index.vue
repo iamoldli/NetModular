@@ -1,6 +1,6 @@
 <template>
   <nm-dialog title="绑定角色" icon="bind" :visible.sync="visible_">
-    <role-checkbox :checked="checked"/>
+    <role-checkbox :checked="checked" />
   </nm-dialog>
 </template>
 <script>
@@ -9,7 +9,7 @@ import RoleCheckbox from '../../../role/checkbox'
 export default {
   components: { RoleCheckbox },
   mixins: [mixins.dialog],
-  data () {
+  data() {
     return {
       checked: []
     }
@@ -27,8 +27,7 @@ export default {
     }
   },
   methods: {
-    getChecked () {
-    }
+    getChecked() {}
   }
 }
 </script>

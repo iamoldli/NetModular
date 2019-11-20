@@ -14,10 +14,10 @@
       </template>
 
       <!--是否显示-->
-      <template v-slot:col-isShow="{row}">{{row.isShow?'是':'否'}}</template>
+      <template v-slot:col-isShow="{ row }">{{ row.isShow ? '是' : '否' }}</template>
 
       <!--操作列-->
-      <template v-slot:col-operation="{row}">
+      <template v-slot:col-operation="{ row }">
         <nm-button-delete v-bind="buttons.del" :action="removeAction" :id="row.id" @success="refresh" />
       </template>
     </nm-list>
@@ -52,7 +52,7 @@ export default {
     },
     sync() {
       this._confirm('您确认要同步模块信息吗', '同步模块信息').then(() => {
-        api.sync().then(data => {
+        api.sync().then(() => {
           this._success('同步成功')
           this.refresh()
         })

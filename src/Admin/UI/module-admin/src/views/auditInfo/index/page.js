@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '审计日志'
   this.icon = 'log'
   this.name = 'admin_auditinfo'
@@ -16,7 +16,7 @@ const page = new function() {
       permissions: [`${this.name}_details_get`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

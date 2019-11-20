@@ -1,5 +1,5 @@
 /** 页面信息 */
-const page = new function() {
+const page = new (function() {
   this.title = '账户管理'
   this.icon = 'user'
   this.name = 'admin_account'
@@ -39,7 +39,7 @@ const page = new function() {
       permissions: [`${this.name}_updatepassword_post`]
     }
   }
-}()
+})()
 
 /** 路由信息 */
 export const route = {

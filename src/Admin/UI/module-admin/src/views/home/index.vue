@@ -2,15 +2,15 @@
   <nm-container scrollbar>
     <nm-box-row height="400px">
       <nm-box-col :span="12">
-        <top-left/>
+        <top-left />
       </nm-box-col>
       <nm-box-col :span="12">
-        <top-right/>
+        <top-right />
       </nm-box-col>
     </nm-box-row>
     <nm-box-row height="500px">
       <nm-box-col :span="24">
-        <bottom/>
+        <bottom />
       </nm-box-col>
     </nm-box-row>
   </nm-container>

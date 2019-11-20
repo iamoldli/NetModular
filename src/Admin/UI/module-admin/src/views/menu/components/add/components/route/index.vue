@@ -17,7 +17,7 @@
         <el-form-item label="选择路由：" prop="route">
           <el-select v-model="form.model.routeName" placeholder="请选择" @change="onRouteChange">
             <el-option v-for="r in routes" :key="r.code" :label="r.name" :value="r.code">
-              <span>{{r.name}}({{r.code}})</span>
+              <span>{{ r.name }}({{ r.code }})</span>
             </el-option>
           </el-select>
         </el-form-item>
@@ -105,7 +105,9 @@ export default {
     routes() {
       let routes = []
       const moduleCode = this.form.model.moduleCode
-      if (!moduleCode) { return routes }
+      if (!moduleCode) {
+        return routes
+      }
       this.$router.options.routes.forEach(r => {
         if (r && r.name && r.name.toLowerCase().startsWith(moduleCode.toLowerCase())) {
           routes.push({
