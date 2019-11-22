@@ -68,7 +68,7 @@ export default {
       this.form.model = this.model
     },
     onSuccess() {
-      this.$emit('success')
+      this.$emit('success', { id: this.form.model.id, label: this.form.model.name, item: Object.assign({}, this.form.model) })
     },
     onError() {
       this.$emit('error')

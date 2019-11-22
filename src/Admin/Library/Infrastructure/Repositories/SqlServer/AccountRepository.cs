@@ -42,7 +42,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
             var query = Db.Find();
-            query.WhereIf(model.Type != null, m => m.Type == model.Type.Value);
+            query.WhereNotNull(model.Type, m => m.Type == model.Type.Value);
             query.WhereNotNull(model.UserName, m => m.UserName.Contains(model.UserName));
             query.WhereNotNull(model.Name, m => m.Name.Contains(model.Name));
             query.WhereNotNull(model.Phone, m => m.Phone == model.Phone);

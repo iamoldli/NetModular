@@ -2,9 +2,7 @@
   <nm-container>
     <nm-split v-model="split">
       <template v-slot:left>
-        <nm-box page header title="菜单树" type="success" icon="menu" :toolbar="null">
-          <menu-tree ref="tree" @select-change="onTreeSelectChange" />
-        </nm-box>
+        <menu-tree ref="tree" @change="onTreeChange" />
       </template>
       <template v-slot:right>
         <nm-list ref="list" :title="title" v-bind="list">
@@ -56,7 +54,7 @@
                   <nm-button v-bind="buttons.edit" @click="edit(row)" />
                 </el-dropdown-item>
                 <el-dropdown-item>
-                  <nm-button-delete v-bind="buttons.del" :action="remove" :id="row.id" @success="refresh(true)" />
+                  <nm-button-delete v-bind="buttons.del" :action="remove" :id="row.id" @success="onDelete(row.id)" />
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -66,11 +64,11 @@
     </nm-split>
 
     <!--添加菜单-->
-    <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="refresh(true)" />
+    <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="onAdd" />
     <!--编辑菜单-->
-    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="refresh(true)" />
+    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="onEdit" />
     <!--排序-->
-    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="refresh(true)" />
+    <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="onSort" />
   </nm-container>
 </template>
 <script>
@@ -134,21 +132,14 @@ export default {
   },
   methods: {
     ...mapMutations('module/admin', ['setCurrentMenu']),
-    refresh(refreshTree) {
+    refresh() {
       this.list.model.parentId = this.menu.id
       this.$refs.list.refresh()
-      // 刷新菜单树
-      if (refreshTree) {
-        this.refreshTree()
-      }
     },
-    refreshTree() {
-      this.$refs.tree.refresh()
-    },
-    onTreeSelectChange({ menu, path }) {
-      this.menu.id = menu.id
-      this.menu.name = menu.name
-      this.menu.path = path
+    onTreeChange({ id, label, path }) {
+      this.menu.id = id
+      this.menu.name = label
+      this.menu.path = path.join(' / ')
       this.refresh()
     },
     add(total) {
@@ -164,6 +155,22 @@ export default {
     },
     openSort() {
       this.dialog.sort = true
+    },
+    onAdd(model) {
+      this.$refs.tree.insert(model)
+      this.refresh()
+    },
+    onDelete(id) {
+      this.$refs.tree.remove(id)
+      this.refresh()
+    },
+    onEdit(model) {
+      this.$refs.tree.update(model)
+      this.refresh()
+    },
+    onSort(data) {
+      this.$refs.tree.sort(data)
+      this.refresh()
     }
   }
 }

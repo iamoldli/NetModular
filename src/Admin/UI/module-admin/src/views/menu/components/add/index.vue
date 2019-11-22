@@ -60,9 +60,9 @@ export default {
     setProps() {
       this.$refs[this.tab].setProps()
     },
-    onSuccess() {
+    onSuccess(model) {
       this.dialog.loading = false
-      this.$emit('success')
+      this.$emit('success', model)
     },
     onError() {
       this.dialog.loading = false

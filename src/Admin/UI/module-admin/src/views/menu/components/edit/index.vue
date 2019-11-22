@@ -65,9 +65,9 @@ export default {
         this.getModel().reset()
       })
     },
-    onSuccess() {
+    onSuccess(model) {
       this.dialog.loading = false
-      this.$emit('success')
+      this.$emit('success', model)
     },
     onError() {
       this.dialog.loading = false

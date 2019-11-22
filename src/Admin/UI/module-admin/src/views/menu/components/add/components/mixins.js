@@ -69,8 +69,9 @@ export default {
       this.form.model.parentId = this.parent.id
       this.form.model.sort = this.sort
     },
-    onSuccess() {
-      this.$emit('success')
+    onSuccess(id) {
+      this.form.model.id = id
+      this.$emit('success', { id, label: this.form.model.name, item: Object.assign({}, this.form.model) })
     },
     onError() {
       this.$emit('error')

@@ -1,10 +1,9 @@
 ﻿using System;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Domain.Menu;
 
 namespace NetModular.Module.Admin.Application.MenuService.ResultModels
 {
-    public class MenuTreeResultModel : TreeResultModel<MenuTreeResultModel>
+    public class MenuTreeResultModel
     {
         /// <summary>
         /// 编号

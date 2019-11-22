@@ -45,6 +45,8 @@ namespace Data.MySql.Test
             await _db.BatchInsertAsync(list);
 
             sw.Stop();
+
+            var s = sw.ElapsedMilliseconds;
         }
 
         [Fact]
@@ -68,7 +70,7 @@ namespace Data.MySql.Test
         [Fact]
         public async Task BatchInsertTest()
         {
-            await BatchInsert(10000);
+            await BatchInsert(100000);
 
             var count = await _db.Find().CountAsync();
 

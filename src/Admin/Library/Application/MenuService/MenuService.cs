@@ -11,13 +11,13 @@ using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.MenuService.ResultModels;
 using NetModular.Module.Admin.Application.MenuService.ViewModels;
+using NetModular.Module.Admin.Application.SystemService;
 using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.ButtonPermission;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.Menu.Models;
 using NetModular.Module.Admin.Domain.MenuPermission;
-using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Domain.RoleMenu;
 using NetModular.Module.Admin.Domain.RoleMenuButton;
 using NetModular.Module.Admin.Infrastructure.Repositories;
@@ -35,10 +35,11 @@ namespace NetModular.Module.Admin.Application.MenuService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IButtonPermissionRepository _buttonPermissionRepository;
         private readonly IAccountService _accountService;
+        private readonly ISystemService _systemService;
         private readonly ILogger _logger;
         private readonly AdminDbContext _dbContext;
 
-        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IPermissionRepository permissionRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger, AdminDbContext dbContext)
+        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger, AdminDbContext dbContext, ISystemService systemService)
         {
             _menuRepository = menuRepository;
             _menuPermissionRepository = menuPermissionRepository;
@@ -51,50 +52,43 @@ namespace NetModular.Module.Admin.Application.MenuService
             _buttonPermissionRepository = buttonPermissionRepository;
             _logger = logger;
             _dbContext = dbContext;
+            _systemService = systemService;
         }
 
         public async Task<IResultModel> GetTree()
         {
-            var treeModel = new List<MenuTreeResultModel>();
-
             var all = await _menuRepository.GetAllAsync();
-            var father = all.Where(m => m.ParentId == default(Guid) && m.Level == 0)
-                .OrderBy(m => m.Sort).ToList();
-
-            foreach (var menu in father)
+            var sysConfig = await _systemService.GetConfig();
+            var root = new TreeResultModel<Guid, MenuTreeResultModel>
             {
-                treeModel.Add(Menu2TreeModel(all, menu));
-            }
-
-            return ResultModel.Success(treeModel);
+                Id = Guid.Empty,
+                Label = sysConfig.Data.Title,
+                Item = new MenuTreeResultModel()
+            };
+            root.Path.Add(root.Label);
+            root.Children = ResolveTree(all, root);
+            return ResultModel.Success(root);
         }
 
         /// <summary>
-        /// 菜单对象转换为树模型
+        /// 解析菜单树
         /// </summary>
-        /// <param name="all"></param>
-        /// <param name="menu"></param>
-        /// <returns></returns>
-        private MenuTreeResultModel Menu2TreeModel(IList<MenuEntity> all, MenuEntity menu)
+        private List<TreeResultModel<Guid, MenuTreeResultModel>> ResolveTree(IList<MenuEntity> all, TreeResultModel<Guid, MenuTreeResultModel> parent)
         {
-            var model = _mapper.Map<MenuTreeResultModel>(menu);
-
-            if (!all.Any())
-                return model;
-
-            if (menu.Type == MenuType.Link)
-                return model;
-
-            var children = all.Where(m => m.ParentId == menu.Id).OrderBy(m => m.Sort).ToList();
-            if (children.Any())
-            {
-                foreach (var child in children)
+            return all.Where(m => m.ParentId == parent.Id).OrderBy(m => m.Sort)
+                .Select(m =>
                 {
-                    model.Children.Add(Menu2TreeModel(all, child));
-                }
-            }
-
-            return model;
+                    var menu = new TreeResultModel<Guid, MenuTreeResultModel>
+                    {
+                        Id = m.Id,
+                        Label = m.Name,
+                        Item = _mapper.Map<MenuTreeResultModel>(m)
+                    };
+                    menu.Path.AddRange(parent.Path);
+                    menu.Path.Add(m.Name);
+                    menu.Children = ResolveTree(all, menu);
+                    return menu;
+                }).ToList();
         }
 
         public async Task<IResultModel> Add(MenuAddModel model)
@@ -130,7 +124,7 @@ namespace NetModular.Module.Admin.Application.MenuService
 
                             await ClearAccountPermissionCache(menu);
 
-                            return ResultModel.Success();
+                            return ResultModel.Success(menu.Id);
                         }
                     }
                 }
