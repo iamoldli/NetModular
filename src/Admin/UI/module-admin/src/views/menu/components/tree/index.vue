@@ -1,6 +1,6 @@
 <template>
   <nm-box page header refresh title="菜单预览" icon="menu" @refresh="refresh">
-    <el-tree class="nm-tree" ref="tree" v-bind="tree" v-on="on">
+    <el-tree class="nm-tree" ref="tree" v-bind="tree" :show-checkbox="showCheckbox" :default-expand-all="defaultExpandAll" v-on="on">
       <span slot-scope="{ data }">
         <nm-icon :name="data.item.icon || 'attachment'" />
         <span class="nm-m-l-5">{{ data.label }}</span>
@@ -23,12 +23,23 @@ export default {
         defaultExpandedKeys: ['00000000-0000-0000-0000-000000000000']
       },
       on: {
-        'current-change': this.onSelectChange,
+        'current-change': this.onChange,
         'node-expand': this.onNodeExpand,
-        'node-collapse': this.onNodeCollapse
+        'node-collapse': this.onNodeCollapse,
+        'check-change': this.onCheckChange,
+        check: this.onCheck
       },
       selection: null
     }
+  },
+  props: {
+    //创建时刷新
+    refreshOnCreated: {
+      type: Boolean,
+      default: true
+    },
+    showCheckbox: Boolean,
+    defaultExpandAll: Boolean
   },
   methods: {
     //刷新
@@ -37,7 +48,7 @@ export default {
         this.tree.data = [data]
         if (init) {
           //初始化触发一次change事件
-          this.onSelectChange(data)
+          this.onChange(data)
         } else {
           //刷新要保留当前点击节点
           this.$nextTick(() => {
@@ -46,12 +57,18 @@ export default {
         }
       })
     },
-    onSelectChange(data) {
+    onChange(data, node) {
       if (this.selection === data) return
 
       this.tree.currentNodeKey = data.id
       this.selection = data
-      this.$emit('change', this.selection)
+      this.$emit('change', this.selection, node)
+    },
+    onCheck(data, checkedObject) {
+      this.$emit('check', data, checkedObject)
+    },
+    onCheckChange(data, checked) {
+      this.$emit('check-change', data, checked)
     },
     onNodeExpand(data) {
       //记录展开的节点
@@ -63,6 +80,8 @@ export default {
     },
     /**插入 */
     insert(data) {
+      data.path = this.selection.path.concat([data.label])
+
       //设置子节点
       if (!data.children) {
         data.children = []
@@ -113,13 +132,22 @@ export default {
         this.tree.defaultExpandedKeys.push(model.id)
       }
     },
+    setCheckedKeys(checkedKeys) {
+      this.$nextTick(() => {
+        if (this.showCheckbox) {
+          this.$refs.tree.setCheckedKeys(checkedKeys)
+        }
+      })
+    },
     /**排序，重新刷新 */
     sort() {
       this.refresh()
     }
   },
   created() {
-    this.refresh(true)
+    if (this.refreshOnCreated) {
+      this.refresh(true)
+    }
   }
 }
 </script>
