@@ -1,7 +1,7 @@
 {
   "name": "netmodular-module-admin",
   "code": "admin",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "NetModular前端Admin模块组件",
   "author": "Oldli",
   "license": "ISC",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "netmodular-skins-classics": "^1.0.0",
-    "netmodular-ui": "^1.1.13"
+    "netmodular-ui": "^1.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",

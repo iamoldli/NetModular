@@ -18,8 +18,8 @@
 
           <!--按钮-->
           <template v-slot:querybar-buttons="{ total }">
-            <nm-button v-bind="buttons.add" @click="add(total)" />
-            <nm-button v-bind="buttons.sort" @click="openSort" />
+            <nm-button :disabled="!menu.isNode" v-bind="buttons.add" @click="add(total)" />
+            <nm-button :disabled="!menu.isNode" v-bind="buttons.sort" @click="openSort" />
           </template>
 
           <!--类型-->
@@ -66,13 +66,12 @@
     <!--添加菜单-->
     <add-page :parent="menu" :sort="total" :visible.sync="dialog.add" @success="onAdd" />
     <!--编辑菜单-->
-    <edit-page :parent="menu" :id="currentMenu.id" :visible.sync="dialog.edit" @success="onEdit" />
+    <edit-page :parent="menu" :id="curr.id" :visible.sync="dialog.edit" @success="onEdit" />
     <!--排序-->
     <nm-drag-sort-dialog v-bind="dragSort" :visible.sync="dialog.sort" @success="onSort" />
   </nm-container>
 </template>
 <script>
-import { mapMutations } from 'vuex'
 import page from './page'
 import cols from './cols.js'
 import AddPage from '../components/add'
@@ -88,6 +87,7 @@ export default {
   data() {
     return {
       split: 0.2,
+      curr: { id: '' },
       list: {
         cols,
         action: api.query,
@@ -108,8 +108,6 @@ export default {
         // 排序
         sort: false
       },
-      // 当前要操作的菜单
-      currentMenu: {},
       // 左侧菜单树选择的菜单
       menu: {
         id: '',
@@ -131,14 +129,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('module/admin', ['setCurrentMenu']),
     refresh() {
       this.list.model.parentId = this.menu.id
       this.$refs.list.refresh()
     },
-    onTreeChange({ id, label, path }) {
+    onTreeChange({ id, label, path, item }) {
       this.menu.id = id
       this.menu.name = label
+      //是否是节点菜单
+      this.menu.isNode = item.type === 0
       this.menu.path = path.join(' / ')
       this.refresh()
     },
@@ -147,7 +146,7 @@ export default {
       this.dialog.add = true
     },
     edit(row) {
-      this.currentMenu = row
+      this.curr = row
       this.dialog.edit = true
     },
     querySortList() {

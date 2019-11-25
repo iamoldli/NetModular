@@ -12,7 +12,7 @@ const config = {
 
 // 开发模式
 if (isDev) {
-  config.baseUrl = 'http://localhost:6220/api/'
+  config.baseUrl = 'https://nm.iamoldli.com/api/'
 }
 
 export default config
