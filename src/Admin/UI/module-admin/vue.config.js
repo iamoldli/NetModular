@@ -16,17 +16,42 @@ module.exports = {
   devServer: {
     port: 5220
   },
-  configureWebpack: {
-    plugins: [
-      // 复制netmodular-ui/public目录下的文件到输出目录
-      new CopyWebpackPlugin([
-        {
-          from: path.join(__dirname, 'node_modules/netmodular-ui/public'),
-          to: path.join(__dirname, outputDir),
-          ignore: ['index.html']
-        }
-      ])
-    ]
+  configureWebpack() {
+    let config = {
+      plugins: [
+        /**
+         * 复制netmodular-ui/public目录下的文件到输出目录
+         */
+        new CopyWebpackPlugin([
+          {
+            from: path.join(__dirname, 'node_modules/netmodular-ui/public'),
+            to: path.join(__dirname, outputDir),
+            ignore: ['index.html']
+          }
+        ])
+      ]
+    }
+
+    if (!isDev) {
+      //自定义代码压缩
+      config.optimization = {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false,
+            terserOptions: {
+              compress: {
+                drop_console: true,
+                drop_debugger: true
+              }
+            }
+          })
+        ]
+      }
+    }
+    return config
   },
   chainWebpack: config => {
     /**
@@ -54,20 +79,6 @@ module.exports = {
       )
       // 非开发环境
       .when(!isDev, config => {
-        config.optimization.minimizer([
-          new TerserPlugin({
-            cache: true,
-            parallel: true,
-            sourceMap: false, // Must be set to true if using source-maps in production
-            terserOptions: {
-              compress: {
-                drop_console: true,
-                drop_debugger: true
-              }
-            }
-          })
-        ])
-
         // 拆分
         config.optimization.splitChunks({
           chunks: 'all',
