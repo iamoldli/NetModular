@@ -52,7 +52,6 @@ namespace NetModular.Module.Admin.Web.Filters
             await _auditInfoService.Add(auditInfo);
         }
 
-
         private AuditInfoEntity CreateAuditInfo(ActionExecutingContext context)
         {
             var routeValues = context.ActionDescriptor.RouteValues;

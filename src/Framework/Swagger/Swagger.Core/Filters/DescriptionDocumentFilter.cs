@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using NetModular.Lib.Utils.Core.Extensions;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace NetModular.Lib.Swagger.Core.Filters
@@ -18,6 +19,7 @@ namespace NetModular.Lib.Swagger.Core.Filters
         {
             SetControllerDescription(swaggerDoc, context);
             SetActionDescription(swaggerDoc, context);
+            SetModelDescription(swaggerDoc, context);
         }
 
         /// <summary>
@@ -68,6 +70,41 @@ namespace NetModular.Lib.Swagger.Core.Filters
                         var operation = path.Value.Operations.FirstOrDefault();
                         operation.Value.Description = description;
                         operation.Value.Summary = description;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置模型属性描述信息
+        /// </summary>
+        /// <param name="swaggerDoc"></param>
+        /// <param name="context"></param>
+        private void SetModelDescription(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            var pro = typeof(SchemaRepository).GetField("_reservedIds", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (pro == null)
+                return;
+
+            var schemaTypes = (Dictionary<Type, string>)pro.GetValue(context.SchemaRepository);
+
+            foreach (var schema in context.SchemaRepository.Schemas)
+            {
+                var type = schemaTypes.FirstOrDefault(m => m.Value.EqualsIgnoreCase(schema.Key)).Key;
+                if (type == null || !type.IsClass)
+                    continue;
+
+                var properties = type.GetProperties();
+                foreach (var propertyInfo in properties)
+                {
+                    var propertySchema = schema.Value.Properties.FirstOrDefault(m => m.Key.EqualsIgnoreCase(propertyInfo.Name)).Value;
+                    if (propertySchema != null)
+                    {
+                        var descAttr = (DescriptionAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(DescriptionAttribute));
+                        if (descAttr != null && descAttr.Description.NotNull())
+                        {
+                            propertySchema.Title = descAttr.Description;
+                        }
                     }
                 }
             }
