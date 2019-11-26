@@ -5,11 +5,11 @@ export default [
     show: false
   },
   {
-    name: 'creator',
+    name: 'accountName',
     label: '账户'
   },
   {
-    name: 'moduleName',
+    name: 'module',
     label: '模块'
   },
   {

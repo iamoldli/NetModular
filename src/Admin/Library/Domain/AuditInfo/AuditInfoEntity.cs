@@ -14,12 +14,26 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
         /// <summary>
         /// 账户编号
         /// </summary>
+        [Nullable]
         public Guid AccountId { get; set; }
 
         /// <summary>
-        /// 区域
+        /// 账户名称
         /// </summary>
+        [Nullable]
+        public string AccountName { get; set; }
+
+        /// <summary>
+        /// 区域(模块编码)
+        /// </summary>
+        [Nullable]
         public string Area { get; set; }
+
+        /// <summary>
+        /// 模块
+        /// </summary>
+        [Nullable]
+        public string Module { get; set; }
 
         /// <summary>
         /// 控制器
@@ -81,6 +95,7 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
         /// <summary>
         /// IP
         /// </summary>
+        [Nullable]
         public string IP { get; set; }
     }
 }

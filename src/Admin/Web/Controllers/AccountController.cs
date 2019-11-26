@@ -53,6 +53,7 @@ namespace NetModular.Module.Admin.Web.Controllers
                 var claims = new[]
                 {
                     new Claim(ClaimsName.AccountId,account.Id.ToString()),
+                    new Claim(ClaimsName.AccountName,account.Name),
                     new Claim(ClaimsName.AccountType,model.AccountType.ToInt().ToString()),
                     new Claim(ClaimsName.Platform,model.Platform.ToInt().ToString())
                 };

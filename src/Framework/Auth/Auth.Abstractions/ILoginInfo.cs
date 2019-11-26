@@ -13,6 +13,11 @@ namespace NetModular.Lib.Auth.Abstractions
         Guid AccountId { get; }
 
         /// <summary>
+        /// 账户名称
+        /// </summary>
+        string AccountName { get; }
+
+        /// <summary>
         /// 账户类型
         /// </summary>
         AccountType AccountType { get; }

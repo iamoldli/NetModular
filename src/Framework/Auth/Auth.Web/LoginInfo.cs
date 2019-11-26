@@ -35,6 +35,21 @@ namespace NetModular.Lib.Auth.Web
             }
         }
 
+        public string AccountName
+        {
+            get
+            {
+                var accountName = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountName);
+
+                if (accountName == null || accountName.Value.IsNull())
+                {
+                    return "";
+                }
+
+                return accountName.Value;
+            }
+        }
+
         /// <summary>
         /// 请求平台
         /// </summary>

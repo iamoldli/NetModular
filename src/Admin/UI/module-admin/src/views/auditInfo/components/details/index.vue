@@ -1,8 +1,8 @@
 <template>
   <nm-drawer v-bind="drawer" :visible.sync="visible_">
     <el-form label-width="120px" disabled>
-      <el-form-item label="账户：">{{ model.creator }}</el-form-item>
-      <el-form-item label="模块：">{{ model.moduleName }}({{ model.area }})</el-form-item>
+      <el-form-item label="账户：">{{ model.accountName }}</el-form-item>
+      <el-form-item label="模块：">{{ model.module }}({{ model.area }})</el-form-item>
       <el-form-item label="控制器：">{{ model.controller }}({{ model.controllerDesc }})</el-form-item>
       <el-form-item label="方法：">{{ model.action }}({{ model.actionDesc }})</el-form-item>
       <el-form-item label="执行时间：">{{ model.executionTime }}</el-form-item>

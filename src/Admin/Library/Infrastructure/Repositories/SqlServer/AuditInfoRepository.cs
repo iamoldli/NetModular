@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
@@ -29,22 +30,19 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereNotNull(model.StartTime, m => m.ExecutionTime >= model.StartTime);
             query.WhereNotNull(model.EndTime, m => m.ExecutionTime <= model.EndTime);
 
-            var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.AccountId == y.Id)
-                .LeftJoin<ModuleInfoEntity>((x, y, z) => x.Area == z.Code);
-
             if (!paging.OrderBy.Any())
             {
-                joinQuery.OrderByDescending((x, y, z) => x.Id);
+                query.OrderByDescending(x => x.Id);
             }
 
-            joinQuery.Select((x, y, z) => new
-            {
-                x,
-                Creator = y.Name,
-                ModuleName = z.Name
-            });
+            var sw = new Stopwatch();
+            sw.Start();
 
-            var list = await joinQuery.PaginationAsync(paging);
+            var list = await query.PaginationAsync(paging);
+
+            sw.Stop();
+
+            var s = sw.ElapsedMilliseconds;
 
             model.TotalCount = paging.TotalCount;
             return list;

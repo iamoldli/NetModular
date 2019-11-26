@@ -11,6 +11,11 @@
         public const string AccountId = "id";
 
         /// <summary>
+        /// 账户名称
+        /// </summary>
+        public const string AccountName = "na";
+
+        /// <summary>
         /// 账户类型
         /// </summary>
         public const string AccountType = "ty";

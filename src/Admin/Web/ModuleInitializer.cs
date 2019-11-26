@@ -22,6 +22,8 @@ namespace NetModular.Module.Admin.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            //审计日志服务
+            services.AddSingleton<IAuditingHandler, AuditingHandler>();
             //权限验证服务
             services.AddScoped<IPermissionValidateHandler, PermissionValidateHandler>();
         }
