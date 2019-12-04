@@ -31,7 +31,7 @@ namespace NetModular.Module.Admin.Web.Core
 
         public bool Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
         {
-            if (!_options.PermissionValidate || !_systemConfig.PermissionValidate)
+            if (!_options.PermissionValidate || !_systemConfig.Permission.Validate)
                 return true;
 
             var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId).Result;

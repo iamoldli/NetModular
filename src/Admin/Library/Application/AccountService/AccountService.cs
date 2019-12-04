@@ -82,7 +82,7 @@ namespace NetModular.Module.Admin.Application.AccountService
 
             var verifyCodeKey = CacheKeys.VerifyCodeKey + model.PictureId;
             var systemConfig = (await _systemService.GetConfig()).Data;
-            if (systemConfig.LoginOptions.VerifyCode)
+            if (systemConfig.Login.VerifyCode)
             {
                 if (model.Code.IsNull())
                     return result.Failed("请输入验证码");

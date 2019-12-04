@@ -6,7 +6,14 @@ const page = new (function() {
   this.path = '/admin/system/config'
 
   // 关联权限
-  this.permissions = [`${this.name}_config_post`, `${this.name}_UploadLogo_post`]
+  this.permissions = [
+    `${this.name}_UpdateBaseConfig_post`,
+    `${this.name}_UpdateComponentConfig_post`,
+    `${this.name}_UpdateLoginConfig_post`,
+    `${this.name}_UpdatePermissionConfig_post`,
+    `${this.name}_UpdateToolbarConfig_post`,
+    `${this.name}_UploadLogo_post`
+  ]
 })()
 
 /** 路由信息 */

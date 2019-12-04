@@ -1,7 +1,7 @@
 {
   "name": "netmodular-module-admin",
   "code": "admin",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "NetModular前端Admin模块组件",
   "author": "Oldli",
   "license": "ISC",
@@ -18,14 +18,14 @@
   },
   "dependencies": {
     "netmodular-skins-classics": "^1.0.0",
-    "netmodular-ui": "^1.2.0"
+    "netmodular-ui": "^1.2.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-eslint": "^4.0.0",
-    "@vue/cli-plugin-router": "^4.0.0",
-    "@vue/cli-plugin-vuex": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
+    "@vue/cli-plugin-babel": "^4.1.1",
+    "@vue/cli-plugin-eslint": "^4.1.1",
+    "@vue/cli-plugin-router": "^4.1.1",
+    "@vue/cli-plugin-vuex": "^4.1.1",
+    "@vue/cli-service": "^4.1.1",
     "@vue/eslint-config-prettier": "^5.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",

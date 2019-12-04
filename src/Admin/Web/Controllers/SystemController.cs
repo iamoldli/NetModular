@@ -45,10 +45,38 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpPost]
-        [Description("修改系统配置")]
-        public IResultModel Config(SystemConfigModel model)
+        [Description("修改系统基础配置")]
+        public IResultModel UpdateBaseConfig(SystemBaseConfigModel model)
         {
-            return _systemService.UpdateConfig(model);
+            return _systemService.UpdateBaseConfig(model);
+        }
+
+        [HttpPost]
+        [Description("修改系统组件配置")]
+        public IResultModel UpdateComponentConfig(SystemComponentConfigModel model)
+        {
+            return _systemService.UpdateComponentConfig(model);
+        }
+
+        [HttpPost]
+        [Description("修改系统登录配置")]
+        public IResultModel UpdateLoginConfig(SystemLoginConfigModel model)
+        {
+            return _systemService.UpdateLoginConfig(model);
+        }
+
+        [HttpPost]
+        [Description("修改系统权限配置")]
+        public IResultModel UpdatePermissionConfig(SystemPermissionConfigModel model)
+        {
+            return _systemService.UpdatePermissionConfig(model);
+        }
+
+        [HttpPost]
+        [Description("修改系统权限配置")]
+        public IResultModel UpdateToolbarConfig(SystemToolbarConfigModel model)
+        {
+            return _systemService.UpdateToolbarConfig(model);
         }
 
         [HttpPost]

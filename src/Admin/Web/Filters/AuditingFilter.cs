@@ -28,7 +28,7 @@ namespace NetModular.Module.Admin.Web.Filters
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var cfg = _systemService.GetConfig().Result;
-            if (!cfg.Data.Auditing || !_options.Auditing || CheckDisabled(context))
+            if (!cfg.Data.Permission.Auditing || !_options.Auditing || CheckDisabled(context))
             {
                 return next();
             }

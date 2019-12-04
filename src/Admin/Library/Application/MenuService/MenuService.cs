@@ -62,7 +62,7 @@ namespace NetModular.Module.Admin.Application.MenuService
             var root = new TreeResultModel<Guid, MenuTreeResultModel>
             {
                 Id = Guid.Empty,
-                Label = sysConfig.Data.Title,
+                Label = sysConfig.Data.Base.Title,
                 Item = new MenuTreeResultModel()
             };
             root.Path.Add(root.Label);

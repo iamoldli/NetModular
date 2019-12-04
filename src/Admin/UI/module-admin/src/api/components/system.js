@@ -5,6 +5,11 @@ export default name => {
   const crud = $http.crud(root)
   const urls = {
     config: root + 'config',
+    updateBaseConfig: root + 'updateBaseConfig',
+    updateComponentConfig: root + 'updateComponentConfig',
+    updateLoginConfig: root + 'updateLoginConfig',
+    updatePermissionConfig: root + 'updatePermissionConfig',
+    updateToolbarConfig: root + 'updateToolbarConfig',
     uploadLogo: root + 'UploadLogo',
     allController: root + 'AllController',
     allAction: root + 'AllAction'
@@ -18,12 +23,39 @@ export default name => {
   }
 
   /**
-   * @description 修改系统配置
+   * @description 修改基础配置
    */
-  const updateConfig = params => {
-    return $http.post(urls.config, params)
+  const updateBaseConfig = params => {
+    return $http.post(urls.updateBaseConfig, params)
   }
 
+  /**
+   * @description 修改组件配置
+   */
+  const updateComponentConfig = params => {
+    return $http.post(urls.updateComponentConfig, params)
+  }
+
+  /**
+   * @description 修改登录配置
+   */
+  const updateLoginConfig = params => {
+    return $http.post(urls.updateLoginConfig, params)
+  }
+
+  /**
+   * @description 修改权限配置
+   */
+  const updatePermissionConfig = params => {
+    return $http.post(urls.updatePermissionConfig, params)
+  }
+
+  /**
+   * @description 修改工具栏配置
+   */
+  const updateToolbarConfig = params => {
+    return $http.post(urls.updateToolbarConfig, params)
+  }
   /**
    * logo上传接口
    */
@@ -45,7 +77,11 @@ export default name => {
   return {
     ...crud,
     getConfig,
-    updateConfig,
+    updateBaseConfig,
+    updateComponentConfig,
+    updateLoginConfig,
+    updatePermissionConfig,
+    updateToolbarConfig,
     uploadLogoUrl,
     getAllController,
     getAllAction

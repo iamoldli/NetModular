@@ -20,9 +20,10 @@ let modules = [admin]
  * @description 获取系统信息
  */
 const getSystem = async () => {
-  // 获取系统信息
-  const system = await $api.admin.system.getConfig()
+  // 获取系统配置信息
+  const config = await $api.admin.system.getConfig()
 
+  let system = { config }
   // 模块列表
   system.modules = modules
   system.actions = {
