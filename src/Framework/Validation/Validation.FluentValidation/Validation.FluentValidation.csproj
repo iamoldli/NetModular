@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <Description>NetModular model validate for FluentValidation</Description>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.0" />
   </ItemGroup>
 
   <ItemGroup>

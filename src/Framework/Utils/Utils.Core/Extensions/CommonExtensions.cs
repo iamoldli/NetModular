@@ -175,7 +175,20 @@ namespace NetModular.Lib.Utils.Core.Extensions
             Boolean.TryParse(s.ToString(), out bool result);
             return result;
         }
-        
+
+        /// <summary>
+        /// 字符串转Guid
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static Guid ToGuid(this string s)
+        {
+            if (s.NotNull() && Guid.TryParse(s, out Guid val))
+                return val;
+
+            return Guid.Empty;
+        }
+
         /// <summary>
         /// 泛型转换，转换失败会抛出异常
         /// </summary>

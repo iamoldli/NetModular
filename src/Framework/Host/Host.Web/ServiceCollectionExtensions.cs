@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Auth.Jwt;
@@ -18,6 +18,7 @@ using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Mvc;
 using NetModular.Lib.Validation.FluentValidation;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace NetModular.Lib.Host.Web
 {
@@ -32,7 +33,7 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
 #if NETSTANDARD2_0
         public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostingEnvironment env)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostEnvironment env)
 #endif
         {
@@ -82,7 +83,7 @@ namespace NetModular.Lib.Host.Web
                 //设置日期格式化格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             })
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
             .AddNewtonsoftJson(options =>
             {
                 //设置日期格式化格式
@@ -92,7 +93,7 @@ namespace NetModular.Lib.Host.Web
             .AddValidators(services)//添加验证器
 #if NETSTANDARD2_0
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 #endif
 
@@ -120,7 +121,7 @@ namespace NetModular.Lib.Host.Web
             services.AddHttpClient();
 
             //添加模块的自定义服务
-            services.AddModuleServices(modules);
+            services.AddModuleServices(modules, env);
 
             return services;
         }

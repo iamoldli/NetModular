@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 #endif
 using Microsoft.Extensions.DependencyInjection;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using Microsoft.Extensions.Options;
@@ -20,7 +20,7 @@ namespace NetModular.Lib.Module.AspNetCore
     {
 #if NETSTANDARD2_0
         public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostingEnvironment env)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public static IApplicationBuilder UseModules(this IApplicationBuilder app, IHostEnvironment env)
 #endif
         {

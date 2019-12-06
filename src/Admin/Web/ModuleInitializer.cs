@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using Microsoft.Extensions.Options;
@@ -20,7 +20,11 @@ namespace NetModular.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection services)
+#if NETSTANDARD2_0
+        public void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
+#elif NETCOREAPP3_1
+        public void ConfigureServices(IServiceCollection services, IHostEnvironment env)
+#endif
         {
             //审计日志服务
             services.AddSingleton<IAuditingHandler, AuditingHandler>();
@@ -30,7 +34,7 @@ namespace NetModular.Module.Admin.Web
 
 #if NETSTANDARD2_0
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
 #endif
         {

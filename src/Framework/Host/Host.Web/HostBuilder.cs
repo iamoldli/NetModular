@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Logging.Serilog;
@@ -46,7 +46,7 @@ namespace NetModular.Lib.Host.Web
                 .UseStartup<TStartup>()
                 .UseUrls(hostOptions.Urls);
         }
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
             var cfgHelper = new ConfigurationHelper();

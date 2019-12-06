@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Linq;
+#if NETSTANDARD2_0
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Microsoft.Extensions.DependencyInjection;
+#if NETCOREAPP3_1
+using Microsoft.Extensions.Hosting;
+#endif
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Helpers;
@@ -54,13 +60,18 @@ namespace NetModular.Lib.Module.AspNetCore
         /// </summary>
         /// <param name="services"></param>
         /// <param name="modules"></param>
+        /// <param name="env"></param>
         /// <returns></returns>
-        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules)
+#if NETSTANDARD2_0
+        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules, IHostingEnvironment env)
+#elif NETCOREAPP3_1
+        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules, IHostEnvironment env)
+#endif
         {
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).Initializer?.ConfigureServices(services);
+                ((ModuleDescriptor)module).Initializer?.ConfigureServices(services, env);
             }
 
             return services;

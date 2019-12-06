@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Host.Web.Middleware;
@@ -31,7 +31,7 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
 #if NETSTANDARD2_0
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostEnvironment env)
 #endif
         {
@@ -60,7 +60,7 @@ namespace NetModular.Lib.Host.Web
                 });
             }
 
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
             //路由
             app.UseRouting();
 #endif
@@ -71,7 +71,7 @@ namespace NetModular.Lib.Host.Web
             //认证
             app.UseAuthentication();
 
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
             //授权
             app.UseAuthorization();
 
@@ -151,7 +151,7 @@ namespace NetModular.Lib.Host.Web
         {
 #if NETSTANDARD2_0
             var applicationLifetime = app.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Hosting.IApplicationLifetime>();
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
             var applicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
 #endif
             applicationLifetime.ApplicationStopping.Register(() =>

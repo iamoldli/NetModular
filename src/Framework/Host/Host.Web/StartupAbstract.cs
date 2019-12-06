@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Hosting;
 #endif
 using Microsoft.Extensions.DependencyInjection;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Utils.Core.Helpers;
@@ -18,7 +18,7 @@ namespace NetModular.Lib.Host.Web
         protected readonly IHostingEnvironment Env;
 
         protected StartupAbstract(IHostingEnvironment env)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         protected readonly IHostEnvironment Env;
 
         protected StartupAbstract(IHostEnvironment env)

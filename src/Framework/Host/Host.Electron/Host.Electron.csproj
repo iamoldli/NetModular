@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <Description>NetModular host for Electron</Description>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ElectronNET.API" Version="5.22.14" />
+    <PackageReference Include="ElectronNET.API" Version="7.30.2" />
   </ItemGroup>
 
   <ItemGroup>

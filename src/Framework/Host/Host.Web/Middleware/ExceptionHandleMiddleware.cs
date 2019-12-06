@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 #endif
 using Microsoft.AspNetCore.Http;
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using Microsoft.Extensions.Logging;
@@ -20,13 +20,13 @@ namespace NetModular.Lib.Host.Web.Middleware
         private readonly RequestDelegate _next;
 #if NETSTANDARD2_0
         private readonly IHostingEnvironment _env;
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         private readonly IHostEnvironment _env;
 #endif
         private readonly ILogger _logger;
 #if NETSTANDARD2_0
         public ExceptionHandleMiddleware(RequestDelegate next, IHostingEnvironment env, ILogger<ExceptionHandleMiddleware> logger)
-#elif NETCOREAPP3_0
+#elif NETCOREAPP3_1
         public ExceptionHandleMiddleware(RequestDelegate next, IHostEnvironment env, ILogger<ExceptionHandleMiddleware> logger)
 #endif
         {
