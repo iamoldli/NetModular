@@ -72,7 +72,7 @@ export default {
 
     // 设置账户类型
     if (config.accountTypes) {
-      system.loginOptions.accountTypes = config.accountTypes
+      system.config.login.accountTypes = config.accountTypes
     }
 
     // 设置个时间，防止等待页面闪烁

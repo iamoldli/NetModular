@@ -85,6 +85,7 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
         /// 浏览器信息
         /// </summary>
         [Length(500)]
+        [Nullable]
         public string BrowserInfo { get; set; }
 
         /// <summary>
