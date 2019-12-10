@@ -9,6 +9,7 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Options;
+using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Extensions;
@@ -45,6 +46,8 @@ namespace NetModular.Lib.Data.Integration
                 if (module != null)
                 {
                     services.AddDbContext(module, options, dbOptions);
+
+                    services.AddEntityObserver(module);
                 }
             }
         }
@@ -145,6 +148,28 @@ namespace NetModular.Lib.Data.Integration
         private static void LoadEntityTypes(IModuleDescriptor module, DbModuleOptions options)
         {
             options.EntityTypes = module.AssemblyDescriptor.Domain.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
+        }
+
+        /// <summary>
+        /// 注入实体观察者
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="module"></param>
+        private static void AddEntityObserver(this IServiceCollection services, IModuleDescriptor module)
+        {
+            var observers = module.AssemblyDescriptor.Application.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList();
+            observers.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
+            observers.AddRange(module.AssemblyDescriptor.Domain.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
+            observers.ForEach(m =>
+            {
+                var interfaceType = m.GetInterfaces().FirstOrDefault();
+                if (interfaceType != null)
+                {
+                    services.AddSingleton(interfaceType, m);
+                }
+            });
+
+            services.AddSingleton<IEntityObserverHandler, EntityObserverHandler>();
         }
     }
 }
