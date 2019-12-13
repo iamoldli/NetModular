@@ -9,16 +9,10 @@ namespace NetModular.Lib.Utils.Core.Options
     /// </summary>
     public class ModuleCommonOptions
     {
-        private string _uploadPath;
-
         /// <summary>
         /// 文件上传存储跟路径
         /// </summary>
-        public string UploadPath
-        {
-            get => _uploadPath.IsNull() ? Path.Combine(AppContext.BaseDirectory, "Upload") : _uploadPath;
-            set => _uploadPath = value;
-        }
+        public string UploadPath { get; set; }
 
         /// <summary>
         /// 临时文件存储根路径

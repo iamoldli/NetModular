@@ -10,6 +10,7 @@ using NetModular.Lib.Utils.Core.Encrypt;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.AccountService.ResultModels;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Application.SystemService;
@@ -43,8 +44,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly ISystemService _systemService;
         private readonly IServiceProvider _serviceProvider;
         private readonly AdminDbContext _dbContext;
+        private readonly SystemConfigModel _systemConfig;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IMenuRepository menuRepository, IRoleRepository roleRepository, IButtonRepository buttonRepository, IPermissionRepository permissionRepository, DrawingHelper drawingHelper, ISystemService systemService, IServiceProvider serviceProvider, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, SystemConfigModel systemConfig)
         {
             _cache = cache;
             _mapper = mapper;
@@ -59,6 +61,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             _serviceProvider = serviceProvider;
             _accountConfigRepository = accountConfigRepository;
             _dbContext = dbContext;
+            _systemConfig = systemConfig;
         }
 
         public IResultModel CreateVerifyCode(int length = 6)
@@ -81,8 +84,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             var result = new ResultModel<AccountEntity>();
 
             var verifyCodeKey = CacheKeys.VerifyCodeKey + model.PictureId;
-            var systemConfig = (await _systemService.GetConfig()).Data;
-            if (systemConfig.Login.VerifyCode)
+            if (_systemConfig.Login.VerifyCode)
             {
                 if (model.Code.IsNull())
                     return result.Failed("请输入验证码");

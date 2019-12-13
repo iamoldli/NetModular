@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 
 namespace NetModular.Lib.Cache.Integration
@@ -17,23 +18,22 @@ namespace NetModular.Lib.Cache.Integration
         /// <returns></returns>
         public static IServiceCollection AddCache(this IServiceCollection services, string environmentName)
         {
-            var cfgHelper = new ConfigurationHelper();
-            var cacheOptions = cfgHelper.Get<CacheOptions>("Cache", environmentName);
-
-            if (cacheOptions == null)
+            //通用配置
+            var options = new ConfigurationHelper().Get<CacheOptions>("module", environmentName, true);
+            if (options == null)
                 return services;
 
-            services.AddSingleton(cacheOptions);
+            services.AddSingleton(options);
 
-            var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Cache.{cacheOptions.Mode.ToString()}");
+            var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Cache.{options.Mode.ToString()}");
 
-            Check.NotNull(assembly, cacheOptions.Mode + "缓存实现程序集未找到");
+            Check.NotNull(assembly, $"缓存实现程序集{options.Mode.ToDescription()}未找到");
 
             var configType = assembly.GetTypes().FirstOrDefault(m => m.Name.Equals("ServiceCollectionConfig"));
             if (configType != null)
             {
                 var instance = (IServiceCollectionConfig)Activator.CreateInstance(configType);
-                instance.Config(services, cacheOptions);
+                instance.Config(services, options);
             }
 
             return services;

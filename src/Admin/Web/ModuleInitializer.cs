@@ -15,6 +15,7 @@ using NetModular.Module.Admin.Web.Filters;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore;
 using System.IO;
+using NetModular.Module.Admin.Application.SystemService;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -30,6 +31,10 @@ namespace NetModular.Module.Admin.Web
             services.AddSingleton<IAuditingHandler, AuditingHandler>();
             //权限验证服务
             services.AddScoped<IPermissionValidateHandler, PermissionValidateHandler>();
+
+            //注入系统配置
+            var systemConfig = services.BuildServiceProvider().GetService<SystemConfigResolver>().GetConfig().Result;
+            services.AddSingleton(systemConfig);
         }
 
 #if NETSTANDARD2_0

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
+using NetModular.Lib.Excel.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Domain.AuditInfo;
 using NetModular.Module.Admin.Domain.AuditInfo.Models;
@@ -8,13 +8,13 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
 {
     public class AuditInfoService : IAuditInfoService
     {
-        private readonly IMapper _mapper;
         private readonly IAuditInfoRepository _repository;
+        private readonly IExcelHandler _excelHandler;
 
-        public AuditInfoService(IAuditInfoRepository repository, IMapper mapper)
+        public AuditInfoService(IAuditInfoRepository repository, IExcelHandler excelHandler)
         {
             _repository = repository;
-            _mapper = mapper;
+            _excelHandler = excelHandler;
         }
 
         public async Task<IResultModel> Add(AuditInfoEntity info)
@@ -50,6 +50,18 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
         {
             var list = await _repository.QueryLatestWeekPv();
             return ResultModel.Success(list);
+        }
+
+        public async Task<IResultModel<ExcelExportResultModel>> Export(AuditInfoQueryModel model)
+        {
+            var result = new ResultModel<ExcelExportResultModel>();
+            var list = await _repository.Query(model);
+            if (model.IsOutOfExportCountLimit)
+            {
+                return result.Failed($"导出数据不能超过{model.ExportCountLimit}条");
+            }
+
+            return result.Success(_excelHandler.Export(model.Export, list));
         }
     }
 }

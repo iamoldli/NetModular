@@ -14,6 +14,13 @@ const page = new (function() {
       icon: 'detail',
       code: `${this.name}_details`,
       permissions: [`${this.name}_details_get`]
+    },
+    export: {
+      text: '导出',
+      type: 'text',
+      icon: 'export',
+      code: `${this.name}_export`,
+      permissions: [`${this.name}_export_post`]
     }
   }
 })()

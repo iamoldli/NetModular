@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Framework\Cache\Cache.Abstractions\Cache.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Data\Extend\Data.Query\Data.Query.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Excel\Excel.Abstractions\Excel.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

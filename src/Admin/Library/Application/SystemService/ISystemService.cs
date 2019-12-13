@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using NetModular.Lib.Utils.Core.Result;
-using NetModular.Module.Admin.Application.SystemService.ViewModels;
+﻿using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Module.Admin.Application.SystemService
 {
@@ -9,12 +8,6 @@ namespace NetModular.Module.Admin.Application.SystemService
     /// </summary>
     public interface ISystemService
     {
-        /// <summary>
-        /// 获取系统配置信息
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel<SystemConfigModel>> GetConfig(string host = null);
-
         /// <summary>
         /// 更改基础配置
         /// </summary>

@@ -11,8 +11,18 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
     /// </summary>
     public interface IAuditInfoRepository : IRepository<AuditInfoEntity>
     {
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         Task<IList<AuditInfoEntity>> Query(AuditInfoQueryModel model);
 
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<AuditInfoEntity> Details(int id);
 
         /// <summary>

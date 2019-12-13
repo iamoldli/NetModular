@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore.Attributes;
-using NetModular.Module.Admin.Application.SystemService;
+using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Infrastructure.Options;
 
 namespace NetModular.Module.Admin.Web.Filters
@@ -15,20 +15,19 @@ namespace NetModular.Module.Admin.Web.Filters
     public class AuditingFilter : IAsyncActionFilter
     {
         private readonly AdminOptions _options;
-        private readonly ISystemService _systemService;
         private readonly IAuditingHandler _handler;
+        private readonly SystemConfigModel _systemConfig;
 
-        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, ISystemService systemService, IAuditingHandler handler)
+        public AuditingFilter(IOptionsMonitor<AdminOptions> optionsAccessor, IAuditingHandler handler, SystemConfigModel systemConfig)
         {
             _options = optionsAccessor.CurrentValue;
-            _systemService = systemService;
             _handler = handler;
+            _systemConfig = systemConfig;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var cfg = _systemService.GetConfig().Result;
-            if (!cfg.Data.Permission.Auditing || !_options.Auditing || CheckDisabled(context))
+            if (!_systemConfig.Permission.Auditing || !_options.Auditing || CheckDisabled(context))
             {
                 return next();
             }

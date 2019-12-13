@@ -10,11 +10,13 @@ using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Auth.Jwt;
 using NetModular.Lib.Cache.Integration;
 using NetModular.Lib.Data.Integration;
+using NetModular.Lib.Excel.Integration;
 using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.AspNetCore;
 using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Swagger.Core.Conventions;
 using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Options;
 using NetModular.Lib.Utils.Mvc;
 using NetModular.Lib.Validation.FluentValidation;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
@@ -44,13 +46,16 @@ namespace NetModular.Lib.Host.Web
             services.AddUtilsMvc();
 
             //加载模块
-            var modules = services.AddModules(env.EnvironmentName);
+            var modules = services.AddModules(env.EnvironmentName, out ModuleCommonOptions moduleCommonOptions);
 
             //添加对象映射
             services.AddMappers(modules);
 
             //添加缓存
             services.AddCache(env.EnvironmentName);
+
+            //添加Excel相关功能
+            services.AddExcel(env.EnvironmentName, moduleCommonOptions);
 
             //主动或者开发模式下开启Swagger
             if (hostOptions.Swagger || env.IsDevelopment())
@@ -79,17 +84,13 @@ namespace NetModular.Lib.Host.Web
             })
 #if NETSTANDARD2_0
             .AddJsonOptions(options =>
-            {
-                //设置日期格式化格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            })
 #elif NETCOREAPP3_1
             .AddNewtonsoftJson(options =>
+#endif
             {
                 //设置日期格式化格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             })
-#endif
             .AddValidators(services)//添加验证器
 #if NETSTANDARD2_0
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

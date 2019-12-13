@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using NetModular.Lib.Excel.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Domain.AuditInfo;
 using NetModular.Module.Admin.Domain.AuditInfo.Models;
@@ -36,5 +37,12 @@ namespace NetModular.Module.Admin.Application.AuditInfoService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> QueryLatestWeekPv();
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel<ExcelExportResultModel>> Export(AuditInfoQueryModel model);
     }
 }

@@ -43,5 +43,18 @@ namespace NetModular.Module.Admin.Web.Controllers
         {
             return _service.QueryLatestWeekPv();
         }
+
+        [HttpPost]
+        [Description("导出")]
+        public async Task<IActionResult> Export(AuditInfoQueryModel model)
+        {
+            var result = await _service.Export(model);
+            if (result.Successful)
+            {
+                return ExportExcel(result.Data.Path, result.Data.FileName);
+            }
+
+            return Ok(result);
+        }
     }
 }

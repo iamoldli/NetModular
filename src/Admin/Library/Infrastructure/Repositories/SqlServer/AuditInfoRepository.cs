@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
@@ -35,15 +34,19 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                 query.OrderByDescending(x => x.Id);
             }
 
-            var sw = new Stopwatch();
-            sw.Start();
+            //导出全部
+            if (model.IsExport && model.Export.Mode == ExportMode.All)
+            {
+                model.ExportCount = await query.CountAsync();
+                if (model.IsOutOfExportCountLimit)
+                {
+                    return new List<AuditInfoEntity>();
+                }
+                return await query.ToListAsync();
+            }
 
             var list = await query.PaginationAsync(paging);
-
-            sw.Stop();
-
-            var s = sw.ElapsedMilliseconds;
-
+            model.ExportCount = list.Count;
             model.TotalCount = paging.TotalCount;
             return list;
         }

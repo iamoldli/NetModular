@@ -30,7 +30,7 @@ namespace NetModular.Lib.Host.Web
         /// <param name="env"></param>
         /// <returns></returns>
 #if NETSTANDARD2_0
-        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostingEnvironment env)
 #elif NETCOREAPP3_1
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostEnvironment env)
 #endif

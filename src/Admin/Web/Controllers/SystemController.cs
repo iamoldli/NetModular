@@ -12,10 +12,10 @@ using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Options;
 using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Lib.Utils.Mvc.Extensions;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.SystemService;
-using NetModular.Module.Admin.Application.SystemService.ViewModels;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -26,12 +26,14 @@ namespace NetModular.Module.Admin.Web.Controllers
         private readonly ISystemService _systemService;
         private readonly FileUploadHelper _fileUploadHelper;
         private readonly MvcHelper _mvcHelper;
+        private readonly SystemConfigModel _configModel;
 
-        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, MvcHelper mvcHelper)
+        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, MvcHelper mvcHelper, SystemConfigModel configModel)
         {
             _systemService = systemService;
             _fileUploadHelper = fileUploadHelper;
             _mvcHelper = mvcHelper;
+            _configModel = configModel;
             _options = optionsMonitor.CurrentValue;
         }
 
@@ -39,9 +41,10 @@ namespace NetModular.Module.Admin.Web.Controllers
         [AllowAnonymous]
         [DisableAuditing]
         [Description("获取系统配置信息")]
-        public Task<IResultModel<SystemConfigModel>> Config()
+        public IResultModel<SystemConfigModel> Config()
         {
-            return _systemService.GetConfig(Request.GetHost());
+            var result = new ResultModel<SystemConfigModel>();
+            return result.Success(_configModel);
         }
 
         [HttpPost]

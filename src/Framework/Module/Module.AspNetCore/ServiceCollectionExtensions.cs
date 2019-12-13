@@ -1,14 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 #if NETSTANDARD2_0
 using Microsoft.AspNetCore.Hosting;
 #endif
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 #if NETCOREAPP3_1
 using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Lib.Utils.Core.Options;
 
@@ -22,18 +26,36 @@ namespace NetModular.Lib.Module.AspNetCore
         /// <param name="services"></param>
         /// <param name="environmentName">环境名称</param>
         /// <returns></returns>
-        public static IModuleCollection AddModules(this IServiceCollection services, string environmentName)
+        public static IModuleCollection AddModules(this IServiceCollection services, string environmentName, out ModuleCommonOptions moduleCommonOptions)
         {
+            moduleCommonOptions = null;
             var modules = new ModuleCollection();
             services.AddSingleton<IModuleCollection>(modules);
 
-            var cfgHelper = new ConfigurationHelper();
-            var cfg = cfgHelper.Load("module", environmentName, true);
+            //通用配置
+            var cfg = new ConfigurationHelper().Load("module", environmentName, true);
             if (cfg == null)
                 return modules;
 
-            //通用配置
-            services.Configure<ModuleCommonOptions>(cfg);
+            var options = cfg.Get<ModuleCommonOptions>();
+            if (options.UploadPath.IsNull())
+            {
+                options.UploadPath = Path.Combine(AppContext.BaseDirectory, "Upload");
+            }
+            if (options.TempPath.IsNull())
+            {
+                options.TempPath = Path.Combine(AppContext.BaseDirectory, "Temp");
+            }
+
+            services.AddSingleton(options);
+
+            services.Configure<ModuleCommonOptions>(m =>
+            {
+                m.UploadPath = options.UploadPath;
+                m.TempPath = options.TempPath;
+            });
+
+            moduleCommonOptions = options;
 
             foreach (var module in modules)
             {

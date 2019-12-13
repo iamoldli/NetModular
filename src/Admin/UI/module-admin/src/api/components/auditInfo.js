@@ -5,7 +5,8 @@ export default name => {
   const crud = $http.crud(root)
   const urls = {
     details: root + 'Details',
-    queryLatestWeekPv: root + 'QueryLatestWeekPv'
+    queryLatestWeekPv: root + 'QueryLatestWeekPv',
+    export: root + 'Export'
   }
 
   const details = id => {
@@ -16,9 +17,14 @@ export default name => {
     return $http.get(urls.queryLatestWeekPv)
   }
 
+  const exportData = params => {
+    return $http.export(urls.export, params)
+  }
+
   return {
     ...crud,
     details,
-    queryLatestWeekPv
+    queryLatestWeekPv,
+    exportData
   }
 }

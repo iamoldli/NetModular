@@ -3,7 +3,7 @@
 namespace NetModular.Lib.Cache.Abstractions
 {
     /// <summary>
-    /// 依赖注入服务配置
+    /// 缓存依赖注入服务配置
     /// </summary>
     public interface IServiceCollectionConfig
     {

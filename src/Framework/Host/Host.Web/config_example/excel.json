@@ -1,0 +1,6 @@
+{
+  //Excel操作库 0、EPPlus 1、NPOI 2、OpenXml
+  "Provider": 0,
+  //Excel相关临时文件路径名称，默认Excel，该目录会放在全局的临时目录下
+  "TempPath": ""
+}

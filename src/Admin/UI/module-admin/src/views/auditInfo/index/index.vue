@@ -76,7 +76,30 @@ export default {
           startTime: '',
           endTime: ''
         },
-        cols
+        cols,
+        /**导出配置 */
+        exportOptions: {
+          /**启用导出按钮 */
+          enabled: true,
+          /**导出数据的方法 */
+          action: api.exportData,
+          /**启用高级配置 */
+          advanced: true,
+          /**导出按钮位置 */
+          btnLocation: 'querybar',
+          /**导出按钮权限编码 */
+          btnCode: page.buttons.export.code,
+          /**默认是否显示标题 */
+          showTitle: true,
+          /**默认是否显示版权信息 */
+          showCopyright: true,
+          /**默认是否显示列名 */
+          showColName: true,
+          /**默认是否显示导出日期 */
+          showExportDate: true,
+          /**默认是否显示导出人 */
+          showExportPeople: true
+        }
       },
       detailsPage: {
         visible: false,

@@ -30,8 +30,7 @@ namespace NetModular.Lib.Data.Integration
             if (modules == null || !modules.Any())
                 return;
 
-            var cfgHelper = new ConfigurationHelper();
-            var dbOptions = cfgHelper.Get<DbOptions>("Db", environmentName);
+            var dbOptions = new ConfigurationHelper().Get<DbOptions>("Db", environmentName);
 
             if (dbOptions?.Modules == null || !dbOptions.Modules.Any())
                 return;
@@ -39,6 +38,14 @@ namespace NetModular.Lib.Data.Integration
             CheckOptions(dbOptions);
 
             services.AddSingleton(dbOptions);
+
+            services.Configure<DbOptions>(m =>
+            {
+                foreach (var propertyInfo in typeof(DbOptions).GetProperties())
+                {
+                    propertyInfo.SetValue(m, propertyInfo.GetValue(dbOptions));
+                }
+            });
 
             foreach (var options in dbOptions.Modules)
             {

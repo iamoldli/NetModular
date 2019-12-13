@@ -29,5 +29,7 @@ namespace NetModular.Module.Admin.Domain.AuditInfo.Models
         /// 结束时间
         /// </summary>
         public DateTime? EndTime { get; set; }
+
+        public override int ExportCountLimit => 100;
     }
 }
