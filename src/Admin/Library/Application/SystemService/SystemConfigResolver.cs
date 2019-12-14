@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
@@ -26,11 +27,6 @@ namespace NetModular.Module.Admin.Application.SystemService
             var model = new SystemConfigModel();
 
             GetConfig(model, configList);
-
-            if (model.Base.Logo.NotNull())
-            {
-                model.Base.Logo = new Uri($"/upload/{model.Base.Logo}").ToString().ToLower();
-            }
 
             return model;
         }

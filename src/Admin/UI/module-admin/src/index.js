@@ -75,11 +75,12 @@ export default {
       system.config.login.accountTypes = config.accountTypes
     }
 
-    // 设置个时间，防止等待页面闪烁
-    setTimeout(() => {
-      NetModularUI.use({
-        system
-      })
-    }, 1000)
+    window.loaded = true
+    const t = setInterval(() => {
+      if (window.loadProgress > 98) {
+        clearInterval(t)
+        NetModularUI.use({ system })
+      }
+    }, 20)
   }
 }

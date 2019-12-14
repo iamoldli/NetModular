@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace NetModular.Lib.Utils.Core.SystemConfig
 {
@@ -15,9 +16,15 @@ namespace NetModular.Lib.Utils.Core.SystemConfig
         public string Title { get; set; }
 
         /// <summary>
-        /// Logo
+        /// Logo文件路径
         /// </summary>
         [ConfigDescription("sys_logo", "系统Logo")]
+        [JsonIgnore]
+        public string LogoPath { get; set; }
+
+        /// <summary>
+        /// Logo完整Url地址
+        /// </summary>
         public string Logo { get; set; }
 
         /// <summary>

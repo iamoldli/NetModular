@@ -20,7 +20,7 @@ namespace NetModular.Module.Admin.Application.SystemService
             _dbContext = dbContext;
             _configModel = configModel;
         }
-      
+
         public IResultModel UpdateBaseConfig(SystemBaseConfigModel model)
         {
             Update(model);
