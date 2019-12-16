@@ -19,7 +19,7 @@ namespace NetModular.Lib.Cache.Integration
         public static IServiceCollection AddCache(this IServiceCollection services, string environmentName)
         {
             //通用配置
-            var options = new ConfigurationHelper().Get<CacheOptions>("module", environmentName, true);
+            var options = new ConfigurationHelper().Get<CacheOptions>("cache", environmentName, true);
             if (options == null)
                 return services;
 
