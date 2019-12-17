@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button v-bind="buttons.add" @click="addPage.visible = true" />
+        <nm-button v-bind="buttons.add" @click="add" />
       </template>
 
       <!--操作列-->
@@ -20,24 +20,23 @@
       </template>
     </nm-list>
 
-    <!--添加页-->
-    <add-page :visible.sync="addPage.visible" @success="refresh" />
     <!--编辑页-->
-    <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh" />
+    <save-page :id="curr.id" :visible.sync="dialog.save" @success="refresh" />
   </nm-container>
 </template>
 <script>
+import { mixins } from 'netmodular-ui'
 import page from './page'
 import cols from './cols'
-import AddPage from '../components/add'
-import EditPage from '../components/edit'
+import SavePage from '../components/save'
 
 // 接口
 const api = $api.admin.config
 
 export default {
   name: page.name,
-  components: { AddPage, EditPage },
+  mixins: [mixins.list],
+  components: { SavePage },
   data() {
     return {
       list: {
@@ -48,36 +47,8 @@ export default {
           key: ''
         }
       },
-      addPage: {
-        visible: false
-      },
-      editDialog: {
-        visible: false,
-        id: ''
-      },
-      bindMenuDialog: {
-        visible: false,
-        id: ''
-      },
       removeAction: api.remove,
       buttons: page.buttons
-    }
-  },
-  methods: {
-    refresh() {
-      this.$refs.list.refresh()
-    },
-    edit(row) {
-      this.editDialog = {
-        id: row.id,
-        visible: true
-      }
-    },
-    bindMenu(row) {
-      this.bindMenuDialog = {
-        id: row.id,
-        visible: true
-      }
     }
   }
 }

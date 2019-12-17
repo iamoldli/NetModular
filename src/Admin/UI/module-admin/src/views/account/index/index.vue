@@ -55,52 +55,38 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{ row }">
-        <el-dropdown trigger="click" v-if="!row.isLock">
-          <span class="el-dropdown-link">
-            操作
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu class="nm-list-operation-dropdown" slot="dropdown">
-            <el-dropdown-item>
-              <nm-button v-bind="buttons.edit" @click="edit(row)" />
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button v-bind="buttons.resetPassword" @click="resetPassword(row)" />
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <nm-button-delete v-bind="buttons.del" :disabled="row.id === accountId" :action="removeAction" :id="row.id" @success="refresh" />
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <nm-button v-else type="text" text="锁定" :disabled="true" />
+        <nm-button v-if="!row.isLock" v-bind="buttons.edit" @click="edit(row)" />
+        <nm-button v-if="!row.isLock" v-bind="buttons.resetPassword" @click="resetPassword(row)" />
+        <nm-button-delete v-if="!row.isLock" v-bind="buttons.del" :disabled="row.id === accountId" :action="removeAction" :id="row.id" @success="refresh" />
+        <nm-button v-if="row.isLock" type="text" text="锁定" :disabled="true" />
       </template>
     </nm-list>
 
-    <!--添加-->
-    <add-page :visible.sync="addPage.visible" :sort="addPage.sort" @success="refresh" />
-    <!--编辑-->
-    <edit-page :visible.sync="editPage.visible" :id="editPage.id" @success="refresh" />
+    <!--保存页-->
+    <save-page :id="curr.id" :visible.sync="dialog.save" @success="refresh" />
   </nm-container>
 </template>
 <script>
 import { mapState } from 'vuex'
+import { mixins } from 'netmodular-ui'
 import page from './page'
 import cols from './cols'
-import AddPage from '../components/add'
-import EditPage from '../components/edit'
+import SavePage from '../components/save'
 
 // 接口
 const api = $api.admin.account
 
 export default {
   name: page.name,
-  components: { AddPage, EditPage },
+  mixins: [mixins.list],
+  components: { SavePage },
   data() {
     return {
       list: {
         title: page.title,
         cols,
         action: api.query,
+        operationWidth: '200',
         advanced: {
           enabled: true,
           width: '400px'
@@ -112,14 +98,6 @@ export default {
           email: ''
         }
       },
-      addPage: {
-        visible: false,
-        sort: 0
-      },
-      editPage: {
-        visible: false,
-        id: ''
-      },
       removeAction: api.remove,
       buttons: page.buttons
     }
@@ -128,19 +106,6 @@ export default {
     ...mapState('app/account', { accountId: 'id' })
   },
   methods: {
-    refresh() {
-      this.$refs.list.refresh()
-    },
-    add(total) {
-      this.addPage.sort = total
-      this.addPage.visible = true
-    },
-    edit(row) {
-      this.editPage = {
-        id: row.id,
-        visible: true
-      }
-    },
     resetPassword(row) {
       this._confirm(`您确定要重置账户(${row.name})的密码吗？`).then(() => {
         api.resetPassword(row.id).then(() => {

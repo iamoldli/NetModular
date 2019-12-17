@@ -10,7 +10,7 @@
 
       <!--按钮-->
       <template v-slot:querybar-buttons>
-        <nm-button v-bind="buttons.add" @click="addPage.visible = true" />
+        <nm-button v-bind="buttons.add" @click="add" />
       </template>
 
       <template v-slot:col-name="{ row }">
@@ -31,27 +31,26 @@
       </template>
     </nm-list>
 
-    <!--添加页-->
-    <add-page :visible.sync="addPage.visible" @success="refresh" />
-    <!--编辑页-->
-    <edit-page :id="editDialog.id" :visible.sync="editDialog.visible" @success="refresh" />
+    <!--保存页-->
+    <save-page :id="curr.id" :visible.sync="dialog.save" @success="refresh" />
     <!--绑定菜单-->
-    <bind-menu-page :id="bindMenuDialog.id" :visible.sync="bindMenuDialog.visible" />
+    <bind-menu-page :id="curr.id" :visible.sync="dialog.bindMenu" />
   </nm-container>
 </template>
 <script>
+import { mixins } from 'netmodular-ui'
 import page from './page'
 import cols from './cols'
-import AddPage from '../components/add'
-import EditPage from '../components/edit'
+import SavePage from '../components/save'
 import BindMenuPage from '../components/menu-bind'
 
 // 接口
 const api = $api.admin.role
 
 export default {
+  mixins: [mixins.list],
   name: page.name,
-  components: { AddPage, EditPage, BindMenuPage },
+  components: { SavePage, BindMenuPage },
   data() {
     return {
       list: {
@@ -62,36 +61,17 @@ export default {
           name: ''
         }
       },
-      addPage: {
-        visible: false
-      },
-      editDialog: {
-        visible: false,
-        id: ''
-      },
-      bindMenuDialog: {
-        visible: false,
-        id: ''
+      dialog: {
+        bindMenu: false
       },
       removeAction: api.remove,
       buttons: page.buttons
     }
   },
   methods: {
-    refresh() {
-      this.$refs.list.refresh()
-    },
-    edit(row) {
-      this.editDialog = {
-        id: row.id,
-        visible: true
-      }
-    },
     bindMenu(row) {
-      this.bindMenuDialog = {
-        id: row.id,
-        visible: true
-      }
+      this.curr.id = row.id
+      this.dialog.bindMenu = true
     }
   }
 }
