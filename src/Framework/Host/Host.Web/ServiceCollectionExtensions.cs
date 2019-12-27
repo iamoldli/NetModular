@@ -20,7 +20,6 @@ using NetModular.Lib.Utils.Core.Options;
 using NetModular.Lib.Utils.Mvc;
 using NetModular.Lib.Validation.FluentValidation;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace NetModular.Lib.Host.Web
 {

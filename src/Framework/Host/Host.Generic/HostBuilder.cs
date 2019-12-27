@@ -4,12 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetModular.Lib.Cache.Integration;
-using NetModular.Lib.Data.Integration;
 using NetModular.Lib.Logging.Serilog.GenericHost;
-using NetModular.Lib.Mapper.AutoMapper;
-using NetModular.Lib.Module.GenericHost;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Host.Generic
 {
@@ -39,30 +34,11 @@ namespace NetModular.Lib.Host.Generic
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    var envName = hostContext.HostingEnvironment.EnvironmentName;
-
-                    services.AddUtils();
-
-                    //加载模块
-                    var modules = services.AddModules(envName);
-
-                    //添加对象映射
-                    services.AddMappers(modules);
-
-                    //添加缓存
-                    services.AddCache(envName);
-
-                    //添加数据库
-                    services.AddDb(envName, modules);
-
-                    //自定义服务
-                    configureServices?.Invoke(services, hostContext.HostingEnvironment);
+                    services.AddGenericHost(hostContext.HostingEnvironment, configureServices);
 
                     //添加主机服务
                     services.AddHostedService<TStartup>();
 
-                    //添加HttpClient相关
-                    services.AddHttpClient();
                 })
                 .Build();
 

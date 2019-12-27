@@ -12,6 +12,7 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <!--设置打包路径-->
     <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
     <Company>Oldli</Company>

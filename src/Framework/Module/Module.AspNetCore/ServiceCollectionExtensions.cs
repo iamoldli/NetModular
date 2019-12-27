@@ -25,6 +25,7 @@ namespace NetModular.Lib.Module.AspNetCore
         /// </summary>
         /// <param name="services"></param>
         /// <param name="environmentName">环境名称</param>
+        /// <param name="moduleCommonOptions"></param>
         /// <returns></returns>
         public static IModuleCollection AddModules(this IServiceCollection services, string environmentName, out ModuleCommonOptions moduleCommonOptions)
         {
@@ -37,7 +38,7 @@ namespace NetModular.Lib.Module.AspNetCore
             if (cfg == null)
                 return modules;
 
-            var options = cfg.Get<ModuleCommonOptions>();
+            var options = cfg.Get<ModuleCommonOptions>() ?? new ModuleCommonOptions();
             if (options.UploadPath.IsNull())
             {
                 options.UploadPath = Path.Combine(AppContext.BaseDirectory, "Upload");

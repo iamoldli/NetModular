@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>NetModular host for Generic</Description>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,46 +17,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
+    <ProjectReference Include="..\..\Excel\Excel.Integration\Excel.Integration.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj" />
     <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Module\Module.GenericHost\Module.GenericHost.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="config_example\cache.Development.json">
-      <DependentUpon>config\cache.json</DependentUpon>
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\cache.json">
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\db.Development.json">
-      <DependentUpon>config\db.json</DependentUpon>
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\db.json">
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\logging.Development.json">
-      <DependentUpon>config\logging.json</DependentUpon>
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\logging.json">
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\module.Development.json">
-      <DependentUpon>config\module.json</DependentUpon>
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\module.json">
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\mq.Development.json">
-      <DependentUpon>config\mq.json</DependentUpon>
-      <Pack>true</Pack>
-    </None>
-    <None Update="config_example\mq.json">
-      <Pack>true</Pack>
-    </None>
   </ItemGroup>
 </Project>
