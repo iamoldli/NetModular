@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Encrypt;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
@@ -273,7 +274,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Success(result);
         }
 
-        public async Task<IResultModel<Guid>> Add(AccountAddModel model)
+        public async Task<IResultModel<Guid>> Add(AccountAddModel model, IUnitOfWork uow = null)
         {
             var result = new ResultModel<Guid>();
 
@@ -292,24 +293,32 @@ namespace NetModular.Module.Admin.Application.AccountService
 
             account.Password = EncryptPassword(account.UserName, account.Password);
 
-            using (var uow = _dbContext.NewUnitOfWork())
+            //如果uow参数为空，需要自动处理工作单元
+            var noUow = uow == null;
+            if (noUow)
             {
-                if (await _accountRepository.AddAsync(account, uow))
+                uow = _dbContext.NewUnitOfWork();
+            }
+
+            if (await _accountRepository.AddAsync(account, uow))
+            {
+                if (model.Roles != null && model.Roles.Any())
                 {
-                    if (model.Roles != null && model.Roles.Any())
+                    var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
+                    if (await _accountRoleRepository.AddAsync(accountRoleList, uow))
                     {
-                        var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
-                        if (await _accountRoleRepository.AddAsync(accountRoleList, uow))
-                        {
+                        if (noUow)
                             uow.Commit();
-                            return result.Success(account.Id);
-                        }
-                    }
-                    else
-                    {
-                        uow.Commit();
+
                         return result.Success(account.Id);
                     }
+                }
+                else
+                {
+                    if (noUow)
+                        uow.Commit();
+
+                    return result.Success(account.Id);
                 }
             }
 

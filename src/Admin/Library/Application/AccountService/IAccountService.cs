@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
@@ -58,8 +59,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// 添加
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<IResultModel<Guid>> Add(AccountAddModel model);
+        Task<IResultModel<Guid>> Add(AccountAddModel model, IUnitOfWork uow = null);
 
         /// <summary>
         /// 编辑
@@ -81,7 +83,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// <param name="id"></param>
         /// <param name="deleter">删除人</param>
         /// <returns></returns>
-        Task<IResultModel> Delete(Guid id,Guid deleter);
+        Task<IResultModel> Delete(Guid id, Guid deleter);
 
         /// <summary>
         /// 重置密码
