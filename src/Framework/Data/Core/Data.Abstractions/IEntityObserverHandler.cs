@@ -11,21 +11,28 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 添加
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id">实体ID</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task Add<T>(dynamic id) where T : IEntity;
+        Task Add<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity;
 
         /// <summary>
         /// 修改
         /// </summary>
-        /// <param name="id"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id">实体ID</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task Update<T>(dynamic id) where T : IEntity;
+        Task Update<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity;
 
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="id"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id">实体ID</param>
+        /// <param name="uow">工作单元</param>
         /// <returns></returns>
-        Task Delete<T>(dynamic id) where T : IEntity;
+        Task Delete<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity;
     }
 }

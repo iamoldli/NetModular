@@ -16,7 +16,7 @@ namespace NetModular.Lib.Data.Core
             _sp = sp;
         }
 
-        public Task Add<T>(dynamic id) where T : IEntity
+        public Task Add<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity
         {
             var observers = _sp.GetServices<IEntityObserver<T>>().ToList();
             if (observers.Any())
@@ -24,7 +24,7 @@ namespace NetModular.Lib.Data.Core
                 var tasks = new Task[observers.Count];
                 for (int i = 0; i < observers.Count; i++)
                 {
-                    tasks[i] = observers[i].Add(id);
+                    tasks[i] = observers[i].Add(id, uow);
                 }
 
                 return Task.WhenAll(tasks);
@@ -33,7 +33,7 @@ namespace NetModular.Lib.Data.Core
             return Task.CompletedTask;
         }
 
-        public Task Update<T>(dynamic id) where T : IEntity
+        public Task Update<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity
         {
             var observers = _sp.GetServices<IEntityObserver<T>>().ToList();
             if (observers.Any())
@@ -41,7 +41,7 @@ namespace NetModular.Lib.Data.Core
                 var tasks = new Task[observers.Count];
                 for (int i = 0; i < observers.Count; i++)
                 {
-                    tasks[i] = observers[i].Update(id);
+                    tasks[i] = observers[i].Update(id, uow);
                 }
 
                 return Task.WhenAll(tasks);
@@ -50,7 +50,7 @@ namespace NetModular.Lib.Data.Core
             return Task.CompletedTask;
         }
 
-        public Task Delete<T>(dynamic id) where T : IEntity
+        public Task Delete<T>(dynamic id, IUnitOfWork uow = null) where T : IEntity
         {
             var observers = _sp.GetServices<IEntityObserver<T>>().ToList();
             if (observers.Any())
@@ -58,7 +58,7 @@ namespace NetModular.Lib.Data.Core
                 var tasks = new Task[observers.Count];
                 for (int i = 0; i < observers.Count; i++)
                 {
-                    tasks[i] = observers[i].Delete(id);
+                    tasks[i] = observers[i].Delete(id, uow);
                 }
 
                 return Task.WhenAll(tasks);
