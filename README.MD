@@ -14,7 +14,7 @@ NetModular is a modular quickly develop solution for .Net Core 2.2+.
 
 > Back-End
 >
-> > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+> > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)、RabbitMQ、Redis、EPPlus
 
 > Front-End
 >
@@ -38,10 +38,20 @@ Documentation source please see [NetModular.Docs](https://github.com/iamoldli/Ne
 
 ## Modules(模块列表)
 
-> [Common(通用模块)](https://github.com/iamoldli/Nm.Module.Common)
+> 00 [Admin(权限管理)](https://github.com/iamoldli/NetModular/tree/master/src/Admin) 已完成
 
-> [CodeGenerator(代码生成器)](https://github.com/iamoldli/Nm.Module.CodeGenerator)
+> 01 [Common(通用模块)](https://github.com/iamoldli/Nm.Module.Common) 已完成
 
-> [Quartz(任务调度)](https://github.com/iamoldli/Nm.Module.Quartz)
+> 02 [CodeGenerator(代码生成器)](https://github.com/iamoldli/Nm.Module.CodeGenerator) 已完成
 
-> [PersonnelFiles(人事档案)](https://github.com/iamoldli/Nm.Module.PersonnelFiles)
+> 03 [Quartz(任务调度)](https://github.com/iamoldli/Nm.Module.Quartz) 已完成
+
+> 04 [Crawler(爬虫模块)](https://github.com/iamoldli/NetModular.Module.Crawler) 开发中
+
+> 05 [Cas(统一认证)](https://github.com/iamoldli/NetModular.Module.Cas) 开发中
+
+> 06 [IM(即时通讯)](https://github.com/iamoldli/NetModular.Module.IM) 开发中
+
+> 07 [Forum(论坛)](https://github.com/iamoldli/NetModular.Module.Forum) 开发中
+
+> 08 [Blog(博客)](https://github.com/iamoldli/NetModular.Module.Blog) 开发中
