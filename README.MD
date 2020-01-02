@@ -64,7 +64,7 @@ Documentation source please see [NetModular.Docs](https://github.com/iamoldli/Ne
 
 > 12 [Meeting(会议管理)](https://github.com/iamoldli/NetModular.Module.Meeting) 开发中
 
-> 13 [Book(图书馆里)](https://github.com/iamoldli/NetModular.Module.Book) 开发中
+> 13 [Book(图书管理)](https://github.com/iamoldli/NetModular.Module.Book) 开发中
 
 > 14 [Archives(档案管理)](https://github.com/iamoldli/NetModular.Module.Archives) 开发中
 
