@@ -55,3 +55,19 @@ Documentation source please see [NetModular.Docs](https://github.com/iamoldli/Ne
 > 07 [Forum(论坛)](https://github.com/iamoldli/NetModular.Module.Forum) 开发中
 
 > 08 [Blog(博客)](https://github.com/iamoldli/NetModular.Module.Blog) 开发中
+
+> 09 [Contract(合同管理)](https://github.com/iamoldli/NetModular.Module.Contract) 开发中
+
+> 10 [News(新闻管理)](https://github.com/iamoldli/NetModular.Module.News) 开发中
+
+> 11 [Performance(绩效考核)](https://github.com/iamoldli/NetModular.Module.Performance) 开发中
+
+> 12 [Meeting(会议管理)](https://github.com/iamoldli/NetModular.Module.Meeting) 开发中
+
+> 13 [Book(图书馆里)](https://github.com/iamoldli/NetModular.Module.Book) 开发中
+
+> 14 [Archives(档案管理)](https://github.com/iamoldli/NetModular.Module.Archives) 开发中
+
+> 15 [Document(文档管理)](https://github.com/iamoldli/NetModular.Module.Document) 开发中
+
+> 16 [Salary(薪酬管理)](https://github.com/iamoldli/NetModular.Module.Salary) 开发中
