@@ -1,4 +1,5 @@
-﻿using NetModular.Lib.Data.Abstractions.Attributes;
+﻿using System;
+using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Core.Entities.Extend;
 
 namespace NetModular.Module.Admin.Domain.Config
@@ -9,6 +10,11 @@ namespace NetModular.Module.Admin.Domain.Config
     [Table("Config")]
     public class ConfigEntity : EntityBase<int>
     {
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public Guid TenantId { get; set; }
+
         /// <summary>
         /// 键名
         /// </summary>

@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.Account
     /// 账户
     /// </summary>
     [Table("Account")]
-    public partial class AccountEntity : EntityBaseWithSoftDelete
+    public partial class AccountEntity : TenantEntityBaseWithSoftDelete
     {
         /// <summary>
         /// 类型

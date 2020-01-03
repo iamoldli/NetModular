@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
     /// 审计信息
     /// </summary>
     [Table("AuditInfo")]
-    public partial class AuditInfoEntity : Entity<long>
+    public partial class AuditInfoEntity : TenantEntity<long>
     {
         /// <summary>
         /// 账户编号

@@ -7,7 +7,7 @@ namespace NetModular.Module.Admin.Domain.ModuleInfo
     /// 模块信息
     /// </summary>
     [Table("ModuleInfo")]
-    public class ModuleInfoEntity : EntityBase
+    public class ModuleInfoEntity : TenantEntityBase
     {
         /// <summary>
         /// 名称

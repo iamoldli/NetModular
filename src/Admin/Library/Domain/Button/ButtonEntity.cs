@@ -7,7 +7,7 @@ namespace NetModular.Module.Admin.Domain.Button
     /// 按钮
     /// </summary>
     [Table("Button")]
-    public partial class ButtonEntity : EntityBase
+    public partial class ButtonEntity : TenantEntityBase
     {
         /// <summary>
         /// 菜单编码

@@ -171,7 +171,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host.Generic.Test", "test\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.PostgreSQL", "src\Framework\Data\Db\Data.PostgreSQL\Data.PostgreSQL.csproj", "{D046DDB1-C420-4BDF-9EE1-4A3138BF4BCD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C4BFEA14-CEE1-443F-A9C6-9ED21477974C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Data", "02_Data", "{C4BFEA14-CEE1-443F-A9C6-9ED21477974C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.PostgreSQL.Test", "test\Data\Data.PostgreSQL.Test\Data.PostgreSQL.Test.csproj", "{4D4DC0F7-B731-42E4-844C-91D6395014E6}"
 EndProject
@@ -189,6 +189,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel.EPPlus", "src\Framework\Excel\Excel.EPPlus\Excel.EPPlus.csproj", "{A40D3F9F-03CB-452D-ADD9-09363D5EE896}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel.Integration", "src\Framework\Excel\Excel.Integration\Excel.Integration.csproj", "{B7A87A4D-17FF-49D7-B9D0-187CC5C1FE44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Utils", "01_Utils", "{732A446B-FB2C-43A8-A20E-77F9EB11FD10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils.Core.Test", "test\Utils\Utils.Core.Test\Utils.Core.Test.csproj", "{C859DD98-4751-4858-AD06-277F924B9C9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -388,6 +392,10 @@ Global
 		{B7A87A4D-17FF-49D7-B9D0-187CC5C1FE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7A87A4D-17FF-49D7-B9D0-187CC5C1FE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7A87A4D-17FF-49D7-B9D0-187CC5C1FE44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C859DD98-4751-4858-AD06-277F924B9C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C859DD98-4751-4858-AD06-277F924B9C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C859DD98-4751-4858-AD06-277F924B9C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C859DD98-4751-4858-AD06-277F924B9C9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -461,6 +469,8 @@ Global
 		{6DC057DE-134E-480B-8715-DE36B1E0AA02} = {1648E152-6907-4B52-A887-6F6102A12D50}
 		{A40D3F9F-03CB-452D-ADD9-09363D5EE896} = {1648E152-6907-4B52-A887-6F6102A12D50}
 		{B7A87A4D-17FF-49D7-B9D0-187CC5C1FE44} = {1648E152-6907-4B52-A887-6F6102A12D50}
+		{732A446B-FB2C-43A8-A20E-77F9EB11FD10} = {8B67276F-CD56-474B-85F8-0757C1206D0D}
+		{C859DD98-4751-4858-AD06-277F924B9C9C} = {732A446B-FB2C-43A8-A20E-77F9EB11FD10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}
