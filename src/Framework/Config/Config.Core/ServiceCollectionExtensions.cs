@@ -13,6 +13,11 @@ namespace NetModular.Lib.Config.Core
         public static IServiceCollection AddConfig(this IServiceCollection services)
         {
             services.AddSingleton<IConfigContainer, ConfigContainer>();
+
+            //启动时执行一次刷新
+            var container = services.BuildServiceProvider().GetService<IConfigContainer>();
+            container.RefreshAll().GetAwaiter().GetResult();
+
             return services;
         }
     }

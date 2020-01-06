@@ -20,5 +20,11 @@ namespace NetModular.Lib.Config.Abstraction
         /// <param name="key"></param>
         /// <returns></returns>
         Task Remove(string key);
+
+        /// <summary>
+        /// 刷新所有数据
+        /// </summary>
+        /// <returns></returns>
+        Task RefreshAll();
     }
 }

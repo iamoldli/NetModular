@@ -1,9 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstraction;
+using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Config.Core
@@ -15,11 +17,13 @@ namespace NetModular.Lib.Config.Core
         private const string CacheKeyPrefix = "CONFIG_";
         private readonly ICacheHandler _cacheHandler;
         private readonly IConfigStorage _storage;
+        private readonly IModuleCollection _moduleCollection;
 
-        public ConfigContainer(ICacheHandler cacheHandler, IConfigStorage storage)
+        public ConfigContainer(ICacheHandler cacheHandler, IConfigStorage storage, IModuleCollection moduleCollection)
         {
             _cacheHandler = cacheHandler;
             _storage = storage;
+            _moduleCollection = moduleCollection;
         }
 
         public async Task<T> Resolve<T>() where T : IConfig, new()
@@ -40,30 +44,7 @@ namespace NetModular.Lib.Config.Core
                         var configDescriptor = list.FirstOrDefault(m => m.Key.EqualsIgnoreCase(key));
                         if (configDescriptor != null)
                         {
-                            property.SetValue(config, configDescriptor.Value);
-                        }
-                        else
-                        {
-                            configDescriptor = new ConfigDescriptor
-                            {
-                                Key = key,
-                                Value = string.Empty,
-                                Remarks = property.Name
-                            };
-                            var value = property.GetValue(config);
-                            if (value != null)
-                            {
-                                configDescriptor.Value = value.ToString();
-                            }
-
-                            var desc = property.GetCustomAttributes(false)
-                                .FirstOrDefault(m => m.GetType() == typeof(DescriptionAttribute));
-                            if (desc != null)
-                            {
-                                configDescriptor.Remarks = ((DescriptionAttribute)desc).Description;
-                            }
-
-                            await _storage.Add(configDescriptor);
+                            property.SetValue(config, Convert.ChangeType(configDescriptor.Value, property.PropertyType));
                         }
                         CacheDic.TryAdd(key, cacheKey);
                     }
@@ -81,6 +62,58 @@ namespace NetModular.Lib.Config.Core
             if (cacheKey.Key.NotNull())
             {
                 await _cacheHandler.RemoveAsync(cacheKey.Value);
+            }
+        }
+
+        /// <summary>
+        /// 解析所有配置信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task RefreshAll()
+        {
+            if (_moduleCollection != null)
+            {
+                //查询所有
+                var list = await _storage.GetAll();
+
+                foreach (var module in _moduleCollection)
+                {
+                    var configTypes = module.AssemblyDescriptor.Infrastructure.GetTypes().Where(m => typeof(IConfig).IsAssignableFrom(m)).ToList();
+                    if (configTypes.Any())
+                    {
+                        foreach (var configType in configTypes)
+                        {
+                            var config = Activator.CreateInstance(configType);
+                            var properties = configType.GetProperties();
+                            foreach (var property in properties)
+                            {
+                                var key = configType.FullName + "." + property.Name;
+                                if (!list.Any(m => m.Key.EqualsIgnoreCase(key)))
+                                {
+                                    var configDescriptor = new ConfigDescriptor
+                                    {
+                                        Key = key,
+                                        Value = string.Empty,
+                                        Remarks = property.Name
+                                    };
+                                    var value = property.GetValue(config);
+                                    if (value != null)
+                                    {
+                                        configDescriptor.Value = value.ToString();
+                                    }
+
+                                    var desc = property.GetCustomAttributes(false).FirstOrDefault(m => m.GetType() == typeof(DescriptionAttribute));
+                                    if (desc != null)
+                                    {
+                                        configDescriptor.Remarks = ((DescriptionAttribute)desc).Description;
+                                    }
+
+                                    await _storage.Add(configDescriptor);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

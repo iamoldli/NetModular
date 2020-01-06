@@ -10,11 +10,6 @@ namespace NetModular.Lib.Data.Core.Entities
     public class Entity<TKey> : IEntity
     {
         /// <summary>
-        /// 租户编号
-        /// </summary>
-        public Guid TenantId { get; set; }
-
-        /// <summary>
         /// 主键
         /// </summary>
         public virtual TKey Id { get; set; }
