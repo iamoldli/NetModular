@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Cache.Abstractions\Cache.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
+    <ProjectReference Include="..\Config.Abstraction\Config.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>

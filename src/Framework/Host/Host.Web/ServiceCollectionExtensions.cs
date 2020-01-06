@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 #endif
 using NetModular.Lib.Auth.Jwt;
 using NetModular.Lib.Cache.Integration;
+using NetModular.Lib.Config.Core;
 using NetModular.Lib.Data.Integration;
 using NetModular.Lib.Excel.Integration;
 using NetModular.Lib.Mapper.AutoMapper;
@@ -122,6 +123,9 @@ namespace NetModular.Lib.Host.Web
 
             //添加模块的自定义服务
             services.AddModuleServices(modules, env);
+
+            //添加配置管理
+            services.AddConfig();
 
             return services;
         }

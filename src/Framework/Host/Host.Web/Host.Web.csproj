@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
     <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
+    <ProjectReference Include="..\..\Config\Config.Core\Config.Core.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
     <ProjectReference Include="..\..\Excel\Excel.Integration\Excel.Integration.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />

@@ -7,6 +7,8 @@
   <Import Project="..\..\..\..\build\module.build.targets" />
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Config\Config.Abstraction\Config.Abstraction.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Module\Module.Abstractions\Module.Abstractions.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

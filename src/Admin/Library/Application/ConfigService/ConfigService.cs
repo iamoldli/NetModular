@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using NetModular.Lib.Config.Abstraction;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
 using NetModular.Module.Admin.Domain.Config;
@@ -9,10 +10,12 @@ namespace NetModular.Module.Admin.Application.ConfigService
     public class ConfigService : IConfigService
     {
         private readonly IConfigRepository _repository;
+        private readonly IConfigContainer _configContainer;
 
-        public ConfigService(IConfigRepository repository)
+        public ConfigService(IConfigRepository repository, IConfigContainer configContainer)
         {
             _repository = repository;
+            _configContainer = configContainer;
         }
 
         public async Task<IResultModel> Query(ConfigQueryModel model)
@@ -39,6 +42,10 @@ namespace NetModular.Module.Admin.Application.ConfigService
             };
 
             var result = await _repository.AddAsync(entity);
+            if (result)
+            {
+                await _configContainer.Remove(entity.Key);
+            }
 
             return ResultModel.Result(result);
         }
@@ -50,6 +57,10 @@ namespace NetModular.Module.Admin.Application.ConfigService
                 return ResultModel.Failed("数据项不存在");
 
             var result = await _repository.DeleteAsync(id);
+            if (result)
+            {
+                await _configContainer.Remove(entity.Key);
+            }
             return ResultModel.Result(result);
         }
 
@@ -84,6 +95,10 @@ namespace NetModular.Module.Admin.Application.ConfigService
                 return ResultModel.Failed($"{model.Key}键已存在");
 
             var result = await _repository.UpdateAsync(entity);
+            if (result)
+            {
+                await _configContainer.Remove(entity.Key);
+            }
             return ResultModel.Result(result);
         }
 

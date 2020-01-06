@@ -15,7 +15,9 @@ using NetModular.Module.Admin.Web.Filters;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore;
 using System.IO;
+using NetModular.Lib.Config.Abstraction;
 using NetModular.Module.Admin.Application.SystemService;
+using NetModular.Module.Admin.Infrastructure;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -35,6 +37,9 @@ namespace NetModular.Module.Admin.Web
             //注入系统配置
             var systemConfig = services.BuildServiceProvider().GetService<SystemConfigResolver>().GetConfig().Result;
             services.AddSingleton(systemConfig);
+
+            //配置持久化接口
+            services.AddSingleton<IConfigStorage, ConfigStorage>();
         }
 
 #if NETSTANDARD2_0
