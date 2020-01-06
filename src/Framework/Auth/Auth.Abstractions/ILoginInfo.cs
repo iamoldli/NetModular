@@ -8,11 +8,6 @@ namespace NetModular.Lib.Auth.Abstractions
     public interface ILoginInfo
     {
         /// <summary>
-        /// 租户编号
-        /// </summary>
-        Guid TenantId { get; }
-
-        /// <summary>
         /// 账户编号
         /// </summary>
         Guid AccountId { get; }

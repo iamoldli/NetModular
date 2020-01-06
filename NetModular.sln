@@ -171,7 +171,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host.Generic.Test", "test\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.PostgreSQL", "src\Framework\Data\Db\Data.PostgreSQL\Data.PostgreSQL.csproj", "{D046DDB1-C420-4BDF-9EE1-4A3138BF4BCD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C4BFEA14-CEE1-443F-A9C6-9ED21477974C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Data", "02_Data", "{C4BFEA14-CEE1-443F-A9C6-9ED21477974C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.PostgreSQL.Test", "test\Data\Data.PostgreSQL.Test\Data.PostgreSQL.Test.csproj", "{4D4DC0F7-B731-42E4-844C-91D6395014E6}"
 EndProject
