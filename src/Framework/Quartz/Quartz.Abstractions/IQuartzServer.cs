@@ -12,6 +12,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// <summary>
         /// 启动
         /// </summary>
+        /// <param name="cancellation"></param>
         /// <returns></returns>
         Task Start(CancellationToken cancellation = default);
 

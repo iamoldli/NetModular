@@ -13,16 +13,15 @@ namespace NetModular.Lib.Quartz.Core
 {
     public class QuartzServer : IQuartzServer
     {
-        private readonly ILogger _logger;
+        private ILogger _logger;
         private readonly NameValueCollection _props;
         private IScheduler _scheduler;
         private readonly IServiceProvider _container;
 
-        public QuartzServer(IServiceProvider container, NameValueCollection props, ILogger<QuartzServer> logger)
+        public QuartzServer(NameValueCollection props, IServiceProvider container)
         {
-            _container = container;
             _props = props;
-            _logger = logger;
+            _container = container;
         }
 
         /// <summary>
@@ -32,6 +31,8 @@ namespace NetModular.Lib.Quartz.Core
         {
             if (_scheduler != null)
                 return;
+
+            _logger = _container.GetService<ILogger<QuartzServer>>();
 
             //调度器工厂
             var factory = _props != null ? new StdSchedulerFactory(_props) : new StdSchedulerFactory();

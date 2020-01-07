@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Quartz.Abstractions;
 using NetModular.Lib.Quartz.Core;
@@ -44,13 +43,8 @@ namespace NetModular.Lib.Quartz.Web
             //注入日志
             services.TryAddTransient<IJobLogger, JobLogger>();
 
-            var sp = services.BuildServiceProvider();
-            var logger = sp.GetService<ILogger<QuartzServer>>();
-            var server = new QuartzServer(sp, props, logger);
-            server.Start().Wait();
-
-            //注入Quartz服务
-            services.AddSingleton<IQuartzServer>(server);
+            //注入Quartz服务实例
+            services.AddSingleton<IQuartzServer>(sp => new QuartzServer(props, sp));
 
             //注入应用关闭事件
             services.AddSingleton<IAppShutdownHandler, QuartzAppShutdownHandler>();
