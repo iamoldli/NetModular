@@ -86,6 +86,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> Where(string whereSql)
+        {
+            QueryBody.SetWhere(whereSql);
+            return this;
+        }
+
         public INetSqlQueryable<TEntity> WhereIf(bool condition, Expression<Func<TEntity, bool>> expression)
         {
             if (condition)
@@ -94,9 +100,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> WhereIf(bool condition, string whereSql)
+        {
+            if (condition)
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity> WhereIf(bool condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
         {
             Where(condition ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereIf(bool condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition ? ifWhereSql : elseWhereSql);
             return this;
         }
 
@@ -108,9 +128,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> WhereNotNull(string condition, string whereSql)
+        {
+            if (condition.NotNull())
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity> WhereNotNull(string condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
         {
             Where(condition.NotNull() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(string condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition.NotNull() ? ifWhereSql : elseWhereSql);
             return this;
         }
 
@@ -122,9 +156,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> WhereNotNull(object condition, string whereSql)
+        {
+            if (condition != null)
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity> WhereNotNull(object condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
         {
             Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotNull(object condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition != null ? ifWhereSql : elseWhereSql);
             return this;
         }
 
@@ -136,9 +184,29 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, string whereSql)
+        {
+            if (condition.NotEmpty())
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, Expression<Func<TEntity, bool>> ifExpression, Expression<Func<TEntity, bool>> elseExpression)
         {
             Where(condition.NotEmpty() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition.NotEmpty() ? ifWhereSql : elseWhereSql);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity> WhereNotIn<TKey>(Expression<Func<TEntity, TKey>> key, IEnumerable<TKey> list)
+        {
+            QueryBody.SetWhereNotIn(key, list);
             return this;
         }
 
@@ -251,28 +319,64 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return true;
         }
 
+        public bool Update(string updateSql, bool setModifiedBy = true, object parameterObject = null)
+        {
+            UpdateWithAffectedNum(null, setModifiedBy, updateSql, parameterObject);
+            return true;
+        }
+
         public async Task<bool> UpdateAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true)
         {
             await UpdateWithAffectedNumAsync(expression, setModifiedBy);
             return true;
         }
 
-        public int UpdateWithAffectedNum(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true)
+        public async Task<bool> UpdateAsync(string updateSql, bool setModifiedBy = true, object parameterObject = null)
         {
-            QueryBody.Update = expression;
-            QueryBody.SetModifiedBy = setModifiedBy;
-            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
-
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
+            await UpdateWithAffectedNumAsync(null, setModifiedBy, updateSql, parameterObject);
+            return true;
         }
 
-        public Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true)
+        public int UpdateWithAffectedNum(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true, string updateSql = null, object parameterObject = null)
         {
-            QueryBody.Update = expression;
+            if (updateSql.IsNull())
+            {
+                QueryBody.Update = expression;
+            }
+            else
+            {
+                QueryBody.UpdateSql = updateSql;
+            }
+
             QueryBody.SetModifiedBy = setModifiedBy;
             var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
+            var param = parameters.Parse();
+            if (updateSql.IsNull() && parameterObject != null)
+            {
+                param.AddDynamicParams(parameterObject);
+            }
+            return Db.Execute(sql, param, QueryBody.Uow);
+        }
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
+        public Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true, string updateSql = null, object parameterObject = null)
+        {
+            if (updateSql.IsNull())
+            {
+                QueryBody.Update = expression;
+            }
+            else
+            {
+                QueryBody.UpdateSql = updateSql;
+            }
+
+            QueryBody.SetModifiedBy = setModifiedBy;
+            var sql = QueryBuilder.UpdateSqlBuild(out IQueryParameters parameters);
+            var param = parameters.Parse();
+            if (updateSql.IsNull() && parameterObject != null)
+            {
+                param.AddDynamicParams(parameterObject);
+            }
+            return Db.ExecuteAsync(sql, param, QueryBody.Uow);
         }
 
         #endregion

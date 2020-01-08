@@ -91,6 +91,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> Where(string whereSql)
+        {
+            QueryBody.SetWhere(whereSql);
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> expression)
         {
             if (condition)
@@ -99,9 +105,24 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, string whereSql)
+        {
+            if (condition)
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression)
         {
             Where(condition ? ifExpression : elseExpression);
+
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereIf(bool condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition ? ifWhereSql : elseWhereSql);
 
             return this;
         }
@@ -114,9 +135,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(string condition, string whereSql)
+        {
+            if (condition.NotNull())
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(string condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression)
         {
             Where(condition.NotNull() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(string condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition.NotNull() ? ifWhereSql : elseWhereSql);
             return this;
         }
 
@@ -128,9 +163,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(object condition, string whereSql)
+        {
+            if (condition != null)
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(object condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression)
         {
             Where(condition != null ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotNull(object condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition != null ? ifWhereSql : elseWhereSql);
             return this;
         }
 
@@ -142,9 +191,29 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotEmpty(Guid condition, string whereSql)
+        {
+            if (condition.NotEmpty())
+                Where(whereSql);
+
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotEmpty(Guid condition, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> ifExpression, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, bool>> elseExpression)
         {
             Where(condition.NotEmpty() ? ifExpression : elseExpression);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotEmpty(Guid condition, string ifWhereSql, string elseWhereSql)
+        {
+            Where(condition.NotEmpty() ? ifWhereSql : elseWhereSql);
+            return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotIn<TKey>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TKey>> key, IEnumerable<TKey> list)
+        {
+            QueryBody.SetWhereNotIn(key, list);
             return this;
         }
 

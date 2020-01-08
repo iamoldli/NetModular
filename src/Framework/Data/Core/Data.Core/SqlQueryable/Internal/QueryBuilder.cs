@@ -63,7 +63,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             var sqlBuilder = new StringBuilder();
             parameters = new QueryParameters();
 
-            var updateSql = ResolveUpdate(parameters);
+            //更新语句优先
+            var updateSql = _queryBody.UpdateSql.NotNull() ? _queryBody.UpdateSql : ResolveUpdate(parameters);
             Check.NotNull(updateSql, nameof(updateSql), "生成更新sql异常");
 
 
@@ -356,7 +357,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             for (var i = 0; i < _queryBody.Where.Count; i++)
             {
                 var w = _queryBody.Where[i];
-                whereSql.Append(_resolver.Resolve(w, parameters));
+                if (w.Type == QueryWhereType.LambdaExpression)
+                {
+                    whereSql.Append(_resolver.Resolve(w.Expression, parameters));
+                }
+                else
+                {
+                    whereSql.AppendFormat(" ({0}) ", w.Sql);
+                }
                 if (i < _queryBody.Where.Count - 1)
                 {
                     whereSql.Append(" AND ");

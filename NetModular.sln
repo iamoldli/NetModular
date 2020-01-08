@@ -195,9 +195,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13_Config", "13_Config", "{
 		src\Framework\Config\Directory.Build.props = src\Framework\Config\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config.Abstraction", "src\Framework\Config\Config.Abstraction\Config.Abstraction.csproj", "{F1859C54-F3FC-46E4-9BC2-27350CF71EF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Abstraction", "src\Framework\Config\Config.Abstraction\Config.Abstraction.csproj", "{F1859C54-F3FC-46E4-9BC2-27350CF71EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config.Core", "src\Framework\Config\Config.Core\Config.Core.csproj", "{AA30A052-BC48-4860-8B4E-441A8E21E676}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Core", "src\Framework\Config\Config.Core\Config.Core.csproj", "{AA30A052-BC48-4860-8B4E-441A8E21E676}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.SQLite.Test", "test\Data\Data.SQLite.Test\Data.SQLite.Test.csproj", "{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -405,6 +407,10 @@ Global
 		{AA30A052-BC48-4860-8B4E-441A8E21E676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA30A052-BC48-4860-8B4E-441A8E21E676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA30A052-BC48-4860-8B4E-441A8E21E676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -481,6 +487,7 @@ Global
 		{38DB61A4-24F1-41D2-B147-BCF587867A4E} = {0A0A14BC-4569-4C5C-A100-63E5413698DF}
 		{F1859C54-F3FC-46E4-9BC2-27350CF71EF6} = {38DB61A4-24F1-41D2-B147-BCF587867A4E}
 		{AA30A052-BC48-4860-8B4E-441A8E21E676} = {38DB61A4-24F1-41D2-B147-BCF587867A4E}
+		{FEAFD5BE-9085-4CC6-AA92-83A46790B4A7} = {C4BFEA14-CEE1-443F-A9C6-9ED21477974C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

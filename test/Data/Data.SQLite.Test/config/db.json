@@ -1,0 +1,17 @@
+{
+  //是否开启日志
+  "Logging": false,
+  //数据库类型 0、SqlServer 1、MySql 2、SQLite 3、PostgreSQL
+  "Dialect": 2,
+  //是否创建数据库和表
+  "CreateDatabase": true,
+  //模块列表
+  "Modules": [
+    {
+      //模块名称
+      "Name": "Blog",
+      //数据库名称
+      "Database": "Nm_Blog"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Pagination;
@@ -49,12 +50,17 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 过滤条件
         /// </summary>
-        public List<LambdaExpression> Where { get; } = new List<LambdaExpression>();
+        public List<QueryWhere> Where { get; } = new List<QueryWhere>();
 
         /// <summary>
         /// 更新表达式
         /// </summary>
         public LambdaExpression Update { get; set; }
+
+        /// <summary>
+        /// 更新SQL语句
+        /// </summary>
+        public string UpdateSql { get; set; }
 
         /// <summary>
         /// 设置修改人信息
@@ -114,8 +120,30 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             if (whereExpression != null)
             {
-                Where.Add(whereExpression);
+                Where.Add(new QueryWhere(whereExpression));
             }
+        }
+
+        public void SetWhere(string whereSql)
+        {
+            if (whereSql.NotNull())
+            {
+                Where.Add(new QueryWhere(whereSql));
+            }
+        }
+
+        public void SetWhereNotIn<TKey>(LambdaExpression key, IEnumerable<TKey> list)
+        {
+            if (key == null || list == null)
+                return;
+
+            var sqlBuilder = new StringBuilder();
+            sqlBuilder.Append(GetColumnName(key.Body as MemberExpression, key));
+            sqlBuilder.Append(" NOT IN (");
+            ResolveIEnumerable(sqlBuilder, list);
+            sqlBuilder.Append(") ");
+
+            SetWhere(sqlBuilder.ToString());
         }
 
         public void SetOrderBy(LambdaExpression expression, SortType sortType = SortType.Asc)
@@ -358,6 +386,88 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             // ReSharper disable once PossibleNullReferenceException
             return $"{_sqlAdapter.AppendQuote(descriptor.Alias)}.{_sqlAdapter.AppendQuote(col.Name)}";
+        }
+
+        /// <summary>
+        /// 解析集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlBuilder"></param>
+        /// <param name="list"></param>
+        public void ResolveIEnumerable<T>(StringBuilder sqlBuilder, IEnumerable<T> list)
+        {
+            if (list == null)
+                return;
+
+            var enumerable = list.ToList();
+            var valueType = typeof(T);
+            var isValueType = false;
+            var valueList = new List<string>();
+
+            if (valueType.IsEnum)
+            {
+                isValueType = true;
+                foreach (var c in enumerable)
+                {
+                    valueList.Add(Enum.Parse(valueType, c.ToString()).ToInt().ToString());
+                }
+            }
+            else if (valueType == typeof(string))
+            {
+                valueList = enumerable as List<string>;
+            }
+            else if (valueType == typeof(Guid) || valueType == typeof(char))
+            {
+                foreach (var c in enumerable)
+                {
+                    valueList.Add(c.ToString());
+                }
+            }
+            else if (valueType == typeof(DateTime))
+            {
+                if (list is List<DateTime> tmp)
+                {
+                    foreach (var c in tmp)
+                    {
+                        valueList.Add(c.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+            }
+            else if (valueType == typeof(int) || valueType == typeof(long) || valueType == typeof(double) || valueType == typeof(float) || valueType == typeof(decimal))
+            {
+                isValueType = true;
+                foreach (var c in enumerable)
+                {
+                    valueList.Add(c.ToString());
+                }
+            }
+
+            if (valueList == null)
+                return;
+
+            //值类型不带引号
+            if (isValueType)
+            {
+                for (var i = 0; i < valueList.Count; i++)
+                {
+                    sqlBuilder.AppendFormat("{0}", valueList[i]);
+                    if (i != valueList.Count - 1)
+                    {
+                        sqlBuilder.Append(",");
+                    }
+                }
+            }
+            else
+            {
+                for (var i = 0; i < valueList.Count; i++)
+                {
+                    sqlBuilder.AppendFormat("'{0}'", valueList[i].Replace("'", "''"));
+                    if (i != valueList.Count - 1)
+                    {
+                        sqlBuilder.Append(",");
+                    }
+                }
+            }
         }
 
         #endregion
