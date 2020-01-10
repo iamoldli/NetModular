@@ -18,7 +18,11 @@ namespace NetModular.Lib.Quartz.Web
 #endif
         {
             //启动
-            app.ApplicationServices.GetService<IQuartzServer>().Start().GetAwaiter().GetResult();
+            var quartzServer = app.ApplicationServices.GetService<IQuartzServer>();
+            if (quartzServer != null)
+            {
+                quartzServer.Start().GetAwaiter().GetResult();
+            }
 
             return app;
         }
