@@ -17,23 +17,25 @@ namespace NetModular.Lib.Data.Core
 
         public void Commit()
         {
-            if (Transaction != null)
-            {
-                Transaction.Commit();
-                Transaction?.Connection?.Close();
-                Transaction = null;
-            }
+            Transaction?.Commit();
+            Close();
+            Transaction = null;
         }
 
         public void Rollback()
         {
             Transaction?.Rollback();
-            Transaction?.Connection.Close();
+            Close();
         }
 
         public void Dispose()
         {
             Rollback();
+        }
+
+        private void Close()
+        {
+            Transaction?.Connection?.Close();
         }
     }
 }
