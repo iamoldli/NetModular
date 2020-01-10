@@ -143,7 +143,7 @@ namespace Data.SQLite.Test
         public async void WhereTest()
         {
             //暂时布尔类型必须指定具体的值，如m => m.Published == true，不能省略为m => m.Published
-            var query = _db.Find().Where(m => m.Published && m.Id > 10);
+            var query = _db.Find().Where(m => m.Id > 10);
 
             //var sql = query.ToSql();
             //SELECT `Id` AS `Id`,`CategoryId` AS `CategoryId`,`Title` AS `Title`,`MediaType` AS `MediaType`,`Body` AS `Body`,
@@ -322,6 +322,19 @@ namespace Data.SQLite.Test
             var sql = _db.Find().WhereNotIn(m => m.Title, list).ToSql();
 
             Assert.Equal("", sql);
+        }
+
+        [Fact]
+        public async void ToReaderTest()
+        {
+            var list = new List<int>();
+            using var reader = await _db.Find().ToReaderAsync();
+            while (reader.Read())
+            {
+                list.Add(reader.GetInt32(0));
+            }
+
+            Assert.True(list.Count > 0);
         }
     }
 }

@@ -631,6 +631,18 @@ namespace NetModular.Lib.Data.Core
             return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
 
+        public IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+        {
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteReader(sql, param, tran, commandType: commandType);
+        }
+
+        public Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+        {
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteReaderAsync(sql, param, tran, commandType: commandType);
+        }
+
         #endregion
 
         #region ==Query==

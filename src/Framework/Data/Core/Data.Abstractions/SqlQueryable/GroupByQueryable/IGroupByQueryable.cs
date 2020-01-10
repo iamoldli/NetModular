@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
@@ -60,6 +61,22 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
         /// </summary>
         /// <returns></returns>
         Task<TResult> FirstAsync<TResult>();
+
+        #endregion
+
+        #region ==ToReader==
+
+        /// <summary>
+        /// 查询列表，返回IDataReader
+        /// </summary>
+        /// <returns></returns>
+        IDataReader ToReader();
+
+        /// <summary>
+        /// 查询列表，返回IDataReader
+        /// </summary>
+        /// <returns></returns>
+        Task<IDataReader> ToReaderAsync();
 
         #endregion
     }

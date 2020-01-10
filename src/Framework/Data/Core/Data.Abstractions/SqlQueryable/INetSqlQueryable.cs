@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions.Pagination;
 
@@ -33,6 +34,22 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <typeparam name="TResult"></typeparam>
         /// <returns></returns>
         Task<IList<TResult>> ToListAsync<TResult>();
+
+        #endregion
+
+        #region ==ToReader==
+
+        /// <summary>
+        /// 查询列表，返回IDataReader
+        /// </summary>
+        /// <returns></returns>
+        IDataReader ToReader();
+
+        /// <summary>
+        /// 查询列表，返回IDataReader
+        /// </summary>
+        /// <returns></returns>
+        Task<IDataReader> ToReaderAsync();
 
         #endregion
 

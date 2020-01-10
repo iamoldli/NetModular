@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -107,6 +108,18 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
         {
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefaultAsync<TResult>(sql, parameters.Parse());
+        }
+
+        public IDataReader ToReader()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            return Db.ExecuteReader(sql, parameters.Parse());
+        }
+
+        public Task<IDataReader> ToReaderAsync()
+        {
+            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            return Db.ExecuteReaderAsync(sql, parameters.Parse());
         }
     }
 }

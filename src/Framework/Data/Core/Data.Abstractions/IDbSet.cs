@@ -166,6 +166,28 @@ namespace NetModular.Lib.Data.Abstractions
 
         #endregion
 
+        #region ==ExecuteReader==
+
+        /// <summary>
+        /// ExecuteReader
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="uow"></param>
+        /// <param name="commandType"></param>
+        IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteReader
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="uow"></param>
+        /// <param name="commandType"></param>
+        Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+
+        #endregion
+
         #region ==Query==
 
         /// <summary>
