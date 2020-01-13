@@ -32,7 +32,7 @@ namespace NetModular.Lib.Utils.Core.Result
         /// <summary>
         /// 子节点
         /// </summary>
-        public List<TreeResultModel<TKey, T>> Children { get; set; }
+        public List<TreeResultModel<TKey, T>> Children { get; set; } = new List<TreeResultModel<TKey, T>>();
     }
 
     /// <summary>
@@ -44,6 +44,6 @@ namespace NetModular.Lib.Utils.Core.Result
         /// <summary>
         /// 子节点
         /// </summary>
-        public new List<TreeResultModel<T>> Children { get; set; }
+        public new List<TreeResultModel<T>> Children { get; set; } = new List<TreeResultModel<T>>();
     }
 }

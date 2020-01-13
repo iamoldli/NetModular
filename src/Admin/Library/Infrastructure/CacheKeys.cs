@@ -13,8 +13,8 @@
         public const string AccountPermissionListKey = "ADMIN_ACCOUNT_PERMISSION_LIST_";
 
         /// <summary>
-        /// 系统配置
+        /// 权限树缓存
         /// </summary>
-        public const string SystemConfigCacheKey = "ADMIN_SYSTEM_CONFIG";
+        public const string PermissionTree = "ADMIN_PERMISSION_TREE";
     }
 }

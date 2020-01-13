@@ -307,5 +307,23 @@ namespace NetModular.Lib.Data.Abstractions
         Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow);
 
         #endregion
+
+        #region ==Clear==
+
+        /// <summary>
+        /// 清空数据
+        /// </summary>
+        /// <param name="uow">工作单元</param>
+        /// <returns></returns>
+        bool Clear(IUnitOfWork uow = null);
+
+        /// <summary>
+        /// 清空数据
+        /// </summary>
+        /// <param name="uow">工作单元</param>
+        /// <returns></returns>
+        Task<bool> ClearAsync(IUnitOfWork uow = null);
+
+        #endregion
     }
 }

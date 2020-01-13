@@ -23,5 +23,11 @@ namespace NetModular.Module.Admin.Application.PermissionService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> Sync(List<PermissionEntity> permissions);
+
+        /// <summary>
+        /// 获取权限树形结构
+        /// </summary>
+        /// <returns></returns>
+        Task<IResultModel> GetTree();
     }
 }

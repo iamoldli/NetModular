@@ -1,172 +1,157 @@
 <template>
-  <nm-split v-model="split" class="permission-bind" :loading="loading">
-    <template v-slot:left>
-      <nm-listbox title="已选列表" v-model="selection" />
+  <nm-dialog class="nm-admin-permission-bind" v-bind="dialog" :visible.sync="visible_" @open="onOpen">
+    <template v-slot:toolbar>
+      <nm-button icon="refresh" @click="refresh" />
     </template>
-    <template v-slot:right>
-      <nm-list ref="list" v-bind="list">
-        <!--查询条件-->
-        <template v-slot:querybar>
-          <el-form-item label="名称：" prop="name">
-            <el-input v-model="list.model.name" clearable />
+    <nm-flex fix-mode="top" fix="105px">
+      <template v-slot:top>
+        <nm-form v-bind="form">
+          <el-form-item label="当前角色：">
+            <el-input :value="roleName" disabled />
           </el-form-item>
-        </template>
-
-        <!--高级查询-->
-        <template v-slot:querybar-advanced>
-          <el-row>
-            <el-col :span="20" :offset="1">
-              <el-form-item label="模块：" prop="moduleCode">
-                <module-info-select v-model="list.model.moduleCode" @change="onModuleChange" />
-              </el-form-item>
-              <el-form-item label="控制器：" prop="controller">
-                <nm-select ref="controllerSelect" :method="getAllControllerAction" v-model="list.model.controller" @change="onControllerChange">
-                  <template v-slot:default="{ options }">
-                    <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                      <span>{{ option.label }}({{ option.value }})</span>
-                    </el-option>
-                  </template>
-                </nm-select>
-              </el-form-item>
-              <el-form-item label="方法：" prop="action">
-                <nm-select ref="actionSelect" :method="getAllAction" v-model="list.model.action">
-                  <template v-slot:default="{ options }">
-                    <el-option v-for="option in options" :key="option.value" :label="option.label" :value="option.value">
-                      <span>{{ option.label }}({{ option.value }})</span>
-                    </el-option>
-                  </template>
-                </nm-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </template>
-
-        <!--操作列-->
-        <template v-slot:col-operation="{ row }">
-          <nm-button v-if="notIn(row)" icon="add" type="success" circle @click="add(row)" />
-          <el-tag v-else type="warning" disable-transitions>已选</el-tag>
-        </template>
-
-        <template v-slot:footer>
-          <nm-button type="success" text="保存" @click="save" />
-        </template>
-      </nm-list>
+          <el-form-item label="选择平台：">
+            <el-select v-model="form.model.platform" @change="refresh">
+              <el-option label="Android" :value="1"></el-option>
+              <el-option label="IOS" :value="2"></el-option>
+            </el-select>
+          </el-form-item>
+        </nm-form>
+      </template>
+      <template v-slot:bottom>
+        <nm-scrollbar>
+          <div class="nm-p-l-15 nm-p-r-15 nm-p-b-15">
+            <el-tree ref="tree" class="nm-tree" v-bind="tree">
+              <span slot-scope="{ data }">
+                <nm-icon name="attachment" />
+                <span class="nm-m-l-5"
+                  >{{ data.label
+                  }}<label v-if="data.item.isPermission" class="nm-p-l-5 nm-text-info nm-size-14" style="font-style: italic;"
+                    >(<label>{{ data.item.code }}</label
+                    >)</label
+                  ></span
+                >
+              </span>
+            </el-tree>
+          </div>
+        </nm-scrollbar>
+      </template>
+    </nm-flex>
+    <template v-slot:footer>
+      <nm-button type="success" text="确认" @click="onSave" />
+      <nm-button type="info" text="关闭" />
     </template>
-  </nm-split>
+  </nm-dialog>
 </template>
 <script>
-import systemApi from '../../../../api/system'
-import ModuleInfoSelect from '../../../moduleInfo/components/select'
-
-// 接口
+import { mixins } from 'netmodular-ui'
 const api = $api.admin.permission
-
 export default {
-  components: { ModuleInfoSelect },
+  mixins: [mixins.visible],
   data() {
     return {
-      loading: false,
-      split: 0.2,
-      list: {
-        title: '权限列表',
-        footerReverse: true,
-        noSelectColumn: true,
-        labelWidth: '70px',
-        action: api.query,
-        advanced: {
-          enabled: true
-        },
-        model: {
-          moduleCode: '',
-          name: '',
-          controller: '',
-          action: ''
-        },
-        cols: [
-          {
-            name: 'moduleName',
-            label: '所属模块',
-            width: 120
-          },
-          {
-            name: 'name',
-            label: '名称',
-            width: 300
-          },
-          {
-            name: 'controller',
-            label: '控制器'
-          },
-          {
-            name: 'action',
-            label: '方法'
-          }
-        ]
+      dialog: {
+        title: '角色平台权限绑定',
+        icon: 'android',
+        iconColor: '#67C23A',
+        width: '600px',
+        height: '90%',
+        noScrollbar: true,
+        footer: true
       },
-      // 已选列表
-      selection: []
+      tree: {
+        data: [],
+        nodeKey: 'id',
+        highlightCurrent: true,
+        props: { children: 'children', label: 'label' },
+        currentNodeKey: 0,
+        expandOnClickNode: true,
+        defaultExpandAll: true,
+        showCheckbox: true
+      },
+      form: {
+        labelWidth: '90px',
+        model: {
+          platform: 1
+        }
+      }
     }
   },
   props: {
-    query: Function,
-    action: Function
-  },
-  computed: {
-    permissionList() {
-      if (!this.selection) return []
-      return this.selection.map(item => item.value)
+    roleId: String,
+    roleName: String,
+    //获取绑定关系的方法
+    getAction: {
+      type: Function,
+      required: true
+    },
+    //绑定方法
+    bindAction: {
+      type: Function,
+      required: true
     }
   },
   methods: {
-    add(row) {
-      if (this.selection.every(item => item.value !== row.code)) {
-        this.selection.push({ label: row.name, value: row.code })
-      }
-    },
-    notIn(row) {
-      row.hasIn = !this.selection.every(item => item.value !== row.code)
-      return !row.hasIn
-    },
-    save() {
-      this.loading = true
-      this.action(this.permissionList)
-        .then(() => {
-          this._success('绑定成功')
-          this.loading = false
-          this.$emit('success')
+    //刷新
+    refresh() {
+      this._openLoading()
+      api
+        .tree()
+        .then(data => {
+          this.tree.data = [data]
+          this.initialized = true
+          //查询已有绑定
+          this.getAction({ roleId: this.roleId, platform: this.form.model.platform }).then(list => {
+            let selection = []
+            this.tree.data.forEach(m => {
+              m.children.forEach(n => {
+                n.children.forEach(o => {
+                  o.children.forEach(i => {
+                    const p = list.find(t => t.permissionCode === i.item.code)
+                    if (p) {
+                      selection.push(i.id)
+                    }
+                  })
+                })
+              })
+            })
+
+            this.$refs.tree.setCheckedKeys(selection)
+            this._closeLoading()
+          })
         })
         .catch(() => {
-          this.loading = false
+          this._closeLoading()
         })
     },
-    refresh() {
-      this.querySelection()
-      this.$refs.list.refresh()
-    },
-    // 查询已绑定的权限列表
-    querySelection() {
-      this.selection = []
-      this.loading = true
-      this.query().then(data => {
-        data.forEach(element => {
-          this.selection.push({ label: element.name, value: element.id })
-        })
-        this.loading = false
+    onSave() {
+      let permissions = this.$refs.tree.getCheckedNodes(true).map(m => {
+        return m.item.code
       })
+      this._openLoading()
+      this.bindAction({ roleId: this.roleId, platform: this.form.model.platform, permissions })
+        .then(() => {
+          this._success('保存成功')
+          this._closeLoading()
+        })
+        .catch(() => {
+          this._error('保存失败')
+          this._closeLoading()
+        })
     },
-    getAllControllerAction() {
-      return systemApi.getAllController({ module: this.list.model.moduleCode })
-    },
-    getAllAction() {
-      const con = this.list.model
-      return systemApi.getAllAction({ module: con.moduleCode, controller: con.controller })
-    },
-    onModuleChange() {
-      this.$refs.controllerSelect.refresh()
-    },
-    onControllerChange() {
-      this.$refs.actionSelect.refresh()
+    onOpen() {
+      this.refresh()
     }
   }
 }
 </script>
+<style lang="scss">
+.nm-admin-permission-bind {
+  .nm-scrollbar {
+    padding: 10px 0;
+    border-top: 1px solid #e4e7ed;
+  }
+  .nm-dialog-footer {
+    border-top: 1px solid #e4e7ed;
+  }
+}
+</style>

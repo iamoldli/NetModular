@@ -266,6 +266,16 @@ namespace NetModular.Lib.Data.Core
             return Db.SoftDeleteAsync(id, uow);
         }
 
+        public bool Clear(IUnitOfWork uow = null)
+        {
+            return Db.Clear(uow);
+        }
+
+        public Task<bool> ClearAsync(IUnitOfWork uow = null)
+        {
+            return Db.ClearAsync(uow);
+        }
+
         #endregion
     }
 }

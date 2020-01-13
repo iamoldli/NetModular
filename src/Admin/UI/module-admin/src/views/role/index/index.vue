@@ -27,6 +27,7 @@
       <template v-slot:col-operation="{ row }">
         <nm-button v-bind="buttons.edit" @click="edit(row)" :disabled="row.isSpecified" />
         <nm-button v-bind="buttons.bindMenu" @click="bindMenu(row)" />
+        <nm-button v-bind="buttons.bindPermission" @click="bindPermission(row)" />
         <nm-button-delete v-bind="buttons.del" :action="removeAction" :id="row.id" @success="refresh" :disabled="row.isSpecified" />
       </template>
     </nm-list>
@@ -35,6 +36,8 @@
     <save-page :id="curr.id" :visible.sync="dialog.save" @success="refresh" />
     <!--绑定菜单-->
     <bind-menu-page :id="curr.id" :visible.sync="dialog.bindMenu" />
+    <!--绑定权限-->
+    <bind-permission-page :role-id="curr.id" :role-name="curr.name" :get-action="api.platformPermissionList" :bind-action="api.platformPermissionBind" :visible.sync="dialog.bindPermission" />
   </nm-container>
 </template>
 <script>
@@ -43,6 +46,7 @@ import page from './page'
 import cols from './cols'
 import SavePage from '../components/save'
 import BindMenuPage from '../components/menu-bind'
+import BindPermissionPage from '../../permission/components/bind'
 
 // 接口
 const api = $api.admin.role
@@ -50,9 +54,10 @@ const api = $api.admin.role
 export default {
   mixins: [mixins.list],
   name: page.name,
-  components: { SavePage, BindMenuPage },
+  components: { SavePage, BindMenuPage, BindPermissionPage },
   data() {
     return {
+      api,
       list: {
         title: page.title,
         cols,
@@ -62,7 +67,8 @@ export default {
         }
       },
       dialog: {
-        bindMenu: false
+        bindMenu: false,
+        bindPermission: false
       },
       removeAction: api.remove,
       buttons: page.buttons
@@ -72,6 +78,10 @@ export default {
     bindMenu(row) {
       this.curr.id = row.id
       this.dialog.bindMenu = true
+    },
+    bindPermission(row) {
+      this.curr = row
+      this.dialog.bindPermission = true
     }
   }
 }

@@ -380,6 +380,30 @@ namespace NetModular.Lib.Data.Abstractions.Entities
 
         #endregion
 
+        #region ==清空语句==
+
+        private string _defaultClear;
+
+        /// <summary>
+        /// 清空语句
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public string Clear(string tableName)
+        {
+            if (tableName.NotNull())
+                return $"DELETE FROM {GetTableName(tableName)}";
+
+            if (_defaultClear.IsNull())
+            {
+                _defaultClear = $"DELETE FROM {GetTableName(_descriptor.TableName)}";
+            }
+
+            return _defaultClear;
+        }
+
+        #endregion
+
         private string GetTableName(string tableName)
         {
             //PostgreSQL数据库需要带上模式(schema)

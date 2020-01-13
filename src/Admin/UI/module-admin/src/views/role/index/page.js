@@ -37,6 +37,13 @@ const page = new (function() {
       icon: 'bind',
       code: `${this.name}_bind_menu`,
       permissions: [`${this.name}_menulist_get`, `${this.name}_bindmenu_post`, `${this.name}_menubuttonlist_get`, `${this.name}_bindmenubutton_post`]
+    },
+    bindPermission: {
+      text: '平台权限',
+      type: 'text',
+      icon: 'android',
+      code: `${this.name}_bind_permission`,
+      permissions: [`admin_permission_tree_get`, `${this.name}_PlatformPermissionList_get`, `${this.name}_PlatformPermissionBind_post`]
     }
   }
 })()

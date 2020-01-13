@@ -414,17 +414,17 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Result(result);
         }
 
-        public async Task<List<PermissionEntity>> QueryPermissionList(Guid id)
+        public async Task<List<PermissionEntity>> QueryPermissionList(Guid id, Platform platform)
         {
             var entity = await _accountRepository.GetAsync(id);
             if (entity == null)
                 return new List<PermissionEntity>();
 
-            var key = CacheKeys.AccountPermissionListKey + id;
+            var key = CacheKeys.AccountPermissionListKey + id + "_" + platform.ToInt();
 
             if (!_cache.TryGetValue(key, out List<PermissionEntity> list))
             {
-                list = (await _permissionRepository.QueryByAccount(id)).ToList();
+                list = (await _permissionRepository.QueryByAccount(id, platform)).ToList();
                 await _cache.SetAsync(key, list);
             }
 
@@ -433,7 +433,11 @@ namespace NetModular.Module.Admin.Application.AccountService
 
         public void ClearPermissionListCache(Guid id)
         {
-            _cache.RemoveAsync(CacheKeys.AccountPermissionListKey + id).Wait();
+            var list = EnumExtensions.ToResult<Platform>();
+            foreach (var option in list)
+            {
+                _cache.RemoveAsync(CacheKeys.AccountPermissionListKey + id + "_" + option.Value).Wait();
+            }
         }
 
         #region ==获取账户的菜单树==

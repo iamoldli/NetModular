@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.RoleService;
@@ -85,11 +86,24 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpGet]
-        [Description("下拉列表数据")]
         [Common]
         public Task<IResultModel> Select()
         {
             return _service.Select();
+        }
+
+        [HttpGet]
+        [Description("查询平台权限列表")]
+        public Task<IResultModel> PlatformPermissionList(Guid roleId, Platform platform)
+        {
+            return _service.PlatformPermissionList(roleId, platform);
+        }
+
+        [HttpPost]
+        [Description("绑定平台权限列表")]
+        public Task<IResultModel> PlatformPermissionBind(RolePlatformPermissionBindModel model)
+        {
+            return _service.PlatformPermissionBind(model);
         }
     }
 }

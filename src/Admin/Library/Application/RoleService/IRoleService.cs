@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.RoleService.ViewModels;
 using NetModular.Module.Admin.Domain.Role.Models;
@@ -83,5 +84,20 @@ namespace NetModular.Module.Admin.Application.RoleService
         /// <param name="model"></param>
         /// <returns></returns>
         Task<bool> AddSpecified(RoleAddModel model);
+
+        /// <summary>
+        /// 平台权限绑定列表
+        /// </summary>
+        /// <param name="roleId">角色编号</param>
+        /// <param name="platform"></param>
+        /// <returns></returns>
+        Task<IResultModel> PlatformPermissionList(Guid roleId, Platform platform);
+
+        /// <summary>
+        /// 平台权限绑定
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> PlatformPermissionBind(RolePlatformPermissionBindModel model);
     }
 }

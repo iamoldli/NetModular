@@ -7,7 +7,8 @@ export default name => {
   const urls = {
     controllers: root + 'Controllers',
     actions: root + 'Actions',
-    sync: root + 'sync'
+    sync: root + 'sync',
+    tree: root + 'Tree'
   }
 
   /**
@@ -17,8 +18,12 @@ export default name => {
     return $http.post(urls.sync)
   }
 
+  const tree = () => {
+    return $http.get(urls.tree)
+  }
   return {
     ...crud,
-    sync
+    sync,
+    tree
   }
 }

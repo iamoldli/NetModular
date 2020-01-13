@@ -14,7 +14,7 @@
   //密码
   "Password": "",
   //是否创建数据库和表
-  "CreateDatabase": false,
+  "CreateDatabase": true,
   //模块列表
   "Modules": [
     {

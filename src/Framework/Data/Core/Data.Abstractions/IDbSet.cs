@@ -473,5 +473,25 @@ namespace NetModular.Lib.Data.Abstractions
         string GetTableNameByYear(DateTime date, string tableName = null);
 
         #endregion
+
+        #region ==Clear==
+
+        /// <summary>
+        /// 清空表
+        /// </summary>
+        /// <param name="uow">工作单元</param>
+        /// <param name="tableName">指定表名称</param>
+        /// <returns></returns>
+        bool Clear(IUnitOfWork uow = null, string tableName = null);
+
+        /// <summary>
+        /// 清空表
+        /// </summary>
+        /// <param name="uow">工作单元</param>
+        /// <param name="tableName">指定表名称</param>
+        /// <returns></returns>
+        Task<bool> ClearAsync(IUnitOfWork uow = null, string tableName = null);
+
+        #endregion
     }
 }

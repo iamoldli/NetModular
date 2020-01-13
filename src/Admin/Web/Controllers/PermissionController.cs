@@ -34,5 +34,12 @@ namespace NetModular.Module.Admin.Web.Controllers
         {
             return _service.Sync(_permissionHelper.GetAllPermission());
         }
+
+        [HttpGet]
+        [Description("权限树")]
+        public Task<IResultModel> Tree()
+        {
+            return _service.GetTree();
+        }
     }
 }

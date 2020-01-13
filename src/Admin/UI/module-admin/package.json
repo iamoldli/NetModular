@@ -34,8 +34,8 @@
     "prettier": "^1.18.2",
     "raw-loader": "^3.1.0",
     "rimraf": "^3.0.0",
-    "sass": "^1.24.2",
-    "sass-loader": "^8.0.0",
+    "sass": "^1.24.4",
+    "sass-loader": "^8.0.1",
     "vue-template-compiler": "^2.6.11"
   },
   "repository": {

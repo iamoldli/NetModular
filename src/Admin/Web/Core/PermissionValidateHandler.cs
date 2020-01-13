@@ -33,7 +33,7 @@ namespace NetModular.Module.Admin.Web.Core
             if (!_options.PermissionValidate || !_systemConfig.Permission.Validate)
                 return true;
 
-            var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId).Result;
+            var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform).Result;
 
             var area = routeValues["area"];
             var controller = routeValues["controller"];

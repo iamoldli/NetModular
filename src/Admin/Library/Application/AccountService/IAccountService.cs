@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
@@ -93,10 +94,12 @@ namespace NetModular.Module.Admin.Application.AccountService
         Task<IResultModel> ResetPassword(Guid id);
 
         /// <summary>
-        /// 查询指定账户的权限列表
+        /// 查询指定账户和平台的权限列表
         /// </summary>
+        /// <param name="id"></param>
+        /// <param name="platform"></param>
         /// <returns></returns>
-        Task<List<PermissionEntity>> QueryPermissionList(Guid id);
+        Task<List<PermissionEntity>> QueryPermissionList(Guid id, Platform platform);
 
         /// <summary>
         /// 清除指定账户的缓存数据

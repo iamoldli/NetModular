@@ -8,7 +8,9 @@ export default name => {
     menuList: root + 'menulist',
     bindMenu: root + 'bindmenu',
     menuButtonList: root + 'MenuButtonList',
-    bindMenuButton: root + 'BindMenuButton'
+    bindMenuButton: root + 'BindMenuButton',
+    platformPermissionList: root + 'PlatformPermissionList',
+    platformPermissionBind: root + 'PlatformPermissionBind'
   }
 
   /**
@@ -47,12 +49,28 @@ export default name => {
     return $http.post(urls.bindMenuButton, params)
   }
 
+  /**
+   * @description 查询平台权限列表
+   */
+  const platformPermissionList = params => {
+    return $http.get(urls.platformPermissionList, params)
+  }
+
+  /**
+   * @description 绑定平台权限
+   */
+  const platformPermissionBind = params => {
+    return $http.post(urls.platformPermissionBind, params)
+  }
+
   return {
     ...crud,
     select,
     menuList,
     bindMenu,
     menuButtonList,
-    bindMenuButton
+    bindMenuButton,
+    platformPermissionList,
+    platformPermissionBind
   }
 }

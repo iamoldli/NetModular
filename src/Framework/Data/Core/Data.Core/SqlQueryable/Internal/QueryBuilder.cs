@@ -95,7 +95,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             sqlBuilder.AppendFormat("DELETE FROM {0} ", GetTableName(tableName));
 
             var whereSql = ResolveWhere(parameters);
-            Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常");
+            Check.NotNull(whereSql, nameof(whereSql), "生成条件sql异常，删除必须指定条件，防止误操作，如需清空表，请使用Clear方法");
             sqlBuilder.AppendFormat(" WHERE {0}", whereSql);
 
             var sql = sqlBuilder.ToString();

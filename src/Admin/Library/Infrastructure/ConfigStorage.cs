@@ -6,6 +6,9 @@ using NetModular.Module.Admin.Domain.Config;
 
 namespace NetModular.Module.Admin.Infrastructure
 {
+    /// <summary>
+    /// 系统配置存储实现
+    /// </summary>
     public class ConfigStorage : IConfigStorage
     {
         private readonly IConfigRepository _repository;

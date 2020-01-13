@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
@@ -15,6 +16,7 @@ using NetModular.Module.Admin.Domain.Role;
 using NetModular.Module.Admin.Domain.Role.Models;
 using NetModular.Module.Admin.Domain.RoleMenu;
 using NetModular.Module.Admin.Domain.RoleMenuButton;
+using NetModular.Module.Admin.Domain.RolePlatformPermission;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.RoleService
@@ -28,11 +30,12 @@ namespace NetModular.Module.Admin.Application.RoleService
         private readonly IButtonRepository _buttonRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IMenuRepository _menuRepository;
+        private readonly IRolePlatformPermissionRepository _platformPermissionRepository;
         private readonly IAccountService _accountService;
 
         private readonly AdminDbContext _dbContext;
 
-        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, AdminDbContext dbContext)
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, AdminDbContext dbContext, IRolePlatformPermissionRepository platformPermissionRepository)
         {
             _mapper = mapper;
             _repository = repository;
@@ -43,6 +46,7 @@ namespace NetModular.Module.Admin.Application.RoleService
             _accountService = accountService;
             _menuRepository = menuRepository;
             _dbContext = dbContext;
+            _platformPermissionRepository = platformPermissionRepository;
         }
 
         public async Task<IResultModel> Query(RoleQueryModel model)
@@ -293,6 +297,50 @@ namespace NetModular.Module.Admin.Application.RoleService
         public Task<bool> AddSpecified(RoleAddModel model)
         {
             return Task.FromResult(true);
+        }
+
+        public async Task<IResultModel> PlatformPermissionList(Guid roleId, Platform platform)
+        {
+            if (platform == Platform.Web)
+                return ResultModel.Failed("不支持Web平台");
+
+            var list = await _platformPermissionRepository.Query(roleId, platform);
+            return ResultModel.Success(list);
+        }
+
+        public async Task<IResultModel> PlatformPermissionBind(RolePlatformPermissionBindModel model)
+        {
+            if (model.Platform == Platform.Web)
+                return ResultModel.Failed("不支持Web平台");
+
+            using var uow = _dbContext.NewUnitOfWork();
+            //先清除已有绑定关系，再重新插入新的
+            var result = await _platformPermissionRepository.Clear(model.RoleId, model.Platform);
+            if (result)
+            {
+                if (model.Permissions != null && model.Permissions.Any())
+                {
+                    var list = model.Permissions.Select(m => new RolePlatformPermissionEntity
+                    {
+                        RoleId = model.RoleId,
+                        Platform = model.Platform,
+                        PermissionCode = m
+                    }).ToList();
+
+                    if (await _platformPermissionRepository.AddAsync(list))
+                    {
+                        uow.Commit();
+                        return ResultModel.Success();
+                    }
+                }
+                else
+                {
+                    uow.Commit();
+                    return ResultModel.Success();
+                }
+            }
+
+            return ResultModel.Failed();
         }
 
         /// <summary>
