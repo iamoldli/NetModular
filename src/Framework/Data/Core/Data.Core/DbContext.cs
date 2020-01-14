@@ -88,7 +88,7 @@ namespace NetModular.Lib.Data.Core
                     sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", dbFilePath, c.Database);
                 }
 
-                conn.ExecuteAsync(sql.ToString());
+                conn.ExecuteAsync(sql.ToString()).Wait();
             }
 
             return conn;
@@ -96,7 +96,7 @@ namespace NetModular.Lib.Data.Core
 
         public IUnitOfWork NewUnitOfWork()
         {
-            //SQLite数据库开启事务时会包 database is locked 错误
+            //SQLite数据库开启事务时会报 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 return new UnitOfWork(null);
 
@@ -107,7 +107,7 @@ namespace NetModular.Lib.Data.Core
 
         public IUnitOfWork NewUnitOfWork(IsolationLevel isolationLevel)
         {
-            //SQLite数据库开启事务时会包 database is locked 错误
+            //SQLite数据库开启事务时会报 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
                 return new UnitOfWork(null);
 

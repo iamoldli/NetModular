@@ -6,7 +6,7 @@
   //数据库版本
   "Version": "",
   //数据库地址
-  "Server": "..\\..\\..\\data\\SQLite",
+  "Server": "data\\SQLite",
   //端口号
   "Port": 0,
   //用户名
@@ -15,6 +15,8 @@
   "Password": "",
   //是否创建数据库和表
   "CreateDatabase": true,
+  //PostgreSQL数据库名称，仅PostgreSQL数据库有效
+  "NpgsqlDatabaseName": null,
   //模块列表
   "Modules": [
     {

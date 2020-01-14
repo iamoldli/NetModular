@@ -29,7 +29,12 @@ namespace NetModular.Lib.Module.GenericHost
                     continue;
 
                 //读取流并解析配置信息
-                var moduleDescriptor = JsonConvert.DeserializeObject<ModuleDescriptor>(new StreamReader(stream).ReadToEnd());
+                var sr = new StreamReader(stream);
+                var moduleDescriptor = JsonConvert.DeserializeObject<ModuleDescriptor>(sr.ReadToEnd());
+
+                sr.Close();
+                stream.Close();
+
                 if (moduleDescriptor != null)
                 {
                     //判断是否已存在

@@ -74,7 +74,8 @@ namespace NetModular.Lib.Data.MySql
                 Password = DbOptions.Password,
                 AllowUserVariables = true,
                 CharacterSet = "utf8",
-                SslMode = MySqlSslMode.None
+                SslMode = MySqlSslMode.None,
+                AllowPublicKeyRetrieval = true
             };
 
             using var con = new MySqlConnection(connStrBuilder.ToString());

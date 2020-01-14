@@ -1,6 +1,7 @@
 /** 页面信息 */
 const page = new (function() {
-  this.title = '配置项管理'
+  this.title = '配置项'
+  this.icon = 'tag'
   this.name = 'admin_config'
   this.path = '/admin/config'
 

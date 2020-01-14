@@ -1,7 +1,7 @@
 /** 页面信息 */
 const page = new (function() {
   this.title = '系统配置'
-  this.icon = 'config'
+  this.icon = 'system'
   this.name = 'admin_system'
   this.path = '/admin/system/config'
 

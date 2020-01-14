@@ -21,6 +21,11 @@
         public ListConfigModel List { get; } = new ListConfigModel();
 
         /// <summary>
+        /// 导航页
+        /// </summary>
+        public TabnavConfigModel Tabnav { get; set; } = new TabnavConfigModel();
+
+        /// <summary>
         /// 自定义Css样式
         /// </summary>
         [ConfigDescription("sys_component_custom_css", "自定义Css样式")]
@@ -59,7 +64,19 @@
         /// <summary>
         /// 序号名称
         /// </summary>
-        [ConfigDescription("sys_component_list_serial_number_name", "序号名称")]
+        [ConfigDescription("sys_component_list_serial_number_name", "列表页序号名称")]
         public string SerialNumberName { get; set; }
+    }
+
+    /// <summary>
+    /// 标签导航组件配置信息
+    /// </summary>
+    public class TabnavConfigModel
+    {
+        /// <summary>
+        /// 序号名称
+        /// </summary>
+        [ConfigDescription("sys_component_tabnav_showicon", "标签导航是否显示图标")]
+        public bool ShowIcon { get; set; }
     }
 }

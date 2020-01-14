@@ -18,6 +18,13 @@
       </el-col>
     </el-row>
     <el-row :gutter="20">
+      <el-col :span="5" :offset="1">
+        <el-form-item labelWidth="160px" label="标签导航显示图标" prop="tabnav.showIcon">
+          <el-switch v-model="form.model.tabnav.showIcon" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
       <el-col :span="24">
         <el-form-item label="自定义Css" prop="customCss">
           <el-input type="textarea" :rows="5" placeholder="请输入自定义Css" v-model="form.model.customCss"></el-input>

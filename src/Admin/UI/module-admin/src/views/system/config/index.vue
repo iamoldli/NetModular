@@ -76,6 +76,9 @@ export default {
           list: {
             serialNumberName: null
           },
+          tabnav: {
+            showIcon: true
+          },
           customCss: null
         }
       }
@@ -92,7 +95,7 @@ export default {
   },
   created() {
     api.getConfig().then(data => {
-      this.config = data
+      this.$_.merge(this.config, data)
     })
   }
 }
