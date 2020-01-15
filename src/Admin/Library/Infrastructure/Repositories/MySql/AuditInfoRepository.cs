@@ -12,10 +12,10 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.MySql
         {
         }
 
-        public override Task<IEnumerable<ChatDataResultModel>> QueryLatestWeekPv()
+        public override Task<IEnumerable<ChartDataResultModel>> QueryLatestWeekPv()
         {
             var sql = string.Format(AuditInfoSql.QueryLatestWeekPv, Db.EntityDescriptor.TableName);
-            return Db.QueryAsync<ChatDataResultModel>(sql);
+            return Db.QueryAsync<ChartDataResultModel>(sql);
         }
     }
 }

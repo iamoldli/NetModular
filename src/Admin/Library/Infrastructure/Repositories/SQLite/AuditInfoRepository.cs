@@ -11,7 +11,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SQLite
         {
         }
 
-        public override Task<IEnumerable<ChatDataResultModel>> QueryLatestWeekPv()
+        public override Task<IEnumerable<ChartDataResultModel>> QueryLatestWeekPv()
         {
             var sql = @"SELECT
 	strftime('%Y-%m-%d',ExecutionTime) `Key`,
@@ -24,7 +24,7 @@ GROUP BY
 	[Key] ORDER BY [Key]
 	";
 
-            return Db.QueryAsync<ChatDataResultModel>(sql);
+            return Db.QueryAsync<ChartDataResultModel>(sql);
         }
     }
 }

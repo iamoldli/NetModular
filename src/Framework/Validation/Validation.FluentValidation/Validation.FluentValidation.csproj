@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.1" />
   </ItemGroup>
 
   <ItemGroup>

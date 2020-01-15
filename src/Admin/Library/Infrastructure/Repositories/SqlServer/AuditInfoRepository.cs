@@ -64,10 +64,10 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                 }).FirstAsync<AuditInfoEntity>();
         }
 
-        public virtual Task<IEnumerable<ChatDataResultModel>> QueryLatestWeekPv()
+        public virtual Task<IEnumerable<ChartDataResultModel>> QueryLatestWeekPv()
         {
             var sql = string.Format(AuditInfoSql.QueryLatestWeekPv, Db.EntityDescriptor.TableName);
-            return Db.QueryAsync<ChatDataResultModel>(sql);
+            return Db.QueryAsync<ChartDataResultModel>(sql);
         }
     }
 }
