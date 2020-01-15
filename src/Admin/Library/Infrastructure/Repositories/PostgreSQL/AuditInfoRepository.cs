@@ -13,7 +13,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.PostgreSQL
         {
         }
 
-        public override Task<IEnumerable<ChatDataRow>> QueryLatestWeekPv()
+        public override Task<IEnumerable<ChatDataResultModel>> QueryLatestWeekPv()
         {
             throw new NotImplementedException();
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// 图表数据行
     /// </summary>
-    public class ChatDataRow
+    public class ChatDataResultModel
     {
         /// <summary>
         /// 键

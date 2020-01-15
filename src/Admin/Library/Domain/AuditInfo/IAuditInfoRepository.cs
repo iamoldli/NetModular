@@ -29,6 +29,6 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
         /// 查询最近一周访问量
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ChatDataRow>> QueryLatestWeekPv();
+        Task<IEnumerable<ChatDataResultModel>> QueryLatestWeekPv();
     }
 }
