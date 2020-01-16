@@ -32,7 +32,7 @@ Password: admin
 
 ## Documentation(文档)
 
-For full documentation please see [https://docs.netmodular.org](docs.netmodular.org)
+For full documentation please see [https://docs.netmodular.org](https://docs.netmodular.org)
 
 Documentation source please see [NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
 
