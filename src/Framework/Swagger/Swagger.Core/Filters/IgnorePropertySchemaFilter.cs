@@ -14,8 +14,8 @@ namespace NetModular.Lib.Swagger.Core.Filters
             {
                 return;
             }
-
-            var ignoreProperties = context.ApiModel.Type.GetProperties().Where(t => t.GetCustomAttribute<IgnorePropertyAttribute>() != null);
+            
+            var ignoreProperties = context.Type.GetProperties().Where(t => t.GetCustomAttribute<IgnorePropertyAttribute>() != null);
 
             foreach (var ignorePropertyInfo in ignoreProperties)
             {
@@ -26,7 +26,6 @@ namespace NetModular.Lib.Swagger.Core.Filters
                     schema.Properties.Remove(propertyToRemove);
                 }
             }
-
         }
     }
 }
