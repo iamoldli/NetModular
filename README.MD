@@ -4,39 +4,41 @@
 NetModular
 </h1>
 
-NetModular is a modular quickly develop solution for .Net Core 2.2+.
+[English](README_EN.MD)
 
-## Develop Environment(开发环境)
+NetModular 是一个基于.Net Core(支持 2.2 及以上版本) 和 Vue.js 的模块化以及前后端分离的快速开发结局方案，她能够让您快速的搭建自己的开发平台。
 
-> IDE
+## 开发环境
+
+> 开发工具
 >
 > > [Visual Studio 2019+](https://visualstudio.microsoft.com/zh-hans/downloads/)、[Visual Studio Code](https://code.visualstudio.com/)
 
-> Back-End
+> 后端
 >
 > > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)、RabbitMQ、Redis、EPPlus
 
-> Front-End
+> 前端
 >
 > > [Node.js 10+](https://nodejs.org/en/)、[Vue.js 2.6+](https://cn.vuejs.org/)、[Vue CLI](https://cli.vuejs.org/zh/guide/)、[Vuex](https://vuex.vuejs.org/zh/)、[VueRouter](https://router.vuejs.org/zh/)、[Element-UI](https://element.eleme.cn/#/zh-CN/component/installation)
 
-## UI Framework(前端框架)
+## 前端框架
 
-Please see [NetModular.UI](https://github.com/iamoldli/NetModular.UI)
+前端框架的源码请移步 [NetModular.UI](https://github.com/iamoldli/NetModular.UI)
 
-## Demo(示例)
+## 演示地址
 
-[https://demo.netmodular.org/](https://demo.netmodular.org/)  
+[https://demo.17mkh.com/](https://demo.17mkh.com/)  
 Account: admin  
 Password: admin
 
-## Documentation(文档)
+## 官方文档
 
-For full documentation please see [https://docs.netmodular.org](https://docs.netmodular.org)
+文档地址： [https://docs.17mkh.com](https://docs.17mkh.com)
 
-Documentation source please see [NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
+文档源码： [NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
 
-## Modules(模块列表)
+## 模块列表
 
 > 00 [Admin(权限管理)](https://github.com/iamoldli/NetModular/tree/master/src/Admin) 已完成
 
