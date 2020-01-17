@@ -24,13 +24,13 @@ NetModular 是一个基于.Net Core(支持 2.2 及以上版本) 和 Vue.js 的�
 
 ## 前端框架
 
-前端框架的源码请移步 [NetModular.UI](https://github.com/iamoldli/NetModular.UI)
+前端框架的源码请移步 [https://github.com/iamoldli/NetModular.UI](https://github.com/iamoldli/NetModular.UI)
 
 ## 演示地址
 
 演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
 账    户：admin  
-密    码: admin
+密    码: admin  
 演示源码：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
 
 ## 官方文档
