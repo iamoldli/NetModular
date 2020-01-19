@@ -19,5 +19,10 @@
         /// 启用代理
         /// </summary>
         public bool Proxy { get; set; }
+
+        /// <summary>
+        /// 指定跨域访问时预检请求的有效期，单位秒，默认30分钟
+        /// </summary>
+        public int PreflightMaxAge { get; set; }
     }
 }
