@@ -29,5 +29,10 @@
         /// 平台类型
         /// </summary>
         public const string Platform = "pf";
+
+        /// <summary>
+        /// 登录时间
+        /// </summary>
+        public const string LoginTime = "lt";
     }
 }

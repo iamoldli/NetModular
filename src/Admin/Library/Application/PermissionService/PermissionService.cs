@@ -50,20 +50,25 @@ namespace NetModular.Module.Admin.Application.PermissionService
             using var uow = _dbContext.NewUnitOfWork();
 
             //先清除已有权限信息
-            await _repository.ClearAsync(uow);
-
-            foreach (var permission in permissions)
+            if (await _repository.ClearAsync(uow))
             {
-                if (!await _repository.AddAsync(permission, uow))
+                foreach (var permission in permissions)
                 {
-                    uow.Rollback();
-                    return ResultModel.Failed("同步失败");
+                    if (!await _repository.AddAsync(permission, uow))
+                    {
+                        uow.Rollback();
+                        return ResultModel.Failed("同步失败");
+                    }
                 }
+
+                uow.Commit();
+
+                //删除所有账户的缓存信息
+                await _cacheHandler.RemoveByPrefixAsync(CacheKeys.AccountPermissions);
+
+                return ResultModel.Success();
             }
-
-            uow.Commit();
-
-            return ResultModel.Success();
+            return ResultModel.Failed("同步失败");
         }
 
         public async Task<IResultModel> GetTree()

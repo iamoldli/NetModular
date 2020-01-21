@@ -550,6 +550,58 @@ namespace NetModular.Lib.Cache.Redis
             return Db.KeyExpireAsync(GetKey(key), expiry);
         }
 
+        /// <summary>
+        /// 分页获取所有Keys
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageOffset"></param>
+        /// <returns></returns>
+        public IEnumerable<RedisKey> GetAllKeys(int database = 0, int pageSize = 10, int pageOffset = 0)
+        {
+            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, pageSize: pageSize, pageOffset: pageOffset);
+        }
+
+        /// <summary>
+        /// 分页获取指定前缀的Keys列表
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <param name="database"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageOffset"></param>
+        /// <returns></returns>
+        public IEnumerable<RedisKey> GetKeysByPrefix(string prefix, int database = 0, int pageSize = 10, int pageOffset = 0)
+        {
+            if (prefix.IsNull())
+                return null;
+
+            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, $"{prefix}*", pageSize, pageOffset);
+        }
+
+        /// <summary>
+        /// 删除指定前缀的Keys
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public async Task DeleteByPrefix(string prefix)
+        {
+            var pageSize = 1000;
+            var pageOffset = 0;
+            var hasEnd = false;
+            while (!hasEnd)
+            {
+                var keys = GetKeysByPrefix(prefix, 0, pageSize, pageOffset);
+                if (keys == null || !keys.Any())
+                {
+                    hasEnd = true;
+                }
+                else
+                {
+                    await Db.KeyDeleteAsync(keys.ToArray());
+                }
+            }
+        }
+
         public void Dispose()
         {
             _redis?.Dispose();

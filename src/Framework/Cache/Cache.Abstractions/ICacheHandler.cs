@@ -116,5 +116,12 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <param name="key"></param>
         /// <returns></returns>
         Task<bool> ExistsAsync(string key);
+
+        /// <summary>
+        /// 删除指定前缀的缓存
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        Task RemoveByPrefixAsync(string prefix);
     }
 }

@@ -32,10 +32,10 @@ namespace NetModular.Module.Admin.Domain.Account
         /// 修改登录信息
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="ip"></param>
         /// <param name="status">状态</param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<bool> UpdateLoginInfo(Guid id, string ip, AccountStatus status = AccountStatus.UnKnown);
+        Task<bool> UpdateAccountStatus(Guid id, AccountStatus status, IUnitOfWork uow = null);
 
         /// <summary>
         /// 查询账户列表

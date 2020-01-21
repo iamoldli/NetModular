@@ -123,5 +123,23 @@ namespace NetModular.Lib.Auth.Web
                 return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
             }
         }
+
+        /// <summary>
+        /// 登录时间
+        /// </summary>
+        public long LoginTime
+        {
+            get
+            {
+                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.LoginTime);
+
+                if (ty != null && ty.Value.NotNull())
+                {
+                    return ty.Value.ToLong();
+                }
+
+                return 0L;
+            }
+        }
     }
 }

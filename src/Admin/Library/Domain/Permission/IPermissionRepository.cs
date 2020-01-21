@@ -26,11 +26,11 @@ namespace NetModular.Module.Admin.Domain.Permission
         Task<IList<PermissionEntity>> Query(PermissionQueryModel model);
 
         /// <summary>
-        /// 查询指定账户的权限列表
+        /// 查询指定账户的权限编码列表
         /// </summary>
         /// <param name="accountId"></param>
         /// <param name="platform">平台</param>
         /// <returns></returns>
-        Task<IList<PermissionEntity>> QueryByAccount(Guid accountId, Platform platform);
+        Task<IList<string>> QueryCodeByAccount(Guid accountId, Platform platform);
     }
 }

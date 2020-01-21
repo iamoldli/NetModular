@@ -15,7 +15,7 @@ namespace NetModular.Lib.Config.Core
     {
         //配置项中数据库中的key与实体缓存key的关系表
         public readonly ConcurrentDictionary<string, string> CacheDic = new ConcurrentDictionary<string, string>();
-        private const string CacheKeyPrefix = "CONFIG_";
+        private const string CacheKeyPrefix = "CONFIG:";
         private readonly ICacheHandler _cacheHandler;
         private readonly IConfigStorage _storage;
         private readonly IModuleCollection _moduleCollection;

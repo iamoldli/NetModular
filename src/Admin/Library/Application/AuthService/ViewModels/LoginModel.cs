@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Swagger.Abstractions.Attributes;
 
-namespace NetModular.Module.Admin.Application.AccountService.ViewModels
+namespace NetModular.Module.Admin.Application.AuthService.ViewModels
 {
     /// <summary>
     /// 登录模型
@@ -34,20 +32,8 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
         public Platform Platform { get; set; }
 
         /// <summary>
-        /// 验证码图片编号
-        /// </summary>
-        public string PictureId { get; set; }
-
-        /// <summary>
         /// 验证码
         /// </summary>
-        public string Code { get; set; }
-
-        /// <summary>
-        /// IP地址
-        /// </summary>
-        [JsonIgnore]
-        [IgnoreProperty]
-        public string IP { get; set; }
+        public VerifyCodeModel VerifyCode { get; set; }
     }
 }

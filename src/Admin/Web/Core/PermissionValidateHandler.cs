@@ -20,6 +20,7 @@ namespace NetModular.Module.Admin.Web.Core
         private readonly ILoginInfo _loginInfo;
         private readonly IAccountService _accountService;
         private readonly SystemConfigModel _systemConfig;
+
         public PermissionValidateHandler(IOptionsMonitor<AdminOptions> optionsAccessor, IAccountService accountService, ILoginInfo loginInfo, SystemConfigModel systemConfig)
         {
             _options = optionsAccessor.CurrentValue;
@@ -30,7 +31,7 @@ namespace NetModular.Module.Admin.Web.Core
 
         public bool Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
         {
-            if (!_options.PermissionValidate || !_systemConfig.Permission.Validate)
+            if (!_options.PermissionValidate)
                 return true;
 
             var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform).Result;
@@ -38,7 +39,7 @@ namespace NetModular.Module.Admin.Web.Core
             var area = routeValues["area"];
             var controller = routeValues["controller"];
             var action = routeValues["action"];
-            return permissions.Any(m => m.ModuleCode.EqualsIgnoreCase(area) && m.Controller.EqualsIgnoreCase(controller) && m.Action.EqualsIgnoreCase(action) && m.HttpMethod == httpMethod);
+            return permissions.Any(m => m.EqualsIgnoreCase($"{area}_{controller}_{action}_{httpMethod}"));
         }
     }
 }

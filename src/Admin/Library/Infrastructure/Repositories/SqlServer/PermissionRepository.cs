@@ -57,9 +57,9 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public async Task<IList<PermissionEntity>> QueryByAccount(Guid accountId, Platform platform)
+        public async Task<IList<string>> QueryCodeByAccount(Guid accountId, Platform platform)
         {
-            var list = new List<PermissionEntity>();
+            var list = new List<string>();
             if (platform == Platform.Web)
             {
                 var menuPermissionListTask = Db.Find()
@@ -67,21 +67,23 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                     .InnerJoin<MenuEntity>((x, y, z) => y.MenuCode == z.RouteName)
                     .InnerJoin<RoleMenuEntity>((x, y, z, m) => z.Id == m.MenuId)
                     .InnerJoin<AccountRoleEntity>((x, y, z, m, n) => m.RoleId == n.RoleId && n.AccountId == accountId)
-                    .ToListAsync();
+                    .Select((x, y, z, m, n) => x.Code)
+                    .ToListAsync<string>();
 
                 var btnPermissionListTask = Db.Find()
                     .InnerJoin<ButtonPermissionEntity>((x, y) => x.Code == y.PermissionCode)
                     .InnerJoin<ButtonEntity>((x, y, z) => y.ButtonCode == z.Code)
                     .InnerJoin<RoleMenuButtonEntity>((x, y, z, m) => z.Id == m.ButtonId)
                     .InnerJoin<AccountRoleEntity>((x, y, z, m, n) => m.RoleId == n.RoleId && n.AccountId == accountId)
-                    .ToListAsync();
+                    .Select((x, y, z, m, n) => x.Code)
+                    .ToListAsync<string>();
 
                 var menuPermissionList = await menuPermissionListTask;
                 var btnPermissionList = await btnPermissionListTask;
 
                 foreach (var p in menuPermissionList)
                 {
-                    if (list.All(m => m.Id != p.Id))
+                    if (!list.Contains(p))
                     {
                         list.Add(p);
                     }
@@ -89,18 +91,19 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 
                 foreach (var p in btnPermissionList)
                 {
-                    if (list.All(m => m.Id != p.Id))
+                    if (!list.Contains(p))
                     {
                         list.Add(p);
                     }
                 }
                 return list;
             }
-            
+
             //其他平台查询方式
             return await Db.Find().InnerJoin<RolePlatformPermissionEntity>((x, y) => x.Code == y.PermissionCode)
                 .InnerJoin<AccountRoleEntity>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
-                .ToListAsync();
+                .Select((x, y, z) => x.Code)
+                .ToListAsync<string>();
         }
     }
 }

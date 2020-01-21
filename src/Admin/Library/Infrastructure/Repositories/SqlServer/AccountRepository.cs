@@ -27,15 +27,9 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return GetAsync(m => m.UserName.Equals(userName) && m.Type == type);
         }
 
-        public Task<bool> UpdateLoginInfo(Guid id, string ip, AccountStatus status = AccountStatus.UnKnown)
+        public Task<bool> UpdateAccountStatus(Guid id, AccountStatus status, IUnitOfWork uow = null)
         {
-            var query = Db.Find(m => m.Id == id);
-            if (status != AccountStatus.UnKnown)
-            {
-                return query.UpdateAsync(m => new AccountEntity { LoginIP = ip, LoginTime = DateTime.Now, Status = status }, false);
-            }
-
-            return query.UpdateAsync(m => new AccountEntity { LoginIP = ip, LoginTime = DateTime.Now }, false);
+            return Db.Find(m => m.Id == id).UseUow(uow).UpdateAsync(m => new AccountEntity { Status = status });
         }
 
         public async Task<IList<AccountEntity>> Query(AccountQueryModel model)

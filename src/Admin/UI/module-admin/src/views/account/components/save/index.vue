@@ -11,7 +11,7 @@
         <el-form-item label="名称：" prop="name">
           <el-input v-model="form.model.name" />
         </el-form-item>
-        <el-form-item label="密码：" prop="password">
+        <el-form-item v-if="isAdd_" label="密码：" prop="password">
           <el-input v-model="form.model.password" placeholder="默认密码123456" clearable />
         </el-form-item>
         <el-form-item label="手机：" prop="phone">

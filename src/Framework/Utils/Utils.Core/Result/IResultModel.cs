@@ -12,6 +12,11 @@ namespace NetModular.Lib.Utils.Core.Result
         /// </summary>
         [JsonIgnore]
         bool Successful { get; }
+
+        /// <summary>
+        /// 错误
+        /// </summary>
+        string Msg { get; }
     }
 
     /// <summary>

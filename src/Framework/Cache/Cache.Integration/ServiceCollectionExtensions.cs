@@ -27,7 +27,7 @@ namespace NetModular.Lib.Cache.Integration
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Cache.{options.Mode.ToString()}");
 
-            Check.NotNull(assembly, $"缓存实现程序集{options.Mode.ToDescription()}未找到");
+            Check.NotNull(assembly, $"缓存实现程序集({options.Mode.ToDescription()})未找到");
 
             var configType = assembly.GetTypes().FirstOrDefault(m => m.Name.Equals("ServiceCollectionConfig"));
             if (configType != null)
@@ -35,6 +35,8 @@ namespace NetModular.Lib.Cache.Integration
                 var instance = (IServiceCollectionConfig)Activator.CreateInstance(configType);
                 instance.Config(services, options);
             }
+
+            services.AddSingleton<ICacheKeyDescriptorCollection, CacheKeyDescriptorCollection>();
 
             return services;
         }

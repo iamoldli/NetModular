@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Cache.MemoryCache
 {
@@ -90,6 +95,32 @@ namespace NetModular.Lib.Cache.MemoryCache
         public Task<bool> ExistsAsync(string key)
         {
             return Task.FromResult(TryGetValue(key, out _));
+        }
+
+        public async Task RemoveByPrefixAsync(string prefix)
+        {
+            if (prefix.IsNull())
+                return;
+
+            var keys = GetAllKeys().Where(m => m.StartsWith(prefix));
+            foreach (var key in keys)
+            {
+                await RemoveAsync(key);
+            }
+        }
+
+        private List<string> GetAllKeys()
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var entries = _cache.GetType().GetField("_entries", flags).GetValue(_cache);
+            var cacheItems = entries as IDictionary;
+            var keys = new List<string>();
+            if (cacheItems == null) return keys;
+            foreach (DictionaryEntry cacheItem in cacheItems)
+            {
+                keys.Add(cacheItem.Key.ToString());
+            }
+            return keys;
         }
     }
 }

@@ -45,16 +45,6 @@ namespace NetModular.Module.Admin.Domain.Account
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// 最后登录时间
-        /// </summary>
-        public DateTime LoginTime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// 最后登录IP
-        /// </summary>
-        public string LoginIP { get; set; } = string.Empty;
-
-        /// <summary>
         /// 状态
         /// </summary>
         public AccountStatus Status { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace NetModular.Module.Admin.Application.AccountService.ResultModels
+﻿namespace NetModular.Module.Admin.Application.AuthService.ResultModels
 {
     public class VerifyCodeResultModel
     {

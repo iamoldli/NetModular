@@ -22,5 +22,23 @@
         /// </summary>
         [ConfigDescription("sys_permission_auditing", "审计日志")]
         public bool Auditing { get; set; }
+
+        /// <summary>
+        /// 单账户登录
+        /// </summary>
+        [ConfigDescription("sys_permission_single_account_login", "单账户登录")]
+        public bool SingleAccountLogin { get; set; }
+
+        /// <summary>
+        /// JWT刷新令牌有效期
+        /// </summary>
+        [ConfigDescription("sys_permission_refresh_token_expires", "JWT刷新令牌有效期(天)")]
+        public int RefreshTokenExpires { get; set; } = 7;
+
+        /// <summary>
+        /// 账户默认密码
+        /// </summary>
+        [ConfigDescription("sys_permission_default_password", "账户默认密码")]
+        public string DefaultPassword { get; set; } = "123456";
     }
 }

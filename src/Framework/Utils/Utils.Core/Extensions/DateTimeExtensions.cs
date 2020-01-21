@@ -28,7 +28,7 @@ namespace NetModular.Lib.Utils.Core.Extensions
         public static long ToTimestamp(this DateTime dateTime, bool milliseconds = false)
         {
             var ts = dateTime.ToUniversalTime() - DateTimeHelper.TimestampStart;
-            return (milliseconds ? ts.TotalMilliseconds : ts.TotalSeconds).ToLong();
+            return (long)(milliseconds ? ts.TotalMilliseconds : ts.TotalSeconds);
         }
 
         /// <summary>

@@ -18,6 +18,7 @@ using System.IO;
 using NetModular.Lib.Config.Abstraction;
 using NetModular.Module.Admin.Application.SystemService;
 using NetModular.Module.Admin.Infrastructure;
+using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -33,6 +34,10 @@ namespace NetModular.Module.Admin.Web
             services.AddSingleton<IAuditingHandler, AuditingHandler>();
             //权限验证服务
             services.AddScoped<IPermissionValidateHandler, PermissionValidateHandler>();
+            //单账户登录处理服务
+            services.AddScoped<ISingleAccountLoginHandler, SingleAccountLoginHandler>();
+            //密码处理服务
+            services.AddSingleton<IPasswordHandler, Md5PasswordHandler>();
 
             //注入系统配置
             var systemConfig = services.BuildServiceProvider().GetService<SystemConfigResolver>().GetConfig().Result;

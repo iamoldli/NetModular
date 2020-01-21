@@ -1,7 +1,7 @@
 ﻿namespace NetModular.Lib.Auth.Jwt
 {
     /// <summary>
-    /// Jwt配置项
+    /// JWT配置项
     /// </summary>
     public class JwtOptions
     {
@@ -21,7 +21,7 @@
         public string Audience { get; set; }
 
         /// <summary>
-        /// 有效期(分钟)
+        /// 有效期(分钟，默认120)
         /// </summary>
         public int Expires { get; set; } = 120;
     }

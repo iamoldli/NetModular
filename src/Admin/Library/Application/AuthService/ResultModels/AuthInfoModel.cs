@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Module.Admin.Domain.Menu;
 
-namespace NetModular.Module.Admin.Application.AccountService.ResultModels
+namespace NetModular.Module.Admin.Application.AuthService.ResultModels
 {
     /// <summary>
-    /// 账户登录信息
+    /// 认证信息
     /// </summary>
-    public class LoginResultModel
+    public class AuthInfoModel
     {
         /// <summary>
         /// 账户标识

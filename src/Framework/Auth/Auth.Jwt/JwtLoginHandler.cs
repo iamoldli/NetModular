@@ -20,7 +20,7 @@ namespace NetModular.Lib.Auth.Jwt
             _logger = logger;
         }
 
-        public IResultModel Hand(Claim[] claims)
+        public IResultModel Hand(Claim[] claims, string extendData)
         {
             var token = Build(claims);
 
@@ -28,7 +28,9 @@ namespace NetModular.Lib.Auth.Jwt
 
             var model = new JwtTokenModel
             {
-                AccessToken = token
+                AccessToken = token,
+                ExpiresIn = _options.Expires * 60,
+                RefreshToken = extendData
             };
 
             return ResultModel.Success(model);
@@ -37,14 +39,9 @@ namespace NetModular.Lib.Auth.Jwt
         private string Build(Claim[] claims)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_options.Issuer,
-                _options.Audience,
-                claims,
-                expires: DateTime.Now.AddMinutes(_options.Expires),
-                signingCredentials: creds);
-
+            var token = new JwtSecurityToken(_options.Issuer, _options.Audience, claims, DateTime.Now, DateTime.Now.AddMinutes(_options.Expires), signingCredentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

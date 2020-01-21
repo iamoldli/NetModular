@@ -27,12 +27,8 @@ const getSystem = async () => {
   // 模块列表
   system.modules = modules
   system.actions = {
-    /** 登录 */
-    login: $api.admin.account.login,
-    /** 获取验证码 */
-    getVerifyCode: $api.admin.account.getVerifyCode,
-    // 查询登陆信息方法
-    getLoginInfo: $api.admin.account.getLoginInfo,
+    //身份认证相关方法
+    auth: $api.admin.auth,
     // 修改密码方法
     updatePassword: $api.admin.account.updatePassword,
     // 皮肤修改方法

@@ -41,5 +41,10 @@ namespace NetModular.Lib.Auth.Abstractions
         /// 获取当前用户IPv6
         /// </summary>
         string IPv6 { get; }
+
+        /// <summary>
+        /// 登录时间戳
+        /// </summary>
+        long LoginTime { get; }
     }
 }

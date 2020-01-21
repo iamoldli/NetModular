@@ -14,6 +14,11 @@ namespace NetModular.Lib.Utils.Core.Result
         public bool Successful { get; private set; }
 
         /// <summary>
+        /// 错误信息
+        /// </summary>
+        public string Msg { get; private set; }
+
+        /// <summary>
         /// 状态码
         /// </summary>
         public int Code => Successful ? 1 : 0;
@@ -24,16 +29,11 @@ namespace NetModular.Lib.Utils.Core.Result
         public T Data { get; private set; }
 
         /// <summary>
-        /// 错误
-        /// </summary>
-        public string Msg { get; private set; }
-
-        /// <summary>
         /// 成功
         /// </summary>
         /// <param name="data">数据</param>
         /// <param name="msg">说明</param>
-        public ResultModel<T> Success(T data, string msg = "success")
+        public ResultModel<T> Success(T data = default, string msg = "success")
         {
             Successful = true;
             Data = data;
@@ -57,7 +57,7 @@ namespace NetModular.Lib.Utils.Core.Result
     /// <summary>
     /// 返回结果
     /// </summary>
-    public static partial class ResultModel
+    public static class ResultModel
     {
         /// <summary>
         /// 成功
@@ -96,7 +96,7 @@ namespace NetModular.Lib.Utils.Core.Result
         {
             return Failed<string>(error);
         }
- 
+
         /// <summary>
         /// 根据布尔值返回结果
         /// </summary>

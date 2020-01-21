@@ -54,7 +54,10 @@ export default {
         permission: {
           validate: true,
           button: false,
-          auditing: false
+          auditing: false,
+          singleAccountLogin: false,
+          refreshTokenExpires: 7,
+          defaultPassword: '123456'
         },
         login: {
           type: null,

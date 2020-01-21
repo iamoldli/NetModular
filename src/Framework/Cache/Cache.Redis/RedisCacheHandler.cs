@@ -96,5 +96,10 @@ namespace NetModular.Lib.Cache.Redis
         {
             return _helper.KeyExistsAsync(key);
         }
+
+        public Task RemoveByPrefixAsync(string prefix)
+        {
+            return _helper.DeleteByPrefix(prefix);
+        }
     }
 }
