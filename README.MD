@@ -76,3 +76,14 @@ NetModular 是一个基于.Net Core(支持 2.2 及以上版本) 和 Vue.js 的�
 > 16 [Document(文档管理)](https://github.com/iamoldli/NetModular.Module.Document) 开发中
 
 > 17 [Salary(薪酬管理)](https://github.com/iamoldli/NetModular.Module.Salary) 开发中
+
+## 技术交流
+
+QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fccc7173f17ac2c9d12c8a31a7549c260e6aefcb6a40fdcc4b423940b0)
+
+<img src="./img/qq.jpg" alt="QQ" height="300"/>
+
+## 如果您觉得本框架对您有帮助，可以请作者媳妇儿喝杯二锅头~
+
+<img src="./img/airpay.jpg" alt="支付宝" height="320"/><img src="./img/wechat.jpg" alt="微信" height="320"/>
+
