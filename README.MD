@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/iamoldli/NetModular.Docs/blob/master/src/.vuepress/public/images/logo.png" alt="NetModular" width="175"/>
+  <img src="./img/logo.png" alt="NetModular" width="175"/>
 <br>
 NetModular
 </h1>
@@ -83,7 +83,8 @@ QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fcc
 
 <img src="./img/qq.jpg" alt="QQ" height="300"/>
 
-## 如果您觉得本框架对您有帮助，可以请作者媳妇儿喝杯二锅头~
-
+<h1 align="center">
+**如果您觉得本框架对您有帮助，可以请作者媳妇儿喝杯二锅头~**
+<br>
 <img src="./img/airpay.jpg" alt="支付宝" height="320"/><img src="./img/wechat.jpg" alt="微信" height="320"/>
-
+</h1>
