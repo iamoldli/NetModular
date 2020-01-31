@@ -60,11 +60,6 @@ export default {
     onSuccess() {
       this.setBaseConfig(this.form.model)
     }
-  },
-  watch: {
-    model() {
-      this.form.model = this.model
-    }
   }
 }
 </script>

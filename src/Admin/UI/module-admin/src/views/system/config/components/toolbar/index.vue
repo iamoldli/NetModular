@@ -45,11 +45,6 @@ export default {
     onSuccess() {
       this.setToolbarConfig(this.form.model)
     }
-  },
-  watch: {
-    model() {
-      this.form.model = this.model
-    }
   }
 }
 </script>

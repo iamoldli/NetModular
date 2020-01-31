@@ -42,8 +42,7 @@ export default {
         header: false,
         action: api.updateBaseConfig,
         model: this.model
-      },
-      logoUrl: this.model.logo || './images/logo.png'
+      }
     }
   },
   props: {
@@ -61,6 +60,9 @@ export default {
         'before-upload': this.beforeLogoUpload,
         'on-success': this.handleLogoSuccess
       }
+    },
+    logoUrl() {
+      return this.form.model.logoUrl || './images/logo.png'
     }
   },
   methods: {
@@ -79,18 +81,11 @@ export default {
     handleLogoSuccess(res) {
       if (res.code === 1) {
         this.form.model.logo = res.data.fullPath
-        this.logoUrl = res.data.url
+        this.form.model.logoUrl = res.data.url
       }
     },
     onSuccess() {
-      const { title, home, userInfoPage, copyright } = this.form.model
-      this.setBaseConfig({ title, home, userInfoPage, copyright, logo: this.logoUrl })
-    }
-  },
-  watch: {
-    model() {
-      this.form.model = this.model
-      this.logoUrl = this.model.logo || './images/logo.png'
+      this.setBaseConfig(this.form.model)
     }
   }
 }

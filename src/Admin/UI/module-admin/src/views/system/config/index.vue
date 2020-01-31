@@ -5,27 +5,27 @@
         <!--基础配置-->
         <el-tab-pane name="base">
           <span slot="label"> <nm-icon name="basic-data"></nm-icon>基础配置 </span>
-          <base-config :model="config.base" />
+          <base-config ref="base" :model="config.base" />
         </el-tab-pane>
         <!--权限配置-->
         <el-tab-pane name="permission">
           <span slot="label"> <nm-icon name="permission"></nm-icon>权限配置 </span>
-          <permission-config :model="config.permission" />
+          <permission-config ref="permission" :model="config.permission" />
         </el-tab-pane>
         <!--登录配置-->
         <el-tab-pane name="login">
           <span slot="label"> <nm-icon name="login"></nm-icon>登录配置 </span>
-          <login-config :model="config.login" />
+          <login-config ref="login" :model="config.login" />
         </el-tab-pane>
         <!--顶部工具栏-->
         <el-tab-pane name="toolbar">
           <span slot="label"> <nm-icon name="tools"></nm-icon>顶部工具栏 </span>
-          <toolbar-config :model="config.toolbar" />
+          <toolbar-config ref="toolbar" :model="config.toolbar" />
         </el-tab-pane>
         <!--组件配置-->
         <el-tab-pane name="component">
           <span slot="label"> <nm-icon name="entity"></nm-icon>组件配置 </span>
-          <component-config :model="config.component" />
+          <component-config ref="component" :model="config.component" />
         </el-tab-pane>
       </el-tabs>
     </nm-tabs>
@@ -47,6 +47,7 @@ export default {
         base: {
           title: '',
           logo: '',
+          logoUrl: '',
           home: '',
           userInfoPage: '',
           copyright: ''
@@ -85,15 +86,6 @@ export default {
           customCss: null
         }
       }
-    }
-  },
-  methods: {
-    onTabClick() {
-      this.$nextTick(() => {
-        if (this.$refs[this.tab] && this.$refs[this.tab].doLayout) {
-          this.$refs[this.tab].doLayout()
-        }
-      })
     }
   },
   created() {

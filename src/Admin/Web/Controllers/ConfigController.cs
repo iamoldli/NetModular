@@ -11,7 +11,7 @@ using NetModular.Module.Admin.Domain.Config.Models;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
-    [Description("配置项管理")]
+    [Description("配置管理")]
     public class ConfigController : ModuleController
     {
         private readonly IConfigService _service;

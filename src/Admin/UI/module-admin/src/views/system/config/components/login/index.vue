@@ -40,11 +40,6 @@ export default {
     onSuccess() {
       this.setLoginConfig(this.form.model)
     }
-  },
-  watch: {
-    model() {
-      this.form.model = this.model
-    }
   }
 }
 </script>

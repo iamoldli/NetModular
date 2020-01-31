@@ -54,11 +54,6 @@ export default {
     onSuccess() {
       this.setComponentConfig(this.form.model)
     }
-  },
-  watch: {
-    model() {
-      this.form.model = this.model
-    }
   }
 }
 </script>

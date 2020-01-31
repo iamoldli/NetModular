@@ -46,9 +46,9 @@ namespace NetModular.Module.Admin.Web.Controllers
             var result = new ResultModel<SystemConfigModel>();
 
             var b = _configModel.Base;
-            if (b.Logo.IsNull() && b.LogoPath.NotNull())
+            if (b.LogoUrl.IsNull() && b.Logo.NotNull())
             {
-                b.Logo = new Uri($"{Request.GetHost()}/upload/{b.LogoPath}").ToString().ToLower();
+                b.LogoUrl = new Uri($"{Request.GetHost()}/upload/{b.Logo}").ToString().ToLower();
             }
 
             return result.Success(_configModel);
@@ -58,11 +58,6 @@ namespace NetModular.Module.Admin.Web.Controllers
         [Description("修改系统基础配置")]
         public IResultModel UpdateBaseConfig(SystemBaseConfigModel model)
         {
-            model.LogoPath = model.Logo;
-            if (model.Logo.NotNull())
-            {
-                model.Logo = new Uri($"{Request.GetHost()}/upload/{model.Logo}").ToString().ToLower();
-            }
             return _systemService.UpdateBaseConfig(model);
         }
 
