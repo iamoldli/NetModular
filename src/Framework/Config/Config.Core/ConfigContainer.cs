@@ -52,8 +52,11 @@ namespace NetModular.Lib.Config.Core
                         CacheDic.TryAdd(key, cacheKey);
                     }
                 }
-
-                await _cacheHandler.SetAsync(cacheKey, config);
+                //在判断一次缓存
+                if (!await _cacheHandler.ExistsAsync(cacheKey))
+                {
+                    await _cacheHandler.SetAsync(cacheKey, config);
+                }
             }
 
             return config;

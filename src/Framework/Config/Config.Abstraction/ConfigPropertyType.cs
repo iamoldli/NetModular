@@ -12,6 +12,10 @@ namespace NetModular.Lib.Config.Abstraction
         [Description("Int")]
         Int,
         [Description("Double")]
-        Double
+        Double,
+        [Description("Decimal")]
+        Decimal,
+        [Description("Datetime")]
+        DateTime
     }
 }
