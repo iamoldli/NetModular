@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
-using NetModular.Lib.Config.Abstraction;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
@@ -41,8 +39,9 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly IServiceProvider _serviceProvider;
         private readonly IMapper _mapper;
         private readonly ILoginInfo _loginInfo;
+        private readonly AdminOptions _options;
 
-        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, SystemConfigModel systemConfig, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo)
+        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, SystemConfigModel systemConfig, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, AdminOptions options)
         {
             _drawingHelper = drawingHelper;
             _cacheHandler = cacheHandler;
@@ -57,6 +56,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             _mapper = mapper;
             _buttonRepository = buttonRepository;
             _loginInfo = loginInfo;
+            _options = options;
         }
 
         #region ==创建验证码==
@@ -219,9 +219,9 @@ namespace NetModular.Module.Admin.Application.AuthService
             };
 
             //设置过期时间
-            if (_systemConfig != null && _systemConfig.Permission.RefreshTokenExpires > 0)
+            if (_options != null && _options.RefreshTokenExpires > 0)
             {
-                authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(_systemConfig.Permission.RefreshTokenExpires);
+                authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(_options.RefreshTokenExpires);
             }
 
             Task<bool> task;
@@ -266,7 +266,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             {
                 authInfo = await _authInfoRepository.GetByRefreshToken(refreshToken);
                 if (authInfo == null)
-                    return result.Failed("刷新令牌无效");
+                    return result.Failed("身份认证信息无效，请重新登录~");
 
                 //加入缓存
                 var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
@@ -274,7 +274,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             }
 
             if (authInfo.RefreshTokenExpiredTime <= DateTime.Now)
-                return result.Failed("刷新令牌过期");
+                return result.Failed("身份认证信息过期，请重新登录~");
 
             var account = await _accountRepository.GetAsync(authInfo.AccountId);
             var checkAccountResult = CheckAccount(account);

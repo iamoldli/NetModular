@@ -5,6 +5,9 @@
     /// </summary>
     public class ExcelOptions
     {
+        /// <summary>
+        /// 操作库
+        /// </summary>
         public ExcelProvider Provider { get; set; }
 
         /// <summary>

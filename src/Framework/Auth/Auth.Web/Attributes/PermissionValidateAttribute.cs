@@ -31,7 +31,7 @@ namespace NetModular.Lib.Auth.Web.Attributes
                     return;
 
                 //是否启用单账户登录
-                if (systemConfig.Permission.SingleAccountLogin)
+                if (systemConfig.Login.SingleAccount)
                 {
                     var singleAccountLoginHandler = context.HttpContext.RequestServices.GetService<ISingleAccountLoginHandler>();
                     if (singleAccountLoginHandler != null && singleAccountLoginHandler.Validate().GetAwaiter().GetResult())

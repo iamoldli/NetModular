@@ -16,7 +16,6 @@ namespace NetModular.Module.Admin.Web.Controllers
     public class RoleController : ModuleController
     {
         private readonly IRoleService _service;
-
         public RoleController(IRoleService service)
         {
             _service = service;

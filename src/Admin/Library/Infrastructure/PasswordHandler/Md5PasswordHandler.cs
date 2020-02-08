@@ -1,5 +1,4 @@
 ﻿using System;
-using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Encrypt;
 
 namespace NetModular.Module.Admin.Infrastructure.PasswordHandler

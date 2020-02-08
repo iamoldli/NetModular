@@ -25,7 +25,7 @@ export default {
   mixins: [mixins.formSave],
   data() {
     return {
-      title: '配置项',
+      title: '自定义配置',
       actions: {
         add,
         edit,

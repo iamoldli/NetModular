@@ -7,6 +7,9 @@ namespace NetModular.Lib.Module.Abstractions
     /// </summary>
     public interface IModuleCollection : IList<IModuleDescriptor>
     {
-
+        /// <summary>
+        /// 加载
+        /// </summary>
+        void Load();
     }
 }

@@ -63,7 +63,7 @@ namespace NetModular.Lib.Data.MySql
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
             var connStrBuilder = new MySqlConnectionStringBuilder
             {
@@ -85,8 +85,8 @@ namespace NetModular.Lib.Data.MySql
 
             //判断数据库是否已存在
             cmd.CommandText = $"SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{Options.Database}' LIMIT 1;";
-            var exist = cmd.ExecuteScalar().ToInt() > 0;
-            if (!exist)
+            databaseExists = cmd.ExecuteScalar().ToInt() > 0;
+            if (!databaseExists)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
@@ -109,7 +109,7 @@ namespace NetModular.Lib.Data.MySql
                 }
             }
 
-            if (!exist)
+            if (!databaseExists)
             {
                 //执行创建后事件
                 events?.After().GetAwaiter().GetResult();
@@ -190,7 +190,7 @@ namespace NetModular.Lib.Data.MySql
                 return "SMALLINT(3)";
             }
 
-            if (propertyType == typeof(Guid))
+            if (propertyType.IsGuid())
                 return "CHAR(36)";
 
             var typeCode = Type.GetTypeCode(propertyType);

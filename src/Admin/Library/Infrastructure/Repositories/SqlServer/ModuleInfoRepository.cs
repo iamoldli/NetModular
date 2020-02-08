@@ -48,6 +48,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find().Where(m => m.Code == entity.Code).UpdateAsync(m => new ModuleInfoEntity
             {
                 Name = entity.Name,
+                Icon = entity.Icon,
                 Version = entity.Version,
                 Remarks = entity.Remarks
             });

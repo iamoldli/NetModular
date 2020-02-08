@@ -138,6 +138,7 @@ namespace NetModular.Lib.Excel.EPPlus
         /// <param name="sheet"></param>
         /// <param name="model"></param>
         /// <param name="entities"></param>
+        /// <param name="index"></param>
         private void SetColumn<T>(ExcelWorksheet sheet, ExportModel model, IList<T> entities, int index) where T : class, new()
         {
             foreach (var entity in entities)
@@ -159,7 +160,7 @@ namespace NetModular.Lib.Excel.EPPlus
                     }
                     else
                     {
-                        if (col.PropertyInfo.PropertyType == typeof(DateTime))
+                        if (col.PropertyInfo.PropertyType.IsDateTime())
                         {
                             cell.Style.Numberformat.Format = "yyyy/MM/dd HH:mm:ss";
                             cell.Formula = "=DATE(2014,10,5)";

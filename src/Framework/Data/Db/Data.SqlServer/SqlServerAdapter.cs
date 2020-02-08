@@ -90,7 +90,7 @@ namespace NetModular.Lib.Data.SqlServer
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAtEnd);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
             var connStrBuilder = new SqlConnectionStringBuilder
             {
@@ -108,8 +108,8 @@ namespace NetModular.Lib.Data.SqlServer
 
             //判断数据库是否已存在
             cmd.CommandText = $"SELECT TOP 1 1 FROM sysdatabases WHERE name = '{Options.Database}'";
-            var exist = cmd.ExecuteScalar().ToInt() > 0;
-            if (!exist)
+            databaseExists = cmd.ExecuteScalar().ToInt() > 0;
+            if (!databaseExists)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
@@ -137,7 +137,7 @@ namespace NetModular.Lib.Data.SqlServer
                 }
             }
 
-            if (!exist)
+            if (!databaseExists)
             {
                 //执行创建后事件
                 events?.After().GetAwaiter().GetResult();
@@ -218,7 +218,7 @@ namespace NetModular.Lib.Data.SqlServer
                 return "SMALLINT";
             }
 
-            if (propertyType == typeof(Guid))
+            if (propertyType.IsGuid())
                 return "UNIQUEIDENTIFIER";
 
             var typeCode = Type.GetTypeCode(propertyType);

@@ -49,6 +49,11 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public bool CreateDatabase { get; set; }
 
         /// <summary>
+        /// 初始化数据
+        /// </summary>
+        public bool InitData { get; set; }
+
+        /// <summary>
         /// 是否加密用户Id和密码
         /// </summary>
         public bool Encrypt { get; set; }

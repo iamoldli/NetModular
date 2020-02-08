@@ -11,11 +11,7 @@ namespace NetModular.Lib.Quartz.Web
         /// </summary>
         /// <param name="app"></param>
         /// <returns></returns>
-#if NETSTANDARD2_0
         public static IApplicationBuilder StartQuartz(this IApplicationBuilder app)
-#elif NETCOREAPP3_1
-        public static IApplicationBuilder StartQuartz(this IApplicationBuilder app)
-#endif
         {
             //启动
             var quartzServer = app.ApplicationServices.GetService<IQuartzServer>();

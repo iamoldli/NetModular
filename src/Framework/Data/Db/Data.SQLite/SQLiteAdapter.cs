@@ -64,7 +64,7 @@ namespace NetModular.Lib.Data.SQLite
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
             string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
             if (DbOptions.Server.NotNull())
@@ -80,8 +80,9 @@ namespace NetModular.Lib.Data.SQLite
             dbFilePath = Path.Combine(dbFilePath, Options.Database) + ".db";
 
             //判断是否存在
-            var exist = File.Exists(dbFilePath);
-            if (!exist)
+            databaseExists = File.Exists(dbFilePath);
+
+            if (!databaseExists)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
@@ -113,7 +114,7 @@ namespace NetModular.Lib.Data.SQLite
                 }
             }
 
-            if (!exist)
+            if (!databaseExists)
             {
                 //执行创建前事件
                 events?.After().GetAwaiter().GetResult();
@@ -178,7 +179,7 @@ namespace NetModular.Lib.Data.SQLite
             if (propertyType.IsEnum)
                 return "integer";
 
-            if (propertyType == typeof(Guid))
+            if (propertyType.IsGuid())
                 return "UNIQUEIDENTIFIER";
 
             var typeCode = Type.GetTypeCode(propertyType);

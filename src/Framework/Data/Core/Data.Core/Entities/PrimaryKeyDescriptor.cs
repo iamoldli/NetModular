@@ -3,6 +3,7 @@ using System.Reflection;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.Entities
 {
@@ -18,19 +19,19 @@ namespace NetModular.Lib.Data.Core.Entities
             var columnAttribute = p.GetCustomAttribute<ColumnAttribute>();
             Name = columnAttribute != null ? columnAttribute.Name : p.Name;
 
-            if (p.PropertyType == typeof(int))
+            if (p.PropertyType.IsInt())
             {
                 Type = PrimaryKeyType.Int;
             }
-            else if (p.PropertyType == typeof(long))
+            else if (p.PropertyType.IsLong())
             {
                 Type = PrimaryKeyType.Long;
             }
-            else if (p.PropertyType == typeof(Guid))
+            else if (p.PropertyType.IsGuid())
             {
                 Type = PrimaryKeyType.Guid;
             }
-            else if (p.PropertyType == typeof(string))
+            else if (p.PropertyType.IsString())
             {
                 Type = PrimaryKeyType.String;
             }

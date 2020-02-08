@@ -13,9 +13,10 @@ namespace NetModular.Module.Admin.Domain.Config
         /// <summary>
         /// 验证键值是否存在
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="type">配置类型</param>
+        /// <param name="key">键名</param>
         /// <returns></returns>
-        Task<bool> Exists(string key);
+        Task<bool> Exists(ConfigType type, string key);
 
         /// <summary>
         /// 数据项是否存在
@@ -25,11 +26,11 @@ namespace NetModular.Module.Admin.Domain.Config
         Task<bool> Exists(ConfigEntity entity);
 
         /// <summary>
-        /// 根据前缀查询配置项列表
+        /// 根据类型查询所有配置列表
         /// </summary>
-        /// <param name="prefix"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        Task<IList<ConfigEntity>> QueryByPrefix(string prefix);
+        Task<IList<ConfigEntity>> QueryByType(ConfigType type);
 
         /// <summary>
         /// 查询
@@ -42,7 +43,8 @@ namespace NetModular.Module.Admin.Domain.Config
         /// 根据Key获取对象
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="type">类型</param>
         /// <returns></returns>
-        Task<ConfigEntity> GetByKey(string key);
+        Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom);
     }
 }

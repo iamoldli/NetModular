@@ -10,7 +10,6 @@ using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.MySql;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
-using Xunit;
 
 namespace Data.MySql.Test
 {

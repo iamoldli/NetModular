@@ -29,5 +29,10 @@
         /// 组件信息
         /// </summary>
         public SystemComponentConfigModel Component { get; set; } = new SystemComponentConfigModel();
+
+        /// <summary>
+        /// 路径信息
+        /// </summary>
+        public SystemPathConfigModel Path { get; set; } = new SystemPathConfigModel();
     }
 }

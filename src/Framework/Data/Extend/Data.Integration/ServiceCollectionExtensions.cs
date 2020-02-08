@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
@@ -118,10 +120,53 @@ namespace NetModular.Lib.Data.Integration
                 }
 
                 //注入数据库上下文
-                var dbContext = Activator.CreateInstance(dbContextType, contextOptions, sp);
+                var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions, sp);
+
+                #region ==执行初始化脚本==
+
+                //当开启初始化脚本 && 开启自动创建数据库 && 数据库不存在
+                if (dbOptions.InitData && dbOptions.CreateDatabase && !dbContext.DatabaseExists)
+                {
+                    var dbScriptPath = "";
+                    switch (dbOptions.Dialect)
+                    {
+                        case SqlDialect.SqlServer:
+                            dbScriptPath = module.InitDataScriptDescriptor.SqlServer;
+                            break;
+                        case SqlDialect.MySql:
+                            dbScriptPath = module.InitDataScriptDescriptor.MySql;
+                            break;
+                        case SqlDialect.SQLite:
+                            dbScriptPath = module.InitDataScriptDescriptor.SQLite;
+                            break;
+                        case SqlDialect.PostgreSQL:
+                            dbScriptPath = module.InitDataScriptDescriptor.PostgreSQL;
+                            break;
+                        case SqlDialect.Oracle:
+                            dbScriptPath = module.InitDataScriptDescriptor.Oracle;
+                            break;
+                    }
+
+                    if (dbScriptPath.NotNull() && File.Exists(dbScriptPath))
+                    {
+                        using var sr = new StreamReader(dbScriptPath);
+                        var sql = sr.ReadToEnd();
+
+                        if (sql.NotNull())
+                        {
+                            //此处不能使用IDbContext的NewConnection方法创建连接
+                            var con = dbContext.Options.NewConnection();
+
+                            con.Execute(sql);
+                        }
+                    }
+                }
+
+                #endregion
+
                 services.AddSingleton(dbContextType, dbContext);
 
-                services.AddRepositories(module, (IDbContext)dbContext, dbOptions);
+                services.AddRepositories(module, dbContext, dbOptions);
             }
         }
 

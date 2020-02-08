@@ -1,28 +1,46 @@
 <template>
-  <nm-form-page v-bind="form">
-    <el-form-item label="选择模块：" prop="module">
-      <nm-module-select v-model="form.model.module" />
-    </el-form-item>
-  </nm-form-page>
+  <el-tabs class="nm-admin-config-module" v-model="tab" tab-position="left" type="border-card">
+    <el-tab-pane v-for="item in list" :key="item.value" :name="item.value">
+      <span slot="label"><nm-icon :name="item.data"></nm-icon>{{ item.label }} </span>
+      <form-page :module-code="item.value" />
+    </el-tab-pane>
+  </el-tabs>
 </template>
 <script>
+import FormPage from './form'
+const { select } = $api.admin.moduleInfo
 export default {
+  components: { FormPage },
   data() {
     return {
-      form: {
-        header: false,
-        model: {
-          module: ''
-        }
-      }
+      tab: '',
+      list: []
     }
+  },
+  created() {
+    select().then(data => {
+      this.list = data
+      if (this.list.length > 0) this.tab = this.list[0].value
+    })
   }
 }
 </script>
+
 <style lang="scss">
 .nm-admin-config-module {
-  .el-tab-pane {
-    padding: 10px;
+  height: 100%;
+
+  .el-tabs__header {
+    margin-right: 0 !important;
+  }
+
+  .el-tabs__item.is-active {
+    color: #67c23a !important;
+  }
+  .el-tabs__content {
+    .nm-box {
+      border-left: none !important;
+    }
   }
 }
 </style>

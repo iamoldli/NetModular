@@ -172,7 +172,8 @@ namespace NetModular.Lib.Data.Abstractions
         /// </summary>
         /// <param name="entityDescriptors">实体信息集合</param>
         /// <param name="events">创建事件</param>
-        void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null);
+        /// <param name="databaseExists">数据库是否存在</param>
+        void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists);
 
         #endregion
     }

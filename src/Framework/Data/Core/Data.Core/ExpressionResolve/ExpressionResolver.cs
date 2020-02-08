@@ -187,7 +187,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                     }
                     else
                     {
-                        if (memberExp.Expression.Type == typeof(string))
+                        if (memberExp.Expression.Type.IsString())
                         {
                             var memberName = memberExp.Member.Name;
                             //解析Length函数
@@ -382,11 +382,11 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(string))
+                    else if (valueType.IsString())
                     {
                         list = value as List<string>;
                     }
-                    else if (valueType == typeof(Guid))
+                    else if (valueType.IsGuid())
                     {
                         if (value is List<Guid> valueList)
                         {
@@ -396,7 +396,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(char))
+                    else if (valueType.IsChar())
                     {
                         if (value is List<char> valueList)
                         {
@@ -406,7 +406,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(DateTime))
+                    else if (valueType.IsDateTime())
                     {
                         if (value is List<DateTime> valueList)
                         {
@@ -416,7 +416,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(int))
+                    else if (valueType.IsInt())
                     {
                         isValueType = true;
                         if (value is List<int> valueList)
@@ -427,7 +427,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(long))
+                    else if (valueType.IsLong())
                     {
                         isValueType = true;
                         if (value is List<long> valueList)
@@ -438,7 +438,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(double))
+                    else if (valueType.IsDouble())
                     {
                         isValueType = true;
                         if (value is List<double> valueList)
@@ -449,7 +449,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(float))
+                    else if (valueType.IsFloat())
                     {
                         isValueType = true;
                         if (value is List<float> valueList)
@@ -460,7 +460,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                             }
                         }
                     }
-                    else if (valueType == typeof(decimal))
+                    else if (valueType.IsDecimal())
                     {
                         isValueType = true;
                         if (value is List<decimal> valueList)
@@ -532,7 +532,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(string))
+                        else if (valueType.IsString())
                         {
                             if (value is string[] valueList)
                             {
@@ -542,7 +542,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(Guid))
+                        else if (valueType.IsGuid())
                         {
                             if (value is Guid[] valueList)
                             {
@@ -552,7 +552,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(char))
+                        else if (valueType.IsChar())
                         {
                             if (value is char[] valueList)
                             {
@@ -562,7 +562,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(DateTime))
+                        else if (valueType.IsDateTime())
                         {
                             if (value is DateTime[] valueList)
                             {
@@ -572,7 +572,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(byte))
+                        else if (valueType.IsByte())
                         {
                             isValueType = true;
                             if (value is byte[] valueList)
@@ -583,7 +583,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(int))
+                        else if (valueType.IsInt())
                         {
                             isValueType = true;
                             if (value is int[] valueList)
@@ -594,7 +594,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(long))
+                        else if (valueType.IsLong())
                         {
                             isValueType = true;
                             if (value is long[] valueList)
@@ -605,7 +605,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(double))
+                        else if (valueType.IsDouble())
                         {
                             isValueType = true;
                             if (value is double[] valueList)
@@ -616,7 +616,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(short))
+                        else if (valueType.IsShort())
                         {
                             isValueType = true;
                             if (value is short[] valueList)
@@ -627,7 +627,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(float))
+                        else if (valueType.IsFloat())
                         {
                             isValueType = true;
                             if (value is float[] valueList)
@@ -638,7 +638,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                                 }
                             }
                         }
-                        else if (valueType == typeof(decimal))
+                        else if (valueType.IsDecimal())
                         {
                             isValueType = true;
                             if (value is decimal[] valueList)

@@ -42,5 +42,12 @@ namespace NetModular.Module.Admin.Application.SystemService
         /// <param name="model"></param>
         /// <returns></returns>
         IResultModel UpdateToolbarConfig(SystemToolbarConfigModel model);
+
+        /// <summary>
+        /// 更改路径配置
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        IResultModel UpdatePathConfig(SystemPathConfigModel model);
     }
 }

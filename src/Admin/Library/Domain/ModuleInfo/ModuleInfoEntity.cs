@@ -20,6 +20,12 @@ namespace NetModular.Module.Admin.Domain.ModuleInfo
         public string Code { get; set; }
 
         /// <summary>
+        /// 图标
+        /// </summary>
+        [Nullable]
+        public string Icon { get; set; }
+
+        /// <summary>
         /// 版本号
         /// </summary>
         public string Version { get; set; }

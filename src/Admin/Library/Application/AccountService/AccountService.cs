@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
-using NetModular.Lib.Config.Abstraction;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.Account.Models;
@@ -34,9 +32,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly IPermissionRepository _permissionRepository;
         private readonly AdminDbContext _dbContext;
         private readonly IPasswordHandler _passwordHandler;
-        private readonly SystemConfigModel _systemConfig;
+        private readonly AdminOptions _options;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IPermissionRepository permissionRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, SystemConfigModel systemConfig)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IPermissionRepository permissionRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, AdminOptions options)
         {
             _cache = cache;
             _mapper = mapper;
@@ -47,7 +45,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             _accountConfigRepository = accountConfigRepository;
             _dbContext = dbContext;
             _passwordHandler = passwordHandler;
-            _systemConfig = systemConfig;
+            _options = options;
         }
 
         public async Task<IResultModel> Query(AccountQueryModel model)
@@ -83,9 +81,9 @@ namespace NetModular.Module.Admin.Application.AccountService
             //设置默认密码
             if (account.Password.IsNull())
             {
-                if (_systemConfig != null && _systemConfig.Permission.DefaultPassword.NotNull())
+                if (_options != null && _options.DefaultPassword.NotNull())
                 {
-                    account.Password = _systemConfig.Permission.DefaultPassword;
+                    account.Password = _options.DefaultPassword;
                 }
                 else
                 {
@@ -258,9 +256,9 @@ namespace NetModular.Module.Admin.Application.AccountService
             if (account.IsLock)
                 return ResultModel.Failed("账户锁定，不允许重置密码");
 
-            if (_systemConfig != null && _systemConfig.Permission.DefaultPassword.NotNull())
+            if (_options != null && _options.DefaultPassword.NotNull())
             {
-                account.Password = _systemConfig.Permission.DefaultPassword;
+                account.Password = _options.DefaultPassword;
             }
             else
             {

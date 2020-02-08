@@ -2,35 +2,24 @@
 
   <PropertyGroup>
     <Description>NetModular host for Web</Description>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)'=='netstandard2.0' ">
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)'=='netcoreapp3.1' ">
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Auth\Auth.Jwt\Auth.Jwt.csproj" />
     <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
-    <ProjectReference Include="..\..\Config\Config.Core\Config.Core.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
     <ProjectReference Include="..\..\Excel\Excel.Integration\Excel.Integration.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog\Logging.Serilog.csproj" />
     <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Options\Options.Core\Options.Core.csproj" />
     <ProjectReference Include="..\..\Swagger\Swagger.Core\Swagger.Core.csproj" />
     <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
     <ProjectReference Include="..\..\Utils\Utils.Mvc\Utils.Mvc.csproj" />

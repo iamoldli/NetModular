@@ -146,6 +146,6 @@ namespace NetModular.Lib.Data.Core
 
         public abstract Guid GenerateSequentialGuid();
 
-        public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null);
+        public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists);
     }
 }

@@ -60,7 +60,7 @@ namespace NetModular.Lib.Data.PostgreSQL
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsString);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
             var connStrBuilder = new NpgsqlConnectionStringBuilder
             {
@@ -90,8 +90,8 @@ namespace NetModular.Lib.Data.PostgreSQL
             con.Open();
 
             //判断数据库是否已存在
-            var exist = con.ExecuteScalar($"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;").ToInt() > 0;
-            if (!exist)
+            databaseExists = con.ExecuteScalar($"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;").ToInt() > 0;
+            if (!databaseExists)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
@@ -109,7 +109,7 @@ namespace NetModular.Lib.Data.PostgreSQL
                 }
             }
 
-            if (!exist)
+            if (!databaseExists)
             {
                 //执行创建后事件
                 events?.After().GetAwaiter().GetResult();
@@ -185,7 +185,7 @@ namespace NetModular.Lib.Data.PostgreSQL
                 return "SMALLINT";
             }
 
-            if (propertyType == typeof(Guid))
+            if (propertyType.IsGuid())
                 return "UUID";
 
             var typeCode = Type.GetTypeCode(propertyType);

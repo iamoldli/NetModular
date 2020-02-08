@@ -89,5 +89,191 @@ namespace NetModular.Lib.Utils.Core.Extensions
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+
+        /// <summary>
+        /// 判断是否是String类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsString(this Type type)
+        {
+            return type == TypeConst.String;
+        }
+
+        /// <summary>
+        /// 判断是否是Byte类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsByte(this Type type)
+        {
+            return type == TypeConst.Byte;
+        }
+
+        /// <summary>
+        /// 判断是否是Char类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsChar(this Type type)
+        {
+            return type == TypeConst.Char;
+        }
+
+        /// <summary>
+        /// 判断是否是Short类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsShort(this Type type)
+        {
+            return type == TypeConst.Short;
+        }
+
+        /// <summary>
+        /// 判断是否是Int类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsInt(this Type type)
+        {
+            return type == TypeConst.Int;
+        }
+
+        /// <summary>
+        /// 判断是否是Long类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsLong(this Type type)
+        {
+            return type == TypeConst.Long;
+        }
+
+        /// <summary>
+        /// 判断是否是Float类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsFloat(this Type type)
+        {
+            return type == TypeConst.Float;
+        }
+
+        /// <summary>
+        /// 判断是否是Double类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsDouble(this Type type)
+        {
+            return type == TypeConst.Double;
+        }
+
+        /// <summary>
+        /// 判断是否是Decimal类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsDecimal(this Type type)
+        {
+            return type == TypeConst.Decimal;
+        }
+
+        /// <summary>
+        /// 判断是否是DateTime类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsDateTime(this Type type)
+        {
+            return type == TypeConst.DateTime;
+        }
+
+        /// <summary>
+        /// 判断是否是Guid类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsGuid(this Type type)
+        {
+            return type == TypeConst.Guid;
+        }
+
+        /// <summary>
+        /// 判断是否是Bool类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsBool(this Type type)
+        {
+            return type == TypeConst.Bool;
+        }
+    }
+
+    /// <summary>
+    /// 类型常量
+    /// </summary>
+    public class TypeConst
+    {
+        /// <summary>
+        /// String
+        /// </summary>
+        public static readonly Type String = typeof(string);
+
+        /// <summary>
+        /// Byte
+        /// </summary>
+        public static readonly Type Byte = typeof(byte);
+
+        /// <summary>
+        /// Char
+        /// </summary>
+        public static readonly Type Char = typeof(char);
+
+        /// <summary>
+        /// Short
+        /// </summary>
+        public static readonly Type Short = typeof(short);
+
+        /// <summary>
+        /// Int
+        /// </summary>
+        public static readonly Type Int = typeof(int);
+
+        /// <summary>
+        /// Long
+        /// </summary>
+        public static readonly Type Long = typeof(long);
+
+        /// <summary>
+        /// Float
+        /// </summary>
+        public static readonly Type Float = typeof(float);
+
+        /// <summary>
+        /// Double
+        /// </summary>
+        public static readonly Type Double = typeof(double);
+
+        /// <summary>
+        /// Decimal
+        /// </summary>
+        public static readonly Type Decimal = typeof(decimal);
+
+        /// <summary>
+        /// DateTime
+        /// </summary>
+        public static readonly Type DateTime = typeof(DateTime);
+
+        /// <summary>
+        /// Guid
+        /// </summary>
+        public static readonly Type Guid = typeof(Guid);
+
+        /// <summary>
+        /// Bool
+        /// </summary>
+        public static readonly Type Bool = typeof(bool);
     }
 }

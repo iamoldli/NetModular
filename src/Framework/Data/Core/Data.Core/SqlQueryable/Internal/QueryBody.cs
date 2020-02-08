@@ -197,7 +197,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 }
                 else
                 {
-                    if (memberExp.Expression.Type == typeof(string))
+                    if (memberExp.Expression.Type.IsString())
                     {
                         var memberName = memberExp.Member.Name.Equals("Length");
                         //解析Length函数
@@ -412,18 +412,18 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     valueList.Add(Enum.Parse(valueType, c.ToString()).ToInt().ToString());
                 }
             }
-            else if (valueType == typeof(string))
+            else if (valueType.IsString())
             {
                 valueList = enumerable as List<string>;
             }
-            else if (valueType == typeof(Guid) || valueType == typeof(char))
+            else if (valueType.IsGuid() || valueType.IsChar())
             {
                 foreach (var c in enumerable)
                 {
                     valueList.Add(c.ToString());
                 }
             }
-            else if (valueType == typeof(DateTime))
+            else if (valueType.IsDateTime())
             {
                 if (list is List<DateTime> tmp)
                 {
@@ -433,7 +433,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     }
                 }
             }
-            else if (valueType == typeof(int) || valueType == typeof(long) || valueType == typeof(double) || valueType == typeof(float) || valueType == typeof(decimal))
+            else if (valueType.IsInt() || valueType.IsLong() || valueType.IsDouble() || valueType.IsFloat() || valueType.IsDecimal())
             {
                 isValueType = true;
                 foreach (var c in enumerable)

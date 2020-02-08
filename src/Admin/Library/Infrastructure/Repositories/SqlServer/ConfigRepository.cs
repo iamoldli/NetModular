@@ -16,22 +16,22 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
         }
 
-        public Task<bool> Exists(string key)
+        public Task<bool> Exists(ConfigType type, string key)
         {
-            return ExistsAsync(m => m.Key.Equals(key));
+            return ExistsAsync(m => m.Type == type && m.Key == key);
         }
 
         public Task<bool> Exists(ConfigEntity entity)
         {
-            var query = Db.Find(m => m.Key == entity.Key);
+            var query = Db.Find(m => m.Key == entity.Key && m.Type == entity.Type);
             query.WhereIf(entity.Id > 0, m => m.Id != entity.Id);
 
             return query.ExistsAsync();
         }
 
-        public Task<IList<ConfigEntity>> QueryByPrefix(string prefix)
+        public Task<IList<ConfigEntity>> QueryByType(ConfigType type)
         {
-            return Db.Find(m => m.Key.StartsWith(prefix)).ToListAsync();
+            return Db.Find(m => m.Type == type).ToListAsync();
         }
 
         public async Task<IList<ConfigEntity>> Query(ConfigQueryModel model)
@@ -39,6 +39,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             var paging = model.Paging();
             var query = Db.Find();
             query.WhereNotNull(model.Key, m => m.Key.Contains(model.Key) || m.Value.Contains(model.Key));
+            query.WhereNotNull(model.Type, m => m.Type == model.Type.Value);
 
             var joinQuery = query.LeftJoin<AccountEntity>((x, y) => x.CreatedBy == y.Id);
             if (!paging.OrderBy.Any())
@@ -53,9 +54,9 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<ConfigEntity> GetByKey(string key)
+        public Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom)
         {
-            return Db.Find(m => m.Key == key).FirstAsync();
+            return Db.Find(m => m.Key == key && m.Type == type).FirstAsync();
         }
 
         public override async Task<bool> UpdateAsync(ConfigEntity entity, IUnitOfWork uow)

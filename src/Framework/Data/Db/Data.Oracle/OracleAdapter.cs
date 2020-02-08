@@ -63,7 +63,7 @@ namespace NetModular.Lib.Data.Oracle
             return GuidHelper.NewSequentialGuid(SequentialGuidType.SequentialAsBinary);
         }
 
-        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events = null)
+        public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
             throw new NotImplementedException();
         }

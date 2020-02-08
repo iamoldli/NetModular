@@ -15,6 +15,9 @@
 
       <!--是否显示-->
       <template v-slot:col-isShow="{ row }">{{ row.isShow ? '是' : '否' }}</template>
+      <template v-slot:col-icon="{ row }">
+        <nm-icon :name="row.icon" />
+      </template>
 
       <!--操作列-->
       <template v-slot:col-operation="{ row }">

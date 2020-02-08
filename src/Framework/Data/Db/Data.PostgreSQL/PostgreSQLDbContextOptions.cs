@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Options;

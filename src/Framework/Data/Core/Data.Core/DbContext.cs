@@ -33,6 +33,11 @@ namespace NetModular.Lib.Data.Core
         /// </summary>
         public IDbContextOptions Options { get; }
 
+        /// <summary>
+        /// 数据库是否已存在
+        /// </summary>
+        public bool DatabaseExists { get; private set; }
+
         #endregion
 
         #region ==构造函数==
@@ -123,7 +128,8 @@ namespace NetModular.Lib.Data.Core
 
         public void CreateDatabase()
         {
-            Options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(Options.DbModuleOptions.Name), Options.DatabaseCreateEvents);
+            Options.SqlAdapter.CreateDatabase(EntityDescriptorCollection.Get(Options.DbModuleOptions.Name), Options.DatabaseCreateEvents, out bool exists);
+            DatabaseExists = exists;
         }
 
         #endregion

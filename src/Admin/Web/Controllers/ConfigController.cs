@@ -7,6 +7,7 @@ using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ConfigService;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
+using NetModular.Module.Admin.Domain.Config;
 using NetModular.Module.Admin.Domain.Config.Models;
 
 namespace NetModular.Module.Admin.Web.Controllers
@@ -65,6 +66,13 @@ namespace NetModular.Module.Admin.Web.Controllers
                 return ResultModel.Success(string.Empty);
 
             return await _service.GetValueByKey(key);
+        }
+
+        [HttpGet]
+        [Common]
+        public IResultModel TypeSelect()
+        {
+            return ResultModel.Success(EnumExtensions.ToResult<ConfigType>());
         }
     }
 }

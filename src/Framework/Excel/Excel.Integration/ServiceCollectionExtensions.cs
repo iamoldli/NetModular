@@ -6,7 +6,7 @@ using NetModular.Lib.Excel.Abstractions;
 using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
-using NetModular.Lib.Utils.Core.Options;
+using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Lib.Excel.Integration
 {
@@ -17,9 +17,8 @@ namespace NetModular.Lib.Excel.Integration
         /// </summary>
         /// <param name="services"></param>
         /// <param name="environmentName"></param>
-        /// <param name="moduleCommonOptions"></param>
         /// <returns></returns>
-        public static IServiceCollection AddExcel(this IServiceCollection services, string environmentName, ModuleCommonOptions moduleCommonOptions)
+        public static IServiceCollection AddExcel(this IServiceCollection services, string environmentName)
         {
             var options = new ConfigurationHelper().Get<ExcelOptions>("Excel", environmentName);
             if (options == null)
@@ -27,7 +26,11 @@ namespace NetModular.Lib.Excel.Integration
 
             if (options.TempPath.IsNull())
             {
-                options.TempPath = Path.Combine(moduleCommonOptions.TempPath, "Excel");
+                var systemConfig = services.BuildServiceProvider().GetService<SystemConfigModel>();
+                if (systemConfig != null)
+                {
+                    options.TempPath = Path.Combine(systemConfig.Path.TempPath, "Excel");
+                }
             }
 
             services.AddSingleton(options);

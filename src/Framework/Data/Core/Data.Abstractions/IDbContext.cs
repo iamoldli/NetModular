@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Threading.Tasks;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -25,6 +24,11 @@ namespace NetModular.Lib.Data.Abstractions
         /// 数据库配置
         /// </summary>
         IDbContextOptions Options { get; }
+
+        /// <summary>
+        /// 数据库是否已存在
+        /// </summary>
+        bool DatabaseExists { get; }
 
         /// <summary>
         /// 创建新的连接

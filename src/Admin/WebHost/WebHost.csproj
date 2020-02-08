@@ -20,11 +20,17 @@
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 
-  <!--复制配置文件到输出目录-->
+  <Import Project="..\..\..\build\module.build.targets" />
+
   <ItemGroup>
-    <Content Update="config\**">
+    <!--复制配置文件到输出目录-->
+    <None Update="config\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <!--复制模块相关文件到输出路径中-->
+    <None Update="_modules\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  
+
 </Project>

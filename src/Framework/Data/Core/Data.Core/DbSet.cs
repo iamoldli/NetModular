@@ -791,16 +791,16 @@ namespace NetModular.Lib.Data.Core
             {
                 sqlBuilder.AppendFormat("{0}", value.ToInt());
             }
-            else if (type == typeof(bool))
+            else if (type.IsBool())
             {
                 sqlBuilder.AppendFormat("{0}",
                     EntityDescriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL
                         ? value
                         : value.ToInt());
             }
-            else if (type == typeof(string) || type == typeof(char) || type == typeof(Guid))
+            else if (type.IsString() || type.IsChar() || type.IsGuid())
                 sqlBuilder.AppendFormat("'{0}'", value);
-            else if (type == typeof(DateTime))
+            else if (type.IsDateTime())
                 sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", value.ToDateTime());
             else
                 sqlBuilder.AppendFormat("{0}", value);

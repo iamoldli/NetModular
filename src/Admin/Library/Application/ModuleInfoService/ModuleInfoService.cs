@@ -45,6 +45,7 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
             {
                 Name = m.Name,
                 Code = m.Id,
+                Icon = m.Icon,
                 Version = m.Version
             });
 
@@ -100,7 +101,8 @@ namespace NetModular.Module.Admin.Application.ModuleInfoService
             var list = all.Select(m => new OptionResultModel
             {
                 Label = m.Name,
-                Value = m.Code
+                Value = m.Code,
+                Data = m.Icon
             }).ToList();
             return ResultModel.Success(list);
         }

@@ -10,6 +10,7 @@ export default name => {
     updateLoginConfig: root + 'updateLoginConfig',
     updatePermissionConfig: root + 'updatePermissionConfig',
     updateToolbarConfig: root + 'updateToolbarConfig',
+    updatePathConfig: root + 'updatePathConfig',
     uploadLogo: root + 'UploadLogo',
     allController: root + 'AllController',
     allAction: root + 'AllAction'
@@ -56,6 +57,14 @@ export default name => {
   const updateToolbarConfig = params => {
     return $http.post(urls.updateToolbarConfig, params)
   }
+
+  /**
+   * @description 修改路径配置
+   */
+  const updatePathConfig = params => {
+    return $http.post(urls.updatePathConfig, params)
+  }
+
   /**
    * logo上传接口
    */
@@ -82,6 +91,7 @@ export default name => {
     updateLoginConfig,
     updatePermissionConfig,
     updateToolbarConfig,
+    updatePathConfig,
     uploadLogoUrl,
     getAllController,
     getAllAction

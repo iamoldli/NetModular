@@ -15,6 +15,11 @@ export default [
     width: 150
   },
   {
+    name: 'icon',
+    label: '图标',
+    width: 150
+  },
+  {
     name: 'version',
     label: '版本号',
     width: 150

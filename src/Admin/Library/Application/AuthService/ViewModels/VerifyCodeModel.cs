@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NetModular.Module.Admin.Application.AuthService.ViewModels
+﻿namespace NetModular.Module.Admin.Application.AuthService.ViewModels
 {
 
     /// <summary>

@@ -7,24 +7,31 @@ namespace NetModular.Module.Admin.Domain.Config
     /// 配置项
     /// </summary>
     [Table("Config")]
-    public class ConfigEntity : EntityBase<int>
+    public partial class ConfigEntity : EntityBase<int>
     {
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public ConfigType Type { get; set; }
+
         /// <summary>
         /// 键名
         /// </summary>
-        [Length(250)]
+        [Length(300)]
         public string Key { get; set; }
 
         /// <summary>
         /// 值
         /// </summary>
-        [Length(500)]
+        [Length(1000)]
+        [Nullable]
         public string Value { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
-        [Length(250)]
+        [Length(300)]
+        [Nullable]
         public string Remarks { get; set; }
     }
 }

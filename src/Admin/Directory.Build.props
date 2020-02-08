@@ -3,7 +3,8 @@
     <Id>Admin</Id>
     <Name>权限管理</Name>
     <Authors>Oldli</Authors>
-    <Version>1.6.8</Version>
+    <Icon>permission</Icon>
+    <Version>1.7.0</Version>
     <Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <LangVersion>Latest</LangVersion>

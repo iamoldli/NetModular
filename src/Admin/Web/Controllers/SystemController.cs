@@ -6,11 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Options;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Options;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Lib.Utils.Mvc.Extensions;
@@ -22,19 +20,17 @@ namespace NetModular.Module.Admin.Web.Controllers
     [Description("系统")]
     public class SystemController : ModuleController
     {
-        private readonly ModuleCommonOptions _options;
         private readonly ISystemService _systemService;
         private readonly FileUploadHelper _fileUploadHelper;
         private readonly MvcHelper _mvcHelper;
         private readonly SystemConfigModel _configModel;
 
-        public SystemController(ISystemService systemService, IOptionsMonitor<ModuleCommonOptions> optionsMonitor, FileUploadHelper fileUploadHelper, MvcHelper mvcHelper, SystemConfigModel configModel)
+        public SystemController(ISystemService systemService, FileUploadHelper fileUploadHelper, MvcHelper mvcHelper, SystemConfigModel configModel)
         {
             _systemService = systemService;
             _fileUploadHelper = fileUploadHelper;
             _mvcHelper = mvcHelper;
             _configModel = configModel;
-            _options = optionsMonitor.CurrentValue;
         }
 
         [HttpGet]
@@ -83,10 +79,17 @@ namespace NetModular.Module.Admin.Web.Controllers
         }
 
         [HttpPost]
-        [Description("修改系统权限配置")]
+        [Description("修改系统工具栏配置")]
         public IResultModel UpdateToolbarConfig(SystemToolbarConfigModel model)
         {
             return _systemService.UpdateToolbarConfig(model);
+        }
+
+        [HttpPost]
+        [Description("修改系统路径配置")]
+        public IResultModel UpdatePathConfig(SystemPathConfigModel model)
+        {
+            return _systemService.UpdatePathConfig(model);
         }
 
         [HttpPost]
@@ -97,7 +100,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             {
                 Request = Request,
                 FormFile = formFile,
-                RootPath = _options.UploadPath,
+                RootPath = _configModel.Path.UploadPath,
                 Module = "Admin",
                 Group = "Logo"
             };

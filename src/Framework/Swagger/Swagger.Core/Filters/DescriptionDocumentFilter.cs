@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using NetModular.Lib.Utils.Core.Extensions;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace NetModular.Lib.Swagger.Core.Filters

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using NetModular.Lib.Config.Abstraction;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
 using NetModular.Module.Admin.Domain.Config;
@@ -10,16 +9,15 @@ namespace NetModular.Module.Admin.Application.ConfigService
     public class ConfigService : IConfigService
     {
         private readonly IConfigRepository _repository;
-        private readonly IConfigContainer _configContainer;
 
-        public ConfigService(IConfigRepository repository, IConfigContainer configContainer)
+        public ConfigService(IConfigRepository repository)
         {
             _repository = repository;
-            _configContainer = configContainer;
         }
 
         public async Task<IResultModel> Query(ConfigQueryModel model)
         {
+            model.Type = ConfigType.Custom;
             var result = new QueryResultModel<ConfigEntity>
             {
                 Rows = await _repository.Query(model),
@@ -31,22 +29,18 @@ namespace NetModular.Module.Admin.Application.ConfigService
 
         public async Task<IResultModel> Add(ConfigAddModel model)
         {
-            if (await _repository.Exists(model.Key))
+            if (await _repository.Exists(ConfigType.Custom, model.Key))
                 return ResultModel.HasExists;
 
             var entity = new ConfigEntity
             {
+                Type = ConfigType.Custom,
                 Key = model.Key,
                 Value = model.Value,
                 Remarks = model.Remarks
             };
 
             var result = await _repository.AddAsync(entity);
-            if (result)
-            {
-                await _configContainer.Remove(entity.Key);
-            }
-
             return ResultModel.Result(result);
         }
 
@@ -54,13 +48,11 @@ namespace NetModular.Module.Admin.Application.ConfigService
         {
             var entity = await _repository.GetAsync(id);
             if (entity == null)
-                return ResultModel.Failed("数据项不存在");
+                return ResultModel.Failed("配置不存在");
+            if (entity.Type != ConfigType.Custom)
+                return ResultModel.Failed("非自定义配置不允许删除");
 
             var result = await _repository.DeleteAsync(id);
-            if (result)
-            {
-                await _configContainer.Remove(entity.Key);
-            }
             return ResultModel.Result(result);
         }
 
@@ -68,7 +60,9 @@ namespace NetModular.Module.Admin.Application.ConfigService
         {
             var entity = await _repository.GetAsync(id);
             if (entity == null)
-                return ResultModel.Failed("数据项不存在");
+                return ResultModel.Failed("配置不存在");
+            if (entity.Type != ConfigType.Custom)
+                return ResultModel.Failed("非自定义配置不允许编辑");
 
             var model = new ConfigUpdateModel
             {
@@ -85,7 +79,9 @@ namespace NetModular.Module.Admin.Application.ConfigService
         {
             var entity = await _repository.GetAsync(model.Id);
             if (entity == null)
-                return ResultModel.Failed("数据项不存在");
+                return ResultModel.Failed("配置不存在");
+            if (entity.Type != ConfigType.Custom)
+                return ResultModel.Failed("非自定义配置不允许编辑");
 
             entity.Key = model.Key;
             entity.Value = model.Value;
@@ -95,10 +91,6 @@ namespace NetModular.Module.Admin.Application.ConfigService
                 return ResultModel.Failed($"{model.Key}键已存在");
 
             var result = await _repository.UpdateAsync(entity);
-            if (result)
-            {
-                await _configContainer.Remove(entity.Key);
-            }
             return ResultModel.Result(result);
         }
 

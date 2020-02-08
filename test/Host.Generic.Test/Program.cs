@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NetModular.Lib.Host.Generic;
 
 namespace Host.Generic.Test

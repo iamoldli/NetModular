@@ -603,7 +603,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 }
                 else
                 {
-                    if (memberExp.Expression.Type == typeof(string))
+                    if (memberExp.Expression.Type.IsString())
                     {
                         var memberName = memberExp.Member.Name;
                         //解析Length函数

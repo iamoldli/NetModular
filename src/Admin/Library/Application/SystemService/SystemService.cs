@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Lib.Utils.Core.SystemConfig;
@@ -56,6 +57,18 @@ namespace NetModular.Module.Admin.Application.SystemService
             return ResultModel.Success();
         }
 
+        public IResultModel UpdatePathConfig(SystemPathConfigModel model)
+        {
+            if (!Directory.Exists(model.UploadPath))
+                return ResultModel.Failed("文件上传存储根路径不存在");
+            if (!Directory.Exists(model.TempPath))
+                return ResultModel.Failed("临时文件存储根路径");
+
+            Update(model);
+            _configModel.Path = model;
+            return ResultModel.Success();
+        }
+
         private void UpdateConfig<T>(T config, List<ConfigEntity> list)
         {
             var properties = config.GetType().GetProperties();
@@ -69,6 +82,7 @@ namespace NetModular.Module.Admin.Application.SystemService
                     {
                         list.Add(new ConfigEntity
                         {
+                            Type = ConfigType.System,
                             Key = descAttr.Name,
                             Value = val != null ? val.ToString() : "",
                             Remarks = descAttr.Remarks

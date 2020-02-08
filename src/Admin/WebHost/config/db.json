@@ -15,6 +15,8 @@
   "Password": "",
   //是否创建数据库和表
   "CreateDatabase": true,
+  //是否创建数据库后执行初始化脚本
+  "InitData": true,
   //PostgreSQL数据库名称，仅PostgreSQL数据库有效
   "NpgsqlDatabaseName": null,
   //模块列表
