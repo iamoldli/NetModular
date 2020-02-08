@@ -8,6 +8,7 @@ using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Options.Abstraction;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
+using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Lib.Options.Core
 {
@@ -25,13 +26,15 @@ namespace NetModular.Lib.Options.Core
         private readonly IModuleCollection _moduleCollection;
         private readonly IModuleOptionsStorageProvider _storageProvider;
         private readonly IServiceProvider _serviceProvider;
+        private readonly SystemConfigModel _systemConfig;
 
-        public ModuleOptionsContainer(ILogger<ModuleOptionsContainer> logger, IModuleCollection moduleCollection, IModuleOptionsStorageProvider storageProvider, IServiceProvider serviceProvider)
+        public ModuleOptionsContainer(ILogger<ModuleOptionsContainer> logger, IModuleCollection moduleCollection, IModuleOptionsStorageProvider storageProvider, IServiceProvider serviceProvider, SystemConfigModel systemConfig)
         {
             _logger = logger;
             _moduleCollection = moduleCollection;
             _storageProvider = storageProvider;
             _serviceProvider = serviceProvider;
+            _systemConfig = systemConfig;
         }
 
         public void Load(IServiceCollection services)
@@ -55,6 +58,13 @@ namespace NetModular.Lib.Options.Core
                     {
                         var properties = optionsType.GetProperties().Where(m => m.GetCustomAttributes(false).Any(n => n.GetType() == typeof(ModuleOptionDefinitionAttribute)));
                         var options = (IModuleOptions)Activator.CreateInstance(optionsType);
+
+                        //绑定系统配置对象
+                        var systemConfigProperty = optionsType.GetProperties().FirstOrDefault(m => m.PropertyType == typeof(SystemConfigModel));
+                        if (systemConfigProperty != null)
+                        {
+                            systemConfigProperty.SetValue(options, _systemConfig);
+                        }
 
                         //配置项定义信息列表
                         var definitionList = new List<ModuleOptionDefinitionAttribute>();

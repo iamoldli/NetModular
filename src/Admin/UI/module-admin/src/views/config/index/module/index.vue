@@ -33,7 +33,9 @@ export default {
   .el-tabs__header {
     margin-right: 0 !important;
   }
-
+  .el-tabs__item {
+    text-align: left !important;
+  }
   .el-tabs__item.is-active {
     color: #67c23a !important;
   }

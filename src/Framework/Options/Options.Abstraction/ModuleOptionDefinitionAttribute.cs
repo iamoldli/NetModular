@@ -10,6 +10,8 @@ namespace NetModular.Lib.Options.Abstraction
     [AttributeUsage(AttributeTargets.Property)]
     public class ModuleOptionDefinitionAttribute : Attribute
     {
+        #region ==属性==
+
         /// <summary>
         /// 名称
         /// </summary>
@@ -31,6 +33,15 @@ namespace NetModular.Lib.Options.Abstraction
         public List<OptionResultModel> EnumOptions { get; set; }
 
         /// <summary>
+        /// 提示说明
+        /// </summary>
+        public string Tooltip { get; set; }
+
+        #endregion
+
+        #region ==构造函数==
+
+        /// <summary>
         /// 模块配置项定义
         /// </summary>
         /// <param name="name">名称</param>
@@ -43,11 +54,37 @@ namespace NetModular.Lib.Options.Abstraction
         /// 模块配置项定义
         /// </summary>
         /// <param name="name">名称</param>
+        /// <param name="tooltip">提示说明</param>
+        public ModuleOptionDefinitionAttribute(string name, string tooltip)
+        {
+            Name = name;
+            Tooltip = tooltip;
+        }
+
+        /// <summary>
+        /// 模块配置项定义
+        /// </summary>
+        /// <param name="name">名称</param>
         /// <param name="propertyType">指定属性类型</param>
         public ModuleOptionDefinitionAttribute(string name, ModuleOptionPropertyType propertyType)
         {
             Name = name;
             PropertyType = propertyType;
         }
+
+        /// <summary>
+        /// 模块配置项定义
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="propertyType">指定属性类型</param>
+        /// <param name="tooltip">提示说明</param>
+        public ModuleOptionDefinitionAttribute(string name, ModuleOptionPropertyType propertyType, string tooltip)
+        {
+            Name = name;
+            PropertyType = propertyType;
+            Tooltip = tooltip;
+        }
+
+        #endregion
     }
 }
