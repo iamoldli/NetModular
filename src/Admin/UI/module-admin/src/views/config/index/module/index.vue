@@ -1,6 +1,6 @@
 <template>
   <el-tabs class="nm-admin-config-module" v-model="tab" tab-position="left" type="border-card">
-    <el-tab-pane v-for="item in list" :key="item.value" :name="item.value">
+    <el-tab-pane v-for="item in list" :key="item.value" :name="item.value" lazy>
       <span slot="label"><nm-icon :name="item.data"></nm-icon>{{ item.label }} </span>
       <form-page :module-code="item.value" />
     </el-tab-pane>
