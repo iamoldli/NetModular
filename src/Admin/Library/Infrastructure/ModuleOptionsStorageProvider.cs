@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using NetModular.Lib.Options.Abstraction;
 using NetModular.Module.Admin.Domain.Config;
 using NetModular.Module.Admin.Infrastructure.Repositories;
@@ -21,10 +20,10 @@ namespace NetModular.Module.Admin.Infrastructure
             _dbContext = dbContext;
         }
 
-        public async Task<IList<ModuleOptionDescriptor>> GetAll()
+        public IList<ModuleOptionStorageModel> GetAll()
         {
-            var list = await _repository.QueryByType(ConfigType.Module);
-            return list.Select(m => new ModuleOptionDescriptor
+            var list = _repository.QueryByType(ConfigType.Module).Result;
+            return list.Select(m => new ModuleOptionStorageModel
             {
                 Key = m.Key,
                 Value = m.Value,
@@ -32,7 +31,7 @@ namespace NetModular.Module.Admin.Infrastructure
             }).ToList();
         }
 
-        public async Task Save(List<ModuleOptionDescriptor> descriptors)
+        public void Save(List<ModuleOptionStorageModel> descriptors)
         {
             if (descriptors == null || !descriptors.Any())
                 return;
@@ -48,15 +47,15 @@ namespace NetModular.Module.Admin.Infrastructure
                     Remarks = descriptor.Remarks
                 };
 
-                var entity = await _repository.GetByKey(descriptor.Key, ConfigType.Module);
+                var entity = _repository.GetByKey(descriptor.Key, ConfigType.Module).Result;
                 if (entity == null)
                 {
-                    await _repository.AddAsync(newEntity, uow);
+                    _repository.AddAsync(newEntity, uow).GetAwaiter().GetResult();
                 }
                 else
                 {
                     newEntity.Id = entity.Id;
-                    await _repository.UpdateAsync(newEntity, uow);
+                    _repository.UpdateAsync(newEntity, uow).GetAwaiter().GetResult();
                 }
             }
         }

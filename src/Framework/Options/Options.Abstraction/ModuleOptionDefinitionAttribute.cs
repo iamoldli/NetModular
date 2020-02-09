@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NetModular.Lib.Utils.Core.Result;
+using Newtonsoft.Json;
 
 namespace NetModular.Lib.Options.Abstraction
 {
@@ -13,19 +15,24 @@ namespace NetModular.Lib.Options.Abstraction
         #region ==属性==
 
         /// <summary>
+        /// 唯一键
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 属性名称
+        /// 数据名称
         /// </summary>
-        public string PropertyName { get; set; }
+        public string DataName { get; set; }
 
         /// <summary>
-        /// 属性类型
+        /// 数据类型
         /// </summary>
-        public ModuleOptionPropertyType PropertyType { get; set; }
+        public ModuleOptionDataType DataType { get; set; }
 
         /// <summary>
         /// 枚举类型的选项列表
@@ -36,6 +43,9 @@ namespace NetModular.Lib.Options.Abstraction
         /// 提示说明
         /// </summary>
         public string Tooltip { get; set; }
+
+        [JsonIgnore]
+        public PropertyInfo PropertyInfo { get; set; }
 
         #endregion
 
@@ -66,10 +76,10 @@ namespace NetModular.Lib.Options.Abstraction
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="propertyType">指定属性类型</param>
-        public ModuleOptionDefinitionAttribute(string name, ModuleOptionPropertyType propertyType)
+        public ModuleOptionDefinitionAttribute(string name, ModuleOptionDataType propertyType)
         {
             Name = name;
-            PropertyType = propertyType;
+            DataType = propertyType;
         }
 
         /// <summary>
@@ -78,10 +88,10 @@ namespace NetModular.Lib.Options.Abstraction
         /// <param name="name">名称</param>
         /// <param name="propertyType">指定属性类型</param>
         /// <param name="tooltip">提示说明</param>
-        public ModuleOptionDefinitionAttribute(string name, ModuleOptionPropertyType propertyType, string tooltip)
+        public ModuleOptionDefinitionAttribute(string name, ModuleOptionDataType propertyType, string tooltip)
         {
             Name = name;
-            PropertyType = propertyType;
+            DataType = propertyType;
             Tooltip = tooltip;
         }
 

@@ -13,29 +13,23 @@ namespace NetModular.Lib.Quartz.Core
 {
     public class QuartzServer : IQuartzServer
     {
-        private ILogger _logger;
-        private readonly NameValueCollection _props;
         private IScheduler _scheduler;
+        private readonly ILogger _logger;
         private readonly IServiceProvider _container;
 
-        public QuartzServer(NameValueCollection props, IServiceProvider container)
+        public QuartzServer(ILogger<QuartzServer> logger, IServiceProvider container)
         {
-            _props = props;
+            _logger = logger;
             _container = container;
         }
 
         /// <summary>
         /// 启动
         /// </summary>
-        public async Task Start(CancellationToken cancellation = default)
+        public async Task Start(NameValueCollection props, CancellationToken cancellation = default)
         {
-            if (_scheduler != null)
-                return;
-
-            _logger = _container.GetService<ILogger<QuartzServer>>();
-
             //调度器工厂
-            var factory = _props != null ? new StdSchedulerFactory(_props) : new StdSchedulerFactory();
+            var factory = new StdSchedulerFactory(props);
 
             //创建一个调度器
             _scheduler = await factory.GetScheduler(cancellation);
@@ -55,7 +49,7 @@ namespace NetModular.Lib.Quartz.Core
             //启动
             await _scheduler.Start(cancellation);
 
-            _logger.LogInformation("Quartz服务启动");
+            _logger.LogInformation("Quartz server started");
         }
 
         /// <summary>
@@ -64,13 +58,11 @@ namespace NetModular.Lib.Quartz.Core
         public async Task Stop(CancellationToken cancellation = default)
         {
             if (_scheduler == null)
-            {
                 return;
-            }
 
             await _scheduler.Shutdown(true, cancellation);
 
-            _logger.LogInformation("Quartz服务停止");
+            _logger.LogInformation("Quartz server stopped");
         }
 
         /// <summary>

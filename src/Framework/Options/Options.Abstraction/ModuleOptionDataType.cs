@@ -1,9 +1,9 @@
 ﻿namespace NetModular.Lib.Options.Abstraction
 {
     /// <summary>
-    /// 模块配置项属性类型
+    /// 模块配置项数据类型
     /// </summary>
-    public enum ModuleOptionPropertyType
+    public enum ModuleOptionDataType
     {
         /// <summary>
         /// 未知

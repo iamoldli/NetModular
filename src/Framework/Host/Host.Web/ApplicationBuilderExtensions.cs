@@ -29,9 +29,6 @@ namespace NetModular.Lib.Host.Web
             //异常处理
             app.UseExceptionHandle();
 
-            //加载模块
-            app.UseModules(env);
-
             //设置默认文档
             var defaultFilesOptions = new DefaultFilesOptions();
             defaultFilesOptions.DefaultFileNames.Clear();
@@ -74,6 +71,9 @@ namespace NetModular.Lib.Host.Web
             {
                 app.UseCustomSwagger();
             }
+
+            //加载模块
+            app.UseModules(env);
 
             return app;
         }

@@ -11,7 +11,7 @@ namespace NetModular.Module.Admin.Infrastructure
     /// </summary>
     public class ModuleServicesConfigurator : IModuleServicesConfigurator
     {
-        public void Configure(IServiceCollection services, IHostEnvironment env)
+        public void Configure(IServiceCollection services, IModuleCollection modules, IHostEnvironment env)
         {
             //密码处理服务
             services.AddSingleton<IPasswordHandler, Md5PasswordHandler>();

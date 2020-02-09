@@ -1,9 +1,9 @@
 ﻿namespace NetModular.Lib.Options.Abstraction
 {
     /// <summary>
-    /// 模块配置项描述信息
+    /// 模块配置项存储模型
     /// </summary>
-    public class ModuleOptionDescriptor
+    public class ModuleOptionStorageModel
     {
         /// <summary>
         /// 键

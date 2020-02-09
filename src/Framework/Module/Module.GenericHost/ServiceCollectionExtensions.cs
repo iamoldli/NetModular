@@ -46,7 +46,7 @@ namespace NetModular.Lib.Module.GenericHost
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, env);
+                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, modules, env);
             }
 
             return services;

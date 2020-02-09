@@ -46,7 +46,7 @@ namespace NetModular.Lib.Module.AspNetCore
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, env);
+                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, modules, env);
             }
 
             return services;
@@ -64,7 +64,7 @@ namespace NetModular.Lib.Module.AspNetCore
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).Initializer?.ConfigureServices(services, env);
+                ((ModuleDescriptor)module).Initializer?.ConfigureServices(services, modules, env);
             }
 
             return services;

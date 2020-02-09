@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetModular.Lib.Module.Abstractions;
 
 namespace NetModular.Lib.Module.AspNetCore
 {
@@ -15,8 +16,9 @@ namespace NetModular.Lib.Module.AspNetCore
         /// <para>此方法用于注入与Web相关的服务，否则请通过IModuleServicesConfigurator接口注册</para>
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="modules">模块集合</param>
         /// <param name="env">环境变量</param>
-        void ConfigureServices(IServiceCollection services, IHostEnvironment env);
+        void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env);
 
         /// <summary>
         /// 配置中间件

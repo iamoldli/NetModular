@@ -6,7 +6,7 @@ namespace NetModular.Lib.Quartz.Abstractions
     /// <summary>
     /// 工作任务日志记录器接口
     /// </summary>
-    public interface IJobLogger
+    public interface ITaskLogger
     {
         /// <summary>
         /// 任务编号

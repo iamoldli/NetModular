@@ -5,11 +5,11 @@ using Quartz;
 
 namespace NetModular.Lib.Quartz.Core
 {
-    public abstract class JobTaskAbstract : IJobTask
+    public abstract class TaskAbstract : ITask
     {
-        protected readonly IJobLogger Logger;
+        protected readonly ITaskLogger Logger;
 
-        protected JobTaskAbstract(IJobLogger logger)
+        protected TaskAbstract(ITaskLogger logger)
         {
             Logger = logger;
         }
@@ -23,7 +23,7 @@ namespace NetModular.Lib.Quartz.Core
 
             try
             {
-                await Execute(new JobTaskContext
+                await Execute(new TaskExecutionContext
                 {
                     JobId = Logger.JobId,
                     JobExecutionContext = context
@@ -42,6 +42,6 @@ namespace NetModular.Lib.Quartz.Core
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public abstract Task Execute(IJobTaskContext context);
+        public abstract Task Execute(ITaskExecutionContext context);
     }
 }

@@ -6,13 +6,13 @@ namespace NetModular.Lib.Options.Abstraction
     /// <summary>
     /// 配置容器接口
     /// </summary>
-    public interface IModuleOptionsContainer
+    public interface IModuleOptionsEngine
     {
         /// <summary>
-        /// 加载配置信息
+        /// 从存储中加载配置信息
         /// </summary>
         /// <returns></returns>
-        void Load(IServiceCollection services);
+        void LoadFromStorage(IServiceCollection services);
 
         /// <summary>
         /// 获取指定模块的配置项定义信息列表
@@ -22,14 +22,14 @@ namespace NetModular.Lib.Options.Abstraction
         List<ModuleOptionDefinitionAttribute> GetDefinitions(string moduleCode);
 
         /// <summary>
-        /// 获取指定模块对应的配置项实例
+        /// 获取模块配置实例
         /// </summary>
         /// <param name="moduleCode">模块编码</param>
         /// <returns></returns>
         IModuleOptions GetInstance(string moduleCode);
 
         /// <summary>
-        /// 刷新指定模块对应的配置项实例
+        /// 刷新模块配置实例
         /// </summary>
         /// <param name="moduleCode"></param>
         /// <param name="values"></param>

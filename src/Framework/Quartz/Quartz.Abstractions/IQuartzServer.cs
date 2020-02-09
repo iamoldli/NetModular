@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Specialized;
+using System.Threading;
 using System.Threading.Tasks;
 using Quartz;
 
@@ -12,9 +13,10 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// <summary>
         /// 启动
         /// </summary>
+        /// <param name="props">属性</param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task Start(CancellationToken cancellation = default);
+        Task Start(NameValueCollection props, CancellationToken cancellation = default);
 
         /// <summary>
         /// 停止

@@ -36,7 +36,7 @@ namespace NetModular.Lib.Host.Generic
             services.AddModuleServices(modules, env);
 
             //添加模块配置信息
-            services.AddModuleOptions();
+            services.AddModuleOptions(modules);
 
             //添加Excel相关功能
             services.AddExcel(env.EnvironmentName);

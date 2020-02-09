@@ -15,13 +15,13 @@ namespace NetModular.Lib.Quartz.Web
         /// 添加Quartz服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="modules">模块集合</param>
         /// <param name="props">属性</param>
         /// <returns></returns>
-        public static IServiceCollection AddQuartz(this IServiceCollection services, NameValueCollection props)
+        public static IServiceCollection AddQuartz(this IServiceCollection services, IModuleCollection modules, NameValueCollection props)
         {
             #region ==反射注入所有模块的任务服务==
 
-            var modules = services.BuildServiceProvider().GetService<IModuleCollection>();
             if (modules != null && modules.Any())
             {
                 foreach (var module in modules)

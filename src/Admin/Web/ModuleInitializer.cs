@@ -8,13 +8,14 @@ using NetModular.Module.Admin.Web.Filters;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore;
 using System.IO;
+using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection services, IHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env)
         {
             //审计日志服务
             services.AddSingleton<IAuditingHandler, AuditingHandler>();

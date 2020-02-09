@@ -4,9 +4,9 @@ using Quartz;
 namespace NetModular.Lib.Quartz.Abstractions
 {
     /// <summary>
-    /// 任务上下文
+    /// 任务执行上下文
     /// </summary>
-    public interface IJobTaskContext
+    public interface ITaskExecutionContext
     {
         /// <summary>
         /// 任务编号
@@ -14,7 +14,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         Guid JobId { get; set; }
 
         /// <summary>
-        /// Quartz任务执行上下文
+        /// Quartz的任务执行上下文
         /// </summary>
         IJobExecutionContext JobExecutionContext { get; set; }
     }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Module\Module.Abstractions\Module.Abstractions.csproj" />
     <ProjectReference Include="..\Quartz.Abstractions\Quartz.Abstractions.csproj" />
   </ItemGroup>
 

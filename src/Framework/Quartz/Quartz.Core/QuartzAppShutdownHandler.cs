@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Quartz.Abstractions;
 using NetModular.Lib.Utils.Core.Interfaces;
 
-namespace NetModular.Lib.Quartz.Web
+namespace NetModular.Lib.Quartz.Core
 {
     public class QuartzAppShutdownHandler : IAppShutdownHandler
     {

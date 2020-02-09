@@ -19,17 +19,17 @@ namespace NetModular.Lib.Module.AspNetCore
             }
 
             //解析模块信息
-            app.Use(async (context, next) =>
-            {
-                var moduleId = context.Request.Path.Value.Split('/')[1];
-                var module = modules.SingleOrDefault(m => m.Id.Equals(moduleId, StringComparison.OrdinalIgnoreCase));
-                if (module != null)
-                {
-                    context.Items.Add("Module", module);
-                }
+            //app.Use(async (context, next) =>
+            //{
+            //    var moduleId = context.Request.Path.Value.Split('/')[1];
+            //    var module = modules.SingleOrDefault(m => m.Id.Equals(moduleId, StringComparison.OrdinalIgnoreCase));
+            //    if (module != null)
+            //    {
+            //        context.Items.Add("Module", module);
+            //    }
 
-                await next.Invoke();
-            });
+            //    await next.Invoke();
+            //});
 
             return app;
         }

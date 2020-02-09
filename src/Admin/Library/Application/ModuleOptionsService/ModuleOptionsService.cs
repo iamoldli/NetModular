@@ -7,9 +7,9 @@ namespace NetModular.Module.Admin.Application.ModuleOptionsService
 {
     public class ModuleOptionsService : IModuleOptionsService
     {
-        private readonly IModuleOptionsContainer _moduleOptionsContainer;
+        private readonly IModuleOptionsEngine _moduleOptionsContainer;
 
-        public ModuleOptionsService(IModuleOptionsContainer moduleOptionsContainer)
+        public ModuleOptionsService(IModuleOptionsEngine moduleOptionsContainer)
         {
             _moduleOptionsContainer = moduleOptionsContainer;
         }

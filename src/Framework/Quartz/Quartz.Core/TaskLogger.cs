@@ -5,11 +5,11 @@ using NetModular.Lib.Quartz.Abstractions;
 
 namespace NetModular.Lib.Quartz.Core
 {
-    public class JobLogger : IJobLogger
+    public class TaskLogger : ITaskLogger
     {
         private readonly ILogger _logger;
 
-        public JobLogger(ILogger<JobLogger> logger)
+        public TaskLogger(ILogger<TaskLogger> logger)
         {
             _logger = logger;
         }
