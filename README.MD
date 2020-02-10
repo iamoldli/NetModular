@@ -8,7 +8,7 @@ NetModular
 
 ## NetModular是什么
 
-> **她** 是一款基于.Net Core(支持 2.2 及以上版本) 和 Vue.js 的模块化以及前后端分离的快速开发框架
+> **她** 是一款基于.Net Core 和 Vue.js 的模块化以及前后端分离的快速开发框架
 
 > **她** 是能够让中小企业或团队快速搭建内部开发平台的解决方案
 
@@ -24,7 +24,7 @@ NetModular
 
 > 后端
 >
-> > [.Net Core 2.2+](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)、RabbitMQ、Redis、EPPlus
+> > [.Net Core 3.1](https://dotnet.microsoft.com/download)、[Dapper](https://github.com/StackExchange/Dapper)、[Serilog](https://serilog.net/)、[AutoMapper](https://automapper.org/)、[FluentValidation](https://fluentvalidation.net)、[Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)、RabbitMQ、Redis、EPPlus
 
 > 前端
 >
