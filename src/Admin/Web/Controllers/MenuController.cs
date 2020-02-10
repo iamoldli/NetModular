@@ -50,16 +50,16 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpPost]
         [Description("添加")]
-        public async Task<IResultModel> Add(MenuAddModel model)
+        public Task<IResultModel> Add(MenuAddModel model)
         {
-            return await _service.Add(model);
+            return _service.Add(model);
         }
 
         [HttpDelete]
         [Description("删除")]
-        public async Task<IResultModel> Delete([BindRequired]Guid id)
+        public Task<IResultModel> Delete([BindRequired]Guid id)
         {
-            return await _service.Delete(id);
+            return _service.Delete(id);
         }
 
         [HttpGet]
@@ -71,9 +71,9 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpPost]
         [Description("更新")]
-        public async Task<IResultModel> Update(MenuUpdateModel model)
+        public Task<IResultModel> Update(MenuUpdateModel model)
         {
-            return await _service.Update(model);
+            return _service.Update(model);
         }
 
         [HttpGet]

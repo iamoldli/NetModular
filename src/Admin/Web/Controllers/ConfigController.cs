@@ -24,9 +24,9 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpGet]
         [Description("查询")]
-        public async Task<IResultModel> Query([FromQuery]ConfigQueryModel model)
+        public Task<IResultModel> Query([FromQuery]ConfigQueryModel model)
         {
-            return await _service.Query(model);
+            return _service.Query(model);
         }
 
         [HttpPost]
