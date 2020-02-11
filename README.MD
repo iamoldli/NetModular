@@ -34,6 +34,10 @@ NetModular
 
 前端框架的源码请移步 [https://github.com/iamoldli/NetModular.UI](https://github.com/iamoldli/NetModular.UI)
 
+## 微服务框架
+
+基于NetModular扩展的微服务框架 [NetModular.Microservice](https://github.com/iamoldli/NetModular.Microservice)
+
 ## 演示地址
 
 演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
