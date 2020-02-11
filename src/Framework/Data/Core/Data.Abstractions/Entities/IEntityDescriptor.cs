@@ -1,4 +1,5 @@
 ﻿using System;
+using NetModular.Lib.Data.Abstractions.Options;
 
 namespace NetModular.Lib.Data.Abstractions.Entities
 {
@@ -7,6 +8,16 @@ namespace NetModular.Lib.Data.Abstractions.Entities
     /// </summary>
     public interface IEntityDescriptor
     {
+        /// <summary>
+        /// 数据库配置信息
+        /// </summary>
+        DbModuleOptions DbOptions { get; }
+
+        /// <summary>
+        /// 数据库名称
+        /// </summary>
+        string Database { get; }
+
         /// <summary>
         /// 模块名称
         /// </summary>

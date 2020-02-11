@@ -5,6 +5,7 @@ using System.Reflection;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core.Entities.Extend;
 using NetModular.Lib.Utils.Core.Extensions;
 
@@ -16,6 +17,11 @@ namespace NetModular.Lib.Data.Core.Entities
     public class EntityDescriptor : IEntityDescriptor
     {
         #region ==属性==
+
+        /// <summary>
+        /// 数据库配置
+        /// </summary>
+        public DbModuleOptions DbOptions { get; }
 
         /// <summary>
         /// 数据库名称
@@ -67,9 +73,11 @@ namespace NetModular.Lib.Data.Core.Entities
 
         #region ==构造器==
 
-        public EntityDescriptor(string moduleName, Type entityType, ISqlAdapter sqlAdapter)
+        public EntityDescriptor(DbModuleOptions dbOptions, Type entityType, ISqlAdapter sqlAdapter)
         {
-            ModuleName = moduleName;
+            DbOptions = dbOptions;
+
+            ModuleName = dbOptions.Name;
 
             SqlAdapter = sqlAdapter;
 

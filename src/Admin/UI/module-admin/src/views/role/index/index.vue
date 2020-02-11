@@ -57,7 +57,6 @@ export default {
   components: { SavePage, BindMenuPage, BindPermissionPage },
   data() {
     return {
-      api,
       list: {
         title: page.title,
         cols,
