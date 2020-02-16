@@ -49,9 +49,9 @@ namespace NetModular.Lib.Data.Abstractions.Pagination
         }
 
         /// <summary>
-        /// 页大小最大值
+        /// 页大小最大值，防止失误返回过大数据
         /// </summary>
-        public int MaxSize { get; set; } = 100;
+        public int MaxSize { get; set; } = 1000;
 
         /// <summary>
         /// 跳过数量
