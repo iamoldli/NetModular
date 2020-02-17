@@ -1,4 +1,0 @@
-<#@ template language="C#" #>
-export default {
-  modules: {}
-}

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>NetModular model validate for FluentValidation</Description>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\Validation.Abstractions\Validation.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

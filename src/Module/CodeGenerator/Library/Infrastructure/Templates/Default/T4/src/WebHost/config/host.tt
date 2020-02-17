@@ -1,7 +1,0 @@
-﻿<#@ template language="C#" #>
-{
-    //地址
-    "Urls": "http://*:<#= _model.Project.No + 6220 #>",
-    //开启Swagger
-    "Swagger": false
-}

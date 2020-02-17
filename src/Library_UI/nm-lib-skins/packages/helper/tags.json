@@ -1,6 +1,0 @@
-{
-    "nm-box": {
-        "attributes": ["title", "icon"],
-        "description": "盒子组件"
-    }
-}

@@ -1,0 +1,19 @@
+﻿<Project>
+  <PropertyGroup>
+    <Authors>Oldli</Authors>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <LangVersion>Latest</LangVersion>
+    <RootNamespacePrefix>NetModular.Lib</RootNamespacePrefix>
+    <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    <!--设置打包路径-->
+    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
+    <Company>Oldli</Company>
+    <Copyright>Oldli</Copyright>
+    <PackageProjectUrl>https://nm.iamoldli.com/docs/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
+  </PropertyGroup>
+</Project>

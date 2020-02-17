@@ -1,0 +1,45 @@
+{
+  "name": "netmodular-module-admin",
+  "code": "admin",
+  "version": "1.2.1",
+  "description": "NetModular前端Admin模块组件",
+  "author": "Oldli",
+  "license": "ISC",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "cm": "rimraf node_modules",
+    "cc": "rimraf node_modules/.cache",
+    "i": "cd ./script && npm_install.ps1",
+    "up": "cd ./script && npm_update.ps1",
+    "pub": "cd ./script && npm_publish.ps1"
+  },
+  "dependencies": {
+    "netmodular-skins-classics": "^1.0.1",
+    "netmodular-ui": "^1.4.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.2.2",
+    "@vue/cli-plugin-eslint": "^4.2.2",
+    "@vue/cli-plugin-router": "^4.2.2",
+    "@vue/cli-plugin-vuex": "^4.2.2",
+    "@vue/cli-service": "^4.2.2",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^5.0.0",
+    "prettier": "^1.18.2",
+    "raw-loader": "^3.1.0",
+    "rimraf": "^3.0.1",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamoldli/NetModular"
+  }
+}

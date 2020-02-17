@@ -1,0 +1,10 @@
+{
+  //地址
+  "Urls": "http://*:6220",
+  //开启Swagger
+  "Swagger": false,
+  //代理
+  "Proxy": false,
+  //指定跨域访问时预检请求的有效期，单位秒，默认30分钟
+  "PreflightMaxAge": 0
+}

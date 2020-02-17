@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Data\Core\Data.Core\Data.Core.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Data\Extend\Data.Query\Data.Query.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Utils\Utils.Core\Utils.Core.csproj" />
+  </ItemGroup>
+
+</Project>

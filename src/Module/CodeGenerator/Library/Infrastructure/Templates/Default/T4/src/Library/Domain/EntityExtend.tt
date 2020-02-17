@@ -1,8 +1,0 @@
-﻿<#@ template language="C#" #>
-namespace <#= _prefix #>.Module.<#= _model.Project.Code #>.Domain.<#= _class.Name #>
-{
-    public partial class <#= _class.Name #>Entity
-    {
-
-    }
-}
