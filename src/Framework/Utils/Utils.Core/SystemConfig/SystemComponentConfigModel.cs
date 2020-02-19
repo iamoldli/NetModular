@@ -54,6 +54,12 @@
         /// </summary>
         [ConfigDescription("sys_component_dialog_close_on_click_modal", "是否可以点击模态框关闭")]
         public bool CloseOnClickModal { get; set; }
+
+        /// <summary>
+        /// 是否可以点击模态框关闭
+        /// </summary>
+        [ConfigDescription("sys_component_dialog_draggable", "对话框默认可拖拽")]
+        public bool Draggable { get; set; }
     }
 
     /// <summary>

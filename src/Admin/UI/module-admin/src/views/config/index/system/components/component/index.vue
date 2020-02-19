@@ -23,6 +23,11 @@
           <el-switch v-model="form.model.tabnav.showIcon" />
         </el-form-item>
       </el-col>
+      <el-col :span="5">
+        <el-form-item labelWidth="200px" label="对话框默认是否可拖拽" prop="dialog.draggable">
+          <el-switch v-model="form.model.dialog.draggable" />
+        </el-form-item>
+      </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="24">

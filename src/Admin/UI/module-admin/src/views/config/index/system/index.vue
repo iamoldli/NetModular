@@ -74,7 +74,8 @@ export default {
             uniqueOpened: false
           },
           dialog: {
-            closeOnClickModal: false
+            closeOnClickModal: false,
+            draggable: false
           },
           list: {
             serialNumberName: null

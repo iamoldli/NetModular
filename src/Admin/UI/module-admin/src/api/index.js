@@ -10,5 +10,4 @@ requireComponent.keys().map(fileName => {
   const func = requireComponent(fileName).default
   apis[name] = func(name)
 })
-
 $api[module.code] = apis
