@@ -8,8 +8,8 @@ export default name => {
     typeSelect: root + 'TypeSelect'
   }
 
-  const getValue = key => {
-    return $http.get(urls.getValue, { key })
+  const getValue = (key, type, moduleCode) => {
+    return $http.get(urls.getValue, { key, type, moduleCode })
   }
 
   const typeSelect = () => {

@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using NetModular.Lib.Options.Abstraction;
+using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
 using NetModular.Module.Admin.Domain.Config;
@@ -9,10 +11,12 @@ namespace NetModular.Module.Admin.Application.ConfigService
     public class ConfigService : IConfigService
     {
         private readonly IConfigRepository _repository;
+        private readonly IModuleOptionsEngine _moduleOptionsEngine;
 
-        public ConfigService(IConfigRepository repository)
+        public ConfigService(IConfigRepository repository, IModuleOptionsEngine moduleOptionsEngine)
         {
             _repository = repository;
+            _moduleOptionsEngine = moduleOptionsEngine;
         }
 
         public async Task<IResultModel> Query(ConfigQueryModel model)
@@ -94,13 +98,47 @@ namespace NetModular.Module.Admin.Application.ConfigService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> GetValueByKey(string key)
+        public async Task<IResultModel> GetValueByKey(string key, ConfigType type = ConfigType.System, string moduleCode = null)
         {
-            var entity = await _repository.GetByKey(key);
-            if (entity == null)
-                return ResultModel.Success(string.Empty);
+            string value = string.Empty;
+            if (type == ConfigType.Module)
+            {
+                var options = _moduleOptionsEngine.GetInstance(moduleCode);
+                if (options != null)
+                {
+                    var properties = options.GetType().GetProperties();
+                    foreach (var propertyInfo in properties)
+                    {
+                        if (propertyInfo.Name.EqualsIgnoreCase(key))
+                        {
+                            var val = propertyInfo.GetValue(options);
+                            if (propertyInfo.PropertyType.IsEnum)
+                            {
+                                value = val.ToInt().ToString();
+                            }
+                            else if (propertyInfo.PropertyType.IsDateTime())
+                            {
+                                value = val.ToDateTime().Format();
+                            }
+                            else
+                            {
+                                value = val.ToString();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var entity = await _repository.GetByKey(key);
+                if (entity != null)
+                {
+                    value = entity.Value;
+                }
+            }
 
-            return ResultModel.Success(entity.Value);
+            return ResultModel.Success(value);
         }
     }
 }

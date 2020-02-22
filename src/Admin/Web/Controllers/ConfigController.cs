@@ -60,12 +60,15 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpGet]
         [Description("根据Key获取值")]
         [Common]
-        public async Task<IResultModel> GetValue(string key)
+        public async Task<IResultModel> GetValue(string key, ConfigType type = ConfigType.System, string moduleCode = null)
         {
             if (key.IsNull())
                 return ResultModel.Success(string.Empty);
 
-            return await _service.GetValueByKey(key);
+            if (type == ConfigType.Module && moduleCode.IsNull())
+                return ResultModel.Success(string.Empty);
+
+            return await _service.GetValueByKey(key, type, moduleCode);
         }
 
         [HttpGet]

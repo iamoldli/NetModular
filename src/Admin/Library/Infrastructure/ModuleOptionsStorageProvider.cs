@@ -47,7 +47,7 @@ namespace NetModular.Module.Admin.Infrastructure
                     Remarks = descriptor.Remarks
                 };
 
-                var entity = _repository.GetByKey(descriptor.Key, ConfigType.Module).Result;
+                var entity = _repository.GetByKey(descriptor.Key, ConfigType.Module, uow).Result;
                 if (entity == null)
                 {
                     _repository.AddAsync(newEntity, uow).GetAwaiter().GetResult();

@@ -10,7 +10,16 @@ const admin = {
   module,
   routes,
   store,
-  components
+  components,
+  callback({ Vue }) {
+    // 配置信息接口
+    Vue.prototype.$config = {
+      //获取单个配置值
+      get(key, type, moduleCode) {
+        return $api.admin.config.getValue(key, type, moduleCode)
+      }
+    }
+  }
 }
 
 // 模块列表

@@ -44,7 +44,16 @@ namespace NetModular.Module.Admin.Domain.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="type">类型</param>
+        /// <param name="uow"></param>
         /// <returns></returns>
-        Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom);
+        Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom, IUnitOfWork uow = null);
+
+        /// <summary>
+        /// 根据Key模糊查询
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="type">类型</param>
+        /// <returns></returns>
+        Task<ConfigEntity> GetByKeyWithLike(string key, ConfigType type = ConfigType.Custom);
     }
 }

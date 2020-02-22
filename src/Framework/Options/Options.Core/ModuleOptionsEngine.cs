@@ -59,7 +59,7 @@ namespace NetModular.Lib.Options.Core
             if (moduleCode.IsNull())
                 return null;
 
-            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id == moduleCode);
+            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id.EqualsIgnoreCase(moduleCode));
             return descriptor?.Definitions;
         }
 
@@ -68,7 +68,7 @@ namespace NetModular.Lib.Options.Core
             if (moduleCode.IsNull())
                 return null;
 
-            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id == moduleCode);
+            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id.EqualsIgnoreCase(moduleCode));
             if (descriptor != null && descriptor.OptionsType != null)
             {
                 return (IModuleOptions)_serviceProvider.GetService(descriptor.OptionsType);
@@ -82,7 +82,7 @@ namespace NetModular.Lib.Options.Core
             if (values == null || !values.Any())
                 return;
 
-            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id == moduleCode);
+            var descriptor = _moduleOptionsCollection.FirstOrDefault(m => m.Module.Id.EqualsIgnoreCase(moduleCode));
             if (descriptor == null || descriptor.OptionsType == null)
             {
                 return;

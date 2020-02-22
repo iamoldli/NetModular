@@ -1,7 +1,7 @@
 {
   "name": "netmodular-module-admin",
   "code": "admin",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "NetModular前端Admin模块组件",
   "author": "Oldli",
   "license": "ISC",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "netmodular-skins-classics": "^1.0.1",
-    "netmodular-ui": "^1.4.6"
+    "netmodular-ui": "^1.5.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.2",
@@ -33,7 +33,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "prettier": "^1.18.2",
     "raw-loader": "^3.1.0",
-    "rimraf": "^3.0.1",
+    "rimraf": "^3.0.2",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"

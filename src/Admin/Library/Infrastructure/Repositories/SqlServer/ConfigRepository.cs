@@ -54,9 +54,14 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom)
+        public Task<ConfigEntity> GetByKey(string key, ConfigType type = ConfigType.Custom, IUnitOfWork uow = null)
         {
-            return Db.Find(m => m.Key == key && m.Type == type).FirstAsync();
+            return Db.Find(m => m.Key == key && m.Type == type).UseUow(uow).FirstAsync();
+        }
+
+        public Task<ConfigEntity> GetByKeyWithLike(string key, ConfigType type = ConfigType.Custom)
+        {
+            return Db.Find(m => m.Key.Contains(key) && m.Type == type).FirstAsync();
         }
 
         public override async Task<bool> UpdateAsync(ConfigEntity entity, IUnitOfWork uow)
