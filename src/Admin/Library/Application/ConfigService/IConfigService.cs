@@ -18,7 +18,6 @@ namespace NetModular.Module.Admin.Application.ConfigService
         /// <returns></returns>
         Task<IResultModel> Query(ConfigQueryModel model);
 
-
         /// <summary>
         /// 创建
         /// </summary>

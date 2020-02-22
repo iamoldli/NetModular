@@ -58,6 +58,8 @@ namespace NetModular.Module.Admin.Infrastructure
                     _repository.UpdateAsync(newEntity, uow).GetAwaiter().GetResult();
                 }
             }
+
+            uow.Commit();
         }
     }
 }

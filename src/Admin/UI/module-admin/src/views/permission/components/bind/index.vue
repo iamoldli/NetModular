@@ -38,7 +38,7 @@
     </nm-flex>
     <template v-slot:footer>
       <nm-button type="success" text="确认" @click="onSave" />
-      <nm-button type="info" text="关闭" />
+      <nm-button type="info" text="关闭" @click="visible_ = false" />
     </template>
   </nm-dialog>
 </template>
