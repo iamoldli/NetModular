@@ -66,8 +66,8 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public override async Task<bool> UpdateAsync(ConfigEntity entity, IUnitOfWork uow)
         {
-            if (await ExistsAsync(m => m.Key.Equals(entity.Key), uow))
-                return await Db.Find(m => m.Key == entity.Key).UseUow(uow).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
+            if (await ExistsAsync(m => m.Type == entity.Type && m.Key.Equals(entity.Key), uow))
+                return await Db.Find(m => m.Type == entity.Type && m.Key == entity.Key).UseUow(uow).UpdateAsync(m => new ConfigEntity { Value = entity.Value, Remarks = entity.Remarks });
 
             return await AddAsync(entity, uow);
         }
