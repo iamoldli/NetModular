@@ -1,4 +1,6 @@
-﻿namespace NetModular.Lib.Module.Abstractions
+﻿using System.Collections.Generic;
+
+namespace NetModular.Lib.Module.Abstractions
 {
     /// <summary>
     /// 模块描述
@@ -39,5 +41,10 @@
         /// 初始化数据库脚本路径信息
         /// </summary>
         ModuleInitDataScriptDescriptor InitDataScriptDescriptor { get; set; }
+
+        /// <summary>
+        /// 枚举描述器列表
+        /// </summary>
+        List<ModuleEnumDescriptor> EnumDescriptors { get; set; }
     }
 }

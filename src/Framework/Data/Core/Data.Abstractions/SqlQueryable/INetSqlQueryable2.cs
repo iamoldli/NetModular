@@ -9,7 +9,6 @@ using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 
 namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 {
-
     public interface INetSqlQueryable<TEntity, TEntity2> : INetSqlQueryable where TEntity : IEntity, new() where TEntity2 : IEntity, new()
     {
         #region ==使用工作单元==
@@ -436,6 +435,16 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <returns></returns>
         INetSqlQueryable<TEntity, TEntity2> IncludeDeleted();
+
+        #endregion
+
+        #region ==Copy==
+
+        /// <summary>
+        /// 复制一个新的实例
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2> Copy();
 
         #endregion
     }

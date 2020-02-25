@@ -34,7 +34,7 @@ export default {
   methods: {
     ...mapMutations('app/system', ['setPermissionConfig']),
     onSuccess() {
-      this.setBaseConfig(this.form.model)
+      this.setPermissionConfig(this.form.model)
     }
   }
 }

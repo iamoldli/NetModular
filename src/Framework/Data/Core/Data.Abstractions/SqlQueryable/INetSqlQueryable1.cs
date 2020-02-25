@@ -560,5 +560,15 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         INetSqlQueryable<TEntity> IncludeDeleted();
 
         #endregion
+
+        #region ==Copy==
+
+        /// <summary>
+        /// 复制一个新的实例
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Copy();
+
+        #endregion
     }
 }

@@ -30,6 +30,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             Where(whereExpression);
         }
 
+        private NetSqlQueryable(IDbSet dbSet, QueryBody queryBody) : base(dbSet, queryBody)
+        {
+
+        }
+
         #region ==UseUow==
 
         public INetSqlQueryable<TEntity> UseUow(IUnitOfWork uow)
@@ -495,6 +500,15 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             QueryBody.FilterDeleted = false;
             return this;
+        }
+
+        #endregion
+
+        #region ==Copy==
+
+        public INetSqlQueryable<TEntity> Copy()
+        {
+            return new NetSqlQueryable<TEntity>(Db, QueryBody.Copy());
         }
 
         #endregion

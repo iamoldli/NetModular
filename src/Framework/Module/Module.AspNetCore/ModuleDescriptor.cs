@@ -1,4 +1,5 @@
-﻿using NetModular.Lib.Module.Abstractions;
+﻿using System.Collections.Generic;
+using NetModular.Lib.Module.Abstractions;
 
 namespace NetModular.Lib.Module.AspNetCore
 {
@@ -38,6 +39,11 @@ namespace NetModular.Lib.Module.AspNetCore
         /// 数据库初始化数据脚本路径信息
         /// </summary>
         public ModuleInitDataScriptDescriptor InitDataScriptDescriptor { get; set; }
+
+        /// <summary>
+        /// 枚举信息
+        /// </summary>
+        public List<ModuleEnumDescriptor> EnumDescriptors { get; set; } = new List<ModuleEnumDescriptor>();
 
         /// <summary>
         /// 初始化

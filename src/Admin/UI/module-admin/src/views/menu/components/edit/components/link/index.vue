@@ -34,7 +34,7 @@
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="打开方式：" prop="target">
-          <target-select v-model="form.model.target" />
+          <nm-enum-select v-model="form.model.target" module-code="admin" enum-name="MenuTarget" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -82,10 +82,8 @@
 </template>
 <script>
 import mixins from '../mixins'
-import TargetSelect from '../../../target-select'
 export default {
   mixins: [mixins],
-  components: { TargetSelect },
   data() {
     return {
       route: '',

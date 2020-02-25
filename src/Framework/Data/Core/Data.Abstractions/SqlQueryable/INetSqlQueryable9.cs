@@ -446,5 +446,15 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9> IncludeDeleted();
 
         #endregion
+
+        #region ==Copy==
+
+        /// <summary>
+        /// 复制一个新的实例
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9> Copy();
+
+        #endregion
     }
 }

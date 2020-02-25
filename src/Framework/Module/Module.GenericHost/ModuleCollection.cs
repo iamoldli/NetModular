@@ -38,6 +38,9 @@ namespace NetModular.Lib.Module.GenericHost
                     //加载程序集信息
                     LoadAssemblyDescriptor(moduleDescriptor);
 
+                    //加枚举信息
+                    LoadEnumDescriptors(moduleDescriptor);
+
                     //加载服务配置器
                     LoadServicesConfigurator(moduleDescriptor);
 

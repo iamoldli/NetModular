@@ -20,6 +20,9 @@ namespace NetModular.Lib.Module.AspNetCore
                     //加载程序集信息并将当前模块信息添加在集合
                     LoadAssemblyDescriptor(moduleDescriptor);
 
+                    //加枚举信息
+                    LoadEnumDescriptors(moduleDescriptor);
+
                     //加载服务配置器
                     LoadServicesConfigurator(moduleDescriptor);
 

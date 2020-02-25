@@ -44,6 +44,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.WhereDelegateType = typeof(Func<,,,,,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3), typeof(TEntity4), typeof(TEntity5), typeof(TEntity6), typeof(TEntity7), typeof(bool));
         }
 
+        private NetSqlQueryable(IDbSet dbSet, QueryBody queryBody) : base(dbSet, queryBody)
+        {
+        }
+
         #region ==UseUow==
 
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> UseUow(IUnitOfWork uow)
@@ -326,6 +330,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             QueryBody.FilterDeleted = false;
             return this;
+        }
+
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> Copy()
+        {
+            return new NetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7>(Db, QueryBody.Copy());
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Extensions;
+using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Module.Abstractions
 {
@@ -52,6 +55,53 @@ namespace NetModular.Lib.Module.Abstractions
             if (servicesConfiguratorType != null && (servicesConfiguratorType != typeof(IModuleServicesConfigurator)))
             {
                 moduleDescriptor.ServicesConfigurator = (IModuleServicesConfigurator)Activator.CreateInstance(servicesConfiguratorType);
+            }
+        }
+
+        /// <summary>
+        /// 加载枚举信息
+        /// </summary>
+        /// <param name="moduleDescriptor"></param>
+        protected void LoadEnumDescriptors(IModuleDescriptor moduleDescriptor)
+        {
+            if (moduleDescriptor.AssemblyDescriptor.Domain != null)
+            {
+                LoadEnumDescriptors(moduleDescriptor, moduleDescriptor.AssemblyDescriptor.Domain, "Domain");
+            }
+            if (moduleDescriptor.AssemblyDescriptor.Infrastructure != null)
+            {
+                LoadEnumDescriptors(moduleDescriptor, moduleDescriptor.AssemblyDescriptor.Infrastructure, "Infrastructure");
+            }
+            if (moduleDescriptor.AssemblyDescriptor.Application != null)
+            {
+                LoadEnumDescriptors(moduleDescriptor, moduleDescriptor.AssemblyDescriptor.Application, "Application");
+            }
+        }
+
+        /// <summary>
+        /// 加载枚举信息
+        /// </summary>
+        /// <param name="moduleDescriptor"></param>
+        /// <param name="assembly"></param>
+        /// <param name="libraryName"></param>
+        private void LoadEnumDescriptors(IModuleDescriptor moduleDescriptor, Assembly assembly, string libraryName)
+        {
+            var enumTypes = assembly.GetTypes().Where(m => m.IsEnum);
+            foreach (var enumType in enumTypes)
+            {
+                var enumDescriptor = new ModuleEnumDescriptor
+                {
+                    LibraryName = libraryName,
+                    Name = enumType.Name,
+                    Type = enumType,
+                    Options = Enum.GetValues(enumType).Cast<Enum>().Where(m => !m.ToString().EqualsIgnoreCase("UnKnown")).Select(x => new OptionResultModel
+                    {
+                        Label = x.ToDescription(),
+                        Value = x
+                    }).ToList()
+                };
+
+                moduleDescriptor.EnumDescriptors.Add(enumDescriptor);
             }
         }
 

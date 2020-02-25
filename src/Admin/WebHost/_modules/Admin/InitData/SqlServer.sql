@@ -90,12 +90,6 @@ INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_menu', 'admin_menu_tree_get')
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_role', 'admin_role_query_get');
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_account', 'admin_account_query_get');
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_auditinfo', 'admin_auditinfo_query_get');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_updatebaseconfig_post');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_updatecomponentconfig_post');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_updateloginconfig_post');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_updatepermissionconfig_post');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_updatetoolbarconfig_post');
-INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_system', 'admin_system_uploadlogo_post');
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_cache', 'admin_cache_query_get');
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_config', 'admin_config_query_get');
 INSERT INTO [dbo].[Menu_Permission] VALUES ('admin_config', 'admin_config_add_post');

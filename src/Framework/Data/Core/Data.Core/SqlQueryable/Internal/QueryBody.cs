@@ -470,6 +470,32 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
+        /// <summary>
+        /// 拷贝
+        /// </summary>
+        /// <returns></returns>
+        public QueryBody Copy()
+        {
+            var copy = new QueryBody(_sqlAdapter)
+            {
+                Uow = Uow,
+                FilterDeleted = FilterDeleted,
+                GroupBy = GroupBy,
+                GroupByPropertyList = GroupByPropertyList,
+                IsGroupBy = IsGroupBy,
+                SetModifiedBy = SetModifiedBy,
+                Skip = Skip,
+                Take = Take,
+                WhereDelegateType = WhereDelegateType
+            };
+
+            copy.Where.AddRange(Where);
+            copy.Having.AddRange(Having);
+            copy.JoinDescriptors.AddRange(JoinDescriptors);
+            copy.Sorts.AddRange(Sorts);
+            return copy;
+        }
+
         #endregion
     }
 }
