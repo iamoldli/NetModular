@@ -40,9 +40,9 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// 是否锁定角色
+        /// 账户是否锁定(锁定后不允许在账户管理中修改)
         /// </summary>
-        public bool IsLockRole { get; set; }
+        public bool IsLock { get; set; }
 
         /// <summary>
         /// 绑定角色列表
