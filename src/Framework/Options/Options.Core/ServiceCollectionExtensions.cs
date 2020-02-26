@@ -183,7 +183,6 @@ namespace NetModular.Lib.Options.Core
 
                     #endregion
                 }
-
             }
 
             return definition;

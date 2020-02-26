@@ -40,6 +40,10 @@
         /// <summary>
         /// 布尔值
         /// </summary>
-        Bool
+        Bool,
+        /// <summary>
+        /// 文本
+        /// </summary>
+        Text
     }
 }

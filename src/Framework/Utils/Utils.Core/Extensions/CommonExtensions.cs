@@ -25,6 +25,20 @@ namespace NetModular.Lib.Utils.Core.Extensions
         }
 
         /// <summary>
+        /// 转换成Char
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static char ToChar(this object s)
+        {
+            if (s == null || s == DBNull.Value)
+                return default;
+
+            char.TryParse(s.ToString(), out char result);
+            return result;
+        }
+
+        /// <summary>
         /// 转换成short/Int16
         /// </summary>
         /// <param name="s"></param>
@@ -184,6 +198,19 @@ namespace NetModular.Lib.Utils.Core.Extensions
         public static Guid ToGuid(this string s)
         {
             if (s.NotNull() && Guid.TryParse(s, out Guid val))
+                return val;
+
+            return Guid.Empty;
+        }
+
+        /// <summary>
+        /// 字符串转Guid
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static Guid ToGuid(this object s)
+        {
+            if (s != null && Guid.TryParse(s.ToString(), out Guid val))
                 return val;
 
             return Guid.Empty;

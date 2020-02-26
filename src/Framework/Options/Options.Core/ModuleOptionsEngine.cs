@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Options.Abstraction;
 using NetModular.Lib.Utils.Core.Extensions;
-using Newtonsoft.Json;
 
 namespace NetModular.Lib.Options.Core
 {
@@ -38,8 +39,7 @@ namespace NetModular.Lib.Options.Core
                     {
                         try
                         {
-                            var property = definition.PropertyInfo;
-                            property.SetValue(options, Convert.ChangeType(val.Value, property.PropertyType));
+                            SetValue(options, definition.PropertyInfo, val.Value);
                         }
                         catch (Exception ex)
                         {
@@ -93,52 +93,14 @@ namespace NetModular.Lib.Options.Core
                 return;
 
             //通过序列化深拷贝保留旧实例
-            var oldInstance = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(instance), descriptor.OptionsType);
+            var oldInstance = JsonSerializer.Deserialize(JsonSerializer.Serialize(instance), descriptor.OptionsType);
 
             var storageModels = new List<ModuleOptionStorageModel>();
             foreach (var definition in descriptor.Definitions)
             {
                 var value = values.FirstOrDefault(m => m.Key.EqualsIgnoreCase(definition.DataName)).Value;
 
-                var propertyInfo = definition.PropertyInfo;
-
-                #region ==设置属性值==
-
-                if (propertyInfo.PropertyType.IsEnum)
-                {
-                    propertyInfo.SetValue(instance, Enum.Parse(propertyInfo.PropertyType, value.ToString()));
-                }
-                else if (propertyInfo.PropertyType.IsNullable() && value == null)
-                {
-                    propertyInfo.SetValue(instance, null);
-                }
-                else
-                {
-                    var pType = propertyInfo.PropertyType;
-                    if (pType.IsNullable())
-                    {
-                        pType = Nullable.GetUnderlyingType(pType);
-                    }
-
-                    if (pType.IsString())
-                    {
-                        propertyInfo.SetValue(instance, value?.ToString());
-                    }
-                    else if (pType.IsDateTime() || pType.IsBool())
-                    {
-                        propertyInfo.SetValue(instance, value);
-                    }
-                    else if (pType.IsGuid())
-                    {
-                        propertyInfo.SetValue(instance, Guid.Parse(value.ToString()));
-                    }
-                    else
-                    {
-                        propertyInfo.SetValue(instance, Convert.ChangeType(value, pType));
-                    }
-                }
-
-                #endregion
+                SetValue(instance, definition.PropertyInfo, value);
 
                 var storageModel = new ModuleOptionStorageModel
                 {
@@ -159,8 +121,87 @@ namespace NetModular.Lib.Options.Core
                 var method = changedEventType.GetMethod("OnChanged");
                 if (method != null)
                 {
-                    method.Invoke(changedEvent, new object[] { instance, oldInstance });
+                    method.Invoke(changedEvent, new[] { instance, oldInstance });
                 }
+            }
+        }
+
+        /// <summary>
+        /// 设置属性值
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        private void SetValue(IModuleOptions options, PropertyInfo property, object value)
+        {
+            var propertyType = property.PropertyType;
+            if (propertyType.IsNullable() && value == null)
+            {
+                property.SetValue(options, null);
+                return;
+            }
+            if (propertyType.IsNullable())
+            {
+                propertyType = Nullable.GetUnderlyingType(propertyType);
+            }
+
+            if (value == null)
+            {
+                property.SetValue(options, default);
+                return;
+            }
+
+            if (propertyType.IsEnum)
+            {
+                property.SetValue(options, Enum.Parse(propertyType, value.ToString()));
+            }
+            else if (propertyType.IsString())
+            {
+                property.SetValue(options, value);
+            }
+            else if (propertyType.IsByte())
+            {
+                property.SetValue(options, value.ToByte());
+            }
+            else if (propertyType.IsChar())
+            {
+                property.SetValue(options, value.ToChar());
+            }
+            else if (propertyType.IsShort())
+            {
+                property.SetValue(options, value.ToShort());
+            }
+            else if (propertyType.IsInt())
+            {
+                property.SetValue(options, value.ToInt());
+            }
+            else if (propertyType.IsLong())
+            {
+                property.SetValue(options, value.ToLong());
+            }
+            else if (propertyType.IsFloat())
+            {
+                property.SetValue(options, value.ToFloat());
+            }
+            else if (propertyType.IsDouble())
+            {
+                property.SetValue(options, value.ToDouble());
+            }
+            else if (propertyType.IsDecimal())
+            {
+                property.SetValue(options, value.ToDecimal());
+            }
+            else if (propertyType.IsDateTime())
+            {
+                property.SetValue(options, value.ToDateTime());
+            }
+            else if (propertyType.IsBool())
+            {
+                property.SetValue(options, value.ToBool());
+            }
+            else if (propertyType.IsGuid())
+            {
+                property.SetValue(options, value.ToGuid());
             }
         }
     }
