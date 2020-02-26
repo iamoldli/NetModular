@@ -78,8 +78,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             _parameters.ForEach(m =>
             {
-                var dbType = TypeMap[m.Value.GetType()];
-                dynParams.Add(m.Key, m.Value, dbType);
+                var t = m.Value.GetType();
+                if (t.IsEnum)
+                {
+                    dynParams.Add(m.Key, m.Value, DbType.Int32);
+                }
+                else
+                {
+                    var dbType = TypeMap[m.Value.GetType()];
+                    dynParams.Add(m.Key, m.Value, dbType);
+                }
             });
 
             return dynParams;
