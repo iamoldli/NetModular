@@ -26,7 +26,7 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
         /// <summary>
         /// 名称
         /// </summary>
-        [Required(ErrorMessage = "请输入密码")]
+        [Required(ErrorMessage = "请输入名称")]
         public string Name { get; set; }
 
         /// <summary>

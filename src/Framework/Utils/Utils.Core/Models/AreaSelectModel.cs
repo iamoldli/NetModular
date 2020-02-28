@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.Models
 {
@@ -65,6 +66,33 @@ namespace NetModular.Lib.Utils.Core.Models
         /// 完整名称中间的分隔符
         /// </summary>
         public string Separator { get; set; }
+
+        public AreaSelectModel()
+        {
+            Province = new AreaSelectOptionModel();
+            City = new AreaSelectOptionModel();
+            Area = new AreaSelectOptionModel();
+            Town = new AreaSelectOptionModel();
+        }
+
+        /// <summary>
+        /// 设置属性值
+        /// </summary>
+        /// <param name="provinceCode">省份编码</param>
+        /// <param name="cityCode">城市编码</param>
+        /// <param name="areaCode">区县编码</param>
+        /// <param name="townCode">城镇编码</param>
+        public void Set(string provinceCode, string cityCode = null, string areaCode = null, string townCode = null)
+        {
+            if (provinceCode.NotNull())
+                Province.Code = provinceCode;
+            if (cityCode.NotNull())
+                City.Code = cityCode;
+            if (areaCode.NotNull())
+                Area.Code = areaCode;
+            if (townCode.NotNull())
+                Town.Code = townCode;
+        }
     }
 
     /// <summary>
