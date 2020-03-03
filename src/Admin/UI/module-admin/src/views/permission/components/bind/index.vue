@@ -52,7 +52,6 @@ export default {
       dialog: {
         title: '角色平台权限绑定',
         icon: 'android',
-        iconColor: '#67C23A',
         width: '600px',
         height: '90%',
         noScrollbar: true,

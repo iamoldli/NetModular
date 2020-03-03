@@ -155,6 +155,12 @@ namespace NetModular.Module.Admin.Application.AuthService
                 }
 
                 var cacheCode = await _cacheHandler.GetAsync(string.Format(CacheKeys.VerifyCodeKey, model.VerifyCode.Id));
+                if (cacheCode.IsNull())
+                {
+                    result.Failed("验证码不存在");
+                    return false;
+                }
+
                 if (!cacheCode.Equals(model.VerifyCode.Code))
                 {
                     result.Failed("验证码有误");
