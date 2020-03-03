@@ -112,18 +112,22 @@ namespace NetModular.Module.Admin.Application.ConfigService
                         if (propertyInfo.Name.EqualsIgnoreCase(key))
                         {
                             var val = propertyInfo.GetValue(options);
-                            if (propertyInfo.PropertyType.IsEnum)
+                            if (val != null)
                             {
-                                value = val.ToInt().ToString();
+                                if (propertyInfo.PropertyType.IsEnum || propertyInfo.PropertyType.IsBool())
+                                {
+                                    value = val.ToInt().ToString();
+                                }
+                                else if (propertyInfo.PropertyType.IsDateTime())
+                                {
+                                    value = val.ToDateTime().Format();
+                                }
+                                else
+                                {
+                                    value = val.ToString();
+                                }
                             }
-                            else if (propertyInfo.PropertyType.IsDateTime())
-                            {
-                                value = val.ToDateTime().Format();
-                            }
-                            else
-                            {
-                                value = val.ToString();
-                            }
+
                             break;
                         }
                     }
