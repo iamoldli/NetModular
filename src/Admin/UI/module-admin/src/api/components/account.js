@@ -5,28 +5,10 @@ export default name => {
   const crud = $http.crud(root)
 
   const urls = {
-    getVerifyCode: root + 'verifycode',
-    login: root + 'login',
     updatePassword: root + 'updatepassword',
-    getLoginInfo: root + 'logininfo',
     bindRole: root + 'bindrole',
     resetPassword: root + 'ResetPassword',
     skinUpdate: root + 'SkinUpdate'
-  }
-
-  /**
-   * @description 获取验证码
-   */
-  const getVerifyCode = () => {
-    return $http.get(urls.getVerifyCode)
-  }
-
-  /**
-   * @description 登录
-   * @param {*} params
-   */
-  const login = async params => {
-    return $http.post(urls.login, params)
   }
 
   /**
@@ -34,13 +16,6 @@ export default name => {
    */
   const updatePassword = params => {
     return $http.post(urls.updatePassword, params)
-  }
-
-  /**
-   * @description 获取登录账户信息
-   */
-  const getLoginInfo = () => {
-    return $http.get(urls.getLoginInfo)
   }
 
   /**
