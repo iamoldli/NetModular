@@ -331,22 +331,4 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-/src/UI/nm-module-admin/package-lock.json
-/src/Web/modules
-/src/UI/nm-module-admin/dist
-/src/Module/Admin/UI/nm-module-admin/package-lock.json
-/sample/Blog/src/WebHost/wwwroot
-/src/Library_UI/nm-lib-skins/dist
-/src/WebHost/wwwroot
-/src/Module/CodeGenerator/UI/nm-module-code-generator/package-lock.json
-/src/Module/Common/UI/nm-module-common/package-lock.json
-/src/Module/PersonnelFiles/UI/nm-module-personnelfiles/package-lock.json
-/src/WebUI/package-lock.json
-/src/Module/Admin/UI/module-admin/package-lock.json
-/src/Module/Common/UI/module-common/package-lock.json
-/src/Module/CodeGenerator/UI/module-code-generator/package-lock.json
-/src/Module/PersonnelFiles/UI/module-personnelfiles/package-lock.json
-/src/Module/PersonnelFiles/UI/module-personnelfiles/package-lock.json
-/src/Module/Quartz/UI/module-quartz/package-lock.json
-/docs/package-lock.json
-/src/Admin/UI/module-admin
+/src/Admin/UI/module-admin/package-lock.json
