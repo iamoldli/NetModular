@@ -6,7 +6,7 @@ const page = new (function() {
   this.path = '/admin/module'
 
   // 关联权限
-  this.permissions = [`${this.name}_query_get`, `admin_permission_querybycodes_get`]
+  this.permissions = [`${this.name}_query_get`, `admin_permission_query_get`, `admin_permission_querybycodes_get`]
 
   // 按钮
   this.buttons = {}

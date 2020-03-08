@@ -95,6 +95,7 @@ INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_co
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_config', N'admin_system_uploadlogo_post')
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_cache', N'admin_cache_query_get')
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_module', N'admin_module_query_get')
+INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_module', N'admin_permission_query_get')
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_module', N'admin_permission_querybycodes_get')
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_menu', N'admin_menu_query_get')
 INSERT [dbo].[Menu_Permission] ([MenuCode], [PermissionCode]) VALUES (N'admin_menu', N'admin_menu_tree_get')
