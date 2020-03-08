@@ -19,6 +19,12 @@ namespace NetModular.Lib.Options.Core
         /// <returns></returns>
         public static IServiceCollection AddModuleOptions(this IServiceCollection services, IModuleCollection modules)
         {
+            //如果不包含IModuleOptionsStorageProvider的实现，则不添加配置功能
+            if (services.All(m => m.ServiceType != typeof(IModuleOptionsStorageProvider)))
+            {
+                return services;
+            }
+
             var collection = new ModuleOptionsCollection();
 
             if (modules != null && modules.Any())
