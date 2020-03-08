@@ -36,24 +36,25 @@ NetModular
 
 ## 微服务框架
 
-基于NetModular扩展的微服务框架 [NetModular.Microservice](https://github.com/iamoldli/NetModular.Microservice)
+基于NetModular扩展的微服务框架 [NetModular.Microservice](https://github.com/iamoldli/NetModular.Microservice)，开发中
 
 ## 演示地址
 
 演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
 账 户：admin  
 密 码: admin  
-演示源码：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+演示项目源码请移步：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
 
 ## 官方文档
 
 文档地址： [https://docs.17mkh.com](https://docs.17mkh.com)
 
-文档源码： [https://github.com/iamoldli/NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
+文档项目的源码请移步： [https://github.com/iamoldli/NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
 
 ## 模块列表
 
-本仓库只包含基础框架以及权限管理(Admin)模块代码，其它模块请点击一下链接查看~
+本仓库只包含基础框架以及权限管理(Admin)模块代码，其它模块请点击以下链接查看~
 
 > 00 [Admin(权限管理)](https://github.com/iamoldli/NetModular/tree/master/src/Admin) 已完成
 
