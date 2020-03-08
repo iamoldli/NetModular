@@ -13,7 +13,7 @@ using NetModular.Module.Admin.Domain.Account.Models;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("账户管理")]
-    public class AccountController : ModuleController
+    public class AccountController : Web.ModuleController
     {
         private readonly ILoginInfo _loginInfo;
         private readonly IAccountService _service;

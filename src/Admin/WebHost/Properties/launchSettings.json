@@ -3,11 +3,11 @@
     "WebHost": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:6220/swagger"
+      "applicationUrl": "http://localhost:6220"
     }
   }
 }

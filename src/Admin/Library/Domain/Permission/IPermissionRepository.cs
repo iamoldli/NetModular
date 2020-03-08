@@ -32,5 +32,12 @@ namespace NetModular.Module.Admin.Domain.Permission
         /// <param name="platform">平台</param>
         /// <returns></returns>
         Task<IList<string>> QueryCodeByAccount(Guid accountId, Platform platform);
+
+        /// <summary>
+        /// 根据编码查询列表
+        /// </summary>
+        /// <param name="codes"></param>
+        /// <returns></returns>
+        Task<IList<PermissionEntity>> QueryByCodes(List<string> codes);
     }
 }

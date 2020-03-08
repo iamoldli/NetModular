@@ -18,7 +18,7 @@ using NetModular.Module.Admin.Application.SystemService;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("系统")]
-    public class SystemController : ModuleController
+    public class SystemController : Web.ModuleController
     {
         private readonly ISystemService _systemService;
         private readonly FileUploadHelper _fileUploadHelper;

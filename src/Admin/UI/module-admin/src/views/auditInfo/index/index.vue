@@ -4,7 +4,7 @@
       <!--查询条件-->
       <template v-slot:querybar>
         <el-form-item label="模块：" prop="moduleCode">
-          <module-info-select v-model="list.model.moduleCode" />
+          <nm-module-select v-model="list.model.moduleCode" />
         </el-form-item>
         <el-form-item label="账户：" prop="accountId">
           <el-input v-model="list.model.accountId" />
@@ -52,14 +52,13 @@
 import page from './page'
 import cols from './cols'
 import DetailsPage from '../components/details'
-import ModuleInfoSelect from '../../moduleInfo/components/select'
 
 // 接口
 const api = $api.admin.auditInfo
 
 export default {
   name: page.name,
-  components: { DetailsPage, ModuleInfoSelect },
+  components: { DetailsPage },
   data() {
     return {
       list: {

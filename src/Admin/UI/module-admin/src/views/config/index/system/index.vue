@@ -81,7 +81,8 @@ export default {
             serialNumberName: null
           },
           tabnav: {
-            showIcon: true
+            showIcon: true,
+            maxOpenCount: 20
           },
           customCss: null
         },

@@ -8,7 +8,7 @@ using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AuditInfo;
 using NetModular.Module.Admin.Domain.AuditInfo.Models;
-using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Domain.Module;
 using NetModular.Module.Admin.Infrastructure.Repositories.SqlServer.Sql;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
@@ -55,7 +55,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             return Db.Find(m => m.Id == id)
                 .LeftJoin<AccountEntity>((x, y) => x.AccountId == y.Id)
-                .LeftJoin<ModuleInfoEntity>((x, y, z) => x.Area == z.Code)
+                .LeftJoin<ModuleEntity>((x, y, z) => x.Area == z.Code)
                 .Select((x, y, z) => new
                 {
                     x,
@@ -68,6 +68,12 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var sql = string.Format(AuditInfoSql.QueryLatestWeekPv, Db.EntityDescriptor.TableName);
             return Db.QueryAsync<ChartDataResultModel>(sql);
+        }
+
+        public Task<IList<OptionResultModel>> QueryCountByModule()
+        {
+            return Db.Find().GroupBy(m => new { m.Area }).OrderByDescending(m => m.Count())
+                .Select(m => new { Label = m.Key.Area, Value = m.Count() }).ToListAsync<OptionResultModel>();
         }
     }
 }

@@ -29,5 +29,12 @@ namespace NetModular.Module.Admin.Application.PermissionService
         /// </summary>
         /// <returns></returns>
         Task<IResultModel> GetTree();
+
+        /// <summary>
+        /// 根据编码查询
+        /// </summary>
+        /// <param name="codes"></param>
+        /// <returns></returns>
+        Task<IResultModel> QueryByCodes(List<string> codes);
     }
 }

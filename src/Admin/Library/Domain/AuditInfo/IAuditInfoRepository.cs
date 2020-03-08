@@ -30,5 +30,11 @@ namespace NetModular.Module.Admin.Domain.AuditInfo
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<ChartDataResultModel>> QueryLatestWeekPv();
+
+        /// <summary>
+        /// 按照模块查询访问量
+        /// </summary>
+        /// <returns></returns>
+        Task<IList<OptionResultModel>> QueryCountByModule();
     }
 }

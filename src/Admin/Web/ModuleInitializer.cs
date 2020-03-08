@@ -10,6 +10,8 @@ using NetModular.Lib.Module.AspNetCore;
 using System.IO;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.SystemConfig;
+using NetModular.Module.Admin.Application.ModuleService;
+using NetModular.Module.Admin.Application.PermissionService;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -41,6 +43,19 @@ namespace NetModular.Module.Admin.Web
                 FileProvider = new PhysicalFileProvider(logoPath),
                 RequestPath = "/upload/admin/logo"
             });
+
+            #region ==刷新模块以及接口权限==
+
+            //模块信息
+            var moduleService = app.ApplicationServices.GetService<IModuleService>();
+            moduleService.Sync();
+
+            ////接口权限
+            var permissionHelper = app.ApplicationServices.GetService<PermissionHelper>();
+            var permissionService = app.ApplicationServices.GetService<IPermissionService>();
+            permissionService.Sync(permissionHelper.GetAllPermission());
+
+            #endregion
         }
 
         public void ConfigureMvc(MvcOptions mvcOptions)

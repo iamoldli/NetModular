@@ -13,8 +13,8 @@ const page = new (function() {
     `${this.name}_update_post`,
     `${this.name}_delete_delete`,
     /**模块配置 */
-    'admin_moduleoptions_edit_get',
-    'admin_moduleoptions_update_post',
+    'admin_module_optionsedit_get',
+    'admin_module_optionsupdate_post',
     /**系统配置*/
     `admin_system_UpdateBaseConfig_post`,
     `admin_system_UpdateComponentConfig_post`,

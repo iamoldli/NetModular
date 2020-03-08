@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.PermissionService.ResultModels;
-using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Domain.Module;
 using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Domain.Permission.Models;
 using NetModular.Module.Admin.Infrastructure;
@@ -17,18 +18,22 @@ namespace NetModular.Module.Admin.Application.PermissionService
     public class PermissionService : IPermissionService
     {
         private readonly IPermissionRepository _repository;
-        private readonly IModuleInfoRepository _moduleInfoRepository;
+        private readonly IModuleRepository _moduleRepository;
         private readonly AdminDbContext _dbContext;
         private readonly SystemConfigModel _systemConfig;
         private readonly ICacheHandler _cacheHandler;
+        private readonly ILogger _logger;
+        private readonly AdminOptions _options;
 
-        public PermissionService(IPermissionRepository permissionRepository, AdminDbContext dbContext, IModuleInfoRepository moduleInfoRepository, SystemConfigModel systemConfig, ICacheHandler cacheHandler)
+        public PermissionService(IPermissionRepository permissionRepository, AdminDbContext dbContext, IModuleRepository moduleRepository, SystemConfigModel systemConfig, ICacheHandler cacheHandler, ILogger<PermissionService> logger, AdminOptions options)
         {
             _repository = permissionRepository;
             _dbContext = dbContext;
-            _moduleInfoRepository = moduleInfoRepository;
+            _moduleRepository = moduleRepository;
             _systemConfig = systemConfig;
             _cacheHandler = cacheHandler;
+            _logger = logger;
+            _options = options;
         }
 
         public async Task<IResultModel> Query(PermissionQueryModel model)
@@ -44,8 +49,13 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
         public async Task<IResultModel> Sync(List<PermissionEntity> permissions)
         {
+            if (!_options.RefreshModuleOrPermission)
+                return ResultModel.Success();
+
             if (permissions == null || !permissions.Any())
                 return ResultModel.Failed("未找到权限信息");
+
+            _logger.LogDebug("Sync Permission Info");
 
             using var uow = _dbContext.NewUnitOfWork();
 
@@ -68,6 +78,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
                 return ResultModel.Success();
             }
+
             return ResultModel.Failed("同步失败");
         }
 
@@ -88,7 +99,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
             };
             root.Path.Add(root.Label);
 
-            var modules = _moduleInfoRepository.GetAllAsync();
+            var modules = _moduleRepository.GetAllAsync();
             var permissions = await _repository.GetAllAsync();
             //模块
             foreach (var module in await modules)
@@ -156,6 +167,16 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
             await _cacheHandler.SetAsync(CacheKeys.PermissionTree, root);
             return ResultModel.Success(root);
+        }
+
+        public async Task<IResultModel> QueryByCodes(List<string> codes)
+        {
+            if (codes == null || !codes.Any())
+                return ResultModel.Success();
+
+            var list = await _repository.QueryByCodes(codes);
+
+            return ResultModel.Success(list);
         }
     }
 }

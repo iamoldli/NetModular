@@ -10,7 +10,7 @@
     <el-row :gutter="50">
       <el-col :span="10" :offset="2">
         <el-form-item label="所属模块：" prop="moduleCode">
-          <module-info-select v-model="form.model.moduleCode" />
+          <nm-module-select v-model="form.model.moduleCode" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
@@ -82,10 +82,8 @@
 </template>
 <script>
 import mixins from '../mixins'
-import ModuleInfoSelect from '../../../../../moduleInfo/components/select'
 export default {
   mixins: [mixins],
-  components: { ModuleInfoSelect },
   data() {
     return {
       form: {

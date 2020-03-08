@@ -16,7 +16,7 @@ using NetModular.Module.Admin.Application.AuthService.ViewModels;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("身份认证")]
-    public class AuthController : ModuleController
+    public class AuthController : Web.ModuleController
     {
         private readonly IAuthService _service;
         private readonly ILoginHandler _loginHandler;

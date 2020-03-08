@@ -11,7 +11,7 @@ namespace NetModular.Module.Admin.Web.Controllers
     [Description("通用工具")]
     [Common]
     [DisableAuditing]
-    public class ToolController : ModuleController
+    public class ToolController : Web.ModuleController
     {
         private readonly IToolService _service;
 

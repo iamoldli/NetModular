@@ -13,7 +13,7 @@ using NetModular.Module.Admin.Domain.Config.Models;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("配置管理")]
-    public class ConfigController : ModuleController
+    public class ConfigController : Web.ModuleController
     {
         private readonly IConfigService _service;
 

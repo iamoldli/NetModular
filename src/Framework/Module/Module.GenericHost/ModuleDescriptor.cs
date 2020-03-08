@@ -26,6 +26,11 @@ namespace NetModular.Lib.Module.GenericHost
         public string Version { get; set; }
 
         /// <summary>
+        /// 说明介绍
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// 服务配置器
         /// </summary>
         public IModuleServicesConfigurator ServicesConfigurator { get; set; }

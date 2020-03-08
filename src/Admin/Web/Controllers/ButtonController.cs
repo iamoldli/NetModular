@@ -8,7 +8,7 @@ using NetModular.Module.Admin.Domain.Button.Models;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("按钮管理")]
-    public class ButtonController : ModuleController
+    public class ButtonController : Web.ModuleController
     {
         private readonly IButtonService _service;
 

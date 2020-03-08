@@ -43,10 +43,7 @@ export default name => {
   // 接口集合
   return {
     ...crud,
-    getVerifyCode,
-    login,
     updatePassword,
-    getLoginInfo,
     bindRole,
     resetPassword,
     skinUpdate

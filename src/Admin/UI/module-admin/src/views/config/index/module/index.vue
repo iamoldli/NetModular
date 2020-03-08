@@ -1,14 +1,14 @@
 <template>
   <el-tabs class="nm-admin-config-module" v-model="tab" tab-position="left" type="border-card">
     <el-tab-pane v-for="item in list" :key="item.value" :name="item.value" lazy>
-      <span slot="label"><nm-icon :name="item.data"></nm-icon>{{ item.label }} </span>
+      <span slot="label"><nm-icon :name="item.data.icon"></nm-icon>{{ item.label }} </span>
       <form-page :module-code="item.value" />
     </el-tab-pane>
   </el-tabs>
 </template>
 <script>
 import FormPage from './form'
-const { select } = $api.admin.moduleInfo
+const { select } = $api.admin.module
 export default {
   components: { FormPage },
   data() {

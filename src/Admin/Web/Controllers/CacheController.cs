@@ -8,7 +8,7 @@ using NetModular.Module.Admin.Application.CacheService;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("缓存管理")]
-    public class CacheController : ModuleController
+    public class CacheController : Web.ModuleController
     {
         private readonly ICacheService _service;
 

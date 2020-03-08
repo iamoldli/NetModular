@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ModulesDir>_modules\$(Id)</ModulesDir>
     <ModuleName>$(ModulesDir)\_module.json</ModuleName>
-    <ModuleInfo>{"Id": "$(Id)","Name":"$(Name)","Icon":"$(Icon)","Version":"$(Version)"}</ModuleInfo>
+    <ModuleInfo>{"Id": "$(Id)","Name":"$(Name)","Icon":"$(Icon)","Version":"$(Version)","Description":"$(Description)"}</ModuleInfo>
   </PropertyGroup>
 
   <Target Name="ModulesBuild" AfterTargets="Build">

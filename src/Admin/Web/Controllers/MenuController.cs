@@ -12,7 +12,7 @@ using NetModular.Module.Admin.Domain.Menu.Models;
 namespace NetModular.Module.Admin.Web.Controllers
 {
     [Description("菜单管理")]
-    public class MenuController : ModuleController
+    public class MenuController : Web.ModuleController
     {
         private readonly IMenuService _service;
 

@@ -28,6 +28,11 @@ namespace NetModular.Lib.Module.Abstractions
         string Version { get; set; }
 
         /// <summary>
+        /// 说明介绍
+        /// </summary>
+        string Description { get; set; }
+
+        /// <summary>
         /// 服务配置器
         /// </summary>
         IModuleServicesConfigurator ServicesConfigurator { get; set; }

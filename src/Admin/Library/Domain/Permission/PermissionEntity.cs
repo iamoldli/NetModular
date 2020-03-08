@@ -1,5 +1,5 @@
 ﻿using NetModular.Lib.Data.Abstractions.Attributes;
-using NetModular.Lib.Data.Core.Entities.Extend;
+using NetModular.Lib.Data.Core.Entities;
 using NetModular.Lib.Utils.Core.Enums;
 
 namespace NetModular.Module.Admin.Domain.Permission
@@ -8,7 +8,7 @@ namespace NetModular.Module.Admin.Domain.Permission
     /// 权限
     /// </summary>
     [Table("Permission")]
-    public partial class PermissionEntity : EntityBase
+    public partial class PermissionEntity : Entity
     {
         /// <summary>
         /// 名称

@@ -6,13 +6,12 @@ using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Core;
 using NetModular.Lib.Data.Query;
-using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.ButtonPermission;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.MenuPermission;
-using NetModular.Module.Admin.Domain.ModuleInfo;
+using NetModular.Module.Admin.Domain.Module;
 using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Domain.Permission.Models;
 using NetModular.Module.Admin.Domain.RoleMenu;
@@ -42,15 +41,14 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereNotNull(model.Controller, m => m.Controller.Equals(model.Controller));
             query.WhereNotNull(model.Action, m => m.Action.Equals(model.Action));
 
-            var joinQuery = query.LeftJoin<ModuleInfoEntity>((x, y) => x.ModuleCode == y.Code)
-                .LeftJoin<AccountEntity>((x, y, z) => x.CreatedBy.Equals(z.Id));
+            var joinQuery = query.LeftJoin<ModuleEntity>((x, y) => x.ModuleCode == y.Code);
 
             if (!paging.OrderBy.Any())
             {
-                joinQuery.OrderByDescending((x, y, z) => x.Id);
+                joinQuery.OrderByDescending((x, y) => x.Id);
             }
 
-            joinQuery.Select((x, y, z) => new { x, ModuleName = y.Name, Creator = z.Name });
+            joinQuery.Select((x, y) => new { x, ModuleName = y.Name });
 
             var list = await joinQuery.PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
@@ -104,6 +102,11 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
                 .InnerJoin<AccountRoleEntity>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
                 .Select((x, y, z) => x.Code)
                 .ToListAsync<string>();
+        }
+
+        public Task<IList<PermissionEntity>> QueryByCodes(List<string> codes)
+        {
+            return Db.Find(m => codes.Contains(m.Code)).ToListAsync();
         }
     }
 }

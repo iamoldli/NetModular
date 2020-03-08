@@ -742,14 +742,16 @@ namespace NetModular.Lib.Data.Core
         {
             var sql = _sql.Clear(tableName);
             _logger?.LogDebug("Clear:{@sql}", sql);
-            return Execute(sql, uow: uow) > 0;
+            Execute(sql, uow: uow);
+            return true;
         }
 
         public async Task<bool> ClearAsync(IUnitOfWork uow = null, string tableName = null)
         {
             var sql = _sql.Clear(tableName);
             _logger?.LogDebug("ClearAsync:{@sql}", sql);
-            return (await ExecuteAsync(sql, uow: uow)) > 0;
+            await ExecuteAsync(sql, uow: uow);
+            return true;
         }
 
         #endregion

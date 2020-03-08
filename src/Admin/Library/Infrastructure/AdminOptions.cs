@@ -24,5 +24,11 @@ namespace NetModular.Module.Admin.Infrastructure
         /// </summary>
         [ModuleOptionDefinition("账户默认密码")]
         public string DefaultPassword { get; set; } = "123456";
+
+        /// <summary>
+        /// 启动时刷新模块和权限
+        /// </summary>
+        [ModuleOptionDefinition("启动时刷新模块和权限")]
+        public bool RefreshModuleOrPermission { get; set; } = true;
     }
 }

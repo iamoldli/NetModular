@@ -33,7 +33,7 @@
   </nm-form-page>
 </template>
 <script>
-const { edit, update } = $api.admin.moduleOptions
+const { optionsEdit, optionsUpdate } = $api.admin.module
 export default {
   data() {
     return {
@@ -51,11 +51,11 @@ export default {
   },
   methods: {
     update(model) {
-      return update({ moduleCode: this.moduleCode, values: model })
+      return optionsUpdate({ code: this.moduleCode, values: model })
     }
   },
   created() {
-    edit(this.moduleCode).then(data => {
+    optionsEdit(this.moduleCode).then(data => {
       this.definitions = data.definitions
       this.form.model = data.instance
     })

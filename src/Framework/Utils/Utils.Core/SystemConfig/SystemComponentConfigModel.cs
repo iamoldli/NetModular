@@ -38,9 +38,9 @@
     public class MenuConfigModel
     {
         /// <summary>
-        /// 只能打开一个
+        /// 是否只保持一个子菜单的展开
         /// </summary>
-        [ConfigDescription("sys_component_menu_unique_opened", "菜单只能打开一个")]
+        [ConfigDescription("sys_component_menu_unique_opened", "是否只保持一个子菜单的展开")]
         public bool UniqueOpened { get; set; }
     }
 
@@ -80,9 +80,16 @@
     public class TabnavConfigModel
     {
         /// <summary>
-        /// 序号名称
+        /// 是否显示图标
         /// </summary>
         [ConfigDescription("sys_component_tabnav_showicon", "标签导航是否显示图标")]
         public bool ShowIcon { get; set; }
+
+        /// <summary>
+        /// 最大页面数量
+        /// </summary>
+        [ConfigDescription("sys_component_tabnav_maxopencount", "标签导航最大页面数量")]
+        public int MaxOpenCount { get; set; }
+
     }
 }
