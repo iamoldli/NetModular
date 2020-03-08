@@ -53,6 +53,8 @@ NetModular
 
 ## 模块列表
 
+本仓库只包含基础框架以及权限管理(Admin)模块代码，其它模块请点击一下链接查看~
+
 > 00 [Admin(权限管理)](https://github.com/iamoldli/NetModular/tree/master/src/Admin) 已完成
 
 > 01 [Common(通用模块)](https://github.com/iamoldli/Nm.Module.Common) 已完成
