@@ -342,6 +342,54 @@ namespace NetModular.Module.Admin.Application.AccountService
             return account;
         }
 
+        public async Task<IResultModel> Sync(AccountSyncModel model)
+        {
+            var entity = await _accountRepository.GetAsync(model.Id);
+            if (entity == null)
+                return ResultModel.Failed("账户不存在！");
+
+            var account = _mapper.Map(model, entity);
+
+            var exists = await Exists(account);
+            if (!exists.Successful)
+                return exists;
+
+            if (model.NewPassword.NotNull())
+            {
+                account.Password = _passwordHandler.Encrypt(account.UserName, model.NewPassword);
+            }
+
+            using (var uow = _dbContext.NewUnitOfWork())
+            {
+                var result = await _accountRepository.UpdateAsync(account, uow);
+                if (result)
+                {
+                    if (model.Roles != null)
+                    {
+                        result = await _accountRoleRepository.DeleteByAccount(account.Id, uow);
+                    }
+                    if (model.Roles != null && model.Roles.Any())
+                    {
+                        var accountRoleList = model.Roles.Select(m => new AccountRoleEntity { AccountId = account.Id, RoleId = m }).ToList();
+                        result = await _accountRoleRepository.AddAsync(accountRoleList, uow);
+                    }
+
+                    if (result)
+                    {
+                        uow.Commit();
+
+                        ClearPermissionListCache(account.Id);
+
+                        await ClearCache(true, entity.Id);
+
+                        return ResultModel.Success();
+                    }
+                }
+            }
+
+            return ResultModel.Failed();
+        }
+
         /// <summary>
         /// 判断账户是否存在
         /// </summary>

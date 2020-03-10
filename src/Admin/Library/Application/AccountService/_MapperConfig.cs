@@ -15,6 +15,8 @@ namespace NetModular.Module.Admin.Application.AccountService
             cfg.CreateMap<AccountAddModel, AccountEntity>().ForMember(m => m.Roles, opt => opt.Ignore());
             cfg.CreateMap<AccountEntity, AccountUpdateModel>();
             cfg.CreateMap<AccountUpdateModel, AccountEntity>().ForMember(m => m.Roles, opt => opt.Ignore());
+
+            cfg.CreateMap<AccountSyncModel, AccountEntity>().ForMember(m => m.Roles, opt => opt.Ignore());
         }
     }
 }

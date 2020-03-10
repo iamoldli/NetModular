@@ -97,5 +97,12 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// <param name="id"></param>
         /// <returns></returns>
         Task<AccountEntity> Get(Guid id);
+
+        /// <summary>
+        /// 账户信息同步，用于从其他扩展模块中同步账户信息，比如人事档案模块
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<IResultModel> Sync(AccountSyncModel model);
     }
 }
