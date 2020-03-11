@@ -4,8 +4,6 @@
 NetModular
 </h1>
 
-[English](README_EN.MD)
-
 ## NetModular是什么
 
 > **她** 是一款基于.Net Core 和 Vue.js 的业务模块化以及前后端分离的快速开发框架
@@ -64,33 +62,15 @@ NetModular
 
 > 03 [Quartz(任务调度)](https://github.com/iamoldli/Nm.Module.Quartz) 已完成
 
-> 04 [PersonnelFiles(人事档案)](https://github.com/iamoldli/NetModular.Module.PersonnelFiles) 开发中
+> 04 [PersonnelFiles(人事档案)](https://github.com/iamoldli/NetModular.Module.PersonnelFiles) 已完成
 
-> 05 [Crawler(爬虫模块)](https://github.com/iamoldli/NetModular.Module.Crawler) 开发中
+> 05 [Cas(统一认证)](https://github.com/iamoldli/NetModular.Module.Cas) 计划中
 
-> 06 [Cas(统一认证)](https://github.com/iamoldli/NetModular.Module.Cas) 开发中
+> 06 [IM(即时通讯)](https://github.com/iamoldli/NetModular.Module.IM) 计划中
 
-> 07 [IM(即时通讯)](https://github.com/iamoldli/NetModular.Module.IM) 开发中
+> 90 [Forum(论坛)](https://github.com/iamoldli/NetModular.Module.Forum) 计划中
 
-> 08 [Forum(论坛)](https://github.com/iamoldli/NetModular.Module.Forum) 开发中
-
-> 09 [Blog(博客)](https://github.com/iamoldli/NetModular.Module.Blog) 开发中
-
-> 10 [Contract(合同管理)](https://github.com/iamoldli/NetModular.Module.Contract) 开发中
-
-> 11 [News(新闻管理)](https://github.com/iamoldli/NetModular.Module.News) 开发中
-
-> 12 [Performance(绩效考核)](https://github.com/iamoldli/NetModular.Module.Performance) 开发中
-
-> 13 [Meeting(会议管理)](https://github.com/iamoldli/NetModular.Module.Meeting) 开发中
-
-> 14 [Book(图书管理)](https://github.com/iamoldli/NetModular.Module.Book) 开发中
-
-> 15 [Archives(档案管理)](https://github.com/iamoldli/NetModular.Module.Archives) 开发中
-
-> 16 [Document(文档管理)](https://github.com/iamoldli/NetModular.Module.Document) 开发中
-
-> 17 [Salary(薪酬管理)](https://github.com/iamoldli/NetModular.Module.Salary) 开发中
+> 91 [Blog(博客)](https://github.com/iamoldli/NetModular.Module.Blog) 计划中
 
 ## 技术交流
 
