@@ -8,13 +8,13 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Pagination;
 using Xunit;
 
-namespace Data.SQLite.Test
+namespace Data.PostgreSQL.Tests
 {
-    public class DbSetTest : DbContextTest
+    public class DbSetTests : DbContextTests
     {
         private readonly IDbSet<ArticleEntity> _db;
 
-        public DbSetTest()
+        public DbSetTests()
         {
             _db = DbContext.Set<ArticleEntity>();
             BatchInsert(100).GetAwaiter().GetResult();
@@ -45,8 +45,6 @@ namespace Data.SQLite.Test
             await _db.BatchInsertAsync(list);
 
             sw.Stop();
-
-            var s = sw.ElapsedMilliseconds;
         }
 
         [Fact]
@@ -70,7 +68,7 @@ namespace Data.SQLite.Test
         [Fact]
         public async Task BatchInsertTest()
         {
-            await BatchInsert(100000);
+            await BatchInsert(10000);
 
             var count = await _db.Find().CountAsync();
 
@@ -143,14 +141,14 @@ namespace Data.SQLite.Test
         public async void WhereTest()
         {
             //暂时布尔类型必须指定具体的值，如m => m.Published == true，不能省略为m => m.Published
-            var query = _db.Find().Where(m => m.Id > 10);
+            var query = _db.Find().Where(m => m.Published && m.Id > 10);
 
             //var sql = query.ToSql();
-            //SELECT `Id` AS `Id`,`CategoryId` AS `CategoryId`,`Title` AS `Title`,`MediaType` AS `MediaType`,`Body` AS `Body`,
-            //`Published` AS `Published`,`ReadCount` AS `ReadCount`,`CreatedTime` AS `CreatedTime`,`CreatedBy` AS `CreatedBy`,
-            //`ModifiedTime` AS `ModifiedTime`,`ModifiedBy` AS `ModifiedBy`,`Deleted` AS `Deleted`,`DeletedTime` AS `DeletedTime`,
-            //`DeletedBy` AS `DeletedBy` FROM  `nm_blog`.`Article`
-            //WHERE (`Published` AND (`Id` > @P1)) AND `Deleted`=0 
+            //SELECT "Id" AS "Id","CategoryId" AS "CategoryId","Title" AS "Title","MediaType" AS "MediaType","Body" AS "Body",
+            //"Published" AS "Published","ReadCount" AS "ReadCount","CreatedTime" AS "CreatedTime","CreatedBy" AS "CreatedBy",
+            //"ModifiedTime" AS "ModifiedTime","ModifiedBy" AS "ModifiedBy","Deleted" AS "Deleted","DeletedTime" AS "DeletedTime",
+            //"DeletedBy" AS "DeletedBy" FROM  "nm_blog"."Article"
+            //WHERE ("Published" = @P1) AND "Deleted"=FALSE 
 
             var list = await query.ToListAsync();
 
@@ -164,11 +162,11 @@ namespace Data.SQLite.Test
             var query = _db.Find().WhereIf(readCount > 1, m => m.ReadCount > readCount);
 
             //var sql = query.ToSql();
-            //SELECT `Id` AS `Id`,`CategoryId` AS `CategoryId`,`Title` AS `Title`,`MediaType` AS `MediaType`,`Body` AS `Body`,
-            //`Published` AS `Published`,`ReadCount` AS `ReadCount`,`CreatedTime` AS `CreatedTime`,`CreatedBy` AS `CreatedBy`,
-            //`ModifiedTime` AS `ModifiedTime`,`ModifiedBy` AS `ModifiedBy`,`Deleted` AS `Deleted`,`DeletedTime` AS `DeletedTime`,
-            //`DeletedBy` AS `DeletedBy` FROM  `nm_blog`.`Article`
-            //WHERE (`ReadCount` > @P1) AND `Deleted`=0 
+            //SELECT "Id" AS "Id","CategoryId" AS "CategoryId","Title" AS "Title","MediaType" AS "MediaType","Body" AS "Body",
+            //"Published" AS "Published","ReadCount" AS "ReadCount","CreatedTime" AS "CreatedTime","CreatedBy" AS "CreatedBy",
+            //"ModifiedTime" AS "ModifiedTime","ModifiedBy" AS "ModifiedBy","Deleted" AS "Deleted","DeletedTime" AS "DeletedTime",
+            //"DeletedBy" AS "DeletedBy" FROM  "nm_blog"."Article"
+            //WHERE ("ReadCount" > @P1) AND "Deleted"=FALSE 
 
             var list = await query.ToListAsync();
 
@@ -217,6 +215,14 @@ namespace Data.SQLite.Test
             var query = _db.Find().LeftJoin<CategoryEntity>((x, y) => x.CategoryId == y.Id)
                 .Select((x, y) => new { x, CategoryName = y.Name });
 
+            //var sql = query.ToSql();
+            //SELECT "T1"."Id" AS "Id","T1"."CategoryId" AS "CategoryId","T1"."Title" AS "Title","T1"."MediaType" AS "MediaType",
+            //"T1"."Body" AS "Body","T1"."Published" AS "Published","T1"."ReadCount" AS "ReadCount","T1"."CreatedTime" AS "CreatedTime",
+            //"T1"."CreatedBy" AS "CreatedBy","T1"."ModifiedTime" AS "ModifiedTime","T1"."ModifiedBy" AS "ModifiedBy",
+            //"T1"."Deleted" AS "Deleted","T1"."DeletedTime" AS "DeletedTime","T1"."DeletedBy" AS "DeletedBy","T2"."Name" AS "CategoryName"
+            //FROM  "nm_blog"."Article" AS "T1"  LEFT JOIN "nm_blog"."Category" AS "T2" ON ("T1"."CategoryId" = "T2"."Id")
+            //WHERE   "T1"."Deleted"=FALSE 
+
             var first = await query.FirstAsync();
 
             Assert.Equal("ASP.NET Core", first.CategoryName);
@@ -226,20 +232,22 @@ namespace Data.SQLite.Test
         public async void DeleteForWhereTest()
         {
             await _db.Find(m => m.Id <= 10).DeleteAsync();
+            //DELETE FROM "nm_blog"."Article"  WHERE ("Id" <= @P1) AND "Deleted"=FALSE 
 
             var count = await _db.Find().CountAsync();
 
-            Assert.Equal(190, count);
+            Assert.Equal(90, count);
         }
 
         [Fact]
         public async void SoftDeleteForWhereTest()
         {
             await _db.Find(m => m.Id <= 10).SoftDeleteAsync();
+            //UPDATE "nm_blog"."Article" SET "Deleted"=TRUE,"DeletedTime"=@P1,"DeletedBy"=@P2  WHERE ("Id" <= @P3) AND "Deleted"=FALSE 
 
             var count = await _db.Find().CountAsync();
 
-            Assert.Equal(190, count);
+            Assert.Equal(90, count);
         }
 
         [Fact]
@@ -256,6 +264,7 @@ namespace Data.SQLite.Test
         public async void MaxTest()
         {
             var val = await _db.Find().MaxAsync(m => m.ReadCount);
+            //SELECT MAX("ReadCount") FROM "nm_blog"."Article" WHERE "Deleted"=FALSE
 
             Assert.True(val > 0);
         }
@@ -264,6 +273,7 @@ namespace Data.SQLite.Test
         public async void MinTest()
         {
             var val = await _db.Find().MinAsync(m => m.ReadCount);
+            //SELECT MIN("ReadCount") FROM "nm_blog"."Article" WHERE "Deleted"=FALSE
 
             Assert.True(val > 0);
         }
@@ -272,6 +282,7 @@ namespace Data.SQLite.Test
         public async void SumTest()
         {
             var val = await _db.Find().SumAsync(m => m.ReadCount);
+            //SELECT SUM("ReadCount") FROM "nm_blog"."Article" WHERE "Deleted"=FALSE
 
             Assert.True(val > 0);
         }
@@ -280,6 +291,7 @@ namespace Data.SQLite.Test
         public async void AvgTest()
         {
             var val = await _db.Find().AvgAsync<decimal>(m => m.ReadCount);
+            //SELECT AVG("ReadCount") FROM "nm_blog"."Article" WHERE "Deleted"=FALSE
 
             Assert.True(val > 0);
         }
@@ -289,7 +301,7 @@ namespace Data.SQLite.Test
         {
             var val = await _db.Find().GroupBy(m => new { m.ReadCount }).Select(m => new { m.Key.ReadCount }).FirstAsync();
 
-            Assert.True(val.ReadCount > 0);
+            Assert.True(val.readcount > 0);
         }
 
         [Fact]
@@ -310,31 +322,6 @@ namespace Data.SQLite.Test
             var count = await _db.Find().IncludeDeleted().CountAsync();
 
             Assert.Equal(100, count);
-        }
-
-        [Fact]
-        public void UpdateForSql()
-        {
-            var list = new string[3];
-            list[0] = "1";
-            list[1] = "2";
-            list[2] = "3";
-            var sql = _db.Find().WhereNotIn(m => m.Title, list).ToSql();
-
-            Assert.Equal("", sql);
-        }
-
-        [Fact]
-        public async void ToReaderTest()
-        {
-            var list = new List<int>();
-            using var reader = await _db.Find().ToReaderAsync();
-            while (reader.Read())
-            {
-                list.Add(reader.GetInt32(0));
-            }
-
-            Assert.True(list.Count > 0);
         }
     }
 }

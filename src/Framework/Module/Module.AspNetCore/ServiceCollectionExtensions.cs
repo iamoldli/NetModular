@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Module.AspNetCore
 {
@@ -70,7 +69,6 @@ namespace NetModular.Lib.Module.AspNetCore
             return services;
         }
 
-
         /// <summary>
         /// 添加应用服务
         /// </summary>
@@ -88,23 +86,6 @@ namespace NetModular.Lib.Module.AspNetCore
                 {
                     services.Add(new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton));
                 }
-            }
-        }
-
-        /// <summary>
-        /// 自动注入单例服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="module"></param>
-        private static void AddSingleton(this IServiceCollection services, IModuleDescriptor module)
-        {
-            if (module.AssemblyDescriptor != null && module.AssemblyDescriptor is ModuleAssemblyDescriptor descriptor)
-            {
-                services.AddSingletonFromAssembly(descriptor.Domain);
-                services.AddSingletonFromAssembly(descriptor.Infrastructure);
-                services.AddSingletonFromAssembly(descriptor.Application);
-                services.AddSingletonFromAssembly(descriptor.Web);
-                services.AddSingletonFromAssembly(descriptor.Api);
             }
         }
     }

@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Module.GenericHost
 {
@@ -70,21 +69,6 @@ namespace NetModular.Lib.Module.GenericHost
                     services.Add(new ServiceDescriptor(serviceType, implementationType, ServiceLifetime.Singleton));
                 }
             }
-        }
-
-        /// <summary>
-        /// 自动注入单例服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="module"></param>
-        private static void AddSingleton(this IServiceCollection services, IModuleDescriptor module)
-        {
-            if (module.AssemblyDescriptor == null)
-                return;
-
-            services.AddSingletonFromAssembly(module.AssemblyDescriptor.Domain);
-            services.AddSingletonFromAssembly(module.AssemblyDescriptor.Infrastructure);
-            services.AddSingletonFromAssembly(module.AssemblyDescriptor.Application);
         }
     }
 }

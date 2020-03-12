@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Host.Api
+﻿namespace NetModular.Lib.Host.Api
 {
     public class Class1
     {

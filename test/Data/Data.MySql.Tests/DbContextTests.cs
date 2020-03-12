@@ -7,18 +7,18 @@ using Data.Common.Repository;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.PostgreSQL;
+using NetModular.Lib.Data.MySql;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 
-namespace Data.PostgreSQL.Test
+namespace Data.MySql.Tests
 {
-    public class DbContextTest
+    public class DbContextTests
     {
         protected readonly IDbContext DbContext;
         protected readonly Guid CategoryId = Guid.NewGuid();
 
-        protected DbContextTest()
+        protected DbContextTests()
         {
             var cfgHelper = new ConfigurationHelper();
             var dbOptions = cfgHelper.Get<DbOptions>("Db");
@@ -29,7 +29,7 @@ namespace Data.PostgreSQL.Test
                 m.EntityTypes = typeof(BlogDbContext).Assembly.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
             });
 
-            var dbContextOptions = new PostgreSQLDbContextOptions(dbOptions, dbOptions.Modules.First(), null, null);
+            var dbContextOptions = new MySqlDbContextOptions(dbOptions, dbOptions.Modules.First(), null, null);
 
             DbContext = new BlogDbContext(dbContextOptions, null);
 
@@ -37,11 +37,11 @@ namespace Data.PostgreSQL.Test
             try
             {
                 using var con = DbContext.NewConnection();
-                con.Execute("DROP TABLE nm_blog.article;DROP TABLE nm_blog.category;DROP SCHEMA nm_blog;");
+                con.Execute("DROP DATABASE nm_blog;");
             }
             catch
             {
-                //
+                // ignored
             }
 
             //创建数据

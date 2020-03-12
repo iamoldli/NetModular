@@ -13,7 +13,6 @@ using NetModular.Lib.Options.Core;
 using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Swagger.Core.Conventions;
 using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Mvc;
 using NetModular.Lib.Validation.FluentValidation;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
@@ -32,9 +31,7 @@ namespace NetModular.Lib.Host.Web
         {
             services.AddSingleton(hostOptions);
 
-            services.AddUtils();
-
-            services.AddUtilsMvc();
+            services.AddNetModularServices();
 
             //加载模块
             var modules = services.AddModules();

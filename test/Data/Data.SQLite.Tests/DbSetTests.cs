@@ -8,13 +8,13 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Pagination;
 using Xunit;
 
-namespace Data.MySql.Test
+namespace Data.SQLite.Tests
 {
-    public class DbSetTest : DbContextTest
+    public class DbSetTests : DbContextTests
     {
         private readonly IDbSet<ArticleEntity> _db;
 
-        public DbSetTest()
+        public DbSetTests()
         {
             _db = DbContext.Set<ArticleEntity>();
             BatchInsert(100).GetAwaiter().GetResult();
@@ -143,7 +143,7 @@ namespace Data.MySql.Test
         public async void WhereTest()
         {
             //暂时布尔类型必须指定具体的值，如m => m.Published == true，不能省略为m => m.Published
-            var query = _db.Find().Where(m => m.Published && m.Id > 10);
+            var query = _db.Find().Where(m => m.Id > 10);
 
             //var sql = query.ToSql();
             //SELECT `Id` AS `Id`,`CategoryId` AS `CategoryId`,`Title` AS `Title`,`MediaType` AS `MediaType`,`Body` AS `Body`,
@@ -229,7 +229,7 @@ namespace Data.MySql.Test
 
             var count = await _db.Find().CountAsync();
 
-            Assert.Equal(90, count);
+            Assert.Equal(190, count);
         }
 
         [Fact]
@@ -239,7 +239,7 @@ namespace Data.MySql.Test
 
             var count = await _db.Find().CountAsync();
 
-            Assert.Equal(90, count);
+            Assert.Equal(190, count);
         }
 
         [Fact]
@@ -310,6 +310,31 @@ namespace Data.MySql.Test
             var count = await _db.Find().IncludeDeleted().CountAsync();
 
             Assert.Equal(100, count);
+        }
+
+        [Fact]
+        public void UpdateForSql()
+        {
+            var list = new string[3];
+            list[0] = "1";
+            list[1] = "2";
+            list[2] = "3";
+            var sql = _db.Find().WhereNotIn(m => m.Title, list).ToSql();
+
+            Assert.Equal("", sql);
+        }
+
+        [Fact]
+        public async void ToReaderTest()
+        {
+            var list = new List<int>();
+            using var reader = await _db.Find().ToReaderAsync();
+            while (reader.Read())
+            {
+                list.Add(reader.GetInt32(0));
+            }
+
+            Assert.True(list.Count > 0);
         }
     }
 }

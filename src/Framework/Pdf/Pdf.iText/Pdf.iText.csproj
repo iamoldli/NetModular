@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.0.4" />
+    <PackageReference Include="itext7" Version="7.1.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Excel.Abstractions\Excel.Abstractions.csproj" />
+    <ProjectReference Include="..\Pdf.Abstractions\Pdf.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

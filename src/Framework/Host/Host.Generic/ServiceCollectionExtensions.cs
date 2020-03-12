@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Cache.Integration;
@@ -9,7 +8,6 @@ using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.GenericHost;
 using NetModular.Lib.Options.Core;
 using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Host.Generic
 {
@@ -17,7 +15,7 @@ namespace NetModular.Lib.Host.Generic
     {
         public static IServiceCollection AddGenericHost(this IServiceCollection services, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment> configureServices = null)
         {
-            services.AddUtils();
+            services.AddNetModularServices();
 
             //加载模块
             var modules = services.AddModules();

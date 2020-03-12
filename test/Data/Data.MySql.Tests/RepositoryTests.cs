@@ -6,13 +6,13 @@ using Data.Common.Domain;
 using Data.Common.Repository;
 using Xunit;
 
-namespace Data.PostgreSQL.Test
+namespace Data.MySql.Tests
 {
-    public class RepositoryTest : DbContextTest
+    public class RepositoryTests : DbContextTests
     {
         private readonly IArticleRepository _articleRepository;
 
-        public RepositoryTest()
+        public RepositoryTests()
         {
             _articleRepository = new ArticleRepository(DbContext);
         }
