@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NetModular.Lib.Pdf.Abstractions;
 
 namespace NetModular.Lib.Pdf.iText
 {
@@ -12,6 +13,7 @@ namespace NetModular.Lib.Pdf.iText
         /// <returns></returns>
         public static IServiceCollection AddPdf(this IServiceCollection services, string environmentName)
         {
+            services.AddSingleton<IPdfHandler, PdfHandler>();
             return services;
         }
     }
