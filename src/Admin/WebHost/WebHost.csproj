@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="log\**" />
+    <Content Remove="log\**" />
+    <EmbeddedResource Remove="log\**" />
+    <None Remove="log\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj" />
     <ProjectReference Include="..\..\Framework\Cache\Cache.Redis\Cache.Redis.csproj" />
     <ProjectReference Include="..\..\Framework\Data\Db\Data.MySql\Data.MySql.csproj" />
