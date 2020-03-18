@@ -15,6 +15,7 @@ namespace NetModular.Lib.Host.Generic
     {
         public static IServiceCollection AddGenericHost(this IServiceCollection services, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment> configureServices = null)
         {
+            //添加所有通过特性注入的服务
             services.AddNetModularServices();
 
             //加载模块

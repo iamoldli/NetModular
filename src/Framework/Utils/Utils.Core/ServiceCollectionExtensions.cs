@@ -16,7 +16,8 @@ namespace NetModular.Lib.Utils.Core
         /// <returns></returns>
         public static IServiceCollection AddServicesFromAssembly(this IServiceCollection services, Assembly assembly)
         {
-            if (assembly == null)
+            //排除null以及官方包
+            if (assembly == null || assembly.FullName.StartsWith("Microsoft") || assembly.FullName.StartsWith("System"))
                 return services;
 
             foreach (var type in assembly.GetTypes())
