@@ -4,6 +4,14 @@
 NetModular
 </h1>
 
+# 注意！注意！注意！
+
+本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
 ## NetModular是什么
 
 > **她** 是一款基于.Net Core 和 Vue.js 的业务模块化以及前后端分离的快速开发框架
@@ -41,8 +49,6 @@ NetModular
 演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
 账 户：admin  
 密 码: admin  
-
-演示项目源码请移步：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
 
 ## 官方文档
 
