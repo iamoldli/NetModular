@@ -39,7 +39,7 @@ INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admi
 INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_account_edit', N'admin_account_edit_get')
 INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_account_edit', N'admin_account_update_post')
 INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_account_del', N'admin_account_delete_delete')
-INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_account_reset_password', N'admin_account_updatepassword_post')
+INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_account_reset_password', N'admin_account_resetpassword_post')
 INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_auditinfo_details', N'admin_auditinfo_details_get')
 INSERT [dbo].[Button_Permission] ([ButtonCode], [PermissionCode]) VALUES (N'admin_auditinfo_export', N'admin_auditinfo_export_post')
 INSERT [dbo].[Config] ([Type], [Key], [Value], [Remarks], [CreatedTime], [CreatedBy], [ModifiedTime], [ModifiedBy]) VALUES (1, N'sys_title', N'NetModular 通用权限管理系统', N'系统标题', CAST(N'2020-01-14T15:16:42.000' AS DateTime), N'39f08cfd-8e0d-771b-a2f3-2639a62ca2fa', CAST(N'2020-01-14T15:16:42.000' AS DateTime), N'39f08cfd-8e0d-771b-a2f3-2639a62ca2fa')

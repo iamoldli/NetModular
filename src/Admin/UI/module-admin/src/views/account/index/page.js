@@ -36,7 +36,7 @@ const page = new (function() {
       type: 'text',
       icon: 'refresh',
       code: `${this.name}_reset_password`,
-      permissions: [`${this.name}_updatepassword_post`]
+      permissions: [`${this.name}_resetpassword_post`]
     }
   }
 })()

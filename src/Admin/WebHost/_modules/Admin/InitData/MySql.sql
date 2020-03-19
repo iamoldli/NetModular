@@ -38,7 +38,7 @@ INSERT INTO `button_permission` VALUES (19, 'admin_account_add', 'admin_account_
 INSERT INTO `button_permission` VALUES (20, 'admin_account_edit', 'admin_account_edit_get');
 INSERT INTO `button_permission` VALUES (21, 'admin_account_edit', 'admin_account_update_post');
 INSERT INTO `button_permission` VALUES (22, 'admin_account_del', 'admin_account_delete_delete');
-INSERT INTO `button_permission` VALUES (23, 'admin_account_reset_password', 'admin_account_updatepassword_post');
+INSERT INTO `button_permission` VALUES (23, 'admin_account_reset_password', 'admin_account_resetpassword_post');
 INSERT INTO `button_permission` VALUES (24, 'admin_auditinfo_details', 'admin_auditinfo_details_get');
 INSERT INTO `button_permission` VALUES (25, 'admin_auditinfo_export', 'admin_auditinfo_export_post');
 INSERT INTO `config` VALUES (1, 1, 'sys_title', 'NetModular 通用权限管理系统', '系统标题', '2020-01-14 15:16:42', '39F08CFD-8E0D-771B-A2F3-2639A62CA2FA', '2020-01-14 15:16:42', '39F08CFD-8E0D-771B-A2F3-2639A62CA2FA');
