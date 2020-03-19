@@ -85,7 +85,7 @@ QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fcc
 <img src="./img/qq.jpg" alt="QQ" height="300"/>
 
 <h4 align="center">
-如您觉得本框架对您有帮助，可以请作者媳妇儿喝杯二锅头~
+如您觉得本框架对您有帮助，可以请作者媳妇儿吃一碗酸辣粉~
 <br>
 <br>
   <img src="./img/airpay.jpg" alt="支付宝" height="320"/><img src="./img/wechat.jpg" alt="微信" height="320"/>
