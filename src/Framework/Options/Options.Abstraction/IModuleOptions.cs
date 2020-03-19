@@ -5,5 +5,10 @@
     /// </summary>
     public interface IModuleOptions
     {
+        /// <summary>
+        /// Copy
+        /// </summary>
+        /// <returns></returns>
+        IModuleOptions Copy();
     }
 }

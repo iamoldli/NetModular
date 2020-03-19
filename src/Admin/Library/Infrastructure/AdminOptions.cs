@@ -30,5 +30,16 @@ namespace NetModular.Module.Admin.Infrastructure
         /// </summary>
         [ModuleOptionDefinition("启动时刷新模块和权限")]
         public bool RefreshModuleOrPermission { get; set; } = true;
+
+        public IModuleOptions Copy()
+        {
+            return new AdminOptions
+            {
+                AuditingEnabled = AuditingEnabled,
+                RefreshTokenExpires = RefreshTokenExpires,
+                DefaultPassword = DefaultPassword,
+                RefreshModuleOrPermission = RefreshModuleOrPermission
+            };
+        }
     }
 }

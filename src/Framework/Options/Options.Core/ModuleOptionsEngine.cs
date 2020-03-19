@@ -92,8 +92,8 @@ namespace NetModular.Lib.Options.Core
             if (instance == null)
                 return;
 
-            //通过序列化深拷贝保留旧实例
-            var oldInstance = JsonSerializer.Deserialize(JsonSerializer.Serialize(instance), descriptor.OptionsType);
+            //通过Copy方法创建旧实例
+            var oldInstance = instance.Copy();
 
             var storageModels = new List<ModuleOptionStorageModel>();
             foreach (var definition in descriptor.Definitions)
@@ -121,7 +121,7 @@ namespace NetModular.Lib.Options.Core
                 var method = changedEventType.GetMethod("OnChanged");
                 if (method != null)
                 {
-                    method.Invoke(changedEvent, new[] { instance, oldInstance });
+                    method.Invoke(changedEvent, new object[] { instance, oldInstance });
                 }
             }
         }
