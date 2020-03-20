@@ -212,11 +212,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.PostgreSQL.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQLite.Tests", "test\Data\Data.SQLite.Tests\Data.SQLite.Tests.csproj", "{9F2DB51D-1627-4F59-8FB2-02C6FC2B1CB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Core.Tests", "test\Utils\Utils.Core.Tests\Utils.Core.Tests.csproj", "{D18B02BF-A775-4801-94DC-EDED0A4BCA09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils.Core.Tests", "test\Utils\Utils.Core.Tests\Utils.Core.Tests.csproj", "{D18B02BF-A775-4801-94DC-EDED0A4BCA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pdf.iText", "src\Framework\Pdf\Pdf.iText\Pdf.iText.csproj", "{535A8BDB-8573-4D66-A4D0-18F7C2E1DD7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.iText", "src\Framework\Pdf\Pdf.iText\Pdf.iText.csproj", "{535A8BDB-8573-4D66-A4D0-18F7C2E1DD7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pdf.iText.Tests", "test\Pdf\Pdf.iText.Tests\Pdf.iText.Tests.csproj", "{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.iText.Tests", "test\Pdf\Pdf.iText.Tests\Pdf.iText.Tests.csproj", "{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generic", "src\Admin\Generic\Generic.csproj", "{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -440,6 +442,10 @@ Global
 		{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -524,6 +530,7 @@ Global
 		{D18B02BF-A775-4801-94DC-EDED0A4BCA09} = {A6976184-0035-4CE1-953D-8B8415F804B3}
 		{535A8BDB-8573-4D66-A4D0-18F7C2E1DD7A} = {5CF9881B-A6C4-4746-807E-7E1CB8D0AC58}
 		{DA2BFDBA-67B2-4DF1-A780-0C507B4919E3} = {C9BE019B-29AD-4F97-BD18-17B73BA7F375}
+		{2DAF3A89-BB0C-4898-BB70-A339732AF1C7} = {235A2FD4-BD93-4729-A689-0F26D7E60610}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

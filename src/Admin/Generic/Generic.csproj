@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <!--打包模块相关文件到NuGet包中，此功能需要编译两次项目才行，因为打包操作在创建_module.json文件之前执行的-->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)\src\Admin\WebHost\_modules*\**\*.*" PackagePath="contentFiles\any\any">
+      <Pack>true</Pack>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Application\Application.csproj" />
+    <ProjectReference Include="..\Library\Quartz\Quartz.csproj" />
+  </ItemGroup>
+
+</Project>
