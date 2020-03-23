@@ -296,6 +296,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return new GroupByQueryable7<TResult, TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7>(Db, QueryBody, QueryBuilder, expression);
         }
 
+        public IGroupByQueryable7<INetSqlGroupingKey7<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7>, TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> GroupBy()
+        {
+            return new GroupByQueryable7<INetSqlGroupingKey7<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7>, TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7>(Db, QueryBody, QueryBuilder, null);
+        }
+
         public new IList<TEntity> ToList()
         {
             return ToList<TEntity>();

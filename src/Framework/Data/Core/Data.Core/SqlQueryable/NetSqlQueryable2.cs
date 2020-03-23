@@ -283,6 +283,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return base.AvgAsync<TResult>(expression);
         }
 
+        public IGroupByQueryable2<TResult, TEntity, TEntity2> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TResult>> expression)
+        {
+            return new GroupByQueryable2<TResult, TEntity, TEntity2>(Db, QueryBody, QueryBuilder, expression);
+        }
+
+        public IGroupByQueryable2<INetSqlGroupingKey2<TEntity, TEntity2>, TEntity, TEntity2> GroupBy()
+        {
+            return new GroupByQueryable2<INetSqlGroupingKey2<TEntity, TEntity2>, TEntity, TEntity2>(Db, QueryBody, QueryBuilder, null);
+        }
+
         public new IList<TEntity> ToList()
         {
             return ToList<TEntity>();
@@ -311,11 +321,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         public new Task<TEntity> FirstAsync()
         {
             return FirstAsync<TEntity>();
-        }
-
-        public IGroupByQueryable2<TResult, TEntity, TEntity2> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TResult>> expression)
-        {
-            return new GroupByQueryable2<TResult, TEntity, TEntity2>(Db, QueryBody, QueryBuilder, expression);
         }
 
         public INetSqlQueryable<TEntity, TEntity2> IncludeDeleted()

@@ -209,7 +209,7 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <param name="condition"></param>
         /// <param name="whereSql"></param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotEmpty(Guid condition,string whereSql);
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5> WhereNotEmpty(Guid condition, string whereSql);
 
         /// <summary>
         /// GUID不为空的时候添加ifExpression，反之添加elseExpression
@@ -380,6 +380,12 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// </summary>
         /// <returns></returns>
         IGroupByQueryable5<TResult, TEntity, TEntity2, TEntity3, TEntity4, TEntity5> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TResult>> expression);
+
+        /// <summary>
+        /// 分组(group by 1)
+        /// </summary>
+        /// <returns></returns>
+        IGroupByQueryable5<INetSqlGroupingKey5<TEntity, TEntity2, TEntity3, TEntity4, TEntity5>, TEntity, TEntity2, TEntity3, TEntity4, TEntity5> GroupBy();
 
         #endregion
 

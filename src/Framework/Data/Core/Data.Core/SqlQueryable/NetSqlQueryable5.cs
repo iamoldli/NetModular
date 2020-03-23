@@ -287,10 +287,15 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             return base.AvgAsync<TResult>(expression);
         }
-        
+
         public IGroupByQueryable5<TResult, TEntity, TEntity2, TEntity3, TEntity4, TEntity5> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TResult>> expression)
         {
             return new GroupByQueryable5<TResult, TEntity, TEntity2, TEntity3, TEntity4, TEntity5>(Db, QueryBody, QueryBuilder, expression);
+        }
+
+        public IGroupByQueryable5<INetSqlGroupingKey5<TEntity, TEntity2, TEntity3, TEntity4, TEntity5>, TEntity, TEntity2, TEntity3, TEntity4, TEntity5> GroupBy()
+        {
+            return new GroupByQueryable5<INetSqlGroupingKey5<TEntity, TEntity2, TEntity3, TEntity4, TEntity5>, TEntity, TEntity2, TEntity3, TEntity4, TEntity5>(Db, QueryBody, QueryBuilder, null);
         }
 
         public new IList<TEntity> ToList()

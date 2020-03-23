@@ -17,4 +17,13 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
 
         TResult Avg<TResult>(Expression<Func<TEntity, TResult>> where);
     }
+
+    /// <summary>
+    /// 分组查询对象Key
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    public interface INetSqlGroupingKey1<out TEntity>
+    {
+        TEntity T1 { get; }
+    }
 }

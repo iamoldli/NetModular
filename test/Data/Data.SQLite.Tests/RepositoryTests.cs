@@ -88,6 +88,17 @@ namespace Data.SQLite.Tests
         }
 
         [Fact]
+        public async void UpdateForIntAddTest()
+        {
+            var article = await AddTest();
+            article.Title = "测试";
+
+            var result = await _articleRepository.AddCount(article.Id, 10);
+
+            Assert.True(result);
+        }
+
+        [Fact]
         public async void GetTest()
         {
             var article = await AddTest();

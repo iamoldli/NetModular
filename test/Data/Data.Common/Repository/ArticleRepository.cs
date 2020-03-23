@@ -15,5 +15,14 @@ namespace Data.Common.Repository
         {
             return Db.Find().CountAsync();
         }
+
+        public Task<bool> AddCount(int id, int count)
+        {
+            var query = Db.Find(m => m.Id == id);
+            return query.UpdateAsync(m => new ArticleEntity
+            {
+                ReadCount = m.ReadCount + count
+            });
+        }
     }
 }

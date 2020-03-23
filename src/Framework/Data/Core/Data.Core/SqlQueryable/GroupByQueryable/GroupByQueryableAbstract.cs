@@ -121,5 +121,15 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return Db.ExecuteReaderAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
+
+        public string ToSql()
+        {
+            return QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+        }
+
+        public string ToSql(out IQueryParameters parameters)
+        {
+            return QueryBuilder.GroupBySqlBuild(out parameters);
+        }
     }
 }

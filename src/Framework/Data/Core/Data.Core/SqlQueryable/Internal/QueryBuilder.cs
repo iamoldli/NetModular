@@ -531,46 +531,27 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 //方法
                 if (arg is MethodCallExpression methodCallExp)
                 {
-                    var methodName = methodCallExp.Method.Name;
-                    if (methodName.Equals("Substring"))
+                    var methodName = methodCallExp.Method.Name.ToUpper();
+                    switch (methodName)
                     {
-                        ResolveSelectForSubstring(methodCallExp, sqlBuilder, fullExpression, alias);
-                        continue;
-                    }
-                    if (methodName.Equals("ToLower"))
-                    {
-                        ResolveSelectForToLower(methodCallExp, sqlBuilder, fullExpression, alias);
-                        continue;
-                    }
-                    if (methodName.Equals("ToUpper"))
-                    {
-                        ResolveSelectForToUpper(methodCallExp, sqlBuilder, fullExpression, alias);
-                        continue;
-                    }
-                    if (methodName.Equals("Count"))
-                    {
-                        sqlBuilder.AppendFormat("COUNT(0) AS {0},", alias);
-                        continue;
-                    }
-
-                    if (methodName.Equals("Sum"))
-                    {
-                        ResolveSelectForFunc(methodCallExp, sqlBuilder, "SUM", alias);
-                        continue;
-                    }
-                    if (methodName.Equals("Avg"))
-                    {
-                        ResolveSelectForFunc(methodCallExp, sqlBuilder, "AVG", alias);
-                        continue;
-                    }
-                    if (methodName.Equals("Max"))
-                    {
-                        ResolveSelectForFunc(methodCallExp, sqlBuilder, "MAX", alias);
-                        continue;
-                    }
-                    if (methodName.Equals("Min"))
-                    {
-                        ResolveSelectForFunc(methodCallExp, sqlBuilder, "MIN", alias);
+                        case "SUBSTRING":
+                            ResolveSelectForSubstring(methodCallExp, sqlBuilder, fullExpression, alias);
+                            continue;
+                        case "TOLOWER":
+                            ResolveSelectForToLower(methodCallExp, sqlBuilder, fullExpression, alias);
+                            continue;
+                        case "TOUPPER":
+                            ResolveSelectForToUpper(methodCallExp, sqlBuilder, fullExpression, alias);
+                            continue;
+                        case "COUNT":
+                            sqlBuilder.AppendFormat("COUNT(0) AS {0},", alias);
+                            continue;
+                        case "SUM":
+                        case "AVG":
+                        case "MAX":
+                        case "MIN":
+                            ResolveSelectForFunc(methodCallExp, sqlBuilder, methodName, alias);
+                            continue;
                     }
                 }
             }
@@ -588,7 +569,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (!(exp is MemberExpression memberExp))
                 return;
 
-            alias = alias ?? memberExp.Member.Name;
+            alias ??= memberExp.Member.Name;
             if (memberExp.Expression.NodeType == ExpressionType.MemberAccess)
             {
                 //分组查询
@@ -725,21 +706,28 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// <param name="sqlBuilder"></param>
         private void ResolveGroupBy(StringBuilder sqlBuilder)
         {
-            sqlBuilder.Append(" GROUP BY ");
-
-            var list = _queryBody.GroupByPropertyList;
-            var i = 0;
-            foreach (var p in list)
+            if (_queryBody.GroupBy != null && _queryBody.GroupByPropertyList.Any())
             {
-                var colName = _queryBody.GetColumnName(p.Name, p.JoinDescriptor);
-                sqlBuilder.AppendFormat("{0}", colName);
+                sqlBuilder.Append(" GROUP BY ");
 
-                if (i < list.Count - 1)
+                var list = _queryBody.GroupByPropertyList;
+                var i = 0;
+                foreach (var p in list)
                 {
-                    sqlBuilder.Append(",");
-                }
+                    var colName = _queryBody.GetColumnName(p.Name, p.JoinDescriptor);
+                    sqlBuilder.AppendFormat("{0}", colName);
 
-                i++;
+                    if (i < list.Count - 1)
+                    {
+                        sqlBuilder.Append(",");
+                    }
+
+                    i++;
+                }
+            }
+            else
+            {
+                sqlBuilder.Append(" GROUP BY 1");
             }
         }
 
@@ -761,6 +749,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (havingSql.Length > 0)
                 sqlBuilder.AppendFormat(" HAVING {0} ", havingSql);
         }
+
         #endregion
 
         /// <summary>

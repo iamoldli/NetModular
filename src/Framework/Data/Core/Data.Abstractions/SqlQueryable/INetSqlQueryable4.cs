@@ -380,6 +380,12 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <returns></returns>
         IGroupByQueryable4<TResult, TEntity, TEntity2, TEntity3, TEntity4> GroupBy<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TResult>> expression);
 
+        /// <summary>
+        /// 分组(group by 1)
+        /// </summary>
+        /// <returns></returns>
+        IGroupByQueryable4<INetSqlGroupingKey4<TEntity, TEntity2, TEntity3, TEntity4>, TEntity, TEntity2, TEntity3, TEntity4> GroupBy();
+
         #endregion
 
         #region ==ToList==

@@ -336,5 +336,22 @@ namespace Data.SQLite.Tests
 
             Assert.True(list.Count > 0);
         }
+
+        [Fact]
+        public void GroupByAllTest()
+        {
+            var sql = _db.Find().GroupBy().Select(m => new { Count = m.Avg(x => x.ReadCount) }).ToSql();
+
+            Assert.Equal("SELECT [ReadCount] AS [Count] FROM  [nm_blog].[Article]  WHERE   [Deleted]=0  GROUP BY 1", sql);
+        }
+
+        [Fact]
+        public void GroupByAllMultiTableTest()
+        {
+            var sql = _db.Find().LeftJoin<CategoryEntity>((x, y) => x.CategoryId == y.Id)
+                .GroupBy().Select(m => new { m.Key.T2.Count }).ToSql();
+
+            Assert.Equal("SELECT [T2].[Count] AS [Count] FROM  [nm_blog].[Article] AS [T1]  LEFT JOIN [nm_blog].[Category] AS [T2] ON ([T1].[CategoryId] = [T2].[Id]) WHERE   [T1].[Deleted]=0  GROUP BY 1", sql);
+        }
     }
 }

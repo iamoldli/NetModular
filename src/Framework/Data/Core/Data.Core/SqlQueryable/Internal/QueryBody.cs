@@ -80,7 +80,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// 分组属性集合
         /// </summary>
-        public List<GroupByJoinDescriptor> GroupByPropertyList { get; private set; }
+        public List<GroupByJoinDescriptor> GroupByPropertyList { get; private set; } = new List<GroupByJoinDescriptor>();
 
         /// <summary>
         /// 聚合
@@ -219,40 +219,21 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
         private void SetOrderByMethod(LambdaExpression expression, MethodCallExpression methodCallExp, SortType sortType = SortType.Asc)
         {
-            var methodName = methodCallExp.Method.Name;
-            if (methodName.Equals("Substring"))
+            var methodName = methodCallExp.Method.Name.ToUpper();
+            switch (methodName)
             {
-                SetOrderByForSubstring(methodCallExp, expression, sortType);
-                return;
-            }
-
-            if (methodName.Equals("Count"))
-            {
-                Sorts.Add(new Sort("COUNT(0)", sortType));
-                return;
-            }
-
-            if (methodName.Equals("Sum"))
-            {
-                ResolveSelectForFunc(methodCallExp, "SUM", sortType);
-                return;
-            }
-
-            if (methodName.Equals("Avg"))
-            {
-                ResolveSelectForFunc(methodCallExp, "AVG", sortType);
-                return;
-            }
-
-            if (methodName.Equals("Max"))
-            {
-                ResolveSelectForFunc(methodCallExp, "MAX", sortType);
-                return;
-            }
-
-            if (methodName.Equals("Min"))
-            {
-                ResolveSelectForFunc(methodCallExp, "MIN", sortType);
+                case "SUBSTRING":
+                    SetOrderByForSubstring(methodCallExp, expression, sortType);
+                    return;
+                case "COUNT":
+                    Sorts.Add(new Sort("COUNT(0)", sortType));
+                    return;
+                case "SUM":
+                case "AVG":
+                case "MAX":
+                case "MIN":
+                    ResolveSelectForFunc(methodCallExp, methodName, sortType);
+                    return;
             }
         }
 
@@ -324,27 +305,44 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
         public void SetGroupBy(Expression expression)
         {
-            GroupBy = expression as LambdaExpression;
             IsGroupBy = true;
-
-            GroupByPropertyList = new List<GroupByJoinDescriptor>();
-            var lambda = expression as LambdaExpression;
-            if (lambda.Body.NodeType != ExpressionType.New)
-                throw new ArgumentException("分组条件必须使用匿名类new{}");
-
-            var newExp = lambda.Body as NewExpression;
-            for (var i = 0; i < newExp.Members.Count; i++)
+            if (expression != null)
             {
-                var alias = newExp.Members[i].Name;
-                var member = newExp.Arguments[0] as MemberExpression;
-                var parameter = member.Expression as ParameterExpression;
-                var joinDescriptor = JoinDescriptors.FirstOrDefault(m => m.EntityDescriptor.EntityType == parameter.Type);
-                GroupByPropertyList.Add(new GroupByJoinDescriptor
+                GroupBy = expression as LambdaExpression;
+                var lambda = expression as LambdaExpression;
+                if (lambda.Body.NodeType != ExpressionType.New)
+                    throw new ArgumentException("分组条件必须使用匿名类new{}");
+
+                var newExp = lambda.Body as NewExpression;
+                for (var i = 0; i < newExp.Members.Count; i++)
                 {
-                    Name = member.Member.Name,
-                    Alias = alias,
-                    JoinDescriptor = joinDescriptor
-                });
+                    var alias = newExp.Members[i].Name;
+                    var member = newExp.Arguments[0] as MemberExpression;
+                    var parameter = member.Expression as ParameterExpression;
+                    var joinDescriptor = JoinDescriptors.FirstOrDefault(m => m.EntityDescriptor.EntityType == parameter.Type);
+
+                    GroupByPropertyList.Add(new GroupByJoinDescriptor
+                    {
+                        Name = member.Member.Name,
+                        Alias = alias,
+                        JoinDescriptor = joinDescriptor
+                    });
+                }
+            }
+            else
+            {
+                foreach (var joinDescriptor in JoinDescriptors)
+                {
+                    foreach (var column in joinDescriptor.EntityDescriptor.Columns)
+                    {
+                        GroupByPropertyList.Add(new GroupByJoinDescriptor
+                        {
+                            Name = column.Name,
+                            Alias = column.PropertyInfo.Name,
+                            JoinDescriptor = joinDescriptor
+                        });
+                    }
+                }
             }
         }
 

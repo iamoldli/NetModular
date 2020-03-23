@@ -450,6 +450,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return new GroupByQueryable1<TResult, TEntity>(Db, QueryBody, QueryBuilder, expression);
         }
 
+        public IGroupByQueryable1<INetSqlGroupingKey1<TEntity>, TEntity> GroupBy()
+        {
+            return new GroupByQueryable1<INetSqlGroupingKey1<TEntity>, TEntity>(Db, QueryBody, QueryBuilder, null);
+        }
+
         #endregion
 
         #region ==ToList==
