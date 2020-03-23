@@ -317,7 +317,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 for (var i = 0; i < newExp.Members.Count; i++)
                 {
                     var alias = newExp.Members[i].Name;
-                    var member = newExp.Arguments[0] as MemberExpression;
+                    var member = newExp.Arguments[i] as MemberExpression;
                     var parameter = member.Expression as ParameterExpression;
                     var joinDescriptor = JoinDescriptors.FirstOrDefault(m => m.EntityDescriptor.EntityType == parameter.Type);
 

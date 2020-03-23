@@ -6,6 +6,7 @@ using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
+using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 
 namespace NetModular.Lib.Data.Oracle
@@ -39,12 +40,18 @@ namespace NetModular.Lib.Data.Oracle
 
         public override string FuncLength => "CHAR_LENGTH";
 
-        public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take)
+        public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
         {
             var sqlBuilder = new StringBuilder();
             sqlBuilder.AppendFormat("SELECT {0} FROM {1}", select, table);
             if (!string.IsNullOrWhiteSpace(where))
                 sqlBuilder.AppendFormat(" WHERE {0}", where);
+
+            if (groupBy.NotNull())
+                sqlBuilder.Append(groupBy);
+
+            if (having.NotNull())
+                sqlBuilder.Append(having);
 
             if (!string.IsNullOrWhiteSpace(sort))
                 sqlBuilder.AppendFormat(" ORDER BY {0}", sort);
@@ -53,9 +60,9 @@ namespace NetModular.Lib.Data.Oracle
             return sqlBuilder.ToString();
         }
 
-        public override string GenerateFirstSql(string select, string table, string where, string sort)
+        public override string GenerateFirstSql(string select, string table, string where, string sort, string groupBy = null, string having = null)
         {
-            return GeneratePagingSql(select, table, where, sort, 0, 1);
+            return GeneratePagingSql(select, table, where, sort, 0, 1, groupBy, having);
         }
 
         public override Guid GenerateSequentialGuid()

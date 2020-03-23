@@ -289,7 +289,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             {
                 var select = ResolveSelect();
                 var from = ResolveFrom(parameters);
-                var where = ResolveWhere(parameters) + ResolveGroupBy() + ResolveHaving(parameters);
+                var where = ResolveWhere(parameters);
+                var groupBy = ResolveGroupBy();
+                var having = ResolveHaving(parameters);
                 var sort = ResolveOrder();
 
                 #region ==SqlServer分页需要指定排序==
@@ -308,7 +310,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
                 #endregion
 
-                sql = _sqlAdapter.GeneratePagingSql(select, from, where, sort, _queryBody.Skip, _queryBody.Take);
+                sql = _sqlAdapter.GeneratePagingSql(select, from, where, sort, _queryBody.Skip, _queryBody.Take, groupBy, having);
             }
             else
             {
@@ -337,6 +339,22 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             return sql;
         }
 
+        public string GroupByFirstSqlBuild(out IQueryParameters parameters)
+        {
+            parameters = new QueryParameters();
+            var select = ResolveSelect();
+            var from = ResolveFrom(parameters);
+            var where = ResolveWhere(parameters);
+            var groupBy = ResolveGroupBy();
+            var having = ResolveHaving(parameters);
+            var sort = ResolveOrder();
+
+            var sql = _sqlAdapter.GenerateFirstSql(select, from, where, sort, groupBy, having);
+
+            _logger?.LogDebug("GroupByFirst:" + sql);
+
+            return sql;
+        }
         #endregion
 
         #region ==解析Body==

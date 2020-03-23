@@ -148,8 +148,10 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="sort"></param>
         /// <param name="skip"></param>
         /// <param name="take"></param>
+        /// <param name="groupBy"></param>
+        /// <param name="having"></param>
         /// <returns></returns>
-        string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take);
+        string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null);
 
         /// <summary>
         /// 生成获取第一条数据的Sql
@@ -158,8 +160,10 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="table"></param>
         /// <param name="where"></param>
         /// <param name="sort"></param>
+        /// <param name="groupBy"></param>
+        /// <param name="having"></param>
         /// <returns></returns>
-        string GenerateFirstSql(string select, string table, string where, string sort);
+        string GenerateFirstSql(string select, string table, string where, string sort, string groupBy = null, string having = null);
 
         /// <summary>
         /// 生成有序Guid

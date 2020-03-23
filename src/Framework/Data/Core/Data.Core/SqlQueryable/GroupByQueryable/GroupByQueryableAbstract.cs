@@ -137,25 +137,25 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
 
         public dynamic First()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            var sql = QueryBuilder.GroupByFirstSqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefault(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public TResult First<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            var sql = QueryBuilder.GroupByFirstSqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefault<TResult>(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public Task<dynamic> FirstAsync()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            var sql = QueryBuilder.GroupByFirstSqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefaultAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
 
         public Task<TResult> FirstAsync<TResult>()
         {
-            var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
+            var sql = QueryBuilder.GroupByFirstSqlBuild(out IQueryParameters parameters);
             return Db.QueryFirstOrDefaultAsync<TResult>(sql, parameters.Parse(), QueryBody.Uow);
         }
 
