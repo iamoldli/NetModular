@@ -17,6 +17,7 @@ namespace NetModular.Module.Admin.Domain.MenuPermission
         /// <summary>
         /// 权限编码
         /// </summary>
+        [Length(200)]
         public string PermissionCode { get; set; }
     }
 }
