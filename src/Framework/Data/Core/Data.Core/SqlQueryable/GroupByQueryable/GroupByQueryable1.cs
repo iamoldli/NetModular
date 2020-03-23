@@ -48,5 +48,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             SetSelect(expression);
             return this;
         }
+
+        public IGroupByQueryable1<TKey, TEntity> Limit(int skip, int take)
+        {
+            SetLimit(skip, take);
+            return this;
+        }
     }
 }

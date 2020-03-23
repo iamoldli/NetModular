@@ -282,25 +282,56 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
         public string GroupBySqlBuild(out IQueryParameters parameters)
         {
+            string sql;
             parameters = new QueryParameters();
-            var sqlBuilder = new StringBuilder("SELECT ");
+            //分页查询
+            if (_queryBody.Take > 0)
+            {
+                var select = ResolveSelect();
+                var from = ResolveFrom(parameters);
+                var where = ResolveWhere(parameters) + ResolveGroupBy() + ResolveHaving(parameters);
+                var sort = ResolveOrder();
 
-            Check.NotNull(_queryBody.Select, nameof(_queryBody.Select), "未指定Select");
-            ResolveSelect(sqlBuilder);
+                #region ==SqlServer分页需要指定排序==
 
-            sqlBuilder.Append(" FROM ");
+                //SqlServer分页需要指定排序，此处判断是否有主键，有主键默认按照主键排序
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && sort.IsNull())
+                {
+                    var first = _queryBody.JoinDescriptors.First();
+                    if (first.EntityDescriptor.PrimaryKey.IsNo())
+                    {
+                        throw new Exception("SqlServer数据库没有主键的表需要指定排序字段才可以分页查询");
+                    }
 
-            ResolveFrom(sqlBuilder, parameters);
+                    sort = _queryBody.JoinDescriptors.Count > 1 ? $"{_sqlAdapter.AppendQuote(first.Alias)}.{_sqlAdapter.AppendQuote(first.EntityDescriptor.PrimaryKey.Name)}" : first.EntityDescriptor.PrimaryKey.Name;
+                }
 
-            ResolveWhere(sqlBuilder, parameters);
+                #endregion
 
-            ResolveGroupBy(sqlBuilder);
+                sql = _sqlAdapter.GeneratePagingSql(select, from, where, sort, _queryBody.Skip, _queryBody.Take);
+            }
+            else
+            {
+                var sqlBuilder = new StringBuilder("SELECT ");
 
-            ResolveHaving(sqlBuilder, parameters);
+                Check.NotNull(_queryBody.Select, nameof(_queryBody.Select), "未指定Select");
+                ResolveSelect(sqlBuilder);
 
-            ResolveOrder(sqlBuilder);
+                sqlBuilder.Append(" FROM ");
 
-            string sql = sqlBuilder.ToString();
+                ResolveFrom(sqlBuilder, parameters);
+
+                ResolveWhere(sqlBuilder, parameters);
+
+                ResolveGroupBy(sqlBuilder);
+
+                ResolveHaving(sqlBuilder, parameters);
+
+                ResolveOrder(sqlBuilder);
+
+                sql = sqlBuilder.ToString();
+            }
+
             _logger?.LogDebug("GroupBy:{0}", sql);
 
             return sql;
@@ -732,6 +763,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         }
 
         /// <summary>
+        /// 解析分组条件
+        /// </summary>
+        private string ResolveGroupBy()
+        {
+            var sqlBuilder = new StringBuilder();
+            ResolveGroupBy(sqlBuilder);
+            return sqlBuilder.ToString();
+        }
+
+        /// <summary>
         /// 解析聚合过滤条件
         /// </summary>
         private void ResolveHaving(StringBuilder sqlBuilder, IQueryParameters parameters)
@@ -748,6 +789,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
             if (havingSql.Length > 0)
                 sqlBuilder.AppendFormat(" HAVING {0} ", havingSql);
+        }
+
+        /// <summary>
+        /// 解析聚合过滤条件
+        /// </summary>
+        private string ResolveHaving(IQueryParameters parameters)
+        {
+            var havingSql = new StringBuilder();
+            ResolveHaving(havingSql, parameters);
+            return havingSql.ToString();
         }
 
         #endregion

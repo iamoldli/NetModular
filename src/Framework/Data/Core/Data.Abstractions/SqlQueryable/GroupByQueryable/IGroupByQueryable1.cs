@@ -51,5 +51,13 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable
         /// <param name="expression"></param>
         /// <returns></returns>
         IGroupByQueryable1<TKey, TEntity> Select<TResult>(Expression<Func<INetSqlGrouping1<TKey, TEntity>, TResult>> expression);
+
+        /// <summary>
+        /// 限制
+        /// </summary>
+        /// <param name="skip">跳过前几条数据</param>
+        /// <param name="take">取前几条数据</param>
+        /// <returns></returns>
+        IGroupByQueryable1<TKey, TEntity> Limit(int skip, int take);
     }
 }

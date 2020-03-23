@@ -353,5 +353,14 @@ namespace Data.SQLite.Tests
 
             Assert.Equal("SELECT [T2].[Count] AS [Count] FROM  [nm_blog].[Article] AS [T1]  LEFT JOIN [nm_blog].[Category] AS [T2] ON ([T1].[CategoryId] = [T2].[Id]) WHERE   [T1].[Deleted]=0  GROUP BY 1", sql);
         }
+
+        [Fact]
+        public void GroupByLimitTest()
+        {
+            var sql = _db.Find().GroupBy(m => new { m.CategoryId }).Select(m => new { Count = m.Avg(x => x.ReadCount) })
+                .Limit(0, 10).ToSql();
+
+            Assert.Equal("SELECT AVG([ReadCount]) AS [Count] FROM  [nm_blog].[Article]  WHERE   [Deleted]=0  GROUP BY [CategoryId] LIMIT 10 OFFSET 0;", sql);
+        }
     }
 }

@@ -62,6 +62,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
                 QueryBody.Select = expression;
         }
 
+        public void SetLimit(int skip, int take)
+        {
+            QueryBody.SetLimit(skip, take);
+        }
+
         public IList<dynamic> ToList()
         {
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
@@ -85,6 +90,50 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
             return (await Db.QueryAsync<TResult>(sql, parameters.Parse(), QueryBody.Uow)).ToList();
         }
+
+        #region ==Pagination==
+
+        public IList<dynamic> Pagination(Paging paging = null)
+        {
+            if (paging == null)
+                paging = new Paging();
+
+            QueryBody.SetOrderBy(paging.OrderBy);
+            QueryBody.SetLimit(paging.Skip, paging.Size);
+            return ToList();
+        }
+
+        public IList<TResult> Pagination<TResult>(Paging paging = null)
+        {
+            if (paging == null)
+                paging = new Paging();
+
+            QueryBody.SetOrderBy(paging.OrderBy);
+            QueryBody.SetLimit(paging.Skip, paging.Size);
+            return ToList<TResult>();
+        }
+
+        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null)
+        {
+            if (paging == null)
+                paging = new Paging();
+
+            QueryBody.SetOrderBy(paging.OrderBy);
+            QueryBody.SetLimit(paging.Skip, paging.Size);
+            return await ToListAsync();
+        }
+
+        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null)
+        {
+            if (paging == null)
+                paging = new Paging();
+
+            QueryBody.SetOrderBy(paging.OrderBy);
+            QueryBody.SetLimit(paging.Skip, paging.Size);
+            return await ToListAsync<TResult>();
+        }
+
+        #endregion
 
         public dynamic First()
         {
