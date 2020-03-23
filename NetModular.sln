@@ -220,7 +220,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.iText.Tests", "test\Pdf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generic", "src\Admin\Generic\Generic.csproj", "{2DAF3A89-BB0C-4898-BB70-A339732AF1C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{F9922A77-90AC-4D9F-88F5-F58A78902B8C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "15_MQTT", "15_MQTT", "{F9922A77-90AC-4D9F-88F5-F58A78902B8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

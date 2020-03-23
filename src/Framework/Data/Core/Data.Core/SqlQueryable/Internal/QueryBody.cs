@@ -234,25 +234,25 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             if (methodName.Equals("Sum"))
             {
-                ResolveSelectForFunc(methodCallExp, "SUM");
+                ResolveSelectForFunc(methodCallExp, "SUM", sortType);
                 return;
             }
 
             if (methodName.Equals("Avg"))
             {
-                ResolveSelectForFunc(methodCallExp, "AVG");
+                ResolveSelectForFunc(methodCallExp, "AVG", sortType);
                 return;
             }
 
             if (methodName.Equals("Max"))
             {
-                ResolveSelectForFunc(methodCallExp, "MAX");
+                ResolveSelectForFunc(methodCallExp, "MAX", sortType);
                 return;
             }
 
             if (methodName.Equals("Min"))
             {
-                ResolveSelectForFunc(methodCallExp, "MIN");
+                ResolveSelectForFunc(methodCallExp, "MIN", sortType);
             }
         }
 
@@ -282,12 +282,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         /// <param name="callExp"></param>
         /// <param name="funcName"></param>
-        private void ResolveSelectForFunc(MethodCallExpression callExp, string funcName)
+        /// <param name="sortType"></param>
+        private void ResolveSelectForFunc(MethodCallExpression callExp, string funcName, SortType sortType)
         {
             if (callExp.Arguments[0] is UnaryExpression unary && unary.Operand is LambdaExpression lambda)
             {
                 var colName = GetColumnName(lambda.Body as MemberExpression, lambda);
-                Sorts.Add(new Sort($"{funcName}({colName})"));
+                Sorts.Add(new Sort($"{funcName}({colName})", sortType));
             }
         }
 
