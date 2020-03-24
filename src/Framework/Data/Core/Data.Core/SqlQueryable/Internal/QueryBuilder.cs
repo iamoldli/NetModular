@@ -624,7 +624,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 //分组查询
                 if (_queryBody.IsGroupBy)
                 {
-                    var descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m => _sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name);
+                    var descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m => m.JoinDescriptor.EntityDescriptor.EntityType == memberExp.Expression.Type && (_sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name));
                     if (descriptor != null)
                     {
                         var colName = _queryBody.GetColumnName(descriptor.Name, descriptor.JoinDescriptor);
