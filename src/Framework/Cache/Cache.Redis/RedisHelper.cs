@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Cache.Redis
 {

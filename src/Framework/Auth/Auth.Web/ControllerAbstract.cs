@@ -2,7 +2,6 @@
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using NetModular.Lib.Auth.Web.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Validation.Abstractions;
 
 namespace NetModular.Lib.Auth.Web

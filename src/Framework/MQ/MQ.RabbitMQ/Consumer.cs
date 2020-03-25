@@ -1,5 +1,4 @@
-﻿using NetModular.Lib.Utils.Core.Extensions;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 
 namespace NetModular.Lib.MQ.RabbitMQ
 {

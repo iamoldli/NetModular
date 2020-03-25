@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Abstractions.Entities
 {

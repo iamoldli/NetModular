@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,6 +9,15 @@ namespace NetModular.Lib.Utils.Core.Extensions
 {
     public static class EnumExtensions
     {
+        /// <summary>
+        /// 包含UnKnown选项
+        /// </summary>
+        private static readonly ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>> ListCache = new ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>>();
+        /// <summary>
+        /// 不包含UnKnown选项
+        /// </summary>
+        private static readonly ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>> ListCacheNoIgnore = new ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>>();
+
         /// <summary>
         /// 获取枚举类型的Description说明
         /// </summary>
@@ -38,7 +48,7 @@ namespace NetModular.Lib.Utils.Core.Extensions
                 .Where(m => !ignoreUnKnown || !m.ToString().Equals("UnKnown")).Select(x => new OptionResultModel
                 {
                     Label = x.ToDescription(),
-                    Value = x
+                    Value = x.ToInt()
                 }).ToList();
         }
 
@@ -55,12 +65,45 @@ namespace NetModular.Lib.Utils.Core.Extensions
             if (!enumType.IsEnum)
                 return null;
 
-            return Enum.GetValues(enumType).Cast<Enum>()
-                 .Where(m => !ignoreUnKnown || !m.ToString().Equals("UnKnown")).Select(x => new OptionResultModel
-                 {
-                     Label = x.ToDescription(),
-                     Value = x
-                 }).ToList();
+            if (ignoreUnKnown)
+            {
+                #region ==忽略UnKnown属性==
+
+                if (!ListCacheNoIgnore.TryGetValue(enumType.TypeHandle, out List<OptionResultModel> list))
+                {
+                    list = Enum.GetValues(enumType).Cast<Enum>()
+                        .Where(m => !m.ToString().Equals("UnKnown")).Select(x => new OptionResultModel
+                        {
+                            Label = x.ToDescription(),
+                            Value = x.ToInt()
+                        }).ToList();
+
+                    ListCacheNoIgnore.TryAdd(enumType.TypeHandle, list);
+                }
+
+                return list.Select(m => new OptionResultModel { Label = m.Label, Value = m.Value }).ToList();
+
+                #endregion
+            }
+            else
+            {
+                #region ==包含UnKnown选项==
+
+                if (!ListCache.TryGetValue(enumType.TypeHandle, out List<OptionResultModel> list))
+                {
+                    list = Enum.GetValues(enumType).Cast<Enum>().Select(x => new OptionResultModel
+                    {
+                        Label = x.ToDescription(),
+                        Value = x.ToInt()
+                    }).ToList();
+
+                    ListCache.TryAdd(enumType.TypeHandle, list);
+                }
+
+                return list.Select(m => new OptionResultModel { Label = m.Label, Value = m.Value }).ToList();
+
+                #endregion
+            }
         }
     }
 }

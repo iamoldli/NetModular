@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 
 namespace NetModular.Module.Admin.Web.Validators

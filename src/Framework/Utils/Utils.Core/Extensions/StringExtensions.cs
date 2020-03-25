@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Text;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     public static class StringExtensions
     {

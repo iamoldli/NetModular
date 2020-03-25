@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.SystemConfig
 {
