@@ -6,11 +6,11 @@ NetModular
 
 # 注意！注意！注意！
 
-本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
 
-本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
 
-本仓库是NetModular源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
 
 ## NetModular是什么
 
