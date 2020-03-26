@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using NetModular.Lib.Cache.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Cache.MemoryCache
 {

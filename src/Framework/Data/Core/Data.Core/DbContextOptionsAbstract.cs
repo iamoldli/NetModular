@@ -7,7 +7,6 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core.Entities;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core
 {

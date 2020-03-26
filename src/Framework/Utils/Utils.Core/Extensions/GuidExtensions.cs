@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     public static class GuidExtensions
     {

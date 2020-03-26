@@ -10,6 +10,10 @@ namespace NetModular.Module.Admin.Domain.Account.Models
         /// </summary>
         public AccountType? Type { get; set; }
 
+        public int Age { get; set; }
+
+        public int AgeTest { get; set; }
+
         /// <summary>
         /// 用户名
         /// </summary>

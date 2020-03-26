@@ -10,7 +10,6 @@ using NetModular.Lib.Data.Abstractions.SqlQueryable;
 using NetModular.Lib.Data.Abstractions.SqlQueryable.GroupByQueryable;
 using NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable;
 using NetModular.Lib.Data.Core.SqlQueryable.Internal;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable
 {

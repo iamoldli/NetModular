@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuditInfoService;
 using NetModular.Module.Admin.Domain.AuditInfo;

@@ -20,6 +20,21 @@ namespace NetModular.Lib.Utils.Core.Result
         public string Label { get; set; }
 
         /// <summary>
+        /// 值(可选)
+        /// </summary>
+        public object Value { get; set; }
+
+        /// <summary>
+        /// 扩展属性(可选)
+        /// </summary>
+        public string Extend { get; set; }
+
+        /// <summary>
+        /// 图标(可选)
+        /// </summary>
+        public string Icon { get; set; }
+
+        /// <summary>
         /// 数据项
         /// </summary>
         public T Item { get; set; }

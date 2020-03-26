@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.Helpers
 {

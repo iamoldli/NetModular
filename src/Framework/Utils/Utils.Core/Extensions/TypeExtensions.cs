@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Reflection;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 类型扩展

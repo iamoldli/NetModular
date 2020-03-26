@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AutoMapper
+﻿namespace AutoMapper
 {
     public static class MapperConfigurationExpression
     {

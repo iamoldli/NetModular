@@ -2,7 +2,6 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.Encrypt
 {

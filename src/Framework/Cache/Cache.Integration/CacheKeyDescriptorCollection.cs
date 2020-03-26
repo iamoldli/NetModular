@@ -5,7 +5,6 @@ using System.Reflection;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Abstracts;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Cache.Integration
 {

@@ -3,7 +3,6 @@ using System.Reflection;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.Entities
 {

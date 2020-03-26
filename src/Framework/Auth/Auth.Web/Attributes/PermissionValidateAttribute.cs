@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Utils.Core.Enums;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Lib.Auth.Web.Attributes

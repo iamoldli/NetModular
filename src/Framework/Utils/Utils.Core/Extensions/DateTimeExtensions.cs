@@ -1,7 +1,8 @@
 ﻿using System;
 using NetModular.Lib.Utils.Core.Helpers;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     public static class DateTimeExtensions
     {

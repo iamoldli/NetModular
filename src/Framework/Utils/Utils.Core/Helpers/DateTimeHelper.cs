@@ -1,6 +1,5 @@
 ﻿using System;
 using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Utils.Core.Helpers
 {

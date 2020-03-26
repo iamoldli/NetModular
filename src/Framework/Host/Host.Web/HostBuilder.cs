@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Logging.Serilog;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Helpers;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 

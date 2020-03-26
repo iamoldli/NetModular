@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Options.Abstraction;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Options.Core
 {

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static class ArraryExtensions
+    public static class ArrayExtensions
     {
         /// <summary>
         /// 随机获取数组中的一个
