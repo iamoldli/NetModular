@@ -6,7 +6,6 @@ using System.Text;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Pagination;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {

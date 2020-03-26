@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Encrypt;
-using NetModular.Lib.Utils.Core.Result;
 using FileInfo = NetModular.Lib.Utils.Core.Files.FileInfo;
 
 namespace NetModular.Lib.Utils.Mvc.Helpers

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Module.AspNetCore.Attributes;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.ToolService;
 
 namespace NetModular.Module.Admin.Web.Controllers

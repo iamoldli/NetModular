@@ -3,7 +3,6 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Lib.Validation.Abstractions;
 
 namespace NetModular.Lib.Validation.FluentValidation

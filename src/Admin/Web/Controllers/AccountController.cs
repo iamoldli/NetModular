@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web.Attributes;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account.Models;

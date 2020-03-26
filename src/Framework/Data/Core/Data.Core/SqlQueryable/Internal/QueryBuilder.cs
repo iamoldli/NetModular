@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Core.ExpressionResolve;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {

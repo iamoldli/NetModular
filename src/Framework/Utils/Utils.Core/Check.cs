@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NetModular.Lib.Utils.Core
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 

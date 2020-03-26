@@ -1,4 +1,5 @@
-﻿namespace NetModular.Lib.Utils.Core.Result
+﻿// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 可选项返回模型

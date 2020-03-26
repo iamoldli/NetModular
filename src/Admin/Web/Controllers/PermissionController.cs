@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.PermissionService;
 using NetModular.Module.Admin.Domain.Permission.Models;
 

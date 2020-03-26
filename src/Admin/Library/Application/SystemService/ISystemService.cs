@@ -1,5 +1,4 @@
-﻿using NetModular.Lib.Utils.Core.Result;
-using NetModular.Lib.Utils.Core.SystemConfig;
+﻿using NetModular.Lib.Utils.Core.SystemConfig;
 
 namespace NetModular.Module.Admin.Application.SystemService
 {

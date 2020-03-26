@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Text.Json;
 using StackExchange.Redis;
 using NetModular.Lib.Cache.Abstractions;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Cache.Redis
 {
@@ -45,7 +44,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.StringSet(GetKey(key), JsonConvert.SerializeObject(obj), expiry);
+                return Db.StringSet(GetKey(key), JsonSerializer.Serialize(obj), expiry);
             }
 
             return Db.StringSet(GetKey(key), obj.ToString(), expiry);
@@ -55,7 +54,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.StringSetAsync(GetKey(key), JsonConvert.SerializeObject(obj), expiry);
+                return Db.StringSetAsync(GetKey(key), JsonSerializer.Serialize(obj), expiry);
             }
 
             return Db.StringSetAsync(GetKey(key), obj.ToString(), expiry);
@@ -68,7 +67,7 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
@@ -84,7 +83,7 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
@@ -153,7 +152,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.HashSet(GetKey(key), field, JsonConvert.SerializeObject(obj));
+                return Db.HashSet(GetKey(key), field, JsonSerializer.Serialize(obj));
             }
 
             return Db.HashSet(GetKey(key), field, obj.ToString());
@@ -171,7 +170,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.HashSetAsync(GetKey(key), field, JsonConvert.SerializeObject(obj));
+                return Db.HashSetAsync(GetKey(key), field, JsonSerializer.Serialize(obj));
             }
 
             return Db.HashSetAsync(GetKey(key), field, obj.ToString());
@@ -191,7 +190,7 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
@@ -214,7 +213,7 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
@@ -234,7 +233,7 @@ namespace NetModular.Lib.Cache.Redis
             var cache = Db.HashValues(GetKey(key));
             if (cache.Any())
             {
-                return cache.Select(m => IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m) : m.To<T>()).ToList();
+                return cache.Select(m => IsBaseType<T>() ? JsonSerializer.Deserialize<T>(m) : m.To<T>()).ToList();
             }
 
             return null;
@@ -251,7 +250,7 @@ namespace NetModular.Lib.Cache.Redis
             var cache = await Db.HashValuesAsync(GetKey(key));
             if (cache.Any())
             {
-                return cache.Select(m => IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m) : m.To<T>()).ToList();
+                return cache.Select(m => IsBaseType<T>() ? JsonSerializer.Deserialize<T>(m) : m.To<T>()).ToList();
             }
 
             return null;
@@ -290,7 +289,7 @@ namespace NetModular.Lib.Cache.Redis
             var cache = Db.HashGetAll(GetKey(key));
             if (cache.Any())
             {
-                return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m.Value) : m.Value.To<T>())).ToList();
+                return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonSerializer.Deserialize<T>(m.Value) : m.Value.To<T>())).ToList();
             }
 
             return null;
@@ -307,7 +306,7 @@ namespace NetModular.Lib.Cache.Redis
             var cache = await Db.HashGetAllAsync(GetKey(key));
             if (cache.Any())
             {
-                return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonConvert.DeserializeObject<T>(m.Value) : m.Value.To<T>())).ToList();
+                return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), IsBaseType<T>() ? JsonSerializer.Deserialize<T>(m.Value) : m.Value.To<T>())).ToList();
             }
 
             return null;
@@ -369,7 +368,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetAdd(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetAdd(GetKey(key), JsonSerializer.Serialize(obj));
             }
 
             return Db.SetAdd(GetKey(key), obj.ToString());
@@ -379,7 +378,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetAddAsync(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetAddAsync(GetKey(key), JsonSerializer.Serialize(obj));
             }
 
             return Db.SetAddAsync(GetKey(key), obj.ToString());
@@ -389,7 +388,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetRemove(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetRemove(GetKey(key), JsonSerializer.Serialize(obj));
             }
             return Db.SetRemove(GetKey(key), obj.ToString());
         }
@@ -398,7 +397,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetRemoveAsync(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetRemoveAsync(GetKey(key), JsonSerializer.Serialize(obj));
             }
             return Db.SetRemoveAsync(GetKey(key), obj.ToString());
         }
@@ -407,7 +406,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetContains(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetContains(GetKey(key), JsonSerializer.Serialize(obj));
             }
             return Db.SetContains(GetKey(key), obj.ToString());
         }
@@ -416,7 +415,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsBaseType<T>())
             {
-                return Db.SetContainsAsync(GetKey(key), JsonConvert.SerializeObject(obj));
+                return Db.SetContainsAsync(GetKey(key), JsonSerializer.Serialize(obj));
             }
             return Db.SetContainsAsync(GetKey(key), obj.ToString());
         }
@@ -438,7 +437,7 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
@@ -454,13 +453,87 @@ namespace NetModular.Lib.Cache.Redis
             {
                 if (IsBaseType<T>())
                 {
-                    return JsonConvert.DeserializeObject<T>(cache);
+                    return JsonSerializer.Deserialize<T>(cache);
                 }
 
                 return cache.To<T>();
             }
 
             return default;
+        }
+
+        #endregion
+
+        #region ==Sorted Set==
+
+        /// <summary>
+        /// 添加有序集合
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="member"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        public Task<bool> SortedSetAddAsync<T>(string key, T member, double score)
+        {
+            if (IsBaseType<T>())
+            {
+                return Db.SortedSetAddAsync(GetKey(key), JsonSerializer.Serialize(member), score);
+            }
+
+            return Db.SortedSetAddAsync(GetKey(key), member.ToString(), score);
+        }
+
+        /// <summary>
+        /// 减去值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="member"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public Task<double> SortedSetDecrementAsync(string key, string member, double value)
+        {
+            return Db.SortedSetDecrementAsync(GetKey(key), member, value);
+        }
+
+        /// <summary>
+        /// 增加值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="member"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public Task<double> SortedSetIncrementAsync(string key, string member, double value)
+        {
+            return Db.SortedSetIncrementAsync(GetKey(key), member, value);
+        }
+
+        /// <summary>
+        /// 增加值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <returns></returns>
+        public async Task<IList<T>> SortedSetRangeByRankAsync<T>(string key, long start = 0, long stop = -1)
+        {
+            var cache = await Db.SortedSetRangeByRankAsync(GetKey(key), start, stop);
+            if (cache.Any())
+            {
+                return cache.Select(m => IsBaseType<T>() ? JsonSerializer.Deserialize<T>(m) : m.To<T>()).ToList();
+            }
+            return new List<T>();
+        }
+
+        /// <summary>
+        /// 返回指定分数区间的成员数量
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public Task<long> SortedSetLengthAsync<T>(string key, double min = double.NegativeInfinity, double max = double.PositiveInfinity)
+        {
+            return Db.SortedSetLengthAsync(GetKey(key), min, max);
         }
 
         #endregion

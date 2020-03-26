@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Utils.Core.Models;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.MenuService;
 using NetModular.Module.Admin.Application.MenuService.ViewModels;
 using NetModular.Module.Admin.Domain.Menu.Models;

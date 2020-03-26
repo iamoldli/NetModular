@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Options.Abstraction;
 using NetModular.Lib.Utils.Core.Extensions;
-using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Options.Core
 {

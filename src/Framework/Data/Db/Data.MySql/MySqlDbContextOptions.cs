@@ -4,7 +4,6 @@ using MySql.Data.MySqlClient;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Data.MySql
 {

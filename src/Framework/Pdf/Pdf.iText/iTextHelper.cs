@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using iText.Kernel.Pdf;
-using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Pdf.iText

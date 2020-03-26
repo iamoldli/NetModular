@@ -1,6 +1,4 @@
-﻿using NetModular.Lib.Utils.Core.Result;
-
-namespace NetModular.Module.Admin.Application.ToolService
+﻿namespace NetModular.Module.Admin.Application.ToolService
 {
     /// <summary>
     /// 工具服务

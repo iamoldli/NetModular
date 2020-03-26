@@ -12,7 +12,6 @@ using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.SqlQueryable;
 using NetModular.Lib.Data.Core.SqlQueryable;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Data.Core
 {

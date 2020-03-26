@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Module.Abstractions
 {
