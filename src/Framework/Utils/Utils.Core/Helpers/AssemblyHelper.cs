@@ -28,7 +28,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
                 {
                     return AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(m.Name));
                 }
-                catch
+                catch( Exception ex)
                 {
                     return null;
                 }

@@ -11,7 +11,9 @@ namespace NetModular.Lib.Validation.FluentValidation
         public void Format(ResultExecutingContext context)
         {
             //只返回第一条错误信息
-            context.Result = new JsonResult(ResultModel.Failed(context.ModelState.Values.First().Errors[0].ErrorMessage));
+            context.Result = new JsonResult(
+                ResultModel.Failed(
+                    context.ModelState.Values.First(m => m.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Errors.FirstOrDefault().ErrorMessage));
         }
     }
 }
