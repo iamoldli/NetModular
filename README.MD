@@ -4,14 +4,6 @@
 NetModular
 </h1>
 
-# 注意！注意！注意！
-
-本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
-
-本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
-
-本仓库只包含框架以及Admin模块源码，线上Demo的源码不是这个，而是：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo) ，并且不要在本框架内安装其它模块的包
-
 ## NetModular是什么
 
 > **她** 是一款基于.Net Core 和 Vue.js 的业务模块化以及前后端分离的快速开发框架
