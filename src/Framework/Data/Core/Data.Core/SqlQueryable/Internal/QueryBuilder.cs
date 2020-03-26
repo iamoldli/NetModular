@@ -623,7 +623,20 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 //分组查询
                 if (_queryBody.IsGroupBy)
                 {
-                    var descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m => m.JoinDescriptor.EntityDescriptor.EntityType == memberExp.Expression.Type && (_sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name));
+                    GroupByJoinDescriptor descriptor;
+                    if (_queryBody.JoinDescriptors.Count > 1)
+                    {
+                        //如果是多表连接分组查询，可能存在字段名称重复的情况，所以需要通过字段的实体类型过滤
+                        descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m =>
+                           m.JoinDescriptor.EntityDescriptor.EntityType == memberExp.Expression.Type &&
+                           (_sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name));
+                    }
+                    else
+                    {
+                        descriptor = _queryBody.GroupByPropertyList.FirstOrDefault(m =>
+                            (_sqlAdapter.AppendQuote(m.Alias) == alias || m.Name == memberExp.Member.Name));
+                    }
+
                     if (descriptor != null)
                     {
                         var colName = _queryBody.GetColumnName(descriptor.Name, descriptor.JoinDescriptor);
