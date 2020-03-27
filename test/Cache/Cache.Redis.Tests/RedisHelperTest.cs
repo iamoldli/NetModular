@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NetModular;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Cache.Redis;
 using Newtonsoft.Json;
@@ -31,12 +32,6 @@ namespace Cache.Redis.Tests
 
             var count = _helper.SortedSetLengthAsync(key).Result;
             Assert.Equal(10000, count);
-        }
-
-        [Fact]
-        public void SortedSetLengthAsyncTest()
-        {
-
         }
     }
 }

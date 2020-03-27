@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text.Json;
 using StackExchange.Redis;
 using NetModular.Lib.Cache.Abstractions;
+using Newtonsoft.Json;
 
 namespace NetModular.Lib.Cache.Redis
 {
@@ -469,7 +469,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsNotBaseType<T>())
             {
-                return JsonSerializer.Serialize(value);
+                return JsonConvert.SerializeObject(value);
             }
 
             return value.ToString();
@@ -482,7 +482,7 @@ namespace NetModular.Lib.Cache.Redis
         {
             if (IsNotBaseType<T>())
             {
-                return JsonSerializer.Deserialize<T>(value);
+                return JsonConvert.DeserializeObject<T>(value);
             }
 
             return value.To<T>();
