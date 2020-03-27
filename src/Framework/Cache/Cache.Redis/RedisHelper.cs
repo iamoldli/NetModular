@@ -109,10 +109,10 @@ namespace NetModular.Lib.Cache.Redis
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> HashValuesAsync<T>(string key)
+        public async Task<IList<T>> HashValuesAsync<T>(string key)
         {
             var cache = await Db.HashValuesAsync(GetKey(key));
-            return cache.Any() ? cache.Select(Deserialize<T>) : default;
+            return cache.Any() ? cache.Select(Deserialize<T>).ToList() : default;
         }
 
         /// <summary>
@@ -132,10 +132,10 @@ namespace NetModular.Lib.Cache.Redis
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<KeyValuePair<string, T>>> HashGetAllAsync<T>(string key)
+        public async Task<IList<KeyValuePair<string, T>>> HashGetAllAsync<T>(string key)
         {
             var cache = await Db.HashGetAllAsync(GetKey(key));
-            return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), Deserialize<T>(m.Value)));
+            return cache.Select(m => new KeyValuePair<string, T>(m.Name.ToString(), Deserialize<T>(m.Value))).ToList();
         }
 
         /// <summary>
@@ -203,6 +203,12 @@ namespace NetModular.Lib.Cache.Redis
             return cache.HasValue ? Deserialize<T>(cache) : default;
         }
 
+        public async Task<IList<T>> SetMembersAsync<T>(string key)
+        {
+            var cache = await Db.SetMembersAsync(GetKey(key));
+            return cache.Any() ? cache.Select(Deserialize<T>).ToList() : default;
+        }
+
         #endregion
 
         #region ==Sorted Set==
@@ -251,10 +257,10 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="stop"></param>
         /// <param name="order"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> SortedSetRangeByRankAsync<T>(string key, long start = 0, long stop = -1, Order order = Order.Ascending)
+        public async Task<IList<T>> SortedSetRangeByRankAsync<T>(string key, long start = 0, long stop = -1, Order order = Order.Ascending)
         {
             var cache = await Db.SortedSetRangeByRankAsync(GetKey(key), start, stop, order);
-            return cache.Select(Deserialize<T>);
+            return cache.Select(Deserialize<T>).ToList();
         }
 
         /// <summary>
@@ -265,10 +271,10 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="stop"></param>
         /// <param name="order"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<KeyValuePair<T, double>>> SortedSetRangeByRankWithScoresAsync<T>(string key, long start = 0, long stop = -1, Order order = Order.Ascending)
+        public async Task<IList<KeyValuePair<T, double>>> SortedSetRangeByRankWithScoresAsync<T>(string key, long start = 0, long stop = -1, Order order = Order.Ascending)
         {
             var cache = await Db.SortedSetRangeByRankWithScoresAsync(GetKey(key), start, stop, order);
-            return cache.Select(m => new KeyValuePair<T, double>(Deserialize<T>(m.Element), m.Score));
+            return cache.Select(m => new KeyValuePair<T, double>(Deserialize<T>(m.Element), m.Score)).ToList();
         }
 
         /// <summary>
@@ -402,9 +408,9 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="pageSize"></param>
         /// <param name="pageOffset"></param>
         /// <returns></returns>
-        public IEnumerable<RedisKey> GetAllKeys(int database = 0, int pageSize = 10, int pageOffset = 0)
+        public IList<RedisKey> GetAllKeys(int database = 0, int pageSize = 10, int pageOffset = 0)
         {
-            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, pageSize: pageSize, pageOffset: pageOffset);
+            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, pageSize: pageSize, pageOffset: pageOffset).ToList();
         }
 
         /// <summary>
@@ -415,12 +421,12 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="pageSize"></param>
         /// <param name="pageOffset"></param>
         /// <returns></returns>
-        public IEnumerable<RedisKey> GetKeysByPrefix(string prefix, int database = 0, int pageSize = 10, int pageOffset = 0)
+        public IList<RedisKey> GetKeysByPrefix(string prefix, int database = 0, int pageSize = 10, int pageOffset = 0)
         {
             if (prefix.IsNull())
                 return null;
 
-            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, $"{prefix}*", pageSize, pageOffset);
+            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, $"{prefix}*", pageSize, pageOffset).ToList();
         }
 
         /// <summary>
