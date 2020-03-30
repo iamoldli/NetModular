@@ -39,8 +39,8 @@ namespace NetModular.Lib.Data.MySql
                     CharacterSet = "utf8",
                     SslMode = MySqlSslMode.None,
                     AllowPublicKeyRetrieval = true,
-                    MinimumPoolSize = dbOptions.MinPoolSize < 0 ? 0u : dbOptions.MinPoolSize.ToByte(),
-                    MaximumPoolSize = dbOptions.MaxPoolSize < 0 ? 10u : dbOptions.MaxPoolSize.ToByte()
+                    MinimumPoolSize = dbOptions.MinPoolSize < 1 ? 0u : dbOptions.MinPoolSize.ToByte(),
+                    MaximumPoolSize = dbOptions.MaxPoolSize < 1 ? 10u : dbOptions.MaxPoolSize.ToByte()
                 };
                 options.ConnectionString = connStrBuilder.ToString();
             }

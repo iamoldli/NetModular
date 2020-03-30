@@ -28,8 +28,8 @@ namespace NetModular.Lib.Data.SqlServer
                     Password = DbOptions.Password,
                     MultipleActiveResultSets = true,
                     InitialCatalog = DbModuleOptions.Database,
-                    MaxPoolSize = dbOptions.MaxPoolSize < 0 ? 100 : dbOptions.MaxPoolSize,
-                    MinPoolSize = dbOptions.MinPoolSize < 0 ? 0 : dbOptions.MinPoolSize
+                    MaxPoolSize = dbOptions.MaxPoolSize < 1 ? 100 : dbOptions.MaxPoolSize,
+                    MinPoolSize = dbOptions.MinPoolSize < 1 ? 0 : dbOptions.MinPoolSize
                 };
                 options.ConnectionString = connStrBuilder.ToString();
             }
