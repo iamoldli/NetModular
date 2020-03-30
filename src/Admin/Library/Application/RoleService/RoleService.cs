@@ -15,6 +15,7 @@ using NetModular.Module.Admin.Domain.Role.Models;
 using NetModular.Module.Admin.Domain.RoleMenu;
 using NetModular.Module.Admin.Domain.RoleMenuButton;
 using NetModular.Module.Admin.Domain.RolePlatformPermission;
+using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.RoleService
@@ -328,12 +329,14 @@ namespace NetModular.Module.Admin.Application.RoleService
                     if (await _platformPermissionRepository.AddAsync(list))
                     {
                         uow.Commit();
+                        await ClearAccountPermissionCache(model.RoleId);
                         return ResultModel.Success();
                     }
                 }
                 else
                 {
                     uow.Commit();
+                    await ClearAccountPermissionCache(model.RoleId);
                     return ResultModel.Success();
                 }
             }

@@ -17,8 +17,8 @@
     "pub": "cd ./script && npm_publish.ps1"
   },
   "dependencies": {
-    "netmodular-skins-classics": "^1.0.3",
-    "netmodular-ui": "^1.6.4"
+    "netmodular-skins-classics": "^1.0.4",
+    "netmodular-ui": "^1.7.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.3",
@@ -34,7 +34,7 @@
     "prettier": "^1.18.2",
     "raw-loader": "^3.1.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.26.2",
+    "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },

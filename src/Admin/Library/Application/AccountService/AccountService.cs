@@ -293,7 +293,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             var list = EnumExtensions.ToResult<Platform>();
             foreach (var option in list)
             {
-                _cache.RemoveAsync(string.Format(CacheKeys.AccountPermissions, id, option.ToInt())).Wait();
+                _cache.RemoveAsync(string.Format(CacheKeys.AccountPermissions, id, option.Value.ToInt())).Wait();
             }
         }
 
