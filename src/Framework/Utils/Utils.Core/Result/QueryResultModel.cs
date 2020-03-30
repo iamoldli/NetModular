@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace NetModular.Lib.Utils.Core.Result
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 查询结果模型

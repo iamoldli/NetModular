@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Host.Web.Middleware
 {

@@ -67,5 +67,15 @@ namespace NetModular.Lib.Data.Abstractions.Options
         /// 模块列表
         /// </summary>
         public List<DbModuleOptions> Modules { get; set; }
+
+        /// <summary>
+        /// 池中允许的最小连接数。
+        /// </summary>
+        public int MinPoolSize { get; set; }
+
+        /// <summary>
+        /// 池中允许的最大连接数。
+        /// </summary>
+        public int MaxPoolSize { get; set; }
     }
 }

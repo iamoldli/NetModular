@@ -19,6 +19,8 @@ namespace Pdf.iText.Tests
         [Fact]
         public void GetPagesTest()
         {
+           var s= Type.GetTypeCode(typeof(Guid)) == TypeCode.Object;
+
             var pages = _handler.GetPages(_filePath);
             Assert.Equal(21, pages);
         }

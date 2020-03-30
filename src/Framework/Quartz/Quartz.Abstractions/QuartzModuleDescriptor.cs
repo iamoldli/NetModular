@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Quartz.Abstractions
 {

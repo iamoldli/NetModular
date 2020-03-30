@@ -15,12 +15,12 @@ namespace NetModular.Lib.Cache.Redis
 
         public string Get(string key)
         {
-            return _helper.StringGet<string>(key);
+            return _helper.StringGetAsync<string>(key).GetAwaiter().GetResult();
         }
 
         public T Get<T>(string key)
         {
-            return _helper.StringGet<T>(key);
+            return _helper.StringGetAsync<T>(key).GetAwaiter().GetResult();
         }
 
         public Task<string> GetAsync(string key)
@@ -59,12 +59,12 @@ namespace NetModular.Lib.Cache.Redis
 
         public bool Set<T>(string key, T value)
         {
-            return _helper.StringSet(key, value);
+            return _helper.StringSetAsync(key, value).GetAwaiter().GetResult();
         }
 
         public bool Set<T>(string key, T value, int expires)
         {
-            return _helper.StringSet(key, value, new TimeSpan(0, 0, expires, 0));
+            return _helper.StringSetAsync(key, value, new TimeSpan(0, 0, expires, 0)).GetAwaiter().GetResult();
         }
 
         public Task<bool> SetAsync<T>(string key, T value)

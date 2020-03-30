@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NetModular.Lib.Auth.Web;
-using NetModular.Lib.Utils.Core.Result;
 
 namespace NetModular.Lib.Auth.Jwt
 {

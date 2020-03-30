@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using Newtonsoft.Json;
-using NetModular.Lib.Utils.Core;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 

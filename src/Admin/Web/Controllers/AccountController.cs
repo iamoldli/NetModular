@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web.Attributes;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account.Models;
@@ -27,7 +25,6 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpGet]
         [Description("查询")]
-        [AllowAnonymous]
         public Task<IResultModel> Query([FromQuery]AccountQueryModel model)
         {
             return _service.Query(model);

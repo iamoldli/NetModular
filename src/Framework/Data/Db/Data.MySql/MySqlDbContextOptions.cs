@@ -4,7 +4,6 @@ using MySql.Data.MySqlClient;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
-using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Data.MySql
 {
@@ -32,14 +31,16 @@ namespace NetModular.Lib.Data.MySql
                 var connStrBuilder = new MySqlConnectionStringBuilder
                 {
                     Server = DbOptions.Server,
-                    Port = DbOptions.Port > 0 ? (uint) DbOptions.Port : 3306,
+                    Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
                     Database = options.Database,
                     UserID = DbOptions.UserId,
                     Password = DbOptions.Password,
                     AllowUserVariables = true,
                     CharacterSet = "utf8",
                     SslMode = MySqlSslMode.None,
-                    AllowPublicKeyRetrieval = true
+                    AllowPublicKeyRetrieval = true,
+                    MinimumPoolSize = dbOptions.MinPoolSize < 1 ? 0u : dbOptions.MinPoolSize.ToByte(),
+                    MaximumPoolSize = dbOptions.MaxPoolSize < 1 ? 10u : dbOptions.MaxPoolSize.ToByte()
                 };
                 options.ConnectionString = connStrBuilder.ToString();
             }

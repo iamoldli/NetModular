@@ -1,9 +1,11 @@
-﻿namespace NetModular.Lib.Utils.Core.Result
+﻿// ReSharper disable once CheckNamespace
+namespace NetModular
 {
+
     /// <summary>
     /// 可选项返回模型
     /// </summary>
-    public class OptionResultModel
+    public class OptionResultModel<T>
     {
         /// <summary>
         /// 名称
@@ -23,6 +25,13 @@
         /// <summary>
         /// 扩展数据
         /// </summary>
-        public object Data { get; set; }
+        public T Data { get; set; }
+    }
+
+    /// <summary>
+    /// 可选项返回模型
+    /// </summary>
+    public class OptionResultModel : OptionResultModel<object>
+    {
     }
 }

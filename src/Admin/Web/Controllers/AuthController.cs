@@ -8,7 +8,6 @@ using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Module.AspNetCore.Attributes;
-using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AuthService;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
 

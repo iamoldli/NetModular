@@ -13,7 +13,6 @@ using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Utils.Core.Helpers;
 
 namespace NetModular.Lib.Data.Integration
