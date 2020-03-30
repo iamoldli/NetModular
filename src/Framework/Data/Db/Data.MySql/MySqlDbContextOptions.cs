@@ -31,14 +31,16 @@ namespace NetModular.Lib.Data.MySql
                 var connStrBuilder = new MySqlConnectionStringBuilder
                 {
                     Server = DbOptions.Server,
-                    Port = DbOptions.Port > 0 ? (uint) DbOptions.Port : 3306,
+                    Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
                     Database = options.Database,
                     UserID = DbOptions.UserId,
                     Password = DbOptions.Password,
                     AllowUserVariables = true,
                     CharacterSet = "utf8",
                     SslMode = MySqlSslMode.None,
-                    AllowPublicKeyRetrieval = true
+                    AllowPublicKeyRetrieval = true,
+                    MinimumPoolSize = dbOptions.MinPoolSize < 0 ? 0u : dbOptions.MinPoolSize.ToByte(),
+                    MaximumPoolSize = dbOptions.MaxPoolSize < 0 ? 10u : dbOptions.MaxPoolSize.ToByte()
                 };
                 options.ConnectionString = connStrBuilder.ToString();
             }

@@ -301,6 +301,41 @@ namespace NetModular.Lib.Cache.Redis
             return entry != null ? new KeyValuePair<T, double>(Deserialize<T>(entry.Value.Element), entry.Value.Score) : default;
         }
 
+        /// <summary>
+        /// 删除指定成员
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        public Task<bool> SortedSetRemoveAsync<T>(string key, T member)
+        {
+            return Db.SortedSetRemoveAsync(GetKey(key), Serialize(member));
+        }
+
+        /// <summary>
+        /// 根据分数区间删除
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <returns>删除数量</returns>
+        public Task<long> SortedSetRemoveRangeByScoreAsync<T>(string key, long start = 0, long stop = -1)
+        {
+            return Db.SortedSetRemoveRangeByScoreAsync(GetKey(key), start, stop);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <returns>删除数量</returns>
+        public Task<long> SortedSetRemoveRangeByRankAsync<T>(string key, long start = 0, long stop = -1)
+        {
+            return Db.SortedSetRemoveRangeByRankAsync(GetKey(key), start, stop);
+        }
+
         #endregion
 
         #region ==KeyDelete==
