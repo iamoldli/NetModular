@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using NetModular.Lib.Utils.Core;
-using NetModular.Lib.Utils.Core.Extensions;
 
 namespace NetModular.Lib.Module.Abstractions
 {

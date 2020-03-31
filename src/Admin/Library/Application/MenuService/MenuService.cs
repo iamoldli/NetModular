@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Models;
 using NetModular.Lib.Utils.Core.Result;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.MenuService.ResultModels;
 using NetModular.Module.Admin.Application.MenuService.ViewModels;

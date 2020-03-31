@@ -9,7 +9,6 @@ using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.AspNetCore;
 using System.IO;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.ModuleService;
 using NetModular.Module.Admin.Application.PermissionService;
 

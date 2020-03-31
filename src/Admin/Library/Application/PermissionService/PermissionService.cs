@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Lib.Utils.Core.Result;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.PermissionService.ResultModels;
 using NetModular.Module.Admin.Domain.Module;
 using NetModular.Module.Admin.Domain.Permission;
@@ -73,8 +72,8 @@ namespace NetModular.Module.Admin.Application.PermissionService
 
                 uow.Commit();
 
-                //删除所有账户的缓存信息
-                await _cacheHandler.RemoveByPrefixAsync(CacheKeys.AccountPermissions);
+                //删除所有账户的权限缓存
+                await _cacheHandler.RemoveByPrefixAsync(CacheKeys.ACCOUNT_PERMISSIONS);
 
                 return ResultModel.Success();
             }
@@ -85,7 +84,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
         public async Task<IResultModel> GetTree()
         {
             //先取缓存
-            if (_cacheHandler.TryGetValue(CacheKeys.PermissionTree, out TreeResultModel<int, PermissionTreeResultModel> root))
+            if (_cacheHandler.TryGetValue(CacheKeys.PERMISSION_TREE, out TreeResultModel<int, PermissionTreeResultModel> root))
             {
                 return ResultModel.Success(root);
             }
@@ -165,7 +164,7 @@ namespace NetModular.Module.Admin.Application.PermissionService
                 root.Children.Add(moduleNode);
             }
 
-            await _cacheHandler.SetAsync(CacheKeys.PermissionTree, root);
+            await _cacheHandler.SetAsync(CacheKeys.PERMISSION_TREE, root);
             return ResultModel.Success(root);
         }
 

@@ -1,6 +1,4 @@
-﻿using NetModular.Lib.Utils.Core.SystemConfig;
-
-namespace NetModular.Module.Admin.Application.SystemService
+﻿namespace NetModular.Module.Admin.Application.SystemService
 {
     /// <summary>
     /// 系统相关服务

@@ -5,33 +5,45 @@ namespace NetModular.Module.Admin.Infrastructure
     public static class CacheKeys
     {
         /// <summary>
-        /// 验证码 ADMIN:VERIFY:CODE:
+        /// 验证码
+        /// <para>ADMIN:AUTH:VERIFY_CODE:验证码编号</para>
         /// </summary>
-        [Description("验证码")] public const string VerifyCodeKey = "ADMIN:VERIFY:CODE:{0}";
+        [Description("验证码")] 
+        public const string AUTH_VERIFY_CODE = "ADMIN:AUTH:VERIFY_CODE";
 
         /// <summary>
-        /// 刷新令牌，缓存账户认证信息 ADMIN:AUTH:REFRESHTOKEN:刷新令牌
+        /// 刷新令牌 
+        /// <para>ADMIN:AUTH:REFRESH_TOKEN:刷新令牌</para>
         /// </summary>
-        [Description("刷新令牌")] public const string RefreshToken = "ADMIN:AUTH:REFRESHTOKEN:{0}";
+        [Description("刷新令牌")] 
+        public const string AUTH_REFRESH_TOKEN = "ADMIN:AUTH:REFRESH_TOKEN";
 
         /// <summary>
-        /// 账户信息缓存 ADMIN:ACCOUNT:账户编号
+        /// 账户信息
+        /// <para>ADMIN:ACCOUNT:INFO:账户编号</para>
         /// </summary>
-        [Description("账户信息缓存")] public const string Account = "ADMIN:ACCOUNT:{0}:INFO";
+        [Description("账户信息")] 
+        public const string ACCOUNT = "ADMIN:ACCOUNT:INFO";
 
         /// <summary>
-        /// 账户认证信息 ADMIN:ACCOUNT:账户编号:AUTHINFO:平台类型编号
+        /// 账户认证信息
+        /// <para>ADMIN:ACCOUNT:AUTH_INFO:账户编号:平台类型</para>
         /// </summary>
-        [Description("账户认证信息")] public const string AccountAuthInfo = "ADMIN:ACCOUNT:{0}:AUTHINFO:{1}";
+        [Description("账户认证信息")] 
+        public const string ACCOUNT_AUTH_INFO = "ADMIN:ACCOUNT:AUTH_INFO";
 
         /// <summary>
-        /// 账户权限列表 ADMIN:ACCOUNT:账户编号:PERMISSIONS:
+        /// 账户权限列表
+        /// <para>ADMIN:ACCOUNT:PERMISSIONS:账户编号:平台类型</para>
         /// </summary>
-        [Description("账户权限列表")] public const string AccountPermissions = "ADMIN:ACCOUNT:{0}:PERMISSIONS:{1}";
+        [Description("账户权限列表")] 
+        public const string ACCOUNT_PERMISSIONS = "ADMIN:ACCOUNT:PERMISSIONS";
 
         /// <summary>
-        /// 权限树 ADMIN:PERMISSION:TREE
+        /// 权限树
+        /// <para>ADMIN:PERMISSION:TREE</para>
         /// </summary>
-        [Description("权限树缓存")] public const string PermissionTree = "ADMIN:PERMISSION:TREE";
+        [Description("权限树")] 
+        public const string PERMISSION_TREE = "ADMIN:PERMISSION:TREE";
     }
 }

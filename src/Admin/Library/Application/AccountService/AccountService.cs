@@ -6,7 +6,6 @@ using AutoMapper;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Extensions;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.Account.Models;
@@ -277,7 +276,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             if (account == null || account.Deleted)
                 return new List<string>();
 
-            var key = string.Format(CacheKeys.AccountPermissions, id, platform.ToInt());
+            var key = $"{CacheKeys.ACCOUNT_PERMISSIONS}:{id}:{platform.ToInt()}";
 
             if (!_cache.TryGetValue(key, out IList<string> list))
             {
@@ -293,7 +292,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             var list = EnumExtensions.ToResult<Platform>();
             foreach (var option in list)
             {
-                _cache.RemoveAsync(string.Format(CacheKeys.AccountPermissions, id, option.Value.ToInt())).Wait();
+                _cache.RemoveAsync($"{CacheKeys.ACCOUNT_PERMISSIONS}:{id}:{option.Value.ToInt()}").Wait();
             }
         }
 
@@ -328,7 +327,7 @@ namespace NetModular.Module.Admin.Application.AccountService
 
         public async Task<AccountEntity> Get(Guid id)
         {
-            var key = string.Format(CacheKeys.Account, id);
+            var key = $"{CacheKeys.ACCOUNT}:{id}";
             if (_cache.TryGetValue(key, out AccountEntity account))
                 return account;
 
@@ -418,7 +417,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         {
             if (result)
             {
-                return _cache.RemoveAsync(string.Format(CacheKeys.Account, id));
+                return _cache.RemoveAsync($"{CacheKeys.ACCOUNT}:{id}");
             }
 
             return Task.CompletedTask;

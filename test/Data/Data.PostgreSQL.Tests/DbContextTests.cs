@@ -4,6 +4,7 @@ using Dapper;
 using Data.Common;
 using Data.Common.Domain;
 using Data.Common.Repository;
+using NetModular;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
