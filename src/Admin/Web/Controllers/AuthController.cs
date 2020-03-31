@@ -35,16 +35,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         {
             return _service.CreateVerifyCode(length);
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [DisableAuditing]
-        [Description("获取手机验证码")]
-        public IResultModel CreateMobileCode(string code)
-        {
-            return _service.CreateMobileCode(code);
-        }
-
+        
         [HttpPost]
         [AllowAnonymous]
         [DisableAuditing]
