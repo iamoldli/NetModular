@@ -35,7 +35,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public string GetKey(string key)
         {
-            return _prefix + key;
+            return $"{_prefix}:{key}";
         }
 
         #region ==String==

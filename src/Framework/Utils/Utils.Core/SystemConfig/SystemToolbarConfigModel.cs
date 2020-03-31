@@ -1,4 +1,7 @@
-﻿namespace NetModular.Lib.Utils.Core.SystemConfig
+﻿using NetModular.Lib.Utils.Core.SystemConfig;
+
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 系统工具栏配置

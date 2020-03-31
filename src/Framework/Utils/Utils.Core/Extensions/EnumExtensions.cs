@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace NetModular.Lib.Utils.Core.Extensions
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     public static class EnumExtensions
     {
+        private static readonly ConcurrentDictionary<string, string> DescriptionCache = new ConcurrentDictionary<string, string>();
+
         /// <summary>
         /// 包含UnKnown选项
         /// </summary>
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>> ListCache = new ConcurrentDictionary<RuntimeTypeHandle, List<OptionResultModel>>();
+
         /// <summary>
         /// 不包含UnKnown选项
         /// </summary>
@@ -26,14 +30,22 @@ namespace NetModular.Lib.Utils.Core.Extensions
         {
             var type = value.GetType();
             var info = type.GetField(value.ToString());
-            var attrs = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
-            if (attrs.Length < 1)
-                return string.Empty;
+            var key = type.FullName + info.Name;
+            if (!DescriptionCache.TryGetValue(key, out string desc))
+            {
+                var attrs = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
+                if (attrs.Length < 1)
+                    desc = string.Empty;
+                else
+                    desc = attrs[0] is DescriptionAttribute
+                        descriptionAttribute
+                        ? descriptionAttribute.Description
+                        : value.ToString();
 
-            return attrs[0] is DescriptionAttribute
-                descriptionAttribute
-                ? descriptionAttribute.Description
-                : value.ToString();
+                DescriptionCache.TryAdd(key, desc);
+            }
+
+            return desc;
         }
 
         public static List<OptionResultModel> ToResult(this Enum value, bool ignoreUnKnown = false)
@@ -82,7 +94,7 @@ namespace NetModular.Lib.Utils.Core.Extensions
 
                 return list.Select(m => new OptionResultModel { Label = m.Label, Value = m.Value }).ToList();
 
-                #endregion
+                #endregion ==忽略UnKnown属性==
             }
             else
             {
@@ -101,7 +113,7 @@ namespace NetModular.Lib.Utils.Core.Extensions
 
                 return list.Select(m => new OptionResultModel { Label = m.Label, Value = m.Value }).ToList();
 
-                #endregion
+                #endregion ==包含UnKnown选项==
             }
         }
     }

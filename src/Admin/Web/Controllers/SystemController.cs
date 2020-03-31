@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Module.AspNetCore.Attributes;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Lib.Utils.Mvc.Extensions;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.SystemService;

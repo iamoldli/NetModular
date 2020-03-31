@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using NetModular;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Cache.Redis;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Cache.Redis.Tests

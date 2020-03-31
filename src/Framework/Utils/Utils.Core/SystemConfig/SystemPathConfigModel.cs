@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using NetModular.Lib.Utils.Core.SystemConfig;
 
-namespace NetModular.Lib.Utils.Core.SystemConfig
+// ReSharper disable once CheckNamespace
+namespace NetModular
 {
     /// <summary>
     /// 系统路径配置

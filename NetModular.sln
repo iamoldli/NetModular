@@ -232,7 +232,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06_Cache", "06_Cache", "{0A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache.Redis.Tests", "test\Cache\Cache.Redis.Tests\Cache.Redis.Tests.csproj", "{EDEF0C34-CCBD-43B3-A5A4-815605BF0E8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.SqlServer.Tests", "test\Data\Data.SqlServer.Tests\Data.SqlServer.Tests.csproj", "{711CB46B-A6B3-43E0-A320-AD5EF3B85EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SqlServer.Tests", "test\Data\Data.SqlServer.Tests\Data.SqlServer.Tests.csproj", "{711CB46B-A6B3-43E0-A320-AD5EF3B85EFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,6 @@ using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Helpers;
-using NetModular.Lib.Utils.Core.SystemConfig;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
@@ -67,7 +66,7 @@ namespace NetModular.Module.Admin.Application.AuthService
                 Base64String = _drawingHelper.DrawVerifyCodeBase64String(out string code, length)
             };
 
-            var key = string.Format(CacheKeys.VerifyCodeKey, verifyCodeModel.Id);
+            var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{verifyCodeModel.Id}";
 
             //把验证码放到内存缓存中，有效期10分钟
             _cacheHandler.SetAsync(key, code, 10);
@@ -117,11 +116,11 @@ namespace NetModular.Module.Admin.Application.AuthService
                 if (_systemConfig.Login.VerifyCode)
                 {
                     //删除验证码缓存
-                    await _cacheHandler.RemoveAsync(string.Format(CacheKeys.VerifyCodeKey, model.VerifyCode.Id));
+                    await _cacheHandler.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
                 }
 
                 //清除账户的认证信息缓存
-                await _cacheHandler.RemoveAsync(string.Format(CacheKeys.AccountAuthInfo, account.Id, model.Platform.ToInt()));
+                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
 
                 return result.Success(new LoginResultModel
                 {
@@ -152,7 +151,7 @@ namespace NetModular.Module.Admin.Application.AuthService
                     return false;
                 }
 
-                var cacheCode = await _cacheHandler.GetAsync(string.Format(CacheKeys.VerifyCodeKey, model.VerifyCode.Id));
+                var cacheCode = await _cacheHandler.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
                 if (cacheCode.IsNull())
                 {
                     result.Failed("验证码不存在");
@@ -265,7 +264,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         public async Task<ResultModel<LoginResultModel>> RefreshToken(string refreshToken)
         {
             var result = new ResultModel<LoginResultModel>();
-            var cacheKey = string.Format(CacheKeys.RefreshToken, refreshToken);
+            var cacheKey = $"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}";
             if (!_cacheHandler.TryGetValue(cacheKey, out AccountAuthInfoEntity authInfo))
             {
                 authInfo = await _authInfoRepository.GetByRefreshToken(refreshToken);
@@ -409,7 +408,7 @@ namespace NetModular.Module.Admin.Application.AuthService
 
         public async Task<AccountAuthInfoEntity> GetAuthInfo(Guid accountId, Platform platform)
         {
-            if (!_cacheHandler.TryGetValue(string.Format(CacheKeys.AccountAuthInfo, accountId, platform.ToInt()), out AccountAuthInfoEntity authInfo))
+            if (!_cacheHandler.TryGetValue($"{CacheKeys.ACCOUNT_AUTH_INFO}:{accountId}:{platform.ToInt()}", out AccountAuthInfoEntity authInfo))
             {
                 authInfo = await _authInfoRepository.Get(accountId, platform);
                 if (authInfo == null)
