@@ -10,6 +10,11 @@ namespace NetModular.Module.Admin.Infrastructure
         [Description("验证码")] public const string VerifyCodeKey = "ADMIN:VERIFY:CODE:{0}";
 
         /// <summary>
+        /// 验证码 ADMIN:VERIFY:MOBILECODE:
+        /// </summary>
+        [Description("手机验证码")] public const string VerifyMobileCodeKey = "ADMIN:VERIFY:MOBILECODE:{0}";
+
+        /// <summary>
         /// 刷新令牌，缓存账户认证信息 ADMIN:AUTH:REFRESHTOKEN:刷新令牌
         /// </summary>
         [Description("刷新令牌")] public const string RefreshToken = "ADMIN:AUTH:REFRESHTOKEN:{0}";

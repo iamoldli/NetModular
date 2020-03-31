@@ -77,6 +77,16 @@ namespace NetModular.Module.Admin.Application.AuthService
             return ResultModel.Success(verifyCodeModel);
         }
 
+        public IResultModel CreateMobileCode(string code)
+        {
+            var id = Guid.NewGuid().ToString("N");
+            var key = string.Format(CacheKeys.VerifyMobileCodeKey, id);
+
+            //把验证码放到内存缓存中，有效期10分钟
+            _cacheHandler.SetAsync(key, code, 10);
+            return ResultModel.Success(new { Id = id });
+        }
+
         #endregion
 
         #region ==登录认证==
@@ -135,6 +145,61 @@ namespace NetModular.Module.Admin.Application.AuthService
             return result.Failed();
         }
 
+
+        public async Task<ResultModel<LoginResultModel>> LoginByMobileCode(LoginModel model)
+        {
+            var result = new ResultModel<LoginResultModel>();
+
+            //检测手机验证码
+            if (!await CheckMobileCode(result, model))
+                return result;
+
+            //检测账户
+            var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);
+            var checkAccountResult = CheckAccount(account);
+            if (!checkAccountResult.Successful)
+                return result.Failed(checkAccountResult.Msg);
+
+            //检测密码
+            //if (!CheckPassword(result, model, account))
+            //    return result;
+
+            using var uow = _dbContext.NewUnitOfWork();
+
+            //判断是否激活，如果未激活需要修改为已激活状态
+            if (account.Status == AccountStatus.Inactive)
+            {
+                if (!await _accountRepository.UpdateAccountStatus(account.Id, AccountStatus.Enabled, uow))
+                {
+                    return result.Failed();
+                }
+            }
+
+            //更新登录信息
+            var loginInfo = await UpdateLoginInfo(account, model, uow);
+            if (loginInfo != null)
+            {
+                uow.Commit();
+
+                if (_systemConfig.Login.VerifyCode)
+                {
+                    //删除验证码缓存
+                    await _cacheHandler.RemoveAsync(string.Format(CacheKeys.VerifyMobileCodeKey, model.VerifyCode.Id));
+                }
+
+                //清除账户的认证信息缓存
+                await _cacheHandler.RemoveAsync(string.Format(CacheKeys.AccountAuthInfo, account.Id, model.Platform.ToInt()));
+
+                return result.Success(new LoginResultModel
+                {
+                    Account = account,
+                    AuthInfo = loginInfo
+                });
+            }
+
+            return result.Failed();
+        }
+
         /// <summary>
         /// 检测验证码
         /// </summary>
@@ -170,6 +235,37 @@ namespace NetModular.Module.Admin.Application.AuthService
             return true;
         }
 
+        /// <summary>
+        /// 检测手机验证码
+        /// </summary>
+        private async Task<bool> CheckMobileCode(ResultModel<LoginResultModel> result, LoginModel model)
+        {
+            if (model.VerifyCode == null || model.VerifyCode.Code.IsNull())
+            {
+                result.Failed("请输入验证码");
+                return false;
+            }
+
+            if (model.VerifyCode.Id.IsNull())
+            {
+                result.Failed("验证码不存在");
+                return false;
+            }
+
+            var cacheCode = await _cacheHandler.GetAsync(string.Format(CacheKeys.VerifyMobileCodeKey, model.VerifyCode.Id));
+            if (cacheCode.IsNull())
+            {
+                result.Failed("验证码不存在");
+                return false;
+            }
+
+            if (!cacheCode.Equals(model.VerifyCode.Code))
+            {
+                result.Failed("验证码有误");
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// 检测账户
         /// </summary>

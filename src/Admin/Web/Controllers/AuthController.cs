@@ -36,6 +36,41 @@ namespace NetModular.Module.Admin.Web.Controllers
             return _service.CreateVerifyCode(length);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("获取手机验证码")]
+        public IResultModel CreateMobileCode(string code)
+        {
+            return _service.CreateMobileCode(code);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("登录（手机验证码）")]
+        public async Task<IResultModel> LoginByMobileCode([FromBody]LoginModel model)
+        {
+            var result = await _service.LoginByMobileCode(model);
+            if (result.Successful)
+            {
+                var account = result.Data.Account;
+                var loginInfo = result.Data.AuthInfo;
+                var claims = new[]
+                {
+                    new Claim(ClaimsName.AccountId, account.Id.ToString()),
+                    new Claim(ClaimsName.AccountName, account.Name),
+                    new Claim(ClaimsName.AccountType, model.AccountType.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform, model.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
+                };
+
+                return _loginHandler.Hand(claims, loginInfo.RefreshToken);
+            }
+
+            return ResultModel.Failed(result.Msg);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [DisableAuditing]

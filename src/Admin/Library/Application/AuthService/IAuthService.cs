@@ -21,11 +21,25 @@ namespace NetModular.Module.Admin.Application.AuthService
         IResultModel CreateVerifyCode(int length = 6);
 
         /// <summary>
+        /// 创建手机验证码
+        /// </summary>
+        /// <param name="code">验证码</param>
+        /// <returns></returns>
+        IResultModel CreateMobileCode(string code);
+
+        /// <summary>
         /// 登录认证
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
         Task<ResultModel<LoginResultModel>> Login(LoginModel model);
+
+        /// <summary>
+        /// 登录认证（手机验证码）
+        /// </summary>
+        /// <param name="model">登录模型</param>
+        /// <returns></returns>
+        Task<ResultModel<LoginResultModel>> LoginByMobileCode(LoginModel model);
 
         /// <summary>
         /// 刷新令牌(只针对JWT认证方式)
