@@ -18,8 +18,10 @@ namespace NetModular.Lib.MQ.RabbitMQ
         //接收连接
         private readonly IConnection _receiveConnection;
 
+        private readonly RabbitMQOptions _options;
         public RabbitMQClient(RabbitMQOptions options)
         {
+            _options = options;
             Check.NotNull(options.UserName, nameof(options.UserName), "用户名不能为空");
             Check.NotNull(options.Password, nameof(options.Password), "密码不能为空");
 
@@ -39,8 +41,8 @@ namespace NetModular.Lib.MQ.RabbitMQ
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
             };
 
-            if (options.virtualHost.NotNull())
-                factory.VirtualHost = options.virtualHost;
+            if (options.VirtualHost.NotNull())
+                factory.VirtualHost = options.VirtualHost;
 
             _sendConnection = factory.CreateConnection();
 
@@ -60,40 +62,40 @@ namespace NetModular.Lib.MQ.RabbitMQ
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
 
+            queue = GetQueueName(queue);
+
             if (routingKey.IsNull())
                 routingKey = queue;
 
-            using (var channel = _sendConnection.CreateModel())
+            using var channel = _sendConnection.CreateModel();
+            if (exchange.IsNull())
             {
-                if (exchange.IsNull())
+                switch (exchangeType)
                 {
-                    switch (exchangeType)
-                    {
-                        case ExchangeType.Direct:
-                            exchange = DefaultExchange.Direct;
-                            break;
-                        case ExchangeType.Fanout:
-                            exchange = DefaultExchange.Fanout;
-                            break;
-                        case ExchangeType.Topic:
-                            exchange = DefaultExchange.Topic;
-                            break;
-                        case ExchangeType.Headers:
-                            exchange = DefaultExchange.Headers;
-                            break;
-                    }
+                    case ExchangeType.Direct:
+                        exchange = DefaultExchange.Direct;
+                        break;
+                    case ExchangeType.Fanout:
+                        exchange = DefaultExchange.Fanout;
+                        break;
+                    case ExchangeType.Topic:
+                        exchange = DefaultExchange.Topic;
+                        break;
+                    case ExchangeType.Headers:
+                        exchange = DefaultExchange.Headers;
+                        break;
                 }
-
-                channel.ExchangeDeclare(exchange, exchangeType, true, false, null);
-                channel.QueueDeclare(queue, true, false, false);
-                channel.QueueBind(queue, exchange, routingKey);
-
-                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-                var properties = channel.CreateBasicProperties();
-                properties.Persistent = true;
-
-                channel.BasicPublish(exchange, routingKey, properties, body);
             }
+
+            channel.ExchangeDeclare(exchange, exchangeType, true, false, null);
+            channel.QueueDeclare(queue, true, false, false);
+            channel.QueueBind(queue, exchange, routingKey);
+
+            var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+            var properties = channel.CreateBasicProperties();
+            properties.Persistent = true;
+
+            channel.BasicPublish(exchange, routingKey, properties, body);
         }
 
         /// <summary>
@@ -106,6 +108,8 @@ namespace NetModular.Lib.MQ.RabbitMQ
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
             Check.NotNull(func, nameof(func), "func is null");
+
+            queue = GetQueueName(queue);
 
             var channel = _receiveConnection.CreateModel();
             channel.BasicQos(0, 1, false);
@@ -137,6 +141,11 @@ namespace NetModular.Lib.MQ.RabbitMQ
         {
             _sendConnection?.Dispose();
             _receiveConnection?.Dispose();
+        }
+
+        private string GetQueueName(string queue)
+        {
+            return _options.Prefix.NotNull() ? $"{_options.Prefix}.{queue}" : queue;
         }
     }
 }

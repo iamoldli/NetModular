@@ -29,7 +29,11 @@
         /// <summary>
         /// 虚拟目录
         /// </summary>
-        public string virtualHost { get; set; }
+        public string VirtualHost { get; set; }
 
+        /// <summary>
+        /// 队列名称前缀
+        /// </summary>
+        public string Prefix { get; set; }
     }
 }
