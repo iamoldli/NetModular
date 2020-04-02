@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Core.ExpressionResolve;
+using NetModular.Lib.Data.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {
@@ -431,28 +432,23 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 var val = _sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
                 var sb = new StringBuilder();
 
-                var first = _queryBody.JoinDescriptors.First();
-                var deletedColumnName = first.EntityDescriptor.Columns.First(m => m.PropertyInfo.Name.Equals("Deleted")).Name;
                 if (_queryBody.JoinDescriptors.Count == 1)
                 {
-                    if (first.EntityDescriptor.SoftDelete)
+                    //单表
+                    var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
+                    if (descriptor.SoftDelete)
                     {
-                        sb.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(deletedColumnName), val);
+                        sb.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(descriptor.GetDeletedColumnName()), val);
                     }
                 }
                 else
                 {
-                    if (first.EntityDescriptor.SoftDelete)
+                    //多表
+                    foreach (var descriptor in _queryBody.JoinDescriptors)
                     {
-                        sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(deletedColumnName), val);
-                    }
-
-                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
-                    {
-                        var descriptor = _queryBody.JoinDescriptors[i];
-                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
+                        if (descriptor.EntityDescriptor.SoftDelete)
                         {
-                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(deletedColumnName), val);
+                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
                         }
                     }
                 }
@@ -853,9 +849,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (descriptor != null && descriptor.IsEntityBase)
             {
                 var p1 = parameters.Add(_dbContext.LoginInfo.AccountId);
-                sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedBy"), p1);
+                sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote(descriptor.GetModifiedByColumnName()), p1);
                 var p2 = parameters.Add(DateTime.Now);
-                sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote("ModifiedTime"), p2);
+                sqlBuilder.AppendFormat(",{0}=@{1}", _sqlAdapter.AppendQuote(descriptor.GetModifiedTimeColumnName()), p2);
             }
         }
 
