@@ -5,8 +5,8 @@
         <el-form-item label="标题：" prop="title">
           <el-input v-model="form.model.title" />
         </el-form-item>
-        <el-form-item label="首页：" prop="home">
-          <el-input v-model="form.model.home" />
+        <el-form-item label="个人信息页：" prop="userInfoPage">
+          <el-input v-model="form.model.userInfoPage" placeholder="路由名称，默认为userinfo" />
         </el-form-item>
       </el-col>
       <el-col :span="10">
@@ -19,12 +19,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="10" :offset="1">
-        <el-form-item label="个人信息页：" prop="userInfoPage">
-          <el-input v-model="form.model.userInfoPage" placeholder="路由名称，默认为userinfo" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="10">
+      <el-col :span="20" :offset="1">
         <el-form-item label="版权申明：" prop="copyright">
           <el-input v-model="form.model.copyright" placeholder="版权声明：XXXXXX" />
         </el-form-item>

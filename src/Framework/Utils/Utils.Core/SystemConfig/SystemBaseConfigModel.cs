@@ -28,12 +28,6 @@ namespace NetModular
         public string LogoUrl { get; set; }
 
         /// <summary>
-        /// 首页地址
-        /// </summary>
-        [ConfigDescription("sys_home", "系统首页地址")]
-        public string Home { get; set; }
-
-        /// <summary>
         /// 个人信息页
         /// </summary>
         [ConfigDescription("sys_userinfo_page", "个人信息页")]

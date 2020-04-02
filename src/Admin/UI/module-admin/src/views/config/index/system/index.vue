@@ -50,7 +50,6 @@ export default {
           title: '',
           logo: '',
           logoUrl: '',
-          home: '',
           userInfoPage: '',
           copyright: ''
         },
@@ -81,6 +80,9 @@ export default {
             serialNumberName: null
           },
           tabnav: {
+            enabled: true,
+            showHome: true,
+            homeUrl: '',
             showIcon: true,
             maxOpenCount: 20
           },

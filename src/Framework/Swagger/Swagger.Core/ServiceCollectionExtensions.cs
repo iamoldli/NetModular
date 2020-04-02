@@ -76,6 +76,8 @@ namespace NetModular.Lib.Swagger.Core
                 c.SchemaFilter<IgnorePropertySchemaFilter>();
             });
 
+            services.AddSwaggerGenNewtonsoftSupport();
+
             return services;
         }
     }
