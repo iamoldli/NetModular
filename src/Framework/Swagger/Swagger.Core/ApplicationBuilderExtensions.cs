@@ -20,12 +20,12 @@ namespace NetModular.Lib.Swagger.Core
             {
                 if (modules == null) return;
                
-                foreach (var moduleInfo in modules)
+                foreach (var module in modules)
                 {
-                    if (((ModuleDescriptor)moduleInfo).Initializer == null)
+                    if (((ModuleDescriptor)module).Initializer == null)
                         continue;
 
-                    c.SwaggerEndpoint($"/swagger/{moduleInfo.Id}/swagger.json", moduleInfo.Name);
+                    c.SwaggerEndpoint($"/swagger/{module.Id}/swagger.json", module.Name);
                 }
             });
 

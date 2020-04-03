@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.Entities
 {
@@ -109,9 +110,9 @@ namespace NetModular.Lib.Data.Core.Entities
             }
 
             var sb = new StringBuilder("UPDATE {0} SET ");
-            sb.AppendFormat("{0}={1},", AppendQuote("Deleted"), _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "TRUE" : "1");
-            sb.AppendFormat("{0}={1},", AppendQuote("DeletedTime"), AppendParameter("DeletedTime"));
-            sb.AppendFormat("{0}={1} ", AppendQuote("DeletedBy"), AppendParameter("DeletedBy"));
+            sb.AppendFormat("{0}={1},", AppendQuote(_descriptor.GetDeletedColumnName()), _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "TRUE" : "1");
+            sb.AppendFormat("{0}={1},", AppendQuote(_descriptor.GetDeletedTimeColumnName()), AppendParameter("DeletedTime"));
+            sb.AppendFormat("{0}={1} ", AppendQuote(_descriptor.GetDeletedByColumnName()), AppendParameter("DeletedBy"));
 
             var softDeleteSql = sb.ToString();
 

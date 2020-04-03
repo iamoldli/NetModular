@@ -83,6 +83,24 @@ namespace NetModular
     public class TabnavConfigModel
     {
         /// <summary>
+        /// 是否启用标签导航
+        /// </summary>
+        [ConfigDescription("sys_component_tabnav_enabled", "是否启用标签导航")]
+        public bool Enabled { get; set; } = true;
+
+        /// <summary>
+        /// 是否显示首页
+        /// </summary>
+        [ConfigDescription("sys_component_tabnav_enabled", "是否显示首页")]
+        public bool ShowHome { get; set; } = true;
+
+        /// <summary>
+        /// 首页地址
+        /// </summary>
+        [ConfigDescription("sys_component_tabnav_homeurl", "首页地址")]
+        public string HomeUrl { get; set; }
+
+        /// <summary>
         /// 是否显示图标
         /// </summary>
         [ConfigDescription("sys_component_tabnav_showicon", "标签导航是否显示图标")]
@@ -93,6 +111,5 @@ namespace NetModular
         /// </summary>
         [ConfigDescription("sys_component_tabnav_maxopencount", "标签导航最大页面数量")]
         public int MaxOpenCount { get; set; }
-
     }
 }

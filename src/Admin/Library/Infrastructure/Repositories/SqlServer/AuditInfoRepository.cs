@@ -26,8 +26,8 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereNotNull(model.ModuleCode, m => m.Area == model.ModuleCode);
             query.WhereNotNull(model.Controller, m => m.Controller == model.Controller);
             query.WhereNotNull(model.Action, m => m.Action == model.Action);
-            query.WhereNotNull(model.StartTime, m => m.ExecutionTime >= model.StartTime);
-            query.WhereNotNull(model.EndTime, m => m.ExecutionTime <= model.EndTime);
+            query.WhereNotNull(model.StartTime, m => m.ExecutionTime >= model.StartTime.Value.Date);
+            query.WhereNotNull(model.EndTime, m => m.ExecutionTime < model.EndTime.Value.AddDays(1).Date);
 
             if (!paging.OrderBy.Any())
             {

@@ -818,8 +818,8 @@ namespace NetModular.Lib.Data.Core
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
                 {
-                    if (column.Name.Equals("CreatedBy") || column.Name.Equals("ModifiedBy") || column.Name.Equals("TenantId"))
-                    {
+					if (column.Name.Equals("CreatedBy") || column.Name.Equals("ModifiedBy") || column.Name.Equals("TenantId"))                   
+					{
                         var createdBy = (Guid)column.PropertyInfo.GetValue(entity);
                         if (createdBy == Guid.Empty)
                         {
@@ -849,7 +849,8 @@ namespace NetModular.Lib.Data.Core
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
                 {
-                    if (column.Name.Equals("ModifiedBy"))
+                    var name = column.PropertyInfo.Name;
+                    if (name.Equals("ModifiedBy"))
                     {
                         var modifiedBy = (Guid)column.PropertyInfo.GetValue(entity);
                         var accountId = DbContext.LoginInfo.AccountId;
@@ -860,7 +861,7 @@ namespace NetModular.Lib.Data.Core
                         }
                     }
 
-                    if (column.Name.Equals("ModifiedTime"))
+                    if (name.Equals("ModifiedTime"))
                     {
                         column.PropertyInfo.SetValue(entity, DateTime.Now);
                         i++;

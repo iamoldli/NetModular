@@ -32,11 +32,26 @@
     <el-divider content-position="left">标签导航</el-divider>
     <el-row :gutter="20">
       <el-col :span="10" :offset="1">
+        <el-form-item label="启用：" prop="tabnav.enabled">
+          <el-switch v-model="form.model.tabnav.enabled" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="10">
         <el-form-item label="显示图标：" prop="tabnav.showIcon">
           <el-switch v-model="form.model.tabnav.showIcon" />
         </el-form-item>
       </el-col>
+      <el-col :span="10" :offset="1">
+        <el-form-item label="显示首页" prop="tabnav.showHome">
+          <el-switch v-model="form.model.tabnav.showHome" />
+        </el-form-item>
+      </el-col>
       <el-col :span="10">
+        <el-form-item label="首页地址：" prop="tabnav.homeUrl">
+          <el-input v-model="form.model.tabnav.homeUrl" placeholder="" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="10" :offset="1">
         <el-form-item label="最大页面数量：" prop="tabnav.maxOpenCount">
           <el-input v-model.number="form.model.tabnav.maxOpenCount" placeholder="默认 20" />
         </el-form-item>
