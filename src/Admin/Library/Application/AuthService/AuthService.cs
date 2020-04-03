@@ -106,7 +106,7 @@ namespace NetModular.Module.Admin.Application.AuthService
 
             //默认宿主ID为Guid.Empty(00000000-0000-0000-0000-000000000000)
             Guid tenantId = Guid.Empty;
-            model.TenantName = "自由创客";
+
             if (model.TenantName != null)
             {
                 var tenant = await _tenantRepository.GetById(model.TenantName);
