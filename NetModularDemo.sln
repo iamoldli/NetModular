@@ -238,29 +238,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modular", "Modular", "{0866
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{F34DE725-BD1E-4DB3-9C9F-0A06AABA33FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "D:\Users\Thinkpad\Desktop\NetModular.Module.Blog\src\Library\Application\Application.csproj", "{23F6E125-61CC-464E-BC93-E58DCA646CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.Blog\src\Library\Application\Application.csproj", "{23F6E125-61CC-464E-BC93-E58DCA646CE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "D:\Users\Thinkpad\Desktop\NetModular.Module.Blog\src\Library\Domain\Domain.csproj", "{9CA3AC0C-38FF-4A65-B40B-6118E81D99ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.Blog\src\Library\Domain\Domain.csproj", "{9CA3AC0C-38FF-4A65-B40B-6118E81D99ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "D:\Users\Thinkpad\Desktop\NetModular.Module.Blog\src\Library\Infrastructure\Infrastructure.csproj", "{59CF15C6-A7EB-49EE-91F1-D6F4D6908D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.Blog\src\Library\Infrastructure\Infrastructure.csproj", "{59CF15C6-A7EB-49EE-91F1-D6F4D6908D7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "D:\Users\Thinkpad\Desktop\NetModular.Module.Blog\src\Web\Web.csproj", "{F5978F07-EC1E-4E4A-A2E1-F831CC072F87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.Blog\src\Web\Web.csproj", "{F5978F07-EC1E-4E4A-A2E1-F831CC072F87}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "D:\Users\Thinkpad\Desktop\NetModular.Module.Blog\src\WebHost\WebHost.csproj", "{C4C268CE-5959-47D5-BEB0-C83D74213ED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.Blog\src\WebHost\WebHost.csproj", "{C4C268CE-5959-47D5-BEB0-C83D74213ED5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZyckSC", "ZyckSC", "{CE6F054B-E43C-4242-A8AA-430E086AA67F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "D:\Users\Thinkpad\Desktop\NetModular.Module.ZyckSC\src\Library\Application\Application.csproj", "{131949C0-0075-45FF-A11F-ED2C2DFB3140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.ZyckSC\src\Library\Application\Application.csproj", "{131949C0-0075-45FF-A11F-ED2C2DFB3140}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "D:\Users\Thinkpad\Desktop\NetModular.Module.ZyckSC\src\Library\Domain\Domain.csproj", "{6EA19644-8A2D-4456-9742-3B9BC48DA11C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.ZyckSC\src\Library\Domain\Domain.csproj", "{6EA19644-8A2D-4456-9742-3B9BC48DA11C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "D:\Users\Thinkpad\Desktop\NetModular.Module.ZyckSC\src\Library\Infrastructure\Infrastructure.csproj", "{41A13BF2-2795-405A-8A4A-6526869C52C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.ZyckSC\src\Library\Infrastructure\Infrastructure.csproj", "{41A13BF2-2795-405A-8A4A-6526869C52C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "D:\Users\Thinkpad\Desktop\NetModular.Module.ZyckSC\src\Web\Web.csproj", "{07B5AFD8-4CE2-44D6-BDE1-EEAF2C080A22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.ZyckSC\src\Web\Web.csproj", "{07B5AFD8-4CE2-44D6-BDE1-EEAF2C080A22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "D:\Users\Thinkpad\Desktop\NetModular.Module.ZyckSC\src\WebHost\WebHost.csproj", "{957D796E-014D-400B-828D-9212179CDC1A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost_Demo", "D:\Users\Thinkpad\Desktop\NetModular.Demo-master\src\WebHost\WebHost_Demo.csproj", "{E0DB0505-B9DC-436D-8237-03F223056791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Module.ZyckSC\src\WebHost\WebHost.csproj", "{957D796E-014D-400B-828D-9212179CDC1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerator", "CodeGenerator", "{643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}"
 EndProject
@@ -273,6 +271,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "..\NetModular.Module.CodeGenerator\src\Web\Web.csproj", "{F5AFD659-DFE9-4B42-B66E-8CA77AC97A24}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHost", "..\NetModular.Module.CodeGenerator\src\WebHost\WebHost.csproj", "{EF708842-86C3-4E55-90BE-73B1D50B3CA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHostDemo", "D:\Users\Thinkpad\Desktop\NetModular\NetModular.Demo-master\src\WebHost\WebHostDemo.csproj", "{5293F791-A9F6-4265-9BC5-6ABFE105A6EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -556,10 +556,6 @@ Global
 		{957D796E-014D-400B-828D-9212179CDC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{957D796E-014D-400B-828D-9212179CDC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{957D796E-014D-400B-828D-9212179CDC1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0DB0505-B9DC-436D-8237-03F223056791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0DB0505-B9DC-436D-8237-03F223056791}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0DB0505-B9DC-436D-8237-03F223056791}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0DB0505-B9DC-436D-8237-03F223056791}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DEC3C44-0023-48D7-BDFE-1A5E4FFE9FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DEC3C44-0023-48D7-BDFE-1A5E4FFE9FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DEC3C44-0023-48D7-BDFE-1A5E4FFE9FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -580,6 +576,10 @@ Global
 		{EF708842-86C3-4E55-90BE-73B1D50B3CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF708842-86C3-4E55-90BE-73B1D50B3CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF708842-86C3-4E55-90BE-73B1D50B3CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5293F791-A9F6-4265-9BC5-6ABFE105A6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5293F791-A9F6-4265-9BC5-6ABFE105A6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5293F791-A9F6-4265-9BC5-6ABFE105A6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5293F791-A9F6-4265-9BC5-6ABFE105A6EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -684,13 +684,13 @@ Global
 		{41A13BF2-2795-405A-8A4A-6526869C52C4} = {CE6F054B-E43C-4242-A8AA-430E086AA67F}
 		{07B5AFD8-4CE2-44D6-BDE1-EEAF2C080A22} = {CE6F054B-E43C-4242-A8AA-430E086AA67F}
 		{957D796E-014D-400B-828D-9212179CDC1A} = {CE6F054B-E43C-4242-A8AA-430E086AA67F}
-		{E0DB0505-B9DC-436D-8237-03F223056791} = {086602D2-287D-4F9C-B420-EAD5201AA509}
-		{643D1333-0DAA-4ECE-93F9-B7CDC8EF4716} = {74E4E16D-C616-4441-B1BF-8FA564B0FE03}
+		{643D1333-0DAA-4ECE-93F9-B7CDC8EF4716} = {086602D2-287D-4F9C-B420-EAD5201AA509}
 		{4DEC3C44-0023-48D7-BDFE-1A5E4FFE9FBF} = {643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}
 		{4D8A3A4A-D046-4097-AAD8-7B2FE5CEB3D2} = {643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}
 		{8D666D42-76C7-4FAF-A650-64DF8CFFF0F5} = {643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}
 		{F5AFD659-DFE9-4B42-B66E-8CA77AC97A24} = {643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}
 		{EF708842-86C3-4E55-90BE-73B1D50B3CA9} = {643D1333-0DAA-4ECE-93F9-B7CDC8EF4716}
+		{5293F791-A9F6-4265-9BC5-6ABFE105A6EF} = {086602D2-287D-4F9C-B420-EAD5201AA509}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

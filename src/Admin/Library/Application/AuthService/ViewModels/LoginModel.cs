@@ -9,6 +9,11 @@ namespace NetModular.Module.Admin.Application.AuthService.ViewModels
     public class LoginModel
     {
         /// <summary>
+        /// 租户名称
+        /// </summary>
+        public string TenantName { get; set; }
+
+        /// <summary>
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "请输入用户名")]

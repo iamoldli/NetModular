@@ -105,6 +105,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public bool FilterDeleted { get; set; } = true;
 
+
+        /// <summary>
+        /// 过滤租户信息
+        /// </summary>
+        public bool FilterTenant { get; set; } = true;
+        
         #endregion
 
         #region ==方法==

@@ -88,6 +88,13 @@ namespace NetModular.Lib.Data.Abstractions
         string AppendQuote(string value);
 
         /// <summary>
+        /// 给定的值附加单引号
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        string AppendSingleQuote(string value);
+
+        /// <summary>
         /// 给定的值附加引号
         /// </summary>
         /// <param name="sb"></param>

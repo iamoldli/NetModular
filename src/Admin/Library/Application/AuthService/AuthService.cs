@@ -15,6 +15,7 @@ using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.AccountConfig;
 using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.Menu;
+using NetModular.Module.Admin.Domain.Tenant;
 using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 using NetModular.Module.Admin.Infrastructure.Repositories;
@@ -38,7 +39,23 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly ILoginInfo _loginInfo;
         private readonly AdminOptions _options;
 
-        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, SystemConfigModel systemConfig, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, AdminOptions options)
+        private readonly ITenantRepository _tenantRepository;
+
+        public AuthService(DrawingHelper drawingHelper,
+            ICacheHandler cacheHandler,
+            SystemConfigModel systemConfig,
+            IAccountRepository accountRepository,
+            AdminDbContext dbContext,
+            IAccountAuthInfoRepository authInfoRepository,
+            IPasswordHandler passwordHandler,
+            IAccountConfigRepository configRepository,
+            IServiceProvider serviceProvider,
+            IMenuRepository menuRepository,
+            IMapper mapper,
+            IButtonRepository buttonRepository,
+            ILoginInfo loginInfo,
+            AdminOptions options,
+            ITenantRepository tenantRepository)
         {
             _drawingHelper = drawingHelper;
             _cacheHandler = cacheHandler;
@@ -54,6 +71,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             _buttonRepository = buttonRepository;
             _loginInfo = loginInfo;
             _options = options;
+            _tenantRepository = tenantRepository;
         }
 
         #region ==创建验证码==
@@ -86,8 +104,20 @@ namespace NetModular.Module.Admin.Application.AuthService
             if (!await CheckVerifyCode(result, model))
                 return result;
 
+            //默认宿主ID为Guid.Empty(00000000-0000-0000-0000-000000000000)
+            Guid tenantId = Guid.Empty;
+            model.TenantName = "自由创客";
+            if (model.TenantName != null)
+            {
+                var tenant = await _tenantRepository.GetById(model.TenantName);
+                if (tenant == null)
+                    result.Failed("租户名称不存在");
+
+                tenantId = tenant.Id;
+            }
+
             //检测账户
-            var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);
+            var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType, tenantId);
             var checkAccountResult = CheckAccount(account);
             if (!checkAccountResult.Successful)
                 return result.Failed(checkAccountResult.Msg);

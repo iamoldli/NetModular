@@ -36,6 +36,16 @@ namespace NetModular.Lib.Data.Core.Extensions
         }
 
         /// <summary>
+        /// 获取租户属性对应字段名称
+        /// </summary>
+        /// <param name="descriptor"></param>
+        /// <returns></returns>
+        public static string GetTenantByColumnName(this IEntityDescriptor descriptor)
+        {
+            return descriptor.Columns.First(m => m.PropertyInfo.Name.Equals("TenantId")).Name;
+        }
+        
+        /// <summary>
         /// 获取修改人属性对应字段名称
         /// </summary>
         /// <param name="descriptor"></param>
@@ -62,5 +72,6 @@ namespace NetModular.Lib.Data.Core.Extensions
 
             return descriptor.Columns.First(m => m.PropertyInfo.Name.Equals(propertyName)).Name;
         }
+
     }
 }

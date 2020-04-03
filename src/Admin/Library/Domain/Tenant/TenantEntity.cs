@@ -7,7 +7,7 @@ namespace NetModular.Module.Admin.Domain.Tenant
     /// 租户信息
     /// </summary>
     [Table("Tenant")]
-    public class TenantEntity : EntityBaseWithSoftDelete
+    public partial class TenantEntity : EntityBaseWithSoftDelete
     {
         /// <summary>
         /// 租户名称
@@ -17,6 +17,7 @@ namespace NetModular.Module.Admin.Domain.Tenant
         /// <summary>
         /// 备注
         /// </summary>
+        [Nullable]
         public string Remarks { get; set; }
     }
 }

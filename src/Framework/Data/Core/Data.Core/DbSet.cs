@@ -493,7 +493,10 @@ namespace NetModular.Lib.Data.Core
 
             var dynParams = new DynamicParameters();
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
-            dynParams.Add(_sqlAdapter.AppendParameter("TenantId"), DbContext.LoginInfo.TenantId);
+
+            if (EntityDescriptor.IsWithTenantId && DbContext.LoginInfo.LoginTime != 0)
+                dynParams.Add(_sqlAdapter.AppendParameter("TenantId"), DbContext.LoginInfo.TenantId);
+
             return dynParams;
         }
 
@@ -818,13 +821,14 @@ namespace NetModular.Lib.Data.Core
                 int i = 0;
                 foreach (var column in EntityDescriptor.Columns)
                 {
-					if (column.Name.Equals("CreatedBy") || column.Name.Equals("ModifiedBy") || column.Name.Equals("TenantId"))                   
-					{
+                    var name = column.PropertyInfo.Name;
+                    if (name.Equals("CreatedBy") || name.Equals("ModifiedBy") || name.Equals("TenantId"))
+                    {
                         var createdBy = (Guid)column.PropertyInfo.GetValue(entity);
                         if (createdBy == Guid.Empty)
                         {
-                            createdBy = column.Name.Equals("TenantId") 
-                                ? DbContext.LoginInfo.TenantId 
+                            createdBy = column.Name.Equals("TenantId")
+                                ? DbContext.LoginInfo.TenantId
                                 : DbContext.LoginInfo.AccountId;
 
                             column.PropertyInfo.SetValue(entity, createdBy);

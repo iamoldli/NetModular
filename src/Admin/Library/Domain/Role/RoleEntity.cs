@@ -1,5 +1,6 @@
 ﻿using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Core.Entities.Extend;
+using System;
 
 namespace NetModular.Module.Admin.Domain.Role
 {
@@ -9,6 +10,11 @@ namespace NetModular.Module.Admin.Domain.Role
     [Table("Role")]
     public partial class RoleEntity : EntityBaseWithSoftDelete
     {
+        /// <summary>
+        /// 租户ID
+        /// </summary>
+        public Guid TenantId { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
