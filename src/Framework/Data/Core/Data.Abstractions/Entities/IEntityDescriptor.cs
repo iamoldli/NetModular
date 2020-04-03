@@ -52,7 +52,7 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 是否包含软删除
         /// </summary>
         bool SoftDelete { get; }
-
+        
         /// <summary>
         /// SQL语句
         /// </summary>
@@ -67,5 +67,11 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 是否是EntityBase类型实体
         /// </summary>
         bool IsEntityBase { get; }
+
+        /// <summary>
+        /// 是否包含租户字段
+        /// </summary>
+        bool IsWithTenantId { get; }
+
     }
 }

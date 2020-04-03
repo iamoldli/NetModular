@@ -66,6 +66,9 @@ namespace NetModular.Lib.Auth.Web
             }
         }
 
+        /// <summary>
+        /// 账户类型
+        /// </summary>
         public AccountType AccountType
         {
             get
@@ -140,5 +143,24 @@ namespace NetModular.Lib.Auth.Web
                 return 0L;
             }
         }
+        
+        /// <summary>
+        /// 多租户-租户ID
+        /// </summary>
+        public Guid TenantId
+        {
+            get
+            {
+                var tenantId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.TenantId);
+
+                if (tenantId != null && tenantId.Value.NotNull())
+                {
+                    return new Guid(tenantId.Value);
+                }
+
+                return Guid.Empty;
+            }
+        }
+
     }
 }

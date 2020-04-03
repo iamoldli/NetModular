@@ -62,6 +62,12 @@ namespace NetModular.Lib.Data.Core.Entities
         /// </summary>
         public bool SoftDelete { get; }
 
+        /// <summary>
+        /// 是否包含租户字段
+        /// </summary>
+        public bool IsWithTenantId { get; }
+
+
         public EntitySql Sql { get; }
 
         public ISqlAdapter SqlAdapter { get; }
@@ -87,6 +93,8 @@ namespace NetModular.Lib.Data.Core.Entities
             PrimaryKey = new PrimaryKeyDescriptor();
 
             SoftDelete = EntityType.IsSubclassOfGeneric(typeof(EntityWithSoftDelete<,>));
+
+            IsWithTenantId = ExistColumns("TenantId");
 
             SetTableName();
 
@@ -183,6 +191,25 @@ namespace NetModular.Lib.Data.Core.Entities
                 }
             }
         }
+
+        /// <summary>
+        /// 验收实体是否存在某个字段
+        /// </summary>
+        private bool ExistColumns(string columnName)
+        {
+            bool IsExistColumn = false;
+
+            //加载属性列表
+            var properties = new List<PropertyInfo>();
+            EntityType.GetProperties().ToList().ForEach(m =>
+            {
+                if (m.Name == columnName)
+                    IsExistColumn = true;
+            });
+
+            return IsExistColumn;
+        }
+
 
         #endregion
     }

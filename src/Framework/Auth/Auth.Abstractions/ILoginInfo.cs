@@ -46,5 +46,10 @@ namespace NetModular.Lib.Auth.Abstractions
         /// 登录时间戳
         /// </summary>
         long LoginTime { get; }
+
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        Guid TenantId { get; }
     }
 }

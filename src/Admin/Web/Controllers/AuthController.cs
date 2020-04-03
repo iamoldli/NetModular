@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,8 @@ namespace NetModular.Module.Admin.Web.Controllers
     {
         private readonly IAuthService _service;
         private readonly ILoginHandler _loginHandler;
+
+        private readonly Guid _tenantId = Guid.Parse("00000000-0000-0000-0000-000000000001");
 
         public AuthController(IAuthService service, ILoginHandler loginHandler)
         {
@@ -51,7 +54,8 @@ namespace NetModular.Module.Admin.Web.Controllers
                     new Claim(ClaimsName.AccountName, account.Name),
                     new Claim(ClaimsName.AccountType, model.AccountType.ToInt().ToString()),
                     new Claim(ClaimsName.Platform, model.Platform.ToInt().ToString()),
-                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
+                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString()),
+                    new Claim(ClaimsName.TenantId, _tenantId.ToString())
                 };
 
                 return _loginHandler.Hand(claims, loginInfo.RefreshToken);
@@ -77,7 +81,8 @@ namespace NetModular.Module.Admin.Web.Controllers
                     new Claim(ClaimsName.AccountName, account.Name),
                     new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
                     new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
-                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
+                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString()),
+                    new Claim(ClaimsName.TenantId, _tenantId.ToString())
                 };
 
                 return _loginHandler.Hand(claims, loginInfo.RefreshToken);

@@ -191,6 +191,12 @@ namespace NetModular.Lib.Data.Core.Entities
                     getAndRowLockSql += $" AND {AppendQuote("Deleted")}={val} ";
                 }
 
+                if (_descriptor.IsWithTenantId)
+                {
+                    getSql += $" AND {AppendQuote("TenantId")}={AppendParameter("TenantId")} ";
+                    getAndRowLockSql += $" AND {AppendQuote("TenantId")}={AppendParameter("TenantId")} ";
+                }
+
                 //MySql和PostgreSQL行锁
                 if (_descriptor.SqlAdapter.SqlDialect == SqlDialect.MySql || _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL)
                 {
