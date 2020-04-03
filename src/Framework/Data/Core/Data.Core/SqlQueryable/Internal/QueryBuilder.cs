@@ -444,11 +444,18 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 else
                 {
                     //多表
-                    foreach (var descriptor in _queryBody.JoinDescriptors)
+                    var first = _queryBody.JoinDescriptors.First();
+                    if (first.EntityDescriptor.SoftDelete)
                     {
-                        if (descriptor.EntityDescriptor.SoftDelete)
+                        sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
+                    }
+
+                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
+                    {
+                        var descriptor = _queryBody.JoinDescriptors[i];
+                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
                         {
-                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
+                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
                         }
                     }
                 }
