@@ -188,8 +188,8 @@ namespace NetModular.Lib.Data.Core.Entities
                 {
                     var val = _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
 
-                    getSql += $" AND {AppendQuote("Deleted")}={val} ";
-                    getAndRowLockSql += $" AND {AppendQuote("Deleted")}={val} ";
+                    getSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
+                    getAndRowLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
                 }
 
                 //MySql和PostgreSQL行锁
@@ -215,7 +215,7 @@ namespace NetModular.Lib.Data.Core.Entities
             var sql = $"SELECT COUNT(0) FROM {{0}} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)}";
             if (_descriptor.SoftDelete)
             {
-                sql += $" AND {AppendQuote("Deleted")}={(_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0")} ";
+                sql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={(_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0")} ";
             }
 
             return sql;
