@@ -10,7 +10,12 @@ namespace NetModular.Lib.Module.Abstractions
         /// <summary>
         /// 编号
         /// </summary>
-        string Id { get; set; }
+        int Id { get; set; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        string Code { get; set; }
 
         /// <summary>
         /// 名称

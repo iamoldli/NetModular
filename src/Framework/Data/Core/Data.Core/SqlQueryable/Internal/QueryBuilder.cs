@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Core.Entities;
 using NetModular.Lib.Data.Core.ExpressionResolve;
 using NetModular.Lib.Data.Core.Extensions;
 
@@ -107,7 +108,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         public string SoftDeleteSqlBuild(out IQueryParameters parameters)
         {
             var entityDescriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
-            if (!entityDescriptor.SoftDelete)
+            if (!entityDescriptor.IsSoftDelete)
                 throw new Exception("非软删除实体无法调用该方法");
 
             var tableName = _queryBody.JoinDescriptors.First().TableName;
@@ -410,60 +411,77 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         private string ResolveWhere(IQueryParameters parameters)
         {
             var whereSql = new StringBuilder();
-            for (var i = 0; i < _queryBody.Where.Count; i++)
+            foreach (var w in _queryBody.Where)
             {
-                var w = _queryBody.Where[i];
-                if (w.Type == QueryWhereType.LambdaExpression)
-                {
-                    whereSql.Append(_resolver.Resolve(w.Expression, parameters));
-                }
-                else
-                {
-                    whereSql.AppendFormat(" ({0}) ", w.Sql);
-                }
-                if (i < _queryBody.Where.Count - 1)
-                {
-                    whereSql.Append(" AND ");
-                }
+                whereSql.AppendFormat("AND ({0}) ", w.Type == QueryWhereType.LambdaExpression ? _resolver.Resolve(w.Expression, parameters) : w.Sql);
             }
+
+            #region ==过滤软删除==
 
             if (_queryBody.FilterDeleted)
             {
                 var val = _sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
-                var sb = new StringBuilder();
 
                 if (_queryBody.JoinDescriptors.Count == 1)
                 {
                     //单表
                     var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
-                    if (descriptor.SoftDelete)
+                    if (descriptor.IsSoftDelete)
                     {
-                        sb.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(descriptor.GetDeletedColumnName()), val);
+                        whereSql.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(descriptor.GetDeletedColumnName()), val);
                     }
                 }
                 else
                 {
                     //多表
                     var first = _queryBody.JoinDescriptors.First();
-                    if (first.EntityDescriptor.SoftDelete)
+                    if (first.EntityDescriptor.IsSoftDelete)
                     {
-                        sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
+                        whereSql.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
                     }
 
                     for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
                     {
                         var descriptor = _queryBody.JoinDescriptors[i];
-                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
+                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.IsSoftDelete)
                         {
-                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
+                            whereSql.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
                         }
                     }
                 }
+            }
 
-                if (sb.Length > 0)
+            #endregion
+
+            #region ==过滤租户==
+
+            if (_queryBody.JoinDescriptors.Count == 1)
+            {
+                var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
+                if (descriptor.IsTenant)
                 {
-                    whereSql.AppendFormat(" {0}", whereSql.Length > 0 ? sb : sb.Remove(0, 3));
+                    whereSql.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(descriptor.TenantIdColumnName), EntitySqlBuilder.TENANT_ID_PLACEHOLDER);
                 }
+            }
+            else
+            {
+                foreach (var joinDescriptor in _queryBody.JoinDescriptors)
+                {
+                    var descriptor = joinDescriptor.EntityDescriptor;
+                    if (descriptor.IsTenant)
+                    {
+                        whereSql.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(joinDescriptor.Alias),
+                            _sqlAdapter.AppendQuote(descriptor.TenantIdColumnName),
+                            EntitySqlBuilder.TENANT_ID_PLACEHOLDER);
+                    }
+                }
+            }
+
+            #endregion
+
+            if (whereSql.Length > 0)
+            {
+                whereSql.Remove(0, 3);
             }
 
             return whereSql.ToString();
@@ -475,10 +493,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 return;
 
             var whereSql = ResolveWhere(parameters);
+
             if (whereSql.Length > 0)
             {
                 sqlBuilder.AppendFormat(" WHERE {0}", whereSql);
             }
+
         }
 
         private string ResolveUpdate(IQueryParameters parameters)

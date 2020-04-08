@@ -4,7 +4,7 @@ using NetModular.Lib.Data.Core.Entities.Extend;
 
 namespace Data.Common.Domain
 {
-    public class ArticleEntity : EntityBaseWithSoftDelete<int, Guid>
+    public class ArticleEntity : EntityBaseWithSoftDelete<int>
     {
         public Guid CategoryId { get; set; }
 

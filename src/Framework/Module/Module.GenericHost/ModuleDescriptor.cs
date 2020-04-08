@@ -8,7 +8,12 @@ namespace NetModular.Lib.Module.GenericHost
         /// <summary>
         /// 编号
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code { get; set; }
 
         /// <summary>
         /// 名称

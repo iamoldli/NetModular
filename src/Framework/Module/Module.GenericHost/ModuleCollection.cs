@@ -16,10 +16,10 @@ namespace NetModular.Lib.Module.GenericHost
             //此处默认模块命名空间前缀与当前项目相同
             var assemblyDescriptor = new ModuleAssemblyDescriptor
             {
-                Domain = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Domain"),
-                Infrastructure = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Infrastructure"),
-                Application = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Application"),
-                Quartz = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Quartz")
+                Domain = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Domain"),
+                Infrastructure = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Infrastructure"),
+                Application = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Application"),
+                Quartz = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Quartz")
             };
 
             CheckAssemblyDescriptor(moduleDescriptor, assemblyDescriptor);

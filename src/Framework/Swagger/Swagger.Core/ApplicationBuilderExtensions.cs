@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Module.AspNetCore;
+using NetModular.Lib.Swagger.Core.Extensions;
 
 namespace NetModular.Lib.Swagger.Core
 {
@@ -19,13 +20,17 @@ namespace NetModular.Lib.Swagger.Core
             app.UseSwaggerUI(c =>
             {
                 if (modules == null) return;
-               
+
                 foreach (var module in modules)
                 {
                     if (((ModuleDescriptor)module).Initializer == null)
                         continue;
 
-                    c.SwaggerEndpoint($"/swagger/{module.Id}/swagger.json", module.Name);
+                    var groups = module.GetGroups();
+                    foreach (var group in groups)
+                    {
+                        c.SwaggerEndpoint($"/swagger/{group.Key}/swagger.json", group.Value);
+                    }
                 }
             });
 

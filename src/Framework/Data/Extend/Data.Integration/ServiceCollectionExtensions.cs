@@ -49,7 +49,7 @@ namespace NetModular.Lib.Data.Integration
 
             foreach (var options in dbOptions.Modules)
             {
-                var module = modules.FirstOrDefault(m => m.Id.EqualsIgnoreCase(options.Name));
+                var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
                 if (module != null)
                 {
                     services.AddDbContext(module, options, dbOptions);

@@ -57,7 +57,7 @@ namespace NetModular.Lib.Data.Core.Extensions
 
         private static string GetColumnNameForSoftDelete(IEntityDescriptor descriptor, string propertyName)
         {
-            if (descriptor == null || !descriptor.SoftDelete)
+            if (descriptor == null || !descriptor.IsSoftDelete)
                 return string.Empty;
 
             return descriptor.Columns.First(m => m.PropertyInfo.Name.Equals(propertyName)).Name;

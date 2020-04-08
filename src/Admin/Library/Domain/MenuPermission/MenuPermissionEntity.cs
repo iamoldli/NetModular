@@ -7,6 +7,7 @@ namespace NetModular.Module.Admin.Domain.MenuPermission
     /// 菜单权限
     /// </summary>
     [Table("Menu_Permission")]
+    [Tenant]
     public class MenuPermissionEntity : Entity<int>
     {
         /// <summary>

@@ -47,12 +47,7 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 主键列
         /// </summary>
         IPrimaryKeyDescriptor PrimaryKey { get; }
-
-        /// <summary>
-        /// 是否包含软删除
-        /// </summary>
-        bool SoftDelete { get; }
-
+        
         /// <summary>
         /// SQL语句
         /// </summary>
@@ -67,5 +62,20 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 是否是EntityBase类型实体
         /// </summary>
         bool IsEntityBase { get; }
+
+        /// <summary>
+        /// 是否包含软删除
+        /// </summary>
+        bool IsSoftDelete { get; }
+
+        /// <summary>
+        /// 是否多租户
+        /// </summary>
+        bool IsTenant { get; }
+
+        /// <summary>
+        /// 租户编号对应数据库字段名称
+        /// </summary>
+        string TenantIdColumnName { get; }
     }
 }
