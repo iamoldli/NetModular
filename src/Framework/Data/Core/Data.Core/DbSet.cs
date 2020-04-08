@@ -898,7 +898,7 @@ namespace NetModular.Lib.Data.Core
         /// <returns></returns>
         private string ReplaceTenantId(string sql)
         {
-            if (EntityDescriptor.IsTenant && DbContext.LoginInfo != null)
+            if (DbContext.LoginInfo != null)
             {
                 sql = sql.Replace(EntitySqlBuilder.TENANT_ID_PLACEHOLDER, DbContext.LoginInfo.TenantId.ToString());
 
