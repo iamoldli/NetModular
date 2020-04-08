@@ -19,6 +19,8 @@
   "InitData": true,
   //PostgreSQL数据库名称，仅PostgreSQL数据库有效
   "NpgsqlDatabaseName": null,
+  //启用多租户
+  "EnableTenant": true,
   //模块列表
   "Modules": [
     {

@@ -21,7 +21,12 @@ namespace NetModular.Lib.Data.Core.Entities
         /// <summary>
         /// 数据库配置
         /// </summary>
-        public DbModuleOptions DbOptions { get; }
+        public DbOptions DbOptions { get; }
+
+        /// <summary>
+        /// 数据库配置
+        /// </summary>
+        public DbModuleOptions ModuleOptions { get; }
 
         /// <summary>
         /// 数据库名称
@@ -75,22 +80,24 @@ namespace NetModular.Lib.Data.Core.Entities
         /// <summary>
         /// 是否包含多租户
         /// </summary>
-        public bool IsTenant { get; }
+        public bool IsTenant { get; set; } = true;
 
         /// <summary>
         /// 租户编号字段名称
         /// </summary>
-        public string TenantIdColumnName { get; set; }
+        public string TenantIdColumnName { get; set; } = "TenantId";
 
         #endregion
 
         #region ==构造器==
 
-        public EntityDescriptor(DbModuleOptions dbOptions, Type entityType, ISqlAdapter sqlAdapter)
+        public EntityDescriptor(DbOptions dbOptions, DbModuleOptions dbModuleOptions, Type entityType, ISqlAdapter sqlAdapter)
         {
             DbOptions = dbOptions;
 
-            ModuleName = dbOptions.Name;
+            ModuleOptions = dbModuleOptions;
+
+            ModuleName = dbModuleOptions.Name;
 
             SqlAdapter = sqlAdapter;
 
@@ -105,14 +112,6 @@ namespace NetModular.Lib.Data.Core.Entities
 
             //软删除
             IsSoftDelete = EntityType.GetInterfaces().Any(m => m == typeof(ISoftDelete));
-
-            //多租户
-            var tenantAttr = (TenantAttribute)Attribute.GetCustomAttribute(EntityType, typeof(TenantAttribute));
-            if (tenantAttr != null)
-            {
-                IsTenant = true;
-                TenantIdColumnName = tenantAttr.TenantIdColumnName;
-            }
 
             SetTableName();
 
@@ -138,6 +137,10 @@ namespace NetModular.Lib.Data.Core.Entities
             if (tableArr != null)
             {
                 TableName = tableArr.Name;
+
+                //多租户
+                IsTenant = tableArr.IsTenant;
+                TenantIdColumnName = tableArr.TenantIdColumnName;
             }
             else
             {
