@@ -8,6 +8,7 @@ namespace NetModular.Module.Admin.Domain.Menu
     /// 菜单
     /// </summary>
     [Table("Menu")]
+    [Tenant]
     public partial class MenuEntity : EntityBase
     {
         /// <summary>

@@ -24,9 +24,10 @@ namespace NetModular.Lib.Auth.Jwt
             if (jwtOptions == null)
                 return services;
 
+            services.AddWebAuth();
+
             services.AddSingleton(jwtOptions);
             services.TryAddSingleton<ILoginHandler, JwtLoginHandler>();
-            services.TryAddSingleton<ILoginInfo, LoginInfo>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

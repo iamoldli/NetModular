@@ -9,13 +9,9 @@ namespace NetModular.Module.Admin.Domain.Account
     /// 账户
     /// </summary>
     [Table("Account")]
+    [Tenant]
     public partial class AccountEntity : EntityBaseWithSoftDelete
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid TenantId { get; set; }
-
         /// <summary>
         /// 类型
         /// </summary>

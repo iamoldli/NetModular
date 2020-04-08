@@ -1,47 +1,42 @@
 ﻿using System;
 using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Abstractions.Entities.Extend;
 
 namespace NetModular.Lib.Data.Core.Entities.Extend
 {
-    public class EntityBaseWithSoftDelete<TKey, TDeletedByKey> : EntityWithSoftDelete<TKey, TDeletedByKey>
+    /// <summary>
+    /// 软删除实体基类
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    public class EntityBaseWithSoftDelete<TKey> : EntityBase<TKey>, ISoftDelete
     {
         /// <summary>
-        /// 创建时间
+        /// 已删除
         /// </summary>
-        public DateTime CreatedTime { get; set; } = DateTime.Now;
+        public bool Deleted { get; set; }
 
         /// <summary>
-        /// 创建人
+        /// 删除时间
         /// </summary>
-        public Guid CreatedBy { get; set; }
+        public DateTime DeletedTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 修改时间
+        /// 删除人
         /// </summary>
-        public DateTime ModifiedTime { get; set; } = DateTime.Now;
+        [Nullable]
+        public Guid DeletedBy { get; set; } = Guid.Empty;
 
         /// <summary>
-        /// 修改人
-        /// </summary>
-        public Guid ModifiedBy { get; set; }
-
-        /// <summary>
-        /// 创建人名称
+        /// 删除人名称
         /// </summary>
         [Ignore]
-        public string Creator { get; set; }
-
-        /// <summary>
-        /// 修改人
-        /// </summary>
-        [Ignore]
-        public string Modifier { get; set; }
+        public string Deleter { get; set; }
     }
 
     /// <summary>
     /// 包含软删除功能的实体基类
     /// </summary>
-    public class EntityBaseWithSoftDelete : EntityBaseWithSoftDelete<Guid, Guid>
+    public class EntityBaseWithSoftDelete : EntityBaseWithSoftDelete<Guid>
     {
 
     }

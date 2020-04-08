@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +18,7 @@ namespace NetModular.Module.Admin.Web.Controllers
     {
         private readonly IAuthService _service;
         private readonly ILoginHandler _loginHandler;
-        
+
         public AuthController(IAuthService service, ILoginHandler loginHandler)
         {
             _service = service;
@@ -48,12 +47,11 @@ namespace NetModular.Module.Admin.Web.Controllers
                 var loginInfo = result.Data.AuthInfo;
                 var claims = new[]
                 {
-                    new Claim(ClaimsName.AccountId, account.Id.ToString()),
-                    new Claim(ClaimsName.AccountName, account.Name),
-                    new Claim(ClaimsName.AccountType, model.AccountType.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform, model.Platform.ToInt().ToString()),
-                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString()),
-                    new Claim(ClaimsName.TenantId, account.TenantId.ToString())
+                    new Claim(ClaimsName.ACCOUNT_ID, account.Id.ToString()),
+                    new Claim(ClaimsName.ACCOUNT_NAME, account.Name),
+                    new Claim(ClaimsName.ACCOUNT_TYPE, model.AccountType.ToInt().ToString()),
+                    new Claim(ClaimsName.PLATFORM, model.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.LOGIN_TIME, loginInfo.LoginTime.ToString())
                 };
 
                 return _loginHandler.Hand(claims, loginInfo.RefreshToken);
@@ -75,12 +73,11 @@ namespace NetModular.Module.Admin.Web.Controllers
                 var loginInfo = result.Data.AuthInfo;
                 var claims = new[]
                 {
-                    new Claim(ClaimsName.AccountId, account.Id.ToString()),
-                    new Claim(ClaimsName.AccountName, account.Name),
-                    new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
-                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString()),
-                    new Claim(ClaimsName.TenantId, account.TenantId.ToString())
+                    new Claim(ClaimsName.ACCOUNT_ID, account.Id.ToString()),
+                    new Claim(ClaimsName.ACCOUNT_NAME, account.Name),
+                    new Claim(ClaimsName.ACCOUNT_TYPE, account.Type.ToInt().ToString()),
+                    new Claim(ClaimsName.PLATFORM, loginInfo.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.LOGIN_TIME, loginInfo.LoginTime.ToString())
                 };
 
                 return _loginHandler.Hand(claims, loginInfo.RefreshToken);

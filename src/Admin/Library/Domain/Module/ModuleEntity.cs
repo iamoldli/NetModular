@@ -7,17 +7,23 @@ namespace NetModular.Module.Admin.Domain.Module
     /// 模块
     /// </summary>
     [Table("Module")]
-    public partial class ModuleEntity : Entity
+    [Tenant]
+    public partial class ModuleEntity : Entity<int>
     {
         /// <summary>
-        /// 名称
+        /// 编号
         /// </summary>
-        public string Name { get; set; }
+        public int Number { get; set; }
 
         /// <summary>
         /// 编码
         /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// 图标

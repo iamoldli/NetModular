@@ -49,6 +49,7 @@ export default {
           name: '',
           roles: [],
           userName: '',
+          password: '',
           phone: '',
           email: ''
         },

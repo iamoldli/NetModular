@@ -8,31 +8,31 @@
         /// <summary>
         /// 租户编号
         /// </summary>
-        public const string TenantId = "http://schemas.microsoft.com/identity/claims/tenantid";
+        public const string TENANT_ID = "tid";
 
         /// <summary>
         /// 账户编号
         /// </summary>
-        public const string AccountId = "id";
+        public const string ACCOUNT_ID = "id";
 
         /// <summary>
         /// 账户名称
         /// </summary>
-        public const string AccountName = "na";
+        public const string ACCOUNT_NAME = "na";
 
         /// <summary>
         /// 账户类型
         /// </summary>
-        public const string AccountType = "ty";
+        public const string ACCOUNT_TYPE = "ty";
 
         /// <summary>
         /// 平台类型
         /// </summary>
-        public const string Platform = "pf";
+        public const string PLATFORM = "pf";
 
         /// <summary>
         /// 登录时间
         /// </summary>
-        public const string LoginTime = "lt";
+        public const string LOGIN_TIME = "lt";
     }
 }

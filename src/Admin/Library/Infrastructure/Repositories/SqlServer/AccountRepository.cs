@@ -22,9 +22,9 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Id == id).UpdateAsync(m => new AccountEntity { Password = password });
         }
 
-        public Task<AccountEntity> GetByUserName(string userName, AccountType type, Guid tenantId)
+        public Task<AccountEntity> GetByUserName(string userName, AccountType type)
         {
-            return GetAsync(m => m.UserName.Equals(userName) && m.Type == type && m.TenantId == tenantId);
+            return GetAsync(m => m.UserName.Equals(userName) && m.Type == type);
         }
 
         public Task<bool> UpdateAccountStatus(Guid id, AccountStatus status, IUnitOfWork uow = null)

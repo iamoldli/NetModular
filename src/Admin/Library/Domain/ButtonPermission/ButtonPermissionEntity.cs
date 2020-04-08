@@ -7,6 +7,7 @@ namespace NetModular.Module.Admin.Domain.ButtonPermission
     /// 按钮权限
     /// </summary>
     [Table("Button_Permission")]
+    [Tenant]
     public class ButtonPermissionEntity : Entity<int>
     {
         /// <summary>

@@ -11,6 +11,7 @@ using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.SqlQueryable;
+using NetModular.Lib.Data.Core.Entities;
 using NetModular.Lib.Data.Core.SqlQueryable;
 
 namespace NetModular.Lib.Data.Core
@@ -433,7 +434,7 @@ namespace NetModular.Lib.Data.Core
 
         public bool SoftDelete(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
-            if (!EntityDescriptor.SoftDelete)
+            if (!EntityDescriptor.IsSoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
@@ -444,7 +445,7 @@ namespace NetModular.Lib.Data.Core
 
         public async Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
         {
-            if (!EntityDescriptor.SoftDelete)
+            if (!EntityDescriptor.IsSoftDelete)
                 throw new Exception("该实体未继承软删除实体，无法使用软删除功能~");
 
             var dynParams = GetSoftDeleteParameters(id);
@@ -493,9 +494,6 @@ namespace NetModular.Lib.Data.Core
 
             var dynParams = new DynamicParameters();
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
-
-            if (EntityDescriptor.IsWithTenantId && DbContext.LoginInfo.LoginTime != 0)
-                dynParams.Add(_sqlAdapter.AppendParameter("TenantId"), DbContext.LoginInfo.TenantId);
 
             return dynParams;
         }
@@ -551,12 +549,14 @@ namespace NetModular.Lib.Data.Core
 
         public int Execute(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).Execute(sql, param, tran, commandType: commandType);
         }
 
         public Task<int> ExecuteAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).ExecuteAsync(sql, param, tran, commandType: commandType);
         }
@@ -567,12 +567,14 @@ namespace NetModular.Lib.Data.Core
 
         public T ExecuteScalar<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).ExecuteScalar<T>(sql, param, tran, commandType: commandType);
         }
 
         public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).ExecuteScalarAsync<T>(sql, param, tran, commandType: commandType);
         }
@@ -583,24 +585,28 @@ namespace NetModular.Lib.Data.Core
 
         public dynamic QueryFirstOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryFirstOrDefault(sql, param, tran, commandType: commandType);
         }
 
         public T QueryFirstOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryFirstOrDefault<T>(sql, param, tran, commandType: commandType);
         }
 
         public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync(sql, param, tran, commandType: commandType);
         }
 
         public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
@@ -611,36 +617,42 @@ namespace NetModular.Lib.Data.Core
 
         public dynamic QuerySingleOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QuerySingleOrDefault(sql, param, tran, commandType: commandType);
         }
 
         public T QuerySingleOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QuerySingleOrDefault<T>(sql, param, tran, commandType: commandType);
         }
 
         public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync(sql, param, tran, commandType: commandType);
         }
 
         public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
 
         public IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).ExecuteReader(sql, param, tran, commandType: commandType);
         }
 
         public Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).ExecuteReaderAsync(sql, param, tran, commandType: commandType);
         }
@@ -651,24 +663,28 @@ namespace NetModular.Lib.Data.Core
 
         public IEnumerable<dynamic> Query(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).Query(sql, param, tran, commandType: commandType);
         }
 
         public IEnumerable<T> Query<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).Query<T>(sql, param, tran, commandType: commandType);
         }
 
         public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryAsync(sql, param, tran, commandType: commandType);
         }
 
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
+            sql = ReplaceTenantId(sql);
             var tran = GetTransaction(uow);
             return DbContext.NewConnection(tran).QueryAsync<T>(sql, param, tran, commandType: commandType);
         }
@@ -822,14 +838,12 @@ namespace NetModular.Lib.Data.Core
                 foreach (var column in EntityDescriptor.Columns)
                 {
                     var name = column.PropertyInfo.Name;
-                    if (name.Equals("CreatedBy") || name.Equals("ModifiedBy") || name.Equals("TenantId"))
+                    if (name.Equals("CreatedBy") || name.Equals("ModifiedBy"))
                     {
                         var createdBy = (Guid)column.PropertyInfo.GetValue(entity);
                         if (createdBy == Guid.Empty)
                         {
-                            createdBy = column.Name.Equals("TenantId")
-                                ? DbContext.LoginInfo.TenantId
-                                : DbContext.LoginInfo.AccountId;
+                            createdBy = DbContext.LoginInfo.AccountId;
 
                             column.PropertyInfo.SetValue(entity, createdBy);
                             i++;
@@ -875,6 +889,23 @@ namespace NetModular.Lib.Data.Core
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// 替换租户编号
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        private string ReplaceTenantId(string sql)
+        {
+            if (EntityDescriptor.IsTenant && DbContext.LoginInfo != null)
+            {
+                sql = sql.Replace(EntitySqlBuilder.TENANT_ID_PLACEHOLDER, DbContext.LoginInfo.TenantId.ToString());
+
+                _logger.LogDebug("替换租户编号：{@sql}", sql);
+            }
+
+            return sql;
         }
 
         /// <summary>

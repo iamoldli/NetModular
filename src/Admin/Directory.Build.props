@@ -1,6 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
-    <Id>Admin</Id>
+    <Id>00</Id>
+    <Code>Admin</Code>
     <Name>权限管理</Name>
     <Authors>Oldli</Authors>
     <Icon>permission</Icon>
@@ -8,7 +9,7 @@
     <Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <LangVersion>Latest</LangVersion>
-    <RootNamespacePrefix>NetModular.Module.$(Id)</RootNamespacePrefix>
+    <RootNamespacePrefix>NetModular.Module.$(Code)</RootNamespacePrefix>
     <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

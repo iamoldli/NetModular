@@ -25,9 +25,8 @@ namespace NetModular.Module.Admin.Domain.Account
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="type">账户类型</param>
-        /// <param name="tenantId">租户账号</param>
         /// <returns></returns>
-        Task<AccountEntity> GetByUserName(string userName, AccountType type, Guid tenantId);
+        Task<AccountEntity> GetByUserName(string userName, AccountType type);
 
         /// <summary>
         /// 修改登录信息

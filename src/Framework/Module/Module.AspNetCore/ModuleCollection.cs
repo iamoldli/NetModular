@@ -42,12 +42,12 @@ namespace NetModular.Lib.Module.AspNetCore
             //此处默认模块命名空间前缀与当前项目相同
             var assemblyDescriptor = new ModuleAssemblyDescriptor
             {
-                Domain = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Domain"),
-                Infrastructure = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Infrastructure"),
-                Application = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Application"),
-                Quartz = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Quartz"),
-                Web = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Web"),
-                Api = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Id}.Api"),
+                Domain = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Domain"),
+                Infrastructure = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Infrastructure"),
+                Application = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Application"),
+                Quartz = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Quartz"),
+                Web = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Web"),
+                Api = AssemblyHelper.LoadByNameEndString($"Module.{moduleDescriptor.Code}.Api"),
             };
 
             CheckAssemblyDescriptor(moduleDescriptor, assemblyDescriptor);

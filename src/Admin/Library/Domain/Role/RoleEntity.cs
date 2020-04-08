@@ -8,13 +8,9 @@ namespace NetModular.Module.Admin.Domain.Role
     /// 角色
     /// </summary>
     [Table("Role")]
+    [Tenant]
     public partial class RoleEntity : EntityBaseWithSoftDelete
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid TenantId { get; set; }
-
         /// <summary>
         /// 名称
         /// </summary>

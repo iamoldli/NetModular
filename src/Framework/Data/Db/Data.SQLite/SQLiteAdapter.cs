@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.Data.Sqlite;
 using NetModular.Lib.Data.Abstractions;
@@ -126,28 +127,49 @@ namespace NetModular.Lib.Data.SQLite
             }
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        private string CreateTableSql(IEntityDescriptor descriptor)
         {
-            var columns = entityDescriptor.Columns;
+            var columns = descriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE {0}(", AppendQuote(entityDescriptor.TableName));
+            sql.AppendFormat("CREATE TABLE {0}(", AppendQuote(descriptor.TableName));
+
+            #region ==先创建主键==
+
+            var primaryKey = columns.FirstOrDefault(m => m.IsPrimaryKey);
+            if (primaryKey != null)
+            {
+                sql.AppendFormat("`{0}` ", primaryKey.Name);
+                sql.AppendFormat("{0} ", Property2Column(primaryKey));
+
+                sql.Append("PRIMARY KEY ");
+
+                if (descriptor.PrimaryKey.IsInt() || descriptor.PrimaryKey.IsLong())
+                {
+                    sql.Append("AUTOINCREMENT ");
+                }
+
+                sql.Append("NOT NULL,");
+            }
+
+            #endregion
+
+            #region ==租户编号==
+
+            if (descriptor.IsTenant)
+            {
+                sql.AppendFormat("`{0}` integer,", descriptor.TenantIdColumnName);
+            }
+
+            #endregion
 
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
+                if (column.IsPrimaryKey)
+                    continue;
 
                 sql.AppendFormat("`{0}` ", column.Name);
                 sql.AppendFormat("{0} ", Property2Column(column));
-
-                if (column.IsPrimaryKey)
-                {
-                    sql.Append("PRIMARY KEY ");
-
-                    if (entityDescriptor.PrimaryKey.IsInt() || entityDescriptor.PrimaryKey.IsLong())
-                    {
-                        sql.Append("AUTOINCREMENT ");
-                    }
-                }
 
                 if (!column.Nullable)
                 {

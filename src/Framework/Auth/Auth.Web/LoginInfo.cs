@@ -10,11 +10,18 @@ namespace NetModular.Lib.Auth.Web
     public class LoginInfo : ILoginInfo
     {
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ITenantResolver _tenantResolver;
 
-        public LoginInfo(IHttpContextAccessor contextAccessor)
+        public LoginInfo(IHttpContextAccessor contextAccessor, ITenantResolver tenantResolver)
         {
             _contextAccessor = contextAccessor;
+            _tenantResolver = tenantResolver;
         }
+        
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public int TenantId => _tenantResolver.Resolve();
 
         /// <summary>
         /// 账户编号
@@ -23,7 +30,7 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                var accountId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountId);
+                var accountId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.ACCOUNT_ID);
 
                 if (accountId != null && accountId.Value.NotNull())
                 {
@@ -38,7 +45,7 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                var accountName = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountName);
+                var accountName = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.ACCOUNT_NAME);
 
                 if (accountName == null || accountName.Value.IsNull())
                 {
@@ -56,7 +63,7 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                var pt = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.Platform);
+                var pt = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.PLATFORM);
                 if (pt != null && pt.Value.NotNull())
                 {
                     return (Platform)pt.Value.ToInt();
@@ -73,7 +80,7 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.AccountType);
+                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.ACCOUNT_TYPE);
 
                 if (ty != null && ty.Value.NotNull())
                 {
@@ -133,7 +140,7 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.LoginTime);
+                var ty = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.LOGIN_TIME);
 
                 if (ty != null && ty.Value.NotNull())
                 {
@@ -144,23 +151,5 @@ namespace NetModular.Lib.Auth.Web
             }
         }
         
-        /// <summary>
-        /// 多租户-租户ID
-        /// </summary>
-        public Guid TenantId
-        {
-            get
-            {
-                var tenantId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.TenantId);
-
-                if (tenantId != null && tenantId.Value.NotNull())
-                {
-                    return new Guid(tenantId.Value);
-                }
-
-                return Guid.Empty;
-            }
-        }
-
     }
 }

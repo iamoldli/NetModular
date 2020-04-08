@@ -46,8 +46,9 @@ namespace NetModular.Module.Admin.Application.ModuleService
 
             var modules = _moduleCollection.Select(m => new ModuleEntity
             {
+                Number = m.Id,
+                Code = m.Code,
                 Name = m.Name,
-                Code = m.Id,
                 Icon = m.Icon,
                 Version = m.Version,
                 Remarks = m.Description
@@ -88,10 +89,10 @@ namespace NetModular.Module.Admin.Application.ModuleService
             var list = _moduleCollection.Select(m => new OptionResultModel
             {
                 Label = m.Name,
-                Value = m.Id,
+                Value = m.Code,
                 Data = new
                 {
-                    m.Id,
+                    m.Code,
                     m.Name,
                     m.Icon,
                     m.Description

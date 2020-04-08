@@ -9,6 +9,11 @@ namespace NetModular.Lib.Data.Core.Entities
 {
     internal class EntitySqlBuilder : IEntitySqlBuilder
     {
+        /// <summary>
+        /// 租户编号占位符
+        /// </summary>
+        public const string TENANT_ID_PLACEHOLDER = "NM_TENANTID";
+
         private readonly IEntityDescriptor _descriptor;
         private readonly IPrimaryKeyDescriptor _primaryKey;
 
@@ -44,6 +49,15 @@ namespace NetModular.Lib.Data.Core.Entities
             sb.Append("(");
 
             var valuesSql = new StringBuilder();
+
+            //多租户
+            if (_descriptor.IsTenant)
+            {
+                _descriptor.SqlAdapter.AppendQuote(sb, _descriptor.TenantIdColumnName);
+                sb.Append(",");
+
+                valuesSql.AppendFormat("{0},", TENANT_ID_PLACEHOLDER);
+            }
 
             foreach (var col in _descriptor.Columns)
             {
@@ -91,7 +105,14 @@ namespace NetModular.Lib.Data.Core.Entities
         {
             var deleteSql = "DELETE FROM {0} ";
             if (!_primaryKey.IsNo())
-                deleteSingleSql = $"{deleteSql} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)};";
+            {
+                deleteSingleSql = $"{deleteSql} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)}";
+                //多租户
+                if (_descriptor.IsTenant)
+                {
+                    deleteSingleSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
+                }
+            }
             else
                 deleteSingleSql = "";
 
@@ -103,9 +124,9 @@ namespace NetModular.Lib.Data.Core.Entities
         /// </summary>
         private string BuildSoftDeleteSql(out string softDeleteSingleSql)
         {
-            if (!_descriptor.SoftDelete)
+            softDeleteSingleSql = string.Empty;
+            if (!_descriptor.IsSoftDelete)
             {
-                softDeleteSingleSql = string.Empty;
                 return string.Empty;
             }
 
@@ -116,8 +137,17 @@ namespace NetModular.Lib.Data.Core.Entities
 
             var softDeleteSql = sb.ToString();
 
-            sb.AppendFormat(" WHERE {0}={1};", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
-            softDeleteSingleSql = sb.ToString();
+            if (!_descriptor.PrimaryKey.IsNo())
+            {
+                sb.AppendFormat(" WHERE {0}={1}", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
+                //多租户
+                if (_descriptor.IsTenant)
+                {
+                    sb.AppendFormat(" AND {0}={1};", AppendQuote(_descriptor.TenantIdColumnName), TENANT_ID_PLACEHOLDER);
+                }
+
+                softDeleteSingleSql = sb.ToString();
+            }
 
             return softDeleteSql;
         }
@@ -127,11 +157,11 @@ namespace NetModular.Lib.Data.Core.Entities
         /// </summary>
         private string BuildUpdateSql(out string updateSingleSql)
         {
+            updateSingleSql = string.Empty;
             var sb = new StringBuilder();
             sb.Append("UPDATE {0} SET");
 
             var updateSql = sb.ToString();
-            updateSingleSql = "";
             if (!_primaryKey.IsNo())
             {
                 var columns = _descriptor.Columns.Where(m => !m.IsPrimaryKey);
@@ -144,7 +174,12 @@ namespace NetModular.Lib.Data.Core.Entities
 
                 sb.Remove(sb.Length - 1, 1);
 
-                sb.AppendFormat(" WHERE {0}={1};", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
+                sb.AppendFormat(" WHERE {0}={1}", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
+                //多租户
+                if (_descriptor.IsTenant)
+                {
+                    sb.AppendFormat(" AND {0}={1};", AppendQuote(_descriptor.TenantIdColumnName), TENANT_ID_PLACEHOLDER);
+                }
 
                 updateSingleSql = sb.ToString();
             }
@@ -184,18 +219,20 @@ namespace NetModular.Lib.Data.Core.Entities
                 getSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
                 getAndRowLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
 
-                if (_descriptor.SoftDelete)
+                //多租户
+                if (_descriptor.IsTenant)
+                {
+                    getSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
+                    getAndRowLockSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
+                }
+
+                //软删除
+                if (_descriptor.IsSoftDelete)
                 {
                     var val = _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
 
                     getSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
                     getAndRowLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
-                }
-
-                if (_descriptor.IsWithTenantId)
-                {
-                    getSql += $" AND {AppendQuote("TenantId")}={AppendParameter("TenantId")} ";
-                    getAndRowLockSql += $" AND {AppendQuote("TenantId")}={AppendParameter("TenantId")} ";
                 }
 
                 //MySql和PostgreSQL行锁
@@ -219,7 +256,13 @@ namespace NetModular.Lib.Data.Core.Entities
                 return string.Empty;
 
             var sql = $"SELECT COUNT(0) FROM {{0}} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)}";
-            if (_descriptor.SoftDelete)
+            //多租户
+            if (_descriptor.IsTenant)
+            {
+                sql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
+            }
+            //软删除
+            if (_descriptor.IsSoftDelete)
             {
                 sql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={(_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0")} ";
             }

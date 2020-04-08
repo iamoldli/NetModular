@@ -5,6 +5,7 @@ using System.Reflection;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.Entities.Extend;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core.Entities.Extend;
 
@@ -57,22 +58,29 @@ namespace NetModular.Lib.Data.Core.Entities
         /// </summary>
         public IPrimaryKeyDescriptor PrimaryKey { get; private set; }
 
-        /// <summary>
-        /// 是否包含软删除
-        /// </summary>
-        public bool SoftDelete { get; }
-
-        /// <summary>
-        /// 是否包含租户字段
-        /// </summary>
-        public bool IsWithTenantId { get; }
-
-
         public EntitySql Sql { get; }
 
         public ISqlAdapter SqlAdapter { get; }
 
+        /// <summary>
+        /// 是否包含基类
+        /// </summary>
         public bool IsEntityBase { get; }
+
+        /// <summary>
+        /// 是否包含软删除
+        /// </summary>
+        public bool IsSoftDelete { get; }
+
+        /// <summary>
+        /// 是否包含多租户
+        /// </summary>
+        public bool IsTenant { get; }
+
+        /// <summary>
+        /// 租户编号字段名称
+        /// </summary>
+        public string TenantIdColumnName { get; set; }
 
         #endregion
 
@@ -92,9 +100,19 @@ namespace NetModular.Lib.Data.Core.Entities
 
             PrimaryKey = new PrimaryKeyDescriptor();
 
-            SoftDelete = EntityType.IsSubclassOfGeneric(typeof(EntityWithSoftDelete<,>));
+            //实体基类
+            IsEntityBase = EntityType.GetInterfaces().Any(m => m == typeof(IBase));
 
-            IsWithTenantId = ExistColumns("TenantId");
+            //软删除
+            IsSoftDelete = EntityType.GetInterfaces().Any(m => m == typeof(ISoftDelete));
+
+            //多租户
+            var tenantAttr = (TenantAttribute)Attribute.GetCustomAttribute(EntityType, typeof(TenantAttribute));
+            if (tenantAttr != null)
+            {
+                IsTenant = true;
+                TenantIdColumnName = tenantAttr.TenantIdColumnName;
+            }
 
             SetTableName();
 
@@ -104,8 +122,6 @@ namespace NetModular.Lib.Data.Core.Entities
 
             var sqlBuilder = new EntitySqlBuilder(this);
             Sql = sqlBuilder.Build();
-
-            IsEntityBase = EntityType.IsSubclassOfGeneric(typeof(EntityBase<>)) || EntityType.IsSubclassOfGeneric(typeof(EntityBaseWithSoftDelete<,>));
         }
 
         #endregion
@@ -191,25 +207,6 @@ namespace NetModular.Lib.Data.Core.Entities
                 }
             }
         }
-
-        /// <summary>
-        /// 验收实体是否存在某个字段
-        /// </summary>
-        private bool ExistColumns(string columnName)
-        {
-            bool IsExistColumn = false;
-
-            //加载属性列表
-            var properties = new List<PropertyInfo>();
-            EntityType.GetProperties().ToList().ForEach(m =>
-            {
-                if (m.Name == columnName)
-                    IsExistColumn = true;
-            });
-
-            return IsExistColumn;
-        }
-
 
         #endregion
     }

@@ -1,9 +1,10 @@
 ﻿using System;
 using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Abstractions.Entities.Extend;
 
 namespace NetModular.Lib.Data.Core.Entities.Extend
 {
-    public class EntityBase<TKey> : Entity<TKey>
+    public class EntityBase<TKey> : Entity<TKey>, IBase
     {
         /// <summary>
         /// 创建时间

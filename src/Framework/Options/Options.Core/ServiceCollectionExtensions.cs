@@ -62,7 +62,7 @@ namespace NetModular.Lib.Options.Core
 
             //一个模块中只能有一个配置项，且必须按照“模块名称+Options”的命名方式
             var optionsType = module.AssemblyDescriptor.Infrastructure.GetTypes()
-                .FirstOrDefault(m => typeof(IModuleOptions).IsAssignableFrom(m) && m.Name.EqualsIgnoreCase($"{module.Id}Options"));
+                .FirstOrDefault(m => typeof(IModuleOptions).IsAssignableFrom(m) && m.Name.EqualsIgnoreCase($"{module.Code}Options"));
 
             if (optionsType != null)
             {

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Module.AspNetCore;
+using NetModular.Lib.Swagger.Core.Extensions;
 using NetModular.Lib.Swagger.Core.Filters;
 
 namespace NetModular.Lib.Swagger.Core
@@ -21,16 +22,20 @@ namespace NetModular.Lib.Swagger.Core
             {
                 if (modules != null)
                 {
-                    foreach (var moduleInfo in modules)
+                    foreach (var module in modules)
                     {
-                        if (((ModuleDescriptor)moduleInfo).Initializer == null)
+                        if (((ModuleDescriptor)module).Initializer == null)
                             continue;
 
-                        c.SwaggerDoc(moduleInfo.Id, new OpenApiInfo
+                        var groups = module.GetGroups();
+                        foreach (var group in groups)
                         {
-                            Title = moduleInfo.Name,
-                            Version = moduleInfo.Version
-                        });
+                            c.SwaggerDoc(group.Key, new OpenApiInfo
+                            {
+                                Title = group.Value,
+                                Version = module.Version
+                            });
+                        }
                     }
                 }
 

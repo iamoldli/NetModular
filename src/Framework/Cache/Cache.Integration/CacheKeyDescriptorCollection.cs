@@ -39,7 +39,7 @@ namespace NetModular.Lib.Cache.Integration
                     {
                         var descriptor = new CacheKeyDescriptor
                         {
-                            ModuleCode = module.Id,
+                            ModuleCode = module.Code,
                             Name = field.GetRawConstantValue().ToString(),
                             Desc = field.Name
                         };
