@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
@@ -155,30 +156,49 @@ namespace NetModular.Lib.Data.SqlServer
             }
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        private string CreateTableSql(IEntityDescriptor descriptor)
         {
-            var columns = entityDescriptor.Columns;
+            var columns = descriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE [{0}](", entityDescriptor.TableName);
+            sql.AppendFormat("CREATE TABLE [{0}](", descriptor.TableName);
+
+            #region ==先创建主键==
+
+            var primaryKey = columns.FirstOrDefault(m => m.IsPrimaryKey);
+            if (primaryKey != null)
+            {
+                sql.AppendFormat("`{0}` ", primaryKey.Name);
+                sql.AppendFormat("{0} ", Property2Column(primaryKey, out string _));
+
+                sql.Append("PRIMARY KEY ");
+
+                if (descriptor.PrimaryKey.IsInt() || descriptor.PrimaryKey.IsLong())
+                {
+                    sql.Append("IDENTITY(1,1) ");
+                }
+
+                sql.Append("NOT NULL,");
+            }
+
+            #endregion
+
+            #region ==租户编号==
+
+            if (descriptor.IsTenant)
+            {
+                sql.AppendFormat("`{0}` INT NOT NULL DEFAULT(0),", descriptor.TenantIdColumnName);
+            }
+
+            #endregion
 
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
+                if (column.IsPrimaryKey)
+                    continue;
 
                 sql.AppendFormat("[{0}] ", column.Name);
                 sql.AppendFormat("{0} ", Property2Column(column, out string def));
-
-                if (column.IsPrimaryKey)
-                {
-                    sql.Append("PRIMARY KEY ");
-
-                    if (entityDescriptor.PrimaryKey.IsInt() || entityDescriptor.PrimaryKey.IsLong())
-                    {
-                        sql.Append("IDENTITY(1,1) ");
-                    }
-
-                    def = string.Empty;
-                }
 
                 if (!column.Nullable)
                 {

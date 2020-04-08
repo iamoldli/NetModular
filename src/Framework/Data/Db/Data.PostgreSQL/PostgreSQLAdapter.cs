@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Dapper;
 using NetModular.Lib.Data.Abstractions;
@@ -123,23 +124,42 @@ namespace NetModular.Lib.Data.PostgreSQL
             con.Close();
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        private string CreateTableSql(IEntityDescriptor descriptor)
         {
-            var columns = entityDescriptor.Columns;
+            var columns = descriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName.ToLower()));
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(descriptor.TableName.ToLower()));
+            
+            #region ==先创建主键==
+
+            var primaryKey = columns.FirstOrDefault(m => m.IsPrimaryKey);
+            if (primaryKey != null)
+            {
+                sql.AppendFormat("{0} ", AppendQuote(primaryKey.Name.ToLower()));
+                sql.AppendFormat("{0} ", Property2Column(primaryKey, out string _));
+
+                sql.Append("PRIMARY KEY NOT NULL,");
+            }
+
+            #endregion
+
+            #region ==租户编号==
+
+            if (descriptor.IsTenant)
+            {
+                sql.AppendFormat("`{0}` INT NOT NULL DEFAULT(0),", descriptor.TenantIdColumnName);
+            }
+
+            #endregion
 
             for (int i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
+                if (column.IsPrimaryKey)
+                   continue;
 
                 sql.AppendFormat("{0} ", AppendQuote(column.Name.ToLower()));
                 sql.AppendFormat("{0} ", Property2Column(column, out string def));
-
-                if (column.IsPrimaryKey)
-                {
-                    sql.Append("PRIMARY KEY ");
-                }
 
                 if (!column.Nullable && !column.IsPrimaryKey)
                 {
