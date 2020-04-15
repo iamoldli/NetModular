@@ -117,8 +117,8 @@ namespace NetModular.Lib.Data.Integration
                     contextOptions.DatabaseCreateEvents = (IDatabaseCreateEvents)Activator.CreateInstance(createDatabaseEvent);
                 }
 
-                //注入数据库上下文
-                var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions, sp);
+                //创建数据库上下文实例
+                var dbContext = (IDbContext)Activator.CreateInstance(dbContextType, contextOptions);
 
                 #region ==执行初始化脚本==
 
@@ -161,7 +161,11 @@ namespace NetModular.Lib.Data.Integration
                 }
 
                 #endregion
+                
+                //加载实体描述符
+                dbContext.LoadEntityDescriptors();
 
+                //注入数据库上下文
                 services.AddSingleton(dbContextType, dbContext);
 
                 services.AddRepositories(module, dbContext, dbOptions);
@@ -220,6 +224,14 @@ namespace NetModular.Lib.Data.Integration
             });
 
             services.AddSingleton<IEntityObserverHandler, EntityObserverHandler>();
+        }
+
+        private static void AddDbSets(this IServiceCollection services, IDbContext dbContext)
+        {
+            dbContext.Options.DbModuleOptions.EntityTypes.ForEach(m =>
+            {
+
+            });
         }
     }
 }

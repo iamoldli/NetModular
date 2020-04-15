@@ -38,6 +38,21 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         }
 
         /// <summary>
+        /// 获取实体信息
+        /// </summary>
+        /// <returns></returns>
+        public static IEntityDescriptor Get(Type entityType)
+        {
+            var entity = List.FirstOrDefault(m => m.EntityType == entityType);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entityType), "实体不存在");
+            }
+
+            return entity;
+        }
+
+        /// <summary>
         /// 查找指定模块的实体列表
         /// </summary>
         /// <param name="moduleName"></param>

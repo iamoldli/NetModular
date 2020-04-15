@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Dapper;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Core.Entities;
 using IsolationLevel = System.Data.IsolationLevel;
 
 namespace NetModular.Lib.Data.Core
@@ -16,11 +19,6 @@ namespace NetModular.Lib.Data.Core
     public abstract class DbContext : IDbContext
     {
         #region ==属性==
-
-        /// <summary>
-        /// 服务提供器
-        /// </summary>
-        public IServiceProvider ServiceProvider { get; }
 
         /// <summary>
         /// 登录信息
@@ -41,10 +39,9 @@ namespace NetModular.Lib.Data.Core
 
         #region ==构造函数==
 
-        protected DbContext(IDbContextOptions options, IServiceProvider serviceProvider)
+        protected DbContext(IDbContextOptions options)
         {
             Options = options;
-            ServiceProvider = serviceProvider;
             LoginInfo = Options.LoginInfo;
 
             if (Options.DbOptions.CreateDatabase)
@@ -122,7 +119,23 @@ namespace NetModular.Lib.Data.Core
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()
         {
-            return new DbSet<TEntity>(this);
+            var descriptor = EntityDescriptorCollection.Get<TEntity>();
+            if (descriptor.DbSet == null)
+                descriptor.DbSet = new DbSet<TEntity>(descriptor.DbContext);
+
+            return (IDbSet<TEntity>)descriptor.DbSet;
+        }
+
+        public void LoadEntityDescriptors()
+        {
+            var entityTypes = Options.DbModuleOptions.EntityTypes;
+            if (entityTypes != null && entityTypes.Any())
+            {
+                foreach (var entityType in entityTypes)
+                {
+                    EntityDescriptorCollection.Add(new EntityDescriptor(this, entityType));
+                }
+            }
         }
 
         public void CreateDatabase()
