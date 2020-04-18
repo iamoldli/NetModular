@@ -1,146 +1,77 @@
-﻿using System.Threading.Tasks;
-using NetModular.Lib.Options.Abstraction;
+﻿using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
+using NetModular.Module.Admin.Application.ConfigService.ResultModels;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
 using NetModular.Module.Admin.Domain.Config;
-using NetModular.Module.Admin.Domain.Config.Models;
 
 namespace NetModular.Module.Admin.Application.ConfigService
 {
     public class ConfigService : IConfigService
     {
         private readonly IConfigRepository _repository;
-        private readonly IModuleOptionsEngine _moduleOptionsEngine;
-
-        public ConfigService(IConfigRepository repository, IModuleOptionsEngine moduleOptionsEngine)
+        private readonly IConfigProvider _configProvider;
+        public ConfigService(IConfigRepository repository, IConfigProvider configProvider)
         {
             _repository = repository;
-            _moduleOptionsEngine = moduleOptionsEngine;
+            _configProvider = configProvider;
         }
 
-        public async Task<IResultModel> Query(ConfigQueryModel model)
+        //public async Task<IResultModel> Query(ConfigQueryModel model)
+        //{
+        //    var result = new QueryResultModel<ConfigEntity>
+        //    {
+        //        Rows = await _repository.Query(model),
+        //        Total = model.TotalCount
+        //    };
+
+        //    return ResultModel.Success(result);
+        //}
+
+        public UIConfigResultModel GetUI()
         {
-            model.Type = ConfigType.Custom;
-            var result = new QueryResultModel<ConfigEntity>
+            var result = new UIConfigResultModel();
+
+            #region ==系统信息==
+
+            var systemConfig = _configProvider.Get<SystemConfig>();
+            result.System = new UISystem
             {
-                Rows = await _repository.Query(model),
-                Total = model.TotalCount
+                Title = systemConfig.Title,
+                Logo = systemConfig.Logo,
+                Copyright = systemConfig.Copyright
             };
 
-            return ResultModel.Success(result);
-        }
+            #endregion
 
-        public async Task<IResultModel> Add(ConfigAddModel model)
-        {
-            if (await _repository.Exists(ConfigType.Custom, model.Key))
-                return ResultModel.HasExists;
+            #region ==权限配置==
 
-            var entity = new ConfigEntity
+            var authConfig = _configProvider.Get<AuthConfig>();
+            result.Permission = new UIPermission
             {
-                Type = ConfigType.Custom,
-                Key = model.Key,
-                Value = model.Value,
-                Remarks = model.Remarks
+                Validate = authConfig.Validate,
+                Button = authConfig.Button
             };
 
-            var result = await _repository.AddAsync(entity);
-            return ResultModel.Result(result);
+            #endregion
+
+            #region ==组件配置==
+
+            result.Component = _configProvider.Get<ComponentConfig>();
+
+            #endregion
+
+            return result;
         }
 
-        public async Task<IResultModel> Delete(int id)
+        public IResultModel Edit(string code, ConfigType type)
         {
-            var entity = await _repository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.Failed("配置不存在");
-            if (entity.Type != ConfigType.Custom)
-                return ResultModel.Failed("非自定义配置不允许删除");
-
-            var result = await _repository.DeleteAsync(id);
-            return ResultModel.Result(result);
+            return ResultModel.Success(_configProvider.Get(code, type));
         }
 
-        public async Task<IResultModel> Edit(int id)
+        public IResultModel Update(ConfigUpdateModel model)
         {
-            var entity = await _repository.GetAsync(id);
-            if (entity == null)
-                return ResultModel.Failed("配置不存在");
-            if (entity.Type != ConfigType.Custom)
-                return ResultModel.Failed("非自定义配置不允许编辑");
-
-            var model = new ConfigUpdateModel
-            {
-                Id = id,
-                Key = entity.Key,
-                Value = entity.Value,
-                Remarks = entity.Remarks
-            };
-
-            return ResultModel.Success(model);
-        }
-
-        public async Task<IResultModel> Update(ConfigUpdateModel model)
-        {
-            var entity = await _repository.GetAsync(model.Id);
-            if (entity == null)
-                return ResultModel.Failed("配置不存在");
-            if (entity.Type != ConfigType.Custom)
-                return ResultModel.Failed("非自定义配置不允许编辑");
-
-            entity.Key = model.Key;
-            entity.Value = model.Value;
-            entity.Remarks = model.Remarks;
-
-            if (await _repository.Exists(entity))
-                return ResultModel.Failed($"{model.Key}键已存在");
-
-            var result = await _repository.UpdateAsync(entity);
-            return ResultModel.Result(result);
-        }
-
-        public async Task<IResultModel> GetValueByKey(string key, ConfigType type = ConfigType.System, string moduleCode = null)
-        {
-            string value = string.Empty;
-            if (type == ConfigType.Module)
-            {
-                var options = _moduleOptionsEngine.GetInstance(moduleCode);
-                if (options != null)
-                {
-                    var properties = options.GetType().GetProperties();
-                    foreach (var propertyInfo in properties)
-                    {
-                        if (propertyInfo.Name.EqualsIgnoreCase(key))
-                        {
-                            var val = propertyInfo.GetValue(options);
-                            if (val != null)
-                            {
-                                if (propertyInfo.PropertyType.IsEnum || propertyInfo.PropertyType.IsBool())
-                                {
-                                    value = val.ToInt().ToString();
-                                }
-                                else if (propertyInfo.PropertyType.IsDateTime())
-                                {
-                                    value = val.ToDateTime().Format();
-                                }
-                                else
-                                {
-                                    value = val.ToString();
-                                }
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                var entity = await _repository.GetByKey(key);
-                if (entity != null)
-                {
-                    value = entity.Value;
-                }
-            }
-
-            return ResultModel.Success(value);
+            return ResultModel.Success(_configProvider.Set(model.Type, model.Code, model.Json));
         }
     }
 }

@@ -1,57 +1,33 @@
-﻿using System.Threading.Tasks;
+﻿using NetModular.Lib.Config.Abstractions;
+using NetModular.Module.Admin.Application.ConfigService.ResultModels;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
-using NetModular.Module.Admin.Domain.Config;
-using NetModular.Module.Admin.Domain.Config.Models;
 
 namespace NetModular.Module.Admin.Application.ConfigService
 {
     /// <summary>
-    /// 配置项服务
+    /// 配置服务
     /// </summary>
     public interface IConfigService
     {
         /// <summary>
-        /// 查询
+        /// 获取UI配置信息
         /// </summary>
-        /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Query(ConfigQueryModel model);
-
-        /// <summary>
-        /// 创建
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        Task<IResultModel> Add(ConfigAddModel model);
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id">编号</param>
-        /// <returns></returns>
-        Task<IResultModel> Delete(int id);
+        UIConfigResultModel GetUI();
 
         /// <summary>
         /// 编辑
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="code">配置类编码</param>
+        /// <param name="type">配置类类型</param>
         /// <returns></returns>
-        Task<IResultModel> Edit(int id);
+        IResultModel Edit(string code, ConfigType type);
 
         /// <summary>
-        /// 修改
+        /// 保存
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResultModel> Update(ConfigUpdateModel model);
-
-        /// <summary>
-        /// 根据Key获取值
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="type">配置类型</param>
-        /// <param name="moduleCode">模块编码，仅获取模块配置时有用</param>
-        /// <returns></returns>
-        Task<IResultModel> GetValueByKey(string key, ConfigType type = ConfigType.System, string moduleCode = null);
+        IResultModel Update(ConfigUpdateModel model);
     }
 }

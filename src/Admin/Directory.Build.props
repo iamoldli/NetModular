@@ -1,24 +1,25 @@
 ﻿<Project>
-  <PropertyGroup>
-    <Id>Admin</Id>
-    <Name>权限管理</Name>
-    <Authors>Oldli</Authors>
-    <Icon>permission</Icon>
-    <Version>1.9.7</Version>
-    <Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-    <LangVersion>Latest</LangVersion>
-    <RootNamespacePrefix>NetModular.Module.$(Id)</RootNamespacePrefix>
-    <AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
-    <RootNamespace>$(AssemblyName)</RootNamespace>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-    <!--设置打包路径-->
-    <PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
-    <Company>Oldli</Company>
-    <Copyright>Oldli</Copyright>
-    <PackageProjectUrl>https://nm.iamoldli.com/docs/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Id>00</Id>
+		<Code>Admin</Code>
+		<Name>权限管理</Name>
+		<Authors>Oldli</Authors>
+		<Icon>permission</Icon>
+		<Version>1.9.10</Version>
+		<Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<LangVersion>Latest</LangVersion>
+		<RootNamespacePrefix>NetModular.Module.$(Code)</RootNamespacePrefix>
+		<AssemblyName>$(RootNamespacePrefix).$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<!--设置打包路径-->
+		<PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
+		<Company>Oldli</Company>
+		<Copyright>Oldli</Copyright>
+		<PackageProjectUrl>https://nm.iamoldli.com/docs/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
+	</PropertyGroup>
 </Project>

@@ -10,6 +10,11 @@ namespace NetModular.Module.Admin.Domain.Module
     public partial class ModuleEntity : Entity
     {
         /// <summary>
+        /// 编号
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }

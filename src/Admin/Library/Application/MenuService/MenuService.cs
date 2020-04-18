@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Models;
 using NetModular.Lib.Utils.Core.Result;
 using NetModular.Module.Admin.Application.AccountService;
 using NetModular.Module.Admin.Application.MenuService.ResultModels;
 using NetModular.Module.Admin.Application.MenuService.ViewModels;
-using NetModular.Module.Admin.Application.SystemService;
 using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.ButtonPermission;
@@ -34,12 +35,11 @@ namespace NetModular.Module.Admin.Application.MenuService
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IButtonPermissionRepository _buttonPermissionRepository;
         private readonly IAccountService _accountService;
-        private readonly ISystemService _systemService;
         private readonly ILogger _logger;
         private readonly AdminDbContext _dbContext;
-        private readonly SystemConfigModel _systemConfig;
+        private readonly IConfigProvider _configProvider;
 
-        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger, AdminDbContext dbContext, ISystemService systemService, SystemConfigModel systemConfig)
+        public MenuService(IMenuRepository menuRepository, IMenuPermissionRepository menuPermissionRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IButtonRepository buttonRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IButtonPermissionRepository buttonPermissionRepository, ILogger<MenuService> logger, AdminDbContext dbContext, IConfigProvider configProvider)
         {
             _menuRepository = menuRepository;
             _menuPermissionRepository = menuPermissionRepository;
@@ -52,17 +52,17 @@ namespace NetModular.Module.Admin.Application.MenuService
             _buttonPermissionRepository = buttonPermissionRepository;
             _logger = logger;
             _dbContext = dbContext;
-            _systemService = systemService;
-            _systemConfig = systemConfig;
+            _configProvider = configProvider;
         }
 
         public async Task<IResultModel> GetTree()
         {
+            var config = _configProvider.Get<SystemConfig>();
             var all = await _menuRepository.GetAllAsync();
             var root = new TreeResultModel<Guid, MenuTreeResultModel>
             {
                 Id = Guid.Empty,
-                Label = _systemConfig.Base.Title,
+                Label = config.Title,
                 Item = new MenuTreeResultModel()
             };
             root.Path.Add(root.Label);

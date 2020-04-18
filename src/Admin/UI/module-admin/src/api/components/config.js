@@ -2,23 +2,55 @@ import module from '../../module'
 
 export default name => {
   const root = `${module.code}/${name}/`
-  const crud = $http.crud(root)
   const urls = {
-    getValue: root + 'GetValue',
-    typeSelect: root + 'TypeSelect'
+    ui: root + 'UI',
+    edit: root + 'Edit',
+    update: root + 'Update',
+    uploadLogo: root + 'UploadLogo',
+    logoUrl: root + 'LogoUrl',
+    descriptors: root + 'Descriptors',
+    getValue: root + 'GetValue'
+  }
+
+  const getUI = () => {
+    return $http.get(urls.ui)
+  }
+
+  const edit = params => {
+    return $http.get(urls.edit, params)
+  }
+
+  const update = params => {
+    return $http.post(urls.update, params)
+  }
+
+  /**
+   * logo上传接口
+   */
+
+  const uploadLogoUrl = () => {
+    return $http.axios.defaults.baseURL + urls.uploadLogo
+  }
+
+  const getLogoUrl = () => {
+    return $http.get(urls.logoUrl)
+  }
+
+  const getDescriptors = () => {
+    return $http.get(urls.descriptors)
   }
 
   const getValue = (key, type, moduleCode) => {
     return $http.get(urls.getValue, { key, type, moduleCode })
   }
 
-  const typeSelect = () => {
-    return $http.get(urls.typeSelect)
-  }
-
   return {
-    ...crud,
-    getValue,
-    typeSelect
+    getUI,
+    edit,
+    update,
+    uploadLogoUrl,
+    getLogoUrl,
+    getDescriptors,
+    getValue
   }
 }

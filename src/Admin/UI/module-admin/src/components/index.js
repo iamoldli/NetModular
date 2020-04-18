@@ -1,18 +1,10 @@
-import RoleSelect from '../views/role/components/select'
-import ModuleSelect from '../views/module/components/select'
-import EnumSelect from './enum-select'
-
-export default [
-  {
-    name: 'nm-role-select',
-    component: RoleSelect
-  },
-  {
-    name: 'nm-module-select',
-    component: ModuleSelect
-  },
-  {
-    name: 'nm-enum-select',
-    component: EnumSelect
-  }
-]
+import library from 'netmodular-ui/packages/library'
+let components = []
+const requireComponent = require.context('./', true, /index\.vue$/)
+requireComponent.keys().map(fileName => {
+  components.push({
+    name: `${library.prefix.toLowerCase()}-${fileName.split('/')[1]}`,
+    component: requireComponent(fileName).default
+  })
+})
+export default components

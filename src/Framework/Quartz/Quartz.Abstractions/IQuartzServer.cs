@@ -16,7 +16,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// <param name="props">属性</param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task Start(NameValueCollection props, CancellationToken cancellation = default);
+        Task Start(CancellationToken cancellation = default);
 
         /// <summary>
         /// 停止

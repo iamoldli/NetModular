@@ -26,7 +26,7 @@ namespace NetModular.Lib.Swagger.Core
                         if (((ModuleDescriptor)moduleInfo).Initializer == null)
                             continue;
 
-                        c.SwaggerDoc(moduleInfo.Id, new OpenApiInfo
+                        c.SwaggerDoc(moduleInfo.Code, new OpenApiInfo
                         {
                             Title = moduleInfo.Name,
                             Version = moduleInfo.Version

@@ -17,7 +17,7 @@ namespace NetModular.Module.Admin.Application.ToolService
             if (moduleCode.IsNull() || enumName.IsNull() || libName.IsNull())
                 return ResultModel.Failed("参数有误");
 
-            var module = _moduleCollection.FirstOrDefault(m => m.Id.EqualsIgnoreCase(moduleCode));
+            var module = _moduleCollection.FirstOrDefault(m => m.Code.EqualsIgnoreCase(moduleCode));
             if (module == null)
                 return ResultModel.Failed("模块不存在");
 

@@ -4,43 +4,49 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Auth.Jwt
 {
+    [Singleton]
     public class JwtLoginHandler : ILoginHandler
     {
         private readonly ILogger _logger;
-        private readonly JwtOptions _options;
+        private readonly IConfigProvider _configProvider;
 
-        public JwtLoginHandler(JwtOptions options, ILogger<JwtLoginHandler> logger)
+        public JwtLoginHandler(ILogger<JwtLoginHandler> logger, IConfigProvider configProvider)
         {
-            _options = options;
             _logger = logger;
+            _configProvider = configProvider;
         }
 
         public IResultModel Hand(Claim[] claims, string extendData)
         {
-            var token = Build(claims);
+            var options = _configProvider.Get<AuthConfig>().Jwt;
+
+            var token = Build(claims, options);
 
             _logger.LogDebug("生成JwtToken：{token}", token);
 
             var model = new JwtTokenModel
             {
                 AccessToken = token,
-                ExpiresIn = _options.Expires * 60,
+                ExpiresIn = options.Expires * 60,
                 RefreshToken = extendData
             };
 
             return ResultModel.Success(model);
         }
 
-        private string Build(Claim[] claims)
+        private string Build(Claim[] claims, JwtConfig config)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_options.Issuer, _options.Audience, claims, DateTime.Now, DateTime.Now.AddMinutes(_options.Expires), signingCredentials);
+            var token = new JwtSecurityToken(config.Issuer, config.Audience, claims, DateTime.Now, DateTime.Now.AddMinutes(config.Expires), signingCredentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

@@ -6,11 +6,6 @@
     public static class ClaimsName
     {
         /// <summary>
-        /// 租户编号
-        /// </summary>
-        public const string TenantId = "tid";
-
-        /// <summary>
         /// 账户编号
         /// </summary>
         public const string AccountId = "id";

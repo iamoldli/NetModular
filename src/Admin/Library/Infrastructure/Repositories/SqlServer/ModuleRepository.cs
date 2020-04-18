@@ -13,7 +13,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 
         public Task<bool> Exists(ModuleEntity entity, IUnitOfWork uow)
         {
-            var query = Db.Find(m => m.Code == entity.Code);
+            var query = Db.Find(m => m.Number == entity.Number && m.Code == entity.Code);
             query.WhereNotEmpty(entity.Id, m => m.Id != entity.Id);
             query.UseUow(uow);
             return query.ExistsAsync();
@@ -23,6 +23,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             return Db.Find().Where(m => m.Code == entity.Code).UpdateAsync(m => new ModuleEntity
             {
+                Number = entity.Number,
                 Name = entity.Name,
                 Icon = entity.Icon,
                 Version = entity.Version,

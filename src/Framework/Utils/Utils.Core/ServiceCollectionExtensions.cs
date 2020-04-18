@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Utils.Core.Attributes;
@@ -16,17 +17,21 @@ namespace NetModular.Lib.Utils.Core
         /// <returns></returns>
         public static IServiceCollection AddServicesFromAssembly(this IServiceCollection services, Assembly assembly)
         {
-            //排除null以及官方包
-            if (assembly == null || assembly.FullName.StartsWith("Microsoft") || assembly.FullName.StartsWith("System"))
-                return services;
-
             foreach (var type in assembly.GetTypes())
             {
                 #region ==单例注入==
 
-                if (type.GetCustomAttributes().Any(m => m.GetType() == typeof(SingletonAttribute)))
+                var singletonAttr = (SingletonAttribute)Attribute.GetCustomAttribute(type, typeof(SingletonAttribute));
+                if (singletonAttr != null)
                 {
-                    var interfaces = type.GetInterfaces();
+                    //注入自身类型
+                    if (singletonAttr.Itself)
+                    {
+                        services.AddSingleton(type);
+                        continue;
+                    }
+
+                    var interfaces = type.GetInterfaces().Where(m => m != typeof(IDisposable)).ToList();
                     if (interfaces.Any())
                     {
                         foreach (var i in interfaces)
@@ -38,6 +43,7 @@ namespace NetModular.Lib.Utils.Core
                     {
                         services.AddSingleton(type);
                     }
+
                     continue;
                 }
 
@@ -45,9 +51,17 @@ namespace NetModular.Lib.Utils.Core
 
                 #region ==瞬时注入==
 
-                if (type.GetCustomAttributes().Any(m => m.GetType() == typeof(TransientAttribute)))
+                var transientAttr = (TransientAttribute)Attribute.GetCustomAttribute(type, typeof(TransientAttribute));
+                if (transientAttr != null)
                 {
-                    var interfaces = type.GetInterfaces();
+                    //注入自身类型
+                    if (transientAttr.Itself)
+                    {
+                        services.AddSingleton(type);
+                        continue;
+                    }
+
+                    var interfaces = type.GetInterfaces().Where(m => m != typeof(IDisposable)).ToList();
                     if (interfaces.Any())
                     {
                         foreach (var i in interfaces)
@@ -65,10 +79,17 @@ namespace NetModular.Lib.Utils.Core
                 #endregion
 
                 #region ==Scoped注入==
-
-                if (type.GetCustomAttributes().Any(m => m.GetType() == typeof(ScopedAttribute)))
+                var scopedAttr = (ScopedAttribute)Attribute.GetCustomAttribute(type, typeof(ScopedAttribute));
+                if (scopedAttr != null)
                 {
-                    var interfaces = type.GetInterfaces();
+                    //注入自身类型
+                    if (scopedAttr.Itself)
+                    {
+                        services.AddSingleton(type);
+                        continue;
+                    }
+
+                    var interfaces = type.GetInterfaces().Where(m => m != typeof(IDisposable)).ToList();
                     if (interfaces.Any())
                     {
                         foreach (var i in interfaces)

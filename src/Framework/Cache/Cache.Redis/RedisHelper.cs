@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using StackExchange.Redis;
-using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace NetModular.Lib.Cache.Redis
 {
+    [Singleton]
     public class RedisHelper : IDisposable
     {
-        private readonly ConnectionMultiplexer _redis;
-        private readonly string _prefix;
+        private ConnectionMultiplexer _redis;
+        private string _prefix;
         public IDatabase Db;
-
-        public RedisHelper(RedisOptions options)
+        private readonly IConfigProvider _configProvider;
+        private readonly ILogger _logger;
+        public RedisHelper(IConfigProvider configProvider, ILogger<RedisHelper> logger)
         {
-            Check.NotNull(options.ConnectionString, nameof(RedisOptions), "未设置Redis连接信息");
-            _prefix = options.Prefix ?? string.Empty;
+            _configProvider = configProvider;
+            _logger = logger;
 
-            _redis = ConnectionMultiplexer.Connect(options.ConnectionString);
-            Db = _redis.GetDatabase();
+            CreateConnection();
         }
 
         public IDatabase GetDb(int db = -1)
@@ -36,6 +39,19 @@ namespace NetModular.Lib.Cache.Redis
         public string GetKey(string key)
         {
             return $"{_prefix}:{key}";
+        }
+
+        /// <summary>
+        /// 创建连接
+        /// </summary>
+        internal void CreateConnection()
+        {
+            var config = _configProvider.Get<RedisConfig>();
+            _prefix = config.Prefix ?? string.Empty;
+
+            var connString = config.ConnectionString.IsNull() ? "127.0.0.1" : config.ConnectionString;
+            _redis = ConnectionMultiplexer.Connect(connString);
+            Db = _redis.GetDatabase();
         }
 
         #region ==String==
@@ -319,7 +335,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="start"></param>
         /// <param name="stop"></param>
         /// <returns>删除数量</returns>
-        public Task<long> SortedSetRemoveRangeByScoreAsync<T>(string key, long start = 0, long stop = -1)
+        public Task<long> SortedSetRemoveRangeByScoreAsync(string key, long start = 0, long stop = -1)
         {
             return Db.SortedSetRemoveRangeByScoreAsync(GetKey(key), start, stop);
         }
@@ -331,7 +347,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="start"></param>
         /// <param name="stop"></param>
         /// <returns>删除数量</returns>
-        public Task<long> SortedSetRemoveRangeByRankAsync<T>(string key, long start = 0, long stop = -1)
+        public Task<long> SortedSetRemoveRangeByRankAsync(string key, long start = 0, long stop = -1)
         {
             return Db.SortedSetRemoveRangeByRankAsync(GetKey(key), start, stop);
         }

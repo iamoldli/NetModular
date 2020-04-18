@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Cache.Redis
 {
+    [Singleton]
     public class RedisCacheHandler : ICacheHandler
     {
         private readonly RedisHelper _helper;

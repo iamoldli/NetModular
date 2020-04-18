@@ -6,10 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StackExchange.Redis" Version="2.1.28" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.3" />
+    <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Config\Config.Abstractions\Config.Abstractions.csproj" />
     <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
     <ProjectReference Include="..\Cache.Abstractions\Cache.Abstractions.csproj" />
   </ItemGroup>

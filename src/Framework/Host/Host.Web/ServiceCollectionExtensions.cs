@@ -4,12 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Auth.Jwt;
-using NetModular.Lib.Cache.Integration;
+using NetModular.Lib.Config.Core;
 using NetModular.Lib.Data.Integration;
-using NetModular.Lib.Excel.Integration;
 using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.AspNetCore;
-using NetModular.Lib.Options.Core;
 using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Swagger.Core.Conventions;
 using NetModular.Lib.Utils.Core;
@@ -39,18 +37,12 @@ namespace NetModular.Lib.Host.Web
             //添加对象映射
             services.AddMappers(modules);
 
-            //添加缓存
-            services.AddCache(env.EnvironmentName);
-
             //主动或者开发模式下开启Swagger
             if (hostOptions.Swagger || env.IsDevelopment())
             {
                 services.AddSwagger(modules);
             }
-
-            //Jwt身份认证
-            services.AddJwtAuth(env.EnvironmentName);
-
+            
             //添加MVC功能
             services.AddMvc(c =>
             {
@@ -108,14 +100,14 @@ namespace NetModular.Lib.Host.Web
             //添加模块的自定义服务
             services.AddModuleServices(modules, env);
 
+            //添加配置管理
+            services.AddConfig();
+
+            //Jwt身份认证(需要从配置中读取jwt相关配置，所以要放在配置管理后面)
+            services.AddJwtAuth();
+
             //添加模块初始化服务
             services.AddModuleInitializerServices(modules, env);
-
-            //添加模块配置信息
-            services.AddModuleOptions(modules);
-
-            //添加Excel相关功能
-            services.AddExcel(env.EnvironmentName);
 
             return services;
         }

@@ -1,12 +1,15 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
+using NetModular.Lib.Utils.Mvc.Extensions;
+using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.ConfigService;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;
-using NetModular.Module.Admin.Domain.Config;
-using NetModular.Module.Admin.Domain.Config.Models;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -14,66 +17,93 @@ namespace NetModular.Module.Admin.Web.Controllers
     public class ConfigController : Web.ModuleController
     {
         private readonly IConfigService _service;
-
-        public ConfigController(IConfigService service)
+        private readonly FileUploadHelper _fileUploadHelper;
+        private readonly IConfigProvider _configProvider;
+        private readonly IConfigCollection _configCollection;
+        public ConfigController(IConfigService service, FileUploadHelper fileUploadHelper, IConfigProvider configProvider, IConfigCollection configCollection)
         {
             _service = service;
+            _fileUploadHelper = fileUploadHelper;
+            _configProvider = configProvider;
+            _configCollection = configCollection;
         }
 
         [HttpGet]
-        [Description("查询")]
-        public Task<IResultModel> Query([FromQuery]ConfigQueryModel model)
+        [AllowAnonymous]
+        [Description("UI配置信息")]
+        public IResultModel UI()
         {
-            return _service.Query(model);
-        }
+            var result = _service.GetUI();
+            if (result.System.Logo.NotNull())
+            {
+                result.System.Logo = new Uri($"{Request.GetHost()}/upload/{result.System.Logo}").ToString().ToLower();
+            }
 
-        [HttpPost]
-        [Description("添加")]
-        public Task<IResultModel> Add(ConfigAddModel model)
-        {
-            return _service.Add(model);
-        }
-
-        [HttpDelete]
-        [Description("删除")]
-        public Task<IResultModel> Delete([BindRequired]int id)
-        {
-            return _service.Delete(id);
+            return ResultModel.Success(result);
         }
 
         [HttpGet]
         [Description("编辑")]
-        public Task<IResultModel> Edit([BindRequired]int id)
+        public IResultModel Edit(string code, ConfigType type)
         {
-            return _service.Edit(id);
+            return _service.Edit(code, type);
         }
 
         [HttpPost]
-        [Description("修改")]
-        public Task<IResultModel> Update(ConfigUpdateModel model)
+        [Description("保存")]
+        public IResultModel Update(ConfigUpdateModel model)
         {
             return _service.Update(model);
         }
 
-        [HttpGet]
-        [Description("根据Key获取值")]
-        [Common]
-        public async Task<IResultModel> GetValue(string key, ConfigType type = ConfigType.System, string moduleCode = null)
+        [HttpPost]
+        [Description("上传Logo")]
+        public async Task<IResultModel> UploadLogo(IFormFile formFile)
         {
-            if (key.IsNull())
-                return ResultModel.Success(string.Empty);
+            var config = _configProvider.Get<PathConfig>();
 
-            if (type == ConfigType.Module && moduleCode.IsNull())
-                return ResultModel.Success(string.Empty);
+            var model = new FileUploadModel
+            {
+                Request = Request,
+                FormFile = formFile,
+                RootPath = config.UploadPath,
+                Module = "Admin",
+                Group = "Logo"
+            };
 
-            return await _service.GetValueByKey(key, type, moduleCode);
+            var result = await _fileUploadHelper.Upload(model);
+
+            if (result.Successful)
+            {
+                var file = result.Data;
+
+                file.Url = new Uri(Request.GetHost($"/upload/{file.FullPath.ToLower()}")).ToString().ToLower();
+
+                return ResultModel.Success(file);
+            }
+
+            return ResultModel.Failed("上传失败");
         }
 
         [HttpGet]
-        [Common]
-        public IResultModel TypeSelect()
+        [Description("Logo完整地址")]
+        public IResultModel LogoUrl()
         {
-            return ResultModel.Success(EnumExtensions.ToResult<ConfigType>());
+            var config = _configProvider.Get<SystemConfig>();
+            var url = "";
+            if (config.Logo.NotNull())
+            {
+                url = new Uri($"{Request.GetHost()}/upload/{config.Logo}").ToString().ToLower();
+            }
+
+            return ResultModel.Success(url);
+        }
+
+        [HttpGet]
+        [Description("配置描述符列表")]
+        public IResultModel Descriptors()
+        {
+            return ResultModel.Success(_configCollection);
         }
     }
 }

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Module.Abstractions;
-using NetModular.Lib.Options.Abstraction;
-using NetModular.Module.Admin.Application.ModuleService.ViewModels;
 using NetModular.Module.Admin.Domain.AuditInfo;
 using NetModular.Module.Admin.Domain.Module;
+using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
@@ -18,19 +18,18 @@ namespace NetModular.Module.Admin.Application.ModuleService
         private readonly IAuditInfoRepository _auditInfoRepository;
         private readonly IModuleCollection _moduleCollection;
         private readonly AdminDbContext _dbContext;
-        private readonly IModuleOptionsEngine _moduleOptionsContainer;
         private readonly ILogger _logger;
-        private readonly AdminOptions _options;
-
-        public ModuleService(IModuleRepository repository, IModuleCollection moduleCollection, AdminDbContext dbContext, ILogger<ModuleService> logger, IModuleOptionsEngine moduleOptionsContainer, IAuditInfoRepository auditInfoRepository, AdminOptions options)
+        private readonly ICacheHandler _cacheHandler;
+        private readonly IPermissionRepository _permissionRepository;
+        public ModuleService(IModuleRepository repository, IModuleCollection moduleCollection, AdminDbContext dbContext, ILogger<ModuleService> logger, IAuditInfoRepository auditInfoRepository, ICacheHandler cacheHandler, IPermissionRepository permissionRepository)
         {
             _repository = repository;
             _moduleCollection = moduleCollection;
             _dbContext = dbContext;
             _logger = logger;
-            _moduleOptionsContainer = moduleOptionsContainer;
             _auditInfoRepository = auditInfoRepository;
-            _options = options;
+            _cacheHandler = cacheHandler;
+            _permissionRepository = permissionRepository;
         }
 
         public async Task<IResultModel> Query()
@@ -39,15 +38,17 @@ namespace NetModular.Module.Admin.Application.ModuleService
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> Sync()
+        public async Task<IResultModel> Sync(List<PermissionEntity> permissions)
         {
-            if (!_options.RefreshModuleOrPermission)
-                return ResultModel.Success();
+            using var uow = _dbContext.NewUnitOfWork();
+
+            #region ==同步模块信息==
 
             var modules = _moduleCollection.Select(m => new ModuleEntity
             {
+                Number = m.Id,
                 Name = m.Name,
-                Code = m.Id,
+                Code = m.Code,
                 Icon = m.Icon,
                 Version = m.Version,
                 Remarks = m.Description
@@ -55,30 +56,49 @@ namespace NetModular.Module.Admin.Application.ModuleService
 
             _logger.LogDebug("Sync Module Info");
 
-            using (var uow = _dbContext.NewUnitOfWork())
+            foreach (var module in modules)
             {
-                foreach (var module in modules)
+                if (!await _repository.Exists(module, uow))
                 {
-                    if (!await _repository.Exists(module, uow))
+                    if (!await _repository.AddAsync(module))
                     {
-                        if (!await _repository.AddAsync(module))
-                        {
-                            uow.Rollback();
-                            return ResultModel.Failed();
-                        }
-                    }
-                    else
-                    {
-                        if (!await _repository.UpdateByCode(module))
-                        {
-                            uow.Rollback();
-                            return ResultModel.Failed();
-                        }
+                        return ResultModel.Failed();
                     }
                 }
-
-                uow.Commit();
+                else
+                {
+                    if (!await _repository.UpdateByCode(module))
+                    {
+                        return ResultModel.Failed();
+                    }
+                }
             }
+
+            #endregion
+
+            #region ==同步权限信息=
+
+            if (permissions != null && permissions.Any())
+            {
+                _logger.LogDebug("Sync Permission Info");
+
+                //先清除已有权限信息
+                if (await _permissionRepository.ClearAsync(uow))
+                {
+                    foreach (var permission in permissions)
+                    {
+                        if (!await _permissionRepository.AddAsync(permission, uow))
+                            return ResultModel.Failed("同步失败");
+                    }
+
+                    //删除所有账户的权限缓存
+                    await _cacheHandler.RemoveByPrefixAsync(CacheKeys.ACCOUNT_PERMISSIONS);
+                }
+            }
+
+            #endregion
+
+            uow.Commit();
 
             return ResultModel.Success();
         }
@@ -88,10 +108,11 @@ namespace NetModular.Module.Admin.Application.ModuleService
             var list = _moduleCollection.Select(m => new OptionResultModel
             {
                 Label = m.Name,
-                Value = m.Id,
+                Value = m.Code,
                 Data = new
                 {
                     m.Id,
+                    m.Code,
                     m.Name,
                     m.Icon,
                     m.Description
@@ -99,29 +120,6 @@ namespace NetModular.Module.Admin.Application.ModuleService
             }).ToList();
 
             return ResultModel.Success(list);
-        }
-
-        public IResultModel OptionsEdit(string code)
-        {
-            var model = new ModuleOptionsUpdateModel
-            {
-                Code = code,
-                Definitions = _moduleOptionsContainer.GetDefinitions(code),
-                Instance = _moduleOptionsContainer.GetInstance(code)
-            };
-
-            return ResultModel.Success(model);
-        }
-
-        public IResultModel OptionsUpdate(ModuleOptionsUpdateModel model)
-        {
-            if (model.Values != null && model.Values.Any())
-            {
-                _moduleOptionsContainer.RefreshInstance(model.Code, model.Values);
-                return ResultModel.Success("保存成功");
-            }
-
-            return ResultModel.Failed("配置信息不存在");
         }
 
         public async Task<bool> SyncApiRequestCount()

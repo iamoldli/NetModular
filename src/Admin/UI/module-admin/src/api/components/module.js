@@ -5,22 +5,14 @@ export default name => {
   const crud = $http.crud(root)
   const urls = {
     select: root + 'select',
-    optionsEdit: root + 'OptionsEdit',
-    optionsUpdate: root + 'OptionsUpdate'
-  }
-
-  /**
-   * @description 编辑模块配置信息
-   */
-  const optionsEdit = code => {
-    return $http.get(urls.optionsEdit, { code })
+    sync: root + 'Sync'
   }
 
   /**
    * @description 更新模块配置信息
    */
-  const optionsUpdate = params => {
-    return $http.post(urls.optionsUpdate, params)
+  const sync = () => {
+    return $http.post(urls.sync)
   }
 
   /**
@@ -30,5 +22,5 @@ export default name => {
     return $http.get(urls.select)
   }
 
-  return { ...crud, select, optionsEdit, optionsUpdate }
+  return { ...crud, select, sync }
 }

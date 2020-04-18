@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Module.Admin.Application.AccountService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
@@ -30,9 +31,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly IPermissionRepository _permissionRepository;
         private readonly AdminDbContext _dbContext;
         private readonly IPasswordHandler _passwordHandler;
-        private readonly AdminOptions _options;
+        private readonly IConfigProvider _configProvider;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IPermissionRepository permissionRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, AdminOptions options)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IPermissionRepository permissionRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, IConfigProvider configProvider)
         {
             _cache = cache;
             _mapper = mapper;
@@ -43,7 +44,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             _accountConfigRepository = accountConfigRepository;
             _dbContext = dbContext;
             _passwordHandler = passwordHandler;
-            _options = options;
+            _configProvider = configProvider;
         }
 
         public async Task<IResultModel> Query(AccountQueryModel model)
@@ -79,14 +80,8 @@ namespace NetModular.Module.Admin.Application.AccountService
             //设置默认密码
             if (account.Password.IsNull())
             {
-                if (_options != null && _options.DefaultPassword.NotNull())
-                {
-                    account.Password = _options.DefaultPassword;
-                }
-                else
-                {
-                    account.Password = "123456";
-                }
+                var config = _configProvider.Get<AdminConfig>();
+                account.Password = config.DefaultPassword.NotNull() ? config.DefaultPassword : "123456";
             }
 
             account.Password = _passwordHandler.Encrypt(account.UserName, account.Password);
@@ -254,14 +249,8 @@ namespace NetModular.Module.Admin.Application.AccountService
             if (account.IsLock)
                 return ResultModel.Failed("账户锁定，不允许重置密码");
 
-            if (_options != null && _options.DefaultPassword.NotNull())
-            {
-                account.Password = _options.DefaultPassword;
-            }
-            else
-            {
-                account.Password = "123456";
-            }
+            var config = _configProvider.Get<AdminConfig>();
+            account.Password = config.DefaultPassword.NotNull() ? config.DefaultPassword : "123456";
 
             var newPassword = _passwordHandler.Encrypt(account.UserName, account.Password);
             var result = await _accountRepository.UpdatePassword(id, newPassword);

@@ -6,6 +6,8 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
@@ -25,7 +27,6 @@ namespace NetModular.Module.Admin.Application.AuthService
     {
         private readonly DrawingHelper _drawingHelper;
         private readonly ICacheHandler _cacheHandler;
-        private readonly SystemConfigModel _systemConfig;
         private readonly IAccountRepository _accountRepository;
         private readonly IAccountAuthInfoRepository _authInfoRepository;
         private readonly IAccountConfigRepository _configRepository;
@@ -36,13 +37,12 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly IServiceProvider _serviceProvider;
         private readonly IMapper _mapper;
         private readonly ILoginInfo _loginInfo;
-        private readonly AdminOptions _options;
+        private readonly IConfigProvider _configProvider;
 
-        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, SystemConfigModel systemConfig, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, AdminOptions options)
+        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, IConfigProvider configProvider)
         {
             _drawingHelper = drawingHelper;
             _cacheHandler = cacheHandler;
-            _systemConfig = systemConfig;
             _accountRepository = accountRepository;
             _dbContext = dbContext;
             _authInfoRepository = authInfoRepository;
@@ -53,7 +53,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             _mapper = mapper;
             _buttonRepository = buttonRepository;
             _loginInfo = loginInfo;
-            _options = options;
+            _configProvider = configProvider;
         }
 
         #region ==创建验证码==
@@ -113,7 +113,8 @@ namespace NetModular.Module.Admin.Application.AuthService
             {
                 uow.Commit();
 
-                if (_systemConfig.Login.VerifyCode)
+                var config = _configProvider.Get<ComponentConfig>();
+                if (config.Login.VerifyCode)
                 {
                     //删除验证码缓存
                     await _cacheHandler.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
@@ -137,7 +138,8 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         private async Task<bool> CheckVerifyCode(ResultModel<LoginResultModel> result, LoginModel model)
         {
-            if (_systemConfig.Login.VerifyCode)
+            var config = _configProvider.Get<ComponentConfig>();
+            if (config.Login.VerifyCode)
             {
                 if (model.VerifyCode == null || model.VerifyCode.Code.IsNull())
                 {
@@ -221,10 +223,11 @@ namespace NetModular.Module.Admin.Application.AuthService
                 RefreshTokenExpiredTime = DateTime.Now.AddDays(7)//默认刷新令牌有效期7天
             };
 
+            var config = _configProvider.Get<AuthConfig>().Jwt;
             //设置过期时间
-            if (_options != null && _options.RefreshTokenExpires > 0)
+            if (config.RefreshTokenExpires > 0)
             {
-                authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(_options.RefreshTokenExpires);
+                authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(config.RefreshTokenExpires);
             }
 
             Task<bool> task;

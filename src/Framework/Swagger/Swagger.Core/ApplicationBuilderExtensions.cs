@@ -25,7 +25,7 @@ namespace NetModular.Lib.Swagger.Core
                     if (((ModuleDescriptor)module).Initializer == null)
                         continue;
 
-                    c.SwaggerEndpoint($"/swagger/{module.Id}/swagger.json", module.Name);
+                    c.SwaggerEndpoint($"/swagger/{module.Code}/swagger.json", module.Name);
                 }
             });
 

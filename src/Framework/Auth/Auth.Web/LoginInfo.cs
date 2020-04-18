@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Auth.Web
 {
     /// <summary>
     /// 登录信息
     /// </summary>
+    [Singleton]
     public class LoginInfo : ILoginInfo
     {
         private readonly IHttpContextAccessor _contextAccessor;

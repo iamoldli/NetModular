@@ -1,7 +1,0 @@
-﻿{
-  "Mode": "0",
-  "Redis": {
-    "Prefix": "",
-    "ConnectionString": ""
-  }
-}

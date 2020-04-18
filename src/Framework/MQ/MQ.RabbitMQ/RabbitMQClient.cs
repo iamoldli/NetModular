@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,39 +12,48 @@ namespace NetModular.Lib.MQ.RabbitMQ
     /// <summary>
     /// RabbitMQ客户端
     /// </summary>
+    [Singleton]
     public class RabbitMQClient : IDisposable
     {
         //发送连接
-        private readonly IConnection _sendConnection;
+        private IConnection _sendConnection;
 
         //接收连接
-        private readonly IConnection _receiveConnection;
+        private IConnection _receiveConnection;
 
-        private readonly RabbitMQOptions _options;
-        public RabbitMQClient(RabbitMQOptions options)
+        private readonly IConfigProvider _configProvider;
+
+        public RabbitMQClient(IConfigProvider configProvider)
         {
-            _options = options;
-            Check.NotNull(options.UserName, nameof(options.UserName), "用户名不能为空");
-            Check.NotNull(options.Password, nameof(options.Password), "密码不能为空");
+            _configProvider = configProvider;
 
-            if (options.HostName.IsNull())
-                options.HostName = "localhost";
+            CreateConnection();
+        }
 
-            if (options.Port < 1 || options.Port > 65535)
-                options.Port = 5672;
+        internal void CreateConnection()
+        {
+            var config = _configProvider.Get<RabbitMQConfig>();
+            Check.NotNull(config.UserName, nameof(config.UserName), "用户名不能为空");
+            Check.NotNull(config.Password, nameof(config.Password), "密码不能为空");
+
+            if (config.HostName.IsNull())
+                config.HostName = "localhost";
+
+            if (config.Port < 1 || config.Port > 65535)
+                config.Port = 5672;
 
             var factory = new ConnectionFactory
             {
-                HostName = options.HostName,
-                Port = options.Port,
-                UserName = options.UserName,
-                Password = options.Password,
+                HostName = config.HostName,
+                Port = config.Port,
+                UserName = config.UserName,
+                Password = config.Password,
                 AutomaticRecoveryEnabled = true,
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
             };
 
-            if (options.VirtualHost.NotNull())
-                factory.VirtualHost = options.VirtualHost;
+            if (config.VirtualHost.NotNull())
+                factory.VirtualHost = config.VirtualHost;
 
             _sendConnection = factory.CreateConnection();
 
@@ -145,7 +156,8 @@ namespace NetModular.Lib.MQ.RabbitMQ
 
         private string GetQueueName(string queue)
         {
-            return _options.Prefix.NotNull() ? $"{_options.Prefix}.{queue}" : queue;
+            var config = _configProvider.Get<RabbitMQConfig>();
+            return config.Prefix.NotNull() ? $"{config.Prefix}.{queue}" : queue;
         }
     }
 }

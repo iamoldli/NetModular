@@ -1,9 +1,9 @@
 <Project>
 
   <PropertyGroup>
-    <ModulesDir>_modules\$(Id)</ModulesDir>
+    <ModulesDir>_modules\$(Id)_$(Code)</ModulesDir>
     <ModuleName>$(ModulesDir)\_module.json</ModuleName>
-    <ModuleInfo>{"Id": "$(Id)","Name":"$(Name)","Icon":"$(Icon)","Version":"$(Version)","Description":"$(Description)"}</ModuleInfo>
+    <ModuleInfo>{"Id": "$(Id)","Name":"$(Name)","Code":"$(Code)","Icon":"$(Icon)","Version":"$(Version)","Description":"$(Description)"}</ModuleInfo>
   </PropertyGroup>
 
   <Target Name="ModulesBuild" AfterTargets="Build">

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Config\Config.Abstractions\Config.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Data\Core\Data.Core\Data.Core.csproj" />
     <ProjectReference Include="..\..\..\Framework\Data\Extend\Data.Query\Data.Query.csproj" />
     <ProjectReference Include="..\..\..\Framework\Utils\Utils.Core\Utils.Core.csproj" />

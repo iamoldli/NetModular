@@ -4,22 +4,26 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Data.Query;
 using NetModular.Lib.Excel.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 namespace NetModular.Lib.Excel.EPPlus
 {
+    [Singleton]
     public class EPPlusExcelExportHandler : IExcelExportHandler
     {
-        private readonly SystemConfigModel _systemConfig;
         private readonly ILoginInfo _loginInfo;
+        private readonly IConfigProvider _configProvider;
 
-        public EPPlusExcelExportHandler(SystemConfigModel systemConfig, ILoginInfo loginInfo)
+        public EPPlusExcelExportHandler(ILoginInfo loginInfo, IConfigProvider configProvider)
         {
-            _systemConfig = systemConfig;
             _loginInfo = loginInfo;
+            _configProvider = configProvider;
         }
 
         public void CreateExcel<T>(ExportModel model, IList<T> entities, Stream stream) where T : class, new()
@@ -78,7 +82,8 @@ namespace NetModular.Lib.Excel.EPPlus
 
             if (model.ShowCopyright)
             {
-                subSb.AppendFormat("{0}", _systemConfig.Base.Copyright);
+                var config = _configProvider.Get<SystemConfig>();
+                subSb.AppendFormat("{0}", config.Copyright);
             }
 
             if (subSb.Length < 1)

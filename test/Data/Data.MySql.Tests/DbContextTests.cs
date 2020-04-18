@@ -31,7 +31,7 @@ namespace Data.MySql.Tests
 
             var dbContextOptions = new MySqlDbContextOptions(dbOptions, dbOptions.Modules.First(), null, null);
 
-            DbContext = new BlogDbContext(dbContextOptions, null);
+            DbContext = new BlogDbContext(dbContextOptions);
 
             //删除数据库
             try

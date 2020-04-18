@@ -11,15 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Config\Config.Abstractions\Config.Abstractions.csproj" />
     <ProjectReference Include="..\..\Utils\Utils.Core\Utils.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="config\mq.Development.json">
-      <DependentUpon>config\mq.json</DependentUpon>
-    </None>
-    <None Update="config\mq.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

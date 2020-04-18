@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetModular.Lib.Config.Abstractions;
 using Quartz.Impl;
 
 namespace NetModular.Lib.Quartz.Core
@@ -26,10 +27,15 @@ namespace NetModular.Lib.Quartz.Core
         /// <summary>
         /// 启动
         /// </summary>
-        public async Task Start(NameValueCollection props, CancellationToken cancellation = default)
+        public async Task Start(CancellationToken cancellation = default)
         {
+            var configProvider = _container.GetService<IConfigProvider>();
+            var config = configProvider.Get<QuartzConfig>();
+            if (!config.Enabled)
+                return;
+
             //调度器工厂
-            var factory = new StdSchedulerFactory(props);
+            var factory = new StdSchedulerFactory(config.ToProps());
 
             //创建一个调度器
             _scheduler = await factory.GetScheduler(cancellation);

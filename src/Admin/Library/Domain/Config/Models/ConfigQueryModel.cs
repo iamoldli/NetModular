@@ -1,4 +1,5 @@
-﻿using NetModular.Lib.Data.Query;
+﻿using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Data.Query;
 
 namespace NetModular.Module.Admin.Domain.Config.Models
 {

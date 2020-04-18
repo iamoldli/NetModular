@@ -6,7 +6,7 @@
           <el-input v-model="form.model.userName" />
         </el-form-item>
         <el-form-item label="角色：" prop="roles">
-          <role-select ref="roles" multiple v-model="form.model.roles" />
+          <nm-role-select ref="roles" multiple v-model="form.model.roles" />
         </el-form-item>
         <el-form-item label="名称：" prop="name">
           <el-input v-model="form.model.name" />
@@ -26,13 +26,11 @@
 </template>
 <script>
 import { mixins } from 'netmodular-ui'
-import RoleSelect from '../../../role/components/select'
 
 // 接口
 const { add, edit, update } = $api.admin.account
 
 export default {
-  components: { RoleSelect },
   mixins: [mixins.formSave],
   data() {
     return {

@@ -8,5 +8,18 @@ namespace NetModular.Lib.Utils.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
     public class TransientAttribute : Attribute
     {
+        /// <summary>
+        /// 是否使用自身的类型进行注入
+        /// </summary>
+        public bool Itself { get; set; }
+
+        /// <summary>
+        /// 是否使用自身的类型进行注入
+        /// </summary>
+        /// <param name="itself"></param>
+        public TransientAttribute(bool itself = false)
+        {
+            Itself = itself;
+        }
     }
 }

@@ -1,14 +1,14 @@
 <template>
   <nm-container>
-    <nm-box v-bind="box" @refresh="refresh">
+    <nm-box v-bind="box">
       <template v-slot:title
         >模块中心<span class="nm-p-l-10 nm-size-12">
           当前模块：<label class="nm-text-primary">{{ list.length }}</label></span
         >
       </template>
       <template v-slot:toolbar>
-        <el-tooltip effect="dark" content="添加模块" placement="top">
-          <nm-button icon="add" size="mini" @click="add" />
+        <el-tooltip effect="dark" content="同步模块信息" placement="top" v-nm-has="buttons.sync.code">
+          <nm-button icon="refresh" size="mini" @click="sync" />
         </el-tooltip>
       </template>
       <div class="module-list">
@@ -48,7 +48,7 @@ import PermissionList from '../components/permission-list'
 import PageList from '../components/page-list'
 import page from './page'
 // 接口
-const { query } = $api.admin.module
+const { query, sync } = $api.admin.module
 
 export default {
   name: page.name,
@@ -62,23 +62,29 @@ export default {
         header: true,
         icon: 'app',
         fullscreen: true,
-        refresh: true
+        loading: false
       },
       dialog: {
         permission: false,
         page: false
       },
+      buttons: page.buttons,
       module: {}
     }
   },
   methods: {
     refresh() {
-      query().then(data => {
-        this.list = data.map(m => {
-          m.color = this.colors[parseInt(Math.random() * this.colors.length)]
-          return m
+      query()
+        .then(data => {
+          this.list = data.map(m => {
+            m.color = this.colors[parseInt(Math.random() * this.colors.length)]
+            return m
+          })
+          this.box.loading = false
         })
-      })
+        .catch(() => {
+          this.box.loading = false
+        })
     },
     openPermission(m) {
       this.module = m
@@ -88,8 +94,15 @@ export default {
       this.module = m
       this.dialog.page = true
     },
-    add() {
-      this._warning('在线添加模块功能开发中，敬请期待~', '提示')
+    sync() {
+      this.box.loading = true
+      sync()
+        .then(() => {
+          this.refresh()
+        })
+        .catch(() => {
+          this.box.loading = false
+        })
     },
     remove() {
       this._warning('在线删除模块功能开发中，敬请期待~', '提示')

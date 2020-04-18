@@ -84,7 +84,7 @@ namespace NetModular.Module.Admin.Web.Filters
                 //获取模块的名称
                 if (auditInfo.Area.NotNull())
                 {
-                    auditInfo.Module = _moduleCollection.FirstOrDefault(m => m.Id.EqualsIgnoreCase(auditInfo.Area))?.Name;
+                    auditInfo.Module = _moduleCollection.FirstOrDefault(m => m.Code.EqualsIgnoreCase(auditInfo.Area))?.Name;
                 }
 
                 var controllerDescriptor = _mvcHelper.GetAllController().FirstOrDefault(m => m.Area.NotNull() && m.Area.EqualsIgnoreCase(auditInfo.Area) && m.Name.EqualsIgnoreCase(auditInfo.Controller));

@@ -2,6 +2,7 @@
 using System.Linq;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
+using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Utils.Core.Enums;
 using NetModular.Module.Admin.Application.AccountService;
 
@@ -14,20 +15,17 @@ namespace NetModular.Module.Admin.Web.Core
     {
         private readonly ILoginInfo _loginInfo;
         private readonly IAccountService _accountService;
-        private readonly SystemConfigModel _systemConfig;
+        private readonly IConfigProvider _configProvider;
 
-        public PermissionValidateHandler(IAccountService accountService, ILoginInfo loginInfo, SystemConfigModel systemConfig)
+        public PermissionValidateHandler(IAccountService accountService, ILoginInfo loginInfo, IConfigProvider configProvider)
         {
             _accountService = accountService;
             _loginInfo = loginInfo;
-            _systemConfig = systemConfig;
+            _configProvider = configProvider;
         }
 
         public bool Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
         {
-            if (!_systemConfig.Permission.Validate)
-                return true;
-
             var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform).Result;
 
             var area = routeValues["area"];

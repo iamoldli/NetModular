@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NetModular.Lib.Utils.Core;
+using NetModular.Lib.Utils.Core.Abstracts;
 
 namespace NetModular.Lib.Module.Abstractions
 {
@@ -110,9 +110,9 @@ namespace NetModular.Lib.Module.Abstractions
         /// <param name="assemblyDescriptor"></param>
         protected void CheckAssemblyDescriptor(IModuleDescriptor moduleDescriptor, IModuleAssemblyDescriptor assemblyDescriptor)
         {
-            Check.NotNull(assemblyDescriptor.Domain, $"{moduleDescriptor.Name}({moduleDescriptor.Id})模块的Domain程序集未发现");
-            Check.NotNull(assemblyDescriptor.Infrastructure, $"{moduleDescriptor.Name}({moduleDescriptor.Id})模块的Infrastructure程序集未发现");
-            Check.NotNull(assemblyDescriptor.Application, $"{moduleDescriptor.Name}({moduleDescriptor.Id})模块的Application程序集未发现");
+            Check.NotNull(assemblyDescriptor.Domain, $"{moduleDescriptor.Name}({moduleDescriptor.Code})模块的Domain程序集未发现");
+            Check.NotNull(assemblyDescriptor.Infrastructure, $"{moduleDescriptor.Name}({moduleDescriptor.Code})模块的Infrastructure程序集未发现");
+            Check.NotNull(assemblyDescriptor.Application, $"{moduleDescriptor.Name}({moduleDescriptor.Code})模块的Application程序集未发现");
         }
 
         /// <summary>

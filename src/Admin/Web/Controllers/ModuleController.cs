@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Module.Admin.Application.ModuleService;
-using NetModular.Module.Admin.Application.ModuleService.ViewModels;
+using NetModular.Module.Admin.Web.Core;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -12,10 +11,11 @@ namespace NetModular.Module.Admin.Web.Controllers
     public class ModuleController : Web.ModuleController
     {
         private readonly IModuleService _service;
-
-        public ModuleController(IModuleService service)
+        private readonly PermissionHelper _permissionHelper;
+        public ModuleController(IModuleService service, PermissionHelper permissionHelper)
         {
             _service = service;
+            _permissionHelper = permissionHelper;
         }
 
         [HttpGet]
@@ -33,18 +33,11 @@ namespace NetModular.Module.Admin.Web.Controllers
             return _service.Select();
         }
 
-        [HttpGet]
-        [Description("编辑模块配置信息")]
-        public IResultModel OptionsEdit([BindRequired]string code)
-        {
-            return _service.OptionsEdit(code);
-        }
-
         [HttpPost]
-        [Description("更新模块配置信息")]
-        public IResultModel OptionsUpdate(ModuleOptionsUpdateModel model)
+        [Description("同步")]
+        public Task<IResultModel> Sync()
         {
-            return _service.OptionsUpdate(model);
+            return _service.Sync(_permissionHelper.GetAllPermission());
         }
     }
 }

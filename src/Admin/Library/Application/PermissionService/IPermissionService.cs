@@ -18,12 +18,6 @@ namespace NetModular.Module.Admin.Application.PermissionService
         Task<IResultModel> Query(PermissionQueryModel model);
 
         /// <summary>
-        /// 同步
-        /// </summary>
-        /// <returns></returns>
-        Task<IResultModel> Sync(List<PermissionEntity> permissions);
-
-        /// <summary>
         /// 获取权限树形结构
         /// </summary>
         /// <returns></returns>

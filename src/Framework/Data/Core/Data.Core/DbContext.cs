@@ -44,6 +44,9 @@ namespace NetModular.Lib.Data.Core
             Options = options;
             LoginInfo = Options.LoginInfo;
 
+            //加载实体描述符
+            LoadEntityDescriptors();
+
             if (Options.DbOptions.CreateDatabase)
             {
                 if (Options.DatabaseCreateEvents != null)

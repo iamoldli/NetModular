@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using NetModular.Module.Admin.Application.ModuleService.ViewModels;
+using NetModular.Module.Admin.Domain.Permission;
 
 namespace NetModular.Module.Admin.Application.ModuleService
 {
@@ -18,27 +20,13 @@ namespace NetModular.Module.Admin.Application.ModuleService
         /// 同步模块信息
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> Sync();
+        Task<IResultModel> Sync(List<PermissionEntity> permissions);
 
         /// <summary>
         /// 下拉框
         /// </summary>
         /// <returns></returns>
         IResultModel Select();
-
-        /// <summary>
-        /// 模块配置项编辑
-        /// </summary>
-        /// <param name="code">模块编码</param>
-        /// <returns></returns>
-        IResultModel OptionsEdit(string code);
-
-        /// <summary>
-        /// 模块配置项更新
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        IResultModel OptionsUpdate(ModuleOptionsUpdateModel model);
 
         /// <summary>
         /// 同步接口请求数量

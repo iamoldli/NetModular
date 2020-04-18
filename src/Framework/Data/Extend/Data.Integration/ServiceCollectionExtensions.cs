@@ -49,7 +49,7 @@ namespace NetModular.Lib.Data.Integration
 
             foreach (var options in dbOptions.Modules)
             {
-                var module = modules.FirstOrDefault(m => m.Id.EqualsIgnoreCase(options.Name));
+                var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
                 if (module != null)
                 {
                     services.AddDbContext(module, options, dbOptions);
@@ -161,9 +161,6 @@ namespace NetModular.Lib.Data.Integration
                 }
 
                 #endregion
-                
-                //加载实体描述符
-                dbContext.LoadEntityDescriptors();
 
                 //注入数据库上下文
                 services.AddSingleton(dbContextType, dbContext);
@@ -224,14 +221,6 @@ namespace NetModular.Lib.Data.Integration
             });
 
             services.AddSingleton<IEntityObserverHandler, EntityObserverHandler>();
-        }
-
-        private static void AddDbSets(this IServiceCollection services, IDbContext dbContext)
-        {
-            dbContext.Options.DbModuleOptions.EntityTypes.ForEach(m =>
-            {
-
-            });
         }
     }
 }
