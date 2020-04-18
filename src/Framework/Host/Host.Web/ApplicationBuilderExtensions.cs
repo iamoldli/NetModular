@@ -29,6 +29,8 @@ namespace NetModular.Lib.Host.Web
             //异常处理
             app.UseExceptionHandle();
 
+            app.UseMiddleware<PathRewritingMiddleware>("m.abc.com", "/wap/home");
+
             //设置默认文档
             var defaultFilesOptions = new DefaultFilesOptions();
             defaultFilesOptions.DefaultFileNames.Clear();
@@ -38,6 +40,7 @@ namespace NetModular.Lib.Host.Web
             app.UseDefaultPage();
 
             app.UseDocs();
+
 
             //反向代理
             if (hostOptions.Proxy)

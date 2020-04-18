@@ -38,20 +38,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly ILoginInfo _loginInfo;
         private readonly AdminOptions _options;
 
-        public AuthService(DrawingHelper drawingHelper,
-            ICacheHandler cacheHandler,
-            SystemConfigModel systemConfig,
-            IAccountRepository accountRepository,
-            AdminDbContext dbContext,
-            IAccountAuthInfoRepository authInfoRepository,
-            IPasswordHandler passwordHandler,
-            IAccountConfigRepository configRepository,
-            IServiceProvider serviceProvider,
-            IMenuRepository menuRepository,
-            IMapper mapper,
-            IButtonRepository buttonRepository,
-            ILoginInfo loginInfo,
-            AdminOptions options)
+        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, SystemConfigModel systemConfig, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, AdminOptions options)
         {
             _drawingHelper = drawingHelper;
             _cacheHandler = cacheHandler;
@@ -98,18 +85,6 @@ namespace NetModular.Module.Admin.Application.AuthService
             //检测验证码
             if (!await CheckVerifyCode(result, model))
                 return result;
-
-            ////默认宿主ID为Guid.Empty(00000000-0000-0000-0000-000000000000)
-            //Guid tenantId = Guid.Empty;
-
-            //if (model.TenantName != null)
-            //{
-            //    var tenant = await _tenantRepository.GetById(model.TenantName);
-            //    if (tenant == null)
-            //        result.Failed("租户名称不存在");
-
-            //    tenantId = tenant.Id;
-            //}
 
             //检测账户
             var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);

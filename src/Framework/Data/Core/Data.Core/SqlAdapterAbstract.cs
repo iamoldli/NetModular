@@ -35,11 +35,6 @@ namespace NetModular.Lib.Data.Core
         public virtual char RightQuote => '"';
 
         /// <summary>
-        /// 单引号
-        /// </summary>
-        public virtual char SingleQuote => '\'';
-
-        /// <summary>
         /// 参数前缀符号
         /// </summary>
         public virtual char ParameterPrefix => '@';
@@ -71,20 +66,6 @@ namespace NetModular.Lib.Data.Core
                 val = val.ToLower();
 
             return $"{LeftQuote}{val}{RightQuote}";
-        }
-
-        /// <summary>
-        /// 附加单引号
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public string AppendSingleQuote(string value)
-        {
-            var val = value?.Trim();
-            if (val != null && ToLower)
-                val = val.ToLower();
-
-            return $"{SingleQuote}{val}{SingleQuote}";
         }
 
         /// <summary>

@@ -68,7 +68,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             var result = new ResultModel<Guid>();
 
             var account = _mapper.Map<AccountEntity>(model);
-            
+
             var exists = await Exists(account);
             if (!exists.Successful)
                 return exists;

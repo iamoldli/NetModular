@@ -73,9 +73,6 @@ namespace NetModular.Lib.Auth.Web
             }
         }
 
-        /// <summary>
-        /// 账户类型
-        /// </summary>
         public AccountType AccountType
         {
             get
@@ -150,6 +147,5 @@ namespace NetModular.Lib.Auth.Web
                 return 0L;
             }
         }
-        
     }
 }

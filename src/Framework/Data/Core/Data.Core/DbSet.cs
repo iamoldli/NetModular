@@ -494,7 +494,6 @@ namespace NetModular.Lib.Data.Core
 
             var dynParams = new DynamicParameters();
             dynParams.Add(_sqlAdapter.AppendParameter("Id"), id);
-
             return dynParams;
         }
 
@@ -844,7 +843,6 @@ namespace NetModular.Lib.Data.Core
                         if (createdBy == Guid.Empty)
                         {
                             createdBy = DbContext.LoginInfo.AccountId;
-
                             column.PropertyInfo.SetValue(entity, createdBy);
                             i++;
                         }

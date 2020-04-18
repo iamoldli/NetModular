@@ -52,5 +52,6 @@ namespace NetModular.Lib.Utils.Core.Helpers
 
             return configuration.Get<T>();
         }
+
     }
 }
