@@ -5,7 +5,6 @@ using System.Reflection;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
-using NetModular.Lib.Data.Abstractions.Entities.Extend;
 using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core.Entities.Extend;
 
@@ -18,15 +17,14 @@ namespace NetModular.Lib.Data.Core.Entities
     {
         #region ==属性==
 
-        /// <summary>
-        /// 数据库配置
-        /// </summary>
-        public DbOptions DbOptions { get; }
+        public IDbContext DbContext { get; }
+
+        public IDbSet DbSet { get; set; }
 
         /// <summary>
         /// 数据库配置
         /// </summary>
-        public DbModuleOptions ModuleOptions { get; }
+        public DbModuleOptions DbOptions { get; }
 
         /// <summary>
         /// 数据库名称
@@ -63,55 +61,38 @@ namespace NetModular.Lib.Data.Core.Entities
         /// </summary>
         public IPrimaryKeyDescriptor PrimaryKey { get; private set; }
 
+        /// <summary>
+        /// 是否包含软删除
+        /// </summary>
+        public bool SoftDelete { get; }
+
         public EntitySql Sql { get; }
 
         public ISqlAdapter SqlAdapter { get; }
 
-        /// <summary>
-        /// 是否包含基类
-        /// </summary>
         public bool IsEntityBase { get; }
-
-        /// <summary>
-        /// 是否包含软删除
-        /// </summary>
-        public bool IsSoftDelete { get; }
-
-        /// <summary>
-        /// 是否包含多租户
-        /// </summary>
-        public bool IsTenant { get; set; } = true;
-
-        /// <summary>
-        /// 租户编号字段名称
-        /// </summary>
-        public string TenantIdColumnName { get; set; } = "TenantId";
 
         #endregion
 
         #region ==构造器==
 
-        public EntityDescriptor(DbOptions dbOptions, DbModuleOptions dbModuleOptions, Type entityType, ISqlAdapter sqlAdapter)
+        public EntityDescriptor(IDbContext dbContext, Type entityType)
         {
-            DbOptions = dbOptions;
+            DbContext = dbContext;
 
-            ModuleOptions = dbModuleOptions;
+            DbOptions = dbContext.Options.DbModuleOptions;
 
-            ModuleName = dbModuleOptions.Name;
+            SqlAdapter = dbContext.Options.SqlAdapter;
 
-            SqlAdapter = sqlAdapter;
+            ModuleName = DbOptions.Name;
 
             EntityType = entityType;
 
-            Database = sqlAdapter.Database;
+            Database = SqlAdapter.Database;
 
             PrimaryKey = new PrimaryKeyDescriptor();
 
-            //实体基类
-            IsEntityBase = EntityType.GetInterfaces().Any(m => m == typeof(IBase));
-
-            //软删除
-            IsSoftDelete = EntityType.GetInterfaces().Any(m => m == typeof(ISoftDelete));
+            SoftDelete = EntityType.IsSubclassOfGeneric(typeof(EntityWithSoftDelete<,>));
 
             SetTableName();
 
@@ -121,6 +102,8 @@ namespace NetModular.Lib.Data.Core.Entities
 
             var sqlBuilder = new EntitySqlBuilder(this);
             Sql = sqlBuilder.Build();
+
+            IsEntityBase = EntityType.IsSubclassOfGeneric(typeof(EntityBase<>)) || EntityType.IsSubclassOfGeneric(typeof(EntityBaseWithSoftDelete<,>));
         }
 
         #endregion
@@ -137,10 +120,6 @@ namespace NetModular.Lib.Data.Core.Entities
             if (tableArr != null)
             {
                 TableName = tableArr.Name;
-
-                //多租户
-                IsTenant = tableArr.IsTenant;
-                TenantIdColumnName = tableArr.TenantIdColumnName;
             }
             else
             {

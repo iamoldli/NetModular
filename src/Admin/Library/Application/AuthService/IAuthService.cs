@@ -8,7 +8,7 @@ using NetModular.Module.Admin.Domain.AccountAuthInfo;
 namespace NetModular.Module.Admin.Application.AuthService
 {
     /// <summary>
-    /// JWT认证服务接口
+    /// 身份认证服务接口
     /// </summary>
     public interface IAuthService
     {

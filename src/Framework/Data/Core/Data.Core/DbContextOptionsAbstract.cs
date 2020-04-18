@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
-using NetModular.Lib.Data.Core.Entities;
 
 namespace NetModular.Lib.Data.Core
 {
@@ -30,14 +27,6 @@ namespace NetModular.Lib.Data.Core
             SqlAdapter = sqlAdapter;
             LoggerFactory = loggerFactory;
             LoginInfo = loginInfo;
-
-            if (options.EntityTypes != null && options.EntityTypes.Any())
-            {
-                foreach (var entityType in options.EntityTypes)
-                {
-                    EntityDescriptorCollection.Add(new EntityDescriptor(dbOptions, options, entityType, sqlAdapter));
-                }
-            }
         }
 
         public DbModuleOptions DbModuleOptions { get; }

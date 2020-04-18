@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -11,19 +10,14 @@ namespace NetModular.Lib.Data.Abstractions
     public interface IDbContext
     {
         /// <summary>
-        /// 服务提供器
+        /// 数据库配置
         /// </summary>
-        IServiceProvider ServiceProvider { get; }
+        IDbContextOptions Options { get; }
 
         /// <summary>
         /// 登录信息
         /// </summary>
         ILoginInfo LoginInfo { get; }
-
-        /// <summary>
-        /// 数据库配置
-        /// </summary>
-        IDbContextOptions Options { get; }
 
         /// <summary>
         /// 数据库是否已存在
@@ -61,6 +55,11 @@ namespace NetModular.Lib.Data.Abstractions
         /// </summary>
         /// <returns></returns>
         void CreateDatabase();
+
+        /// <summary>
+        /// 加载实体描述符
+        /// </summary>
+        void LoadEntityDescriptors();
     }
 
     /// <summary>
