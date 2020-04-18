@@ -7,7 +7,6 @@ namespace NetModular.Module.Admin.Domain.Config
     /// 配置项
     /// </summary>
     [Table("Config")]
-    [Tenant]
     public partial class ConfigEntity : EntityBase<int>
     {
         /// <summary>

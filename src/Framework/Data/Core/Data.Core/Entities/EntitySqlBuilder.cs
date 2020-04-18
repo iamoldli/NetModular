@@ -55,8 +55,8 @@ namespace NetModular.Lib.Data.Core.Entities
             {
                 _descriptor.SqlAdapter.AppendQuote(sb, _descriptor.TenantIdColumnName);
                 sb.Append(",");
-
-                valuesSql.AppendFormat("{0},", TENANT_ID_PLACEHOLDER);
+                //要判断是否启用多租户，不启用的话默认0
+                valuesSql.AppendFormat("{0},", _descriptor.DbOptions.EnableTenant ? TENANT_ID_PLACEHOLDER : "0");
             }
 
             foreach (var col in _descriptor.Columns)
@@ -108,7 +108,7 @@ namespace NetModular.Lib.Data.Core.Entities
             {
                 deleteSingleSql = $"{deleteSql} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)}";
                 //多租户
-                if (_descriptor.IsTenant)
+                if (_descriptor.IsEnableTenant())
                 {
                     deleteSingleSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
                 }
@@ -141,7 +141,7 @@ namespace NetModular.Lib.Data.Core.Entities
             {
                 sb.AppendFormat(" WHERE {0}={1}", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
                 //多租户
-                if (_descriptor.IsTenant)
+                if (_descriptor.IsEnableTenant())
                 {
                     sb.AppendFormat(" AND {0}={1};", AppendQuote(_descriptor.TenantIdColumnName), TENANT_ID_PLACEHOLDER);
                 }
@@ -176,7 +176,7 @@ namespace NetModular.Lib.Data.Core.Entities
 
                 sb.AppendFormat(" WHERE {0}={1}", AppendQuote(_primaryKey.Name), AppendParameter(_primaryKey.PropertyInfo.Name));
                 //多租户
-                if (_descriptor.IsTenant)
+                if (_descriptor.IsEnableTenant())
                 {
                     sb.AppendFormat(" AND {0}={1};", AppendQuote(_descriptor.TenantIdColumnName), TENANT_ID_PLACEHOLDER);
                 }
@@ -220,7 +220,7 @@ namespace NetModular.Lib.Data.Core.Entities
                 getAndRowLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
 
                 //多租户
-                if (_descriptor.IsTenant)
+                if (_descriptor.IsEnableTenant())
                 {
                     getSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
                     getAndRowLockSql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
@@ -257,7 +257,7 @@ namespace NetModular.Lib.Data.Core.Entities
 
             var sql = $"SELECT COUNT(0) FROM {{0}} WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)}";
             //多租户
-            if (_descriptor.IsTenant)
+            if (_descriptor.IsEnableTenant())
             {
                 sql += $" AND {AppendQuote(_descriptor.TenantIdColumnName)}={TENANT_ID_PLACEHOLDER} ";
             }

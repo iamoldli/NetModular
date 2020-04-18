@@ -7,7 +7,6 @@ namespace NetModular.Module.Admin.Domain.Module
     /// 模块
     /// </summary>
     [Table("Module")]
-    [Tenant]
     public partial class ModuleEntity : Entity<int>
     {
         /// <summary>

@@ -35,7 +35,7 @@ namespace NetModular.Lib.Data.Core
             {
                 foreach (var entityType in options.EntityTypes)
                 {
-                    EntityDescriptorCollection.Add(new EntityDescriptor(options, entityType, sqlAdapter));
+                    EntityDescriptorCollection.Add(new EntityDescriptor(dbOptions, options, entityType, sqlAdapter));
                 }
             }
         }

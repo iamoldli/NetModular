@@ -77,5 +77,10 @@ namespace NetModular.Lib.Data.Abstractions.Options
         /// 池中允许的最大连接数。
         /// </summary>
         public int MaxPoolSize { get; set; }
+
+        /// <summary>
+        /// 启用多租户
+        /// </summary>
+        public bool EnableTenant { get; set; }
     }
 }

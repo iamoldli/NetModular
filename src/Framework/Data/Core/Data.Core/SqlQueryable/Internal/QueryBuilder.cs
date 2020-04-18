@@ -458,7 +458,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (_queryBody.JoinDescriptors.Count == 1)
             {
                 var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
-                if (descriptor.IsTenant)
+                if (descriptor.IsEnableTenant())
                 {
                     whereSql.AppendFormat("AND {0}={1} ", _sqlAdapter.AppendQuote(descriptor.TenantIdColumnName), EntitySqlBuilder.TENANT_ID_PLACEHOLDER);
                 }
@@ -468,7 +468,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 foreach (var joinDescriptor in _queryBody.JoinDescriptors)
                 {
                     var descriptor = joinDescriptor.EntityDescriptor;
-                    if (descriptor.IsTenant)
+                    if (descriptor.IsEnableTenant())
                     {
                         whereSql.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(joinDescriptor.Alias),
                             _sqlAdapter.AppendQuote(descriptor.TenantIdColumnName),

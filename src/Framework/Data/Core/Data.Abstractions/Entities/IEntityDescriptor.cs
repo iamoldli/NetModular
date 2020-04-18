@@ -11,7 +11,12 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// <summary>
         /// 数据库配置信息
         /// </summary>
-        DbModuleOptions DbOptions { get; }
+        DbOptions DbOptions { get; }
+
+        /// <summary>
+        /// 模块配置信息
+        /// </summary>
+        DbModuleOptions ModuleOptions { get; }
 
         /// <summary>
         /// 数据库名称

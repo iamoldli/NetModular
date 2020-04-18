@@ -8,7 +8,6 @@ namespace NetModular.Module.Admin.Domain.Permission
     /// 权限
     /// </summary>
     [Table("Permission")]
-    [Tenant]
     public partial class PermissionEntity : Entity
     {
         /// <summary>
