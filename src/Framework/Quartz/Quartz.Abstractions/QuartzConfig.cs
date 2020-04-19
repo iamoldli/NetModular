@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 using NetModular.Lib.Config.Abstractions;
 
 namespace NetModular.Lib.Quartz.Abstractions
@@ -21,6 +22,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// <summary>
         /// 实例名称
         /// </summary>
+        [Required(ErrorMessage = "实例名称不能为空")]
         public string InstanceName { get; set; } = "QuartzServer";
 
         /// <summary>
@@ -36,15 +38,16 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// <summary>
         /// 数据库类型
         /// </summary>
-        public QuartzProvider Provider { get; set; }
+        public QuartzProvider Provider { get; set; } = QuartzProvider.SqlServer;
 
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
+        [Required(ErrorMessage = "数据库连接字符串不能为空")]
         public string ConnectionString { get; set; }
 
         /// <summary>
-        /// 
+        /// 数据源
         /// </summary>
         public string DataSource { get; set; } = "default";
 

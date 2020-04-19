@@ -8,7 +8,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         SqlServer,
         [Description("MySql")]
         MySql,
-        [Description("SQLite-Microsof")]
+        [Description("SQLite-Microsoft")]
         SQLite,
         [Description("OracleODP")]
         Oracle,

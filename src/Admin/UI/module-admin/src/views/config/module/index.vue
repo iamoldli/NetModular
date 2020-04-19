@@ -1,24 +1,37 @@
 <template>
   <el-tabs class="nm-admin-config-module page" v-model="tab" tab-position="left" type="border-card">
-    <el-tab-pane v-for="item in list" :key="item.value" :name="item.value" lazy>
-      <span slot="label"><nm-icon :name="item.data.icon"></nm-icon>{{ item.label }} </span>
-      <component :is="`nm-config-${item.value.toLowerCase()}`"></component>
+    <el-tab-pane v-for="item in modules" :key="item.name" :name="item.name" lazy>
+      <span slot="label"><nm-icon :name="item.icon"></nm-icon>{{ item.label }} </span>
+      <component :is="item.name"></component>
     </el-tab-pane>
   </el-tabs>
 </template>
 <script>
+import { mapState } from 'vuex'
 const { select } = $api.admin.module
 export default {
   data() {
     return {
       tab: '',
-      list: []
+      modules: []
     }
+  },
+  computed: {
+    ...mapState('app/system', ['globalComponents'])
   },
   created() {
     select().then(data => {
-      this.list = data
-      if (this.list.length > 0) this.tab = this.list[0].value
+      data.forEach(m => {
+        let module = {
+          label: m.label,
+          name: `nm-config-${m.value.toLowerCase()}`,
+          icon: m.data.icon
+        }
+        if (this.globalComponents.includes(module.name)) {
+          this.modules.push(module)
+        }
+      })
+      if (this.modules.length > 0) this.tab = this.modules[0].name
     })
   }
 }

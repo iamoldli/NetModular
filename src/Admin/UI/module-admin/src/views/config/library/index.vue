@@ -35,6 +35,11 @@
       <span slot="label"> <nm-icon name="rabbit-mq"></nm-icon>RabbitMQ </span>
       <rabbitmq-config />
     </el-tab-pane>
+    <!--Quartz-->
+    <el-tab-pane v-if="hasQuartz" name="quartz" lazy>
+      <span slot="label"> <nm-icon name="timer"></nm-icon>Quartz </span>
+      <quartz-config />
+    </el-tab-pane>
   </el-tabs>
 </template>
 <script>
@@ -45,8 +50,9 @@ import AuthConfig from './components/auth'
 import RedisConfig from './components/redis'
 import RabbitmqConfig from './components/rabbitmq'
 import ExcelConfig from './components/excel'
+import QuartzConfig from './components/quartz'
 export default {
-  components: { SystemConfig, ComponentConfig, PathConfig, AuthConfig, RedisConfig, RabbitmqConfig, ExcelConfig },
+  components: { SystemConfig, ComponentConfig, PathConfig, AuthConfig, RedisConfig, RabbitmqConfig, ExcelConfig, QuartzConfig },
   data() {
     return {
       tab: 'system'
@@ -61,6 +67,9 @@ export default {
     },
     hasRabbitMQ() {
       return this.has('RabbitMQ')
+    },
+    hasQuartz() {
+      return this.has('Quartz')
     }
   },
   methods: {

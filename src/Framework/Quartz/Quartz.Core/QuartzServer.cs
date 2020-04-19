@@ -1,7 +1,6 @@
 ﻿using NetModular.Lib.Quartz.Abstractions;
 using Quartz;
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,12 +62,23 @@ namespace NetModular.Lib.Quartz.Core
         /// </summary>
         public async Task Stop(CancellationToken cancellation = default)
         {
-            if (_scheduler == null)
+            if (_scheduler == null || _scheduler.IsShutdown)
                 return;
 
             await _scheduler.Shutdown(true, cancellation);
 
             _logger.LogInformation("Quartz server stopped");
+        }
+
+        /// <summary>
+        /// 重启
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        public async Task Restart(CancellationToken cancellation = default)
+        {
+            await Stop(cancellation);
+            await Start(cancellation);
         }
 
         /// <summary>
