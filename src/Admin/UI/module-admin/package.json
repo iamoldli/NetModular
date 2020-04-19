@@ -2,7 +2,7 @@
   "id": 0,
   "name": "netmodular-module-admin",
   "code": "admin",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "NetModular前端Admin模块组件",
   "author": "Oldli",
   "license": "ISC",

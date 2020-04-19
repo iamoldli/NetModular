@@ -4,7 +4,6 @@ import module from './module'
 import routes from './routes'
 import store from './store'
 import components from './components'
-import mixins from './mixins'
 import NetmodularSkinsClassics from 'netmodular-skins-classics'
 
 const admin = {
@@ -56,7 +55,7 @@ export default {
 
     // 设置账户类型
     if (config.accountTypes) {
-      UIConfig.login.accountTypes = config.accountTypes
+      UIConfig.component.login.accountTypes = config.accountTypes
     }
 
     window.loaded = true
@@ -68,5 +67,3 @@ export default {
     }, 20)
   }
 }
-
-export { mixins }
