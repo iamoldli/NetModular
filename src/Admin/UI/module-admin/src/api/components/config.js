@@ -8,8 +8,7 @@ export default name => {
     update: root + 'Update',
     uploadLogo: root + 'UploadLogo',
     logoUrl: root + 'LogoUrl',
-    descriptors: root + 'Descriptors',
-    getValue: root + 'GetValue'
+    descriptors: root + 'Descriptors'
   }
 
   const getUI = () => {
@@ -40,17 +39,12 @@ export default name => {
     return $http.get(urls.descriptors)
   }
 
-  const getValue = (key, type, moduleCode) => {
-    return $http.get(urls.getValue, { key, type, moduleCode })
-  }
-
   return {
     getUI,
     edit,
     update,
     uploadLogoUrl,
     getLogoUrl,
-    getDescriptors,
-    getValue
+    getDescriptors
   }
 }
