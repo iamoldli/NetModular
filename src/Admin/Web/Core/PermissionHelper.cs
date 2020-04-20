@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Enums;
@@ -31,6 +32,10 @@ namespace NetModular.Module.Admin.Web.Core
 
             foreach (var action in actions)
             {
+                //如果控制器未继承ControllerAbstract抽象类，则表示不需要权限验证
+                if (!typeof(ControllerAbstract).IsAssignableFrom(action.Controller.TypeInfo))
+                    continue;
+
                 //排除匿名接口和通用接口
                 if (action.MethodInfo.CustomAttributes.Any(m => m.AttributeType == typeof(AllowAnonymousAttribute) || m.AttributeType == typeof(CommonAttribute)))
                     continue;

@@ -46,6 +46,7 @@ namespace NetModular.Module.Admin.Web
 
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
+            //全局过滤器
             mvcOptions.Filters.Add(typeof(AuditingFilter));
         }
     }
