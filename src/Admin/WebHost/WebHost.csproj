@@ -31,9 +31,6 @@
 
   <ItemGroup>
     <!--复制配置文件到输出目录-->
-    <None Update="config\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <!--复制模块相关文件到输出路径中-->
     <None Update="_modules\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

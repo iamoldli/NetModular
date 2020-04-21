@@ -6,7 +6,6 @@ using StackExchange.Redis;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Utils.Core.Attributes;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
 
 namespace NetModular.Lib.Cache.Redis
 {
@@ -17,11 +16,9 @@ namespace NetModular.Lib.Cache.Redis
         private string _prefix;
         public IDatabase Db;
         private readonly IConfigProvider _configProvider;
-        private readonly ILogger _logger;
-        public RedisHelper(IConfigProvider configProvider, ILogger<RedisHelper> logger)
+        public RedisHelper(IConfigProvider configProvider)
         {
             _configProvider = configProvider;
-            _logger = logger;
 
             CreateConnection();
         }
@@ -38,7 +35,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public string GetKey(string key)
         {
-            return $"{_prefix}:{key}";
+            return $"{_prefix}{key}";
         }
 
         /// <summary>
@@ -47,7 +44,7 @@ namespace NetModular.Lib.Cache.Redis
         internal void CreateConnection()
         {
             var config = _configProvider.Get<RedisConfig>();
-            _prefix = config.Prefix ?? string.Empty;
+            _prefix = config.Prefix.NotNull() ? $"{config.Prefix}:" : string.Empty;
 
             var connString = config.ConnectionString.IsNull() ? "127.0.0.1" : config.ConnectionString;
             _redis = ConnectionMultiplexer.Connect(connString);

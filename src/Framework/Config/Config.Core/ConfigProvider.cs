@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using NetModular.Lib.Config.Abstractions;
 using Newtonsoft.Json;
 
@@ -15,12 +16,14 @@ namespace NetModular.Lib.Config.Core
         private readonly IConfigCollection _configs;
         private readonly IConfigStorageProvider _storageProvider;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IConfiguration _cfg;
 
-        public ConfigProvider(IConfigCollection configs, IConfigStorageProvider storageProvider, IServiceProvider serviceProvider)
+        public ConfigProvider(IConfigCollection configs, IConfigStorageProvider storageProvider, IServiceProvider serviceProvider, IConfiguration cfg)
         {
             _configs = configs;
             _storageProvider = storageProvider;
             _serviceProvider = serviceProvider;
+            _cfg = cfg;
         }
 
         public IConfig Get(Type implementType)
@@ -30,7 +33,14 @@ namespace NetModular.Lib.Config.Core
             {
                 var json = _storageProvider.GetJson(descriptor.Type, descriptor.Code).Result;
                 if (json.IsNull())
+                {
                     descriptor.Instance = (IConfig)Activator.CreateInstance(implementType);
+                    var section = _cfg.GetSection(descriptor.Code);
+                    if (section != null)
+                    {
+                        section.Bind(descriptor.Instance);
+                    }
+                }
                 else
                     descriptor.Instance = (IConfig)JsonConvert.DeserializeObject(json, implementType);
             }
@@ -45,7 +55,14 @@ namespace NetModular.Lib.Config.Core
             {
                 var json = _storageProvider.GetJson(descriptor.Type, descriptor.Code).Result;
                 if (json.IsNull())
+                {
                     descriptor.Instance = (IConfig)Activator.CreateInstance(descriptor.ImplementType);
+                    var section = _cfg.GetSection(descriptor.Code);
+                    if (section != null)
+                    {
+                        section.Bind(descriptor.Instance);
+                    }
+                }
                 else
                     descriptor.Instance = (IConfig)JsonConvert.DeserializeObject(json, descriptor.ImplementType);
             }
@@ -60,7 +77,14 @@ namespace NetModular.Lib.Config.Core
             {
                 var json = _storageProvider.GetJson(descriptor.Type, descriptor.Code).Result;
                 if (json.IsNull())
+                {
                     descriptor.Instance = new TConfig();
+                    var section = _cfg.GetSection(descriptor.Code);
+                    if (section != null)
+                    {
+                        section.Bind(descriptor.Instance);
+                    }
+                }
                 else
                     descriptor.Instance = (IConfig)JsonConvert.DeserializeObject(json, descriptor.ImplementType);
             }

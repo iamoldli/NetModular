@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Hosting;
-using NetModular.Lib.Utils.Core.Helpers;
 using Serilog;
 
 namespace NetModular.Lib.Logging.Serilog.GenericHost
@@ -10,16 +9,7 @@ namespace NetModular.Lib.Logging.Serilog.GenericHost
         {
             builder.UseSerilog((hostingContext, loggerConfiguration) =>
             {
-                var cfgHelper = new ConfigurationHelper();
-                var cfg = cfgHelper.Load("logging", hostingContext.HostingEnvironment.EnvironmentName);
-
-                if (cfg != null)
-                {
-                    loggerConfiguration
-                        .ReadFrom.Configuration(cfg);
-                }
-
-                loggerConfiguration.Enrich.FromLogContext();
+                loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext();
             });
 
             return builder;

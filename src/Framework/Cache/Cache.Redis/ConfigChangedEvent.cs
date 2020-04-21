@@ -1,5 +1,4 @@
-﻿using System;
-using NetModular.Lib.Config.Abstractions;
+﻿using NetModular.Lib.Config.Abstractions;
 
 namespace NetModular.Lib.Cache.Redis
 {

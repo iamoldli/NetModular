@@ -34,7 +34,7 @@ namespace NetModular.Lib.Host.Generic
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddGenericHost(hostContext.HostingEnvironment, configureServices);
+                    services.AddGenericHost(hostContext.Configuration, hostContext.HostingEnvironment, configureServices);
 
                     //添加主机服务
                     services.AddHostedService<TStartup>();

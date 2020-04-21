@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Auth.Jwt;
@@ -24,8 +25,9 @@ namespace NetModular.Lib.Host.Web
         /// <param name="services"></param>
         /// <param name="hostOptions"></param>
         /// <param name="env">环境</param>
+        /// <param name="cfg"></param>
         /// <returns></returns>
-        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostEnvironment env)
+        public static IServiceCollection AddWebHost(this IServiceCollection services, HostOptions hostOptions, IHostEnvironment env, IConfiguration cfg)
         {
             services.AddSingleton(hostOptions);
 
@@ -42,7 +44,7 @@ namespace NetModular.Lib.Host.Web
             {
                 services.AddSwagger(modules);
             }
-            
+
             //添加MVC功能
             services.AddMvc(c =>
             {
@@ -85,7 +87,7 @@ namespace NetModular.Lib.Host.Web
             });
 
             //添加数据库，数据库依赖ILoginInfo，所以需要在添加身份认证以及MVC后添加数据库
-            services.AddDb(env.EnvironmentName, modules);
+            services.AddDb(cfg, modules);
 
             //解决Multipart body length limit 134217728 exceeded
             services.Configure<FormOptions>(x =>

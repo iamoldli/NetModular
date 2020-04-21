@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
@@ -23,14 +24,15 @@ namespace NetModular.Lib.Data.Integration
         /// 添加数据库
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="environmentName"></param>
+        /// <param name="cfg"></param>
         /// <param name="modules"></param>
-        public static void AddDb(this IServiceCollection services, string environmentName, IModuleCollection modules)
+        public static void AddDb(this IServiceCollection services, IConfiguration cfg, IModuleCollection modules)
         {
             if (modules == null || !modules.Any())
                 return;
 
-            var dbOptions = new ConfigurationHelper().Get<DbOptions>("Db", environmentName);
+            var dbOptions = new DbOptions();
+            cfg.GetSection("Db").Bind(dbOptions);
 
             if (dbOptions?.Modules == null || !dbOptions.Modules.Any())
                 return;

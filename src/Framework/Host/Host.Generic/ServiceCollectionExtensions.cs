@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Config.Core;
@@ -11,7 +12,7 @@ namespace NetModular.Lib.Host.Generic
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddGenericHost(this IServiceCollection services, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment> configureServices = null)
+        public static IServiceCollection AddGenericHost(this IServiceCollection services, IConfiguration cfg, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment> configureServices = null)
         {
             //添加所有通过特性注入的服务
             services.AddNetModularServices();
@@ -23,7 +24,7 @@ namespace NetModular.Lib.Host.Generic
             services.AddMappers(modules);
 
             //添加数据库
-            services.AddDb(env.EnvironmentName, modules);
+            services.AddDb(cfg, modules);
 
             //添加HttpClient相关
             services.AddHttpClient();
