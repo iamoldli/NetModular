@@ -22,6 +22,7 @@ namespace NetModular.Lib.Excel.EPPlus
 
         public EPPlusExcelExportHandler(ILoginInfo loginInfo, IConfigProvider configProvider)
         {
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
             _loginInfo = loginInfo;
             _configProvider = configProvider;
         }

@@ -29,7 +29,7 @@ export default {
    * @param {object} skin 皮肤
    */
   registerSkin(skin) {
-    if (skin) NetModularUI.useSkin(skin)
+    if (skin) NetModularUI.registerSkin(skin)
   },
   /**
    * @description 启动
