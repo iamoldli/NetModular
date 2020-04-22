@@ -1,6 +1,6 @@
 <template>
   <nm-form-page v-bind="form">
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="22">
         <el-form-item labelWidth="200px" prop="uploadPath">
           <template v-slot:label>

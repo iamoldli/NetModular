@@ -1,6 +1,6 @@
 <template>
   <nm-form-page v-bind="form">
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="开启：" prop="enabled">
           <el-switch v-model="form.model.enabled" />
@@ -11,6 +11,8 @@
           <el-switch v-model="form.model.logger" />
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="实例名称：" prop="instanceName">
           <el-input v-model="form.model.instanceName" />
@@ -23,7 +25,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="center"><span class="nm-text-warning">Quartz的数据库配置与任务调度模块保持一致</span></el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="数据库类型：">
           <el-select disabled v-model="form.model.provider">

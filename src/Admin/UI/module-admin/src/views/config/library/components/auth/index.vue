@@ -1,7 +1,7 @@
 <template>
   <nm-form-page v-bind="form" @success="onSuccess">
     <el-divider content-position="left">认证&授权</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="7" :offset="1">
         <el-form-item label="权限验证：" prop="validate">
           <el-switch v-model="form.model.validate" />
@@ -19,7 +19,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">JWT参数</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="密钥(Key)：" prop="jwt.key">
           <el-input v-model="form.model.jwt.key" clearable />
@@ -32,6 +32,8 @@
           </el-input>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="发行人(Issuer)：" prop="jwt.issuer">
           <el-input v-model="form.model.jwt.issuer" clearable />

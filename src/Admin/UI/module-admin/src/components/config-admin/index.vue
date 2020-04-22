@@ -1,6 +1,6 @@
 <template>
   <nm-form-page v-bind="form">
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="审计日志：" prop="auditing">
           <el-switch v-model="form.model.auditing" />

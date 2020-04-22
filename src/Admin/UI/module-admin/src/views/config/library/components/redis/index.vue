@@ -1,6 +1,6 @@
 <template>
   <nm-form-page v-bind="form">
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="Key前缀：" prop="prefix">
           <el-input v-model="form.model.prefix" />

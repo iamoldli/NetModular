@@ -1,7 +1,7 @@
 <template>
   <nm-form-page v-bind="form" @success="onSuccess">
     <el-divider content-position="left">登录页</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="页类型：" prop="pageType">
           <el-select v-model="form.model.login.pageType">
@@ -16,7 +16,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">工具栏</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="5" :offset="1">
         <el-form-item label="全屏控制：" prop="fullscreen">
           <el-switch v-model="form.model.toolbar.fullscreen" />
@@ -39,7 +39,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">菜单</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="保持一个子菜单的展开：" prop="menu.uniqueOpened">
           <el-switch v-model="form.model.menu.uniqueOpened" />
@@ -47,7 +47,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">对话框</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="可点击模态框关闭：" prop="dialog.closeOnClickModal">
           <el-switch v-model="form.model.dialog.closeOnClickModal" />
@@ -60,7 +60,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">列表页</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="序号表头名称：" prop="list.serialNumberName">
           <el-input v-model="form.model.list.serialNumberName" placeholder="默认 #" />
@@ -68,7 +68,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">标签导航</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="启用：" prop="tabnav.enabled">
           <el-switch v-model="form.model.tabnav.enabled" />
@@ -79,6 +79,8 @@
           <el-switch v-model="form.model.tabnav.showIcon" />
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="显示首页" prop="tabnav.showHome">
           <el-switch v-model="form.model.tabnav.showHome" />
@@ -89,6 +91,8 @@
           <el-input v-model="form.model.tabnav.homeUrl" placeholder="路由的完整地址" />
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="10" :offset="1">
         <el-form-item label="最大页面数量：" prop="tabnav.maxOpenCount">
           <el-input v-model.number="form.model.tabnav.maxOpenCount" placeholder="默认 20" />
@@ -96,7 +100,7 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">自定义CSS</el-divider>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="22" :offset="1">
         <el-form-item labelWidth="0" prop="customCss">
           <el-input type="textarea" :rows="5" placeholder="如果需要重新某个组件的样式，可以在此处添加覆盖的CSS" v-model="form.model.customCss"></el-input>

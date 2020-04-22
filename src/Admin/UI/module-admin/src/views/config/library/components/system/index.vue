@@ -1,6 +1,6 @@
 <template>
   <nm-form-page v-bind="form" @success="onSuccess">
-    <el-row :gutter="20">
+    <el-row>
       <el-col :span="13" :offset="1">
         <el-form-item label="标题：" prop="title">
           <el-input v-model="form.model.title" />
