@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +14,7 @@ using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuthService;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
+using NetModular.Module.Admin.Web.Core;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -21,12 +24,14 @@ namespace NetModular.Module.Admin.Web.Controllers
         private readonly IAuthService _service;
         private readonly ILoginHandler _loginHandler;
         private readonly IpHelper _ipHelper;
-        
-        public AuthController(IAuthService service, ILoginHandler loginHandler, IpHelper ipHelper)
+        private readonly ILoginClaimsExtendProvider _claimsExtendProvider;
+
+        public AuthController(IAuthService service, ILoginHandler loginHandler, IpHelper ipHelper, ILoginClaimsExtendProvider claimsExtendProvider)
         {
             _service = service;
             _loginHandler = loginHandler;
             _ipHelper = ipHelper;
+            _claimsExtendProvider = claimsExtendProvider;
         }
 
         [HttpGet]
@@ -48,7 +53,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             model.UserAgent = _ipHelper.UserAgent;
 
             var result = await _service.Login(model);
-            return LoginHandle(result, model.Platform);
+            return LoginHandle(result);
         }
 
         [HttpPost("email")]
@@ -61,7 +66,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             model.UserAgent = _ipHelper.UserAgent;
 
             var result = await _service.Login(model);
-            return LoginHandle(result, model.Platform);
+            return LoginHandle(result);
         }
 
         [HttpPost("username_or_email")]
@@ -74,7 +79,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             model.UserAgent = _ipHelper.UserAgent;
 
             var result = await _service.Login(model);
-            return LoginHandle(result, model.Platform);
+            return LoginHandle(result);
         }
 
         [HttpPost("phone/send_verify_code")]
@@ -96,26 +101,31 @@ namespace NetModular.Module.Admin.Web.Controllers
             model.UserAgent = _ipHelper.UserAgent;
 
             var result = await _service.Login(model);
-            return LoginHandle(result, model.Platform);
+            return LoginHandle(result);
         }
 
         /// <summary>
         /// 登录处理
         /// </summary>
-        private IResultModel LoginHandle(ResultModel<LoginResultModel> result, Platform platform)
+        private IResultModel LoginHandle(ResultModel<LoginResultModel> result)
         {
             if (result.Successful)
             {
                 var account = result.Data.Account;
                 var loginInfo = result.Data.AuthInfo;
-                var claims = new[]
+                var claims = new List<Claim>
                 {
                     new Claim(ClaimsName.AccountId, account.Id.ToString()),
                     new Claim(ClaimsName.AccountName, account.Name),
                     new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform, platform.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
                     new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
                 };
+
+                //自定义扩展Claims
+                var extendClaims = _claimsExtendProvider.GetExtendClaims(account);
+                if (extendClaims != null && extendClaims.Any())
+                    claims.AddRange(extendClaims);
 
                 return _loginHandler.Hand(claims, loginInfo.RefreshToken);
             }
@@ -130,23 +140,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         public async Task<IResultModel> RefreshToken([BindRequired]string refreshToken)
         {
             var result = await _service.RefreshToken(refreshToken);
-            if (result.Successful)
-            {
-                var account = result.Data.Account;
-                var loginInfo = result.Data.AuthInfo;
-                var claims = new[]
-                {
-                    new Claim(ClaimsName.AccountId, account.Id.ToString()),
-                    new Claim(ClaimsName.AccountName, account.Name),
-                    new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform, loginInfo.Platform.ToInt().ToString()),
-                    new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
-                };
-
-                return _loginHandler.Hand(claims, loginInfo.RefreshToken);
-            }
-
-            return ResultModel.Failed(result.Msg);
+            return LoginHandle(result);
         }
 
         [HttpGet]

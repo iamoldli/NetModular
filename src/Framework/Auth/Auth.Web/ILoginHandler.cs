@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace NetModular.Lib.Auth.Web
 {
@@ -13,6 +14,6 @@ namespace NetModular.Lib.Auth.Web
         /// <param name="claims">信息</param>
         /// <param name="extendData">扩展数据</param>
         /// <returns></returns>
-        IResultModel Hand(Claim[] claims, string extendData);
+        IResultModel Hand(List<Claim> claims, string extendData);
     }
 }

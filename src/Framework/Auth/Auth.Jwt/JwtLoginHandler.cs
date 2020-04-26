@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -23,7 +24,7 @@ namespace NetModular.Lib.Auth.Jwt
             _configProvider = configProvider;
         }
 
-        public IResultModel Hand(Claim[] claims, string extendData)
+        public IResultModel Hand(List<Claim> claims, string extendData)
         {
             var options = _configProvider.Get<AuthConfig>().Jwt;
 
@@ -41,7 +42,7 @@ namespace NetModular.Lib.Auth.Jwt
             return ResultModel.Success(model);
         }
 
-        private string Build(Claim[] claims, JwtConfig config)
+        private string Build(List<Claim> claims, JwtConfig config)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Key));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
