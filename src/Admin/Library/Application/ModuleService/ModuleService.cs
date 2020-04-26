@@ -105,7 +105,7 @@ namespace NetModular.Module.Admin.Application.ModuleService
 
         public IResultModel Select()
         {
-            var list = _moduleCollection.Select(m => new OptionResultModel
+            var list = _moduleCollection.OrderBy(m => m.Id).Select(m => new OptionResultModel
             {
                 Label = m.Name,
                 Value = m.Code,

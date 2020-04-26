@@ -18,7 +18,7 @@
             <div class="module-list-item-icon" :style="{ backgroundColor: item.color }"><nm-icon :name="item.icon" /></div>
             <div class="module-list-item-info">
               <p>
-                {{ item.name
+                {{ getNo(item) }}_{{ item.name
                 }}<label class="api-request-count"
                   >访问<label class="nm-text-warning nm-p-l-3 nm-p-r-3">{{ item.apiRequestCount }}</label
                   >次</label
@@ -85,6 +85,9 @@ export default {
         .catch(() => {
           this.box.loading = false
         })
+    },
+    getNo(item) {
+      return item.number < 10 ? '0' + item.number : '' + item.number
     },
     openPermission(m) {
       this.module = m

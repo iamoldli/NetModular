@@ -1,7 +1,7 @@
 <template>
   <el-tabs class="nm-admin-config-module page" v-model="tab" tab-position="left" type="border-card">
     <el-tab-pane v-for="item in modules" :key="item.name" :name="item.name" lazy>
-      <span slot="label"><nm-icon :name="item.icon"></nm-icon>{{ item.label }} </span>
+      <span slot="label"><nm-icon :name="item.icon"></nm-icon>{{ getNo(item) }}_{{ item.label }} </span>
       <component :is="item.name"></component>
     </el-tab-pane>
   </el-tabs>
@@ -19,10 +19,17 @@ export default {
   computed: {
     ...mapState('app/system', ['globalComponents'])
   },
+  methods: {
+    getNo(item) {
+      console.log(item)
+      return item.id < 10 ? '0' + item.id : '' + item.id
+    }
+  },
   created() {
     select().then(data => {
       data.forEach(m => {
         let module = {
+          id: m.data.id,
           label: m.label,
           name: `nm-config-${m.value.toLowerCase()}`,
           icon: m.data.icon
