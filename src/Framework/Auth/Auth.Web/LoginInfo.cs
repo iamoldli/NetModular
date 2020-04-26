@@ -142,5 +142,19 @@ namespace NetModular.Lib.Auth.Web
                 return 0L;
             }
         }
+
+        /// <summary>
+        /// User-Agent
+        /// </summary>
+        public string UserAgent
+        {
+            get
+            {
+                if (_contextAccessor?.HttpContext?.Request == null)
+                    return "";
+
+                return _contextAccessor.HttpContext.Request.Headers["User-Agent"];
+            }
+        }
     }
 }

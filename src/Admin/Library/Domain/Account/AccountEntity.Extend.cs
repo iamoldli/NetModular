@@ -16,5 +16,22 @@ namespace NetModular.Module.Admin.Domain.Account
         /// </summary>
         [Ignore]
         public string TypeName => Type.ToDescription();
+
+        /// <summary>
+        /// 账户检测
+        /// </summary>
+        public IResultModel Check()
+        {
+            if (Deleted || Status == AccountStatus.Logout)
+                return ResultModel.Failed("账户不存在");
+
+            if (Status == AccountStatus.Register)
+                return ResultModel.Failed("账户未激活");
+
+            if (Status == AccountStatus.Disabled)
+                return ResultModel.Failed("账户已禁用，请联系管理员");
+
+            return ResultModel.Success();
+        }
     }
 }

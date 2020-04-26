@@ -61,5 +61,14 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         {
             return List.Where(m => m.ModuleName == moduleName).ToList();
         }
+
+        /// <summary>
+        /// 查找所有实体信息
+        /// </summary>
+        /// <returns></returns>
+        public static List<IEntityDescriptor> GetAll()
+        {
+            return List;
+        }
     }
 }

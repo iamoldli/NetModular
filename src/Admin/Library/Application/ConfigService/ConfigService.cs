@@ -58,7 +58,7 @@ namespace NetModular.Module.Admin.Application.ConfigService
             #region ==组件配置==
 
             result.Component = _configProvider.Get<ComponentConfig>();
-
+            result.Component.Login.VerifyCode = authConfig.VerifyCode;
             #endregion
 
             return result;

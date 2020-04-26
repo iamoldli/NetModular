@@ -57,5 +57,19 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
                 return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
             }
         }
+
+        /// <summary>
+        /// 获取当前用户请求的User-Agent
+        /// </summary>
+        public string UserAgent
+        {
+            get
+            {
+                if (_contextAccessor?.HttpContext?.Request == null)
+                    return "";
+
+                return _contextAccessor.HttpContext.Request.Headers["User-Agent"];
+            }
+        }
     }
 }

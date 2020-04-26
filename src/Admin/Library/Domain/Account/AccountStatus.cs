@@ -13,15 +13,15 @@ namespace NetModular.Module.Admin.Domain.Account
         [Description("未知")]
         UnKnown = -1,
         /// <summary>
-        /// 未激活
+        /// 注册
         /// </summary>
-        [Description("未激活")]
-        Inactive,
+        [Description("注册")]
+        Register,
         /// <summary>
-        /// 正常
+        /// 激活
         /// </summary>
-        [Description("正常")]
-        Enabled,
+        [Description("激活")]
+        Active,
         /// <summary>
         /// 禁用
         /// </summary>
@@ -31,6 +31,6 @@ namespace NetModular.Module.Admin.Domain.Account
         /// 注销
         /// </summary>
         [Description("注销")]
-        Closed
+        Logout
     }
 }

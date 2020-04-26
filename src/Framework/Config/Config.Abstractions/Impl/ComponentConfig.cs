@@ -47,6 +47,11 @@
     public class Login
     {
         /// <summary>
+        /// 默认登录账户类型
+        /// </summary>
+        public int DefaultAccountType { get; set; }
+
+        /// <summary>
         /// 登录页类型
         /// </summary>
         public string PageType { get; set; }

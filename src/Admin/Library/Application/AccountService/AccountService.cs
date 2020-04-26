@@ -74,8 +74,7 @@ namespace NetModular.Module.Admin.Application.AccountService
             if (!exists.Successful)
                 return exists;
 
-            //默认未激活状态，用户首次登录激活
-            account.Status = AccountStatus.Inactive;
+            account.Status = AccountStatus.Register;
 
             //设置默认密码
             if (account.Password.IsNull())

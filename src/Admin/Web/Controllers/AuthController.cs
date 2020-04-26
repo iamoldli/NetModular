@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,9 @@ using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuthService;
+using NetModular.Module.Admin.Application.AuthService.ResultModels;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
 
 namespace NetModular.Module.Admin.Web.Controllers
@@ -19,11 +20,13 @@ namespace NetModular.Module.Admin.Web.Controllers
     {
         private readonly IAuthService _service;
         private readonly ILoginHandler _loginHandler;
-
-        public AuthController(IAuthService service, ILoginHandler loginHandler)
+        private readonly IpHelper _ipHelper;
+        
+        public AuthController(IAuthService service, ILoginHandler loginHandler, IpHelper ipHelper)
         {
             _service = service;
             _loginHandler = loginHandler;
+            _ipHelper = ipHelper;
         }
 
         [HttpGet]
@@ -38,10 +41,69 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [DisableAuditing]
-        [Description("登录")]
-        public async Task<IResultModel> Login([FromBody]LoginModel model)
+        [Description("用户名登录")]
+        public async Task<IResultModel> Login(UserNameLoginModel model)
         {
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+
             var result = await _service.Login(model);
+            return LoginHandle(result, model.Platform);
+        }
+
+        [HttpPost("email")]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("邮箱登录")]
+        public async Task<IResultModel> Login(EmailLoginModel model)
+        {
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+
+            var result = await _service.Login(model);
+            return LoginHandle(result, model.Platform);
+        }
+
+        [HttpPost("username_or_email")]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("用户名或邮箱登录")]
+        public async Task<IResultModel> Login(UserNameOrEmailLoginModel model)
+        {
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+
+            var result = await _service.Login(model);
+            return LoginHandle(result, model.Platform);
+        }
+
+        [HttpPost("phone/send_verify_code")]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("发送手机验证码")]
+        public Task<IResultModel> Login(PhoneVerifyCodeSendModel model)
+        {
+            return _service.SendPhoneVerifyCode(model);
+        }
+
+        [HttpPost("phone")]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("手机号登录登录")]
+        public async Task<IResultModel> Login(PhoneLoginModel model)
+        {
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+
+            var result = await _service.Login(model);
+            return LoginHandle(result, model.Platform);
+        }
+
+        /// <summary>
+        /// 登录处理
+        /// </summary>
+        private IResultModel LoginHandle(ResultModel<LoginResultModel> result, Platform platform)
+        {
             if (result.Successful)
             {
                 var account = result.Data.Account;
@@ -50,8 +112,8 @@ namespace NetModular.Module.Admin.Web.Controllers
                 {
                     new Claim(ClaimsName.AccountId, account.Id.ToString()),
                     new Claim(ClaimsName.AccountName, account.Name),
-                    new Claim(ClaimsName.AccountType, model.AccountType.ToInt().ToString()),
-                    new Claim(ClaimsName.Platform, model.Platform.ToInt().ToString()),
+                    new Claim(ClaimsName.AccountType, account.Type.ToInt().ToString()),
+                    new Claim(ClaimsName.Platform, platform.ToInt().ToString()),
                     new Claim(ClaimsName.LoginTime, loginInfo.LoginTime.ToString())
                 };
 

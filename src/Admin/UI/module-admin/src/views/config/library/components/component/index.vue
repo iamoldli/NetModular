@@ -3,15 +3,19 @@
     <el-divider content-position="left">登录页</el-divider>
     <el-row>
       <el-col :span="10" :offset="1">
-        <el-form-item label="页类型：" prop="pageType">
-          <el-select v-model="form.model.login.pageType">
-            <el-option v-for="item in pageTypeOptions" :key="item" :label="item" :value="item"></el-option>
+        <el-form-item label="默认账户类型：" prop="defaultAccountType">
+          <el-select v-model="form.model.login.defaultAccountType">
+            <el-option label="管理员" :value="0"></el-option>
+            <el-option label="个人" :value="1"></el-option>
+            <el-option label="企业" :value="2"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="10">
-        <el-form-item label="验证码：" prop="verifyCode">
-          <el-switch v-model="form.model.login.verifyCode" />
+        <el-form-item label="页类型：" prop="pageType">
+          <el-select v-model="form.model.login.pageType">
+            <el-option v-for="item in pageTypeOptions" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
         </el-form-item>
       </el-col>
     </el-row>
@@ -120,7 +124,7 @@ export default {
       form: {
         labelWidth: '200px',
         model: {
-          login: { pageType: null, verifyCode: false },
+          login: { defaultAccountType: 0, pageType: null },
           menu: { uniqueOpened: true },
           dialog: { closeOnClickModal: false, draggable: false },
           list: { serialNumberName: null },

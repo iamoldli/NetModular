@@ -27,6 +27,21 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return GetAsync(m => m.UserName.Equals(userName) && m.Type == type);
         }
 
+        public Task<AccountEntity> GetByEmail(string email, AccountType type)
+        {
+            return GetAsync(m => m.Email.Equals(email) && m.Type == type);
+        }
+
+        public Task<AccountEntity> GetByPhone(string phone, AccountType type)
+        {
+            return GetAsync(m => m.Phone.Equals(phone) && m.Type == type);
+        }
+
+        public Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type = AccountType.Admin)
+        {
+            return GetAsync(m => m.UserName.Equals(keyword) || m.Email.Equals(keyword));
+        }
+
         public Task<bool> UpdateAccountStatus(Guid id, AccountStatus status, IUnitOfWork uow = null)
         {
             return Db.Find(m => m.Id == id).UseUow(uow).UpdateAsync(m => new AccountEntity { Status = status });

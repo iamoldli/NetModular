@@ -7,9 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
-using NetModular.Lib.Config.Abstractions.Impl;
-using NetModular.Lib.Data.Abstractions;
-using NetModular.Lib.Utils.Core.Helpers;
+using NetModular.Module.Admin.Application.AuthService.Interfaces;
+using NetModular.Module.Admin.Application.AuthService.LoginHandler;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
@@ -18,252 +17,107 @@ using NetModular.Module.Admin.Domain.AccountConfig;
 using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Infrastructure;
-using NetModular.Module.Admin.Infrastructure.PasswordHandler;
-using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.AuthService
 {
     public class AuthService : IAuthService
     {
-        private readonly DrawingHelper _drawingHelper;
         private readonly ICacheHandler _cacheHandler;
         private readonly IAccountRepository _accountRepository;
         private readonly IAccountAuthInfoRepository _authInfoRepository;
         private readonly IAccountConfigRepository _configRepository;
         private readonly IMenuRepository _menuRepository;
         private readonly IButtonRepository _buttonRepository;
-        private readonly AdminDbContext _dbContext;
-        private readonly IPasswordHandler _passwordHandler;
         private readonly IServiceProvider _serviceProvider;
         private readonly IMapper _mapper;
         private readonly ILoginInfo _loginInfo;
         private readonly IConfigProvider _configProvider;
+        private readonly IVerifyCodeProvider _verifyCodeProvider;
+        private readonly UserNameLoginHandler _userNameLoginHandler;
+        private readonly EmailLoginHandler _emailLoginHandler;
+        private readonly UserNameOrEmailLoginHandler _userNameOrEmailLoginHandler;
+        private readonly PhoneLoginHandler _phoneLoginHandler;
+        private readonly IPhoneVerifyCodeProvider _phoneVerifyCodeProvider;
 
-        public AuthService(DrawingHelper drawingHelper, ICacheHandler cacheHandler, IAccountRepository accountRepository, AdminDbContext dbContext, IAccountAuthInfoRepository authInfoRepository, IPasswordHandler passwordHandler, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, IConfigProvider configProvider)
+        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, IVerifyCodeProvider verifyCodeProvider, UserNameLoginHandler userNameLoginHandler, EmailLoginHandler emailLoginHandler, UserNameOrEmailLoginHandler userNameOrEmailLoginHandler, PhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IConfigProvider configProvider)
         {
-            _drawingHelper = drawingHelper;
             _cacheHandler = cacheHandler;
             _accountRepository = accountRepository;
-            _dbContext = dbContext;
             _authInfoRepository = authInfoRepository;
-            _passwordHandler = passwordHandler;
             _configRepository = configRepository;
             _serviceProvider = serviceProvider;
             _menuRepository = menuRepository;
             _mapper = mapper;
             _buttonRepository = buttonRepository;
             _loginInfo = loginInfo;
+            _verifyCodeProvider = verifyCodeProvider;
+            _userNameLoginHandler = userNameLoginHandler;
+            _emailLoginHandler = emailLoginHandler;
+            _userNameOrEmailLoginHandler = userNameOrEmailLoginHandler;
+            _phoneLoginHandler = phoneLoginHandler;
+            _phoneVerifyCodeProvider = phoneVerifyCodeProvider;
             _configProvider = configProvider;
         }
 
-        #region ==创建验证码==
-
+        /// <summary>
+        /// 创建验证码
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public IResultModel CreateVerifyCode(int length = 6)
         {
-            var verifyCodeModel = new VerifyCodeResultModel
-            {
-                Id = Guid.NewGuid().ToString("N"),
-                Base64String = _drawingHelper.DrawVerifyCodeBase64String(out string code, length)
-            };
-
-            var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{verifyCodeModel.Id}";
-
-            //把验证码放到内存缓存中，有效期10分钟
-            _cacheHandler.SetAsync(key, code, 10);
-
-            return ResultModel.Success(verifyCodeModel);
-        }
-
-        #endregion
-
-        #region ==登录认证==
-
-        public async Task<ResultModel<LoginResultModel>> Login(LoginModel model)
-        {
-            var result = new ResultModel<LoginResultModel>();
-
-            //检测验证码
-            if (!await CheckVerifyCode(result, model))
-                return result;
-
-            //检测账户
-            var account = await _accountRepository.GetByUserName(model.UserName, model.AccountType);
-            var checkAccountResult = CheckAccount(account);
-            if (!checkAccountResult.Successful)
-                return result.Failed(checkAccountResult.Msg);
-
-            //检测密码
-            if (!CheckPassword(result, model, account))
-                return result;
-
-            using var uow = _dbContext.NewUnitOfWork();
-
-            //判断是否激活，如果未激活需要修改为已激活状态
-            if (account.Status == AccountStatus.Inactive)
-            {
-                if (!await _accountRepository.UpdateAccountStatus(account.Id, AccountStatus.Enabled, uow))
-                {
-                    return result.Failed();
-                }
-            }
-
-            //更新登录信息
-            var loginInfo = await UpdateLoginInfo(account, model, uow);
-            if (loginInfo != null)
-            {
-                uow.Commit();
-
-                var config = _configProvider.Get<ComponentConfig>();
-                if (config.Login.VerifyCode)
-                {
-                    //删除验证码缓存
-                    await _cacheHandler.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
-                }
-
-                //清除账户的认证信息缓存
-                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
-
-                return result.Success(new LoginResultModel
-                {
-                    Account = account,
-                    AuthInfo = loginInfo
-                });
-            }
-
-            return result.Failed();
+            return ResultModel.Success(_verifyCodeProvider.Create(length));
         }
 
         /// <summary>
-        /// 检测验证码
+        /// 用户名登录
         /// </summary>
-        private async Task<bool> CheckVerifyCode(ResultModel<LoginResultModel> result, LoginModel model)
-        {
-            var config = _configProvider.Get<ComponentConfig>();
-            if (config.Login.VerifyCode)
-            {
-                if (model.VerifyCode == null || model.VerifyCode.Code.IsNull())
-                {
-                    result.Failed("请输入验证码");
-                    return false;
-                }
-
-                if (model.VerifyCode.Id.IsNull())
-                {
-                    result.Failed("验证码不存在");
-                    return false;
-                }
-
-                var cacheCode = await _cacheHandler.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
-                if (cacheCode.IsNull())
-                {
-                    result.Failed("验证码不存在");
-                    return false;
-                }
-
-                if (!cacheCode.Equals(model.VerifyCode.Code))
-                {
-                    result.Failed("验证码有误");
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// 检测账户
-        /// </summary>
-        private IResultModel CheckAccount(AccountEntity account)
-        {
-            if (account == null || account.Deleted)
-            {
-                return ResultModel.Failed("账户不存在");
-            }
-
-            if (account.Status == AccountStatus.Closed)
-            {
-                return ResultModel.Failed("该账户已注销，请联系管理员");
-            }
-
-            if (account.Status == AccountStatus.Disabled)
-            {
-                return ResultModel.Failed("该账户已禁用，请联系管理员");
-            }
-
-            return ResultModel.Success();
-        }
-
-        /// <summary>
-        /// 检测密码
-        /// </summary>
-        private bool CheckPassword(ResultModel<LoginResultModel> result, LoginModel model, AccountEntity account)
-        {
-            var password = _passwordHandler.Encrypt(account.UserName, model.Password);
-            if (!account.Password.Equals(password))
-            {
-                result.Failed("密码错误");
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 更新登录信息
-        /// </summary>
-        private async Task<AccountAuthInfoEntity> UpdateLoginInfo(AccountEntity account, LoginModel model, IUnitOfWork uow)
-        {
-            //修改登录信息(这里硬编码登录方式为JWT，暂时不想去判断是哪种方式了~)
-            var authInfo = new AccountAuthInfoEntity
-            {
-                AccountId = account.Id,
-                Platform = model.Platform,
-                LoginTime = DateTime.Now.ToTimestamp(),
-                LoginIP = _loginInfo.IPv4,
-                RefreshToken = GenerateRefreshToken(),
-                RefreshTokenExpiredTime = DateTime.Now.AddDays(7)//默认刷新令牌有效期7天
-            };
-
-            var config = _configProvider.Get<AuthConfig>().Jwt;
-            //设置过期时间
-            if (config.RefreshTokenExpires > 0)
-            {
-                authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(config.RefreshTokenExpires);
-            }
-
-            Task<bool> task;
-            var entity = await _authInfoRepository.Get(account.Id, model.Platform);
-            if (entity != null)
-            {
-                authInfo.Id = entity.Id;
-
-                task = _authInfoRepository.UpdateAsync(authInfo, uow);
-            }
-            else
-            {
-                task = _authInfoRepository.AddAsync(authInfo, uow);
-            }
-
-            return await task ? authInfo : null;
-        }
-
-        /// <summary>
-        /// 生成刷新令牌
-        /// </summary>
+        /// <param name="model"></param>
         /// <returns></returns>
-        private string GenerateRefreshToken()
+        public Task<ResultModel<LoginResultModel>> Login(UserNameLoginModel model)
         {
-            //生成唯一刷新令牌
-            //var randomNumber = new byte[32];
-            //using var rng = RandomNumberGenerator.Create();
-            //rng.GetBytes(randomNumber);
-            //return Convert.ToBase64String(randomNumber);
-            return Guid.NewGuid().ToString().Replace("-", "");
+            return _userNameLoginHandler.Handle(model);
         }
 
-        #endregion
+        /// <summary>
+        /// 邮箱登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<ResultModel<LoginResultModel>> Login(EmailLoginModel model)
+        {
+            return _emailLoginHandler.Handle(model);
+        }
 
-        #region ==刷新令牌==
+        /// <summary>
+        /// 用户名或邮箱登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public Task<ResultModel<LoginResultModel>> Login(UserNameOrEmailLoginModel model)
+        {
+            return _userNameOrEmailLoginHandler.Handle(model);
+        }
 
+        public Task<ResultModel<LoginResultModel>> Login(PhoneLoginModel model)
+        {
+            return _phoneLoginHandler.Handle(model);
+        }
+
+        public async Task<IResultModel> SendPhoneVerifyCode(PhoneVerifyCodeSendModel model)
+        {
+            var config = _configProvider.Get<AuthConfig>();
+            if (!config.LoginMode.Phone)
+                return ResultModel.Failed("未开启手机号登录方式");
+
+            return await _phoneVerifyCodeProvider.Send(model.Phone, model.AreaCode);
+        }
+
+        /// <summary>
+        /// 刷新令牌
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
         public async Task<ResultModel<LoginResultModel>> RefreshToken(string refreshToken)
         {
             var result = new ResultModel<LoginResultModel>();
@@ -283,7 +137,10 @@ namespace NetModular.Module.Admin.Application.AuthService
                 return result.Failed("身份认证信息过期，请重新登录~");
 
             var account = await _accountRepository.GetAsync(authInfo.AccountId);
-            var checkAccountResult = CheckAccount(account);
+            if (account == null)
+                return result.Failed("账户信息不存在");
+
+            var checkAccountResult = account.Check();
             if (!checkAccountResult.Successful)
                 return result.Failed(checkAccountResult.Msg);
 
@@ -294,14 +151,17 @@ namespace NetModular.Module.Admin.Application.AuthService
             });
         }
 
-        #endregion
-
-        #region ==获取认证信息==
-
+        /// <summary>
+        /// 获取认证信息
+        /// </summary>
+        /// <returns></returns>
         public async Task<IResultModel> GetAuthInfo()
         {
             var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
-            var result = CheckAccount(account);
+            if (account == null)
+                return ResultModel.Failed("账户信息不存在");
+
+            var result = account.Check();
             //检测账户状态
             if (!result.Successful)
                 return result;
@@ -402,8 +262,6 @@ namespace NetModular.Module.Admin.Application.AuthService
                 });
             }
         }
-
-        #endregion
 
         #endregion
 
