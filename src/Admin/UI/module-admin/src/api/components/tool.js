@@ -2,18 +2,22 @@ import module from '../../module'
 
 export default name => {
   const root = `${module.code}/${name}/`
-  const crud = $http.crud(root)
 
   const urls = {
-    enumSelect: root + 'EnumSelect'
+    enumSelect: root + 'EnumSelect',
+    platformSelect: root + 'PlatformSelect'
   }
 
   const enumSelect = params => {
     return $http.get(urls.enumSelect, params)
   }
 
+  const platformSelect = () => {
+    return $http.get(urls.platformSelect)
+  }
+
   return {
-    ...crud,
-    enumSelect
+    enumSelect,
+    platformSelect
   }
 }

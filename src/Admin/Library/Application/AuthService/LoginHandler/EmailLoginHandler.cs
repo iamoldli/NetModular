@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
@@ -38,6 +37,9 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         public async Task<ResultModel<LoginResultModel>> Handle(EmailLoginModel model)
         {
             var log = CreateLog(model);
+            if (log == null)
+                return await Handle(model, null);
+
             log.LoginMode = Domain.LoginLog.LoginMode.Email;
             log.Email = model.Email;
 
@@ -67,7 +69,8 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
             if (account == null)
                 return result.Failed("账户信息不存在");
 
-            log.AccountId = account.Id;
+            if (log != null)
+                log.AccountId = account.Id;
 
             //检测账户
             var accountCheckResult = account.Check();

@@ -40,6 +40,11 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// <returns></returns>
         protected LoginLogEntity CreateLog(LoginModel model)
         {
+            var config = _configProvider.Get<AdminConfig>();
+            //不启用登录日志
+            if (!config.LoginLog)
+                return null;
+
             return new LoginLogEntity
             {
                 LoginTime = DateTime.Now,
@@ -52,7 +57,7 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// <summary>
         /// 保存日志
         /// </summary>
-        protected Task SaveLog(LoginLogEntity log, ResultModel<LoginResultModel> result)
+        protected async ValueTask SaveLog(LoginLogEntity log, ResultModel<LoginResultModel> result)
         {
             log.Success = result.Successful;
             log.Error = result.Msg;
@@ -60,14 +65,12 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
             //保存日志，不能抛出异常以免影响登录本身的功能
             try
             {
-                return _logHandler.Handle(log);
+                await _logHandler.Handle(log);
             }
             catch (Exception ex)
             {
                 _logger.LogError("登录日志存储失败：{@ex}", ex);
             }
-
-            return Task.CompletedTask;
         }
 
         /// <summary>

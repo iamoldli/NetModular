@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Config.Abstractions.Impl;
+using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Lib.Utils.Mvc.Extensions;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.ConfigService;
@@ -30,6 +31,7 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [DisableAuditing]
         [Description("UI配置信息")]
         public IResultModel UI()
         {

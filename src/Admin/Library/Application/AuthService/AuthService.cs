@@ -211,7 +211,7 @@ namespace NetModular.Module.Admin.Application.AuthService
                     {
                         Name = "pretty",
                         Theme = "",
-                        FontSize = ""
+                        FontSize = "small"
                     };
                 }
 

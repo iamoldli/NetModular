@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NetModular.Lib.Auth.Abstractions;
-using NetModular.Lib.Swagger.Abstractions.Attributes;
+using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Module.Admin.Application.AuthService.ViewModels
 {

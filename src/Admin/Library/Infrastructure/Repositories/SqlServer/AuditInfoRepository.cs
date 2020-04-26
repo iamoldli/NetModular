@@ -23,11 +23,12 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             var paging = model.Paging();
             var query = Db.Find();
+            query.WhereNotNull(model.Platform, m => m.Platform == model.Platform.Value);
             query.WhereNotNull(model.ModuleCode, m => m.Area == model.ModuleCode);
-            query.WhereNotNull(model.Controller, m => m.Controller == model.Controller);
-            query.WhereNotNull(model.Action, m => m.Action == model.Action);
-            query.WhereNotNull(model.StartTime, m => m.ExecutionTime >= model.StartTime.Value.Date);
-            query.WhereNotNull(model.EndTime, m => m.ExecutionTime < model.EndTime.Value.AddDays(1).Date);
+            query.WhereNotNull(model.Controller, m => m.Controller.Contains(model.Controller) || m.ControllerDesc.Contains(model.Controller));
+            query.WhereNotNull(model.Action, m => m.ActionDesc.Contains(model.Action) || m.Action.Contains(model.Action));
+            query.WhereNotNull(model.StartDate, m => m.ExecutionTime >= model.StartDate.Value.Date);
+            query.WhereNotNull(model.EndDate, m => m.ExecutionTime < model.EndDate.Value.AddDays(1).Date);
 
             if (!paging.OrderBy.Any())
             {

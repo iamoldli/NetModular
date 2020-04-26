@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using NetModular.Lib.Config.Abstractions;
+﻿using NetModular.Lib.Config.Abstractions;
 
 namespace NetModular.Lib.Auth.Abstractions
 {
@@ -96,9 +95,9 @@ namespace NetModular.Lib.Auth.Abstractions
         public bool Phone { get; set; }
 
         /// <summary>
-        /// 微信登录
+        /// 微信扫码登录
         /// </summary>
-        public bool WeChat { get; set; }
+        public bool WeChatScanCode { get; set; }
 
         /// <summary>
         /// QQ登录

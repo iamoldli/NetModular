@@ -10,10 +10,7 @@
             <el-input :value="roleName" disabled />
           </el-form-item>
           <el-form-item label="选择平台：">
-            <el-select v-model="form.model.platform" @change="refresh">
-              <el-option label="Android" :value="1"></el-option>
-              <el-option label="IOS" :value="2"></el-option>
-            </el-select>
+            <nm-platform-select v-model="form.model.platform" no-web @change="refresh" />
           </el-form-item>
         </nm-form>
       </template>

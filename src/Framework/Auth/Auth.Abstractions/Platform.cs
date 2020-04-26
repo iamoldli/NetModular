@@ -35,17 +35,22 @@ namespace NetModular.Lib.Auth.Abstractions
         /// <summary>
         /// Mobile
         /// </summary>
-        [Description("Mobile")]
+        [Description("手机")]
         Mobile,
         /// <summary>
         /// WeChat
         /// </summary>
-        [Description("WeChat")]
+        [Description("微信")]
         WeChat,
         /// <summary>
         /// 小程序
         /// </summary>
-        [Description("MiniProgram")]
-        MiniProgram
+        [Description("小程序")]
+        MiniProgram,
+        /// <summary>
+        /// 支付宝
+        /// </summary>
+        [Description("支付宝")]
+        Alipay
     }
 }

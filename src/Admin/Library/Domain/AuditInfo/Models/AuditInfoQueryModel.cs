@@ -1,10 +1,16 @@
 ﻿using System;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Query;
 
 namespace NetModular.Module.Admin.Domain.AuditInfo.Models
 {
     public class AuditInfoQueryModel : QueryModel
     {
+        /// <summary>
+        /// 访问来源
+        /// </summary>
+        public Platform? Platform { get; set; }
+
         /// <summary>
         /// 模块
         /// </summary>
@@ -21,14 +27,14 @@ namespace NetModular.Module.Admin.Domain.AuditInfo.Models
         public string Action { get; set; }
 
         /// <summary>
-        /// 开始时间
+        /// 开始日期
         /// </summary>
-        public DateTime? StartTime { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
-        /// 结束时间
+        /// 结束日期
         /// </summary>
-        public DateTime? EndTime { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public override int ExportCountLimit => 100;
     }

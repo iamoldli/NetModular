@@ -75,8 +75,8 @@
     </el-row>
     <el-row>
       <el-col :span="5" :offset="1">
-        <el-form-item label="微信：">
-          <el-switch v-model="form.model.loginMode.weChat" disabled />
+        <el-form-item label="微信扫码登录：">
+          <el-switch v-model="form.model.loginMode.weChatScanCode" disabled />
         </el-form-item>
       </el-col>
       <el-col :span="5">
@@ -118,7 +118,7 @@ export default {
             email: false,
             userNameOrEmail: false,
             phone: false,
-            weChat: false,
+            weChatScanCode: false,
             qq: false,
             gitHub: false
           }

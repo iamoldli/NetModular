@@ -9,7 +9,7 @@ namespace NetModular.Module.Admin.Domain.LoginLog
     /// 登录日志
     /// </summary>
     [Table("Login_Log")]
-    public class LoginLogEntity : Entity<long>
+    public partial class LoginLogEntity : Entity<long>
     {
         /// <summary>
         /// 账户编号
@@ -44,6 +44,7 @@ namespace NetModular.Module.Admin.Domain.LoginLog
         /// 手机号
         /// </summary>
         [Nullable]
+        [Length(20)]
         public string Phone { get; set; }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace NetModular.Module.Admin.Domain.LoginLog
         /// 登录IP
         /// </summary>
         [Nullable]
-        public string IP { get; set; } = string.Empty;
+        public string IP { get; set; }
 
         /// <summary>
         /// 是否成功
@@ -65,11 +66,15 @@ namespace NetModular.Module.Admin.Domain.LoginLog
         /// <summary>
         /// 错误信息
         /// </summary>
+        [Length(500)]
+        [Nullable]
         public string Error { get; set; }
 
         /// <summary>
         /// UA
         /// </summary>
+        [Length(500)]
+        [Nullable]
         public string UserAgent { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
@@ -42,6 +41,9 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         public async Task<ResultModel<LoginResultModel>> Handle(UserNameOrEmailLoginModel model)
         {
             var log = CreateLog(model);
+            if (log == null)
+                return await Handle(model, null);
+
             log.LoginMode = Domain.LoginLog.LoginMode.UserNameOrEmail;
             log.UserName = model.UserNameOrEmail;
 

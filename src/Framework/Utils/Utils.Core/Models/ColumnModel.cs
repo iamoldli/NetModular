@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Utils.Core.Models
 {
@@ -36,6 +37,7 @@ namespace NetModular.Lib.Utils.Core.Models
         /// <summary>
         /// 属性信息
         /// </summary>
+        [IgnoreProperty]
         public PropertyInfo PropertyInfo { get; set; }
     }
 

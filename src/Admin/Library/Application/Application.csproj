@@ -9,7 +9,6 @@
     <ProjectReference Include="..\..\..\Framework\Data\Extend\Data.Query\Data.Query.csproj" />
     <ProjectReference Include="..\..\..\Framework\Excel\Excel.Abstractions\Excel.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
-    <ProjectReference Include="..\..\..\Framework\Swagger\Swagger.Abstractions\Swagger.Abstractions.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>

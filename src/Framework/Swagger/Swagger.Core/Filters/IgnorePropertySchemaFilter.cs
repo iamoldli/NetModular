@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
-using NetModular.Lib.Swagger.Abstractions.Attributes;
+using NetModular.Lib.Utils.Core.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace NetModular.Lib.Swagger.Core.Filters

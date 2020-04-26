@@ -34,7 +34,7 @@ NetModular
 
 ## 微服务框架
 
-基于NetModular扩展的微服务框架 [NetModular.Microservice](https://github.com/iamoldli/NetModular.Microservice)，开发中
+微服务框架 [https://github.com/shuiwazi/MicrosSrvices](https://github.com/shuiwazi/MicrosSrvices)
 
 ## 演示地址
 

@@ -25,11 +25,6 @@ namespace NetModular.Module.Admin.Domain.LoginLog.Models
         public LoginMode? LoginMode { get; set; }
 
         /// <summary>
-        /// 是否成功
-        /// </summary>
-        public bool? Success { get; set; }
-
-        /// <summary>
         /// 开始日期
         /// </summary>
         public DateTime? StartDate { get; set; }

@@ -13,6 +13,11 @@ namespace NetModular.Module.Admin.Infrastructure
         public bool Auditing { get; set; }
 
         /// <summary>
+        /// 启用登录日志
+        /// </summary>
+        public bool LoginLog { get; set; }
+
+        /// <summary>
         /// 账户默认密码
         /// </summary>
         public string DefaultPassword { get; set; } = "123456";

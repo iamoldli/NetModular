@@ -3,25 +3,25 @@
     <nm-list ref="list" v-bind="list">
       <!--查询条件-->
       <template v-slot:querybar>
-        <el-form-item label="模块：" prop="moduleCode">
-          <nm-module-select v-model="list.model.moduleCode" />
+        <el-form-item label="账户编号：" prop="accountId">
+          <el-input v-model="list.model.accountId" clearable />
         </el-form-item>
-        <el-form-item label="账户：" prop="accountId">
-          <el-input v-model="list.model.accountId" />
+        <el-form-item label="模块：" prop="moduleCode">
+          <nm-module-select v-model="list.model.moduleCode" clearable />
+        </el-form-item>
+        <el-form-item label="控制器：" prop="controller">
+          <el-input v-model="list.model.controller" clearable />
+        </el-form-item>
+        <el-form-item label="操作：" prop="action">
+          <el-input v-model="list.model.action" clearable />
+        </el-form-item>
+        <el-form-item label="访问来源：" prop="platform">
+          <nm-platform-select v-model="list.model.platform" clearable />
         </el-form-item>
       </template>
-      <!--高级查询-->
-      <template v-slot:querybar-advanced>
-        <el-row>
-          <el-col :span="20" :offset="1">
-            <el-form-item label="开始时间：" prop="startTime">
-              <el-date-picker v-model="list.model.startTime" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="结束时间：" prop="startTime">
-              <el-date-picker v-model="list.model.endTime" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
+
+      <template v-slot:header-toolbar>
+        <nm-date-range-picker size="mini" :start.sync="list.model.startDate" :end.sync="list.model.endDate" @change="refresh" />
       </template>
 
       <template v-slot:col-moduleName="{ row }">
@@ -64,16 +64,14 @@ export default {
       list: {
         title: page.title,
         action: api.query,
-        labelWidth: '60px',
-        advanced: {
-          enabled: true,
-          labelWidth: '100px'
-        },
         model: {
           accountId: '',
           moduleCode: '',
-          startTime: '',
-          endTime: ''
+          controller: '',
+          action: '',
+          platform: '',
+          startDate: null,
+          endDate: null
         },
         cols,
         /**导出配置 */
