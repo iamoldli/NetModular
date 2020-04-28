@@ -71,7 +71,7 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
             //查询账户
             var account = await _repository.GetByPhone(model.Phone, model.AccountType);
             if (account == null)
-                return result.Failed("账户信息不存在");
+                return result.Failed("账户不存在");
 
             if (log != null)
                 log.AccountId = account.Id;

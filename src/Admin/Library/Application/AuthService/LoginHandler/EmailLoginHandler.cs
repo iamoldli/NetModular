@@ -67,20 +67,20 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
             //查询账户
             var account = await _repository.GetByEmail(model.Email, model.AccountType);
             if (account == null)
-                return result.Failed("账户信息不存在");
+                return result.Failed("账户不存在");
 
             if (log != null)
                 log.AccountId = account.Id;
-
-            //检测账户
-            var accountCheckResult = account.Check();
-            if (!accountCheckResult.Successful)
-                return result.Failed(accountCheckResult.Msg);
 
             //检测密码
             var password = _passwordHandler.Encrypt(account.UserName, model.Password);
             if (!account.Password.Equals(password))
                 return result.Failed("密码错误");
+
+            //检测账户
+            var accountCheckResult = account.Check();
+            if (!accountCheckResult.Successful)
+                return result.Failed(accountCheckResult.Msg);
 
             //更新认证信息并返回登录结果
             var resultModel = await UpdateAuthInfo(account, model, config);

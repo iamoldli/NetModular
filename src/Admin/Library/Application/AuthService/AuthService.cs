@@ -159,7 +159,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         {
             var account = await _accountRepository.GetAsync(_loginInfo.AccountId);
             if (account == null)
-                return ResultModel.Failed("账户信息不存在");
+                return ResultModel.Failed("账户不存在");
 
             var result = account.Check();
             //检测账户状态
