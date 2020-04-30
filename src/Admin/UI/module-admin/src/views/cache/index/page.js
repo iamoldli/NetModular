@@ -1,6 +1,6 @@
 /** 页面信息 */
 const page = new (function() {
-  this.title = '缓存管理'
+  this.title = '缓存清理'
   this.icon = 'redis'
   this.name = 'admin_cache'
   this.path = '/admin/cache'

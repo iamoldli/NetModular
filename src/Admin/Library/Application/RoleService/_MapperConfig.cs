@@ -11,8 +11,7 @@ namespace NetModular.Module.Admin.Application.RoleService
         public void Bind(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<RoleAddModel, RoleEntity>();
-            cfg.CreateMap<RoleEntity, RoleUpdateModel>();
-            cfg.CreateMap<RoleUpdateModel, RoleEntity>();
+            cfg.AddMap<RoleEntity, RoleUpdateModel>();
             cfg.CreateMap<RoleMenuButtonBindModel, RoleMenuButtonEntity>();
         }
     }

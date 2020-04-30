@@ -225,6 +225,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel.Aspose", "src\Framewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel.NPOI", "src\Framework\Excel\Excel.NPOI\Excel.NPOI.csproj", "{1CAB6379-E82F-4ACB-9101-CE323C695B9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16_OSS", "16_OSS", "{E063CF6C-C069-4E83-971E-0C10E00DE7F0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Framework\OSS\Directory.Build.props = src\Framework\OSS\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Abstractions", "src\Framework\OSS\OSS.Abstractions\OSS.Abstractions.csproj", "{03759FE3-9489-410B-ADE8-9DF2E992716D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Local", "src\Framework\OSS\OSS.Local\OSS.Local.csproj", "{D092A56C-255E-486F-BA67-2B88BD879BA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -451,6 +460,14 @@ Global
 		{1CAB6379-E82F-4ACB-9101-CE323C695B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAB6379-E82F-4ACB-9101-CE323C695B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAB6379-E82F-4ACB-9101-CE323C695B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03759FE3-9489-410B-ADE8-9DF2E992716D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03759FE3-9489-410B-ADE8-9DF2E992716D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03759FE3-9489-410B-ADE8-9DF2E992716D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03759FE3-9489-410B-ADE8-9DF2E992716D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D092A56C-255E-486F-BA67-2B88BD879BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D092A56C-255E-486F-BA67-2B88BD879BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D092A56C-255E-486F-BA67-2B88BD879BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D092A56C-255E-486F-BA67-2B88BD879BA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -538,6 +555,9 @@ Global
 		{E9C774A9-BD87-45D6-90D0-6F5E23C89CFC} = {84F5A7ED-CE1E-4E68-A703-0785FB5AEADC}
 		{23123B99-DA31-4EF9-A291-FC12EE5F4C9C} = {1648E152-6907-4B52-A887-6F6102A12D50}
 		{1CAB6379-E82F-4ACB-9101-CE323C695B9F} = {1648E152-6907-4B52-A887-6F6102A12D50}
+		{E063CF6C-C069-4E83-971E-0C10E00DE7F0} = {0A0A14BC-4569-4C5C-A100-63E5413698DF}
+		{03759FE3-9489-410B-ADE8-9DF2E992716D} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
+		{D092A56C-255E-486F-BA67-2B88BD879BA3} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

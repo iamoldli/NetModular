@@ -1,6 +1,6 @@
 /** 页面信息 */
 const page = new (function() {
-  this.title = '图标管理'
+  this.title = '图标预览'
   this.icon = 'icon'
   this.name = 'admin_icon'
   this.path = '/admin/icon'

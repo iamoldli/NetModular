@@ -575,6 +575,22 @@ namespace NetModular.Lib.Data.Core
 
         #endregion
 
+        #region ==ExecuteReader==
+
+        public IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+        {
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteReader(sql, param, tran, commandType: commandType);
+        }
+
+        public Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+        {
+            var tran = GetTransaction(uow);
+            return DbContext.NewConnection(tran).ExecuteReaderAsync(sql, param, tran, commandType: commandType);
+        }
+
+        #endregion
+
         #region ==QueryFirstOrDefault==
 
         public dynamic QueryFirstOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
@@ -629,16 +645,21 @@ namespace NetModular.Lib.Data.Core
             return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
         }
 
-        public IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+
+        #endregion
+
+        #region ==QueryMultipleAsync==
+
+        public SqlMapper.GridReader QueryMultiple(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteReader(sql, param, tran, commandType: commandType);
+            return DbContext.NewConnection(tran).QueryMultiple(sql, param, tran, commandType: commandType);
         }
 
-        public Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
+        public Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteReaderAsync(sql, param, tran, commandType: commandType);
+            return DbContext.NewConnection(tran).QueryMultipleAsync(sql, param, tran, commandType: commandType);
         }
 
         #endregion
@@ -787,23 +808,31 @@ namespace NetModular.Lib.Data.Core
         /// <param name="value"></param>
         private void AppendValue(StringBuilder sqlBuilder, Type type, object value)
         {
-            if (type.IsEnum)
+            if (type.IsNullable())
+            {
+                type = Nullable.GetUnderlyingType(type);
+            }
+
+            if (value == null)
+            {
+                sqlBuilder.AppendFormat("NULL");
+            }
+            else if (type.IsEnum)
             {
                 sqlBuilder.AppendFormat("{0}", value.ToInt());
             }
             else if (type.IsBool())
             {
-                sqlBuilder.AppendFormat("{0}",
-                    EntityDescriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL
-                        ? value
-                        : value.ToInt());
+                sqlBuilder.AppendFormat("{0}", EntityDescriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? value : value.ToInt());
             }
-            else if (type.IsString() || type.IsChar() || type.IsGuid())
-                sqlBuilder.AppendFormat("'{0}'", value);
             else if (type.IsDateTime())
-                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", value.ToDateTime());
+            {
+                sqlBuilder.AppendFormat("'{0:yyyy-MM-dd HH:mm:ss}'", value);
+            }
             else
-                sqlBuilder.AppendFormat("{0}", value);
+            {
+                sqlBuilder.AppendFormat("'{0}'", value);
+            }
         }
 
         /// <summary>

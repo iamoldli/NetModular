@@ -114,18 +114,17 @@ export default {
         name: '',
         path: ''
       },
-      buttons: page.buttons
+      buttons: page.buttons,
+      dragSort: {
+        queryAction: this.querySortList,
+        updateAction: api.updateSortList,
+        height: '700px'
+      }
     }
   },
   computed: {
     title() {
       return '菜单列表—' + this.menu.name
-    },
-    dragSort() {
-      return {
-        queryAction: this.querySortList,
-        updateAction: api.updateSortList
-      }
     }
   },
   methods: {

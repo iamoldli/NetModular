@@ -8,7 +8,7 @@ namespace NetModular.Lib.Data.Core.Entities.Extend
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreatedTime { get; set; } = DateTime.Now;
+        public DateTime? CreatedTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 创建人

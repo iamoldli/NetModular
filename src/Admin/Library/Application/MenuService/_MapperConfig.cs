@@ -11,8 +11,7 @@ namespace NetModular.Module.Admin.Application.MenuService
         public void Bind(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<MenuAddModel, MenuEntity>();
-            cfg.CreateMap<MenuEntity, MenuUpdateModel>();
-            cfg.CreateMap<MenuUpdateModel, MenuEntity>();
+            cfg.AddMap<MenuEntity, MenuUpdateModel>();
             cfg.CreateMap<MenuEntity, MenuTreeResultModel>();
         }
     }

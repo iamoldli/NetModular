@@ -6,8 +6,6 @@ export default name => {
     ui: root + 'UI',
     edit: root + 'Edit',
     update: root + 'Update',
-    uploadLogo: root + 'UploadLogo',
-    logoUrl: root + 'LogoUrl',
     descriptors: root + 'Descriptors'
   }
 
@@ -23,18 +21,6 @@ export default name => {
     return $http.post(urls.update, params)
   }
 
-  /**
-   * logo上传接口
-   */
-
-  const uploadLogoUrl = () => {
-    return $http.axios.defaults.baseURL + urls.uploadLogo
-  }
-
-  const getLogoUrl = () => {
-    return $http.get(urls.logoUrl)
-  }
-
   const getDescriptors = () => {
     return $http.get(urls.descriptors)
   }
@@ -43,8 +29,6 @@ export default name => {
     getUI,
     edit,
     update,
-    uploadLogoUrl,
-    getLogoUrl,
     getDescriptors
   }
 }

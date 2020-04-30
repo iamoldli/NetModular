@@ -1,9 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web.Attributes;
+using NetModular.Lib.Config.Abstractions;
+using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Module.AspNetCore.Attributes;
+using NetModular.Lib.Utils.Mvc.Extensions;
+using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.ToolService;
 
 namespace NetModular.Module.Admin.Web.Controllers
@@ -15,7 +22,7 @@ namespace NetModular.Module.Admin.Web.Controllers
     {
         private readonly IToolService _service;
 
-        public ToolController(IToolService service)
+        public ToolController(IToolService service, FileUploadHelper fileUploadHelper, IConfigProvider configProvider)
         {
             _service = service;
         }

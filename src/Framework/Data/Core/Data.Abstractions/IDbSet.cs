@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Dapper;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.SqlQueryable;
 
@@ -71,6 +72,28 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="commandType">命令类型</param>
         /// <returns></returns>
         Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+
+        #endregion
+
+        #region ==ExecuteReader==
+
+        /// <summary>
+        /// ExecuteReader
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="uow"></param>
+        /// <param name="commandType"></param>
+        IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteReader
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="uow"></param>
+        /// <param name="commandType"></param>
+        Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
 
         #endregion
 
@@ -166,25 +189,27 @@ namespace NetModular.Lib.Data.Abstractions
 
         #endregion
 
-        #region ==ExecuteReader==
+        #region ==QueryMultipleAsync==
 
         /// <summary>
-        /// ExecuteReader
+        /// 查询多条结果
         /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="uow"></param>
-        /// <param name="commandType"></param>
-        IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="uow">工作单元</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        SqlMapper.GridReader QueryMultiple(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
 
         /// <summary>
-        /// ExecuteReader
+        /// 查询多条结果
         /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="uow"></param>
-        /// <param name="commandType"></param>
-        Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
+        /// <param name="sql">sql语句</param>
+        /// <param name="param">参数</param>
+        /// <param name="uow">工作单元</param>
+        /// <param name="commandType">命令类型</param>
+        /// <returns></returns>
+        Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null);
 
         #endregion
 

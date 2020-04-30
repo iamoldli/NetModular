@@ -116,13 +116,11 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <param name="savePath"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task Save(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
+        public Task Save(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
         {
             //写入
-            using (var stream = new FileStream(savePath, FileMode.Create))
-            {
-                await formFile.CopyToAsync(stream, cancellationToken);
-            }
+            using var stream = new FileStream(savePath, FileMode.Create);
+            return formFile.CopyToAsync(stream, cancellationToken);
         }
 
         /// <summary>
@@ -134,13 +132,10 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <returns></returns>
         public async Task<string> SaveWidthMd5(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
         {
-            string md5;
             //写入
-            using (var stream = new FileStream(savePath, FileMode.Create))
-            {
-                md5 = Md5Encrypt.Encrypt(stream);
-                await formFile.CopyToAsync(stream, cancellationToken);
-            }
+            await using var stream = new FileStream(savePath, FileMode.Create);
+            var md5 = Md5Encrypt.Encrypt(stream);
+            await formFile.CopyToAsync(stream, cancellationToken);
 
             return md5;
         }
@@ -167,7 +162,7 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         public string RootPath { get; set; }
 
         /// <summary>
-        /// 模块名称
+        /// 模块编码
         /// </summary>
         public string Module { get; set; }
 
@@ -177,14 +172,19 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         public string Group { get; set; }
 
         /// <summary>
+        /// 路径
+        /// </summary>
+        public string SubPath { get; set; }
+
+        /// <summary>
         /// 完整目录
         /// </summary>
-        public string FullPath => Path.Combine(RootPath, Module, Group);
+        public string FullPath => Path.Combine(RootPath, RelativePath);
 
         /// <summary>
         /// 相对目录
         /// </summary>
-        public string RelativePath => Path.Combine(Module, Group);
+        public string RelativePath => Path.Combine(Module, Group, SubPath);
     }
 
     /// <summary>

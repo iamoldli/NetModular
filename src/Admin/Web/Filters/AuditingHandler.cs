@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Module.Abstractions;
+using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuditInfoService;
 using NetModular.Module.Admin.Domain.AuditInfo;
@@ -17,6 +18,7 @@ namespace NetModular.Module.Admin.Web.Filters
     /// <summary>
     /// 审计日志处理
     /// </summary>
+    [Singleton]
     public class AuditingHandler : IAuditingHandler
     {
         private readonly MvcHelper _mvcHelper;

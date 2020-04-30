@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Auth\Auth.Web\Auth.Web.csproj" />
     <ProjectReference Include="..\..\Framework\Module\Module.AspNetCore\Module.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Framework\OSS\OSS.Abstractions\OSS.Abstractions.csproj" />
     <ProjectReference Include="..\..\Framework\Utils\Utils.Mvc\Utils.Mvc.csproj" />
     <ProjectReference Include="..\..\Framework\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj" />
     <ProjectReference Include="..\Library\Application\Application.csproj" />

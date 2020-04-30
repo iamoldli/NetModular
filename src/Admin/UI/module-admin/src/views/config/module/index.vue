@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     getNo(item) {
-      console.log(item)
       return item.id < 10 ? '0' + item.id : '' + item.id
     }
   },
