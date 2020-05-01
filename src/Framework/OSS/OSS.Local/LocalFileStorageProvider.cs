@@ -50,6 +50,8 @@ namespace NetModular.Lib.OSS.Local
         {
             if (fullPath.IsNull())
                 return string.Empty;
+            if (fullPath.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || fullPath.StartsWith("https:", StringComparison.OrdinalIgnoreCase))
+                return fullPath;
 
             var request = _httpContextAccessor.HttpContext.Request;
             //p表示私有的文件private，o表示公开的文件open

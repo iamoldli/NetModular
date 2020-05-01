@@ -236,8 +236,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
         public string QuerySqlBuild(out IQueryParameters parameters)
         {
-            string sql;
             parameters = new QueryParameters();
+            return QuerySqlBuild(parameters);
+        }
+
+        public string QuerySqlBuild(IQueryParameters parameters)
+        {
+            if (parameters == null)
+                throw new ArgumentNullException("参数集合不能为null");
+
+            string sql;
 
             //分页查询
             if (_queryBody.Take > 0)
@@ -413,14 +421,20 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             for (var i = 0; i < _queryBody.Where.Count; i++)
             {
                 var w = _queryBody.Where[i];
-                if (w.Type == QueryWhereType.LambdaExpression)
+                switch (w.Type)
                 {
-                    whereSql.Append(_resolver.Resolve(w.Expression, parameters));
+                    case QueryWhereType.LambdaExpression:
+                        whereSql.Append(_resolver.Resolve(w.Expression, parameters));
+                        break;
+                    case QueryWhereType.SubQuery:
+                        var subSql = w.SubQueryable.ToSql(parameters);
+                        whereSql.AppendFormat("{0} {1} ({2}) ", _resolver.Resolve(w.SubQueryColumn, parameters), w.SubQueryOperator.ToDescription(), subSql);
+                        break;
+                    case QueryWhereType.Sql:
+                        whereSql.AppendFormat(" ({0}) ", w.Sql);
+                        break;
                 }
-                else
-                {
-                    whereSql.AppendFormat(" ({0}) ", w.Sql);
-                }
+
                 if (i < _queryBody.Where.Count - 1)
                 {
                     whereSql.Append(" AND ");

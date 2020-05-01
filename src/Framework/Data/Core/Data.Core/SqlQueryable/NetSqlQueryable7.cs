@@ -222,6 +222,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> Where<TKey>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TKey>> key, QueryOperator queryOperator, INetSqlQueryable queryable)
+        {
+            QueryBody.SetWhere(key, queryOperator, queryable);
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7> Limit(int skip, int take)
         {
             QueryBody.SetLimit(skip, take);

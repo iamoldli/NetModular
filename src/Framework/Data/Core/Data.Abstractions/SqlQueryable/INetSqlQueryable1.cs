@@ -228,13 +228,23 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         INetSqlQueryable<TEntity> WhereNotEmpty(Guid condition, string ifWhereSql, string elseWhereSql);
 
         /// <summary>
-        /// NotIn查询
+        /// NOT IN 查询
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <param name="key"></param>
         /// <param name="list"></param>
         /// <returns></returns>
         INetSqlQueryable<TEntity> WhereNotIn<TKey>(Expression<Func<TEntity, TKey>> key, IEnumerable<TKey> list);
+
+        /// <summary>
+        /// 子查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="key">列</param>
+        /// <param name="queryOperator">运算逻辑</param>
+        /// <param name="queryable">子查询的查询构造器</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Where<TKey>(Expression<Func<TEntity, TKey>> key, QueryOperator queryOperator, INetSqlQueryable queryable);
 
         #endregion
 

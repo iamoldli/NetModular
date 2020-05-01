@@ -233,6 +233,16 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <returns></returns>
         INetSqlQueryable<TEntity, TEntity2> WhereNotIn<TKey>(Expression<Func<TEntity, TEntity2, TKey>> key, IEnumerable<TKey> list);
 
+        /// <summary>
+        /// 子查询
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="key">列</param>
+        /// <param name="queryOperator">运算逻辑</param>
+        /// <param name="queryable">子查询的查询构造器</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2> Where<TKey>(Expression<Func<TEntity, TEntity2, TKey>> key, QueryOperator queryOperator, INetSqlQueryable queryable);
+
         #endregion
 
         #region ==Limit==
@@ -380,7 +390,7 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// 分组(group by 1)
         /// </summary>
         /// <returns></returns>
-        IGroupByQueryable2<INetSqlGroupingKey2<TEntity,TEntity2>, TEntity, TEntity2> GroupBy();
+        IGroupByQueryable2<INetSqlGroupingKey2<TEntity, TEntity2>, TEntity, TEntity2> GroupBy();
 
         #endregion
 

@@ -5,6 +5,9 @@ using NetModular.Lib.Data.Abstractions.Pagination;
 
 namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 {
+    /// <summary>
+    /// 查询构造器
+    /// </summary>
     public interface INetSqlQueryable
     {
         #region ==ToList==
@@ -159,6 +162,13 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <param name="parameters"></param>
         /// <returns></returns>
         string ToSql(out IQueryParameters parameters);
+
+        /// <summary>
+        /// 获取Sql语句并使用指定的参数集
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        string ToSql(IQueryParameters parameters);
 
         #endregion
     }

@@ -6,6 +6,7 @@ using System.Text;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.Pagination;
+using NetModular.Lib.Data.Abstractions.SqlQueryable;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {
@@ -127,6 +128,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (whereSql.NotNull())
             {
                 Where.Add(new QueryWhere(whereSql));
+            }
+        }
+
+        public void SetWhere(LambdaExpression expression, QueryOperator queryOperator, INetSqlQueryable subQueryable)
+        {
+            if (subQueryable != null)
+            {
+                Where.Add(new QueryWhere(expression, queryOperator, subQueryable));
             }
         }
 
@@ -308,24 +317,26 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             {
                 GroupBy = expression as LambdaExpression;
                 var lambda = expression as LambdaExpression;
-                if (lambda.Body.NodeType != ExpressionType.New)
+                if (lambda != null && lambda.Body.NodeType != ExpressionType.New)
                     throw new ArgumentException("分组条件必须使用匿名类new{}");
 
-                var newExp = lambda.Body as NewExpression;
-                for (var i = 0; i < newExp.Members.Count; i++)
-                {
-                    var alias = newExp.Members[i].Name;
-                    var member = newExp.Arguments[i] as MemberExpression;
-                    var parameter = member.Expression as ParameterExpression;
-                    var joinDescriptor = JoinDescriptors.FirstOrDefault(m => m.EntityDescriptor.EntityType == parameter.Type);
-
-                    GroupByPropertyList.Add(new GroupByJoinDescriptor
+                if (lambda?.Body is NewExpression newExp)
+                    for (var i = 0; i < newExp.Members.Count; i++)
                     {
-                        Name = member.Member.Name,
-                        Alias = alias,
-                        JoinDescriptor = joinDescriptor
-                    });
-                }
+                        var alias = newExp.Members[i].Name;
+                        if (newExp.Arguments[i] is MemberExpression member)
+                        {
+                            var parameter = member.Expression as ParameterExpression;
+                            var joinDescriptor = JoinDescriptors.FirstOrDefault(m => parameter != null && m.EntityDescriptor.EntityType == parameter.Type);
+
+                            GroupByPropertyList.Add(new GroupByJoinDescriptor
+                            {
+                                Name = member.Member.Name,
+                                Alias = alias,
+                                JoinDescriptor = joinDescriptor
+                            });
+                        }
+                    }
             }
             else
             {

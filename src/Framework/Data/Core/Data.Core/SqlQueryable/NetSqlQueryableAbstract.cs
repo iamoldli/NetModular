@@ -267,5 +267,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             return QueryBuilder.QuerySqlBuild(out parameters);
         }
+
+        public string ToSql(IQueryParameters parameters)
+        {
+            return QueryBuilder.QuerySqlBuild(parameters);
+        }
     }
 }

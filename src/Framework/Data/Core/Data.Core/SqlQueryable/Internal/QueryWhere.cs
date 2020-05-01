@@ -1,4 +1,6 @@
 ﻿using System.Linq.Expressions;
+using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.SqlQueryable;
 
 namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 {
@@ -22,6 +24,21 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public string Sql { get; set; }
 
+        /// <summary>
+        /// 子查询的列
+        /// </summary>
+        public LambdaExpression SubQueryColumn { get; set; }
+
+        /// <summary>
+        /// 子查询运算符
+        /// </summary>
+        public QueryOperator SubQueryOperator { get; set; }
+
+        /// <summary>
+        /// 子查询
+        /// </summary>
+        public INetSqlQueryable SubQueryable { get; set; }
+
         public QueryWhere(LambdaExpression expression)
         {
             Type = QueryWhereType.LambdaExpression;
@@ -32,6 +49,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             Type = QueryWhereType.Sql;
             Sql = sql;
+        }
+
+        public QueryWhere(LambdaExpression expression, QueryOperator queryOperator, INetSqlQueryable subQueryable)
+        {
+            Type = QueryWhereType.SubQuery;
+            SubQueryColumn = expression;
+            SubQueryOperator = queryOperator;
+            SubQueryable = subQueryable;
         }
     }
 
@@ -47,6 +72,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// <summary>
         /// SQL语句
         /// </summary>
-        Sql
+        Sql,
+        /// <summary>
+        /// 子查询
+        /// </summary>
+        SubQuery
     }
 }

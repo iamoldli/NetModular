@@ -214,6 +214,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> Where<TKey>(Expression<Func<TEntity, TKey>> key, QueryOperator queryOperator, INetSqlQueryable queryable)
+        {
+            QueryBody.SetWhere(key, queryOperator, queryable);
+            return this;
+        }
+
         #endregion
 
         #region ==Limit==
