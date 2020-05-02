@@ -376,6 +376,18 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Failed();
         }
 
+        public async Task<IResultModel> Active(Guid id)
+        {
+            var exists = await _accountRepository.ExistsAsync(id);
+            if (!exists)
+            {
+                return ResultModel.Failed("账户不存在");
+            }
+
+            var result = await _accountRepository.UpdateAccountStatus(id, AccountStatus.Active);
+            return ResultModel.Success(result);
+        }
+
         /// <summary>
         /// 判断账户是否存在
         /// </summary>

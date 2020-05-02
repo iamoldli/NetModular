@@ -33,5 +33,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// 自定义表名称
         /// </summary>
         public string TableName { get; set; }
+
+        /// <summary>
+        /// SqlServer的NoLock特性
+        /// </summary>
+        public bool NoLock { get; set; }
     }
 }

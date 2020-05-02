@@ -386,8 +386,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="uow">工作单元</param>
         /// <param name="tableName">指定表名称</param>
         /// <param name="rowLock">行锁</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false);
+        TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false, bool noLock = true);
 
         /// <summary>
         /// 根据主键查询
@@ -396,8 +397,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="uow">工作单元</param>
         /// <param name="tableName">指定表名称</param>
         /// <param name="rowLock">行锁</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false);
+        Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false, bool noLock = true);
 
         #endregion
 
@@ -409,8 +411,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="id">主键</param>
         /// <param name="uow">工作单元</param>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        bool Exists(dynamic id, IUnitOfWork uow = null, string tableName = null);
+        bool Exists(dynamic id, IUnitOfWork uow = null, string tableName = null, bool noLock = true);
 
         /// <summary>
         /// 删除
@@ -418,8 +421,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="id">主键</param>
         /// <param name="uow">工作单元</param>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null);
+        Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool noLock = true);
 
         #endregion
 
@@ -428,30 +432,34 @@ namespace NetModular.Lib.Data.Abstractions
         /// <summary>
         /// 查询
         /// </summary>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find();
+        INetSqlQueryable<TEntity> Find(bool noLock = true);
 
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="expression">过滤条件</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, bool noLock = true);
 
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find(string tableName);
+        INetSqlQueryable<TEntity> Find(string tableName, bool noLock = true);
 
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="expression">过滤条件</param>
         /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
         /// <returns></returns>
-        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName);
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName, bool noLock = true);
 
         #endregion
 

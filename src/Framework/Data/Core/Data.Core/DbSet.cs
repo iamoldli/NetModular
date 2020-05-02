@@ -496,18 +496,32 @@ namespace NetModular.Lib.Data.Core
             return dynParams;
         }
 
-        public TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
+        public TEntity Get(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false, bool noLock = false)
         {
             var dynParams = GetParameters(id);
-            var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
+            string sql;
+            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.Get(tableName) + " WITH (NOLOCK) ";
+            else if (rowLock)
+                sql = _sql.GetAndRowLock(tableName);
+            else
+                sql = _sql.Get(tableName);
+
             _logger?.LogDebug("Get:{@sql}", sql);
             return QuerySingleOrDefault<TEntity>(sql, dynParams, uow);
         }
 
-        public Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false)
+        public Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool rowLock = false, bool noLock = false)
         {
             var dynParams = GetParameters(id);
-            var sql = rowLock ? _sql.GetAndRowLock(tableName) : _sql.Get(tableName);
+            string sql;
+            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.Get(tableName) + " WITH (NOLOCK) ";
+            else if (rowLock)
+                sql = _sql.GetAndRowLock(tableName);
+            else
+                sql = _sql.Get(tableName);
+
             _logger?.LogDebug("GetAsync:{@sql}", sql);
             return QuerySingleOrDefaultAsync<TEntity>(sql, dynParams, uow);
         }
@@ -516,27 +530,37 @@ namespace NetModular.Lib.Data.Core
 
         #region ==Exists==
 
-        public bool Exists(dynamic id, IUnitOfWork uow = null, string tableName = null)
+        public bool Exists(dynamic id, IUnitOfWork uow = null, string tableName = null, bool noLock = false)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            var sql = _sql.Exists(tableName);
+            string sql;
+            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.Exists(tableName) + " WITH (NOLOCK) ";
+            else
+                sql = _sql.Exists(tableName);
+
             _logger?.LogDebug("Exists:{@sql}", sql);
 
             return QuerySingleOrDefault<int>(sql, dynParams, uow) > 0;
         }
 
-        public async Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
+        public async Task<bool> ExistsAsync(dynamic id, IUnitOfWork uow = null, string tableName = null, bool noLock = false)
         {
             //没有主键的表无法使用Exists方法
             if (EntityDescriptor.PrimaryKey.IsNo())
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            var sql = _sql.Exists(tableName);
+            string sql;
+            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.Exists(tableName) + " WITH (NOLOCK) ";
+            else
+                sql = _sql.Exists(tableName);
+
             _logger?.LogDebug("ExistsAsync:{@sql}", sql);
             return (await QuerySingleOrDefaultAsync<int>(sql, dynParams, uow)) > 0;
         }
@@ -690,24 +714,24 @@ namespace NetModular.Lib.Data.Core
             return DbContext.NewConnection(tran).QueryAsync<T>(sql, param, tran, commandType: commandType);
         }
 
-        public INetSqlQueryable<TEntity> Find()
+        public INetSqlQueryable<TEntity> Find(bool noLock = true)
         {
-            return new NetSqlQueryable<TEntity>(this, null);
+            return new NetSqlQueryable<TEntity>(this, null, null, noLock);
         }
 
-        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression)
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, bool noLock = true)
         {
-            return new NetSqlQueryable<TEntity>(this, expression);
+            return new NetSqlQueryable<TEntity>(this, expression, null, noLock);
         }
 
-        public INetSqlQueryable<TEntity> Find(string tableName)
+        public INetSqlQueryable<TEntity> Find(string tableName, bool noLock = true)
         {
-            return new NetSqlQueryable<TEntity>(this, null, tableName);
+            return new NetSqlQueryable<TEntity>(this, null, tableName, noLock);
         }
 
-        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName)
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName, bool noLock = true)
         {
-            return new NetSqlQueryable<TEntity>(this, expression, tableName);
+            return new NetSqlQueryable<TEntity>(this, expression, tableName, noLock);
         }
 
         #endregion

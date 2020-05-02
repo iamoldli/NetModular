@@ -8,7 +8,8 @@ export default name => {
     updatePassword: root + 'updatepassword',
     bindRole: root + 'bindrole',
     resetPassword: root + 'ResetPassword',
-    skinUpdate: root + 'SkinUpdate'
+    skinUpdate: root + 'SkinUpdate',
+    active: root + 'Active'
   }
 
   /**
@@ -40,12 +41,16 @@ export default name => {
     return $http.post(urls.skinUpdate, params)
   }
 
+  const active = id => {
+    return $http.post(urls.active + '?id=' + id)
+  }
   // 接口集合
   return {
     ...crud,
     updatePassword,
     bindRole,
     resetPassword,
-    skinUpdate
+    skinUpdate,
+    active
   }
 }

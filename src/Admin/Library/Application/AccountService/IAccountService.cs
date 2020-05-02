@@ -103,5 +103,12 @@ namespace NetModular.Module.Admin.Application.AccountService
         /// <param name="model"></param>
         /// <returns></returns>
         Task<IResultModel> Sync(AccountSyncModel model);
+
+        /// <summary>
+        /// 手动激活账户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IResultModel> Active(Guid id);
     }
 }

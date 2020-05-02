@@ -26,7 +26,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         where TEntity9 : IEntity, new()
         where TEntity10 : IEntity, new()
     {
-        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9, TEntity10, bool>> onExpression, JoinType joinType = JoinType.Left, string tableName = null)
+        public NetSqlQueryable(IDbSet dbSet, QueryBody queryBody, Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9, TEntity10, bool>> onExpression, JoinType joinType = JoinType.Left, string tableName = null, bool noLock = true)
             : base(dbSet, queryBody)
         {
             Check.NotNull(onExpression, nameof(onExpression), "请输入连接条件");
@@ -37,6 +37,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
                 Alias = "T10",
                 EntityDescriptor = EntityDescriptorCollection.Get<TEntity10>(),
                 On = onExpression,
+                NoLock = noLock
             };
             t10.TableName = tableName.NotNull() ? tableName : t10.EntityDescriptor.TableName;
             QueryBody.JoinDescriptors.Add(t10);

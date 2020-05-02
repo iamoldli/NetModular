@@ -388,10 +388,21 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             if (_queryBody.JoinDescriptors.Count == 1)
             {
                 sqlBuilder.AppendFormat(" {0} ", GetTableName(first.TableName));
+
+                //附加NOLOCK特性
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && first.NoLock)
+                {
+                    sqlBuilder.Append("WITH (NOLOCK) ");
+                }
                 return;
             }
 
             sqlBuilder.AppendFormat(" {0} AS {1} ", GetTableName(first.TableName), _sqlAdapter.AppendQuote(first.Alias));
+            //附加NOLOCK特性
+            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && first.NoLock)
+            {
+                sqlBuilder.Append("WITH (NOLOCK) ");
+            }
 
             for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
             {
@@ -409,8 +420,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         break;
                 }
 
-                sqlBuilder.AppendFormat("JOIN {0} AS {1} ON ", GetTableName(descriptor.TableName, descriptor.EntityDescriptor.SqlAdapter.Database), _sqlAdapter.AppendQuote(descriptor.Alias));
+                sqlBuilder.AppendFormat("JOIN {0} AS {1} ", GetTableName(descriptor.TableName, descriptor.EntityDescriptor.SqlAdapter.Database), _sqlAdapter.AppendQuote(descriptor.Alias));
+                //附加NOLOCK特性
+                if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && first.NoLock)
+                {
+                    sqlBuilder.Append("WITH (NOLOCK) ");
+                }
 
+                sqlBuilder.Append("ON ");
                 sqlBuilder.Append(_resolver.Resolve(descriptor.On, parameters));
             }
         }

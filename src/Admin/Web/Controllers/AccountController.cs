@@ -88,5 +88,12 @@ namespace NetModular.Module.Admin.Web.Controllers
         {
             return _service.SkinUpdate(_loginInfo.AccountId, model);
         }
+
+        [HttpPost]
+        [Description("激活账户")]
+        public Task<IResultModel> Active([BindRequired]Guid id)
+        {
+            return _service.Active(id);
+        }
     }
 }

@@ -55,6 +55,7 @@
 
       <!--操作列-->
       <template v-slot:col-operation="{ row }">
+        <nm-button v-if="!row.isLock && row.status === 0" v-bind="buttons.active" @click="active(row)" />
         <nm-button v-if="!row.isLock" v-bind="buttons.edit" @click="edit(row)" />
         <nm-button v-if="!row.isLock" v-bind="buttons.resetPassword" @click="resetPassword(row)" />
         <nm-button-delete v-if="!row.isLock" v-bind="buttons.del" :disabled="row.id === accountId" :action="removeAction" :id="row.id" @success="refresh" />
@@ -86,7 +87,7 @@ export default {
         title: page.title,
         cols,
         action: api.query,
-        operationWidth: '200',
+        operationWidth: '270',
         advanced: {
           enabled: true,
           width: '400px'
@@ -110,6 +111,14 @@ export default {
       this._confirm(`您确定要重置账户(${row.name})的密码吗？`).then(() => {
         api.resetPassword(row.id).then(() => {
           this._success('已重置')
+        })
+      })
+    },
+    active(row) {
+      this._confirm(`您确定要激活账户(${row.name})吗？`).then(() => {
+        api.active(row.id).then(() => {
+          this._success('已激活')
+          row.status = 1
         })
       })
     }
