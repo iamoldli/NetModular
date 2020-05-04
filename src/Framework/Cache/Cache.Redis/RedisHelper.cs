@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NetModular.Lib.Cache.Abstractions;
 using StackExchange.Redis;
-using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Utils.Core.Attributes;
 using Newtonsoft.Json;
 
@@ -15,11 +15,11 @@ namespace NetModular.Lib.Cache.Redis
         private ConnectionMultiplexer _redis;
         private string _prefix;
         public IDatabase Db;
-        private readonly IConfigProvider _configProvider;
-        public RedisHelper(IConfigProvider configProvider)
-        {
-            _configProvider = configProvider;
+        private readonly RedisConfig _config;
 
+        public RedisHelper(CacheConfig config)
+        {
+            _config = config.Redis;
             CreateConnection();
         }
 
@@ -43,10 +43,9 @@ namespace NetModular.Lib.Cache.Redis
         /// </summary>
         internal void CreateConnection()
         {
-            var config = _configProvider.Get<RedisConfig>();
-            _prefix = config.Prefix.NotNull() ? $"{config.Prefix}:" : string.Empty;
+            _prefix = _config.Prefix.NotNull() ? $"{_config.Prefix}:" : string.Empty;
 
-            var connString = config.ConnectionString.IsNull() ? "127.0.0.1" : config.ConnectionString;
+            var connString = _config.ConnectionString.IsNull() ? "127.0.0.1" : _config.ConnectionString;
             _redis = ConnectionMultiplexer.Connect(connString);
             Db = _redis.GetDatabase();
         }

@@ -8,13 +8,11 @@ using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Data.Query;
 using NetModular.Lib.Excel.Abstractions;
-using NetModular.Lib.Utils.Core.Attributes;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 namespace NetModular.Lib.Excel.EPPlus
 {
-    [Singleton]
     public class EPPlusExcelExportHandler : IExcelExportHandler
     {
         private readonly ILoginInfo _loginInfo;

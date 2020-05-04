@@ -16,15 +16,17 @@ namespace NetModular.Lib.Excel.Abstractions
     {
         protected readonly ILoginInfo LoginInfo;
         private readonly IExcelExportHandler _exportHandler;
-        private readonly IConfigProvider _configProvider;
+        private readonly ExcelConfig _config;
 
+        private readonly IConfigProvider _configProvider;
         //导出Excel的对象的属性类型列表
         private readonly ConcurrentDictionary<RuntimeTypeHandle, Dictionary<string, PropertyInfo>> _exportObjectProperties = new ConcurrentDictionary<RuntimeTypeHandle, Dictionary<string, PropertyInfo>>();
 
-        protected ExcelHandlerAbstract(ILoginInfo loginInfo, IExcelExportHandler exportHandler, IConfigProvider configProvider)
+        protected ExcelHandlerAbstract(ILoginInfo loginInfo, IExcelExportHandler exportHandler, ExcelConfig config, IConfigProvider configProvider)
         {
             LoginInfo = loginInfo;
             _exportHandler = exportHandler;
+            _config = config;
             _configProvider = configProvider;
         }
 
@@ -36,16 +38,15 @@ namespace NetModular.Lib.Excel.Abstractions
             //设置列对应的属性类型
             SetColumnPropertyType<T>(model);
 
-            var config = _configProvider.Get<ExcelConfig>();
-            if (config.TempPath.IsNull())
+            if (_config.TempPath.IsNull())
             {
                 var sysConfig = _configProvider.Get<PathConfig>();
-                config.TempPath = Path.Combine(sysConfig.TempPath, "Excel");
+                _config.TempPath = Path.Combine(sysConfig.TempPath, "Excel");
             }
 
             var saveName = Guid.NewGuid() + model.Format.ToDescription();
 
-            var saveDir = Path.Combine(config.TempPath, "Export", DateTime.Now.Format("yyyyMMdd"));
+            var saveDir = Path.Combine(_config.TempPath, "Export", DateTime.Now.Format("yyyyMMdd"));
 
             if (!Directory.Exists(saveDir))
             {

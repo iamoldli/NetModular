@@ -39,7 +39,6 @@ export default {
           } else {
             this.url__ = val
           }
-          this.url_ = val
         }
       }
     }

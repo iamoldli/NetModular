@@ -53,7 +53,7 @@ namespace NetModular.Module.Admin.Domain.Account
         Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type = AccountType.Admin);
 
         /// <summary>
-        /// 修改登录信息
+        /// 修改账户状态
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status">状态</param>

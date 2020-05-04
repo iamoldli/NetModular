@@ -17,13 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Cache\Cache.MemoryCache\Cache.MemoryCache.csproj" />
+    <ProjectReference Include="..\..\Framework\Cache\Cache.Redis\Cache.Redis.csproj" />
     <ProjectReference Include="..\..\Framework\Data\Db\Data.MySql\Data.MySql.csproj" />
     <ProjectReference Include="..\..\Framework\Data\Db\Data.PostgreSQL\Data.PostgreSQL.csproj" />
     <ProjectReference Include="..\..\Framework\Data\Db\Data.SQLite\Data.SQLite.csproj" />
     <ProjectReference Include="..\..\Framework\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />
     <ProjectReference Include="..\..\Framework\Excel\Excel.EPPlus\Excel.EPPlus.csproj" />
     <ProjectReference Include="..\..\Framework\Host\Host.Web\Host.Web.csproj" />
+    <ProjectReference Include="..\..\Framework\OSS\OSS.Qiniu\OSS.Qiniu.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 

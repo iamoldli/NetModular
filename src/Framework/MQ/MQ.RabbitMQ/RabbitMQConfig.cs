@@ -1,12 +1,10 @@
-﻿using NetModular.Lib.Config.Abstractions;
-
-namespace NetModular.Lib.MQ.RabbitMQ
+﻿namespace NetModular.Lib.MQ.RabbitMQ
 {
     // ReSharper disable once InconsistentNaming
     /// <summary>
     /// 配置项
     /// </summary>
-    public class RabbitMQConfig : IConfig
+    public class RabbitMQConfig
     {
         /// <summary>
         /// 主机名

@@ -20,21 +20,6 @@
       <span slot="label"> <nm-icon name="verifycode"></nm-icon>认证授权 </span>
       <auth-config />
     </el-tab-pane>
-    <!--Excel-->
-    <el-tab-pane name="excel" lazy>
-      <span slot="label"> <nm-icon name="xlsx"></nm-icon>Excel </span>
-      <excel-config />
-    </el-tab-pane>
-    <!--Redis-->
-    <el-tab-pane v-if="hasRedis" name="redis" lazy>
-      <span slot="label"> <nm-icon name="redis"></nm-icon>Redis </span>
-      <redis-config />
-    </el-tab-pane>
-    <!--RabbitMQ-->
-    <el-tab-pane v-if="hasRabbitMQ" name="rabbitmq" lazy>
-      <span slot="label"> <nm-icon name="rabbit-mq"></nm-icon>RabbitMQ </span>
-      <rabbitmq-config />
-    </el-tab-pane>
     <!--Quartz-->
     <el-tab-pane v-if="hasQuartz" name="quartz" lazy>
       <span slot="label"> <nm-icon name="timer"></nm-icon>Quartz </span>
@@ -47,12 +32,9 @@ import SystemConfig from './components/system'
 import ComponentConfig from './components/component'
 import PathConfig from './components/path'
 import AuthConfig from './components/auth'
-import RedisConfig from './components/redis'
-import RabbitmqConfig from './components/rabbitmq'
-import ExcelConfig from './components/excel'
 import QuartzConfig from './components/quartz'
 export default {
-  components: { SystemConfig, ComponentConfig, PathConfig, AuthConfig, RedisConfig, RabbitmqConfig, ExcelConfig, QuartzConfig },
+  components: { SystemConfig, ComponentConfig, PathConfig, AuthConfig, QuartzConfig },
   data() {
     return {
       tab: 'system'
@@ -62,12 +44,6 @@ export default {
     descriptors: Array
   },
   computed: {
-    hasRedis() {
-      return this.has('redis')
-    },
-    hasRabbitMQ() {
-      return this.has('RabbitMQ')
-    },
     hasQuartz() {
       return this.has('Quartz')
     }

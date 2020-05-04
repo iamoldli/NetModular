@@ -193,8 +193,8 @@ namespace NetModular.Module.Admin.Application.FileService
             {
                 Ext = entity.Ext,
                 Md5 = entity.Md5,
-                Path = $"{entity.Path}.{entity.Ext}",
-                SaveName = entity.SaveId
+                Path = entity.Path,
+                SaveName = $"{entity.SaveId}.{entity.Ext}"
             };
         }
 

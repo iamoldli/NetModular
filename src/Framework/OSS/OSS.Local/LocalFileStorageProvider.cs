@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.OSS.Abstractions;
-using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Enums;
 using NetModular.Lib.Utils.Mvc.Extensions;
 
@@ -13,7 +12,6 @@ namespace NetModular.Lib.OSS.Local
     /// <summary>
     /// 本地文件存储提供器
     /// </summary>
-    [Singleton]
     public class LocalFileStorageProvider : IFileStorageProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

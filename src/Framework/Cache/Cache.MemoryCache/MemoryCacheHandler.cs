@@ -6,11 +6,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using NetModular.Lib.Cache.Abstractions;
-using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Cache.MemoryCache
 {
-    [Singleton]
     public class MemoryCacheHandler : ICacheHandler
     {
         private readonly IMemoryCache _cache;

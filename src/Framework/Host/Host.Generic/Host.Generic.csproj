@@ -15,10 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Cache.Integration\Cache.Integration.csproj" />
     <ProjectReference Include="..\..\Config\Config.Core\Config.Core.csproj" />
     <ProjectReference Include="..\..\Data\Extend\Data.Integration\Data.Integration.csproj" />
+    <ProjectReference Include="..\..\Excel\Excel.Integration\Excel.Integration.csproj" />
     <ProjectReference Include="..\..\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj" />
     <ProjectReference Include="..\..\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Module\Module.GenericHost\Module.GenericHost.csproj" />
+    <ProjectReference Include="..\..\OSS\OSS.Integration\OSS.Integration.csproj" />
   </ItemGroup>
 </Project>

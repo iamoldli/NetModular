@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using NetModular.Lib.Config.Abstractions;
+using Newtonsoft.Json;
 
 namespace NetModular.Lib.Quartz.Abstractions
 {
@@ -44,6 +45,7 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// 数据库连接字符串
         /// </summary>
         [Required(ErrorMessage = "数据库连接字符串不能为空")]
+        [JsonIgnore]
         public string ConnectionString { get; set; }
 
         /// <summary>

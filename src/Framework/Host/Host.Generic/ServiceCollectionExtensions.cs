@@ -2,10 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetModular.Lib.Cache.Integration;
 using NetModular.Lib.Config.Core;
 using NetModular.Lib.Data.Integration;
+using NetModular.Lib.Excel.Integration;
 using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.GenericHost;
+using NetModular.Lib.OSS.Integration;
 using NetModular.Lib.Utils.Core;
 
 namespace NetModular.Lib.Host.Generic
@@ -16,6 +19,9 @@ namespace NetModular.Lib.Host.Generic
         {
             //添加所有通过特性注入的服务
             services.AddNetModularServices();
+
+            //加载缓存
+            services.AddCache(cfg);
 
             //加载模块
             var modules = services.AddModules();
@@ -37,6 +43,12 @@ namespace NetModular.Lib.Host.Generic
 
             //自定义服务
             configureServices?.Invoke(services, env);
+
+            //添加Excel相关功能
+            services.AddExcel(cfg);
+
+            //添加OSS相关功能
+            services.AddOSS(cfg);
 
             return services;
         }

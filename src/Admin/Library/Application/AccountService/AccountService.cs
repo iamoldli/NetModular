@@ -74,8 +74,6 @@ namespace NetModular.Module.Admin.Application.AccountService
             if (!exists.Successful)
                 return exists;
 
-            account.Status = AccountStatus.Register;
-
             //设置默认密码
             if (account.Password.IsNull())
             {

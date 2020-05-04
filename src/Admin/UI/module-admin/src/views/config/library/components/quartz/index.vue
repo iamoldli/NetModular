@@ -37,11 +37,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :span="20" :offset="1">
-        <el-form-item label="数据库连接字符串：">
-          <el-input disabled v-model="form.model.connectionString" />
-        </el-form-item>
-      </el-col>
     </el-row>
   </nm-form-page>
 </template>
@@ -59,8 +54,7 @@ export default {
           logger: false,
           instanceName: '',
           tablePrefix: '',
-          provider: 0,
-          connectionString: ''
+          provider: 0
         },
         rules: {
           instanceName: [{ required: true, message: '实例名称不能为空' }]
