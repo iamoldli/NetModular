@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Module.Abstractions;
@@ -18,7 +19,8 @@ namespace NetModular.Lib.Module.AspNetCore
         /// <param name="services"></param>
         /// <param name="modules">模块集合</param>
         /// <param name="env">环境变量</param>
-        void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env);
+        /// <param name="cfg">配置</param>
+        void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env, IConfiguration cfg);
 
         /// <summary>
         /// 配置中间件

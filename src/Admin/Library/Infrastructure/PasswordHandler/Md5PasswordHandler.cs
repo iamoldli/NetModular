@@ -1,4 +1,5 @@
 ﻿using System;
+using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Encrypt;
 
 namespace NetModular.Module.Admin.Infrastructure.PasswordHandler
@@ -6,6 +7,7 @@ namespace NetModular.Module.Admin.Infrastructure.PasswordHandler
     /// <summary>
     /// 密码处理器
     /// </summary>
+    [Singleton()]
     public class Md5PasswordHandler : IPasswordHandler
     {
         /// <summary>

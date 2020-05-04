@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace NetModular.Lib.Module.Abstractions
@@ -14,6 +15,7 @@ namespace NetModular.Lib.Module.Abstractions
         /// <param name="services">服务集合</param>
         /// <param name="modules">模块列表</param>
         /// <param name="env">环境变量</param>
-        void Configure(IServiceCollection services, IModuleCollection modules, IHostEnvironment env);
+        /// <param name="cfg"></param>
+        void Configure(IServiceCollection services, IModuleCollection modules, IHostEnvironment env, IConfiguration cfg);
     }
 }

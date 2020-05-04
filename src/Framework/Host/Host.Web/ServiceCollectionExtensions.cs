@@ -106,7 +106,7 @@ namespace NetModular.Lib.Host.Web
             services.AddHttpClient();
 
             //添加模块的自定义服务
-            services.AddModuleServices(modules, env);
+            services.AddModuleServices(modules, env, cfg);
 
             //添加配置管理
             services.AddConfig();
@@ -115,7 +115,7 @@ namespace NetModular.Lib.Host.Web
             services.AddJwtAuth();
 
             //添加模块初始化服务
-            services.AddModuleInitializerServices(modules, env);
+            services.AddModuleInitializerServices(modules, env, cfg);
 
             //添加Excel相关功能
             services.AddExcel(cfg);

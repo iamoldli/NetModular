@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NetModular.Module.Admin.Web.Filters;
 using NetModular.Lib.Module.AspNetCore;
-using System.IO;
+using Microsoft.Extensions.Configuration;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Module.Abstractions;
@@ -14,7 +15,7 @@ namespace NetModular.Module.Admin.Web
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services, IModuleCollection modules, IHostEnvironment env, IConfiguration cfg)
         {
         }
 
