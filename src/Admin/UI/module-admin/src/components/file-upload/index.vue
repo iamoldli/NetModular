@@ -71,6 +71,7 @@ export default {
         this.$emit('input', this.value_)
         this.$emit('success', data, file)
       } else {
+        this._error(res.msg)
         this.$emit('error')
       }
       this.loading = false
