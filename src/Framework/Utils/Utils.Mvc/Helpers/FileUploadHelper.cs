@@ -183,7 +183,7 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <summary>
         /// 最大允许大小(单位：字节，为0表示不限制)
         /// </summary>
-        public uint MaxSize { get; set; }
+        public long MaxSize { get; set; }
 
         /// <summary>
         /// 完整目录
