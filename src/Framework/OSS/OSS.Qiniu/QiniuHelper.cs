@@ -94,8 +94,6 @@ namespace NetModular.Lib.OSS.Qiniu
                     return Zone.ZONE_CN_South;
                 case QiniuZone.ZONE_US_North:
                     return Zone.ZONE_US_North;
-                case QiniuZone.ZONE_AS_Singapore:
-                    return Zone.ZONE_AS_Singapore;
             }
 
             throw new ArgumentException("七牛存储区域无效");

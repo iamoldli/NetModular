@@ -179,17 +179,17 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <summary>
         /// 模块编码
         /// </summary>
-        public string Module { get; set; }
+        public string Module { get; set; } = string.Empty;
 
         /// <summary>
         /// 分组
         /// </summary>
-        public string Group { get; set; }
+        public string Group { get; set; } = string.Empty;
 
         /// <summary>
         /// 路径
         /// </summary>
-        public string SubPath { get; set; }
+        public string SubPath { get; set; } = string.Empty;
 
         /// <summary>
         /// 最大允许大小(单位：字节，为0表示不限制)
@@ -214,7 +214,7 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <summary>
         /// 相对目录
         /// </summary>
-        public string RelativePath => Path.Combine(Module, Group, SubPath);
+        public string RelativePath => Path.Combine(Module, Group, SubPath ?? String.Empty);
     }
 
     /// <summary>

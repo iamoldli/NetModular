@@ -64,11 +64,6 @@ namespace NetModular.Lib.OSS.Abstractions
         /// 北 美
         /// </summary>
         [Description("北 美")]
-        ZONE_US_North,
-        /// <summary>
-        /// 东南亚
-        /// </summary>
-        [Description("东南亚")]
-        ZONE_AS_Singapore
+        ZONE_US_North
     }
 }
