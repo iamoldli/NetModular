@@ -15,7 +15,7 @@ namespace NetModular.Lib.Host.Generic
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddGenericHost(this IServiceCollection services, IConfiguration cfg, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment> configureServices = null)
+        public static IServiceCollection AddGenericHost(this IServiceCollection services, IConfiguration cfg, IHostEnvironment env, Action<IServiceCollection, IHostEnvironment, IConfiguration> configureServices = null)
         {
             //添加所有通过特性注入的服务
             services.AddNetModularServices();
@@ -36,13 +36,13 @@ namespace NetModular.Lib.Host.Generic
             services.AddHttpClient();
 
             //添加模块的自定义服务
-            services.AddModuleServices(modules, env);
+            services.AddModuleServices(modules, env, cfg);
 
             //添加配置管理
             services.AddConfig();
 
             //自定义服务
-            configureServices?.Invoke(services, env);
+            configureServices?.Invoke(services, env, cfg);
 
             //添加Excel相关功能
             services.AddExcel(cfg);

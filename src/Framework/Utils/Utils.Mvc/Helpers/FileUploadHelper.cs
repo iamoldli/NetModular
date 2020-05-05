@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Encrypt;
+using NetModular.Lib.Utils.Core.Files;
 using FileInfo = NetModular.Lib.Utils.Core.Files.FileInfo;
 
 namespace NetModular.Lib.Utils.Mvc.Helpers
@@ -37,6 +38,9 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
 
             if (model.FormFile == null || model.FormFile.Length < 1)
                 return result.Failed("请选择文件!");
+
+            if (model.MaxSize > 0 && model.MaxSize > model.FormFile.Length)
+                return result.Failed($"文件大小不能超过{new FileSize(model.MaxSize).ToString()}");
 
             var resultModel = await UploadSave(model.FormFile, model.RelativePath, model.RootPath, cancellationToken);
 
@@ -175,6 +179,11 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// 路径
         /// </summary>
         public string SubPath { get; set; }
+
+        /// <summary>
+        /// 最大允许大小(单位：字节，为0表示不限制)
+        /// </summary>
+        public uint MaxSize { get; set; }
 
         /// <summary>
         /// 完整目录

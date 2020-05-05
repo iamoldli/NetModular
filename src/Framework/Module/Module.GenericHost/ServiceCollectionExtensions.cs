@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Module.Abstractions;
@@ -40,12 +41,12 @@ namespace NetModular.Lib.Module.GenericHost
         /// <param name="modules"></param>
         /// <param name="env"></param>
         /// <returns></returns>
-        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules, IHostEnvironment env)
+        public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules, IHostEnvironment env, IConfiguration cfg)
         {
             foreach (var module in modules)
             {
                 //加载模块初始化器
-                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, modules, env);
+                ((ModuleDescriptor)module).ServicesConfigurator?.Configure(services, modules, env, cfg);
             }
 
             return services;

@@ -20,7 +20,7 @@ namespace NetModular.Lib.Host.Generic
         /// <param name="args"></param>
         /// <param name="configureServices"></param>
         /// <returns></returns>
-        public IHost Build<TStartup>(string[] args, Action<IServiceCollection, IHostEnvironment> configureServices = null) where TStartup : class, IHostedService
+        public IHost Build<TStartup>(string[] args, Action<IServiceCollection, IHostEnvironment, IConfiguration> configureServices = null) where TStartup : class, IHostedService
         {
             // 解决乱码问题
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -51,7 +51,7 @@ namespace NetModular.Lib.Host.Generic
         /// <typeparam name="TStartup"></typeparam>
         /// <param name="args"></param>
         /// <param name="configureServices"></param>
-        public async Task Run<TStartup>(string[] args, Action<IServiceCollection, IHostEnvironment> configureServices = null) where TStartup : class, IHostedService
+        public async Task Run<TStartup>(string[] args, Action<IServiceCollection, IHostEnvironment, IConfiguration> configureServices = null) where TStartup : class, IHostedService
         {
             var host = Build<TStartup>(args, configureServices);
 
