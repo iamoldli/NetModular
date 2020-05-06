@@ -185,6 +185,7 @@ namespace NetModular.Lib.Data.Core.Entities
             {
                 getSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
                 getAndRowLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
+                getAndNoLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
 
                 if (_descriptor.SoftDelete)
                 {
@@ -192,6 +193,7 @@ namespace NetModular.Lib.Data.Core.Entities
 
                     getSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
                     getAndRowLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
+                    getAndNoLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
                 }
 
                 //MySql和PostgreSQL行锁
