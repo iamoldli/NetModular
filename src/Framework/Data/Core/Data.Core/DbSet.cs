@@ -501,7 +501,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Get(tableName) + " WITH (NOLOCK) ";
+                sql = _sql.Get(tableName + " WITH (NOLOCK) ");
             else if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
             else
@@ -516,7 +516,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Get(tableName) + " WITH (NOLOCK) ";
+                sql = _sql.Get(tableName + " WITH (NOLOCK) ");
             else if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
             else
@@ -539,7 +539,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Exists(tableName) + " WITH (NOLOCK) ";
+                sql = _sql.Exists(tableName + " WITH (NOLOCK) ");
             else
                 sql = _sql.Exists(tableName);
 
@@ -557,7 +557,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Exists(tableName) + " WITH (NOLOCK) ";
+                sql = _sql.Exists(tableName + " WITH (NOLOCK) ");
             else
                 sql = _sql.Exists(tableName);
 
