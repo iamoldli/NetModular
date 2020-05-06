@@ -25,11 +25,11 @@ namespace NetModular.Lib.Data.Core.Entities
             var deleteSql = BuildDeleteSql(out string deleteSingleSql);
             var softDeleteSql = BuildSoftDeleteSql(out string softDeleteSingleSql);
             var updateSql = BuildUpdateSql(out string updateSingleSql);
-            var querySql = BuildQuerySql(out string getSql, out string getAdnRowLockSql);
+            var querySql = BuildQuerySql(out string getSql, out string getAndRowLockSql, out string getAndNoLockSql);
             var existsSql = BuildExistsSql();
 
             return new EntitySql(_descriptor, insertSql, batchInsertSql, deleteSingleSql, deleteSql, softDeleteSql,
-                softDeleteSingleSql, updateSingleSql, updateSql, getSql, getAdnRowLockSql, querySql, existsSql, batchInsertColumnList);
+                softDeleteSingleSql, updateSingleSql, updateSql, getSql, getAndRowLockSql, getAndNoLockSql, querySql, existsSql, batchInsertColumnList);
         }
 
         #region ==Private Methods==
@@ -155,7 +155,7 @@ namespace NetModular.Lib.Data.Core.Entities
         /// <summary>
         /// 设置查询语句
         /// </summary>
-        private string BuildQuerySql(out string getSql, out string getAndRowLockSql)
+        private string BuildQuerySql(out string getSql, out string getAndRowLockSql, out string getAndNoLockSql)
         {
             var sb = new StringBuilder("SELECT ");
             for (var i = 0; i < _descriptor.Columns.Count; i++)
@@ -173,10 +173,12 @@ namespace NetModular.Lib.Data.Core.Entities
             var querySql = sb.ToString();
             getSql = querySql;
             getAndRowLockSql = querySql;
+            getAndNoLockSql = querySql;
             // SqlServer行锁
             if (_descriptor.SqlAdapter.SqlDialect == SqlDialect.SqlServer)
             {
                 getAndRowLockSql += " WITH (ROWLOCK, UPDLOCK) ";
+                getAndNoLockSql += "WITH (NOLOCK) ";
             }
 
             if (!_primaryKey.IsNo())

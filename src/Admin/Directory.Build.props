@@ -19,7 +19,7 @@
 		<PackageOutputPath>$(SolutionDir)\_packages</PackageOutputPath>
 		<Company>Oldli</Company>
 		<Copyright>Oldli</Copyright>
-		<PackageProjectUrl>https://nm.iamoldli.com/docs/</PackageProjectUrl>
+		<PackageProjectUrl>https://docs.17mkh.com/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/iamoldli/NetModular</RepositoryUrl>
 	</PropertyGroup>
 </Project>

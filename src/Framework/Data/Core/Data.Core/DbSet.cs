@@ -501,7 +501,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Get(tableName + " WITH (NOLOCK) ");
+                sql = _sql.GetAndNoLock(tableName);
             else if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
             else
@@ -516,7 +516,7 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetParameters(id);
             string sql;
             if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Get(tableName + " WITH (NOLOCK) ");
+                sql = _sql.GetAndNoLock(tableName);
             else if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
             else
@@ -537,11 +537,7 @@ namespace NetModular.Lib.Data.Core
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            string sql;
-            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Exists(tableName + " WITH (NOLOCK) ");
-            else
-                sql = _sql.Exists(tableName);
+            var sql = _sql.Exists(tableName);
 
             _logger?.LogDebug("Exists:{@sql}", sql);
 
@@ -555,11 +551,7 @@ namespace NetModular.Lib.Data.Core
                 throw new ArgumentException("该实体没有主键，无法使用Exists方法~");
 
             var dynParams = GetParameters(id);
-            string sql;
-            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.Exists(tableName + " WITH (NOLOCK) ");
-            else
-                sql = _sql.Exists(tableName);
+            var sql = _sql.Exists(tableName);
 
             _logger?.LogDebug("ExistsAsync:{@sql}", sql);
             return (await QuerySingleOrDefaultAsync<int>(sql, dynParams, uow)) > 0;
