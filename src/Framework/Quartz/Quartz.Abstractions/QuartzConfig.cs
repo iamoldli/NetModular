@@ -45,7 +45,6 @@ namespace NetModular.Lib.Quartz.Abstractions
         /// 数据库连接字符串
         /// </summary>
         [Required(ErrorMessage = "数据库连接字符串不能为空")]
-        [JsonIgnore]
         public string ConnectionString { get; set; }
 
         /// <summary>
