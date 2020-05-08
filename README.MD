@@ -32,6 +32,10 @@ NetModular
 
 前端框架的源码请移步 [https://github.com/iamoldli/NetModular.UI](https://github.com/iamoldli/NetModular.UI)
 
+## 前端皮肤
+
+Classics [https://github.com/iamoldli/NetModular.Skins.Classics](https://github.com/iamoldli/NetModular.Skins.Classics)
+
 ## 演示地址
 
 演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
