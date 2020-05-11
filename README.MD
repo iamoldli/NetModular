@@ -42,6 +42,8 @@ Classics [https://github.com/iamoldli/NetModular.Skins.Classics](https://github.
 账 户：admin  
 密 码: admin  
 
+演示源码：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
 ## 官方文档
 
 文档地址： [https://docs.17mkh.com](https://docs.17mkh.com)
