@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using NetModular.Lib.Utils.Core.Enums;
 
 namespace NetModular.Lib.Auth.Web
@@ -12,6 +13,6 @@ namespace NetModular.Lib.Auth.Web
         /// 验证
         /// </summary>
         /// <returns></returns>
-        bool Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod);
+        Task<bool> Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod);
     }
 }

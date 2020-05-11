@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Utils.Core.Attributes;
@@ -23,9 +24,9 @@ namespace NetModular.Module.Admin.Web.Core
             _loginInfo = loginInfo;
         }
 
-        public bool Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
+        public async Task<bool> Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
         {
-            var permissions = _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform).Result;
+            var permissions = await _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform);
 
             var area = routeValues["area"];
             var controller = routeValues["controller"];
