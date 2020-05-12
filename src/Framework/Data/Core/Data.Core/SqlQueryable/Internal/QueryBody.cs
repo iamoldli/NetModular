@@ -488,8 +488,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             {
                 Uow = Uow,
                 FilterDeleted = FilterDeleted,
-                GroupBy = GroupBy,
-                GroupByPropertyList = GroupByPropertyList,
+                GroupBy = null,
                 IsGroupBy = IsGroupBy,
                 SetModifiedBy = SetModifiedBy,
                 Skip = Skip,
@@ -498,7 +497,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             };
 
             copy.Where.AddRange(Where);
-            copy.Having.AddRange(Having);
             copy.JoinDescriptors.AddRange(JoinDescriptors);
             copy.Sorts.AddRange(Sorts);
             return copy;
