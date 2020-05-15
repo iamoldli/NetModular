@@ -48,7 +48,8 @@ export default {
           roles: [],
           userName: '',
           phone: '',
-          email: ''
+          email: '',
+          password: ''
         },
         rules: {
           name: [{ required: true, message: '请输入名称' }],
