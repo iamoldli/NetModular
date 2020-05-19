@@ -217,7 +217,10 @@ namespace Data.MySql.Tests
         public async void LeftJoinTest()
         {
             var query = _db.Find().LeftJoin<CategoryEntity>((x, y) => x.CategoryId == y.Id)
-                .Select((x, y) => new { x, CategoryName = y.Name });
+                .GroupBy((x, y) => new { x.CategoryId })
+                .Select(m => new { m.Key.CategoryId, Sum = m.Sum((x, y) => x.ReadCount) });
+
+            var sql = query.ToSql();
 
             var first = await query.FirstAsync();
 
@@ -289,9 +292,11 @@ namespace Data.MySql.Tests
         [Fact]
         public async void GroupByTest()
         {
-            var val = await _db.Find().GroupBy(m => new { m.ReadCount }).Select(m => new { m.Key.ReadCount }).FirstAsync();
+            var query = _db.Find().GroupBy(m => new { m.ReadCount }).Select(m => new { m.Key.ReadCount, Sum = m.Sum(x => x.ReadCount) });
 
-            Assert.True(val.ReadCount > 0);
+            var sql = query.ToSql();
+            var val = await query.FirstAsync();
+            Assert.True(val.Sum > 0);
         }
 
         [Fact]
