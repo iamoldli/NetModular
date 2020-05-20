@@ -6,6 +6,7 @@
       :action="action"
       :headers="headers"
       :data="uploadData"
+      name="formFile"
       :disabled="disabled || loading"
       :before-upload="onBeforeUpload"
       :show-file-list="false"
