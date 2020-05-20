@@ -50,13 +50,43 @@ namespace NetModular.Lib.Cache.Redis
             Db = _redis.GetDatabase();
         }
 
+        /// <summary>
+        /// 获取Redis连接对象
+        /// </summary>
+        public ConnectionMultiplexer Conn
+        {
+            get
+            {
+                if (_redis == null)
+                {
+                    CreateConnection();
+                }
+
+                return _redis;
+            }
+        }
+
         #region ==String==
 
+        /// <summary>
+        /// 写入字符串类型
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="obj"></param>
+        /// <param name="expiry"></param>
+        /// <returns></returns>
         public Task<bool> StringSetAsync<T>(string key, T obj, TimeSpan? expiry = null)
         {
             return Db.StringSetAsync(GetKey(key), Serialize(obj), expiry);
         }
 
+        /// <summary>
+        /// 获取字符串类型
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public async Task<T> StringGetAsync<T>(string key)
         {
             var cache = await Db.StringGetAsync(GetKey(key));
