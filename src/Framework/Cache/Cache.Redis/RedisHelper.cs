@@ -503,7 +503,7 @@ namespace NetModular.Lib.Cache.Redis
             if (prefix.IsNull())
                 return null;
 
-            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, $"{prefix}*", pageSize, pageOffset).ToList();
+            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(database, $"{GetKey(prefix)}*", pageSize, pageOffset).ToList();
         }
 
         /// <summary>
