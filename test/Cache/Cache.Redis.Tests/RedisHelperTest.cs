@@ -16,7 +16,7 @@ namespace Cache.Redis.Tests
                 ConnectionString = "127.0.0.1",
                 Prefix = "UnitTest"
             }
-        });
+        }, new DefaultRedisSerializer());
 
         [Fact]
         public async void SubscribeTest()

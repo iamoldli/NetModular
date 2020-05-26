@@ -5,6 +5,7 @@ using NetModular.Lib.Utils.Core.Attributes;
 namespace NetModular.Lib.Pdf.iText
 {
     [Singleton]
+    // ReSharper disable once InconsistentNaming
     public class iTextHelper
     {
         #region ==OpenRead==
@@ -13,8 +14,8 @@ namespace NetModular.Lib.Pdf.iText
         {
             CheckPath(filePath);
 
-            var writer = new PdfReader(filePath);
-            return new PdfDocument(writer);
+            var reader = new PdfReader(filePath);
+            return new PdfDocument(reader);
         }
 
         public PdfDocument OpenRead(string filePath, ReaderProperties readerProperties)
@@ -22,16 +23,16 @@ namespace NetModular.Lib.Pdf.iText
             CheckPath(filePath);
             Check.NotNull(readerProperties, nameof(readerProperties), "readerProperties is null");
 
-            var writer = new PdfReader(filePath, readerProperties);
-            return new PdfDocument(writer);
+            var reader = new PdfReader(filePath, readerProperties);
+            return new PdfDocument(reader);
         }
 
         public PdfDocument OpenRead(Stream stream)
         {
             Check.NotNull(stream, nameof(stream), "stream is null");
 
-            var writer = new PdfReader(stream);
-            return new PdfDocument(writer);
+            var reader = new PdfReader(stream);
+            return new PdfDocument(reader);
         }
 
         public PdfDocument OpenRead(Stream stream, ReaderProperties readerProperties)
@@ -39,8 +40,8 @@ namespace NetModular.Lib.Pdf.iText
             Check.NotNull(stream, nameof(stream), "stream is null");
             Check.NotNull(readerProperties, nameof(readerProperties), "readerProperties is null");
 
-            var writer = new PdfReader(stream, readerProperties);
-            return new PdfDocument(writer);
+            var reader = new PdfReader(stream, readerProperties);
+            return new PdfDocument(reader);
         }
 
 

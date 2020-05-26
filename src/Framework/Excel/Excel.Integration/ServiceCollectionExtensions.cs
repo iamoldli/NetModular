@@ -27,7 +27,7 @@ namespace NetModular.Lib.Excel.Integration
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Excel.{config.Provider.ToString()}");
 
-            Check.NotNull(assembly, $"Excel实现程序集({config.Provider.ToString()})未找到");
+            Check.NotNull(assembly, $"Excel实现程序集({config.Provider.ToString()})未找到，请安装 NetModular.Lib.Excel.{config.Provider.ToString()} 包");
 
             var handlerType = assembly.GetTypes().FirstOrDefault(m => m.Name.EndsWith("ExcelHandler"));
             if (handlerType != null)

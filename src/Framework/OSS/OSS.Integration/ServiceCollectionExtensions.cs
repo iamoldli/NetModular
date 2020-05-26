@@ -27,7 +27,7 @@ namespace NetModular.Lib.OSS.Integration
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.OSS.{config.Provider.ToString()}");
 
-            Check.NotNull(assembly, $"OSS实现程序集({config.Provider.ToString()})未找到");
+            Check.NotNull(assembly, $"OSS实现程序集({config.Provider.ToString()})未找到，请安装 NetModular.Lib.OSS.{config.Provider.ToString()} 包");
 
             var providerType = assembly.GetTypes().FirstOrDefault(m => typeof(IFileStorageProvider).IsAssignableFrom(m));
             if (providerType != null)

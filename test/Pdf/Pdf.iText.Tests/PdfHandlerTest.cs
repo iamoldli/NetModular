@@ -1,28 +1,27 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Pdf.Abstractions;
+using NetModular.Lib.Pdf.iText;
 using Xunit;
 
 namespace Pdf.iText.Tests
 {
-    public class PdfHandlerTest : BaseTest
+    public class PdfHandlerTest
     {
-        private readonly IPdfHandler _handler;
-        private readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\pdfs\\test.pdf");
-
-        public PdfHandlerTest()
-        {
-            _handler = SP.GetService<IPdfHandler>();
-        }
+        private readonly IPdfHandler _handler = new PdfHandler(new iTextHelper());
+        private readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "pdfs\\再生铜、铝、铅、锌工业污染物排放标准.pdf");
 
         [Fact]
         public void GetPagesTest()
         {
-           var s= Type.GetTypeCode(typeof(Guid)) == TypeCode.Object;
-
             var pages = _handler.GetPages(_filePath);
             Assert.Equal(21, pages);
+        }
+
+        [Fact]
+        public void GetFullTextTest()
+        {
+            var s = _handler.GetFullText(_filePath);
         }
     }
 }

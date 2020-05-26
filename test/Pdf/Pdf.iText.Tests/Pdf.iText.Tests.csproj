@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\..\src\Framework\Pdf\Pdf.iText\Pdf.iText.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="pdfs\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
