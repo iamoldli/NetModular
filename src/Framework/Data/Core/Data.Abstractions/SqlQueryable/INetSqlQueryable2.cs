@@ -265,6 +265,14 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <returns></returns>
         INetSqlQueryable<TEntity, TEntity2> Select<TResult>(Expression<Func<TEntity, TEntity2, TResult>> selectExpression);
 
+        /// <summary>
+        /// 查询排除指定列
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2> SelectExclude<TResult>(Expression<Func<TEntity, TEntity2, TResult>> expression);
+
         #endregion
 
         #region ==Join==

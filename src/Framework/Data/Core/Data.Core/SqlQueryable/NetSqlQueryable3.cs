@@ -235,6 +235,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2, TEntity3> SelectExclude<TResult>(Expression<Func<TEntity, TEntity2, TEntity3, TResult>> expression)
+        {
+            QueryBody.SetSelectExclude(expression);
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4> LeftJoin<TEntity4>(Expression<Func<TEntity, TEntity2, TEntity3, TEntity4, bool>> onExpression, string tableName = null, bool noLock = true) where TEntity4 : IEntity, new()
         {
             return new NetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4>(Db, QueryBody, onExpression, JoinType.Left, tableName, noLock);

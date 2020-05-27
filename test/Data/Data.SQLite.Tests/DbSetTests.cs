@@ -212,6 +212,24 @@ namespace Data.SQLite.Tests
         }
 
         [Fact]
+        public async void SelectExcludeTest()
+        {
+            var query = _db.Find();
+
+            var sql = query.ToSql();
+
+            query.SelectExclude(m => new { m.Title, m.CategoryId });
+
+            var sql1 = query.ToSql();
+
+            var first = await query.FirstAsync();
+
+            Assert.NotEqual(sql, sql1);
+            Assert.Null(first.Title);
+            Assert.Equal(1, first.Id);
+        }
+
+        [Fact]
         public async void LeftJoinTest()
         {
             var query = _db.Find().LeftJoin<CategoryEntity>((x, y) => x.CategoryId == y.Id)
@@ -219,6 +237,25 @@ namespace Data.SQLite.Tests
 
             var first = await query.FirstAsync();
 
+            Assert.Equal("ASP.NET Core", first.CategoryName);
+        }
+
+
+        [Fact]
+        public async void LeftJoinSelectExcludeTest()
+        {
+            var query = _db.Find().LeftJoin<CategoryEntity>((x, y) => x.CategoryId == y.Id)
+                .Select((x, y) => new { x, CategoryName = y.Name });
+
+            var sql = query.ToSql();
+
+            query.SelectExclude((x, y) => x.Title);
+
+            var sql1 = query.ToSql();
+
+            var first = await query.FirstAsync();
+            
+            Assert.NotEqual(sql, sql1);
             Assert.Equal("ASP.NET Core", first.CategoryName);
         }
 

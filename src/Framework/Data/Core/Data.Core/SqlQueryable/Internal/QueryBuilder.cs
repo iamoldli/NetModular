@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
+using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Core.ExpressionResolve;
 using NetModular.Lib.Data.Core.Extensions;
@@ -557,18 +559,20 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
         private void ResolveSelect(StringBuilder sqlBuilder)
         {
+            var excludeCols = ResolveSelectExcludeCols();
+
             if (_queryBody.Select != null && _queryBody.Select is LambdaExpression lambda)
             {
                 //返回的整个实体
                 if (lambda.Body.NodeType == ExpressionType.Parameter)
                 {
-                    ResolveSelectForEntity(sqlBuilder);
+                    ResolveSelectForEntity(sqlBuilder, excludeCols: excludeCols);
                     return;
                 }
                 //返回的某个列
                 if (lambda.Body.NodeType == ExpressionType.MemberAccess)
                 {
-                    ResolveSelectForMember(sqlBuilder, lambda.Body, lambda);
+                    ResolveSelectForMember(sqlBuilder, lambda.Body, lambda, excludeCols: excludeCols);
                     if (sqlBuilder.Length > 0 && sqlBuilder[sqlBuilder.Length - 1] == ',')
                     {
                         sqlBuilder.Remove(sqlBuilder.Length - 1, 1);
@@ -578,12 +582,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 //自定义的返回对象
                 if (lambda.Body.NodeType == ExpressionType.New)
                 {
-                    ResolveSelectForNew(sqlBuilder, lambda);
+                    ResolveSelectForNew(sqlBuilder, lambda, excludeCols);
                 }
             }
             else
             {
-                ResolveSelectForEntity(sqlBuilder);
+                ResolveSelectForEntity(sqlBuilder, excludeCols: excludeCols);
             }
 
             if (sqlBuilder[sqlBuilder.Length - 1] == ',')
@@ -592,7 +596,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
         }
 
-        private void ResolveSelectForNew(StringBuilder sqlBuilder, LambdaExpression fullExpression)
+        private void ResolveSelectForNew(StringBuilder sqlBuilder, LambdaExpression fullExpression, List<IColumnDescriptor> excludeCols = null)
         {
             if (!(fullExpression.Body is NewExpression newExp))
                 return;
@@ -610,7 +614,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 //实体
                 if (arg is ParameterExpression parameterExp)
                 {
-                    ResolveSelectForEntity(sqlBuilder, fullExpression.Parameters.IndexOf(parameterExp));
+                    ResolveSelectForEntity(sqlBuilder, fullExpression.Parameters.IndexOf(parameterExp), excludeCols);
                     continue;
                 }
                 //方法
@@ -649,7 +653,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// <param name="exp"></param>
         /// <param name="fullExpression"></param>
         /// <param name="alias"></param>
-        private void ResolveSelectForMember(StringBuilder sqlBuilder, Expression exp, LambdaExpression fullExpression, string alias = null)
+        /// <param name="excludeCols"></param>
+        private void ResolveSelectForMember(StringBuilder sqlBuilder, Expression exp, LambdaExpression fullExpression, string alias = null, List<IColumnDescriptor> excludeCols = null)
         {
             if (!(exp is MemberExpression memberExp))
                 return;
@@ -686,8 +691,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
             else
             {
-                var colName = _queryBody.GetColumnName(memberExp, fullExpression);
-                sqlBuilder.AppendFormat("{0} AS {1},", colName, alias);
+                var col = _queryBody.GetColumnDescriptor(memberExp, fullExpression);
+                if (excludeCols != null && excludeCols.Any(m => m == col))
+                    sqlBuilder.AppendFormat("{0} AS {1},", col.Name, alias);
             }
         }
 
@@ -696,14 +702,19 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         /// <param name="sqlBuilder"></param>
         /// <param name="descriptorIndex">实体的下标</param>
-        private void ResolveSelectForEntity(StringBuilder sqlBuilder, int descriptorIndex = 0)
+        /// <param name="excludeCols">排除列</param>
+        private void ResolveSelectForEntity(StringBuilder sqlBuilder, int descriptorIndex = 0, List<IColumnDescriptor> excludeCols = null)
         {
             var descriptor = _queryBody.JoinDescriptors[descriptorIndex];
 
+            //单表时不需要别名
+            var isSingleTable = _queryBody.JoinDescriptors.Count <= 1;
+
             foreach (var col in descriptor.EntityDescriptor.Columns)
             {
-                //单表时不需要别名
-                var isSingleTable = _queryBody.JoinDescriptors.Count <= 1;
+                if (excludeCols != null && excludeCols.Any(m => m == col))
+                    continue;
+
                 sqlBuilder.Append(isSingleTable
                     ? $"{_sqlAdapter.AppendQuote(col.Name)}"
                     : $"{_sqlAdapter.AppendQuote(descriptor.Alias)}.{_sqlAdapter.AppendQuote(col.Name)}");
@@ -786,6 +797,64 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 sqlBuilder.AppendFormat("{0}({1}) AS {2},", funcName, colName, alias);
             }
         }
+
+        #region ==解析排除列==
+
+        /// <summary>
+        /// 解析排除列的名称列表
+        /// </summary>
+        /// <returns></returns>
+        private List<IColumnDescriptor> ResolveSelectExcludeCols()
+        {
+            if (_queryBody.SelectExclude != null && _queryBody.SelectExclude is LambdaExpression lambda)
+            {
+                //整个实体
+                if (lambda.Body.NodeType == ExpressionType.Parameter)
+                {
+                    throw new ArgumentException("不能排除整个实体");
+                }
+
+                var list = new List<IColumnDescriptor>();
+
+                //返回的某个列
+                if (lambda.Body.NodeType == ExpressionType.MemberAccess)
+                {
+                    var col = _queryBody.GetColumnDescriptor(lambda.Body as MemberExpression, lambda);
+                    if (col != null)
+                        list.Add(col);
+
+                    return list;
+                }
+
+                //自定义的返回对象
+                if (lambda.Body.NodeType == ExpressionType.New)
+                {
+                    var newExp = lambda.Body as NewExpression;
+                    for (var i = 0; i < newExp.Arguments.Count; i++)
+                    {
+                        var arg = newExp.Arguments[i];
+                        //实体
+                        if (arg.NodeType == ExpressionType.Parameter)
+                        {
+                            throw new ArgumentException("不能排除整个实体");
+                        }
+                        //成员
+                        if (arg.NodeType == ExpressionType.MemberAccess)
+                        {
+                            var col = _queryBody.GetColumnDescriptor(arg as MemberExpression, lambda);
+                            if (col != null)
+                                list.Add(col);
+                        }
+                    }
+                }
+
+                return list;
+            }
+
+            return null;
+        }
+
+        #endregion
 
         /// <summary>
         /// 解析分组条件
@@ -881,5 +950,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             return $"{database ?? _sqlAdapter.Database}{_sqlAdapter.AppendQuote(tableName)}";
         }
+
     }
 }
