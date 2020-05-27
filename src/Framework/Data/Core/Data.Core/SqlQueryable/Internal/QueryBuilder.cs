@@ -550,19 +550,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             var sqlBuilder = new StringBuilder();
 
-            ResolveSelect(sqlBuilder, _queryBody.Select);
+            ResolveSelect(sqlBuilder);
 
             return sqlBuilder.ToString();
         }
 
         private void ResolveSelect(StringBuilder sqlBuilder)
         {
-            ResolveSelect(sqlBuilder, _queryBody.Select);
-        }
-
-        private void ResolveSelect(StringBuilder sqlBuilder, Expression selectExpression)
-        {
-            if (selectExpression is LambdaExpression lambda)
+            if (_queryBody.Select != null && _queryBody.Select is LambdaExpression lambda)
             {
                 //返回的整个实体
                 if (lambda.Body.NodeType == ExpressionType.Parameter)

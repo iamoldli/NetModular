@@ -47,6 +47,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         public LambdaExpression Select { get; set; }
 
         /// <summary>
+        /// 查询排除的列
+        /// </summary>
+        public LambdaExpression SelectExclude { get; set; }
+
+        /// <summary>
         /// 过滤条件
         /// </summary>
         public List<QueryWhere> Where { get; } = new List<QueryWhere>();
@@ -302,6 +307,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         public void SetSelect(LambdaExpression selectExpression)
         {
             Select = selectExpression;
+        }
+        public void SetSelectExclude(LambdaExpression selectExpression)
+        {
+            SelectExclude = selectExpression;
         }
 
         public void SetLimit(int skip, int take)

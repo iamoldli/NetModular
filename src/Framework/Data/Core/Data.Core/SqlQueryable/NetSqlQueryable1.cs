@@ -241,6 +241,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> SelectExclude<TResult>(Expression<Func<TEntity, TResult>> expression)
+        {
+            QueryBody.SetSelectExclude(expression);
+            return this;
+        }
+
         #endregion
 
         #region ==Join==

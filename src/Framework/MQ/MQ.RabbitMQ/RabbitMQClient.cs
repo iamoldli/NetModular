@@ -78,9 +78,6 @@ namespace NetModular.Lib.MQ.RabbitMQ
             {
                 switch (exchangeType)
                 {
-                    case ExchangeType.Direct:
-                        exchange = DefaultExchange.Direct;
-                        break;
                     case ExchangeType.Fanout:
                         exchange = DefaultExchange.Fanout;
                         break;
@@ -89,6 +86,9 @@ namespace NetModular.Lib.MQ.RabbitMQ
                         break;
                     case ExchangeType.Headers:
                         exchange = DefaultExchange.Headers;
+                        break;
+                    default:
+                        exchange = DefaultExchange.Direct;
                         break;
                 }
             }
