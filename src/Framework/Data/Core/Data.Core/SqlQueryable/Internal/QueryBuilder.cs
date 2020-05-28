@@ -693,7 +693,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             {
                 var col = _queryBody.GetColumnDescriptor(memberExp, fullExpression);
                 if (excludeCols != null && excludeCols.Any(m => m == col))
-                    sqlBuilder.AppendFormat("{0} AS {1},", col.Name, alias);
+                    return;
+
+                sqlBuilder.AppendFormat("{0} AS {1},", col.Name, alias);
             }
         }
 
