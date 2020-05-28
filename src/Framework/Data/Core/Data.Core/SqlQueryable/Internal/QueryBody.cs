@@ -404,6 +404,36 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
             var descriptor = JoinDescriptors[index];
             var name = exp.Member.Name;
+
+            return GetColumnDescriptor(name, descriptor);
+        }
+
+        /// <summary>
+        /// 获取列描述
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="lambda"></param>
+        /// <param name="colName">列名</param>
+        /// <returns></returns>
+        public IColumnDescriptor GetColumnDescriptor(MemberExpression exp, LambdaExpression lambda, out string colName)
+        {
+            colName = string.Empty;
+            var index = 0;
+            var memberParameter = exp.Expression as ParameterExpression;
+            if (memberParameter == null)
+                return null;
+
+            foreach (var parameter in lambda.Parameters)
+            {
+                if (parameter.Name.Equals(memberParameter.Name))
+                    break;
+                index++;
+            }
+            var descriptor = JoinDescriptors[index];
+            var name = exp.Member.Name;
+
+            colName = GetColumnName(name, descriptor);
+
             return GetColumnDescriptor(name, descriptor);
         }
 

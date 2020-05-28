@@ -691,11 +691,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
             }
             else
             {
-                var col = _queryBody.GetColumnDescriptor(memberExp, fullExpression);
+                var col = _queryBody.GetColumnDescriptor(memberExp, fullExpression, out string colName);
                 if (excludeCols != null && excludeCols.Any(m => m == col))
                     return;
 
-                sqlBuilder.AppendFormat("{0} AS {1},", col.Name, alias);
+                sqlBuilder.AppendFormat("{0} AS {1},", colName, alias);
             }
         }
 
