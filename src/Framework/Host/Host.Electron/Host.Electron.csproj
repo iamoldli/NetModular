@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ElectronNET.API" Version="7.30.2" />
+    <PackageReference Include="ElectronNET.API" Version="8.31.2" />
   </ItemGroup>
 
   <ItemGroup>

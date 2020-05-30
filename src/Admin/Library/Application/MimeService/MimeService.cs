@@ -5,7 +5,7 @@ using NetModular.Module.Admin.Domain.Mime.Models;
 
 namespace NetModular.Module.Admin.Application.MimeService
 {
-    public class MimeService: IMimeService
+    public class MimeService : IMimeService
     {
         private readonly IMimeRepository _repository;
 
@@ -28,13 +28,13 @@ namespace NetModular.Module.Admin.Application.MimeService
         {
             var entity = new MimeEntity
             {
-                Ext = model.Ext,
-                Value = model.Value
+                Ext = model.Ext.Trim(),
+                Value = model.Value.Trim()
             };
 
             if (await _repository.Exists(entity))
                 return ResultModel.HasExists;
-           
+
             var result = await _repository.AddAsync(entity);
             return ResultModel.Result(result);
         }
@@ -56,6 +56,7 @@ namespace NetModular.Module.Admin.Application.MimeService
 
             var model = new MimeUpdateModel
             {
+                Id = id,
                 Ext = entity.Ext,
                 Value = entity.Value
             };
