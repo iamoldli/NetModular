@@ -8,13 +8,13 @@
   //数据库地址
   "Server": "localhost",
   //端口号
-  "Port": 0,
+  "Port": 5433,
   //用户名
   "UserId": "postgres",
   //密码
-  "Password": "postgre",
+  "Password": "1",
   //是否创建数据库和表
-  "CreateDatabase": false,
+  "CreateDatabase": true,
   //PostgreSQL的数据库名称，默认postgres，需手动创建
   "NpgsqlDatabaseName": "NetModular",
   //模块列表

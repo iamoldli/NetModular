@@ -180,6 +180,13 @@ namespace NetModular.Lib.Data.PostgreSQL
                     throw new Exception("Property2Column error");
             }
 
+            //使用指定的字段类型
+            var typeName = column.TypeName;
+            if (!string.IsNullOrWhiteSpace(typeName))
+            {
+                return typeName;
+            }
+
             if (propertyType.IsEnum)
             {
                 if (!isNullable)

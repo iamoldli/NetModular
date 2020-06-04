@@ -43,5 +43,10 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 精度小数
         /// </summary>
         int PrecisionD { get; }
+
+        /// <summary>
+        /// 字段类型名称
+        /// </summary>
+        string TypeName { get; }
     }
 }

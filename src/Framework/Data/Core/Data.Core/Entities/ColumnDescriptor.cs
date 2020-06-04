@@ -33,6 +33,11 @@ namespace NetModular.Lib.Data.Core.Entities
 
         public int PrecisionD { get; }
 
+        /// <summary>
+        /// 字段类型名称
+        /// </summary>
+        public string TypeName { get; }
+
         public ColumnDescriptor(PropertyInfo property)
         {
             if (property == null)
@@ -41,6 +46,9 @@ namespace NetModular.Lib.Data.Core.Entities
             var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
             Name = columnAttribute != null ? columnAttribute.Name : property.Name;
             PropertyInfo = property;
+
+            //字段类型
+            TypeName = columnAttribute?.TypeName;
 
             IsPrimaryKey = Attribute.GetCustomAttributes(property).Any(attr => attr.GetType() == typeof(KeyAttribute));
 

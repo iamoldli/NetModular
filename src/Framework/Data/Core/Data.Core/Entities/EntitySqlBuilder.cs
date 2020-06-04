@@ -53,8 +53,24 @@ namespace NetModular.Lib.Data.Core.Entities
 
                 _descriptor.SqlAdapter.AppendQuote(sb, col.Name);
                 sb.Append(",");
-
                 _descriptor.SqlAdapter.AppendParameter(valuesSql, col.PropertyInfo.Name);
+                if (_descriptor.SqlAdapter?.SqlDialect == SqlDialect.PostgreSQL && !string.IsNullOrWhiteSpace(col.TypeName))
+                {
+                    if (col.TypeName.Equals("jsonb", System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        valuesSql.Append("::jsonb");
+                    }
+                    else if (col.TypeName.Equals("json", System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        valuesSql.Append("::json");
+                    }
+                }
+                else
+                {
+                   
+                }
+
+                
                 valuesSql.Append(",");
 
                 batchInsertColumnList.Add(col);

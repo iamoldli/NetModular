@@ -14,12 +14,19 @@ namespace NetModular.Lib.Data.Abstractions.Attributes
         public string Name { get; set; }
 
         /// <summary>
+        /// 字段类型名称
+        /// </summary>
+        public string TypeName { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="columnName">列名</param>
-        public ColumnAttribute(string columnName)
+        /// <param name="typeName">字段类型名称</param>
+        public ColumnAttribute(string columnName, string typeName = null)
         {
             Name = columnName;
+            TypeName = typeName;
         }
     }
 }
