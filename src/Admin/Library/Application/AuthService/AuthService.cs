@@ -14,9 +14,9 @@ using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.AccountConfig;
-using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Infrastructure;
+using NetModular.Module.Admin.Infrastructure.AccountPermissionResolver;
 
 namespace NetModular.Module.Admin.Application.AuthService
 {
@@ -27,7 +27,6 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly IAccountAuthInfoRepository _authInfoRepository;
         private readonly IAccountConfigRepository _configRepository;
         private readonly IMenuRepository _menuRepository;
-        private readonly IButtonRepository _buttonRepository;
         private readonly IServiceProvider _serviceProvider;
         private readonly IMapper _mapper;
         private readonly ILoginInfo _loginInfo;
@@ -38,8 +37,9 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly UserNameOrEmailLoginHandler _userNameOrEmailLoginHandler;
         private readonly PhoneLoginHandler _phoneLoginHandler;
         private readonly IPhoneVerifyCodeProvider _phoneVerifyCodeProvider;
+        private readonly IAccountPermissionResolver _permissionResolver;
 
-        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, IButtonRepository buttonRepository, ILoginInfo loginInfo, IVerifyCodeProvider verifyCodeProvider, UserNameLoginHandler userNameLoginHandler, EmailLoginHandler emailLoginHandler, UserNameOrEmailLoginHandler userNameOrEmailLoginHandler, PhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IConfigProvider configProvider)
+        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, ILoginInfo loginInfo, IVerifyCodeProvider verifyCodeProvider, UserNameLoginHandler userNameLoginHandler, EmailLoginHandler emailLoginHandler, UserNameOrEmailLoginHandler userNameOrEmailLoginHandler, PhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IConfigProvider configProvider, IAccountPermissionResolver permissionResolver)
         {
             _cacheHandler = cacheHandler;
             _accountRepository = accountRepository;
@@ -48,7 +48,6 @@ namespace NetModular.Module.Admin.Application.AuthService
             _serviceProvider = serviceProvider;
             _menuRepository = menuRepository;
             _mapper = mapper;
-            _buttonRepository = buttonRepository;
             _loginInfo = loginInfo;
             _verifyCodeProvider = verifyCodeProvider;
             _userNameLoginHandler = userNameLoginHandler;
@@ -57,6 +56,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             _phoneLoginHandler = phoneLoginHandler;
             _phoneVerifyCodeProvider = phoneVerifyCodeProvider;
             _configProvider = configProvider;
+            _permissionResolver = permissionResolver;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         public async Task<ResultModel<LoginResultModel>> RefreshToken(string refreshToken)
         {
             var result = new ResultModel<LoginResultModel>();
-            var cacheKey = $"{CacheKeys.AUTH_REFRESH_TOKEN}:{refreshToken}";
+            var cacheKey = CacheKeys.AUTH_REFRESH_TOKEN + refreshToken;
             if (!_cacheHandler.TryGetValue(cacheKey, out AccountAuthInfoEntity authInfo))
             {
                 authInfo = await _authInfoRepository.GetByRefreshToken(refreshToken);
@@ -215,12 +215,13 @@ namespace NetModular.Module.Admin.Application.AuthService
                     };
                 }
 
-                var getMenuTree = GetAccountMenuTree(_loginInfo.AccountId);
-                var getButtonCodeList = _buttonRepository.QueryCodeByAccount(_loginInfo.AccountId);
+                var getMenuTree = _permissionResolver.ResolveMenus(_loginInfo.AccountId);
+                var getPageCodes = _permissionResolver.ResolvePages(_loginInfo.AccountId);
+                var getButtonCodes = _permissionResolver.ResolveButtons(_loginInfo.AccountId);
 
                 model.Menus = await getMenuTree;
-                model.Buttons = await getButtonCodeList;
-
+                model.Pages = await getPageCodes;
+                model.Buttons = await getButtonCodes;
             }
 
             #endregion
@@ -228,48 +229,11 @@ namespace NetModular.Module.Admin.Application.AuthService
             return ResultModel.Success(model);
         }
 
-        #region ==获取账户的菜单树==
-
-        /// <summary>
-        /// 获取账户的菜单树
-        /// </summary>
-        /// <returns></returns>
-        private async Task<List<AccountMenuItem>> GetAccountMenuTree(Guid accountId)
-        {
-            var entities = (await _menuRepository.GetByAccount(accountId)).Distinct(new MenuComparer()).ToList();
-            var all = _mapper.Map<List<AccountMenuItem>>(entities);
-            var tree = all.Where(e => e.ParentId.IsEmpty()).OrderBy(e => e.Sort).ToList();
-
-            tree.ForEach(menu =>
-            {
-                if (menu.Type == MenuType.Node)
-                    SetChildren(menu, all);
-            });
-
-            return tree;
-        }
-
-        private void SetChildren(AccountMenuItem parent, List<AccountMenuItem> all)
-        {
-            parent.Children = all.Where(e => e.ParentId == parent.Id).OrderBy(e => e.Sort).ToList();
-
-            if (parent.Children.Any())
-            {
-                parent.Children.ForEach(menu =>
-                {
-                    if (menu.Type == MenuType.Node)
-                        SetChildren(menu, all);
-                });
-            }
-        }
-
-        #endregion
-
         #region ==获取认证信息==
 
         public async Task<AccountAuthInfoEntity> GetAuthInfo(Guid accountId, Platform platform)
         {
-            if (!_cacheHandler.TryGetValue($"{CacheKeys.ACCOUNT_AUTH_INFO}:{accountId}:{platform.ToInt()}", out AccountAuthInfoEntity authInfo))
+            if (!_cacheHandler.TryGetValue($"{CacheKeys.ACCOUNT_AUTH_INFO}{accountId}:{platform.ToInt()}", out AccountAuthInfoEntity authInfo))
             {
                 authInfo = await _authInfoRepository.Get(accountId, platform);
                 if (authInfo == null)

@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Cache.Abstractions;
 using NetModular.Module.Admin.Application.AccountService;
-using NetModular.Module.Admin.Application.RoleService.ResultModels;
 using NetModular.Module.Admin.Application.RoleService.ViewModels;
 using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Button;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.Role;
 using NetModular.Module.Admin.Domain.Role.Models;
+using NetModular.Module.Admin.Domain.RoleButton;
 using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
-using NetModular.Module.Admin.Domain.RolePlatformPermission;
+using NetModular.Module.Admin.Domain.RolePage;
+using NetModular.Module.Admin.Domain.RolePermission;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.RoleService
@@ -24,27 +23,29 @@ namespace NetModular.Module.Admin.Application.RoleService
         private readonly IMapper _mapper;
         private readonly IRoleRepository _repository;
         private readonly IRoleMenuRepository _roleMenuRepository;
-        private readonly IRoleMenuButtonRepository _roleMenuButtonRepository;
-        private readonly IButtonRepository _buttonRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IMenuRepository _menuRepository;
-        private readonly IRolePlatformPermissionRepository _platformPermissionRepository;
+        private readonly IRolePageRepository _pageRepository;
+        private readonly IRoleButtonRepository _buttonRepository;
+        private readonly IRolePermissionRepository _permissionRepository;
         private readonly IAccountService _accountService;
+        private readonly ICacheHandler _cacheHandler;
 
         private readonly AdminDbContext _dbContext;
 
-        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IRoleMenuButtonRepository roleMenuButtonRepository, IButtonRepository buttonRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, AdminDbContext dbContext, IRolePlatformPermissionRepository platformPermissionRepository)
+        public RoleService(IMapper mapper, IRoleRepository repository, IRoleMenuRepository roleMenuRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, IMenuRepository menuRepository, AdminDbContext dbContext, ICacheHandler cacheHandler, IRolePageRepository pageRepository, IRoleButtonRepository buttonRepository1, IRolePermissionRepository permissionRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _roleMenuRepository = roleMenuRepository;
-            _roleMenuButtonRepository = roleMenuButtonRepository;
-            _buttonRepository = buttonRepository;
             _accountRoleRepository = accountRoleRepository;
             _accountService = accountService;
             _menuRepository = menuRepository;
             _dbContext = dbContext;
-            _platformPermissionRepository = platformPermissionRepository;
+            _cacheHandler = cacheHandler;
+            _pageRepository = pageRepository;
+            _buttonRepository = buttonRepository1;
+            _permissionRepository = permissionRepository;
         }
 
         public async Task<IResultModel> Query(RoleQueryModel model)
@@ -89,11 +90,7 @@ namespace NetModular.Module.Admin.Application.RoleService
                     result = await _roleMenuRepository.DeleteByRoleId(id, uow);
                     if (result)
                     {
-                        result = await _roleMenuButtonRepository.DeleteByRole(id, uow);
-                        if (result)
-                        {
-                            uow.Commit();
-                        }
+                        uow.Commit();
                     }
                 }
                 return ResultModel.Result(result);
@@ -129,155 +126,146 @@ namespace NetModular.Module.Admin.Application.RoleService
             return ResultModel.Result(result);
         }
 
-        public async Task<IResultModel> MenuList(Guid id)
+        public async Task<IResultModel> QueryBindPages(Guid roleId)
         {
-            var exists = await _repository.ExistsAsync(id);
-            if (!exists)
+            if (!await _repository.ExistsAsync(roleId))
                 return ResultModel.NotExists;
 
-            var list = await _roleMenuRepository.GetByRoleId(id);
-            return ResultModel.Success(list);
-        }
-
-        public async Task<IResultModel> BindMenu(RoleMenuBindModel model)
-        {
-            var exists = await _repository.ExistsAsync(model.Id);
-            if (!exists)
-                return ResultModel.NotExists;
-
-            List<RoleMenuEntity> entityList = null;
-            if (model.Menus != null && model.Menus.Any())
+            var model = new RolePageBindModel
             {
-                entityList = model.Menus.Select(m => new RoleMenuEntity { RoleId = model.Id, MenuId = m }).ToList();
-            }
+                RoleId = roleId
+            };
 
-            /*
-             * 操作逻辑
-             * 1、清除已有的绑定数据
-             * 2、添加新的绑定数据
-             */
-            using (var uow = _dbContext.NewUnitOfWork())
+            var pageCodesTask = _pageRepository.QueryPageCodesByRole(roleId);
+            var buttonsTask = _buttonRepository.QueryButtonCodes(roleId);
+
+            var pageCodes = await pageCodesTask;
+            var buttons = await buttonsTask;
+
+            if (pageCodes.Any())
             {
-                var clear = await _roleMenuRepository.DeleteByRoleId(model.Id, uow);
-                if (clear)
+                foreach (var pageCode in pageCodes)
                 {
-                    if (entityList == null || !entityList.Any() || await _roleMenuRepository.AddAsync(entityList, uow))
+                    var page = new PageBindModel
                     {
-                        uow.Commit();
-                        await ClearAccountPermissionCache(model.Id);
-                        return ResultModel.Success();
-                    }
+                        Code = pageCode,
+                        Buttons = buttons.Where(m => m.PageCode == pageCode).Select(m => m.ButtonCode).ToList()
+                    };
+
+                    model.Pages.Add(page);
                 }
             }
 
-            return ResultModel.Failed();
+            return ResultModel.Success(model);
         }
 
-        public async Task<IResultModel> MenuButtonList(Guid id, Guid menuId)
+        public async Task<IResultModel> BindPages(RolePageBindModel model)
         {
-            var exists = await _repository.ExistsAsync(id);
-            if (!exists)
+            if (!await _repository.ExistsAsync(model.RoleId))
                 return ResultModel.NotExists;
 
-            var list = new List<RoleMenuButtonModel>();
-            var data = await _roleMenuButtonRepository.Query(id, menuId);
-            if (data.Any())
+            using var uow = _dbContext.NewUnitOfWork();
+            var deletePagesTask = _pageRepository.DeleteByRole(model.RoleId, uow);
+            var deleteButtonsTask = _buttonRepository.DeleteByRole(model.RoleId, uow);
+            var deletePermissionsTask = _permissionRepository.DeleteByRole(model.RoleId, Platform.Web, uow);
+
+            if (await deletePagesTask && await deleteButtonsTask && await deletePermissionsTask)
             {
-                foreach (var button in data)
+                if (model.Pages != null && model.Pages.Any())
                 {
-                    list.Add(new RoleMenuButtonModel
+                    foreach (var page in model.Pages)
                     {
-                        Id = button.Id,
-                        Name = button.Name,
-                        Checked = button.RoleId != Guid.Empty
-                    });
-                }
-            }
-
-            return ResultModel.Success(list);
-        }
-
-        public async Task<IResultModel> BindMenuButton(RoleMenuButtonBindModel model)
-        {
-            var exists = await _repository.ExistsAsync(model.RoleId);
-            if (!exists)
-                return ResultModel.NotExists;
-
-            var menu = await _menuRepository.GetAsync(model.MenuId);
-            if (menu == null)
-                return ResultModel.Failed("菜单不存在");
-
-            bool result;
-            if (model.ButtonId.NotEmpty())
-            {
-                #region ==单个按钮==
-
-                var entity = _mapper.Map<RoleMenuButtonEntity>(model);
-                //如果已存在
-                if (await _roleMenuButtonRepository.Exists(entity))
-                {
-                    if (model.Checked)
-                    {
-                        return ResultModel.Success();
-                    }
-
-                    result = await _roleMenuButtonRepository.Delete(entity);
-
-                    await ClearAccountPermissionCache(model.RoleId);
-
-                    return ResultModel.Result(result);
-                }
-
-                if (!model.Checked)
-                    return ResultModel.Success();
-
-                result = await _roleMenuButtonRepository.AddAsync(entity);
-
-                await ClearAccountPermissionCache(model.RoleId);
-
-                return ResultModel.Result(result);
-
-                #endregion
-            }
-
-            #region ==批量添加指定菜单的所有按钮==
-
-            using (var uow = _dbContext.NewUnitOfWork())
-            {
-                result = await _roleMenuButtonRepository.Delete(model.RoleId, model.MenuId, uow);
-                if (result)
-                {
-                    if (model.Checked)
-                    {
-                        var buttons = await _buttonRepository.QueryByMenu(menu.RouteName, uow);
-                        var entities = buttons.Select(m => new RoleMenuButtonEntity
+                        //插入绑定页面
+                        await _pageRepository.AddAsync(new RolePageEntity
                         {
-                            RoleId = model.RoleId,
-                            MenuId = model.MenuId,
-                            ButtonId = m.Id
-                        }).ToList();
+                            PageCode = page.Code,
+                            RoleId = model.RoleId
+                        }, uow);
 
-                        if (await _roleMenuButtonRepository.AddAsync(entities, uow))
+                        //插入绑定按钮
+                        if (page.Buttons != null && page.Buttons.Any())
                         {
-                            uow.Commit();
-                            await ClearAccountPermissionCache(model.RoleId);
+                            foreach (var button in page.Buttons)
+                            {
+                                await _buttonRepository.AddAsync(new RoleButtonEntity
+                                {
+                                    RoleId = model.RoleId,
+                                    ButtonCode = button,
+                                    PageCode = page.Code
+                                }, uow);
+                            }
+                        }
 
-                            return ResultModel.Success();
+                        //插入绑定权限
+                        if (page.Permissions != null && page.Permissions.Any())
+                        {
+                            foreach (var permission in page.Permissions)
+                            {
+                                await _permissionRepository.AddAsync(new RolePermissionEntity
+                                {
+                                    RoleId = model.RoleId,
+                                    Platform = Platform.Web,
+                                    PermissionCode = permission
+                                }, uow);
+                            }
                         }
                     }
-                    else
-                    {
-                        uow.Commit();
-                        await ClearAccountPermissionCache(model.RoleId);
-
-                        return ResultModel.Success();
-                    }
                 }
+
+                uow.Commit();
+
+                //清楚缓存
+                await ClearAccountPermissionCache(model.RoleId);
+                return ResultModel.Success();
             }
 
             return ResultModel.Failed();
+        }
 
-            #endregion
+        public async Task<IResultModel> QueryBindMenus(Guid id)
+        {
+            if (!await _repository.ExistsAsync(id))
+                return ResultModel.NotExists;
+
+            var menus = await _menuRepository.QueryByRole(id);
+            var list = menus.Select(m => m.Id).ToList();
+
+            return ResultModel.Success(list);
+        }
+
+        public async Task<IResultModel> BindMenus(RoleMenuBindModel model)
+        {
+            if (!await _repository.ExistsAsync(model.RoleId))
+                return ResultModel.NotExists;
+
+            using var uow = _dbContext.NewUnitOfWork();
+
+            if (await _roleMenuRepository.DeleteByRoleId(model.RoleId, uow))
+            {
+                if (model.Menus != null && model.Menus.Any())
+                {
+                    foreach (var menuId in model.Menus)
+                    {
+                        if (menuId.IsEmpty())
+                            continue;
+
+                        await _roleMenuRepository.AddAsync(new RoleMenuEntity
+                        {
+                            RoleId = model.RoleId,
+                            MenuId = menuId
+                        }, uow);
+                    }
+                }
+
+                uow.Commit();
+
+                //清楚缓存
+                await ClearAccountPermissionCache(model.RoleId);
+
+                return ResultModel.Success();
+            }
+
+            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> Select()
@@ -297,47 +285,39 @@ namespace NetModular.Module.Admin.Application.RoleService
             return Task.FromResult(true);
         }
 
-        public async Task<IResultModel> PlatformPermissionList(Guid roleId, Platform platform)
+        public async Task<IResultModel> QueryPlatformPermissions(Guid roleId, Platform platform)
         {
             if (platform == Platform.Web)
-                return ResultModel.Failed("不支持Web平台");
+                return ResultModel.Failed("WEB平台请使用页面授权");
 
-            var list = await _platformPermissionRepository.Query(roleId, platform);
+            var list = await _permissionRepository.QueryByRole(roleId, platform);
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> PlatformPermissionBind(RolePlatformPermissionBindModel model)
+        public async Task<IResultModel> BindPlatformPermissions(RolePermissionBindModel model)
         {
             if (model.Platform == Platform.Web)
-                return ResultModel.Failed("不支持Web平台");
+                return ResultModel.Failed("WEB平台请使用页面授权");
 
             using var uow = _dbContext.NewUnitOfWork();
-            //先清除已有绑定关系，再重新插入新的
-            var result = await _platformPermissionRepository.Clear(model.RoleId, model.Platform);
+            var result = await _permissionRepository.DeleteByRole(model.RoleId, model.Platform, uow);
             if (result)
             {
                 if (model.Permissions != null && model.Permissions.Any())
                 {
-                    var list = model.Permissions.Select(m => new RolePlatformPermissionEntity
+                    var list = model.Permissions.Select(m => new RolePermissionEntity
                     {
                         RoleId = model.RoleId,
                         Platform = model.Platform,
                         PermissionCode = m
                     }).ToList();
 
-                    if (await _platformPermissionRepository.AddAsync(list))
-                    {
-                        uow.Commit();
-                        await ClearAccountPermissionCache(model.RoleId);
-                        return ResultModel.Success();
-                    }
+                    await _permissionRepository.AddAsync(list, uow);
                 }
-                else
-                {
-                    uow.Commit();
-                    await ClearAccountPermissionCache(model.RoleId);
-                    return ResultModel.Success();
-                }
+
+                uow.Commit();
+                await ClearAccountPermissionCache(model.RoleId);
+                return ResultModel.Success();
             }
 
             return ResultModel.Failed();
@@ -355,7 +335,7 @@ namespace NetModular.Module.Admin.Application.RoleService
             {
                 foreach (var relation in relationList)
                 {
-                    _accountService.ClearPermissionListCache(relation.AccountId);
+                    await _accountService.ClearPermissionListCache(relation.AccountId);
                 }
             }
         }

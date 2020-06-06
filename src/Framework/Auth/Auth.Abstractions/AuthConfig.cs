@@ -28,6 +28,11 @@ namespace NetModular.Lib.Auth.Abstractions
         public bool SingleAccount { get; set; }
 
         /// <summary>
+        /// 启用审计日志
+        /// </summary>
+        public bool Auditing { get; set; }
+
+        /// <summary>
         /// Jwt配置
         /// </summary>
         public JwtConfig Jwt { get; set; } = new JwtConfig();

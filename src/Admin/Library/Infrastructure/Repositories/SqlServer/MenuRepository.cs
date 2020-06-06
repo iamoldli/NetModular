@@ -53,10 +53,6 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         {
             return ExistsAsync(e => e.ParentId == id);
         }
-        public Task<bool> ExistsWidthModule(string moduleCode)
-        {
-            return ExistsAsync(e => e.ModuleCode == moduleCode);
-        }
 
         public Task<MenuEntity> GetAsync(Guid id)
         {
@@ -68,12 +64,19 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return query.FirstAsync<MenuEntity>();
         }
 
-        public Task<IList<MenuEntity>> GetByAccount(Guid accountId)
+        public Task<IList<MenuEntity>> QueryByAccount(Guid accountId)
         {
             return Db.Find().InnerJoin<RoleMenuEntity>((x, y) => x.Id == y.MenuId)
                  .InnerJoin<AccountRoleEntity>((x, y, z) => y.RoleId == z.RoleId && z.AccountId == accountId)
                  .Select((x, y, z) => new { x })
                  .ToListAsync();
+        }
+
+        public Task<IList<MenuEntity>> QueryByRole(Guid roleId)
+        {
+            return Db.Find().InnerJoin<RoleMenuEntity>((x, y) => x.Id == y.MenuId && y.RoleId == roleId)
+                .Select((x, y) => new { x })
+                .ToListAsync();
         }
     }
 }

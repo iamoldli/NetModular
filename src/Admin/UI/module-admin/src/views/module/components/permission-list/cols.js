@@ -24,7 +24,7 @@ export default [
     label: '方法'
   },
   {
-    name: 'httpMethodName',
+    name: 'httpMethod',
     label: '请求方式',
     width: '80'
   },

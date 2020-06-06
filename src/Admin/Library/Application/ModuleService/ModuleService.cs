@@ -2,12 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Module.Admin.Domain.AuditInfo;
 using NetModular.Module.Admin.Domain.Module;
-using NetModular.Module.Admin.Domain.Permission;
-using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.ModuleService
@@ -19,17 +16,14 @@ namespace NetModular.Module.Admin.Application.ModuleService
         private readonly IModuleCollection _moduleCollection;
         private readonly AdminDbContext _dbContext;
         private readonly ILogger _logger;
-        private readonly ICacheHandler _cacheHandler;
-        private readonly IPermissionRepository _permissionRepository;
-        public ModuleService(IModuleRepository repository, IModuleCollection moduleCollection, AdminDbContext dbContext, ILogger<ModuleService> logger, IAuditInfoRepository auditInfoRepository, ICacheHandler cacheHandler, IPermissionRepository permissionRepository)
+
+        public ModuleService(IModuleRepository repository, IModuleCollection moduleCollection, AdminDbContext dbContext, ILogger<ModuleService> logger, IAuditInfoRepository auditInfoRepository)
         {
             _repository = repository;
             _moduleCollection = moduleCollection;
             _dbContext = dbContext;
             _logger = logger;
             _auditInfoRepository = auditInfoRepository;
-            _cacheHandler = cacheHandler;
-            _permissionRepository = permissionRepository;
         }
 
         public async Task<IResultModel> Query()
@@ -38,11 +32,9 @@ namespace NetModular.Module.Admin.Application.ModuleService
             return ResultModel.Success(list);
         }
 
-        public async Task<IResultModel> Sync(List<PermissionEntity> permissions)
+        public async Task<IResultModel> Sync()
         {
             using var uow = _dbContext.NewUnitOfWork();
-
-            #region ==同步模块信息==
 
             var modules = _moduleCollection.Select(m => new ModuleEntity
             {
@@ -54,7 +46,7 @@ namespace NetModular.Module.Admin.Application.ModuleService
                 Remarks = m.Description
             });
 
-            _logger.LogDebug("Sync Module Info");
+            _logger.LogInformation("开始：同步模块信息");
 
             foreach (var module in modules)
             {
@@ -74,31 +66,9 @@ namespace NetModular.Module.Admin.Application.ModuleService
                 }
             }
 
-            #endregion
-
-            #region ==同步权限信息=
-
-            if (permissions != null && permissions.Any())
-            {
-                _logger.LogDebug("Sync Permission Info");
-
-                //先清除已有权限信息
-                if (await _permissionRepository.ClearAsync(uow))
-                {
-                    foreach (var permission in permissions)
-                    {
-                        if (!await _permissionRepository.AddAsync(permission, uow))
-                            return ResultModel.Failed("同步失败");
-                    }
-
-                    //删除所有账户的权限缓存
-                    await _cacheHandler.RemoveByPrefixAsync(CacheKeys.ACCOUNT_PERMISSIONS);
-                }
-            }
-
-            #endregion
-
             uow.Commit();
+
+            _logger.LogInformation("结束：同步模块信息");
 
             return ResultModel.Success();
         }

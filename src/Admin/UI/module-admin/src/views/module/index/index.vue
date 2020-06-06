@@ -7,9 +7,7 @@
         >
       </template>
       <template v-slot:toolbar>
-        <el-tooltip effect="dark" content="同步模块信息" placement="top" v-nm-has="buttons.sync.code">
-          <nm-button icon="refresh" size="mini" @click="sync" />
-        </el-tooltip>
+        <nm-button icon="refresh" size="mini" @click="refresh" />
       </template>
       <div class="module-list">
         <div class="module-list-item" v-for="(item, i) in list" :key="i">
@@ -48,7 +46,7 @@ import PermissionList from '../components/permission-list'
 import PageList from '../components/page-list'
 import page from './page'
 // 接口
-const { query, sync } = $api.admin.module
+const { query } = $api.admin.module
 
 export default {
   name: page.name,
@@ -74,6 +72,7 @@ export default {
   },
   methods: {
     refresh() {
+      this.box.loading = true
       query()
         .then(data => {
           this.list = data.map(m => {
@@ -96,16 +95,6 @@ export default {
     openPage(m) {
       this.module = m
       this.dialog.page = true
-    },
-    sync() {
-      this.box.loading = true
-      sync()
-        .then(() => {
-          this.refresh()
-        })
-        .catch(() => {
-          this.box.loading = false
-        })
     },
     remove() {
       this._warning('在线删除模块功能开发中，敬请期待~', '提示')

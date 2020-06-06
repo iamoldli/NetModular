@@ -8,11 +8,6 @@ namespace NetModular.Module.Admin.Infrastructure
     public class AdminConfig : IConfig
     {
         /// <summary>
-        /// 启用审计日志
-        /// </summary>
-        public bool Auditing { get; set; }
-
-        /// <summary>
         /// 启用登录日志
         /// </summary>
         public bool LoginLog { get; set; }

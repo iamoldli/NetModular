@@ -100,37 +100,5 @@ namespace NetModular.Module.Admin.Application.MenuService.ViewModels
         /// 权限列表
         /// </summary>
         public List<string> Permissions { get; set; }
-
-        /// <summary>
-        /// 按钮列表
-        /// </summary>
-        public List<MenuButtonAddModel> Buttons { get; set; }
-    }
-
-    /// <summary>
-    /// 菜单按钮添加模型
-    /// </summary>
-    public class MenuButtonAddModel
-    {
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Text { get; set; }
-
-        /// <summary>
-        /// 图标
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        /// 编码
-        /// </summary>
-        public string Code { get; set; }
-
-        /// <summary>
-        /// 权限列表
-        /// </summary>
-        public List<string> Permissions { get; set; }
     }
 }

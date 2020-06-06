@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using NetModular.Module.Admin.Application.ModuleService.ViewModels;
-using NetModular.Module.Admin.Domain.Permission;
+﻿using System.Threading.Tasks;
 
 namespace NetModular.Module.Admin.Application.ModuleService
 {
@@ -20,7 +17,7 @@ namespace NetModular.Module.Admin.Application.ModuleService
         /// 同步模块信息
         /// </summary>
         /// <returns></returns>
-        Task<IResultModel> Sync(List<PermissionEntity> permissions);
+        Task<IResultModel> Sync();
 
         /// <summary>
         /// 下拉框

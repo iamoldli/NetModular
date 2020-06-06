@@ -13,6 +13,7 @@ namespace NetModular.Lib.Auth.Web
     [ApiController]
     [PermissionValidate]
     [ValidateResultFormat]
+    [Auditing()]
     public abstract class ControllerAbstract : ControllerBase
     {
         /// <summary>

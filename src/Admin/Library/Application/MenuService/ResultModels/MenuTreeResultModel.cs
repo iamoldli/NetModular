@@ -64,5 +64,10 @@ namespace NetModular.Module.Admin.Application.MenuService.ResultModels
         /// 备注
         /// </summary>
         public string Remarks { get; set; }
+
+        /// <summary>
+        /// 选中的
+        /// </summary>
+        public bool Checked { get; set; }
     }
 }

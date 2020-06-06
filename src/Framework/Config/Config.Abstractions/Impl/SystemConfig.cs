@@ -21,5 +21,10 @@ namespace NetModular.Lib.Config.Abstractions.Impl
         /// 版权声明
         /// </summary>
         public string Copyright { get; set; }
+
+        /// <summary>
+        /// 用户页(前端页面路由名称)
+        /// </summary>
+        public string UserPage { get; set; }
     }
 }

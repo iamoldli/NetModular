@@ -5,12 +5,9 @@ export default name => {
   const crud = $http.crud(root)
   const urls = {
     select: root + 'select',
-    menuList: root + 'menulist',
-    bindMenu: root + 'bindmenu',
-    menuButtonList: root + 'MenuButtonList',
-    bindMenuButton: root + 'BindMenuButton',
-    platformPermissionList: root + 'PlatformPermissionList',
-    platformPermissionBind: root + 'PlatformPermissionBind'
+    bindPages: root + 'BindPages',
+    bindMenus: root + 'BindMenus',
+    bindPlatformPermissions: root + 'BindPlatformPermissions'
   }
 
   /**
@@ -21,56 +18,56 @@ export default name => {
   }
 
   /**
+   * @description 获取绑定的页面列表
+   * @param {*} id 角色编号
+   */
+  const queryBindPages = id => {
+    return $http.get(urls.bindPages, { id })
+  }
+
+  /**
+   * @description 绑定页面
+   */
+  const bindPages = params => {
+    return $http.post(urls.bindPages, params)
+  }
+
+  /**
    * @description 获取绑定的菜单列表
    * @param {*} id 角色编号
    */
-  const menuList = id => {
-    return $http.get(urls.menuList, { id })
+  const queryBindMenus = id => {
+    return $http.get(urls.bindMenus, { id })
   }
 
   /**
-   * @description 绑定菜单
+   * @description 绑定页面
    */
-  const bindMenu = params => {
-    return $http.post(urls.bindMenu, params)
+  const bindMenus = params => {
+    return $http.post(urls.bindMenus, params)
   }
 
   /**
-   * @description 获取指定菜单的按钮信息
+   * @description 获取绑定的平台权限列表
    */
-  const menuButtonList = params => {
-    return $http.get(urls.menuButtonList, params)
+  const queryBindPlatformPermissions = params => {
+    return $http.get(urls.bindPlatformPermissions, params)
   }
 
   /**
-   * @description 绑定按钮
+   * @description 绑定页面
    */
-  const bindMenuButton = params => {
-    return $http.post(urls.bindMenuButton, params)
+  const bindPlatformPermissions = params => {
+    return $http.post(urls.bindPlatformPermissions, params)
   }
-
-  /**
-   * @description 查询平台权限列表
-   */
-  const platformPermissionList = params => {
-    return $http.get(urls.platformPermissionList, params)
-  }
-
-  /**
-   * @description 绑定平台权限
-   */
-  const platformPermissionBind = params => {
-    return $http.post(urls.platformPermissionBind, params)
-  }
-
   return {
     ...crud,
     select,
-    menuList,
-    bindMenu,
-    menuButtonList,
-    bindMenuButton,
-    platformPermissionList,
-    platformPermissionBind
+    queryBindPages,
+    bindPages,
+    queryBindMenus,
+    bindMenus,
+    queryBindPlatformPermissions,
+    bindPlatformPermissions
   }
 }

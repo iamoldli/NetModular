@@ -120,7 +120,7 @@ namespace NetModular.Lib.MQ.RabbitMQ
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (sender, eventArgs) =>
             {
-                var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eventArgs.Body));
+                var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eventArgs.Body.ToArray()));
                 if (func(message))
                 {
                     channel.BasicAck(eventArgs.DeliveryTag, false);

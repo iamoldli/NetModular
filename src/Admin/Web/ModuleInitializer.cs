@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using NetModular.Module.Admin.Web.Filters;
 using NetModular.Lib.Module.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Module.Abstractions;
+using NetModular.Module.Admin.Application.ModuleService;
 
 namespace NetModular.Module.Admin.Web
 {
@@ -22,12 +22,13 @@ namespace NetModular.Module.Admin.Web
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             UseUploadFile(app);
+
+            //同步模块信息
+            app.ApplicationServices.GetService<IModuleService>().Sync();
         }
 
         public void ConfigureMvc(MvcOptions mvcOptions)
         {
-            //全局过滤器
-            mvcOptions.Filters.Add(typeof(AuditingFilter));
         }
 
         /// <summary>

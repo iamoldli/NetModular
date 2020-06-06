@@ -9,15 +9,7 @@ const page = new (function() {
   this.permissions = [`${this.name}_query_get`, `admin_permission_query_get`, `admin_permission_querybycodes_get`]
 
   // 按钮
-  this.buttons = {
-    sync: {
-      text: '同步',
-      type: 'text',
-      icon: 'refresh',
-      code: `${this.name}_sync`,
-      permissions: [`${this.name}_sync_post`]
-    }
-  }
+  this.buttons = {}
 })()
 
 /** 路由信息 */

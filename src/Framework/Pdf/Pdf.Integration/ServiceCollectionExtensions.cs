@@ -26,8 +26,8 @@ namespace NetModular.Lib.Pdf.Integration
             services.AddSingleton(config);
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Pdf.{config.Provider.ToString()}");
-
-            Check.NotNull(assembly, $"Pdf实现程序集({config.Provider.ToString()})未找到，请安装 NetModular.Lib.Pdf.{config.Provider.ToString()} 包");
+            if (assembly == null)
+                return services;
 
             var handlerType = assembly.GetTypes().FirstOrDefault(m => m.Name.EndsWith("PdfHandler"));
             if (handlerType != null)

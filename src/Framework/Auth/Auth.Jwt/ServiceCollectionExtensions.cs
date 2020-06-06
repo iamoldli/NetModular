@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using NetModular.Lib.Auth.Web;
 
 namespace NetModular.Lib.Auth.Jwt
 {
@@ -34,6 +35,9 @@ namespace NetModular.Lib.Auth.Jwt
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(securityTokenHandler);
                 });
+
+            //注入权限集合
+            services.AddScoped<PermissionCollection>();
 
             return services;
         }

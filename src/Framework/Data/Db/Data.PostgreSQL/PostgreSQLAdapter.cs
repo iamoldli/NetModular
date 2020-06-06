@@ -123,61 +123,16 @@ namespace NetModular.Lib.Data.PostgreSQL
             con.Close();
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        public override string GetColumnTypeName(IColumnDescriptor column, out string defaultValue)
         {
-            var columns = entityDescriptor.Columns;
-            var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName.ToLower()));
-
-            for (int i = 0; i < columns.Count; i++)
-            {
-                var column = columns[i];
-
-                sql.AppendFormat("{0} ", AppendQuote(column.Name.ToLower()));
-                sql.AppendFormat("{0} ", Property2Column(column, out string def));
-
-                if (column.IsPrimaryKey)
-                {
-                    sql.Append("PRIMARY KEY ");
-                }
-
-                if (!column.Nullable && !column.IsPrimaryKey)
-                {
-                    sql.Append("NOT NULL ");
-                }
-
-                if (def.NotNull())
-                {
-                    sql.Append(def);
-                }
-
-                if (i < columns.Count - 1)
-                {
-                    sql.Append(",");
-                }
-            }
-
-            sql.Append(");");
-
-            return sql.ToString();
-        }
-
-        /// <summary>
-        /// 属性转换为列
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="def"></param>
-        /// <returns></returns>
-        public string Property2Column(IColumnDescriptor column, out string def)
-        {
-            def = "";
+            defaultValue = "";
             var propertyType = column.PropertyInfo.PropertyType;
             var isNullable = propertyType.IsNullable();
             if (isNullable)
             {
                 propertyType = Nullable.GetUnderlyingType(propertyType);
                 if (propertyType == null)
-                    throw new Exception("Property2Column error");
+                    throw new Exception("ResolveColumnTypeName error");
             }
 
             //使用指定的字段类型
@@ -191,112 +146,131 @@ namespace NetModular.Lib.Data.PostgreSQL
             {
                 if (!isNullable)
                 {
-                    def = "DEFAULT 0";
+                    defaultValue = "DEFAULT 0";
                 }
 
                 return "SMALLINT";
             }
-
             if (propertyType.IsGuid())
+            {
                 return "UUID";
-
+            }
             var typeCode = Type.GetTypeCode(propertyType);
-            if (typeCode == TypeCode.String)
+            switch (typeCode)
             {
-                if (column.Max)
-                    return "TEXT";
+                case TypeCode.String:
+                    if (column.Max)
+                        return "TEXT";
 
-                if (column.Length < 1)
-                    return "VARCHAR(50)";
+                    if (column.Length < 1)
+                        return "VARCHAR(50)";
 
-                return $"VARCHAR({column.Length})";
-            }
+                    return $"VARCHAR({column.Length})";
+                case TypeCode.Char:
+                    column.TypeName = $"CHAR({column.Length})";
+                    break;
+                case TypeCode.Boolean:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT FALSE";
+                    }
+                    return "boolean";
+                case TypeCode.Byte:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
+                    return "SMALLINT";
+                case TypeCode.Int16:
+                    if (column.IsPrimaryKey)
+                    {
+                        return "SMALLSERIAL";
+                    }
 
-            if (typeCode == TypeCode.Char)
-            {
-                return $"CHAR({column.Length})";
-            }
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
+                    return "SMALLINT";
+                case TypeCode.Int32:
+                    if (column.IsPrimaryKey)
+                    {
+                        return "SERIAL";
+                    }
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
 
-            if (typeCode == TypeCode.Boolean)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT FALSE";
-                }
-                return "boolean";
-            }
+                    return "INTEGER";
+                case TypeCode.Int64:
+                    if (column.IsPrimaryKey)
+                    {
+                        return "BIGSERIAL";
+                    }
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
 
-            if (typeCode == TypeCode.Byte)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-                return "SMALLINT";
-            }
+                    return "BIGINT";
+                case TypeCode.DateTime:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT CURRENT_TIMESTAMP";
+                    }
 
-            if (typeCode == TypeCode.Int16)
-            {
-                if (column.IsPrimaryKey)
-                {
-                    return "SMALLSERIAL";
-                }
-
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-                return "SMALLINT";
-            }
-
-            if (typeCode == TypeCode.Int32)
-            {
-                if (column.IsPrimaryKey)
-                {
-                    return "SERIAL";
-                }
-
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-                return "INTEGER";
-            }
-
-            if (typeCode == TypeCode.Int64)
-            {
-                if (column.IsPrimaryKey)
-                {
-                    return "BIGSERIAL";
-                }
-
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-                return "BIGINT";
-            }
-
-            if (typeCode == TypeCode.DateTime)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT CURRENT_TIMESTAMP";
-                }
-                return "TIMESTAMP";
-            }
-
-            if (typeCode == TypeCode.Decimal || typeCode == TypeCode.Double || typeCode == TypeCode.Single)
-            {
-                if (!isNullable)
-                {
-                    def = "DEFAULT 0";
-                }
-
-                return "MONEY";
+                    return "TIMESTAMP";
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
+                    return "MONEY";
             }
 
             return string.Empty;
+        }
+
+        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        {
+            var columns = entityDescriptor.Columns;
+            var sql = new StringBuilder();
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName.ToLower()));
+
+            for (int i = 0; i < columns.Count; i++)
+            {
+                var column = columns[i];
+
+                sql.AppendFormat("{0} ", AppendQuote(column.Name.ToLower()));
+                sql.AppendFormat("{0} ", column.TypeName);
+
+                if (column.IsPrimaryKey)
+                {
+                    sql.Append("PRIMARY KEY ");
+                }
+
+                if (!column.Nullable && !column.IsPrimaryKey)
+                {
+                    sql.Append("NOT NULL ");
+                }
+
+                if (!column.IsPrimaryKey && column.DefaultValue.NotNull())
+                {
+                    sql.Append(column.DefaultValue);
+                }
+
+                if (i < columns.Count - 1)
+                {
+                    sql.Append(",");
+                }
+            }
+
+            sql.Append(");");
+
+            return sql.ToString();
         }
     }
 }

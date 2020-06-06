@@ -7,7 +7,6 @@ using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Role;
 using NetModular.Module.Admin.Domain.RoleMenu;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
@@ -50,13 +49,6 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find()
                 .InnerJoin<RoleMenuEntity>((x, y) => x.RoleId == y.RoleId)
                 .Where((x, y) => y.MenuId == menuId)
-                .ToListAsync();
-        }
-
-        public Task<IList<AccountRoleEntity>> QueryByButton(Guid buttonId)
-        {
-            return Db.Find()
-                .InnerJoin<RoleMenuButtonEntity>((x, y) => x.RoleId == y.RoleId && y.ButtonId == buttonId)
                 .ToListAsync();
         }
 

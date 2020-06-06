@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Auth.Web.Attributes;
-using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuthService;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
@@ -123,7 +122,7 @@ namespace NetModular.Module.Admin.Web.Controllers
                 };
 
                 //自定义扩展Claims
-                var extendClaims = _claimsExtendProvider.GetExtendClaims(account);
+                var extendClaims = _claimsExtendProvider.GetExtendClaims(account.Id);
                 if (extendClaims != null && extendClaims.Any())
                     claims.AddRange(extendClaims);
 

@@ -12,7 +12,7 @@ const page = new (function() {
   this.buttons = {
     add: {
       text: '添加',
-      type: 'success',
+      type: 'text',
       icon: 'add',
       code: `${this.name}_add`,
       permissions: [`${this.name}_add_post`]
@@ -31,19 +31,26 @@ const page = new (function() {
       code: `${this.name}_del`,
       permissions: [`${this.name}_delete_delete`]
     },
-    bindMenu: {
-      text: '绑定菜单',
+    bindMenus: {
+      text: '菜单绑定',
       type: 'text',
       icon: 'bind',
-      code: `${this.name}_bind_menu`,
-      permissions: [`${this.name}_menulist_get`, `${this.name}_bindmenu_post`, `${this.name}_menubuttonlist_get`, `${this.name}_bindmenubutton_post`]
+      code: `${this.name}_bind_menus`,
+      permissions: [`${this.name}_BindMenus_get`, `${this.name}_BindMenus_post`]
     },
-    bindPermission: {
-      text: '平台权限',
+    bindPages: {
+      text: '页面授权',
       type: 'text',
-      icon: 'android',
-      code: `${this.name}_bind_permission`,
-      permissions: [`admin_permission_tree_get`, `${this.name}_PlatformPermissionList_get`, `${this.name}_PlatformPermissionBind_post`]
+      icon: 'bind',
+      code: `${this.name}_bind_pages`,
+      permissions: [`${this.name}_BindPages_get`, `${this.name}_BindPages_post`]
+    },
+    bindPlatform: {
+      text: '平台授权',
+      type: 'text',
+      icon: 'bind',
+      code: `${this.name}_bind_platform`,
+      permissions: [`admin_permission_tree_get`, `${this.name}_BindPlatformPermissions_get`, `${this.name}_BindPlatformPermissions_post`]
     }
   }
 })()

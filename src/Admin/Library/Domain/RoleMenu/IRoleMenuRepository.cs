@@ -15,7 +15,7 @@ namespace NetModular.Module.Admin.Domain.RoleMenu
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
-        Task<IList<RoleMenuEntity>> GetByRoleId(Guid roleId);
+        Task<IList<RoleMenuEntity>> QueryByRoleId(Guid roleId);
 
         /// <summary>
         /// 根据角色编号删除对应关联信息

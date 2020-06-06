@@ -5,7 +5,7 @@ using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Enums;
-using NetModular.Module.Admin.Application.AccountService;
+using NetModular.Module.Admin.Infrastructure.AccountPermissionResolver;
 
 namespace NetModular.Module.Admin.Web.Core
 {
@@ -16,17 +16,17 @@ namespace NetModular.Module.Admin.Web.Core
     public class PermissionValidateHandler : IPermissionValidateHandler
     {
         private readonly ILoginInfo _loginInfo;
-        private readonly IAccountService _accountService;
+        private readonly IAccountPermissionResolver _permissionResolver;
 
-        public PermissionValidateHandler(IAccountService accountService, ILoginInfo loginInfo)
+        public PermissionValidateHandler(ILoginInfo loginInfo, IAccountPermissionResolver permissionResolver)
         {
-            _accountService = accountService;
             _loginInfo = loginInfo;
+            _permissionResolver = permissionResolver;
         }
 
         public async Task<bool> Validate(IDictionary<string, string> routeValues, HttpMethod httpMethod)
         {
-            var permissions = await _accountService.QueryPermissionList(_loginInfo.AccountId, _loginInfo.Platform);
+            var permissions = await _permissionResolver.Resolve(_loginInfo.AccountId, _loginInfo.Platform);
 
             var area = routeValues["area"];
             var controller = routeValues["controller"];

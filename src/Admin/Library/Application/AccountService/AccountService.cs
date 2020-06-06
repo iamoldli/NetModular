@@ -12,9 +12,10 @@ using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.Account.Models;
 using NetModular.Module.Admin.Domain.AccountConfig;
 using NetModular.Module.Admin.Domain.AccountRole;
-using NetModular.Module.Admin.Domain.Permission;
 using NetModular.Module.Admin.Domain.Role;
+using NetModular.Module.Admin.Domain.RolePermission;
 using NetModular.Module.Admin.Infrastructure;
+using NetModular.Module.Admin.Infrastructure.AccountPermissionResolver;
 using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
@@ -28,19 +29,17 @@ namespace NetModular.Module.Admin.Application.AccountService
         private readonly IAccountConfigRepository _accountConfigRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IRoleRepository _roleRepository;
-        private readonly IPermissionRepository _permissionRepository;
         private readonly AdminDbContext _dbContext;
         private readonly IPasswordHandler _passwordHandler;
         private readonly IConfigProvider _configProvider;
 
-        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IPermissionRepository permissionRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, IConfigProvider configProvider)
+        public AccountService(ICacheHandler cache, IMapper mapper, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, IAccountConfigRepository accountConfigRepository, AdminDbContext dbContext, IPasswordHandler passwordHandler, IConfigProvider configProvider, IRolePermissionRepository rolePermissionRepository, IAccountPermissionResolver permissionResolver)
         {
             _cache = cache;
             _mapper = mapper;
             _accountRepository = accountRepository;
             _accountRoleRepository = accountRoleRepository;
             _roleRepository = roleRepository;
-            _permissionRepository = permissionRepository;
             _accountConfigRepository = accountConfigRepository;
             _dbContext = dbContext;
             _passwordHandler = passwordHandler;
@@ -160,7 +159,8 @@ namespace NetModular.Module.Admin.Application.AccountService
                         if (result)
                         {
                             uow.Commit();
-                            ClearPermissionListCache(account.Id);
+
+                            await ClearPermissionListCache(account.Id);
 
                             await ClearCache(true, entity.Id);
 
@@ -256,30 +256,19 @@ namespace NetModular.Module.Admin.Application.AccountService
             return ResultModel.Result(result);
         }
 
-        public async Task<IList<string>> QueryPermissionList(Guid id, Platform platform)
-        {
-            var account = await Get(id);
-            if (account == null || account.Deleted)
-                return new List<string>();
-
-            var key = $"{CacheKeys.ACCOUNT_PERMISSIONS}:{id}:{platform.ToInt()}";
-
-            if (!_cache.TryGetValue(key, out IList<string> list))
-            {
-                list = await _permissionRepository.QueryCodeByAccount(id, platform);
-                await _cache.SetAsync(key, list);
-            }
-
-            return list;
-        }
-
-        public void ClearPermissionListCache(Guid id)
+        public Task ClearPermissionListCache(Guid id)
         {
             var list = EnumExtensions.ToResult<Platform>();
-            foreach (var option in list)
+            var tasks = new List<Task>();
+            foreach (var t in list)
             {
-                _cache.RemoveAsync($"{CacheKeys.ACCOUNT_PERMISSIONS}:{id}:{option.Value.ToInt()}").Wait();
+                tasks.Add(_cache.RemoveAsync($"{CacheKeys.ACCOUNT_PERMISSIONS}{id}:{t.Value.ToInt()}"));
+                tasks.Add(_cache.RemoveAsync($"{CacheKeys.ACCOUNT_PAGES}{id}"));
+                tasks.Add(_cache.RemoveAsync($"{CacheKeys.ACCOUNT_BUTTONS}{id}"));
+                tasks.Add(_cache.RemoveAsync($"{CacheKeys.ACCOUNT_MENUS}{id}"));
             }
+
+            return Task.WhenAll(tasks);
         }
 
         public async Task<IResultModel> SkinUpdate(Guid id, AccountSkinUpdateModel model)
@@ -313,7 +302,7 @@ namespace NetModular.Module.Admin.Application.AccountService
 
         public async Task<AccountEntity> Get(Guid id)
         {
-            var key = $"{CacheKeys.ACCOUNT}:{id}";
+            var key = CacheKeys.ACCOUNT + id;
             if (_cache.TryGetValue(key, out AccountEntity account))
                 return account;
 
@@ -362,7 +351,7 @@ namespace NetModular.Module.Admin.Application.AccountService
                     {
                         uow.Commit();
 
-                        ClearPermissionListCache(account.Id);
+                        await ClearPermissionListCache(account.Id);
 
                         await ClearCache(true, entity.Id);
 
@@ -415,7 +404,7 @@ namespace NetModular.Module.Admin.Application.AccountService
         {
             if (result)
             {
-                return _cache.RemoveAsync($"{CacheKeys.ACCOUNT}:{id}");
+                return _cache.RemoveAsync(CacheKeys.ACCOUNT + id);
             }
 
             return Task.CompletedTask;
