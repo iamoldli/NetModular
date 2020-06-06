@@ -1,7 +1,7 @@
 <template>
   <nm-dialog v-bind="dialog" :visible.sync="visible_">
     <template v-slot:title> 页面列表({{ module.name }}) </template>
-    <div class="page-list">
+    <div class="nm-module-page-list">
       <section class="left">
         <el-tabs ref="pageTab" v-model="pageTab" tab-position="left" style="height: 100%;">
           <el-tab-pane v-for="page in pages" :key="page.code" :name="page.code" :label="page.name">
@@ -15,11 +15,11 @@
             <el-tab-pane>
               <span slot="label"><i class="el-icon-date"></i> 详情</span>
               <nm-scrollbar style="height:100%">
-                <el-divider content-position="left">基本信息</el-divider>
+                <el-divider content-position="left">页面信息</el-divider>
                 <el-form>
                   <el-row>
                     <el-col :span="10" :offset="1">
-                      <el-form-item label="名称：">
+                      <el-form-item label="标题：">
                         <span>{{ page.name }} </span>
                       </el-form-item>
                     </el-col>
@@ -28,6 +28,8 @@
                         <nm-icon class="nm-size-25" :name="page.icon" />
                       </el-form-item>
                     </el-col>
+                  </el-row>
+                  <el-row>
                     <el-col :span="10" :offset="1">
                       <el-form-item label="路由名称：">
                         <span>{{ page.code }} </span>
@@ -39,13 +41,36 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <el-row>
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="路由缓存：">
+                        <span><el-switch :value="page.cache" disabled> </el-switch> </span>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="10">
+                      <el-form-item label="框架内：">
+                        <span><el-switch :value="page.frameIn" disabled> </el-switch> </span>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="10" :offset="1">
+                      <el-form-item label="权限验证：">
+                        <span><el-switch :value="!page.noPermission" disabled> </el-switch> </span>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
                 </el-form>
                 <el-divider content-position="left">关联权限</el-divider>
                 <el-table :data="pagePermissions" border stripe size="mini" style="width: 100%">
                   <el-table-column prop="name" label="名称" width="180" align="center"> </el-table-column>
                   <el-table-column prop="controller" label="控制器" width="120" align="center"> </el-table-column>
                   <el-table-column prop="action" label="方法" align="center"> </el-table-column>
-                  <el-table-column prop="httpMethodName" label="请求方式" width="70" align="center"> </el-table-column>
+                  <el-table-column prop="httpMethod" label="请求方式" width="70" align="center">
+                    <template slot-scope="scope">
+                      {{ getHttpMethodName(scope.row.httpMethod) }}
+                    </template>
+                  </el-table-column>
                   <el-table-column prop="code" label="编码" align="center" show-overflow-tooltip> </el-table-column>
                 </el-table>
               </nm-scrollbar>
@@ -76,6 +101,7 @@
   </nm-dialog>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { mixins } from 'netmodular-ui'
 
 const { queryByCodes } = $api.admin.permission
@@ -107,25 +133,32 @@ export default {
     module: Object
   },
   computed: {
+    ...mapState('app/page', { allPages: s => s.pages }),
     pages() {
-      let pages = []
-      if (!this.module || !this.module.code) {
-        return pages
+      if (!this.module.code) return []
+      return this.allPages.filter(m => m.moduleCode.toLowerCase() === this.module.code.toLowerCase())
+    }
+  },
+  methods: {
+    getHttpMethodName(httpMethod) {
+      switch (httpMethod) {
+        case 0:
+          return 'GET'
+        case 1:
+          return 'PUT'
+        case 2:
+          return 'POST'
+        case 3:
+          return 'DELETE'
+        case 4:
+          return 'HEAD'
+        case 5:
+          return 'OPTIONS'
+        case 6:
+          return 'TRACE'
+        case 7:
+          return 'PATCH'
       }
-      this.$router.options.routes.forEach(r => {
-        if (r && r.name && r.name.toLowerCase().startsWith(this.module.code.toLowerCase())) {
-          pages.push({
-            name: r.meta.title,
-            icon: r.meta.icon || '',
-            code: r.name.toLowerCase(),
-            path: r.path,
-            permissions: r.meta.permissions,
-            buttons: r.meta.buttons
-          })
-        }
-      })
-
-      return pages
     }
   },
   watch: {
@@ -165,8 +198,8 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.page-list {
+<style lang="scss">
+.nm-module-page-list {
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -174,14 +207,17 @@ export default {
 
   .left {
     flex-shrink: 0;
-    ::v-deep .el-tabs__header {
+    .el-tabs__header {
       margin-right: 0;
+    }
+    .el-tabs__item {
+      text-align: left !important;
     }
   }
   .right {
     flex-grow: 1;
 
-    ::v-deep .el-tab-pane {
+    .el-tab-pane {
       box-sizing: border-box;
 
       .el-scrollbar__view {

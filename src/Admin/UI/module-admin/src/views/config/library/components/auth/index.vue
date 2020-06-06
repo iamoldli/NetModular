@@ -23,6 +23,13 @@
         </el-form-item>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="5" :offset="1">
+        <el-form-item label="审计日志：" prop="auditing">
+          <el-switch v-model="form.model.auditing" />
+        </el-form-item>
+      </el-col>
+    </el-row>
     <el-divider content-position="left">JWT参数</el-divider>
     <el-row>
       <el-col :span="10" :offset="1">
@@ -106,6 +113,7 @@ export default {
           validate: false,
           button: false,
           singleAccount: false,
+          auditing: false,
           jwt: {
             key: '',
             issuer: '',

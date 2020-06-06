@@ -26,8 +26,8 @@ namespace NetModular.Lib.OSS.Integration
             services.AddSingleton(config);
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.OSS.{config.Provider.ToString()}");
-
-            Check.NotNull(assembly, $"OSS实现程序集({config.Provider.ToString()})未找到，请安装 NetModular.Lib.OSS.{config.Provider.ToString()} 包");
+            if (assembly == null)
+                return services;
 
             var providerType = assembly.GetTypes().FirstOrDefault(m => typeof(IFileStorageProvider).IsAssignableFrom(m));
             if (providerType != null)

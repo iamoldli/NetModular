@@ -55,6 +55,20 @@ namespace NetModular.Lib.Data.Core.Entities
                 sb.Append(",");
 
                 _descriptor.SqlAdapter.AppendParameter(valuesSql, col.PropertyInfo.Name);
+
+                //针对PostgreSQL数据库的json和jsonb类型字段的处理
+                if (_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL)
+                {
+                    if (col.TypeName.EqualsIgnoreCase("jsonb"))
+                    {
+                        valuesSql.Append("::jsonb");
+                    }
+                    else if (col.TypeName.EqualsIgnoreCase("json"))
+                    {
+                        valuesSql.Append("::json");
+                    }
+                }
+
                 valuesSql.Append(",");
 
                 batchInsertColumnList.Add(col);

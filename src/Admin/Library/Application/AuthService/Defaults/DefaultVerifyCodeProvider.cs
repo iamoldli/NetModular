@@ -35,7 +35,7 @@ namespace NetModular.Module.Admin.Application.AuthService.Defaults
                 Base64String = _drawingHelper.DrawVerifyCodeBase64String(out string code, len)
             };
 
-            var key = $"{CacheKeys.AUTH_VERIFY_CODE}:{model.Id}";
+            var key = CacheKeys.AUTH_VERIFY_CODE + model.Id;
 
             //把验证码放到内存缓存中，有效期10分钟
             _cacheHandler.SetAsync(key, code, 10);
@@ -55,7 +55,7 @@ namespace NetModular.Module.Admin.Application.AuthService.Defaults
                 if (model.VerifyCode.Id.IsNull())
                     return ResultModel.Failed("验证码不存在");
 
-                var cacheCode = _cacheHandler.GetAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}").Result;
+                var cacheCode = _cacheHandler.GetAsync(CacheKeys.AUTH_VERIFY_CODE + model.VerifyCode.Id).Result;
                 if (cacheCode.IsNull())
                     return ResultModel.Failed("验证码不存在");
 

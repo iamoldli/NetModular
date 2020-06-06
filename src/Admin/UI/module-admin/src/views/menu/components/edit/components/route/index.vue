@@ -14,10 +14,10 @@
         </el-form-item>
       </el-col>
       <el-col :span="10">
-        <el-form-item label="选择路由" prop="route">
-          <el-select v-model="form.model.routeName" placeholder="请选择" @change="onRouteChange">
-            <el-option v-for="r in routes" :key="r.code" :label="r.name" :value="r.code">
-              <span>{{ r.name }}({{ r.code }})</span>
+        <el-form-item label="选择页面：" prop="route">
+          <el-select v-model="form.model.routeName" placeholder="请选择" @change="onPageChange">
+            <el-option v-for="p in pages" :key="p.code" :label="p.name" :value="p.code">
+              <span>{{ p.name }}__{{ p.code }}</span>
             </el-option>
           </el-select>
         </el-form-item>
@@ -81,6 +81,7 @@
   </nm-form>
 </template>
 <script>
+import { mapState } from 'vuex'
 import mixins from '../mixins'
 export default {
   mixins: [mixins],
@@ -88,9 +89,7 @@ export default {
     return {
       form: {
         model: {
-          type: 1,
-          permissions: [],
-          buttons: []
+          type: 1
         },
         rules: {
           moduleCode: [{ required: true, message: '请选择模块' }],
@@ -100,50 +99,20 @@ export default {
     }
   },
   computed: {
-    routes() {
-      let routes = []
-      const moduleCode = this.form.model.moduleCode
-      if (!moduleCode) {
-        return routes
-      }
-      this.$router.options.routes.forEach(r => {
-        if (r && r.name && r.name.toLowerCase().startsWith(moduleCode.toLowerCase())) {
-          routes.push({
-            name: r.meta.title,
-            code: r.name.toLowerCase(),
-            permissions: r.meta.permissions,
-            buttons: r.meta.buttons
-          })
-        }
-      })
-      return routes
+    ...mapState('app/page', { allPages: s => s.pages }),
+    pages() {
+      if (!this.form.model.moduleCode) return []
+      return this.allPages.filter(m => m.moduleCode.toLowerCase() === this.form.model.moduleCode.toLowerCase())
     }
   },
   methods: {
-    submitBefore() {
-      for (var i = 0; i < this.routes.length; i++) {
-        let route = this.routes[i]
-        let model = this.form.model
-        if (route.code === model.routeName) {
-          model.routeName = route.code
-          model.permissions = route.permissions
-          model.buttons = []
-
-          if (route.buttons) {
-            Object.keys(route.buttons).map(key => {
-              model.buttons.push(route.buttons[key])
-            })
-          }
-          break
-        }
-      }
-    },
-    onRouteChange(val) {
-      for (var i = 0; i < this.routes.length; i++) {
-        let route = this.routes[i]
-        if (route.code === val) {
-          this.form.model.name = route.name
-          this.form.model.routeName = route.code
+    onPageChange(val) {
+      for (var i = 0; i < this.pages.length; i++) {
+        let page = this.pages[i]
+        if (page.code === val) {
+          this.form.model.name = page.name
+          this.form.model.routeName = page.code
+          this.form.model.icon = page.icon
           break
         }
       }

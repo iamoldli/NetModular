@@ -26,8 +26,8 @@ namespace NetModular.Lib.Excel.Integration
             services.AddSingleton(config);
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.Excel.{config.Provider.ToString()}");
-
-            Check.NotNull(assembly, $"Excel实现程序集({config.Provider.ToString()})未找到，请安装 NetModular.Lib.Excel.{config.Provider.ToString()} 包");
+            if (assembly == null)
+                return services;
 
             var handlerType = assembly.GetTypes().FirstOrDefault(m => m.Name.EndsWith("ExcelHandler"));
             if (handlerType != null)

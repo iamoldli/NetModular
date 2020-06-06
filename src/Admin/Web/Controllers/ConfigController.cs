@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Config.Abstractions;
-using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Lib.OSS.Abstractions;
 using NetModular.Module.Admin.Application.ConfigService;
 using NetModular.Module.Admin.Application.ConfigService.ViewModels;

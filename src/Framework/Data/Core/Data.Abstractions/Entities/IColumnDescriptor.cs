@@ -10,6 +10,16 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         string Name { get; }
 
         /// <summary>
+        /// 列类型名称
+        /// </summary>
+        string TypeName { get; set; }
+
+        /// <summary>
+        /// 默认值
+        /// </summary>
+        string DefaultValue { get; set; }
+
+        /// <summary>
         /// 实体属性信息
         /// </summary>
         PropertyInfo PropertyInfo { get; }

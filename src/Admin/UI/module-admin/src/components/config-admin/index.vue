@@ -2,18 +2,11 @@
   <nm-form-page v-bind="form">
     <el-row>
       <el-col :span="10" :offset="1">
-        <el-form-item label="审计日志：" prop="auditing">
-          <el-switch v-model="form.model.auditing" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="10">
         <el-form-item label="登录日志：" prop="loginLog">
           <el-switch v-model="form.model.loginLog" />
         </el-form-item>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10" :offset="1">
+      <el-col :span="10">
         <el-form-item label="账户默认密码：" prop="defaultPassword">
           <el-input v-model="form.model.defaultPassword" />
         </el-form-item>
@@ -34,7 +27,7 @@ export default {
         action: this.update,
         labelWidth: '200px',
         model: {
-          auditing: false,
+          loginLog: false,
           defaultPassword: ''
         }
       }

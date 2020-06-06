@@ -15,6 +15,13 @@
         </el-form-item>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="13" :offset="1">
+        <el-form-item label="账户信息页：" prop="userPage">
+          <el-input v-model="form.model.userPage" placeholder="请填写前端路由名称，默认使用系统自带的userinfo" />
+        </el-form-item>
+      </el-col>
+    </el-row>
   </nm-form-page>
 </template>
 <script>
@@ -29,19 +36,20 @@ export default {
           title: '',
           logo: '',
           copyright: '',
-          files: []
+          userPage: ''
         }
       }
     }
   },
   methods: {
     onSuccess(data) {
-      const { title, copyright } = this.form.model
+      const { title, copyright, userPage } = this.form.model
       this.setUIConfig({
         system: {
           title,
           logo: data.url,
-          copyright
+          copyright,
+          userPage
         }
       })
     }

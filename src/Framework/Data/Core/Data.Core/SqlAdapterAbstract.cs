@@ -148,5 +148,7 @@ namespace NetModular.Lib.Data.Core
         public abstract Guid GenerateSequentialGuid();
 
         public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists);
+       
+        public abstract string GetColumnTypeName(IColumnDescriptor column, out string defaultValue);
     }
 }

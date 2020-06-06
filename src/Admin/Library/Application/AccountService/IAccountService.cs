@@ -72,17 +72,9 @@ namespace NetModular.Module.Admin.Application.AccountService
         Task<IResultModel> ResetPassword(Guid id);
 
         /// <summary>
-        /// 查询指定账户和平台的权限编码列表
+        /// 清除指定账户的权限列表缓存数据
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="platform"></param>
-        /// <returns></returns>
-        Task<IList<string>> QueryPermissionList(Guid id, Platform platform);
-
-        /// <summary>
-        /// 清除指定账户的缓存数据
-        /// </summary>
-        void ClearPermissionListCache(Guid id);
+        Task ClearPermissionListCache(Guid id);
 
         /// <summary>
         /// 皮肤修改

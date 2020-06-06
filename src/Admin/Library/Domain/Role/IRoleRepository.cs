@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
+using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.Role.Models;
 
 namespace NetModular.Module.Admin.Domain.Role
@@ -19,6 +20,11 @@ namespace NetModular.Module.Admin.Domain.Role
         /// <returns></returns>
         Task<bool> Exists(string name, Guid? id = null);
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         Task<IList<RoleEntity>> Query(RoleQueryModel model);
     }
 }

@@ -6,9 +6,13 @@ const isDev = process.env.NODE_ENV === 'development'
 // 打包输出路径
 const outputDir = '../../WebHost/wwwroot/app'
 
-// 增加环境变量
+// 环境变量
+/**版权信息 */
 process.env.VUE_APP_COPYRIGHT = '版权所有：尼古拉斯·老李 | 用代码改变世界'
+/**版本号 */
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
+/**第三方依赖组件，写法示例：<script src="."></script> */
+process.env.VUE_APP_CUSTOM_SCRIPTS = ''
 
 module.exports = {
   outputDir: outputDir,

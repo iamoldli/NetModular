@@ -4,15 +4,7 @@ export default name => {
   const root = `${module.code}/${name}/`
   const crud = $http.crud(root)
   const urls = {
-    select: root + 'select',
-    sync: root + 'Sync'
-  }
-
-  /**
-   * @description 更新模块配置信息
-   */
-  const sync = () => {
-    return $http.post(urls.sync)
+    select: root + 'select'
   }
 
   /**
@@ -22,5 +14,5 @@ export default name => {
     return $http.get(urls.select)
   }
 
-  return { ...crud, select, sync }
+  return { ...crud, select }
 }

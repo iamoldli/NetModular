@@ -37,7 +37,8 @@ export default {
         icon: 'add',
         width: '60%',
         class: 'nm-admin-menu-add',
-        loading: false
+        loading: false,
+        draggable: true
       },
       on: {
         success: this.onSuccess,

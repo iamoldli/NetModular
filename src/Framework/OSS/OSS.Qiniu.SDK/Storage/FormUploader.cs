@@ -74,7 +74,7 @@ namespace Qiniu.Storage
         /// <param name="stream">(确定长度的)数据流</param>
         /// <param name="key">要保存的key</param>
         /// <param name="token">上传凭证</param>
-        /// <param name="extra">上传可选设置</param>
+        /// <param name="putExtra">上传可选设置</param>
         /// <returns>上传数据流后的返回结果</returns>
         public HttpResult UploadStream(Stream stream, string key, string token, PutExtra putExtra)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Attributes;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -12,6 +13,16 @@ namespace NetModular.Lib.Data.Core.Entities
         /// 列名
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// 列类型名称
+        /// </summary>
+        public string TypeName { get; set; }
+
+        /// <summary>
+        /// 默认值
+        /// </summary>
+        public string DefaultValue { get; set; }
 
         /// <summary>
         /// 属性信息
@@ -33,13 +44,22 @@ namespace NetModular.Lib.Data.Core.Entities
 
         public int PrecisionD { get; }
 
-        public ColumnDescriptor(PropertyInfo property)
+        public ColumnDescriptor(PropertyInfo property, ISqlAdapter sqlAdapter)
         {
             if (property == null)
                 return;
 
             var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
-            Name = columnAttribute != null ? columnAttribute.Name : property.Name;
+            if (columnAttribute != null)
+            {
+                Name = columnAttribute.Name;
+                TypeName = columnAttribute.TypeName;
+                DefaultValue = columnAttribute.DefaultValue;
+            }
+
+            if (Name.IsNull())
+                Name = property.Name;
+
             PropertyInfo = property;
 
             IsPrimaryKey = Attribute.GetCustomAttributes(property).Any(attr => attr.GetType() == typeof(KeyAttribute));
@@ -74,6 +94,13 @@ namespace NetModular.Lib.Data.Core.Entities
                 PrecisionM = precisionAtt.M;
                 PrecisionD = precisionAtt.D;
             }
+
+            //解析列类型名称和默认值
+            var typeName = sqlAdapter.GetColumnTypeName(this, out string defaultValue);
+            if (TypeName.IsNull())
+                TypeName = typeName;
+            if (DefaultValue.IsNull())
+                DefaultValue = defaultValue;
         }
     }
 }

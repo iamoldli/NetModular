@@ -2,7 +2,6 @@
 using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Module.Admin.Application.RoleService.ViewModels;
 using NetModular.Module.Admin.Domain.Role;
-using NetModular.Module.Admin.Domain.RoleMenuButton;
 
 namespace NetModular.Module.Admin.Application.RoleService
 {
@@ -12,7 +11,6 @@ namespace NetModular.Module.Admin.Application.RoleService
         {
             cfg.CreateMap<RoleAddModel, RoleEntity>();
             cfg.AddMap<RoleEntity, RoleUpdateModel>();
-            cfg.CreateMap<RoleMenuButtonBindModel, RoleMenuButtonEntity>();
         }
     }
 }

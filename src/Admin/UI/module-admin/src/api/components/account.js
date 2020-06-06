@@ -41,9 +41,11 @@ export default name => {
     return $http.post(urls.skinUpdate, params)
   }
 
+  //激活
   const active = id => {
     return $http.post(urls.active + '?id=' + id)
   }
+
   // 接口集合
   return {
     ...crud,

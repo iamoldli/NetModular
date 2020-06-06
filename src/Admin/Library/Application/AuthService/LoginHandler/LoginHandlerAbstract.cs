@@ -111,11 +111,11 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
                 //判断是否开启验证码功能，删除验证码缓存
                 if (config.VerifyCode)
                 {
-                    await _cacheHandler.RemoveAsync($"{CacheKeys.AUTH_VERIFY_CODE}:{model.VerifyCode.Id}");
+                    await _cacheHandler.RemoveAsync(CacheKeys.AUTH_VERIFY_CODE + model.VerifyCode.Id);
                 }
 
                 //清除账户的认证信息缓存
-                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}:{account.Id}:{model.Platform.ToInt()}");
+                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}{account.Id}:{model.Platform.ToInt()}");
 
                 return new LoginResultModel
                 {

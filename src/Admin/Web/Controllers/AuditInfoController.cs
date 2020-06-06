@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetModular.Lib.Auth.Web.Attributes;
-using NetModular.Lib.Module.AspNetCore.Attributes;
 using NetModular.Module.Admin.Application.AuditInfoService;
 using NetModular.Module.Admin.Domain.AuditInfo.Models;
 

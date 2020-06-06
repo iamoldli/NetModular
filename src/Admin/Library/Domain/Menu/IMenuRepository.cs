@@ -31,13 +31,6 @@ namespace NetModular.Module.Admin.Domain.Menu
         Task<bool> ExistsChild(Guid id);
 
         /// <summary>
-        /// 根据模块编码判断是否有菜单
-        /// </summary>
-        /// <param name="moduleCode"></param>
-        /// <returns></returns>
-        Task<bool> ExistsWidthModule(string moduleCode);
-
-        /// <summary>
         /// 查询单个菜单信息
         /// </summary>
         /// <param name="id"></param>
@@ -49,6 +42,13 @@ namespace NetModular.Module.Admin.Domain.Menu
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        Task<IList<MenuEntity>> GetByAccount(Guid accountId);
+        Task<IList<MenuEntity>> QueryByAccount(Guid accountId);
+
+        /// <summary>
+        /// 获取指定角色的菜单列表
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<IList<MenuEntity>> QueryByRole(Guid roleId);
     }
 }

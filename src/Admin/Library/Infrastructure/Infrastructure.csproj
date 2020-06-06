@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Cache\Cache.Abstractions\Cache.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Config\Config.Abstractions\Config.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Module\Module.Abstractions\Module.Abstractions.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />

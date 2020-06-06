@@ -53,12 +53,6 @@ namespace NetModular.Module.Admin.Domain.AccountRole
         Task<IList<AccountRoleEntity>> QueryByMenu(Guid menuId);
 
         /// <summary>
-        /// 查询指定按钮的关联列表
-        /// </summary>
-        /// <returns></returns>
-        Task<IList<AccountRoleEntity>> QueryByButton(Guid buttonId);
-
-        /// <summary>
         /// 判断指定的角色是否有绑定关系
         /// </summary>
         /// <param name="roleId"></param>
