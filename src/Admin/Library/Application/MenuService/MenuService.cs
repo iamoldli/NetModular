@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Config.Abstractions.Impl;
 using NetModular.Lib.Utils.Core.Models;
@@ -14,6 +15,7 @@ using NetModular.Module.Admin.Domain.AccountRole;
 using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Domain.Menu.Models;
 using NetModular.Module.Admin.Domain.RoleMenu;
+using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.MenuService
@@ -27,8 +29,9 @@ namespace NetModular.Module.Admin.Application.MenuService
         private readonly IAccountService _accountService;
         private readonly AdminDbContext _dbContext;
         private readonly IConfigProvider _configProvider;
+        private readonly ICacheHandler _cacheHandler;
 
-        public MenuService(IMenuRepository menuRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, AdminDbContext dbContext, IConfigProvider configProvider)
+        public MenuService(IMenuRepository menuRepository, IMapper mapper, IRoleMenuRepository roleMenuRepository, IAccountRoleRepository accountRoleRepository, IAccountService accountService, AdminDbContext dbContext, IConfigProvider configProvider, ICacheHandler cacheHandler)
         {
             _menuRepository = menuRepository;
             _mapper = mapper;
@@ -37,6 +40,7 @@ namespace NetModular.Module.Admin.Application.MenuService
             _accountService = accountService;
             _dbContext = dbContext;
             _configProvider = configProvider;
+            _cacheHandler = cacheHandler;
         }
 
         public async Task<IResultModel> GetTree()
@@ -116,7 +120,7 @@ namespace NetModular.Module.Admin.Application.MenuService
             if (await _roleMenuRepository.ExistsWidthMenu(entity.Id))
                 return ResultModel.Failed($"有角色绑定了当前菜单({entity.Name})，请先删除关联信息");
 
-            if (await _menuRepository.DeleteAsync(id) )
+            if (await _menuRepository.DeleteAsync(id))
             {
                 return ResultModel.Success();
             }
@@ -198,6 +202,9 @@ namespace NetModular.Module.Admin.Application.MenuService
                         return ResultModel.Failed();
                     }
                 }
+
+                //清除账户菜单缓存
+                await _cacheHandler.RemoveByPrefixAsync(CacheKeys.ACCOUNT_MENUS);
 
                 uow.Commit();
             }
