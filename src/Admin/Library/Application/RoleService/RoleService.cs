@@ -228,7 +228,7 @@ namespace NetModular.Module.Admin.Application.RoleService
                 return ResultModel.NotExists;
 
             var menus = await _menuRepository.QueryByRole(id);
-            var list = menus.Select(m => m.Id).ToList();
+            var list = menus.Where(m => m.Type != MenuType.Node).Select(m => m.Id).ToList();
 
             return ResultModel.Success(list);
         }
