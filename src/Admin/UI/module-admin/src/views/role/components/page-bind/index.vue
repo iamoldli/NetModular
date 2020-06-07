@@ -9,6 +9,14 @@
     >
     </el-alert>
 
+    <nm-box class="nm-m-b-5" no-padding>
+      <el-form label-width="100px">
+        <el-form-item class="nm-m-b-0" label="快捷操作：">
+          <el-checkbox label="全选" @change="onCheckAllChange"></el-checkbox>
+        </el-form-item>
+      </el-form>
+    </nm-box>
+
     <el-tree ref="tree" class="nm-admin-role-menus-tree" v-bind="tree" @check="onTreeCheck">
       <div class="nm-admin-role-menus-tree-node" slot-scope="{ data }">
         <span class="nm-admin-role-menus-tree-node-label">{{ data.label }}</span>
@@ -116,11 +124,13 @@ export default {
               permissions: m.permissions
             }
 
-            if (page.buttons.length > 0) {
+            if (page.buttons && page.buttons.length > 0) {
               buttons.forEach(x => {
-                x.permissions.forEach(y => {
-                  page.permissions.push(y)
-                })
+                if (x.permissions && x.permissions.length > 0) {
+                  x.permissions.forEach(y => {
+                    page.permissions.push(y)
+                  })
+                }
               })
             }
 
@@ -157,6 +167,32 @@ export default {
           }
         }
       })
+      this.$nextTick(() => {
+        this.$refs.tree.setCheckedKeys(checkedKeys)
+      })
+    },
+    onCheckAllChange(checked) {
+      let checkedKeys = []
+      if (checked) {
+        this.pages.forEach(m => {
+          m.checked = true
+          checkedKeys.push(m.code)
+          if (m.buttons && m.buttons.length > 0) {
+            m.buttons.forEach(x => {
+              x.checked = true
+            })
+          }
+        })
+      } else {
+        this.pages.forEach(m => {
+          m.checked = false
+          if (m.buttons && m.buttons.length > 0) {
+            m.buttons.forEach(x => {
+              x.checked = false
+            })
+          }
+        })
+      }
       this.$nextTick(() => {
         this.$refs.tree.setCheckedKeys(checkedKeys)
       })

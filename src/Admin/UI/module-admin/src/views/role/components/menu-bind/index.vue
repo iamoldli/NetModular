@@ -3,7 +3,7 @@
     <el-alert title="提示" type="warning" class="nm-m-b-10" description="路由菜单基于页面配置，同一个页面可以配置任意个菜单" show-icon> </el-alert>
     <el-tree ref="tree" class="nm-admin-role-menus-tree" v-bind="menuTree">
       <div class="nm-admin-role-menus-tree-node" slot-scope="{ data }">
-        <span class="nm-admin-role-menus-tree-node-label">{{ data.label }}</span>
+        <span class="nm-admin-role-menus-tree-node-label"><nm-icon :name="data.item.icon || 'attachment'" /> {{ data.label }}</span>
       </div>
     </el-tree>
 

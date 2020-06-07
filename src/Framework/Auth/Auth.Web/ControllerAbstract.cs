@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using NetModular.Lib.Auth.Web.Attributes;
 using NetModular.Lib.Validation.Abstractions;
@@ -28,7 +27,7 @@ namespace NetModular.Lib.Auth.Web
             {
                 fileName = DateTime.Now.ToString("yyyyMMddHHmmss");
             }
-            return PhysicalFile(filePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", HttpUtility.UrlEncode(fileName), true);
+            return PhysicalFile(filePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName, true);
         }
     }
 }

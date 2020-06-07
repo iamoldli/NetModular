@@ -98,6 +98,8 @@ namespace NetModular.Lib.Auth.Web
             };
             _tree.Path.Add(_tree.Label);
 
+            var controllers = _mvcHelper.GetAllController();
+
             //模块
             foreach (var module in _moduleCollection)
             {
@@ -115,26 +117,26 @@ namespace NetModular.Lib.Auth.Web
                 moduleNode.Path.AddRange(_tree.Path);
                 moduleNode.Path.Add(module.Name);
 
-                var controllers = Query(module.Code).DistinctBy(m => m.Controller);
                 //控制器
-                foreach (var controller in controllers)
+                foreach (var controller in controllers.Where(m => m.Area.EqualsIgnoreCase(module.Code)))
                 {
-                    var controllerName = controller.Name.Split('_')[0];
+                    var controllerName = controller.Description ?? controller.Name;
                     var controllerNode = new TreeResultModel<string, PermissionTreeModel>
                     {
-                        Id = $"{module.Code}_{controller.Controller}",
+                        Id = $"{module.Code}_{controller.Name}".ToLower(),
                         Label = controllerName,
                         Item = new PermissionTreeModel
                         {
-                            Label = controllerName,
-                            Code = controller.Controller
+                            Label = controllerName
                         }
                     };
+
+                    controllerNode.Item.Code = controllerNode.Id;
 
                     controllerNode.Path.AddRange(moduleNode.Path);
                     controllerNode.Path.Add(controllerName);
 
-                    var permissions = Query(module.Code, controller.Controller);
+                    var permissions = Query(module.Code, controller.Name);
                     //权限
                     foreach (var permission in permissions)
                     {
