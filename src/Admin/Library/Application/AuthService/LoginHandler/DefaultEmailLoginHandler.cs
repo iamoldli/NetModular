@@ -15,19 +15,15 @@ using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
 {
     /// <summary>
-    /// 用户名或邮箱登录
+    /// 邮箱登录处理器
     /// </summary>
     [Singleton]
-    public class UserNameOrEmailLoginHandler : LoginHandlerAbstract
+    public class DefaultEmailLoginHandler : LoginHandlerAbstract, IEmailLoginHandler
     {
         private readonly IPasswordHandler _passwordHandler;
         private readonly IAccountRepository _repository;
 
-        public UserNameOrEmailLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider,
-            IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository,
-            IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler,
-            ILogger<UserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository,
-            cacheHandler, logHandler, logger)
+        public DefaultEmailLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<DefaultUserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
         {
             _repository = repository;
             _passwordHandler = passwordHandler;
@@ -38,14 +34,14 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ResultModel<LoginResultModel>> Handle(UserNameOrEmailLoginModel model)
+        public async Task<ResultModel<LoginResultModel>> Handle(EmailLoginModel model)
         {
             var log = CreateLog(model);
             if (log == null)
                 return await Handle(model, null);
 
-            log.LoginMode = Domain.LoginLog.LoginMode.UserNameOrEmail;
-            log.UserName = model.UserNameOrEmail;
+            log.LoginMode = Domain.LoginLog.LoginMode.Email;
+            log.Email = model.Email;
 
             var result = await Handle(model, log);
             await SaveLog(log, result);
@@ -56,12 +52,12 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// <summary>
         /// 登录处理
         /// </summary>
-        private async Task<ResultModel<LoginResultModel>> Handle(UserNameOrEmailLoginModel model, LoginLogEntity log)
+        private async Task<ResultModel<LoginResultModel>> Handle(EmailLoginModel model, LoginLogEntity log)
         {
             var result = new ResultModel<LoginResultModel>();
             var config = _configProvider.Get<AuthConfig>();
-            if (!config.LoginMode.UserNameOrEmail)
-                return result.Failed("不允许使用用户名或邮箱的登录方式");
+            if (!config.LoginMode.Email)
+                return result.Failed("不允许使用邮箱的登录方式");
 
             //检测验证码
             var verifyCodeCheckResult = _verifyCodeProvider.Check(model);
@@ -69,11 +65,12 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
                 return result.Failed(verifyCodeCheckResult.Msg);
 
             //查询账户
-            var account = await _repository.GetByUserNameOrEmail(model.UserNameOrEmail, model.AccountType);
+            var account = await _repository.GetByEmail(model.Email, model.AccountType);
             if (account == null)
                 return result.Failed("账户不存在");
 
-            log.AccountId = account.Id;
+            if (log != null)
+                log.AccountId = account.Id;
 
             //检测密码
             var password = _passwordHandler.Encrypt(account.UserName, model.Password);

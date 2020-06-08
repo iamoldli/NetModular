@@ -48,6 +48,13 @@ namespace NetModular.Module.Admin.Application.AuthService
         Task<ResultModel<LoginResultModel>> Login(PhoneLoginModel model);
 
         /// <summary>
+        /// 自定义登录
+        /// </summary>
+        /// <param name="model">登录模型</param>
+        /// <returns></returns>
+        Task<ResultModel<LoginResultModel>> Login(CustomLoginModel model);
+
+        /// <summary>
         /// 发送手机验证码
         /// </summary>
         /// <param name="model">验证码长度</param>
