@@ -152,7 +152,30 @@ namespace NetModular.Lib.Data.Core.Entities
 
                 foreach (var col in columns)
                 {
-                    sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+                    //针对PostgreSQL数据库的json和jsonb类型字段的处理
+                    if (_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL)
+                    {
+                        if (col.TypeName.EqualsIgnoreCase("jsonb"))
+                        {
+                            sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+                            sb.Append("::jsonb");
+                        }
+                        else if (col.TypeName.EqualsIgnoreCase("json"))
+                        {
+                            sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+                            sb.Append("::json");
+                        }
+                        else
+                        {
+                            sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+                    }
+
+                    
                     sb.Append(",");
                 }
 
