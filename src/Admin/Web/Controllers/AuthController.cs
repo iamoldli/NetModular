@@ -13,7 +13,6 @@ using NetModular.Lib.Utils.Mvc.Helpers;
 using NetModular.Module.Admin.Application.AuthService;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
 using NetModular.Module.Admin.Application.AuthService.ViewModels;
-using NetModular.Module.Admin.Web.Core;
 
 namespace NetModular.Module.Admin.Web.Controllers
 {
@@ -93,8 +92,21 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpPost("phone")]
         [AllowAnonymous]
         [DisableAuditing]
-        [Description("手机号登录登录")]
+        [Description("手机号登录")]
         public async Task<IResultModel> Login(PhoneLoginModel model)
+        {
+            model.IP = _ipHelper.IP;
+            model.UserAgent = _ipHelper.UserAgent;
+
+            var result = await _service.Login(model);
+            return LoginHandle(result);
+        }
+
+        [HttpPost("custom")]
+        [AllowAnonymous]
+        [DisableAuditing]
+        [Description("自定义登录")]
+        public async Task<IResultModel> Custom(CustomLoginModel model)
         {
             model.IP = _ipHelper.IP;
             model.UserAgent = _ipHelper.UserAgent;

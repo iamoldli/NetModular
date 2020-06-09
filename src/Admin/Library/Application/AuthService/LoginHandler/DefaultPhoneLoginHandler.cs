@@ -10,23 +10,22 @@ using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.LoginLog;
-using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 
 namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
 {
     /// <summary>
-    /// 邮箱登录处理器
+    /// 手机号登录处理器
     /// </summary>
-    [Singleton()]
-    public class EmailLoginHandler : LoginHandlerAbstract
+    [Singleton]
+    public class DefaultPhoneLoginHandler : LoginHandlerAbstract, IPhoneLoginHandler
     {
-        private readonly IPasswordHandler _passwordHandler;
         private readonly IAccountRepository _repository;
+        private readonly IPhoneVerifyCodeProvider _phoneVerifyCodeProvider;
 
-        public EmailLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<UserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
+        public DefaultPhoneLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<DefaultUserNameLoginHandler> logger, IPhoneVerifyCodeProvider phoneVerifyCodeProvider) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
         {
             _repository = repository;
-            _passwordHandler = passwordHandler;
+            _phoneVerifyCodeProvider = phoneVerifyCodeProvider;
         }
 
         /// <summary>
@@ -34,14 +33,14 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ResultModel<LoginResultModel>> Handle(EmailLoginModel model)
+        public async Task<ResultModel<LoginResultModel>> Handle(PhoneLoginModel model)
         {
             var log = CreateLog(model);
             if (log == null)
                 return await Handle(model, null);
 
-            log.LoginMode = Domain.LoginLog.LoginMode.Email;
-            log.Email = model.Email;
+            log.LoginMode = Domain.LoginLog.LoginMode.Phone;
+            log.Phone = model.Phone;
 
             var result = await Handle(model, log);
             await SaveLog(log, result);
@@ -52,30 +51,30 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         /// <summary>
         /// 登录处理
         /// </summary>
-        private async Task<ResultModel<LoginResultModel>> Handle(EmailLoginModel model, LoginLogEntity log)
+        private async Task<ResultModel<LoginResultModel>> Handle(PhoneLoginModel model, LoginLogEntity log)
         {
             var result = new ResultModel<LoginResultModel>();
             var config = _configProvider.Get<AuthConfig>();
-            if (!config.LoginMode.Email)
-                return result.Failed("不允许使用邮箱的登录方式");
+            if (!config.LoginMode.Phone)
+                return result.Failed("不允许使用手机号登录的方式");
 
-            //检测验证码
+            //检测图片验证码
             var verifyCodeCheckResult = _verifyCodeProvider.Check(model);
             if (!verifyCodeCheckResult.Successful)
                 return result.Failed(verifyCodeCheckResult.Msg);
 
+            //检测手机验证码
+            var verifyResult = await _phoneVerifyCodeProvider.Verify(model.Phone, model.Code, model.AreaCode);
+            if (!verifyResult.Successful)
+                return result.Failed(verifyResult.Msg);
+
             //查询账户
-            var account = await _repository.GetByEmail(model.Email, model.AccountType);
+            var account = await _repository.GetByPhone(model.Phone, model.AccountType);
             if (account == null)
                 return result.Failed("账户不存在");
 
             if (log != null)
                 log.AccountId = account.Id;
-
-            //检测密码
-            var password = _passwordHandler.Encrypt(account.UserName, model.Password);
-            if (!account.Password.Equals(password))
-                return result.Failed("密码错误");
 
             //检测账户
             var accountCheckResult = account.Check();

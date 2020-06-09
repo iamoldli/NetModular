@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Cache.Abstractions;
@@ -14,7 +12,6 @@ using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.AccountConfig;
-using NetModular.Module.Admin.Domain.Menu;
 using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.AccountPermissionResolver;
 
@@ -26,37 +23,35 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly IAccountRepository _accountRepository;
         private readonly IAccountAuthInfoRepository _authInfoRepository;
         private readonly IAccountConfigRepository _configRepository;
-        private readonly IMenuRepository _menuRepository;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IMapper _mapper;
         private readonly ILoginInfo _loginInfo;
         private readonly IConfigProvider _configProvider;
         private readonly IVerifyCodeProvider _verifyCodeProvider;
-        private readonly UserNameLoginHandler _userNameLoginHandler;
-        private readonly EmailLoginHandler _emailLoginHandler;
-        private readonly UserNameOrEmailLoginHandler _userNameOrEmailLoginHandler;
-        private readonly PhoneLoginHandler _phoneLoginHandler;
+        private readonly IUserNameLoginHandler _userNameLoginHandler;
+        private readonly IEmailLoginHandler _emailLoginHandler;
+        private readonly IUserNameOrEmailLoginHandler _userNameOrEmailLoginHandler;
+        private readonly IPhoneLoginHandler _phoneLoginHandler;
+        private readonly ICustomLoginHandler _customLoginHandler;
         private readonly IPhoneVerifyCodeProvider _phoneVerifyCodeProvider;
         private readonly IAccountPermissionResolver _permissionResolver;
 
-        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, IMenuRepository menuRepository, IMapper mapper, ILoginInfo loginInfo, IVerifyCodeProvider verifyCodeProvider, UserNameLoginHandler userNameLoginHandler, EmailLoginHandler emailLoginHandler, UserNameOrEmailLoginHandler userNameOrEmailLoginHandler, PhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IConfigProvider configProvider, IAccountPermissionResolver permissionResolver)
+        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, ILoginInfo loginInfo, IConfigProvider configProvider, IVerifyCodeProvider verifyCodeProvider, IUserNameLoginHandler userNameLoginHandler, IEmailLoginHandler emailLoginHandler, IUserNameOrEmailLoginHandler userNameOrEmailLoginHandler, IPhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IAccountPermissionResolver permissionResolver, ICustomLoginHandler customLoginHandler)
         {
             _cacheHandler = cacheHandler;
             _accountRepository = accountRepository;
             _authInfoRepository = authInfoRepository;
             _configRepository = configRepository;
             _serviceProvider = serviceProvider;
-            _menuRepository = menuRepository;
-            _mapper = mapper;
             _loginInfo = loginInfo;
+            _configProvider = configProvider;
             _verifyCodeProvider = verifyCodeProvider;
             _userNameLoginHandler = userNameLoginHandler;
             _emailLoginHandler = emailLoginHandler;
             _userNameOrEmailLoginHandler = userNameOrEmailLoginHandler;
             _phoneLoginHandler = phoneLoginHandler;
             _phoneVerifyCodeProvider = phoneVerifyCodeProvider;
-            _configProvider = configProvider;
             _permissionResolver = permissionResolver;
+            _customLoginHandler = customLoginHandler;
         }
 
         /// <summary>
@@ -102,6 +97,11 @@ namespace NetModular.Module.Admin.Application.AuthService
         public Task<ResultModel<LoginResultModel>> Login(PhoneLoginModel model)
         {
             return _phoneLoginHandler.Handle(model);
+        }
+
+        public Task<ResultModel<LoginResultModel>> Login(CustomLoginModel model)
+        {
+            return _customLoginHandler.Handle(model);
         }
 
         public async Task<IResultModel> SendPhoneVerifyCode(PhoneVerifyCodeSendModel model)

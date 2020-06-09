@@ -18,12 +18,12 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
     /// 用户名登录
     /// </summary>
     [Singleton]
-    public class UserNameLoginHandler : LoginHandlerAbstract
+    public class DefaultUserNameLoginHandler : LoginHandlerAbstract, IUserNameLoginHandler
     {
         private readonly IPasswordHandler _passwordHandler;
         private readonly IAccountRepository _repository;
 
-        public UserNameLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<UserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
+        public DefaultUserNameLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<DefaultUserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
         {
             _repository = repository;
             _passwordHandler = passwordHandler;

@@ -1,32 +1,23 @@
 <template>
-  <nm-box page :header="false" footer :loading="loading" no-scrollbar>
-    <nm-flex style="position: absolute;height:100%" fix-mode="top" fix="60px">
-      <template v-slot:top>
-        <el-form label-width="100px">
-          <el-form-item style="width:500px;margin:15px 0;" label="选择平台：">
-            <nm-platform-select v-model="platform" no-web @change="queryBindPlatformPermissions" />
-          </el-form-item>
-        </el-form>
-      </template>
-      <template v-slot:bottom>
-        <nm-scrollbar>
-          <div class="nm-p-l-15 nm-p-r-15 nm-p-b-15">
-            <el-tree ref="tree" v-bind="tree">
-              <span slot-scope="{ data }">
-                <nm-icon name="attachment" />
-                <span class="nm-m-l-5"
-                  >{{ data.label
-                  }}<label v-if="data.item.isPermission" class="nm-p-l-5 nm-text-info nm-size-14" style="font-style: italic;"
-                    >(<label>{{ data.item.code }}</label
-                    >)</label
-                  ></span
-                >
-              </span>
-            </el-tree>
-          </div>
-        </nm-scrollbar>
-      </template>
-    </nm-flex>
+  <nm-box page :header="false" footer :loading="loading">
+    <el-alert title="提示" type="warning" class="nm-m-10" description="平台授权是给Web平台以外的平台绑定权限使用的，比如安卓、IOS、小程序等等" show-icon> </el-alert>
+    <el-form label-width="100px">
+      <el-form-item style="width:500px;margin:15px 0;" label="选择平台：">
+        <nm-platform-select v-model="platform" no-web @change="queryBindPlatformPermissions" :clearable="false" />
+      </el-form-item>
+    </el-form>
+    <el-tree ref="tree" v-bind="tree">
+      <span slot-scope="{ data }">
+        <nm-icon name="attachment" />
+        <span class="nm-m-l-5"
+          >{{ data.label
+          }}<label v-if="data.item.isPermission" class="nm-p-l-5 nm-text-info nm-size-14" style="font-style: italic;"
+            >(<label>{{ data.item.code }}</label
+            >)</label
+          ></span
+        >
+      </span>
+    </el-tree>
     <template v-slot:footer>
       <nm-button type="success" text="保存" @click="save" />
       <nm-button type="info" text="重置" @click="reset" />

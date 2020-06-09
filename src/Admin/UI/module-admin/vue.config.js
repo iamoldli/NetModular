@@ -11,7 +11,7 @@ const outputDir = '../../WebHost/wwwroot/app'
 process.env.VUE_APP_COPYRIGHT = '版权所有：尼古拉斯·老李 | 用代码改变世界'
 /**版本号 */
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYYMDHHmmss')
-/**第三方依赖组件，写法示例：<script src="."></script> */
+/**第三方依赖组件，写法示例：<script src="./lib/font.js"></script> */
 process.env.VUE_APP_CUSTOM_SCRIPTS = ''
 
 module.exports = {
