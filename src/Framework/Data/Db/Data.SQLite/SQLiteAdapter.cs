@@ -113,7 +113,7 @@ namespace NetModular.Lib.Data.SQLite
                     var obj = cmd.ExecuteScalar();
                     if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.CommandText = GetCreateTableSql(entityDescriptor);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -168,11 +168,11 @@ namespace NetModular.Lib.Data.SQLite
             }
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        public override string GetCreateTableSql(IEntityDescriptor entityDescriptor, string tableName = null)
         {
             var columns = entityDescriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE {0}(", AppendQuote(entityDescriptor.TableName));
+            sql.AppendFormat("CREATE TABLE {0}(", AppendQuote(tableName ?? entityDescriptor.TableName));
 
             for (int i = 0; i < columns.Count; i++)
             {

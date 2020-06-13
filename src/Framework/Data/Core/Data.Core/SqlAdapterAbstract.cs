@@ -150,5 +150,7 @@ namespace NetModular.Lib.Data.Core
         public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists);
        
         public abstract string GetColumnTypeName(IColumnDescriptor column, out string defaultValue);
+        
+        public abstract string GetCreateTableSql(IEntityDescriptor entityDescriptor, string tableName = null);
     }
 }

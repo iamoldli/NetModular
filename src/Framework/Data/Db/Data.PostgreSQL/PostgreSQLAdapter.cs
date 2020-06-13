@@ -110,7 +110,7 @@ namespace NetModular.Lib.Data.PostgreSQL
             {
                 if (!entityDescriptor.Ignore)
                 {
-                    con.Execute(CreateTableSql(entityDescriptor));
+                    con.Execute(GetCreateTableSql(entityDescriptor));
                 }
             }
 
@@ -227,11 +227,11 @@ namespace NetModular.Lib.Data.PostgreSQL
             return string.Empty;
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        public override string GetCreateTableSql(IEntityDescriptor entityDescriptor, string tableName = null)
         {
             var columns = entityDescriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(entityDescriptor.TableName.ToLower()));
+            sql.AppendFormat("CREATE TABLE IF NOT EXISTS {0}.{1}(", AppendQuote(Options.Database), AppendQuote(tableName ?? entityDescriptor.TableName.ToLower()));
 
             for (int i = 0; i < columns.Count; i++)
             {

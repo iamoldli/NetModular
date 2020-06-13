@@ -142,7 +142,7 @@ namespace NetModular.Lib.Data.SqlServer
                     var obj = cmd.ExecuteScalar();
                     if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = CreateTableSql(entityDescriptor);
+                        cmd.CommandText = GetCreateTableSql(entityDescriptor);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -266,11 +266,11 @@ namespace NetModular.Lib.Data.SqlServer
             return string.Empty;
         }
 
-        private string CreateTableSql(IEntityDescriptor entityDescriptor)
+        public override string GetCreateTableSql(IEntityDescriptor entityDescriptor, string tableName = null)
         {
             var columns = entityDescriptor.Columns;
             var sql = new StringBuilder();
-            sql.AppendFormat("CREATE TABLE [{0}](", entityDescriptor.TableName);
+            sql.AppendFormat("CREATE TABLE [{0}](", tableName ?? entityDescriptor.TableName);
 
             for (int i = 0; i < columns.Count; i++)
             {

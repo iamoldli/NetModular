@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Dapper;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -274,6 +275,15 @@ namespace NetModular.Lib.Data.Core
         public Task<bool> ClearAsync(IUnitOfWork uow = null)
         {
             return Db.ClearAsync(uow);
+        }
+
+        #endregion
+
+        #region ==表操作==
+
+        public Task CreateTable(string tableName = null)
+        {
+            return Db.ExecuteAsync(DbContext.Options.SqlAdapter.GetCreateTableSql(Db.EntityDescriptor, tableName));
         }
 
         #endregion

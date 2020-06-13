@@ -325,5 +325,16 @@ namespace NetModular.Lib.Data.Abstractions
         Task<bool> ClearAsync(IUnitOfWork uow = null);
 
         #endregion
+
+        #region ==表操作==
+
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="tableName">指定表名称</param>
+        /// <returns></returns>
+        Task CreateTable(string tableName = null);
+
+        #endregion
     }
 }
