@@ -58,12 +58,16 @@ namespace NetModular.Lib.Config.Redis
             if (descriptor == null)
                 throw new NotImplementedException("没有找到配置类型");
 
-            var key = _redisHelper.GetKey($"{CACHE_KEY}:{descriptor.Type.ToString().ToUpper()}:{descriptor.Code.ToUpper()}");
-            var config = JsonConvert.DeserializeObject(json, descriptor.ImplementType);
+            //持久化
+            if (_storageProvider.SaveJson(type, code, json).GetAwaiter().GetResult())
+            {
+                var key = _redisHelper.GetKey($"{CACHE_KEY}:{descriptor.Type.ToString().ToUpper()}:{descriptor.Code.ToUpper()}");
+                var config = JsonConvert.DeserializeObject(json, descriptor.ImplementType);
+                _redisHelper.Db.StringSetAsync(key, _redisSerializer.Serialize(config)).GetAwaiter().GetResult();
+                return true;
+            }
 
-            _redisHelper.Db.StringSetAsync(key, _redisSerializer.Serialize(config)).GetAwaiter().GetResult();
-
-            return true;
+            return false;
         }
 
         private IConfig Get(ConfigDescriptor descriptor)
