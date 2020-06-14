@@ -500,10 +500,10 @@ namespace NetModular.Lib.Data.Core
         {
             var dynParams = GetParameters(id);
             string sql;
-            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.GetAndNoLock(tableName);
-            else if (rowLock)
+            if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
+            else if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.GetAndNoLock(tableName);
             else
                 sql = _sql.Get(tableName);
 
@@ -515,10 +515,10 @@ namespace NetModular.Lib.Data.Core
         {
             var dynParams = GetParameters(id);
             string sql;
-            if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
-                sql = _sql.GetAndNoLock(tableName);
-            else if (rowLock)
+            if (rowLock)
                 sql = _sql.GetAndRowLock(tableName);
+            else if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && noLock)
+                sql = _sql.GetAndNoLock(tableName);
             else
                 sql = _sql.Get(tableName);
 

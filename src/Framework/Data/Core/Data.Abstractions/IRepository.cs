@@ -223,8 +223,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="id"></param>
         /// <param name="uow">工作单元</param>
         /// <param name="rowLock">行锁</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false);
+        TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false, bool noLock = true);
 
         /// <summary>
         /// 根据主键查询
@@ -239,8 +240,9 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="id"></param>
         /// <param name="uow">工作单元</param>
         /// <param name="rowLock">行锁</param>
+        /// <param name="noLock">SqlServer的NOLOCK</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false);
+        Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false, bool noLock = true);
 
         #endregion
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Dapper;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 
@@ -184,9 +183,9 @@ namespace NetModular.Lib.Data.Core
             return Db.Get(id);
         }
 
-        public virtual TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false)
+        public virtual TEntity Get(dynamic id, IUnitOfWork uow, bool rowLock = false, bool noLock = true)
         {
-            return Db.Get(id, uow, null, rowLock);
+            return Db.Get(id, uow, null, rowLock, noLock);
         }
 
         public virtual Task<TEntity> GetAsync(dynamic id)
@@ -194,9 +193,9 @@ namespace NetModular.Lib.Data.Core
             return Db.GetAsync(id);
         }
 
-        public virtual Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false)
+        public virtual Task<TEntity> GetAsync(dynamic id, IUnitOfWork uow, bool rowLock = false, bool noLock = true)
         {
-            return Db.GetAsync(id, uow, null, rowLock);
+            return Db.GetAsync(id, uow, null, rowLock, noLock);
         }
 
         protected virtual TEntity Get(Expression<Func<TEntity, bool>> @where)

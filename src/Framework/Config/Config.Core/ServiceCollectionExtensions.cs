@@ -15,7 +15,8 @@ namespace NetModular.Lib.Config.Core
         {
             //配置核心服务
             services.AddConfigCore();
-
+            //添加内存配置存储实现
+            services.TryAddScoped<IConfigStorageProvider, MemoryConfigStorageProvider>();
             //配置实例提供器
             services.TryAddSingleton<IConfigProvider, ConfigProvider>();
 
