@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Cache.Redis\Cache.Redis.csproj" />
+    <ProjectReference Include="..\Config.Abstractions\Config.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

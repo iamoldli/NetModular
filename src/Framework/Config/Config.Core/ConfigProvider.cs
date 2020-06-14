@@ -11,7 +11,7 @@ namespace NetModular.Lib.Config.Core
         /// <summary>
         /// 含有了实例的配置描述符集合
         /// </summary>
-        private static readonly ConfigCollection ConfigWidthInstanceCollection = new ConfigCollection();
+        private static readonly IConfigCollection ConfigWidthInstanceCollection = new ConfigCollection();
 
         private readonly IConfigCollection _configs;
         private readonly IConfigStorageProvider _storageProvider;
@@ -35,10 +35,13 @@ namespace NetModular.Lib.Config.Core
                 if (json.IsNull())
                 {
                     descriptor.Instance = (IConfig)Activator.CreateInstance(implementType);
-                    var section = _cfg.GetSection(descriptor.Code);
-                    if (section != null)
+                    if (descriptor.Type == ConfigType.Library)
                     {
-                        section.Bind(descriptor.Instance);
+                        var section = _cfg.GetSection(descriptor.Code);
+                        if (section != null)
+                        {
+                            section.Bind(descriptor.Instance);
+                        }
                     }
                 }
                 else
@@ -57,10 +60,13 @@ namespace NetModular.Lib.Config.Core
                 if (json.IsNull())
                 {
                     descriptor.Instance = (IConfig)Activator.CreateInstance(descriptor.ImplementType);
-                    var section = _cfg.GetSection(descriptor.Code);
-                    if (section != null)
+                    if (descriptor.Type == ConfigType.Library)
                     {
-                        section.Bind(descriptor.Instance);
+                        var section = _cfg.GetSection(descriptor.Code);
+                        if (section != null)
+                        {
+                            section.Bind(descriptor.Instance);
+                        }
                     }
                 }
                 else
@@ -79,10 +85,13 @@ namespace NetModular.Lib.Config.Core
                 if (json.IsNull())
                 {
                     descriptor.Instance = new TConfig();
-                    var section = _cfg.GetSection(descriptor.Code);
-                    if (section != null)
+                    if (descriptor.Type == ConfigType.Library)
                     {
-                        section.Bind(descriptor.Instance);
+                        var section = _cfg.GetSection(descriptor.Code);
+                        if (section != null)
+                        {
+                            section.Bind(descriptor.Instance);
+                        }
                     }
                 }
                 else

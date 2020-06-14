@@ -18,14 +18,37 @@
 
     public class RedisConfig
     {
+        private int _defaultDb;
+
+        /// <summary>
+        /// 默认数据库
+        /// </summary>
+        public int DefaultDb
+        {
+            get => _defaultDb < 0 ? 0 : _defaultDb;
+            set => _defaultDb = value;
+        }
+
+        private string _prefix;
+
         /// <summary>
         /// 前缀，用于区分不用的项目
         /// </summary>
-        public string Prefix { get; set; }
+        public string Prefix
+        {
+            get => _prefix.NotNull() ? $"{_prefix}:" : string.Empty;
+            set => _prefix = value;
+        }
 
+        private string _connnectionString = "127.0.0.1";
         /// <summary>
         /// 连接字符串
         /// </summary>
-        public string ConnectionString { get; set; } = "127.0.0.1";
+        public string ConnectionString
+        {
+            get => _connnectionString.NotNull() ? _connnectionString : "127.0.0.1";
+            set => _connnectionString = value;
+        }
+
     }
 }

@@ -7,5 +7,6 @@ namespace NetModular.Lib.Config.Abstractions
     /// </summary>
     public interface IConfigCollection : IList<ConfigDescriptor>
     {
+
     }
 }

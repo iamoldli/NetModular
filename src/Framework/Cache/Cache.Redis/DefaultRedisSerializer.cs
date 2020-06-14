@@ -28,6 +28,16 @@ namespace NetModular.Lib.Cache.Redis
             return value.To<T>();
         }
 
+        public object Deserialize(RedisValue value, Type type)
+        {
+            if (Type.GetTypeCode(type) == TypeCode.Object)
+            {
+                return JsonConvert.DeserializeObject(value,type);
+            }
+
+            return value;
+        }
+
         /// <summary>
         /// 是否是基础类型
         /// </summary>

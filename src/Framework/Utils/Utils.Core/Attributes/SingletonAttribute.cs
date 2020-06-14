@@ -14,7 +14,7 @@ namespace NetModular.Lib.Utils.Core.Attributes
         public bool Itself { get; set; }
 
         /// <summary>
-        /// 是否使用自身的类型进行注入
+        /// 
         /// </summary>
         public SingletonAttribute()
         {

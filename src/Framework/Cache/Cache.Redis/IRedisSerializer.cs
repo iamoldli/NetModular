@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using System;
+using StackExchange.Redis;
 
 namespace NetModular.Lib.Cache.Redis
 {
@@ -22,5 +23,13 @@ namespace NetModular.Lib.Cache.Redis
         /// <param name="value"></param>
         /// <returns></returns>
         T Deserialize<T>(RedisValue value);
+
+        /// <summary>
+        /// 反序列化
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        object Deserialize(RedisValue value, Type type);
     }
 }
