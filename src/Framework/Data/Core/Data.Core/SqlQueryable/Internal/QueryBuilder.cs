@@ -499,6 +499,66 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 }
             }
 
+            if (_queryBody.FilterTenant)
+            {
+                var val = _dbContext.LoginInfo.TenantId;
+                var sb = new StringBuilder();
+
+                if (_queryBody.JoinDescriptors.Count == 1)
+                {
+                    //单表
+                    var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
+                    if (descriptor.IsTenant)
+                    {
+                        if (val == null)
+                        {
+                            sb.AppendFormat("AND {0} IS NULL ", _sqlAdapter.AppendQuote("TenantId"));
+                        }
+                        else
+                        {
+                            sb.AppendFormat("AND {0}='{1}' ", _sqlAdapter.AppendQuote("TenantId"), val);
+                        }
+                    }
+                }
+                else
+                {
+                    //多表
+                    var first = _queryBody.JoinDescriptors.First();
+                    if (first.EntityDescriptor.IsTenant)
+                    {
+                        if (val == null)
+                        {
+                            sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()));
+                        }
+                        else
+                        {
+                            sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
+                        }
+                    }
+
+                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
+                    {
+                        var descriptor = _queryBody.JoinDescriptors[i];
+                        if (descriptor.EntityDescriptor.IsTenant)
+                        {
+                            if (val == null)
+                            {
+                                sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()));
+                            }
+                            else
+                            {
+                                sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
+                            }
+                        }
+                    }
+                }
+
+                if (sb.Length > 0)
+                {
+                    whereSql.AppendFormat(" {0}", whereSql.Length > 0 ? sb : sb.Remove(0, 3));
+                }
+            }
+
             return whereSql.ToString();
         }
 

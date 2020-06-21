@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NetModular.Lib.Auth.Abstractions.Providers;
 using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Module.Admin.Application.AuthService.Interfaces;
 
 namespace NetModular.Module.Admin.Application.AuthService.Defaults
 {

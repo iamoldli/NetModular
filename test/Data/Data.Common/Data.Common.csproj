@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Framework\Auth\Auth.Abstractions\Auth.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\src\Framework\Data\Core\Data.Core\Data.Core.csproj" />
   </ItemGroup>
 

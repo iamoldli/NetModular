@@ -29,7 +29,7 @@ namespace Data.MySql.Tests
                 m.EntityTypes = typeof(BlogDbContext).Assembly.GetTypes().Where(t => t.IsClass && typeof(IEntity).IsImplementType(t)).ToList();
             });
 
-            var dbContextOptions = new MySqlDbContextOptions(dbOptions, dbOptions.Modules.First(), null, null);
+            var dbContextOptions = new MySqlDbContextOptions(dbOptions, dbOptions.Modules.First(), null, new LoginInfo());
 
             DbContext = new BlogDbContext(dbContextOptions);
 

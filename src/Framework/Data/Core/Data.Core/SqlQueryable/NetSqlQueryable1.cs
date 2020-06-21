@@ -519,6 +519,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity> NotFilterTenant()
+        {
+            QueryBody.FilterTenant = false;
+            return this;
+        }
+
         #endregion
 
         #region ==Copy==

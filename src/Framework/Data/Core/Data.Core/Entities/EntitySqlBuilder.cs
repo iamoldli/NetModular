@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
+using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core.Extensions;
 
 namespace NetModular.Lib.Data.Core.Entities
@@ -11,10 +12,12 @@ namespace NetModular.Lib.Data.Core.Entities
     {
         private readonly IEntityDescriptor _descriptor;
         private readonly IPrimaryKeyDescriptor _primaryKey;
+        private readonly DbOptions _dbOptions;
 
-        public EntitySqlBuilder(IEntityDescriptor descriptor)
+        public EntitySqlBuilder(IEntityDescriptor descriptor, DbOptions dbOptions)
         {
             _descriptor = descriptor;
+            _dbOptions = dbOptions;
             _primaryKey = descriptor.PrimaryKey;
         }
 
@@ -153,6 +156,20 @@ namespace NetModular.Lib.Data.Core.Entities
                 foreach (var col in columns)
                 {
                     sb.AppendFormat("{0}={1}", AppendQuote(col.Name), AppendParameter(col.PropertyInfo.Name));
+
+                    //针对PostgreSQL数据库的json和jsonb类型字段的处理
+                    if (_descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL)
+                    {
+                        if (col.TypeName.EqualsIgnoreCase("jsonb"))
+                        {
+                            sb.Append("::jsonb");
+                        }
+                        else if (col.TypeName.EqualsIgnoreCase("json"))
+                        {
+                            sb.Append("::json");
+                        }
+                    }
+
                     sb.Append(",");
                 }
 
@@ -197,17 +214,18 @@ namespace NetModular.Lib.Data.Core.Entities
 
             if (!_primaryKey.IsNo())
             {
-                getSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
-                getAndRowLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
-                getAndNoLockSql += $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
+                var appendSql = $" WHERE {AppendQuote(_primaryKey.Name)}={AppendParameter(_primaryKey.PropertyInfo.Name)} ";
+                getSql += appendSql;
+                getAndRowLockSql += appendSql;
+                getAndNoLockSql += appendSql;
 
                 if (_descriptor.SoftDelete)
                 {
                     var val = _descriptor.SqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
-
-                    getSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
-                    getAndRowLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
-                    getAndNoLockSql += $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
+                    appendSql = $" AND {AppendQuote(_descriptor.GetDeletedColumnName())}={val} ";
+                    getSql += appendSql;
+                    getAndRowLockSql += appendSql;
+                    getAndNoLockSql += appendSql;
                 }
 
                 //MySql和PostgreSQL行锁

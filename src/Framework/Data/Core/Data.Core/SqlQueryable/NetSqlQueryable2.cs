@@ -340,6 +340,12 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return this;
         }
 
+        public INetSqlQueryable<TEntity, TEntity2> NotFilterTenant()
+        {
+            QueryBody.FilterTenant = false;
+            return this;
+        }
+
         public INetSqlQueryable<TEntity, TEntity2> Copy()
         {
             return new NetSqlQueryable<TEntity, TEntity2>(Db, QueryBody.Copy());

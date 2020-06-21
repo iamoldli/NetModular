@@ -471,6 +471,16 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
 
         #endregion
 
+        #region ==NotFilterTenant==
+
+        /// <summary>
+        /// 不过滤租户
+        /// </summary>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6> NotFilterTenant();
+
+        #endregion
+
         #region ==Copy==
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace NetModular.Lib.Auth.Abstractions
         /// <summary>
         /// 登录
         /// </summary>
-        public LoginMode LoginMode { get; set; } = new LoginMode();
+        public LoginModeConfig LoginMode { get; set; } = new LoginModeConfig();
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ namespace NetModular.Lib.Auth.Abstractions
     /// <summary>
     /// 登录方式
     /// </summary>
-    public class LoginMode
+    public class LoginModeConfig
     {
         /// <summary>
         /// 用户名登录

@@ -22,6 +22,17 @@ namespace NetModular.Lib.Utils.Core.Helpers
             return Convert.ToInt64(milliseconds ? ts.TotalMilliseconds : ts.TotalSeconds).ToString();
         }
 
+        /// <summary>
+        /// 时间戳转日期
+        /// </summary>
+        /// <param name="timestamp">时间戳</param>
+        /// <param name="milliseconds">是否使用毫秒</param>
+        /// <returns></returns>
+        public DateTime TimeStamp2DateTime(long timestamp, bool milliseconds = false)
+        {
+            return milliseconds ? TimestampStart.AddTicks(timestamp * 10000000) : TimestampStart.AddTicks(timestamp * 10000);
+        }
+
         /// <summary>判断当前年份是否是闰年</summary>
         /// <param name="year">年份</param>
         /// <returns></returns>

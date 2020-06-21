@@ -1,5 +1,6 @@
 ﻿using System;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
 using NetModular.Lib.Data.Query;
 
 namespace NetModular.Module.Admin.Domain.LoginLog.Models

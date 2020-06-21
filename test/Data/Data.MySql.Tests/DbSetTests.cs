@@ -134,7 +134,10 @@ namespace Data.MySql.Tests
         [Fact]
         public async void QueryTest()
         {
-            var list = await _db.Find(m => m.Id > 5 && m.Id < 10).ToListAsync();
+            var query = _db.Find(m => m.Id > 5 && m.Id < 10);
+            var sql = query.ToSql();
+
+            var list = await query.ToListAsync();
 
             Assert.Equal(4, list.Count);
         }

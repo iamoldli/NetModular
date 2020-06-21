@@ -22,24 +22,28 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Id == id).UpdateAsync(m => new AccountEntity { Password = password });
         }
 
-        public Task<AccountEntity> GetByUserName(string userName, AccountType type)
+        public Task<AccountEntity> GetByUserName(string userName, AccountType type, Guid? tenantId)
         {
-            return GetAsync(m => m.UserName.Equals(userName) && m.Type == type);
+            return Db.Find(m => m.UserName.Equals(userName) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
         }
 
-        public Task<AccountEntity> GetByEmail(string email, AccountType type)
+        public Task<AccountEntity> GetByEmail(string email, AccountType type, Guid? tenantId)
         {
-            return GetAsync(m => m.Email.Equals(email) && m.Type == type);
+            return Db.Find(m => m.Email.Equals(email) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
         }
 
-        public Task<AccountEntity> GetByPhone(string phone, AccountType type)
+        public Task<AccountEntity> GetByPhone(string phone, AccountType type, Guid? tenantId)
         {
-            return GetAsync(m => m.Phone.Equals(phone) && m.Type == type);
+            return Db.Find(m => m.Phone.Equals(phone) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
         }
 
-        public Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type = AccountType.Admin)
+        public Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type, Guid? tenantId)
         {
-            return GetAsync(m => m.UserName.Equals(keyword) || m.Email.Equals(keyword));
+            return Db.Find()
+                .NotFilterTenant()
+                .Where(m => m.UserName.Equals(keyword) || m.Email.Equals(keyword))
+                .Where(m => m.Type == type && m.TenantId == tenantId)
+                .FirstAsync();
         }
 
         public Task<bool> UpdateAccountStatus(Guid id, AccountStatus status, IUnitOfWork uow = null)

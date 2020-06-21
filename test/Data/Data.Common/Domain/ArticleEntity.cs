@@ -1,11 +1,14 @@
 ﻿using System;
 using NetModular.Lib.Data.Abstractions.Attributes;
+using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Core.Entities.Extend;
 
 namespace Data.Common.Domain
 {
-    public class ArticleEntity : EntityBaseWithSoftDelete<int, Guid>
+    public class ArticleEntity : EntityBaseWithSoftDelete<int, Guid>, ITenant
     {
+        public Guid? TenantId { get; set; }
+
         public Guid CategoryId { get; set; }
 
         [Length(200)]

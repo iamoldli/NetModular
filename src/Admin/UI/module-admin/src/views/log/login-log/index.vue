@@ -10,7 +10,7 @@
           <nm-platform-select v-model="list.model.platform" clearable />
         </el-form-item>
         <el-form-item label="登录方式：" prop="loginMode">
-          <nm-enum-select module-code="Admin" enum-name="LoginMode" v-model="list.model.loginMode" clearable />
+          <nm-login-mode-select v-model="list.model.loginMode" clearable />
         </el-form-item>
       </template>
 
@@ -41,6 +41,7 @@ export default {
       list: {
         title: page.title,
         action: api.queryLogin,
+        noOperation: true,
         model: {
           accountId: '',
           platform: '',

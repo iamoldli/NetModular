@@ -57,6 +57,8 @@ namespace NetModular.Lib.Data.Core
 
             SetCreatedBy(entity);
 
+            SetTenant(entity);
+
             var sql = _sql.Insert(tableName);
 
             if (EntityDescriptor.PrimaryKey.IsInt())
@@ -111,7 +113,10 @@ namespace NetModular.Lib.Data.Core
         public async Task<bool> InsertAsync(TEntity entity, IUnitOfWork uow = null, string tableName = null)
         {
             Check.NotNull(entity, nameof(entity));
+
             SetCreatedBy(entity);
+
+            SetTenant(entity);
 
             var sql = _sql.Insert(tableName);
 
@@ -191,6 +196,8 @@ namespace NetModular.Lib.Data.Core
                         {
                             SetCreatedBy(entity);
 
+                            SetTenant(entity);
+
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
                             {
@@ -221,6 +228,8 @@ namespace NetModular.Lib.Data.Core
 
                         var entity = entityList[t];
                         SetCreatedBy(entity);
+
+                        SetTenant(entity);
 
                         sqlBuilder.Append("(");
                         for (var i = 0; i < _sql.BatchInsertColumnList.Count; i++)
@@ -296,6 +305,7 @@ namespace NetModular.Lib.Data.Core
                         entityList.ForEach(entity =>
                         {
                             SetCreatedBy(entity);
+                            SetTenant(entity);
 
                             var value = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                             if ((Guid)value == Guid.Empty)
@@ -328,6 +338,7 @@ namespace NetModular.Lib.Data.Core
                         var entity = entityList[t];
 
                         SetCreatedBy(entity);
+                        SetTenant(entity);
 
                         sqlBuilder.Append("(");
                         for (var i = 0; i < _sql.BatchInsertColumnList.Count; i++)
@@ -868,8 +879,7 @@ namespace NetModular.Lib.Data.Core
                         var createdBy = (Guid)column.PropertyInfo.GetValue(entity);
                         if (createdBy == Guid.Empty)
                         {
-                            createdBy = DbContext.LoginInfo.AccountId;
-                            column.PropertyInfo.SetValue(entity, createdBy);
+                            column.PropertyInfo.SetValue(entity, DbContext.LoginInfo.AccountId);
                             i++;
                         }
                     }
@@ -896,7 +906,7 @@ namespace NetModular.Lib.Data.Core
                     {
                         var modifiedBy = (Guid)column.PropertyInfo.GetValue(entity);
                         var accountId = DbContext.LoginInfo.AccountId;
-                        if (modifiedBy == Guid.Empty || modifiedBy != accountId)
+                        if (modifiedBy == Guid.Empty)
                         {
                             column.PropertyInfo.SetValue(entity, accountId);
                             i++;
@@ -911,6 +921,30 @@ namespace NetModular.Lib.Data.Core
 
                     if (i > 1)
                         break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置租户编号
+        /// </summary>
+        /// <param name="entity"></param>
+        private void SetTenant(TEntity entity)
+        {
+            if (EntityDescriptor.IsTenant && DbContext.LoginInfo != null)
+            {
+                foreach (var column in EntityDescriptor.Columns)
+                {
+                    var name = column.PropertyInfo.Name;
+                    if (name.Equals("TenantId"))
+                    {
+                        var tenantId = (Guid?)column.PropertyInfo.GetValue(entity);
+                        if (tenantId == null)
+                        {
+                            column.PropertyInfo.SetValue(entity, DbContext.LoginInfo.TenantId);
+                        }
+                        break;
+                    }
                 }
             }
         }

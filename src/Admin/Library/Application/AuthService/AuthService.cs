@@ -3,12 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.LoginHandlers;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
+using NetModular.Lib.Auth.Abstractions.Providers;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
-using NetModular.Module.Admin.Application.AuthService.Interfaces;
+using NetModular.Lib.Utils.Core.Helpers;
 using NetModular.Module.Admin.Application.AuthService.LoginHandler;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
-using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.AccountConfig;
@@ -34,8 +36,9 @@ namespace NetModular.Module.Admin.Application.AuthService
         private readonly ICustomLoginHandler _customLoginHandler;
         private readonly IPhoneVerifyCodeProvider _phoneVerifyCodeProvider;
         private readonly IAccountPermissionResolver _permissionResolver;
+        private readonly DateTimeHelper _dateTimeHelper;
 
-        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, ILoginInfo loginInfo, IConfigProvider configProvider, IVerifyCodeProvider verifyCodeProvider, IUserNameLoginHandler userNameLoginHandler, IEmailLoginHandler emailLoginHandler, IUserNameOrEmailLoginHandler userNameOrEmailLoginHandler, IPhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IAccountPermissionResolver permissionResolver, ICustomLoginHandler customLoginHandler)
+        public AuthService(ICacheHandler cacheHandler, IAccountRepository accountRepository, IAccountAuthInfoRepository authInfoRepository, IAccountConfigRepository configRepository, IServiceProvider serviceProvider, ILoginInfo loginInfo, IConfigProvider configProvider, IVerifyCodeProvider verifyCodeProvider, IUserNameLoginHandler userNameLoginHandler, IEmailLoginHandler emailLoginHandler, IUserNameOrEmailLoginHandler userNameOrEmailLoginHandler, IPhoneLoginHandler phoneLoginHandler, IPhoneVerifyCodeProvider phoneVerifyCodeProvider, IAccountPermissionResolver permissionResolver, ICustomLoginHandler customLoginHandler, DateTimeHelper dateTimeHelper)
         {
             _cacheHandler = cacheHandler;
             _accountRepository = accountRepository;
@@ -52,6 +55,7 @@ namespace NetModular.Module.Admin.Application.AuthService
             _phoneVerifyCodeProvider = phoneVerifyCodeProvider;
             _permissionResolver = permissionResolver;
             _customLoginHandler = customLoginHandler;
+            _dateTimeHelper = dateTimeHelper;
         }
 
         /// <summary>
@@ -69,7 +73,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<ResultModel<LoginResultModel>> Login(UserNameLoginModel model)
+        public Task<LoginResultModel> Login(UserNameLoginModel model)
         {
             return _userNameLoginHandler.Handle(model);
         }
@@ -79,7 +83,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<ResultModel<LoginResultModel>> Login(EmailLoginModel model)
+        public Task<LoginResultModel> Login(EmailLoginModel model)
         {
             return _emailLoginHandler.Handle(model);
         }
@@ -89,17 +93,17 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Task<ResultModel<LoginResultModel>> Login(UserNameOrEmailLoginModel model)
+        public Task<LoginResultModel> Login(UserNameOrEmailLoginModel model)
         {
             return _userNameOrEmailLoginHandler.Handle(model);
         }
 
-        public Task<ResultModel<LoginResultModel>> Login(PhoneLoginModel model)
+        public Task<LoginResultModel> Login(PhoneLoginModel model)
         {
             return _phoneLoginHandler.Handle(model);
         }
 
-        public Task<ResultModel<LoginResultModel>> Login(CustomLoginModel model)
+        public Task<LoginResultModel> Login(CustomLoginModel model)
         {
             return _customLoginHandler.Handle(model);
         }
@@ -118,15 +122,18 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        public async Task<ResultModel<LoginResultModel>> RefreshToken(string refreshToken)
+        public async Task<LoginResultModel> RefreshToken(string refreshToken)
         {
-            var result = new ResultModel<LoginResultModel>();
+            var result = new LoginResultModel();
             var cacheKey = CacheKeys.AUTH_REFRESH_TOKEN + refreshToken;
             if (!_cacheHandler.TryGetValue(cacheKey, out AccountAuthInfoEntity authInfo))
             {
                 authInfo = await _authInfoRepository.GetByRefreshToken(refreshToken);
                 if (authInfo == null)
-                    return result.Failed("身份认证信息无效，请重新登录~");
+                {
+                    result.Error = "身份认证信息无效，请重新登录~";
+                    return result;
+                }
 
                 //加入缓存
                 var expires = (int)(authInfo.RefreshTokenExpiredTime - DateTime.Now).TotalMinutes;
@@ -134,21 +141,35 @@ namespace NetModular.Module.Admin.Application.AuthService
             }
 
             if (authInfo.RefreshTokenExpiredTime <= DateTime.Now)
-                return result.Failed("身份认证信息过期，请重新登录~");
+            {
+                result.Error = "身份认证信息过期，请重新登录~";
+                return result;
+            }
 
             var account = await _accountRepository.GetAsync(authInfo.AccountId);
             if (account == null)
-                return result.Failed("账户信息不存在");
-
+            {
+                result.Error = "账户信息不存在~";
+                return result;
+            }
             var checkAccountResult = account.Check();
             if (!checkAccountResult.Successful)
-                return result.Failed(checkAccountResult.Msg);
-
-            return result.Success(new LoginResultModel
             {
-                Account = account,
-                AuthInfo = authInfo
-            });
+                result.Error = checkAccountResult.Msg;
+                return result;
+            }
+
+            result.Success = true;
+            result.AccountId = account.Id;
+            result.AccountType = account.Type;
+            result.TenantId = account.TenantId;
+            result.UserName = account.UserName;
+            result.Name = account.Name;
+            result.Phone = account.Phone;
+            result.Platform = authInfo.Platform;
+            result.RefreshToken = authInfo.RefreshToken;
+            result.LoginTime = _dateTimeHelper.TimeStamp2DateTime(authInfo.LoginTime);
+            return result;
         }
 
         /// <summary>
