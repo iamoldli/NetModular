@@ -233,7 +233,6 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
         private void DynamicInvokeResolve(Expression exp)
         {
             var value = DynamicInvoke(exp);
-
             AppendValue(value);
         }
 
@@ -809,7 +808,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
             if (exp.Type.IsEnum)
                 return result.ToInt();
 
-            return result ?? "";
+            return result;
         }
 
         private void AppendValue(object value)

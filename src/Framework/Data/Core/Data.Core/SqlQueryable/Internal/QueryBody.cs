@@ -112,6 +112,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public bool FilterDeleted { get; set; } = true;
 
+        /// <summary>
+        /// 过滤租户
+        /// </summary>
+        public bool FilterTenant { get; set; } = true;
+
         #endregion
 
         #region ==方法==
@@ -309,6 +314,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             Select = selectExpression;
         }
+
         public void SetSelectExclude(LambdaExpression selectExpression)
         {
             SelectExclude = selectExpression;

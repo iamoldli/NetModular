@@ -77,5 +77,10 @@ namespace NetModular.Lib.Data.Abstractions.Entities
         /// 是否是EntityBase类型实体
         /// </summary>
         bool IsEntityBase { get; }
+
+        /// <summary>
+        /// 是否是多租户模式
+        /// </summary>
+        bool IsTenant { get; }
     }
 }

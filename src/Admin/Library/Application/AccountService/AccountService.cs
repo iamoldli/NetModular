@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.PasswordHandler;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Data.Abstractions;
@@ -16,7 +17,6 @@ using NetModular.Module.Admin.Domain.Role;
 using NetModular.Module.Admin.Domain.RolePermission;
 using NetModular.Module.Admin.Infrastructure;
 using NetModular.Module.Admin.Infrastructure.AccountPermissionResolver;
-using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 using NetModular.Module.Admin.Infrastructure.Repositories;
 
 namespace NetModular.Module.Admin.Application.AccountService

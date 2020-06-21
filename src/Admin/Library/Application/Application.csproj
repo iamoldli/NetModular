@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Auth\Auth.Abstractions\Auth.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Cache\Cache.Abstractions\Cache.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Framework\Data\Extend\Data.Query\Data.Query.csproj" />
     <ProjectReference Include="..\..\..\Framework\Excel\Excel.Abstractions\Excel.Abstractions.csproj" />

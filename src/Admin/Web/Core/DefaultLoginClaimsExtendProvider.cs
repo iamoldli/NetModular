@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Auth.Web;
 using NetModular.Lib.Utils.Core.Attributes;
 

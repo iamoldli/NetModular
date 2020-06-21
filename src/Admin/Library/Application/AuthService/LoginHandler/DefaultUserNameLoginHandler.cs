@@ -1,16 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.LoginHandlers;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
+using NetModular.Lib.Auth.Abstractions.PasswordHandler;
+using NetModular.Lib.Auth.Abstractions.Providers;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
 using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Module.Admin.Application.AuthService.Interfaces;
-using NetModular.Module.Admin.Application.AuthService.ResultModels;
-using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
-using NetModular.Module.Admin.Domain.LoginLog;
-using NetModular.Module.Admin.Infrastructure.PasswordHandler;
 
 namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
 {
@@ -23,68 +23,86 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         private readonly IPasswordHandler _passwordHandler;
         private readonly IAccountRepository _repository;
 
-        public DefaultUserNameLoginHandler(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, IAccountRepository repository, IPasswordHandler passwordHandler, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger<DefaultUserNameLoginHandler> logger) : base(verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, logger)
+        public DefaultUserNameLoginHandler(ILogger<LoginHandlerAbstract> logger, IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, ICacheHandler cacheHandler, ILoginLogProvider logHandler, ITenantResolver tenantResolver, IPasswordHandler passwordHandler, IAccountRepository repository) : base(logger, verifyCodeProvider, configProvider, authInfoRepository, cacheHandler, logHandler, tenantResolver)
         {
-            _repository = repository;
             _passwordHandler = passwordHandler;
+            _repository = repository;
         }
+
 
         /// <summary>
         /// 登录处理
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ResultModel<LoginResultModel>> Handle(UserNameLoginModel model)
+        public async Task<LoginResultModel> Handle(UserNameLoginModel model)
         {
-            var log = CreateLog(model);
-            if (log == null)
-                return await Handle(model, null);
+            var resultModel = new LoginResultModel
+            {
+                LoginMode = LoginMode.UserName,
+                UserName = model.UserName,
+                Platform = model.Platform,
+                LoginTime = DateTime.Now,
+                AccountType = model.AccountType
+            };
 
-            log.LoginMode = Domain.LoginLog.LoginMode.UserName;
-            log.UserName = model.UserName;
+            //解析租户编号
+            await ResolveTenant(resultModel);
 
-            var result = await Handle(model, log);
-            await SaveLog(log, result);
+            //检测
+            var checkResult = await Check(model, resultModel);
+            if (checkResult.Successful)
+            {
+                resultModel.Success = true;
+                //更新认证信息并返回登录结果
+                await UpdateAuthInfo(resultModel, model);
+            }
+            else
+            {
+                resultModel.Success = false;
+                resultModel.Error = checkResult.Msg;
+            }
 
-            return result;
+            //记录日志
+            await SaveLog(resultModel);
+
+            return resultModel;
         }
 
         /// <summary>
         /// 登录处理
         /// </summary>
-        private async Task<ResultModel<LoginResultModel>> Handle(UserNameLoginModel model, LoginLogEntity log)
+        private async Task<IResultModel> Check(UserNameLoginModel model, LoginResultModel resultModel)
         {
-            var result = new ResultModel<LoginResultModel>();
             var config = _configProvider.Get<AuthConfig>();
             if (!config.LoginMode.UserName)
-                return result.Failed("不允许使用用户名的登录方式");
+                return ResultModel.Failed("不允许使用用户名的登录方式");
 
             //检测验证码
             var verifyCodeCheckResult = _verifyCodeProvider.Check(model);
             if (!verifyCodeCheckResult.Successful)
-                return result.Failed(verifyCodeCheckResult.Msg);
+                return ResultModel.Failed(verifyCodeCheckResult.Msg);
 
             //查询账户
-            var account = await _repository.GetByUserName(model.UserName, model.AccountType);
+            var account = await _repository.GetByUserName(model.UserName, model.AccountType, resultModel.TenantId);
             if (account == null)
-                return result.Failed("账户不存在");
+                return ResultModel.Failed("账户不存在");
 
-            if (log != null)
-                log.AccountId = account.Id;
+            //设置账户编号和名称
+            resultModel.AccountId = account.Id;
+            resultModel.Name = account.Name;
 
             //检测密码
             var password = _passwordHandler.Encrypt(account.UserName, model.Password);
             if (!account.Password.Equals(password))
-                return result.Failed("密码错误");
+                return ResultModel.Failed("密码错误");
 
             //检测账户
             var accountCheckResult = account.Check();
             if (!accountCheckResult.Successful)
-                return result.Failed(accountCheckResult.Msg);
+                return ResultModel.Failed(accountCheckResult.Msg);
 
-            //更新认证信息并返回登录结果
-            var resultModel = await UpdateAuthInfo(account, model, config);
-            return resultModel != null ? result.Success(resultModel) : result.Failed();
+            return ResultModel.Success();
         }
     }
 }

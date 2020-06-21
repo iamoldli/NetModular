@@ -18,6 +18,21 @@ namespace NetModular.Lib.Auth.Web
             _contextAccessor = contextAccessor;
         }
 
+        public Guid? TenantId
+        {
+            get
+            {
+                var tenantId = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.TenantId);
+
+                if (tenantId != null && tenantId.Value.NotNull())
+                {
+                    return new Guid(tenantId.Value);
+                }
+
+                return null;
+            }
+        }
+
         /// <summary>
         /// 账户编号
         /// </summary>

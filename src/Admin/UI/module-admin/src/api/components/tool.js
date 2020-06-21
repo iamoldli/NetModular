@@ -5,7 +5,8 @@ export default name => {
 
   const urls = {
     enumSelect: root + 'EnumSelect',
-    platformSelect: root + 'PlatformSelect'
+    platformSelect: root + 'PlatformSelect',
+    loginModeSelect: root + 'LoginModeSelect'
   }
 
   const enumSelect = params => {
@@ -16,8 +17,13 @@ export default name => {
     return $http.get(urls.platformSelect)
   }
 
+  const loginModeSelect = () => {
+    return $http.get(urls.loginModeSelect)
+  }
+
   return {
     enumSelect,
-    platformSelect
+    platformSelect,
+    loginModeSelect
   }
 }

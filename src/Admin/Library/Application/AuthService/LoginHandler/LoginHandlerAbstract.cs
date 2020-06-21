@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
+using NetModular.Lib.Auth.Abstractions.Providers;
 using NetModular.Lib.Cache.Abstractions;
 using NetModular.Lib.Config.Abstractions;
-using NetModular.Module.Admin.Application.AuthService.Interfaces;
-using NetModular.Module.Admin.Application.AuthService.ResultModels;
-using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 using NetModular.Module.Admin.Domain.LoginLog;
@@ -16,56 +15,34 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
 {
     public abstract class LoginHandlerAbstract
     {
+        protected readonly ILogger<LoginHandlerAbstract> _logger;
         protected readonly IVerifyCodeProvider _verifyCodeProvider;
         protected readonly IConfigProvider _configProvider;
         protected readonly IAccountAuthInfoRepository _authInfoRepository;
         protected readonly ICacheHandler _cacheHandler;
-        protected readonly ILoginLogHandler _logHandler;
-        protected readonly ILogger _logger;
+        protected readonly ILoginLogProvider _logHandler;
+        private readonly ITenantResolver _tenantResolver;
 
-        protected LoginHandlerAbstract(IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, ICacheHandler cacheHandler, ILoginLogHandler logHandler, ILogger logger)
+        protected LoginHandlerAbstract(ILogger<LoginHandlerAbstract> logger, IVerifyCodeProvider verifyCodeProvider, IConfigProvider configProvider, IAccountAuthInfoRepository authInfoRepository, ICacheHandler cacheHandler, ILoginLogProvider logHandler, ITenantResolver tenantResolver)
         {
+            _logger = logger;
             _verifyCodeProvider = verifyCodeProvider;
             _configProvider = configProvider;
             _authInfoRepository = authInfoRepository;
             _cacheHandler = cacheHandler;
             _logHandler = logHandler;
-            _logger = logger;
-        }
-
-        /// <summary>
-        /// 创建日志
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        protected LoginLogEntity CreateLog(LoginModel model)
-        {
-            var config = _configProvider.Get<AdminConfig>();
-            //不启用登录日志
-            if (!config.LoginLog)
-                return null;
-
-            return new LoginLogEntity
-            {
-                LoginTime = DateTime.Now,
-                IP = model.IP,
-                Platform = model.Platform,
-                UserAgent = model.UserAgent
-            };
+            _tenantResolver = tenantResolver;
         }
 
         /// <summary>
         /// 保存日志
         /// </summary>
-        protected async ValueTask SaveLog(LoginLogEntity log, ResultModel<LoginResultModel> result)
+        protected async ValueTask SaveLog(LoginResultModel result)
         {
-            log.Success = result.Successful;
-            log.Error = result.Msg;
-
             //保存日志，不能抛出异常以免影响登录本身的功能
             try
             {
-                await _logHandler.Handle(log);
+                await _logHandler.Handle(result);
             }
             catch (Exception ex)
             {
@@ -74,19 +51,34 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
         }
 
         /// <summary>
+        /// 解析租户编号
+        /// </summary>
+        /// <param name="resultModel"></param>
+        /// <returns></returns>
+        protected Task ResolveTenant(LoginResultModel resultModel)
+        {
+            //解析租户编号
+            return _tenantResolver.Resolve(resultModel);
+        }
+
+        /// <summary>
         /// 更新账户认证信息
         /// </summary>
-        protected async Task<LoginResultModel> UpdateAuthInfo(AccountEntity account, LoginModel model, AuthConfig config)
+        protected async Task UpdateAuthInfo(LoginResultModel resultModel, LoginModel loginModel)
         {
+            resultModel.RefreshToken = GenerateRefreshToken();
+
             var authInfo = new AccountAuthInfoEntity
             {
-                AccountId = account.Id,
-                Platform = model.Platform,
-                LoginTime = DateTime.Now.ToTimestamp(),
-                LoginIP = model.IP,
-                RefreshToken = GenerateRefreshToken(),
+                AccountId = resultModel.AccountId,
+                Platform = resultModel.Platform,
+                LoginTime = resultModel.LoginTime.ToTimestamp(),
+                RefreshToken = resultModel.RefreshToken,
                 RefreshTokenExpiredTime = DateTime.Now.AddDays(7)//默认刷新令牌有效期7天
             };
+
+
+            var config = _configProvider.Get<AuthConfig>();
 
             //设置过期时间
             if (config.Jwt.RefreshTokenExpires > 0)
@@ -95,7 +87,7 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
             }
 
             Task<bool> task;
-            var entity = await _authInfoRepository.Get(account.Id, model.Platform);
+            var entity = await _authInfoRepository.Get(resultModel.AccountId, resultModel.Platform);
             if (entity != null)
             {
                 authInfo.Id = entity.Id;
@@ -111,20 +103,12 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
                 //判断是否开启验证码功能，删除验证码缓存
                 if (config.VerifyCode)
                 {
-                    await _cacheHandler.RemoveAsync(CacheKeys.AUTH_VERIFY_CODE + model.VerifyCode.Id);
+                    await _cacheHandler.RemoveAsync(CacheKeys.AUTH_VERIFY_CODE + loginModel.VerifyCode.Id);
                 }
 
                 //清除账户的认证信息缓存
-                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}{account.Id}:{model.Platform.ToInt()}");
-
-                return new LoginResultModel
-                {
-                    Account = account,
-                    AuthInfo = authInfo
-                };
+                await _cacheHandler.RemoveAsync($"{CacheKeys.ACCOUNT_AUTH_INFO}{resultModel.AccountId}:{resultModel.Platform.ToInt()}");
             }
-
-            return null;
         }
 
         /// <summary>

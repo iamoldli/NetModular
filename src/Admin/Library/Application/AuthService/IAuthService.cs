@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NetModular.Lib.Auth.Abstractions;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
 using NetModular.Module.Admin.Application.AuthService.ResultModels;
-using NetModular.Module.Admin.Application.AuthService.ViewModels;
 using NetModular.Module.Admin.Domain.AccountAuthInfo;
 
 namespace NetModular.Module.Admin.Application.AuthService
@@ -24,35 +24,35 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> Login(UserNameLoginModel model);
+        Task<LoginResultModel> Login(UserNameLoginModel model);
 
         /// <summary>
         /// 邮箱登录
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> Login(EmailLoginModel model);
+        Task<LoginResultModel> Login(EmailLoginModel model);
 
         /// <summary>
         /// 用户名或邮箱登录
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> Login(UserNameOrEmailLoginModel model);
+        Task<LoginResultModel> Login(UserNameOrEmailLoginModel model);
 
         /// <summary>
         /// 手机号登录
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> Login(PhoneLoginModel model);
+        Task<LoginResultModel> Login(PhoneLoginModel model);
 
         /// <summary>
         /// 自定义登录
         /// </summary>
         /// <param name="model">登录模型</param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> Login(CustomLoginModel model);
+        Task<LoginResultModel> Login(CustomLoginModel model);
 
         /// <summary>
         /// 发送手机验证码
@@ -66,7 +66,7 @@ namespace NetModular.Module.Admin.Application.AuthService
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        Task<ResultModel<LoginResultModel>> RefreshToken(string refreshToken);
+        Task<LoginResultModel> RefreshToken(string refreshToken);
 
         /// <summary>
         /// 获取认证信息

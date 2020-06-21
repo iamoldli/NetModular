@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NetModular.Lib.Auth.Abstractions.LoginHandlers;
+using NetModular.Lib.Auth.Abstractions.LoginModels;
 using NetModular.Lib.Utils.Core.Attributes;
-using NetModular.Module.Admin.Application.AuthService.ResultModels;
-using NetModular.Module.Admin.Application.AuthService.ViewModels;
 
 namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
 {
+    /// <summary>
+    /// 自定义登录默认实现
+    /// </summary>
     [Singleton]
     public class DefaultCustomLoginHandler : ICustomLoginHandler
     {
-        public Task<ResultModel<LoginResultModel>> Handle(CustomLoginModel model)
+        public Task<LoginResultModel> Handle(CustomLoginModel model)
         {
             throw new NotImplementedException();
         }

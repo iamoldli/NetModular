@@ -23,7 +23,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<IList<string>> QueryByAccount(Guid accountId, Platform platform)
         {
             return Db.Find(m => m.Platform == platform)
-                .LeftJoin<AccountRoleEntity>((x, y) => x.RoleId == y.RoleId && y.AccountId == accountId)
+                .InnerJoin<AccountRoleEntity>((x, y) => x.RoleId == y.RoleId && y.AccountId == accountId)
                 .Select((x, y) => x.PermissionCode)
                 .ToListAsync<string>();
         }

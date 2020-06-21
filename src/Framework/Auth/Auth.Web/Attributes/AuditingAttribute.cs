@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using NetModular.Lib.Auth.Abstractions;
 
 namespace NetModular.Lib.Auth.Web.Attributes
 {

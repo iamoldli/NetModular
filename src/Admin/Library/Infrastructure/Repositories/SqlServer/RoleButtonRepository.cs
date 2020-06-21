@@ -27,7 +27,7 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
         public Task<IList<string>> QueryButtonCodesByAccount(Guid accountId)
         {
             return Db.Find()
-                .LeftJoin<AccountRoleEntity>((x, y) => x.RoleId == y.RoleId && y.AccountId == accountId)
+                .InnerJoin<AccountRoleEntity>((x, y) => x.RoleId == y.RoleId && y.AccountId == accountId)
                 .Select((x, y) => x.ButtonCode)
                 .ToListAsync<string>();
         }
