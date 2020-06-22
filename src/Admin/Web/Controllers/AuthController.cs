@@ -123,6 +123,7 @@ namespace NetModular.Module.Admin.Web.Controllers
             {
                 var claims = new List<Claim>
                 {
+                    new Claim(ClaimsName.TenantId, result.TenantId != null ? result.TenantId.ToString() : ""),
                     new Claim(ClaimsName.AccountId, result.AccountId.ToString()),
                     new Claim(ClaimsName.AccountName, result.Name),
                     new Claim(ClaimsName.AccountType, result.AccountType.ToInt().ToString()),
@@ -145,7 +146,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         [AllowAnonymous]
         [DisableAuditing]
         [Description("刷新令牌")]
-        public async Task<IResultModel> RefreshToken([BindRequired]string refreshToken)
+        public async Task<IResultModel> RefreshToken([BindRequired] string refreshToken)
         {
             var result = await _service.RefreshToken(refreshToken);
             return LoginHandle(result);
