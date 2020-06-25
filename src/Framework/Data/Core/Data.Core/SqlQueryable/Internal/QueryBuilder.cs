@@ -504,6 +504,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 var val = _dbContext.LoginInfo.TenantId;
                 var sb = new StringBuilder();
 
+                var tenantColName = "TenantId";
+
                 if (_queryBody.JoinDescriptors.Count == 1)
                 {
                     //单表
@@ -512,11 +514,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     {
                         if (val == null)
                         {
-                            sb.AppendFormat("AND {0} IS NULL ", _sqlAdapter.AppendQuote("TenantId"));
+                            sb.AppendFormat("AND {0} IS NULL ", _sqlAdapter.AppendQuote(tenantColName));
                         }
                         else
                         {
-                            sb.AppendFormat("AND {0}='{1}' ", _sqlAdapter.AppendQuote("TenantId"), val);
+                            sb.AppendFormat("AND {0}='{1}' ", _sqlAdapter.AppendQuote(tenantColName), val);
                         }
                     }
                 }
@@ -528,11 +530,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     {
                         if (val == null)
                         {
-                            sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()));
+                            sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(tenantColName));
                         }
                         else
                         {
-                            sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
+                            sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(tenantColName), val);
                         }
                     }
 
@@ -543,11 +545,11 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         {
                             if (val == null)
                             {
-                                sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()));
+                                sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(tenantColName));
                             }
                             else
                             {
-                                sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
+                                sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(tenantColName), val);
                             }
                         }
                     }
