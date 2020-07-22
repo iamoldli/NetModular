@@ -57,7 +57,7 @@ namespace NetModular.Module.Admin.Infrastructure
         /// 账户菜单列表
         /// <para>ADMIN:ACCOUNT:MENUS :账户编号</para>
         /// </summary>
-        [Description("账户按钮列表")]
+        [Description("账户菜单列表")]
         public const string ACCOUNT_MENUS = "ADMIN:ACCOUNT:MENUS:";
     }
 }
