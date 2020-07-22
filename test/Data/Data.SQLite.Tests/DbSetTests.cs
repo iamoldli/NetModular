@@ -282,9 +282,9 @@ namespace Data.SQLite.Tests
         [Fact]
         public async void UpdateForWhereTest()
         {
-            await _db.Find().UpdateAsync(m => new ArticleEntity { Title = "测试" });
+            await _db.Find().UpdateAsync(m => new ArticleEntity { Title = null });
 
-            var count = await _db.Find(m => m.Title == "测试").CountAsync();
+            var count = await _db.Find(m => m.Title == null).CountAsync();
 
             Assert.Equal(100, count);
         }

@@ -18,6 +18,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
         private LambdaExpression _fullExpression;
         private IQueryParameters _parameters;
         private StringBuilder _sqlBuilder;
+        private bool _isResolveUpdate = false;
 
         public ExpressionResolver(ISqlAdapter sqlAdapter, QueryBody queryBody)
         {
@@ -25,11 +26,12 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
             _queryBody = queryBody;
         }
 
-        public string Resolve(LambdaExpression expression, IQueryParameters parameters)
+        public string Resolve(LambdaExpression expression, IQueryParameters parameters, bool isResolveUpdate = false)
         {
             if (expression == null)
                 return string.Empty;
 
+            _isResolveUpdate = isResolveUpdate;
             _fullExpression = expression;
             _parameters = parameters;
             _sqlBuilder = new StringBuilder();
@@ -791,7 +793,7 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
                         else
                             _sqlBuilder.Append(_sqlAdapter.AppendQuote(col.Name));
 
-                        _sqlBuilder.Append("=");
+                        _sqlBuilder.Append(" = ");
 
                         Resolve(assignment.Expression);
 
@@ -813,19 +815,22 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
 
         private void AppendValue(object value)
         {
-            if (value == null)
+            if (value == null && !_isResolveUpdate)
             {
                 var len = _sqlBuilder.Length;
                 if (_sqlBuilder[len - 1] == ' ' && _sqlBuilder[len - 2] == '>' && _sqlBuilder[len - 3] == '<')
                 {
                     _sqlBuilder.Remove(len - 3, 3);
                     _sqlBuilder.Append("IS NOT NULL");
+                    return;
                 }
-                else if (_sqlBuilder[len - 1] == ' ' && _sqlBuilder[len - 2] == '=')
+
+                if (_sqlBuilder[len - 1] == ' ' && _sqlBuilder[len - 2] == '=')
                 {
                     _sqlBuilder.Remove(len - 2, 2);
                     _sqlBuilder.Append("IS NULL");
                 }
+
                 return;
             }
 

@@ -12,6 +12,7 @@ namespace Data.Common.Domain
         public Guid CategoryId { get; set; }
 
         [Length(200)]
+        [Nullable]
         public string Title { get; set; }
 
         public MediaType MediaType { get; set; }

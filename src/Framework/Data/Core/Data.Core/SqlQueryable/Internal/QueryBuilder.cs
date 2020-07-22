@@ -580,7 +580,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         {
             Check.NotNull(_queryBody.Update, nameof(_queryBody.Update), "未指定更新字段");
 
-            var sql = _resolver.Resolve(_queryBody.Update, parameters);
+            var sql = _resolver.Resolve(_queryBody.Update, parameters, true);
 
             Check.NotNull(sql, nameof(_queryBody.Update), "更新表达式解析失败");
 
