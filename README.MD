@@ -16,7 +16,11 @@ NetModular
 
 ## 友情提醒
 
-由于个人精力有限，本框架文档说明暂时不够完善(后续会努力完善)，生产环境请慎重考虑~
+本仓库只包含后端框架以及权限管理模块代码，如果运行起来发现与演示地址不一样，请下载demo源码 [https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+本仓库只包含后端框架以及权限管理模块代码，如果运行起来发现与演示地址不一样，请下载demo源码 [https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+本仓库只包含后端框架以及权限管理模块代码，如果运行起来发现与演示地址不一样，请下载demo源码 [https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
 
 ## 开发环境
 
