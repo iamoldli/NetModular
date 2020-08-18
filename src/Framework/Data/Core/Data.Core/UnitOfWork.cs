@@ -8,9 +8,11 @@ namespace NetModular.Lib.Data.Core
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
+        private IDbConnection _dbConnection;
         public UnitOfWork(IDbTransaction transaction)
         {
             Transaction = transaction;
+            _dbConnection = transaction?.Connection;
         }
 
         public IDbTransaction Transaction { get; private set; }
@@ -35,7 +37,7 @@ namespace NetModular.Lib.Data.Core
 
         private void Close()
         {
-            Transaction?.Connection?.Close();
+            _dbConnection?.Close();
         }
     }
 }
