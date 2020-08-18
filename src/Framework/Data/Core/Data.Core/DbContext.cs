@@ -98,22 +98,22 @@ namespace NetModular.Lib.Data.Core
         {
             //SQLite数据库开启事务时会包 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
-                return new UnitOfWork(null);
+                return new UnitOfWork(null, null);
 
             var con = NewConnection();
             con.Open();
-            return new UnitOfWork(con.BeginTransaction());
+            return new UnitOfWork(con.BeginTransaction(), con);
         }
 
         public IUnitOfWork NewUnitOfWork(IsolationLevel isolationLevel)
         {
             //SQLite数据库开启事务时会包 database is locked 错误
             if (Options.SqlAdapter.SqlDialect == Abstractions.Enums.SqlDialect.SQLite)
-                return new UnitOfWork(null);
+                return new UnitOfWork(null, null);
 
             var con = NewConnection();
             con.Open();
-            return new UnitOfWork(con.BeginTransaction(isolationLevel));
+            return new UnitOfWork(con.BeginTransaction(isolationLevel), con);
         }
 
         public IDbSet<TEntity> Set<TEntity>() where TEntity : IEntity, new()

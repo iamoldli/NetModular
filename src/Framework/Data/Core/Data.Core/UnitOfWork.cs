@@ -8,19 +8,21 @@ namespace NetModular.Lib.Data.Core
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IDbTransaction transaction)
+        public UnitOfWork(IDbTransaction transaction, IDbConnection dbConnection)
         {
             Transaction = transaction;
+            DbConnection = dbConnection;
         }
 
         public IDbTransaction Transaction { get; private set; }
+        public IDbConnection DbConnection { get; private set; }
 
         public void Commit()
         {
             if (Transaction != null)
             {
                 Transaction.Commit();
-                Transaction?.Connection?.Close();
+                DbConnection?.Close();
                 Transaction = null;
             }
         }
@@ -28,7 +30,7 @@ namespace NetModular.Lib.Data.Core
         public void Rollback()
         {
             Transaction?.Rollback();
-            Transaction?.Connection.Close();
+            DbConnection?.Close();
         }
 
         public void Dispose()
