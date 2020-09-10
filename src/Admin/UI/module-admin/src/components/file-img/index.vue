@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      url_: this.url,
+      url_: '',
       url__: ''
     }
   },

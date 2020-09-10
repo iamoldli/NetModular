@@ -24,5 +24,10 @@
         /// 指定跨域访问时预检请求的有效期，单位秒，默认30分钟
         /// </summary>
         public int PreflightMaxAge { get; set; }
+
+        /// <summary>
+        /// 隐藏启动Logo
+        /// </summary>
+        public bool HideStartLogo { get; set; }
     }
 }

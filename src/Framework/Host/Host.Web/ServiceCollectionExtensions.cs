@@ -123,6 +123,9 @@ namespace NetModular.Lib.Host.Web
             //添加OSS相关功能
             services.AddOSS(cfg);
 
+            //添加默认启动Logo
+            services.AddSingleton<IStartLogoProvider, DefaultStartLogoProvider>();
+
             return services;
         }
     }
