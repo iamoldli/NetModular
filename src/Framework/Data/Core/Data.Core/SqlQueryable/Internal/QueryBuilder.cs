@@ -422,6 +422,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                         break;
                 }
 
+                var alias = _sqlAdapter.AppendQuote(descriptor.Alias);
                 sqlBuilder.AppendFormat("JOIN {0} AS {1} ", GetTableName(descriptor.TableName, descriptor.EntityDescriptor.SqlAdapter.Database), _sqlAdapter.AppendQuote(descriptor.Alias));
                 //附加NOLOCK特性
                 if (_sqlAdapter.SqlDialect == SqlDialect.SqlServer && first.NoLock)
@@ -431,6 +432,28 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
                 sqlBuilder.Append("ON ");
                 sqlBuilder.Append(_resolver.Resolve(descriptor.On, parameters));
+
+                //过滤软删除
+                if (_queryBody.FilterDeleted && descriptor.EntityDescriptor.SoftDelete)
+                {
+                    var val = _sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0";
+                    sqlBuilder.AppendFormat(" AND {0}.{1}={2} ", alias, _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
+                }
+
+                //添加租户过滤
+                if (_queryBody.FilterTenant && descriptor.EntityDescriptor.IsTenant)
+                {
+                    var x1 = _sqlAdapter.AppendQuote(DbConstants.TENANT_COLUMN_NAME);
+                    var tenantId = _dbContext.LoginInfo.TenantId;
+                    if (tenantId == null)
+                    {
+                        sqlBuilder.AppendFormat(" AND {0}.{1} IS NULL ", alias, x1);
+                    }
+                    else
+                    {
+                        sqlBuilder.AppendFormat(" AND {0}.{1}='{2}' ", alias, x1, tenantId);
+                    }
+                }
             }
         }
 
@@ -482,15 +505,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     {
                         sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(first.EntityDescriptor.GetDeletedColumnName()), val);
                     }
-
-                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
-                    {
-                        var descriptor = _queryBody.JoinDescriptors[i];
-                        if (descriptor.Type == JoinType.Inner && descriptor.EntityDescriptor.SoftDelete)
-                        {
-                            sb.AppendFormat("AND {0}.{1}={2} ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(descriptor.EntityDescriptor.GetDeletedColumnName()), val);
-                        }
-                    }
                 }
 
                 if (sb.Length > 0)
@@ -501,10 +515,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             if (_queryBody.FilterTenant)
             {
-                var val = _dbContext.LoginInfo.TenantId;
+                var tenantId = _dbContext.LoginInfo.TenantId;
                 var sb = new StringBuilder();
-
-                var tenantColName = "TenantId";
 
                 if (_queryBody.JoinDescriptors.Count == 1)
                 {
@@ -512,13 +524,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     var descriptor = _queryBody.JoinDescriptors.First().EntityDescriptor;
                     if (descriptor.IsTenant)
                     {
-                        if (val == null)
+                        var x0 = _sqlAdapter.AppendQuote(DbConstants.TENANT_COLUMN_NAME);
+                        if (tenantId == null)
                         {
-                            sb.AppendFormat("AND {0} IS NULL ", _sqlAdapter.AppendQuote(tenantColName));
+                            sb.AppendFormat("AND {0} IS NULL ", x0);
                         }
                         else
                         {
-                            sb.AppendFormat("AND {0}='{1}' ", _sqlAdapter.AppendQuote(tenantColName), val);
+                            sb.AppendFormat("AND {0}='{1}' ", x0, tenantId);
                         }
                     }
                 }
@@ -528,29 +541,15 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                     var first = _queryBody.JoinDescriptors.First();
                     if (first.EntityDescriptor.IsTenant)
                     {
-                        if (val == null)
+                        var x0 = _sqlAdapter.AppendQuote(first.Alias);
+                        var x1 = _sqlAdapter.AppendQuote(DbConstants.TENANT_COLUMN_NAME);
+                        if (tenantId == null)
                         {
-                            sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(tenantColName));
+                            sb.AppendFormat("AND {0}.{1} IS NULL ", x0, x1);
                         }
                         else
                         {
-                            sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(first.Alias), _sqlAdapter.AppendQuote(tenantColName), val);
-                        }
-                    }
-
-                    for (var i = 1; i < _queryBody.JoinDescriptors.Count; i++)
-                    {
-                        var descriptor = _queryBody.JoinDescriptors[i];
-                        if (descriptor.EntityDescriptor.IsTenant)
-                        {
-                            if (val == null)
-                            {
-                                sb.AppendFormat("AND {0}.{1} IS NULL ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(tenantColName));
-                            }
-                            else
-                            {
-                                sb.AppendFormat("AND {0}.{1}='{2}' ", _sqlAdapter.AppendQuote(descriptor.Alias), _sqlAdapter.AppendQuote(tenantColName), val);
-                            }
+                            sb.AppendFormat("AND {0}.{1}='{2}' ", x0, x1, tenantId);
                         }
                     }
                 }
