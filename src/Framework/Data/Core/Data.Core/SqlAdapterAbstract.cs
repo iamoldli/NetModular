@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -10,11 +11,17 @@ namespace NetModular.Lib.Data.Core
 {
     public abstract class SqlAdapterAbstract : ISqlAdapter
     {
-        protected SqlAdapterAbstract(DbOptions dbOptions, DbModuleOptions options)
+        protected SqlAdapterAbstract(DbOptions dbOptions, DbModuleOptions options, ILogger logger)
         {
             DbOptions = dbOptions;
             Options = options;
+            Logger = logger;
         }
+
+        /// <summary>
+        /// 日志记录器
+        /// </summary>
+        public ILogger Logger { get; }
 
         public DbOptions DbOptions { get; }
 

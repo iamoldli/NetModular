@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
@@ -13,7 +14,7 @@ namespace NetModular.Lib.Data.MySql
 {
     internal class MySqlAdapter : SqlAdapterAbstract
     {
-        public MySqlAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
+        public MySqlAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory.CreateLogger<MySqlAdapter>())
         {
         }
 
@@ -109,7 +110,9 @@ namespace NetModular.Lib.Data.MySql
             {
                 if (!entityDescriptor.Ignore)
                 {
-                    cmd.CommandText = GetCreateTableSql(entityDescriptor);
+                    var sql = GetCreateTableSql(entityDescriptor);
+                    Logger.LogInformation("执行创建表SQL：{@sql}", sql);
+                    cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -119,6 +122,8 @@ namespace NetModular.Lib.Data.MySql
                 //执行创建后事件
                 events?.After().GetAwaiter().GetResult();
             }
+
+            con.Close();
         }
 
         public override string GetColumnTypeName(IColumnDescriptor column, out string defaultValue)

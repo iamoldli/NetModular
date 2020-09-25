@@ -19,7 +19,7 @@ namespace NetModular.Lib.Data.PostgreSQL
         /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="loginInfo"></param>
-        public PostgreSQLDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new PostgreSQLAdapter(dbOptions, options), loggerFactory, loginInfo)
+        public PostgreSQLDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new PostgreSQLAdapter(dbOptions, options, loggerFactory), loggerFactory, loginInfo)
         {
             if (options.ConnectionString.IsNull())
             {
