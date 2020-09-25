@@ -9,6 +9,11 @@ namespace NetModular.Module.Admin.Application.AccountService.ViewModels
     public class AccountAddModel
     {
         /// <summary>
+        /// 租户ID
+        /// </summary>
+        public Guid? TenantId { get; set; }
+
+        /// <summary>
         /// 类型
         /// </summary>
         public AccountType Type { get; set; }
