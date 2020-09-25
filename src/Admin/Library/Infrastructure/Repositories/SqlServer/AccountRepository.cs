@@ -22,9 +22,19 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Id == id).UpdateAsync(m => new AccountEntity { Password = password });
         }
 
+        public Task<AccountEntity> GetByUserName(string userName, AccountType type)
+        {
+            return Db.Find(m => m.UserName.Equals(userName) && m.Type == type).NotFilterTenant().FirstAsync();
+        }
+
         public Task<AccountEntity> GetByUserName(string userName, AccountType type, Guid? tenantId)
         {
             return Db.Find(m => m.UserName.Equals(userName) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
+        }
+
+        public Task<AccountEntity> GetByEmail(string email, AccountType type)
+        {
+            return Db.Find(m => m.Email.Equals(email) && m.Type == type).NotFilterTenant().FirstAsync();
         }
 
         public Task<AccountEntity> GetByEmail(string email, AccountType type, Guid? tenantId)
@@ -32,9 +42,23 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return Db.Find(m => m.Email.Equals(email) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
         }
 
+        public Task<AccountEntity> GetByPhone(string phone, AccountType type)
+        {
+            return Db.Find(m => m.Phone.Equals(phone) && m.Type == type).NotFilterTenant().FirstAsync();
+        }
+
         public Task<AccountEntity> GetByPhone(string phone, AccountType type, Guid? tenantId)
         {
             return Db.Find(m => m.Phone.Equals(phone) && m.Type == type && m.TenantId == tenantId).NotFilterTenant().FirstAsync();
+        }
+
+        public Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type)
+        {
+            return Db.Find()
+                .NotFilterTenant()
+                .Where(m => m.UserName.Equals(keyword) || m.Email.Equals(keyword))
+                .Where(m => m.Type == type)
+                .FirstAsync();
         }
 
         public Task<AccountEntity> GetByUserNameOrEmail(string keyword, AccountType type, Guid? tenantId)
@@ -71,24 +95,37 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             return list;
         }
 
-        public Task<bool> ExistsUserName(string userName, Guid? id, AccountType type = AccountType.Admin)
+        public Task<bool> ExistsUserName(string userName, Guid? id, AccountType type = AccountType.Admin, bool notFilterTenant = false)
         {
             var query = Db.Find(m => m.Type == type && m.UserName == userName);
             query.WhereNotNull(id, m => m.Id != id);
+            if (notFilterTenant)
+            {
+                query.NotFilterTenant();
+            }
             return query.ExistsAsync();
         }
 
-        public Task<bool> ExistsPhone(string phone, Guid? id, AccountType type = AccountType.Admin)
+        public Task<bool> ExistsPhone(string phone, Guid? id, AccountType type = AccountType.Admin, bool notFilterTenant = false)
         {
             var query = Db.Find(m => m.Type == type && m.Phone == phone);
             query.WhereNotNull(id, m => m.Id != id);
+            if (notFilterTenant)
+            {
+                query.NotFilterTenant();
+            }
+
             return query.ExistsAsync();
         }
 
-        public Task<bool> ExistsEmail(string email, Guid? id, AccountType type = AccountType.Admin)
+        public Task<bool> ExistsEmail(string email, Guid? id, AccountType type = AccountType.Admin, bool notFilterTenant = false)
         {
             var query = Db.Find(m => m.Type == type && m.Email == email);
             query.WhereNotNull(id, m => m.Id != id);
+            if (notFilterTenant)
+            {
+                query.NotFilterTenant();
+            }
             return query.ExistsAsync();
         }
     }
