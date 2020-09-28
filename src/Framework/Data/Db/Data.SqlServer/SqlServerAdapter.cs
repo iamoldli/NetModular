@@ -13,7 +13,7 @@ namespace NetModular.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {
-        public SqlServerAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory.CreateLogger<SqlServerAdapter>())
+        public SqlServerAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<SqlServerAdapter>())
         {
         }
 
@@ -144,7 +144,7 @@ namespace NetModular.Lib.Data.SqlServer
                     if (obj.ToInt() < 1)
                     {
                         var sql = GetCreateTableSql(entityDescriptor);
-                        Logger.LogInformation("执行创建表SQL：{@sql}", sql);
+                        Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
                         cmd.CommandText = sql;
                         cmd.ExecuteNonQuery();
                     }

@@ -18,6 +18,12 @@ namespace NetModular.Module.Admin.Domain.Account
         public string TypeName => Type.ToDescription();
 
         /// <summary>
+        /// 租户名称
+        /// </summary>
+        [Ignore]
+        public string TenantName { get; set; }
+
+        /// <summary>
         /// 账户检测
         /// </summary>
         public IResultModel Check()

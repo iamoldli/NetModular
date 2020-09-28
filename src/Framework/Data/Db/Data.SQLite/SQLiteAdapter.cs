@@ -15,7 +15,7 @@ namespace NetModular.Lib.Data.SQLite
 {
     internal class SQLiteAdapter : SqlAdapterAbstract
     {
-        public SQLiteAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory.CreateLogger<SQLiteAdapter>())
+        public SQLiteAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<SQLiteAdapter>())
         {
         }
 
@@ -114,7 +114,7 @@ namespace NetModular.Lib.Data.SQLite
                     if (obj.ToInt() < 1)
                     {
                         var sql = GetCreateTableSql(entityDescriptor);
-                        Logger.LogInformation("执行创建表SQL：{@sql}", sql);
+                        Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
                         cmd.CommandText = sql;
                         cmd.ExecuteNonQuery();
                     }

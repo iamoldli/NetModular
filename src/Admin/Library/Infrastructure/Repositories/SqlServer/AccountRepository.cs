@@ -8,6 +8,7 @@ using NetModular.Lib.Data.Core;
 using NetModular.Lib.Data.Query;
 using NetModular.Module.Admin.Domain.Account;
 using NetModular.Module.Admin.Domain.Account.Models;
+using NetModular.Module.Admin.Domain.Tenant;
 
 namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
 {
@@ -85,12 +86,14 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             query.WhereNotNull(model.Phone, m => m.Phone == model.Phone);
             query.WhereNotNull(model.Email, m => m.Email == model.Email);
 
+            var joinQuery = query.LeftJoin<TenantEntity>((x, y) => x.TenantId == y.Id);
+
             if (!paging.OrderBy.Any())
             {
-                query.OrderByDescending(m => m.Id);
+                joinQuery.OrderByDescending((x, y) => x.Id);
             }
-
-            var list = await query.PaginationAsync(paging);
+            //不适用租户过滤功能
+            var list = await joinQuery.NotFilterTenant().PaginationAsync(paging);
             model.TotalCount = paging.TotalCount;
             return list;
         }

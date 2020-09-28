@@ -30,11 +30,17 @@ namespace NetModular.Lib.Host.Web
             services.AddWebHost(_hostOptions, Env, _cfg);
         }
 
-        public virtual void Configure(IApplicationBuilder app)
+        public virtual void Configure(IApplicationBuilder app, IHostApplicationLifetime appLifetime)
         {
             app.UseWebHost(_hostOptions, Env);
 
             app.UseShutdownHandler();
+
+            appLifetime.ApplicationStarted.Register(() =>
+            {
+                //显示启动Logo
+                app.ApplicationServices.GetService<IStartLogoProvider>().Show(_hostOptions);
+            });
         }
     }
 }

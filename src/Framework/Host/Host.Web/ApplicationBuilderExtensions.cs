@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -75,9 +74,6 @@ namespace NetModular.Lib.Host.Web
 
             //加载模块
             app.UseModules(env);
-
-            //显示启动Logo
-            app.ApplicationServices.GetService<IStartLogoProvider>().Show(hostOptions);
 
             return app;
         }

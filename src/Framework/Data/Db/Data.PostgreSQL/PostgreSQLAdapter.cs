@@ -15,7 +15,7 @@ namespace NetModular.Lib.Data.PostgreSQL
 {
     internal class PostgreSQLAdapter : SqlAdapterAbstract
     {
-        public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory.CreateLogger<PostgreSQLAdapter>())
+        public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<PostgreSQLAdapter>())
         {
         }
 
@@ -116,7 +116,7 @@ namespace NetModular.Lib.Data.PostgreSQL
                 if (!entityDescriptor.Ignore)
                 {
                     var sql = GetCreateTableSql(entityDescriptor);
-                    Logger.LogInformation("执行创建表SQL：{@sql}", sql);
+                    Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
                     cmd.CommandText = sql;
                     con.Execute(GetCreateTableSql(entityDescriptor));
                 }
