@@ -66,6 +66,8 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             QueryBody.SetLimit(skip, take);
         }
 
+        #region ==ToList==
+
         public IList<dynamic> ToList()
         {
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
@@ -90,49 +92,69 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             return (await Db.QueryAsync<TResult>(sql, parameters.Parse(), QueryBody.Uow)).ToList();
         }
 
+        #endregion
+
         #region ==Pagination==
 
-        public IList<dynamic> Pagination(Paging paging = null)
+        public IList<dynamic> Pagination(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
 
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
+
+            if (queryCount)
+                paging.TotalCount = Count();
+
             return ToList();
         }
 
-        public IList<TResult> Pagination<TResult>(Paging paging = null)
+        public IList<TResult> Pagination<TResult>(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
 
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
+
+            if (queryCount)
+                paging.TotalCount = Count();
+
             return ToList<TResult>();
         }
 
-        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null)
+        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
 
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
+
+            if (queryCount)
+                paging.TotalCount = await CountAsync();
+
             return await ToListAsync();
         }
 
-        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null)
+        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
 
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
+
+            if (queryCount)
+                paging.TotalCount = await CountAsync();
+
             return await ToListAsync<TResult>();
         }
 
         #endregion
+
+        #region ==First==
 
         public dynamic First()
         {
@@ -158,6 +180,26 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             return Db.QueryFirstOrDefaultAsync<TResult>(sql, parameters.Parse(), QueryBody.Uow);
         }
 
+        #endregion
+
+        #region ==Count==
+
+        public long Count()
+        {
+            var sql = QueryBuilder.CountSqlBuild(out IQueryParameters parameters);
+            return Db.ExecuteScalar<long>(sql, parameters.Parse(), QueryBody.Uow);
+        }
+
+        public Task<long> CountAsync()
+        {
+            var sql = QueryBuilder.CountSqlBuild(out IQueryParameters parameters);
+            return Db.ExecuteScalarAsync<long>(sql, parameters.Parse(), QueryBody.Uow);
+        }
+
+        #endregion
+
+        #region ==ToReader==
+
         public IDataReader ToReader()
         {
             var sql = QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
@@ -170,6 +212,10 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
             return Db.ExecuteReaderAsync(sql, parameters.Parse(), QueryBody.Uow);
         }
 
+        #endregion
+
+        #region ==ToSql==
+
         public string ToSql()
         {
             return QueryBuilder.GroupBySqlBuild(out IQueryParameters parameters);
@@ -179,5 +225,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.GroupByQueryable
         {
             return QueryBuilder.GroupBySqlBuild(out parameters);
         }
+
+        #endregion
     }
 }

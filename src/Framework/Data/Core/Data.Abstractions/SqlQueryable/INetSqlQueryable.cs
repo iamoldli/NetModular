@@ -61,30 +61,34 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <summary>
         /// 分页查询，返回匿名对象
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
+        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        IList<dynamic> Pagination(Paging paging = null);
+        IList<dynamic> Pagination(Paging paging = null, bool queryCount = true);
 
         /// <summary>
         /// 分页查询，返回指定类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
+        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        IList<TResult> Pagination<TResult>(Paging paging = null);
+        IList<TResult> Pagination<TResult>(Paging paging = null, bool queryCount = true);
 
         /// <summary>
         /// 分页查询，返回匿名对象
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
+        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        Task<IList<dynamic>> PaginationAsync(Paging paging = null);
+        Task<IList<dynamic>> PaginationAsync(Paging paging = null, bool queryCount = true);
 
         /// <summary>
         /// 分页查询，返回指定类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
+        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null);
+        Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null, bool queryCount = true);
 
         #endregion
 

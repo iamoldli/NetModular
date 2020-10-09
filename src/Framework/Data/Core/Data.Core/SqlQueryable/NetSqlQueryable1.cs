@@ -485,14 +485,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #region ==Pagination==
 
-        public new IList<TEntity> Pagination(Paging paging = null)
+        public new IList<TEntity> Pagination(Paging paging = null, bool queryCount = true)
         {
-            return Pagination<TEntity>(paging);
+            return Pagination<TEntity>(paging, queryCount);
         }
 
-        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null)
+        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null, bool queryCount = true)
         {
-            return PaginationAsync<TEntity>(paging);
+            return PaginationAsync<TEntity>(paging, queryCount);
         }
 
         #endregion

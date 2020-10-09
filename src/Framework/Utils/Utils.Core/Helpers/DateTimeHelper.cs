@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using NetModular.Lib.Utils.Core.Attributes;
 
 namespace NetModular.Lib.Utils.Core.Helpers
@@ -80,5 +81,88 @@ namespace NetModular.Lib.Utils.Core.Helpers
             }
             return week;
         }
+
+        #region 获取 本周、本月、本季度、本年 的开始时间或结束时间
+
+        /// <summary>
+        /// 获取结束时间
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="date">日期</param>
+        /// <returns></returns>
+        public static DateTime? GetStart(StartAndEndDateType type, DateTime? date = null)
+        {
+            var d = date ?? DateTime.Now;
+
+            switch (type)
+            {
+                case StartAndEndDateType.Week:
+                    return d.AddDays(-(int)d.DayOfWeek + 1);
+                case StartAndEndDateType.Month:
+                    return d.AddDays(-d.Day + 1);
+                case StartAndEndDateType.Season:
+                    var time = d.AddMonths(0 - ((d.Month - 1) % 3));
+                    return time.AddDays(-time.Day + 1);
+                case StartAndEndDateType.Year:
+                    return d.AddDays(-d.DayOfYear + 1);
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取结束时间
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="date">日期</param>
+        /// <returns></returns>
+        public static DateTime? GetEnd(StartAndEndDateType type, DateTime? date = null)
+        {
+            var d = date ?? DateTime.Now;
+            switch (type)
+            {
+                case StartAndEndDateType.Week:
+                    return d.AddDays(7 - (int)d.DayOfWeek);
+                case StartAndEndDateType.Month:
+                    return d.AddMonths(1).AddDays(-d.AddMonths(1).Day + 1).AddDays(-1);
+                case StartAndEndDateType.Season:
+                    var time = d.AddMonths((3 - ((d.Month - 1) % 3) - 1));
+                    return time.AddMonths(1).AddDays(-time.AddMonths(1).Day + 1).AddDays(-1);
+                case StartAndEndDateType.Year:
+                    var time2 = d.AddYears(1);
+                    return time2.AddDays(-time2.DayOfYear);
+                default:
+                    return null;
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// 开始结束日期类型
+    /// </summary>
+    public enum StartAndEndDateType
+    {
+        /// <summary>
+        /// 周
+        /// </summary>
+        [Description("周")]
+        Week,
+        /// <summary>
+        /// 月
+        /// </summary>
+        [Description("月")]
+        Month,
+        /// <summary>
+        /// 季度
+        /// </summary>
+        [Description("季度")]
+        Season,
+        /// <summary>
+        /// 年
+        /// </summary>
+        [Description("年")]
+        Year
     }
 }

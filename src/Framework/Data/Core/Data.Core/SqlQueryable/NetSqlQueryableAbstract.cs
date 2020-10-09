@@ -120,7 +120,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #region ==Pagination==
 
-        public IList<dynamic> Pagination(Paging paging = null)
+        public IList<dynamic> Pagination(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
@@ -128,11 +128,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = Count();
+            if (queryCount)
+                paging.TotalCount = Count();
+
             return ToList();
         }
 
-        public IList<TResult> Pagination<TResult>(Paging paging = null)
+        public IList<TResult> Pagination<TResult>(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
@@ -144,7 +146,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return ToList<TResult>();
         }
 
-        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null)
+        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
@@ -152,11 +154,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = await CountAsync();
+            if (queryCount)
+                paging.TotalCount = await CountAsync();
+
             return await ToListAsync();
         }
 
-        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null)
+        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null, bool queryCount = true)
         {
             if (paging == null)
                 paging = new Paging();
@@ -164,7 +168,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = await CountAsync();
+            if (queryCount)
+                paging.TotalCount = await CountAsync();
+
             return await ToListAsync<TResult>();
         }
 
