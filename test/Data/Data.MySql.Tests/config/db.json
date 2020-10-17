@@ -6,15 +6,15 @@
   //数据库版本
   "Version": "",
   //数据库地址
-  "Server": "localhost",
+  "Server": "pi.iamoldli.com",
   //端口号
-  "Port": 0,
+  "Port": 10080,
   //用户名
   "UserId": "root",
   //密码
-  "Password": "root",
+  "Password": "oldli!@#123",
   //是否创建数据库和表
-  "CreateDatabase": false,
+  "CreateDatabase": true,
   //模块列表
   "Modules": [
     {

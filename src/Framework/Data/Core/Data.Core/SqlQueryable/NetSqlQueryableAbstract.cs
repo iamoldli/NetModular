@@ -120,7 +120,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         #region ==Pagination==
 
-        public IList<dynamic> Pagination(Paging paging = null, bool queryCount = true)
+        public IList<dynamic> Pagination(Paging paging = null)
         {
             if (paging == null)
                 paging = new Paging();
@@ -128,13 +128,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            if (queryCount)
+            if (paging.QueryCount)
                 paging.TotalCount = Count();
 
             return ToList();
         }
 
-        public IList<TResult> Pagination<TResult>(Paging paging = null, bool queryCount = true)
+        public IList<TResult> Pagination<TResult>(Paging paging = null)
         {
             if (paging == null)
                 paging = new Paging();
@@ -142,11 +142,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = Count();
+            if (paging.QueryCount)
+                paging.TotalCount = Count();
+
             return ToList<TResult>();
         }
 
-        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null, bool queryCount = true)
+        public async Task<IList<dynamic>> PaginationAsync(Paging paging = null)
         {
             if (paging == null)
                 paging = new Paging();
@@ -154,13 +156,19 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            if (queryCount)
-                paging.TotalCount = await CountAsync();
+            Task<long> queryCountTask = null;
+            if (paging.QueryCount)
+                queryCountTask = CountAsync();
 
-            return await ToListAsync();
+            var list = await ToListAsync();
+
+            if (queryCountTask != null)
+                paging.TotalCount = await queryCountTask;
+
+            return list;
         }
 
-        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null, bool queryCount = true)
+        public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null)
         {
             if (paging == null)
                 paging = new Paging();
@@ -168,10 +176,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            if (queryCount)
-                paging.TotalCount = await CountAsync();
+            Task<long> queryCountTask = null;
+            if (paging.QueryCount)
+                queryCountTask = CountAsync();
 
-            return await ToListAsync<TResult>();
+            var list = await ToListAsync<TResult>();
+
+            if (queryCountTask != null)
+                paging.TotalCount = await queryCountTask;
+
+            return list;
         }
 
         #endregion

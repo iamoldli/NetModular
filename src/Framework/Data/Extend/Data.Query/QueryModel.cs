@@ -6,6 +6,11 @@
     public class QueryModel
     {
         /// <summary>
+        /// 不查询总数
+        /// </summary>
+        public bool NotQueryCount { get; set; }
+
+        /// <summary>
         /// 总数
         /// </summary>
         public long TotalCount { get; set; }
@@ -39,5 +44,10 @@
         /// 是否超出导出数量限制
         /// </summary>
         public bool IsOutOfExportCountLimit => ExportCount > ExportCountLimit;
+
+        /// <summary>
+        /// 查询数量
+        /// </summary>
+        public bool QueryCount { get; set; }
     }
 }

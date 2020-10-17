@@ -314,14 +314,14 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             return ToListAsync<TEntity>();
         }
 
-        public new IList<TEntity> Pagination(Paging paging = null, bool queryCount = true)
+        public new IList<TEntity> Pagination(Paging paging = null)
         {
-            return Pagination<TEntity>(paging, queryCount);
+            return Pagination<TEntity>(paging);
         }
 
-        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null, bool queryCount = true)
+        public new Task<IList<TEntity>> PaginationAsync(Paging paging = null)
         {
-            return PaginationAsync<TEntity>(paging, queryCount);
+            return PaginationAsync<TEntity>(paging);
         }
 
         public new TEntity First()

@@ -431,17 +431,15 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// 分页查询，返回实体类型
         /// </summary>
         /// <param name="paging">分页对象</param>
-        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        new IList<TEntity> Pagination(Paging paging = null, bool queryCount = true);
+        new IList<TEntity> Pagination(Paging paging = null);
 
         /// <summary>
         /// 分页查询，返回实体类型
         /// </summary>
         /// <param name="paging">分页对象</param>
-        /// <param name="queryCount">查询数量</param>
         /// <returns></returns>
-        new Task<IList<TEntity>> PaginationAsync(Paging paging = null, bool queryCount = true);
+        new Task<IList<TEntity>> PaginationAsync(Paging paging = null);
 
         #endregion
 
