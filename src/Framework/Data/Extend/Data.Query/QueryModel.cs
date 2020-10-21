@@ -6,11 +6,6 @@
     public class QueryModel
     {
         /// <summary>
-        /// 不查询总数
-        /// </summary>
-        public bool NotQueryCount { get; set; }
-
-        /// <summary>
         /// 总数
         /// </summary>
         public long TotalCount { get; set; }
@@ -48,6 +43,6 @@
         /// <summary>
         /// 查询数量
         /// </summary>
-        public bool QueryCount { get; set; }
+        public bool QueryCount { get; set; } = true;
     }
 }
