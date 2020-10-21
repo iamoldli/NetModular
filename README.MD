@@ -95,3 +95,15 @@ NetModular 是一款为中小型企业而生的基于.Net Core平台的业务模
 QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fccc7173f17ac2c9d12c8a31a7549c260e6aefcb6a40fdcc4b423940b0)
 
 <img src="./img/qq.jpg" alt="QQ" height="300"/>
+
+## 贡献者
+
+<a href="https://github.com/JTOne123"><img src="https://avatars2.githubusercontent.com/u/3457140?s=60&amp;v=4" style="border-radius:19px" width="38" height="38"></a>
+<a href="https://github.com/hajiuxbz"><img src="https://avatars2.githubusercontent.com/u/22442565?s=60&v=4" style="border-radius:19px" width="38" height="38"></a>
+<a href="https://github.com/chylove1982"><img src="https://avatars0.githubusercontent.com/u/18054267?s=60&v=4" style="border-radius:19px" width="38" height="38"></a>
+<a href="https://github.com/autukill"><img src="https://avatars1.githubusercontent.com/u/5186639?s=60&v=4" style="border-radius:19px" width="38" height="38"></a>
+<a href="https://github.com/alasai"><img src="https://avatars1.githubusercontent.com/u/26901102?s=60&v=4" style="border-radius:19px" width="38" height="38"></a>
+
+## 贡献准则
+
+欢迎任何人贡献代码或提供好的功能建议~
