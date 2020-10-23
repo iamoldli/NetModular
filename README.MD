@@ -8,12 +8,12 @@ NetModular
   <a href="https://github.com/iamoldli/NetModular/blob/master/LICENSE"><img src="https://img.shields.io/github/license/iamoldli/NetModular"></a>
 </p>
 
-## 广告开始********************************************************************************************************
+## 广告开始
 
-<h1 align="center">落魄程序员，在线卖苹果，家乡苹果，又脆又甜，39一箱，一箱十斤，需要的朋友可扫描下方二维码购买~</h1>
+<h3 align="center">落魄程序员，在线卖苹果，家乡苹果，又脆又甜，39一箱，一箱十斤，需要的朋友可扫描下方二维码购买~</h3>
 <img src="./img/code.png" alt="NetModular"/>
 
-## 广告结束********************************************************************************************************
+## 广告结束
 
 ## NetModular是什么
 
