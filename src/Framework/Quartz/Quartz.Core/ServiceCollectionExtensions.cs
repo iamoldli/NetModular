@@ -16,7 +16,6 @@ namespace NetModular.Lib.Quartz.Core
         /// </summary>
         /// <param name="services"></param>
         /// <param name="modules">模块集合</param>
-        /// <param name="options">调度配置</param>
         /// <returns></returns>
         public static IServiceCollection AddQuartz(this IServiceCollection services, IModuleCollection modules)
         {

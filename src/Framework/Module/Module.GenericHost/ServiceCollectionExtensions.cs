@@ -40,6 +40,7 @@ namespace NetModular.Lib.Module.GenericHost
         /// <param name="services"></param>
         /// <param name="modules"></param>
         /// <param name="env"></param>
+        /// <param name="cfg"></param>
         /// <returns></returns>
         public static IServiceCollection AddModuleServices(this IServiceCollection services, IModuleCollection modules, IHostEnvironment env, IConfiguration cfg)
         {
