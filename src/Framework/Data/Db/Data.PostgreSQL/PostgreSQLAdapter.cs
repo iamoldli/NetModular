@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -14,7 +15,7 @@ namespace NetModular.Lib.Data.PostgreSQL
 {
     internal class PostgreSQLAdapter : SqlAdapterAbstract
     {
-        public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
+        public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<PostgreSQLAdapter>())
         {
         }
 
@@ -93,16 +94,20 @@ namespace NetModular.Lib.Data.PostgreSQL
 
             using var con = new NpgsqlConnection(connStrBuilder.ToString());
             con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
 
             //判断数据库是否已存在
-            databaseExists = con.ExecuteScalar($"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;").ToInt() > 0;
+            cmd.CommandText = $"SELECT 1 FROM pg_namespace WHERE nspname = '{Options.Database}' LIMIT 1;";
+            databaseExists = cmd.ExecuteScalar().ToInt() > 0;
             if (!databaseExists)
             {
                 //执行创建前事件
                 events?.Before().GetAwaiter().GetResult();
 
                 //创建数据库
-                con.Execute($"CREATE SCHEMA {Options.Database};");
+                cmd.CommandText = $"CREATE SCHEMA {Options.Database};";
+                cmd.ExecuteNonQuery();
             }
 
             //创建表
@@ -110,6 +115,9 @@ namespace NetModular.Lib.Data.PostgreSQL
             {
                 if (!entityDescriptor.Ignore)
                 {
+                    var sql = GetCreateTableSql(entityDescriptor);
+                    Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
+                    cmd.CommandText = sql;
                     con.Execute(GetCreateTableSql(entityDescriptor));
                 }
             }

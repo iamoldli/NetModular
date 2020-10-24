@@ -6,6 +6,10 @@ export default [
     show: false
   },
   {
+    name: 'tenantName',
+    label: '所属租户'
+  },
+  {
     name: 'typeName',
     label: '类型'
   },

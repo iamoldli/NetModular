@@ -154,6 +154,11 @@ namespace NetModular.Lib.Data.Integration
 
                         if (sql.NotNull())
                         {
+                            if(dbOptions.Dialect == SqlDialect.PostgreSQL)
+                            {
+                                sql = sql.Replace("[nm_database_name]", options.Database);
+                            }
+                            
                             //此处不能使用IDbContext的NewConnection方法创建连接
                             var con = dbContext.Options.NewConnection();
 

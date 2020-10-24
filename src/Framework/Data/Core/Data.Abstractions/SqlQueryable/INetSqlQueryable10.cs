@@ -402,14 +402,14 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <summary>
         /// 分页查询，返回实体类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         new IList<TEntity> Pagination(Paging paging = null);
 
         /// <summary>
         /// 分页查询，返回实体类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         new Task<IList<TEntity>> PaginationAsync(Paging paging = null);
 
@@ -440,8 +440,7 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         INetSqlQueryable<TEntity, TEntity2, TEntity3, TEntity4, TEntity5, TEntity6, TEntity7, TEntity8, TEntity9, TEntity10> IncludeDeleted();
 
         #endregion
-
-
+        
         #region ==NotFilterTenant==
 
         /// <summary>

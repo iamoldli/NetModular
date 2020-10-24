@@ -310,7 +310,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
         {
             return ToListAsync<TEntity>();
         }
-
+        
         public new IList<TEntity> Pagination(Paging paging = null)
         {
             return Pagination<TEntity>(paging);

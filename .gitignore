@@ -333,3 +333,4 @@ ASALocalRun/
 .localhistory/
 /src/Admin/UI/module-admin/package-lock.json
 /src/Admin/WebHost/wwwroot/app
+/_packages

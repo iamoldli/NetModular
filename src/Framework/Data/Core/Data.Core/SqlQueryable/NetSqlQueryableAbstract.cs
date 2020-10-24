@@ -128,7 +128,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = Count();
+            if (paging.QueryCount)
+                paging.TotalCount = Count();
+
             return ToList();
         }
 
@@ -140,7 +142,9 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = Count();
+            if (paging.QueryCount)
+                paging.TotalCount = Count();
+
             return ToList<TResult>();
         }
 
@@ -152,8 +156,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = await CountAsync();
-            return await ToListAsync();
+            Task<long> queryCountTask = null;
+            if (paging.QueryCount)
+                queryCountTask = CountAsync();
+
+            var list = await ToListAsync();
+
+            if (queryCountTask != null)
+                paging.TotalCount = await queryCountTask;
+
+            return list;
         }
 
         public async Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null)
@@ -164,8 +176,16 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             QueryBody.SetOrderBy(paging.OrderBy);
             QueryBody.SetLimit(paging.Skip, paging.Size);
 
-            paging.TotalCount = await CountAsync();
-            return await ToListAsync<TResult>();
+            Task<long> queryCountTask = null;
+            if (paging.QueryCount)
+                queryCountTask = CountAsync();
+
+            var list = await ToListAsync<TResult>();
+
+            if (queryCountTask != null)
+                paging.TotalCount = await queryCountTask;
+
+            return list;
         }
 
         #endregion

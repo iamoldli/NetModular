@@ -19,7 +19,7 @@ namespace NetModular.Lib.Data.MySql
         /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="loginInfo"></param>
-        public MySqlDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new MySqlAdapter(dbOptions, options), loggerFactory, loginInfo)
+        public MySqlDbContextOptions(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory, ILoginInfo loginInfo) : base(dbOptions, options, new MySqlAdapter(dbOptions, options, loggerFactory), loggerFactory, loginInfo)
         {
             if (options.ConnectionString.IsNull())
             {

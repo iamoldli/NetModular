@@ -39,5 +39,10 @@
         /// 是否超出导出数量限制
         /// </summary>
         public bool IsOutOfExportCountLimit => ExportCount > ExportCountLimit;
+
+        /// <summary>
+        /// 查询数量
+        /// </summary>
+        public bool QueryCount { get; set; } = true;
     }
 }

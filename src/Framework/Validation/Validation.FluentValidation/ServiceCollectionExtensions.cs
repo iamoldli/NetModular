@@ -38,7 +38,7 @@ namespace NetModular.Lib.Validation.FluentValidation
             });
 
             //当一个验证失败时，后续的验证不再执行
-            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.Global.CascadeMode = CascadeMode.Stop;
             return builder;
         }
     }

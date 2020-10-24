@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -14,7 +15,7 @@ namespace NetModular.Lib.Data.SQLite
 {
     internal class SQLiteAdapter : SqlAdapterAbstract
     {
-        public SQLiteAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
+        public SQLiteAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<SQLiteAdapter>())
         {
         }
 
@@ -108,12 +109,13 @@ namespace NetModular.Lib.Data.SQLite
             {
                 if (!entityDescriptor.Ignore)
                 {
-                    cmd.CommandText =
-                        $"SELECT 1 FROM sqlite_master WHERE type = 'table' and name='{entityDescriptor.TableName}';";
+                    cmd.CommandText = $"SELECT 1 FROM sqlite_master WHERE type = 'table' and name='{entityDescriptor.TableName}';";
                     var obj = cmd.ExecuteScalar();
                     if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = GetCreateTableSql(entityDescriptor);
+                        var sql = GetCreateTableSql(entityDescriptor);
+                        Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
+                        cmd.CommandText = sql;
                         cmd.ExecuteNonQuery();
                     }
                 }

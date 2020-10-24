@@ -298,8 +298,13 @@ namespace Data.MySql.Tests
         [Fact]
         public async void PaginationTest()
         {
+            var sw=new Stopwatch();
+            sw.Start();
             var paging = new Paging();
             var list = await _db.Find().PaginationAsync(paging);
+            sw.Stop();
+
+            var s = sw.ElapsedMilliseconds;
 
             Assert.Equal(15, list.Count);
             Assert.Equal(100, paging.TotalCount);

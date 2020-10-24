@@ -61,28 +61,28 @@ namespace NetModular.Lib.Data.Abstractions.SqlQueryable
         /// <summary>
         /// 分页查询，返回匿名对象
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         IList<dynamic> Pagination(Paging paging = null);
 
         /// <summary>
         /// 分页查询，返回指定类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         IList<TResult> Pagination<TResult>(Paging paging = null);
 
         /// <summary>
         /// 分页查询，返回匿名对象
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         Task<IList<dynamic>> PaginationAsync(Paging paging = null);
 
         /// <summary>
         /// 分页查询，返回指定类型
         /// </summary>
-        /// <param name="paging"></param>
+        /// <param name="paging">分页对象</param>
         /// <returns></returns>
         Task<IList<TResult>> PaginationAsync<TResult>(Paging paging = null);
 

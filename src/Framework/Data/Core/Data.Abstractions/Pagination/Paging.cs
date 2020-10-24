@@ -64,6 +64,11 @@ namespace NetModular.Lib.Data.Abstractions.Pagination
         public long TotalCount { get; set; }
 
         /// <summary>
+        /// 查询总数
+        /// </summary>
+        public bool QueryCount { get; set; } = true;
+
+        /// <summary>
         /// 总页数
         /// </summary>
         public long TotalPage => (TotalCount - 1 + Size) / Size;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Options;
@@ -12,7 +13,7 @@ namespace NetModular.Lib.Data.SqlServer
 {
     public class SqlServerAdapter : SqlAdapterAbstract
     {
-        public SqlServerAdapter(DbOptions dbOptions, DbModuleOptions options) : base(dbOptions, options)
+        public SqlServerAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<SqlServerAdapter>())
         {
         }
 
@@ -142,7 +143,9 @@ namespace NetModular.Lib.Data.SqlServer
                     var obj = cmd.ExecuteScalar();
                     if (obj.ToInt() < 1)
                     {
-                        cmd.CommandText = GetCreateTableSql(entityDescriptor);
+                        var sql = GetCreateTableSql(entityDescriptor);
+                        Logger?.LogInformation("执行创建表SQL：{@sql}", sql);
+                        cmd.CommandText = sql;
                         cmd.ExecuteNonQuery();
                     }
                 }
