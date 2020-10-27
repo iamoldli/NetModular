@@ -240,7 +240,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Qiniu.SDK", "src\Framew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.Integration", "src\Framework\Pdf\Pdf.Integration\Pdf.Integration.csproj", "{4C1DE062-5452-4BD4-A2B3-C87EAB541A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config.Redis", "src\Framework\Config\Config.Redis\Config.Redis.csproj", "{EAFE74BA-AD0B-4519-9F60-F0BED155E354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Redis", "src\Framework\Config\Config.Redis\Config.Redis.csproj", "{EAFE74BA-AD0B-4519-9F60-F0BED155E354}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSS.Aliyun", "src\Framework\OSS\OSS.Aliyun\OSS.Aliyun.csproj", "{0C3414BC-14BC-438D-97F5-A03100B657E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -492,6 +494,10 @@ Global
 		{EAFE74BA-AD0B-4519-9F60-F0BED155E354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAFE74BA-AD0B-4519-9F60-F0BED155E354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAFE74BA-AD0B-4519-9F60-F0BED155E354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -586,6 +592,7 @@ Global
 		{2341C778-1869-46E6-B905-1F94F476E77B} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
 		{4C1DE062-5452-4BD4-A2B3-C87EAB541A2B} = {5CF9881B-A6C4-4746-807E-7E1CB8D0AC58}
 		{EAFE74BA-AD0B-4519-9F60-F0BED155E354} = {84F5A7ED-CE1E-4E68-A703-0785FB5AEADC}
+		{0C3414BC-14BC-438D-97F5-A03100B657E1} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

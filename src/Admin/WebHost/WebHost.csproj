@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\Framework\Data\Db\Data.SqlServer\Data.SqlServer.csproj" />
     <ProjectReference Include="..\..\Framework\Excel\Excel.EPPlus\Excel.EPPlus.csproj" />
     <ProjectReference Include="..\..\Framework\Host\Host.Web\Host.Web.csproj" />
+    <ProjectReference Include="..\..\Framework\OSS\OSS.Aliyun\OSS.Aliyun.csproj" />
     <ProjectReference Include="..\..\Framework\OSS\OSS.Local\OSS.Local.csproj" />
     <ProjectReference Include="..\..\Framework\OSS\OSS.Qiniu\OSS.Qiniu.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />

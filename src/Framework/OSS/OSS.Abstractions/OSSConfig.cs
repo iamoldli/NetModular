@@ -14,5 +14,10 @@
         /// 七牛配置
         /// </summary>
         public QiniuConfig Qiniu { get; set; } = new QiniuConfig();
+
+        /// <summary>
+        /// 阿里云配置
+        /// </summary>
+        public AliyunConfig Aliyun { get; set; }=new AliyunConfig();
     }
 }

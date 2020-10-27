@@ -23,6 +23,15 @@ namespace NetModular.Lib.OSS.Integration
                 section.Bind(config);
             }
 
+            if (config.Qiniu != null && config.Qiniu.Domain.NotNull() && !config.Qiniu.Domain.EndsWith("/"))
+            {
+                config.Qiniu.Domain += "/";
+            }
+            if (config.Aliyun != null && config.Aliyun.Domain.NotNull() && !config.Aliyun.Domain.EndsWith("/"))
+            {
+                config.Aliyun.Domain += "/";
+            }
+
             services.AddSingleton(config);
 
             var assembly = AssemblyHelper.LoadByNameEndString($".Lib.OSS.{config.Provider.ToString()}");

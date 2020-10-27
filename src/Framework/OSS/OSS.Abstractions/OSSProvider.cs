@@ -13,6 +13,11 @@ namespace NetModular.Lib.OSS.Abstractions
         /// 七牛
         /// </summary>
         [Description("七牛")]
-        Qiniu
+        Qiniu,
+        /// <summary>
+        /// 阿里云
+        /// </summary>
+        [Description("阿里云")]
+        Aliyun
     }
 }
