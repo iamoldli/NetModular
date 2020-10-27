@@ -11,7 +11,7 @@ NetModular
 ## 广告开始
 
 <h3 align="center">落魄程序员，在线卖苹果，家乡苹果，又脆又甜，39一箱，一箱十斤</h3>
-<h3 align="center">需要的朋友可打开微信扫描下方二维码购买</h3>
+<h3 align="center">需要的朋友可打开微信扫描下方二维码购买，每天早上10点现摘现发~</h3>
 <h3 align="center"><img src="./img/code.png" alt="NetModular"/></h3>
 
 ## 广告结束
