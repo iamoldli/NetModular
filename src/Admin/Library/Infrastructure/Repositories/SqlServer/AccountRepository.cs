@@ -131,5 +131,25 @@ namespace NetModular.Module.Admin.Infrastructure.Repositories.SqlServer
             }
             return query.ExistsAsync();
         }
+
+        public Task<bool> DeleteByPhone(string phone, IUnitOfWork uow = null, bool softDelete = false, bool notFilterTenant = false)
+        {
+            var query = Db.Find(m => m.Phone == phone).UseUow(uow);
+            if (notFilterTenant)
+            {
+                query.NotFilterTenant();
+            }
+            return softDelete ? query.SoftDeleteAsync() : query.DeleteAsync();
+        }
+
+        public Task<bool> DeleteByEmail(string email, IUnitOfWork uow = null, bool softDelete = false, bool notFilterTenant = false)
+        {
+            var query = Db.Find(m => m.Email == email).UseUow(uow);
+            if (notFilterTenant)
+            {
+                query.NotFilterTenant();
+            }
+            return softDelete ? query.SoftDeleteAsync() : query.DeleteAsync();
+        }
     }
 }
