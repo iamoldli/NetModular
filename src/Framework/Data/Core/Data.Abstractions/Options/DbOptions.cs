@@ -54,11 +54,6 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public bool InitData { get; set; }
 
         /// <summary>
-        /// 是否加密用户Id和密码
-        /// </summary>
-        public bool Encrypt { get; set; }
-
-        /// <summary>
         /// PostgreSQL的数据库名称
         /// </summary>
         public string NpgsqlDatabaseName { get; set; }
@@ -79,8 +74,13 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public int MaxPoolSize { get; set; }
 
         /// <summary>
-        /// 启用多租户模式
+        /// MySql字符编码
         /// </summary>
-        public bool EnableTenant { get; set; }
+        public string MySqlCharacterSet { get; set; } = "utf8";
+
+        /// <summary>
+        /// MySqlSslMode
+        /// </summary>
+        public string MySqlSslMode { get; set; } = "None";
     }
 }

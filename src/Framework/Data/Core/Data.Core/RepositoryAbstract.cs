@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.SqlQueryable;
 
 namespace NetModular.Lib.Data.Core
 {
@@ -265,6 +266,34 @@ namespace NetModular.Lib.Data.Core
         {
             return Db.SoftDeleteAsync(id, uow);
         }
+
+        #endregion
+
+        #region ==Find==
+
+        public INetSqlQueryable<TEntity> Find(bool noLock = true)
+        {
+            return Db.Find(noLock);
+        }
+
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, bool noLock = true)
+        {
+            return Db.Find(expression, noLock);
+        }
+
+        public INetSqlQueryable<TEntity> Find(string tableName, bool noLock = true)
+        {
+            return Db.Find(tableName, noLock);
+        }
+
+        public INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName, bool noLock = true)
+        {
+            return Db.Find(expression, tableName, noLock);
+        }
+
+        #endregion
+
+        #region ==Clear==
 
         public bool Clear(IUnitOfWork uow = null)
         {

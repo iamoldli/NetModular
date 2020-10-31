@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions.Entities;
+using NetModular.Lib.Data.Abstractions.SqlQueryable;
 
 namespace NetModular.Lib.Data.Abstractions
 {
@@ -307,6 +308,42 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="uow">工作单元</param>
         /// <returns></returns>
         Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow);
+
+        #endregion
+
+        #region ==Find==
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(bool noLock = true);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="expression">过滤条件</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, bool noLock = true);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(string tableName, bool noLock = true);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="expression">过滤条件</param>
+        /// <param name="tableName">指定表名称</param>
+        /// <param name="noLock">针对SqlServer查询是否使用NoLock特性</param>
+        /// <returns></returns>
+        INetSqlQueryable<TEntity> Find(Expression<Func<TEntity, bool>> expression, string tableName, bool noLock = true);
 
         #endregion
 

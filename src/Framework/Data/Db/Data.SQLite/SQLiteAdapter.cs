@@ -39,6 +39,30 @@ namespace NetModular.Lib.Data.SQLite
         public override string IdentitySql => "SELECT LAST_INSERT_ROWID() ID;";
 
         public override string FuncLength => "LENGTH";
+        public override string ConnectionStringBuild(string tableName = null)
+        {
+            if (Options.ConnectionString.IsNull())
+            {
+                Options.Version = Options.Version;
+                string dbFilePath = Path.Combine(AppContext.BaseDirectory, "Db");
+                if (DbOptions.Server.NotNull())
+                {
+                    dbFilePath = Path.GetFullPath(DbOptions.Server);
+                }
+
+                dbFilePath = Path.Combine(dbFilePath, Options.Database);
+
+                var connStrBuilder = new SqliteConnectionStringBuilder
+                {
+                    DataSource = $"{dbFilePath}.db",
+                    Mode = SqliteOpenMode.ReadWriteCreate
+                };
+
+                Options.ConnectionString = connStrBuilder.ToString();
+            }
+
+            return Options.ConnectionString;
+        }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
         {

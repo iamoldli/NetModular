@@ -81,6 +81,13 @@ namespace NetModular.Lib.Data.Abstractions
         #region ==方法==
 
         /// <summary>
+        /// 创建链接字符串
+        /// </summary>
+        /// <param name="tableName">指定表名</param>
+        /// <returns></returns>
+        string ConnectionStringBuild(string tableName = null);
+
+        /// <summary>
         /// 给定的值附加引号
         /// </summary>
         /// <param name="value"></param>

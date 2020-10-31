@@ -38,6 +38,64 @@ namespace NetModular.Lib.Data.MySql
         public override string IdentitySql => "SELECT LAST_INSERT_ID() ID;";
 
         public override string FuncLength => "CHAR_LENGTH";
+        public override string ConnectionStringBuild(string tableName = null)
+        {
+            if (tableName.IsNull() && Options.ConnectionString.NotNull())
+                return Options.ConnectionString;
+
+            Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
+            Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
+            Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
+
+            Options.Version = DbOptions.Version;
+
+            #region ==字符编码==
+
+            var characterSet = "utf8";
+            if (Options.MySqlCharacterSet.NotNull())
+            {
+                characterSet = Options.MySqlCharacterSet;
+            }
+            else if (DbOptions.MySqlCharacterSet.NotNull())
+            {
+                characterSet = DbOptions.MySqlCharacterSet;
+            }
+
+            #endregion
+
+            #region ==SslMode==
+
+            var sslModeStr = "None";
+            if (Options.MySqlSslMode.NotNull())
+            {
+                sslModeStr = Options.MySqlSslMode;
+            }
+            else if (DbOptions.MySqlSslMode.NotNull())
+            {
+                sslModeStr = DbOptions.MySqlSslMode;
+            }
+
+            var sslModel = (MySqlSslMode)Enum.Parse(typeof(MySqlSslMode), sslModeStr);
+
+            #endregion
+
+            var connStrBuilder = new MySqlConnectionStringBuilder
+            {
+                Server = DbOptions.Server,
+                Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
+                Database = tableName.IsNull() ? Options.Database : tableName,
+                UserID = DbOptions.UserId,
+                Password = DbOptions.Password,
+                AllowUserVariables = true,
+                CharacterSet = characterSet,
+                SslMode = sslModel,
+                AllowPublicKeyRetrieval = true,
+                MinimumPoolSize = DbOptions.MinPoolSize < 1 ? 0u : DbOptions.MinPoolSize.ToByte(),
+                MaximumPoolSize = DbOptions.MaxPoolSize < 1 ? 10u : DbOptions.MaxPoolSize.ToByte()
+            };
+            Options.ConnectionString = connStrBuilder.ToString();
+            return Options.ConnectionString;
+        }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
         {
@@ -71,20 +129,7 @@ namespace NetModular.Lib.Data.MySql
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
-            var connStrBuilder = new MySqlConnectionStringBuilder
-            {
-                Server = DbOptions.Server,
-                Port = DbOptions.Port > 0 ? (uint)DbOptions.Port : 3306,
-                Database = "mysql",
-                UserID = DbOptions.UserId,
-                Password = DbOptions.Password,
-                AllowUserVariables = true,
-                CharacterSet = "utf8",
-                SslMode = MySqlSslMode.None,
-                AllowPublicKeyRetrieval = true
-            };
-
-            using var con = new MySqlConnection(connStrBuilder.ToString());
+            using var con = new MySqlConnection(ConnectionStringBuild("mysql"));
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;

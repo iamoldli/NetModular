@@ -61,6 +61,8 @@ namespace NetModular.Lib.Data.Core
 
         public virtual bool ToLower => false;
 
+        public abstract string ConnectionStringBuild(string tableName = null);
+
         /// <summary>
         /// 附加引号
         /// </summary>
@@ -155,9 +157,9 @@ namespace NetModular.Lib.Data.Core
         public abstract Guid GenerateSequentialGuid();
 
         public abstract void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists);
-       
+
         public abstract string GetColumnTypeName(IColumnDescriptor column, out string defaultValue);
-        
+
         public abstract string GetCreateTableSql(IEntityDescriptor entityDescriptor, string tableName = null);
     }
 }

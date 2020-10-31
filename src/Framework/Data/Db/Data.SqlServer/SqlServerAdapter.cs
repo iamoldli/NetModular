@@ -37,6 +37,30 @@ namespace NetModular.Lib.Data.SqlServer
         public override string FuncSubstring => "SUBSTRING";
 
         public override string FuncLength => "LEN";
+        public override string ConnectionStringBuild(string tableName = null)
+        {
+            if (Options.ConnectionString.IsNull())
+            {
+                Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
+                Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
+                Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
+
+                Options.Version = DbOptions.Version;
+                var connStrBuilder = new SqlConnectionStringBuilder
+                {
+                    DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
+                    UserID = DbOptions.UserId,
+                    Password = DbOptions.Password,
+                    MultipleActiveResultSets = true,
+                    InitialCatalog = tableName.NotNull() ? tableName : Options.Database,
+                    MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
+                    MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
+                };
+                Options.ConnectionString = connStrBuilder.ToString();
+            }
+
+            return Options.ConnectionString;
+        }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
         {
@@ -104,16 +128,7 @@ namespace NetModular.Lib.Data.SqlServer
 
         public override void CreateDatabase(List<IEntityDescriptor> entityDescriptors, IDatabaseCreateEvents events, out bool databaseExists)
         {
-            var connStrBuilder = new SqlConnectionStringBuilder
-            {
-                DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
-                UserID = DbOptions.UserId,
-                Password = DbOptions.Password,
-                MultipleActiveResultSets = true,
-                InitialCatalog = "master"
-            };
-
-            using var con = new SqlConnection(connStrBuilder.ToString());
+            using var con = new SqlConnection(ConnectionStringBuild("master"));
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;

@@ -27,6 +27,9 @@ namespace NetModular.Lib.Data.Core
             SqlAdapter = sqlAdapter;
             LoggerFactory = loggerFactory;
             LoginInfo = loginInfo;
+
+            //创建链接字符串
+            sqlAdapter.ConnectionStringBuild();
         }
 
         public DbModuleOptions DbModuleOptions { get; }

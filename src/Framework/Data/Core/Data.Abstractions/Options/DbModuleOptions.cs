@@ -26,6 +26,16 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public string Version { get; set; }
 
         /// <summary>
+        /// MySql字符编码
+        /// </summary>
+        public string MySqlCharacterSet { get; set; } = "utf8";
+
+        /// <summary>
+        /// MySqlSslMode
+        /// </summary>
+        public string MySqlSslMode { get; set; }
+
+        /// <summary>
         /// 连接字符串
         /// </summary>
         public string ConnectionString { get; set; }
