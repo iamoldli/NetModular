@@ -94,11 +94,13 @@ namespace NetModular.Lib.Data.MySql
                 MaximumPoolSize = DbOptions.MaxPoolSize < 1 ? 10u : DbOptions.MaxPoolSize.ToByte()
             };
 
+            var connStr = connStrBuilder.ToString();
+
             //该参数为null表示使用的是当前模块的数据库
             if (tableName.IsNull())
-                Options.ConnectionString = connStrBuilder.ToString();
+                Options.ConnectionString = connStr;
 
-            return Options.ConnectionString;
+            return connStr;
         }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)

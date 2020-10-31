@@ -33,33 +33,34 @@ namespace NetModular.Lib.Data.PostgreSQL
         public override bool ToLower => true;
         public override string ConnectionStringBuild(string tableName = null)
         {
-            if (tableName.NotNull() || Options.ConnectionString.IsNull())
+            if (tableName.IsNull() && Options.ConnectionString.NotNull())
+                return Options.ConnectionString;
+
+            Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
+            Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
+            Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
+
+            Options.Version = DbOptions.Version;
+            var connStrBuilder = new NpgsqlConnectionStringBuilder
             {
-
-                Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
-                Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
-                Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
-
-                Options.Version = DbOptions.Version;
-                var connStrBuilder = new NpgsqlConnectionStringBuilder
-                {
-                    Host = DbOptions.Server,
-                    Port = DbOptions.Port > 0 ? DbOptions.Port : 5432,
-                    Database = tableName.NotNull() ? tableName : Options.Database,
-                    Username = DbOptions.UserId,
-                    Password = DbOptions.Password
-                };
-                if (DbOptions.NpgsqlDatabaseName.NotNull())
-                {
-                    connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
-                }
-
-                //该参数为null表示使用的是当前模块的数据库
-                if (tableName.IsNull())
-                    Options.ConnectionString = connStrBuilder.ToString();
+                Host = DbOptions.Server,
+                Port = DbOptions.Port > 0 ? DbOptions.Port : 5432,
+                Database = tableName.NotNull() ? tableName : Options.Database,
+                Username = DbOptions.UserId,
+                Password = DbOptions.Password
+            };
+            if (DbOptions.NpgsqlDatabaseName.NotNull())
+            {
+                connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
             }
 
-            return Options.ConnectionString;
+            var connStr = connStrBuilder.ToString();
+
+            //该参数为null表示使用的是当前模块的数据库
+            if (tableName.IsNull())
+                Options.ConnectionString = connStr;
+
+            return connStr;
         }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)

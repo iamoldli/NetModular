@@ -58,9 +58,7 @@ namespace NetModular.Lib.Data.SQLite
                     Mode = SqliteOpenMode.ReadWriteCreate
                 };
 
-                //该参数为null表示使用的是当前模块的数据库
-                if (tableName.IsNull())
-                    Options.ConnectionString = connStrBuilder.ToString();
+                Options.ConnectionString = connStrBuilder.ToString();
             }
 
             return Options.ConnectionString;

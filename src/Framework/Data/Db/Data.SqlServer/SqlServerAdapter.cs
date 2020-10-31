@@ -39,30 +39,32 @@ namespace NetModular.Lib.Data.SqlServer
         public override string FuncLength => "LEN";
         public override string ConnectionStringBuild(string tableName = null)
         {
-            if (Options.ConnectionString.IsNull())
+            if (tableName.IsNull() && Options.ConnectionString.NotNull())
+                return Options.ConnectionString;
+
+            Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
+            Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
+            Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
+
+            Options.Version = DbOptions.Version;
+            var connStrBuilder = new SqlConnectionStringBuilder
             {
-                Check.NotNull(DbOptions.Server, nameof(DbOptions.Server), "数据库服务器地址不能为空");
-                Check.NotNull(DbOptions.UserId, nameof(DbOptions.UserId), "数据库用户名不能为空");
-                Check.NotNull(DbOptions.Password, nameof(DbOptions.Password), "数据库密码不能为空");
+                DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
+                UserID = DbOptions.UserId,
+                Password = DbOptions.Password,
+                MultipleActiveResultSets = true,
+                InitialCatalog = tableName.NotNull() ? tableName : Options.Database,
+                MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
+                MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
+            };
 
-                Options.Version = DbOptions.Version;
-                var connStrBuilder = new SqlConnectionStringBuilder
-                {
-                    DataSource = DbOptions.Port > 0 ? DbOptions.Server + "," + DbOptions.Port : DbOptions.Server,
-                    UserID = DbOptions.UserId,
-                    Password = DbOptions.Password,
-                    MultipleActiveResultSets = true,
-                    InitialCatalog = tableName.NotNull() ? tableName : Options.Database,
-                    MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
-                    MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
-                };
+            var connStr = connStrBuilder.ToString();
 
-                //该参数为null表示使用的是当前模块的数据库
-                if (tableName.IsNull())
-                    Options.ConnectionString = connStrBuilder.ToString();
-            }
+            //该参数为null表示使用的是当前模块的数据库
+            if (tableName.IsNull())
+                Options.ConnectionString = connStr;
 
-            return Options.ConnectionString;
+            return connStr;
         }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
