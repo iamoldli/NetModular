@@ -56,7 +56,10 @@ namespace NetModular.Lib.Data.SqlServer
                     MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
                     MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
                 };
-                Options.ConnectionString = connStrBuilder.ToString();
+
+                //该参数为null表示使用的是当前模块的数据库
+                if (tableName.IsNull())
+                    Options.ConnectionString = connStrBuilder.ToString();
             }
 
             return Options.ConnectionString;

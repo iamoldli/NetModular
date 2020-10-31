@@ -93,7 +93,11 @@ namespace NetModular.Lib.Data.MySql
                 MinimumPoolSize = DbOptions.MinPoolSize < 1 ? 0u : DbOptions.MinPoolSize.ToByte(),
                 MaximumPoolSize = DbOptions.MaxPoolSize < 1 ? 10u : DbOptions.MaxPoolSize.ToByte()
             };
-            Options.ConnectionString = connStrBuilder.ToString();
+
+            //该参数为null表示使用的是当前模块的数据库
+            if (tableName.IsNull())
+                Options.ConnectionString = connStrBuilder.ToString();
+
             return Options.ConnectionString;
         }
 
