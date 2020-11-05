@@ -31,7 +31,8 @@ namespace NetModular.Lib.Utils.Core.Helpers
         /// <returns></returns>
         public DateTime TimeStamp2DateTime(long timestamp, bool milliseconds = false)
         {
-            return milliseconds ? TimestampStart.AddTicks(timestamp * 10000000) : TimestampStart.AddTicks(timestamp * 10000);
+            var value = milliseconds ? 10000 : 10000000;
+            return TimestampStart.AddTicks(timestamp * value);
         }
 
         /// <summary>判断当前年份是否是闰年</summary>
