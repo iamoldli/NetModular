@@ -20,6 +20,25 @@ NetModular
 
 NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务模块化快速开发解决方案，最终目的是能够让中小团队快速搭建公司内部开发平台。
 
+## 演示地址
+
+本仓库只包含后端框架代码，为了方便大家调试运行，同时包含了权限管理模块的代码，但是演示地址是把现有的几个模块整合后发布的，所以当你运行本仓库发现与线上不一样的时候，请下载演示源码，并且需要自己配置菜单~
+
+演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
+账 户：admin  
+密 码: admin
+
+演示源码：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
+
+## 演示截图
+
+<h1 align="center">
+  <img src="./img/20201108235810.png" alt="NetModular" style="margin-right:2%;width:48%;"/>
+  <img src="./img/20201108235849.png" alt="NetModular" style="width:48%;"/>
+  <img src="./img/20201108235914.png" alt="NetModular" style="margin-right:2%;width:48%;"/>
+  <img src="./img/20201108235933.png" alt="NetModular" style="width:48%;"/>
+<br>
+
 ## 后端框架结构说明
 
 | 框架模块      | 说明                                                                                                      | 版本                                                                                                                                                                                                                                                       |
@@ -69,16 +88,6 @@ NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务�
 | 编码     | 版本                                                                                                                                     | 仓库地址                                                                           |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Classics | <img src="https://img.shields.io/npm/v/netmodular-skins-classics"/> <img src="https://img.shields.io/npm/dt/netmodular-skins-classics"/> | [NetModular.Skins.Classics](https://github.com/iamoldli/NetModular.Skins.Classics) |
-
-## 演示地址
-
-本仓库只包含后端框架代码，为了方便大家调试运行，同时包含了权限管理模块的代码，但是演示地址是把现有的几个模块整合后发布的，所以当你运行本仓库发现与线上不一样的时候，请下载演示源码，并且需要自己配置菜单~
-
-演示地址：[https://demo.17mkh.com/](https://demo.17mkh.com/)  
-账 户：admin  
-密 码: admin
-
-演示源码：[https://github.com/iamoldli/NetModular.Demo](https://github.com/iamoldli/NetModular.Demo)
 
 ## 官方文档
 
