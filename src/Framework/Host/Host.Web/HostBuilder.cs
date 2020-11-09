@@ -31,13 +31,18 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
         public IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
-            var config = new ConfigurationBuilder()
+
+            var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", false)
-#if DEBUG
-                .AddJsonFile("appsettings.Development.json", false)
-#endif
-                .Build();
+                .AddJsonFile("appsettings.json", false);
+
+            var environmentVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (environmentVariable.NotNull())
+            {
+                configBuilder.AddJsonFile($"appsettings.{environmentVariable}.json", false);
+            }
+
+            var config = configBuilder.Build();
 
             var hostOptions = new HostOptions();
             config.GetSection("Host").Bind(hostOptions);
