@@ -14,27 +14,27 @@ namespace NetModular.Lib.Module.Abstractions
         protected void LoadInitDataScript(IModuleDescriptor moduleDescriptor, DirectoryInfo moduleDir)
         {
             var descriptor = new ModuleInitDataScriptDescriptor();
-            var sqlServerPath = Path.Combine(moduleDir.FullName, "InitData\\SqlServer.sql");
+            var sqlServerPath = Path.Combine(moduleDir.FullName, "InitData", "SqlServer.sql");
             if (File.Exists(sqlServerPath))
             {
                 descriptor.SqlServer = sqlServerPath;
             }
-            var mySqlPath = Path.Combine(moduleDir.FullName, "InitData\\MySql.sql");
+            var mySqlPath = Path.Combine(moduleDir.FullName, "InitData", "MySql.sql");
             if (File.Exists(mySqlPath))
             {
                 descriptor.MySql = mySqlPath;
             }
-            var sqlitePath = Path.Combine(moduleDir.FullName, "InitData\\SQLite.sql");
+            var sqlitePath = Path.Combine(moduleDir.FullName, "InitData", "SQLite.sql");
             if (File.Exists(sqlitePath))
             {
                 descriptor.SQLite = sqlitePath;
             }
-            var pgPath = Path.Combine(moduleDir.FullName, "InitData\\PostgreSQL.sql");
+            var pgPath = Path.Combine(moduleDir.FullName, "InitData", "PostgreSQL.sql");
             if (File.Exists(pgPath))
             {
                 descriptor.PostgreSQL = pgPath;
             }
-            var oraclePath = Path.Combine(moduleDir.FullName, "InitData\\Oracle.sql");
+            var oraclePath = Path.Combine(moduleDir.FullName, "InitData", "Oracle.sql");
             if (File.Exists(oraclePath))
             {
                 descriptor.Oracle = oraclePath;

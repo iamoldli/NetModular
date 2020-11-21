@@ -31,7 +31,6 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
         public IHostBuilder CreateBuilder<TStartup>(string[] args) where TStartup : StartupAbstract
         {
-
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", false);
