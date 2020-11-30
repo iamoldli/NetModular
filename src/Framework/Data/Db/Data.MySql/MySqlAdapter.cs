@@ -202,6 +202,11 @@ namespace NetModular.Lib.Data.MySql
             if (propertyType.IsGuid())
                 return "CHAR(36)";
 
+            if (propertyType == typeof(TimeSpan))
+            {
+                return "time";
+            }
+
             var typeCode = Type.GetTypeCode(propertyType);
             if (typeCode == TypeCode.Char || typeCode == TypeCode.String)
             {

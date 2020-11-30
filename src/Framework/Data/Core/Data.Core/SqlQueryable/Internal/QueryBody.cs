@@ -30,8 +30,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         /// </summary>
         public IUnitOfWork Uow { get; private set; }
 
-        public Type WhereDelegateType { get; set; }
-
         /// <summary>
         /// 表连接信息
         /// </summary>
@@ -575,8 +573,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 IsGroupBy = IsGroupBy,
                 SetModifiedBy = SetModifiedBy,
                 Skip = Skip,
-                Take = Take,
-                WhereDelegateType = WhereDelegateType
+                Take = Take
             };
 
             copy.Where.AddRange(Where);

@@ -33,8 +33,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             t3.TableName = tableName.NotNull() ? tableName : t3.EntityDescriptor.TableName;
 
             QueryBody.JoinDescriptors.Add(t3);
-
-            QueryBody.WhereDelegateType = typeof(Func<,,,>).MakeGenericType(typeof(TEntity), typeof(TEntity2), typeof(TEntity3), typeof(bool));
         }
 
         private NetSqlQueryable(IDbSet dbSet, QueryBody queryBody) : base(dbSet, queryBody)

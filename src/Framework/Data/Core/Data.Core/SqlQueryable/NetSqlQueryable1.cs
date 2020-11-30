@@ -25,7 +25,6 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
                 TableName = tableName.NotNull() ? tableName : Db.EntityDescriptor.TableName,
                 NoLock = noLock
             });
-            QueryBody.WhereDelegateType = typeof(Func<,>).MakeGenericType(typeof(TEntity), typeof(bool));
 
             Where(whereExpression);
         }

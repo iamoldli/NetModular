@@ -172,7 +172,7 @@ namespace NetModular.Lib.Data.Core.Entities
             foreach (var p in EntityType.GetProperties())
             {
                 var type = p.PropertyType;
-                if ((!type.IsGenericType || type.IsNullable()) && (type.IsGuid() || type.IsNullable() || Type.GetTypeCode(type) != TypeCode.Object)
+                if (type == typeof(TimeSpan) || (!type.IsGenericType || type.IsNullable()) && (type.IsGuid() || type.IsNullable() || Type.GetTypeCode(type) != TypeCode.Object)
                     && Attribute.GetCustomAttributes(p).All(attr => attr.GetType() != typeof(IgnoreAttribute)))
                 {
                     properties.Add(p);
