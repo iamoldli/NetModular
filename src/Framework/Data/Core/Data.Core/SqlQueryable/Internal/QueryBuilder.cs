@@ -612,7 +612,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
         private string ResolveSelect()
         {
             var sqlBuilder = new StringBuilder();
-
+            
             ResolveSelect(sqlBuilder);
 
             return sqlBuilder.ToString();
