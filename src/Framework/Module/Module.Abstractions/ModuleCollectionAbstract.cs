@@ -40,6 +40,12 @@ namespace NetModular.Lib.Module.Abstractions
                 descriptor.Oracle = oraclePath;
             }
 
+            string jsonDir = Path.Combine(moduleDir.FullName, "InitData");
+            if (Directory.Exists(jsonDir))
+            {
+                descriptor.JsonDataDirectory = jsonDir;
+            }
+
             moduleDescriptor.InitDataScriptDescriptor = descriptor;
         }
 

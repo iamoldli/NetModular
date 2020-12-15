@@ -1,0 +1,127 @@
+[
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account",
+    "ButtonCode": "admin_account_add"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account",
+    "ButtonCode": "admin_account_edit"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account",
+    "ButtonCode": "admin_account_del"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account",
+    "ButtonCode": "admin_account_reset_password"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account",
+    "ButtonCode": "admin_account_active"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_auditinfo",
+    "ButtonCode": "admin_auditinfo_details"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_auditinfo",
+    "ButtonCode": "admin_auditinfo_export"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_cache",
+    "ButtonCode": "admin_cache_clear"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_file",
+    "ButtonCode": "admin_file_export"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_file",
+    "ButtonCode": "admin_file_del"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_file",
+    "ButtonCode": "admin_file_harddel"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_log_login",
+    "ButtonCode": "admin_log_login_export"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_menu",
+    "ButtonCode": "admin_menu_add"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_menu",
+    "ButtonCode": "admin_menu_edit"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_menu",
+    "ButtonCode": "admin_menu_del"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_menu",
+    "ButtonCode": "admin_menu_sort"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_mime",
+    "ButtonCode": "admin_mime_add"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_mime",
+    "ButtonCode": "admin_mime_edit"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_mime",
+    "ButtonCode": "admin_mime_del"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_add"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_edit"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_del"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_bind_menus"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_bind_pages"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role",
+    "ButtonCode": "admin_role_bind_platform"
+  }
+]

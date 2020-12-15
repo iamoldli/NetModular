@@ -29,5 +29,10 @@
         /// Oracle脚本路径
         /// </summary>
         public string Oracle { get; set; }
+
+        /// <summary>
+        /// Json 数据目录
+        /// </summary>
+        public string JsonDataDirectory { get; set; }
     }
 }

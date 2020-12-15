@@ -1,0 +1,50 @@
+[
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_account"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_auditinfo"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_cache"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_config"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_file"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "home"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_icon"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_log_login"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_menu"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_mime"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_module"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "PageCode": "admin_role"
+  }
+]
