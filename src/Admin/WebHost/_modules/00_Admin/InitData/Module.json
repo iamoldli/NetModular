@@ -1,0 +1,12 @@
+[
+  {
+    "Id": "39F498A8-AE7B-049F-C78A-E16941E70FC5",
+    "Number": 0,
+    "Name": "权限管理",
+    "Code": "Admin",
+    "Icon": "permission",
+    "Version": "2.1.2",
+    "Remarks": "权限管理模块用于身份认证以及授权等功能",
+    "ApiRequestCount": 0
+  }
+]

@@ -138,8 +138,8 @@ namespace NetModular.Lib.Data.Core.Entities
             //判断有没有设置前缀
             if (SqlAdapter.Options.Prefix.NotNull())
             {
-                var prefixIgnoreArr = EntityType.GetCustomAttribute<TableAttribute>(false);
-                if (prefixIgnoreArr != null)
+                var prefixIgnoreArr = EntityType.GetCustomAttribute<PrefixIgnoreAttribute>(false);
+                if (prefixIgnoreArr == null)
                 {
                     TableName = SqlAdapter.Options.Prefix + TableName;
                 }

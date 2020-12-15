@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,7 @@ using NetModular.Lib.Data.Abstractions.Options;
 using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Helpers;
+using Newtonsoft.Json;
 
 namespace NetModular.Lib.Data.Integration
 {
@@ -154,15 +156,38 @@ namespace NetModular.Lib.Data.Integration
 
                         if (sql.NotNull())
                         {
-                            if(dbOptions.Dialect == SqlDialect.PostgreSQL)
+                            if (dbOptions.Dialect == SqlDialect.PostgreSQL)
                             {
                                 sql = sql.Replace("[nm_database_name]", options.Database);
                             }
-                            
+
                             //此处不能使用IDbContext的NewConnection方法创建连接
                             var con = dbContext.Options.NewConnection();
 
                             con.Execute(sql);
+                        }
+                    }
+
+                    var jsonDir = module.InitDataScriptDescriptor.JsonDataDirectory;
+                    if (jsonDir.NotNull() && Directory.Exists(jsonDir))
+                    {
+                        string[] jsonFiles = Directory.GetFiles(jsonDir, "*.json");
+
+                        var genericType = typeof(DbSet<>);
+                        foreach (var jsonFile in jsonFiles)
+                        {
+                            string typeName = Path.GetFileNameWithoutExtension(jsonFile);
+                            var entityType = dbContext.Options.DbModuleOptions.EntityTypes.Find(a => string.Equals(a.Name, typeName, StringComparison.OrdinalIgnoreCase) || a.Name.EndsWith("Entity") && string.Equals(a.Name.Substring(0, a.Name.Length - 6), typeName, StringComparison.OrdinalIgnoreCase));
+
+                            if (entityType == null) continue;
+
+                            using var sr = new StreamReader(jsonFile);
+                            var json = sr.ReadToEnd();
+                            var list = JsonConvert.DeserializeObject(json, typeof(List<>).MakeGenericType(entityType));
+                            
+                            var dbSetType = genericType.MakeGenericType(entityType);
+                            var db = Activator.CreateInstance(dbSetType, new object[] { dbContext });
+                            dbSetType.GetMethod("BatchInsert").Invoke(db, new object[] { list, 10000, null, null });
                         }
                     }
                 }

@@ -1,0 +1,23 @@
+[
+  {
+    "Id": "39F08CFD-8E0D-771B-A2F3-2639A62CA2FA",
+    "TenantId": null,
+    "Type": 0,
+    "UserName": "admin",
+    "Password": "E739279CB28CDAFD7373618313803524",
+    "Name": "管理员",
+    "Phone": "",
+    "Email": "",
+    "Status": 1,
+    "IsLock": 0,
+    "ClosedTime": "2019-09-29 10:19:21",
+    "ClosedBy": "00000000-0000-0000-0000-000000000000",
+    "CreatedTime": "2019-09-29 10:19:21",
+    "CreatedBy": "00000000-0000-0000-0000-000000000000",
+    "ModifiedTime": "2020-01-14 15:20:04",
+    "ModifiedBy": "39F08CFD-8E0D-771B-A2F3-2639A62CA2FA",
+    "Deleted": 0,
+    "DeletedTime": "2019-09-29 10:19:21",
+    "DeletedBy": "00000000-0000-0000-0000-000000000000"
+  }
+]
