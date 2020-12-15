@@ -1,0 +1,257 @@
+[
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_add_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_edit_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_update_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_delete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_resetpassword_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_account_active_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_auditinfo_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_auditinfo_details_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_auditinfo_export_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_cache_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_cache_clear_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_config_edit_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_config_update_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_config_UploadLogo_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_config_LogoUrl_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_config_Descriptors_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_file_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_file_export_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_file_delete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_file_hardDelete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_log_login_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_log_loginexport_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_tree_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_add_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_edit_Get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_update_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_delete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_sort_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_menu_sort_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_mime_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_mime_add_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_mime_edit_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_mime_update_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_mime_delete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_module_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_permission_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_permission_querybycodes_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_query_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_add_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_edit_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_update_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_delete_delete"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindMenus_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindMenus_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindPages_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindPages_post"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_permission_tree_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindPlatformPermissions_get"
+  },
+  {
+    "RoleId": "39F08CFD-8DD0-BB54-4544-C2DC43C6CA38",
+    "Platform": 0,
+    "PermissionCode": "admin_role_BindPlatformPermissions_post"
+  }
+]

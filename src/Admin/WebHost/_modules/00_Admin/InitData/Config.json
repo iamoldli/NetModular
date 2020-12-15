@@ -1,0 +1,22 @@
+[
+  {
+    "Type": 0,
+    "Code": "System",
+    "Value": "{\"title\":\"NetModular通用权限管理系统\",\"logo\":\"\",\"copyright\":\"版权所有：尼古拉斯·老李 | 用代码改变世界 Powered by .Net Core 3.1.0 on Linux\",\"userPage\":\"\"}"
+  },
+  {
+    "Type": 1,
+    "Code": "Admin",
+    "Value": "{\"auditing\":true,\"loginLog\":true,\"defaultPassword\":\"123456\"}"
+  },
+  {
+    "Type": 0,
+    "Code": "Auth",
+    "Value": "{\"verifyCode\":false,\"validate\":true,\"button\":true,\"singleAccount\":false,\"auditing\":false,\"jwt\":{\"key\":\"twAJ$j5##pVc5*y&\",\"issuer\":\"http://127.0.0.1:6220\",\"audience\":\"http://127.0.0.1:6220\",\"expires\":120,\"refreshTokenExpires\":7},\"loginMode\":{\"userName\":true,\"email\":true,\"userNameOrEmail\":true,\"phone\":true,\"weChatScanCode\":false,\"qq\":false,\"gitHub\":false}}"
+  },
+  {
+    "Type": 0,
+    "Code": "Component",
+    "Value": "{\"login\":{\"defaultAccountType\":0,\"pageType\":\"neon\",\"verifyCode\":false},\"menu\":{\"uniqueOpened\":true},\"dialog\":{\"closeOnClickModal\":false,\"draggable\":false},\"list\":{\"serialNumberName\":null},\"tabnav\":{\"enabled\":true,\"showHome\":true,\"homeUrl\":null,\"showIcon\":true,\"maxOpenCount\":20},\"toolbar\":{\"fullscreen\":true,\"skin\":true,\"logout\":true,\"userInfo\":true},\"customCss\":null}"
+  }
+]
