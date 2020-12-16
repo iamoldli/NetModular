@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using NetModular.Lib.Utils.Core.Attributes;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace NetModular.Lib.Utils.Core.Helpers
 {
@@ -30,48 +33,36 @@ namespace NetModular.Lib.Utils.Core.Helpers
         /// <returns></returns>
         public byte[] DrawVerifyCode(out string code, int length = 6)
         {
-            code = _stringHelper.GenerateRandomNumber(length);
-            //创建画布
-            var bmp = new Bitmap(4 + 16 * code.Length, 40);
-            //字体
-            var font = new Font("Times New Roman", 16);
+            code = _stringHelper.GenerateRandom(length);
+            using var img = new Image<Rgba32>(4 + 16 * code.Length, 40);
+            var font = SystemFonts.CreateFont("Arial", 16, FontStyle.Regular);
+            var codeStr = code;
+            img.Mutate(x =>
+            {
+                x.BackgroundColor(Color.WhiteSmoke);
 
-            var r = new Random();
+                var r = new Random();
 
-            var g = Graphics.FromImage(bmp);
-            g.Clear(Color.White);
-            //画噪线 
-            for (var i = 0; i < 4; i++)
-            {
-                int x1 = r.Next(bmp.Width);
-                int y1 = r.Next(bmp.Height);
-                int x2 = r.Next(bmp.Width);
-                int y2 = r.Next(bmp.Height);
-                g.DrawLine(new Pen(_colors.RandomGet()), x1, y1, x2, y2);
-            }
+                //画噪线 
+                for (var i = 0; i < 4; i++)
+                {
+                    int x1 = r.Next(img.Width);
+                    int y1 = r.Next(img.Height);
+                    int x2 = r.Next(img.Width);
+                    int y2 = r.Next(img.Height);
+                    x.DrawLines(new Pen(_colors.RandomGet(), 1L), new PointF(x1, y1), new PointF(x2, y2));
+                }
 
-            //画验证码字符串 
-            for (int i = 0; i < code.Length; i++)
-            {
-                g.DrawString(code[i].ToString(), font, new SolidBrush(_colors.RandomGet()), (float)i * 16 + 2, 8);
-            }
+                //画验证码字符串 
+                for (int i = 0; i < codeStr.Length; i++)
+                {
+                    x.DrawText(codeStr[i].ToString(), font, _colors.RandomGet(), new PointF((float)i * 16 + 4, 8));
+                }
+            });
 
-            //将验证码图片写入内存流，并将其以 "image/Png" 格式输出 
-            var ms = new MemoryStream();
-            try
-            {
-                bmp.Save(ms, ImageFormat.Png);
-                return ms.ToArray();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            finally
-            {
-                g.Dispose();
-                bmp.Dispose();
-            }
+            using var stream = new MemoryStream();
+            img.SaveAsPng(stream);
+            return stream.GetBuffer();
         }
 
         /// <summary>
