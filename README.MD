@@ -87,6 +87,10 @@ NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务�
 
 文档项目的源码请移步： [https://github.com/iamoldli/NetModular.Docs](https://github.com/iamoldli/NetModular.Docs)
 
+## 视频教程
+
+[NetModular的正确打开方式~](https://www.bilibili.com/video/BV14v41147TT/)
+
 ## 模块列表
 
 本仓库只包含基础框架以及权限管理(Admin)模块代码，其它模块请点击以下链接查看~
