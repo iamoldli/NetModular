@@ -118,7 +118,7 @@ namespace NetModular.Lib.Auth.Web
                 moduleNode.Path.Add(module.Name);
 
                 //控制器
-                foreach (var controller in controllers.Where(m => m.Area.EqualsIgnoreCase(module.Code)))
+                foreach (var controller in controllers.Where(m => m.Area != null && m.Area.EqualsIgnoreCase(module.Code)))
                 {
                     var controllerName = controller.Description ?? controller.Name;
                     var controllerNode = new TreeResultModel<string, PermissionTreeModel>
