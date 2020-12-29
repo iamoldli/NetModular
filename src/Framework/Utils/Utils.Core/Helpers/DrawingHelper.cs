@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using NetModular.Lib.Utils.Core.Attributes;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
@@ -35,7 +36,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
         {
             code = _stringHelper.GenerateRandom(length);
             using var img = new Image<Rgba32>(4 + 16 * code.Length, 40);
-            var font = SystemFonts.CreateFont("Arial", 16, FontStyle.Regular);
+            var font = new Font(SystemFonts.Families.First(), 16, FontStyle.Regular);
             var codeStr = code;
             img.Mutate(x =>
             {
