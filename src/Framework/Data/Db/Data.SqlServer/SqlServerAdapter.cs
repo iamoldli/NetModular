@@ -91,13 +91,13 @@ namespace NetModular.Lib.Data.SqlServer
             }
             else
             {
-                #region ==2018及以下版本==
+                #region ==2012以下版本==
 
                 sqlBuilder.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {0}) AS RowNum,{1} FROM {2}", sort, @select, table);
                 if (!string.IsNullOrWhiteSpace(where))
                     sqlBuilder.AppendFormat(" WHERE {0}", @where);
 
-                sqlBuilder.AppendFormat(") AS T WHERE T.RowNum BETWEEN {0} AND {1}", skip, skip + take);
+                sqlBuilder.AppendFormat(") AS T WHERE T.RowNum BETWEEN {0} AND {1}", skip + 1, skip + take);
 
                 #endregion
             }
