@@ -46,7 +46,9 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpPost]
         [Description("上传")]
-        [Common]
+        [Common]        
+        //[RequestSizeLimit(1073741824)]
+        [DisableRequestSizeLimit]
         public async Task<IResultModel> Upload([FromForm]Application.FileService.ViewModels.FileUploadModel model, IFormFile formFile)
         {
             var config = _configProvider.Get<PathConfig>();
