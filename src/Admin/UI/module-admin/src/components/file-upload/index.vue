@@ -6,7 +6,7 @@
     <div class="button">
       <el-upload
         ref="upload"
-        :action="action"
+        :action="uploadAction"
         :headers="headers"
         :data="uploadData"
         name="formFile"

@@ -2,11 +2,12 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      action: $api.admin.file.getUploadUrl(),
       loading: false
     }
   },
   props: {
+    /**上传接口 */
+    action: String,
     /**模块编码 */
     module: {
       type: String,
@@ -49,6 +50,9 @@ export default {
   },
   computed: {
     ...mapState('app/token', ['accessToken']),
+    uploadAction() {
+      return this.action || $api.admin.file.getUploadUrl()
+    },
     headers() {
       return {
         Authorization: 'Bearer ' + this.accessToken
