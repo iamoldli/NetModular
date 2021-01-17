@@ -39,7 +39,7 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpGet]
         [Description("查询")]
-        public Task<IResultModel> Query([FromQuery]FileQueryModel model)
+        public Task<IResultModel> Query([FromQuery] FileQueryModel model)
         {
             return _service.Query(model);
         }
@@ -47,7 +47,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpPost]
         [Description("上传")]
         [Common]
-        public async Task<IResultModel> Upload([FromForm]Application.FileService.ViewModels.FileUploadModel model, IFormFile formFile)
+        public async Task<IResultModel> Upload([FromForm] Application.FileService.ViewModels.FileUploadModel model, IFormFile formFile)
         {
             var config = _configProvider.Get<PathConfig>();
             var module = _moduleCollection.FirstOrDefault(m => m.Code.EqualsIgnoreCase(model.ModuleCode));
@@ -82,7 +82,7 @@ namespace NetModular.Module.Admin.Web.Controllers
 
         [HttpGet]
         [Description("根据ID获取")]
-        public Task<IResultModel<FileEntity>> Get([BindRequired]int id)
+        public Task<IResultModel<FileEntity>> Get([BindRequired] int id)
         {
             return _service.Get(id);
         }
@@ -90,21 +90,21 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpGet("/api/admin/file/{**fullPath}")]
         [Description("根据完整路径获取")]
         [Common]
-        public Task<IResultModel> Get([BindRequired]string fullPath)
+        public Task<IResultModel> Get([BindRequired] string fullPath)
         {
             return _service.Get(fullPath);
         }
 
         [HttpDelete]
         [Description("删除(逻辑删除)")]
-        public Task<IResultModel> Delete([BindRequired]int id)
+        public Task<IResultModel> Delete([BindRequired] int id)
         {
             return _service.Delete(id);
         }
 
         [HttpDelete]
         [Description("删除(物理删除)")]
-        public Task<IResultModel> HardDelete([BindRequired]int id)
+        public Task<IResultModel> HardDelete([BindRequired] int id)
         {
             return _service.HardDelete(id);
         }
@@ -112,7 +112,7 @@ namespace NetModular.Module.Admin.Web.Controllers
         [HttpGet("/oss/p/{**fullPath}")]
         [Description("私有文件下载")]
         [Common]
-        public async Task<IActionResult> Download([BindRequired]string fullPath)
+        public async Task<IActionResult> Download([BindRequired] string fullPath)
         {
             fullPath = HttpUtility.UrlDecode(fullPath);
             var result = await _service.Download(fullPath, _loginInfo.AccountId);

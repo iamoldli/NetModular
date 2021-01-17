@@ -22,7 +22,6 @@ export default name => {
 
   // 图片预览
   const preview = url => {
-    console.log(url)
     return $http.preview(url)
   }
 

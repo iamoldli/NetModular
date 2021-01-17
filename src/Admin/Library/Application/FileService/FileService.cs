@@ -201,10 +201,7 @@ namespace NetModular.Module.Admin.Application.FileService
         private string FullPath2SaveId(string fullPath)
         {
             var arr = fullPath.Split('/', '.');
-            if (arr.Length < 6)
-                throw new Exception("无效的地址");
-
-            return fullPath.Split('/', '.')[5];
+            return arr[arr.Length-2];
         }
     }
 }
