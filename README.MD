@@ -109,11 +109,6 @@ QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fcc
 
 <img src="./img/qq.jpg" alt="QQ" height="300"/>
 
-
-很多城市都有.Net俱乐部，但是南京一直没有，所以我想依托该开源框架，组建一个南京.Net俱乐部，有兴趣的南京.Neter可以扫描一下二维码加入微信群~
-
-<img src="./img/wechat_group.png" alt="QQ" height="300"/>
-
 ## 贡献者
 
 <a href="https://github.com/JTOne123"><img src="https://avatars2.githubusercontent.com/u/3457140?s=60&amp;v=4" style="border-radius:19px" width="38" height="38"></a>
