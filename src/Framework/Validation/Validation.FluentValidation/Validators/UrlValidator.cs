@@ -8,7 +8,7 @@ namespace NetModular.Lib.Validation.FluentValidation.Validators
     /// </summary>
     public class UrlValidator : PropertyValidator
     {
-        private const string Pattern = @"^(https?)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$";
+        private const string Pattern = @"https?://(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%+.~#?&//=]*)";
         private static Regex _regex;
 
         public UrlValidator() : base("URL地址无效")
