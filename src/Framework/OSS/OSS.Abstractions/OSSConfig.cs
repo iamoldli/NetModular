@@ -18,6 +18,6 @@
         /// <summary>
         /// 阿里云配置
         /// </summary>
-        public AliyunConfig Aliyun { get; set; }=new AliyunConfig();
+        public AliyunConfig Aliyun { get; set; } = new AliyunConfig();
     }
 }

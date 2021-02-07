@@ -8,7 +8,7 @@ using NetModular.Lib.Utils.Core.Enums;
 namespace NetModular.Lib.OSS.Aliyun
 {
     /// <summary>
-    /// 七牛帮助类
+    /// 阿里云帮助类
     /// </summary>
     [Singleton]
     public class AliyunHelper

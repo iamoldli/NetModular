@@ -11,6 +11,11 @@
         public string Urls { get; set; }
 
         /// <summary>
+        /// 基础地址(默认：/)
+        /// </summary>
+        public string BaseUrl { get; set; }
+
+        /// <summary>
         /// 开启Swagger
         /// </summary>
         public bool Swagger { get; set; }

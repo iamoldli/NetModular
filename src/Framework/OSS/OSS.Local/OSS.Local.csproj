@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Config\Config.Abstractions\Config.Abstractions.csproj" />
+		<ProjectReference Include="..\..\Host\Host.Web\Host.Web.csproj" />
 		<ProjectReference Include="..\..\Utils\Utils.Mvc\Utils.Mvc.csproj" />
 		<ProjectReference Include="..\OSS.Abstractions\OSS.Abstractions.csproj" />
 	</ItemGroup>
