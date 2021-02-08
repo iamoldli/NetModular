@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Utils.Core.Attributes;
 
@@ -59,7 +63,7 @@ namespace NetModular.Lib.Auth.Web
 
                 if (accountName == null || accountName.Value.IsNull())
                 {
-                    return "";
+                    return string.Empty;
                 }
 
                 return accountName.Value;
@@ -74,6 +78,7 @@ namespace NetModular.Lib.Auth.Web
             get
             {
                 var pt = _contextAccessor?.HttpContext?.User?.FindFirst(ClaimsName.Platform);
+
                 if (pt != null && pt.Value.NotNull())
                 {
                     return (Platform)pt.Value.ToInt();
@@ -98,17 +103,69 @@ namespace NetModular.Lib.Auth.Web
             }
         }
 
+        private IPAddress _ip
+        {
+            get
+            {
+                if (_contextAccessor?.HttpContext?.Request?.Headers != null)
+                {
+                    var headers = _contextAccessor.HttpContext.Request.Headers;
+
+                    List<string> headerKeys = new List<string>
+                    {
+                        "X-FORWARDED-FOR",
+                        "HTTP-X-FORWARDED-FOR",
+                        "REMOTE-ADDR",
+                        "X-REAl-IP"
+                    };
+                    headerKeys.AddRange(headerKeys.Select(m => m.Replace("-", "_")));
+                    foreach (var headerKey in headerKeys)
+                    {
+                        if (headers.TryGetValue(headerKey, out StringValues ips))
+                        {
+                            foreach (var ip in ips)
+                            {
+                                if (IPAddress.TryParse(ip, out IPAddress addr))
+                                {
+                                    return addr;
+                                }
+
+                                var ipParts = ip.Split(":");
+                                if (ipParts.Length == 2)
+                                {
+                                    if (IPAddress.TryParse(ipParts[0], out addr))
+                                    {
+                                        return addr;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_contextAccessor?.HttpContext?.Connection != null)
+                {
+                    var connection = _contextAccessor.HttpContext.Connection;
+                    return connection.RemoteIpAddress;
+                }
+
+                return null;
+            }
+        }
+
         /// <summary>
-        /// 获取当前用户IP(包含IPv和IPv6)
+        /// 获取当前用户IP(包含IPv4和IPv6)
         /// </summary>
         public string IP
         {
             get
             {
-                if (_contextAccessor?.HttpContext?.Connection == null)
-                    return "";
+                if (_ip == null)
+                {
+                    return string.Empty;
+                }
 
-                return _contextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+                return _ip.ToString();
             }
         }
 
@@ -119,10 +176,12 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor?.HttpContext?.Connection == null)
-                    return "";
+                if (_ip == null)
+                {
+                    return string.Empty;
+                }
 
-                return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                return _ip.MapToIPv4().ToString();
             }
         }
 
@@ -133,10 +192,12 @@ namespace NetModular.Lib.Auth.Web
         {
             get
             {
-                if (_contextAccessor?.HttpContext?.Connection == null)
-                    return "";
+                if (_ip == null)
+                {
+                    return string.Empty;
+                }
 
-                return _contextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
+                return _ip.MapToIPv6().ToString();
             }
         }
 
@@ -166,7 +227,9 @@ namespace NetModular.Lib.Auth.Web
             get
             {
                 if (_contextAccessor?.HttpContext?.Request == null)
-                    return "";
+                {
+                    return string.Empty;
+                }
 
                 return _contextAccessor.HttpContext.Request.Headers["User-Agent"];
             }
