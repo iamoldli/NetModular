@@ -12,6 +12,10 @@ NetModular
 
 NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务模块化快速开发解决方案，最终目的是能够让中小团队快速搭建公司内部开发平台。
 
+## 恰饭
+
+本人提供付费技术服务，可以协助您基于本框架快速搭建自己的开发平台，6 万/年，7x12 在线服务~
+
 ## 演示地址
 
 本仓库只包含后端框架代码，为了方便大家调试运行，同时包含了权限管理模块的代码，但是演示地址是把现有的几个模块整合后发布的，所以当你运行本仓库发现与线上不一样的时候，请下载演示源码，并且需要自己配置菜单~
@@ -89,7 +93,7 @@ NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务�
 
 ## 视频教程
 
-[NetModular的正确打开方式~](https://www.bilibili.com/video/BV14v41147TT/)
+[NetModular 的正确打开方式~](https://www.bilibili.com/video/BV14v41147TT/)
 
 ## 模块列表
 
@@ -99,7 +103,7 @@ NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务�
 | ---- | -------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | 00   | Admin          | 权限管理                 | <a href="https://www.nuget.org/packages/NetModular.Module.Admin.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.Admin.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.Admin.Web"/>                            | 本仓库                                                                                           |
 | 01   | Common         | 通用模块                 | <a href="https://www.nuget.org/packages/NetModular.Module.Common.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.Common.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.Common.Web"/>                         | [NetModular.Module.Common](https://github.com/iamoldli/NetModular.Module.Common)                 |
-| 02   | CodeGenerator  | 模块创建(又名代码生成器) | <a href="https://www.nuget.org/packages/NetModular.Module.CodeGenerator.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.CodeGenerator.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.CodeGenerator.Web"/>    | [NetModular.Module.CodeGenerator](https://github.com/iamoldli/NetModular.Module.CodeGenerator)                 |
+| 02   | CodeGenerator  | 模块创建(又名代码生成器) | <a href="https://www.nuget.org/packages/NetModular.Module.CodeGenerator.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.CodeGenerator.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.CodeGenerator.Web"/>    | [NetModular.Module.CodeGenerator](https://github.com/iamoldli/NetModular.Module.CodeGenerator)   |
 | 03   | Quartz         | 任务调度                 | <a href="https://www.nuget.org/packages/NetModular.Module.Quartz.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.Quartz.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.Quartz.Web"/>                         | [NetModular.Module.Quartz](https://github.com/iamoldli/NetModular.Module.Quartz)                 |
 | 04   | PersonnelFiles | 人事档案                 | <a href="https://www.nuget.org/packages/NetModular.Module.PersonnelFiles.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.PersonnelFiles.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.PersonnelFiles.Web"/> | [NetModular.Module.PersonnelFiles](https://github.com/iamoldli/NetModular.Module.PersonnelFiles) |
 
