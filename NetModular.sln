@@ -242,7 +242,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.Integration", "src\Fram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Redis", "src\Framework\Config\Config.Redis\Config.Redis.csproj", "{EAFE74BA-AD0B-4519-9F60-F0BED155E354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSS.Aliyun", "src\Framework\OSS\OSS.Aliyun\OSS.Aliyun.csproj", "{0C3414BC-14BC-438D-97F5-A03100B657E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Aliyun", "src\Framework\OSS\OSS.Aliyun\OSS.Aliyun.csproj", "{0C3414BC-14BC-438D-97F5-A03100B657E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Minio", "src\Framework\OSS\OSS.Minio\OSS.Minio.csproj", "{732269F7-AD88-4722-BD57-43A4D0478BC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -498,6 +500,10 @@ Global
 		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C3414BC-14BC-438D-97F5-A03100B657E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732269F7-AD88-4722-BD57-43A4D0478BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732269F7-AD88-4722-BD57-43A4D0478BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732269F7-AD88-4722-BD57-43A4D0478BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732269F7-AD88-4722-BD57-43A4D0478BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -593,6 +599,7 @@ Global
 		{4C1DE062-5452-4BD4-A2B3-C87EAB541A2B} = {5CF9881B-A6C4-4746-807E-7E1CB8D0AC58}
 		{EAFE74BA-AD0B-4519-9F60-F0BED155E354} = {84F5A7ED-CE1E-4E68-A703-0785FB5AEADC}
 		{0C3414BC-14BC-438D-97F5-A03100B657E1} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
+		{732269F7-AD88-4722-BD57-43A4D0478BC9} = {E063CF6C-C069-4E83-971E-0C10E00DE7F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A2CC6E-58D3-47C8-9429-45AAC348D4DC}

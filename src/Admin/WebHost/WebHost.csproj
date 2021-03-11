@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Framework\Host\Host.Web\Host.Web.csproj" />
     <ProjectReference Include="..\..\Framework\OSS\OSS.Aliyun\OSS.Aliyun.csproj" />
     <ProjectReference Include="..\..\Framework\OSS\OSS.Local\OSS.Local.csproj" />
+    <ProjectReference Include="..\..\Framework\OSS\OSS.Minio\OSS.Minio.csproj" />
     <ProjectReference Include="..\..\Framework\OSS\OSS.Qiniu\OSS.Qiniu.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
