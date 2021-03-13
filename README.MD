@@ -8,10 +8,6 @@ NetModular
   <a href="https://github.com/iamoldli/NetModular/blob/master/LICENSE"><img src="https://img.shields.io/github/license/iamoldli/NetModular"></a>
 </p>
 
-## 提示
-
-由于作者在南京找不到.Net 相关开发工作，作者已转前端，本框架不在更新维护~
-
 ## NetModular 是什么
 
 NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务模块化快速开发解决方案，最终目的是能够让中小团队快速搭建公司内部开发平台。
