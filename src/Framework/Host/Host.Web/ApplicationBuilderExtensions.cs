@@ -35,7 +35,7 @@ namespace NetModular.Lib.Host.Web
             defaultFilesOptions.DefaultFileNames.Add("index.html");
             app.UseDefaultFiles(defaultFilesOptions);
 
-            app.UseDefaultPage();
+            app.UseDefaultPage(hostOptions);
 
             app.UseDocs();
 
@@ -82,8 +82,9 @@ namespace NetModular.Lib.Host.Web
         /// 启用默认页
         /// </summary>
         /// <param name="app"></param>
+        /// <param name="hostOptions"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseDefaultPage(this IApplicationBuilder app)
+        public static IApplicationBuilder UseDefaultPage(this IApplicationBuilder app, HostOptions hostOptions)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/app");
             if (Directory.Exists(path))
@@ -96,7 +97,8 @@ namespace NetModular.Lib.Host.Web
 
                 app.UseStaticFiles(options);
 
-                var rewriteOptions = new RewriteOptions().AddRedirect("^$", "app");
+                var appPath = hostOptions?.BaseUrl?.Trim('/').IsNull() == false ? $"{hostOptions.BaseUrl.Trim('/')}/app" : "app";
+                var rewriteOptions = new RewriteOptions().AddRedirect("^$", appPath);
 
                 app.UseRewriter(rewriteOptions);
             }
