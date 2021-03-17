@@ -17,13 +17,11 @@ namespace NetModular.Lib.OSS.Local
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfigProvider _configProvider;
-        private readonly HostOptions _hostOptions;
 
-        public LocalFileStorageProvider(IHttpContextAccessor httpContextAccessor, IConfigProvider configProvider, HostOptions hostOptions)
+        public LocalFileStorageProvider(IHttpContextAccessor httpContextAccessor, IConfigProvider configProvider)
         {
             _httpContextAccessor = httpContextAccessor;
             _configProvider = configProvider;
-            _hostOptions = hostOptions;
         }
 
         public ValueTask<bool> Upload(FileObject fileObject)
@@ -58,7 +56,7 @@ namespace NetModular.Lib.OSS.Local
             //p表示私有的文件private，o表示公开的文件open
             var path = $"/oss/{(accessMode == FileAccessMode.Open ? "o" : "p")}/{fullPath}";
 
-            return new Uri(request.GetHost(path, _hostOptions.BaseUrl)).ToString();
+            return new Uri(request.GetHost(path)).ToString();
         }
     }
 }
