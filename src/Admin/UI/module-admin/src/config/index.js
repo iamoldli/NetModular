@@ -1,7 +1,7 @@
 const isDev = process.env.NODE_ENV !== 'production'
 
 const config = {
-  baseUrl: '/api/'
+  baseUrl: '../api/'
   /** 账户类型 */
   // accountTypes: [
   //   { label: '管理员', value: 0 },
