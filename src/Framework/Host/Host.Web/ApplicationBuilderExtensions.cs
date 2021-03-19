@@ -39,6 +39,12 @@ namespace NetModular.Lib.Host.Web
             var pathBase = hostOptions.PathBase;
             if (pathBase.NotNull())
             {
+                pathBase = pathBase.Trim();
+                if (!pathBase.StartsWith('/'))
+                {
+                    pathBase = $"/{pathBase}";
+                }
+
                 //1、配置请求基地址：
                 app.Use((context, next) =>
                 {

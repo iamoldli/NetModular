@@ -12,7 +12,7 @@ namespace NetModular.Lib.Utils.Mvc.Extensions
         /// <returns></returns>
         public static string GetHost(this HttpRequest request, string path = null)
         {
-            return request.Scheme + "://" + request.Host.Value + (request.PathBase.Value ?? string.Empty) + (path ?? string.Empty);
+            return $"{request.Scheme}://{request.Host}{request.PathBase}{path ?? string.Empty}";
         }
     }
 }
