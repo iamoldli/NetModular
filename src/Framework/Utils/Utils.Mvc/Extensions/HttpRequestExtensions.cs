@@ -9,15 +9,10 @@ namespace NetModular.Lib.Utils.Mvc.Extensions
         /// </summary>
         /// <param name="request"></param>
         /// <param name="path">附加路径</param>
-        /// <param name="baseUrl">基础路径</param>
         /// <returns></returns>
-        public static string GetHost(this HttpRequest request, string path = null, string baseUrl = null)
+        public static string GetHost(this HttpRequest request, string path = null)
         {
-            if (baseUrl.NotNull())
-            {
-                baseUrl = $"/{baseUrl.Trim('/')}";
-            }
-            return request.Scheme + "://" + request.Host.Value + (baseUrl ?? string.Empty) + (path ?? string.Empty);
+            return $"{request.Scheme}://{request.Host}{request.PathBase}{path ?? string.Empty}";
         }
     }
 }

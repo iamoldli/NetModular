@@ -16,7 +16,7 @@ process.env.VUE_APP_CUSTOM_SCRIPTS = ''
 
 module.exports = {
   outputDir: outputDir,
-  publicPath: '/app',
+  publicPath: './',
   devServer: {
     port: 5220
   },

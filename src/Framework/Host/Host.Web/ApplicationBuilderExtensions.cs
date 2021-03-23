@@ -35,6 +35,27 @@ namespace NetModular.Lib.Host.Web
             defaultFilesOptions.DefaultFileNames.Add("index.html");
             app.UseDefaultFiles(defaultFilesOptions);
 
+            //基地址
+            var pathBase = hostOptions.PathBase;
+            if (pathBase.NotNull())
+            {
+                pathBase = pathBase.Trim();
+                if (!pathBase.StartsWith('/'))
+                {
+                    pathBase = $"/{pathBase}";
+                }
+
+                //1、配置请求基地址：
+                app.Use((context, next) =>
+                {
+                    context.Request.PathBase = pathBase;
+                    return next();
+                });
+
+                // 2、配置静态文件基地址：
+                app.UsePathBase(pathBase);
+            }
+
             app.UseDefaultPage();
 
             app.UseDocs();
@@ -96,7 +117,8 @@ namespace NetModular.Lib.Host.Web
 
                 app.UseStaticFiles(options);
 
-                var rewriteOptions = new RewriteOptions().AddRedirect("^$", "app");
+                var appPath = "app";
+                var rewriteOptions = new RewriteOptions().AddRedirect("^$", appPath);
 
                 app.UseRewriter(rewriteOptions);
             }
