@@ -18,6 +18,11 @@ namespace NetModular.Lib.OSS.Abstractions
         /// 阿里云
         /// </summary>
         [Description("阿里云")]
-        Aliyun
+        Aliyun,
+        /// <summary>
+        /// Minio
+        /// </summary>
+        [Description("Minio")]
+        Minio
     }
 }

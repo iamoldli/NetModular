@@ -19,5 +19,10 @@
         /// 阿里云配置
         /// </summary>
         public AliyunConfig Aliyun { get; set; } = new AliyunConfig();
+
+        /// <summary>
+        /// Minio
+        /// </summary>
+        public MinioConfig Minio { get; set; } = new MinioConfig();
     }
 }
