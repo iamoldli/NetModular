@@ -103,12 +103,6 @@ NetModular 是一款为中小型企业而生的基于.Net Core 平台的业务�
 | 03   | Quartz         | 任务调度                 | <a href="https://www.nuget.org/packages/NetModular.Module.Quartz.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.Quartz.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.Quartz.Web"/>                         | [NetModular.Module.Quartz](https://github.com/iamoldli/NetModular.Module.Quartz)                 |
 | 04   | PersonnelFiles | 人事档案                 | <a href="https://www.nuget.org/packages/NetModular.Module.PersonnelFiles.Web/"><img src="https://img.shields.io/nuget/v/NetModular.Module.PersonnelFiles.Web"></a> <img src="https://img.shields.io/nuget/dt/NetModular.Module.PersonnelFiles.Web"/> | [NetModular.Module.PersonnelFiles](https://github.com/iamoldli/NetModular.Module.PersonnelFiles) |
 
-## 技术交流
-
-QQ 群：点击加群 [903210423](http://shang.qq.com/wpa/qunwpa?idkey=cfc871fccc7173f17ac2c9d12c8a31a7549c260e6aefcb6a40fdcc4b423940b0)
-
-<img src="./img/qq.jpg" alt="QQ" height="300"/>
-
 ## 贡献者
 
 <a href="https://github.com/JTOne123"><img src="https://avatars2.githubusercontent.com/u/3457140?s=60&amp;v=4" style="border-radius:19px" width="38" height="38"></a>
