@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
@@ -11,6 +9,8 @@ using NetModular.Lib.Host.Web.Middleware;
 using NetModular.Lib.Module.AspNetCore;
 using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Utils.Core.Interfaces;
+using System.IO;
+using System.Linq;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
 namespace NetModular.Lib.Host.Web
@@ -90,7 +90,7 @@ namespace NetModular.Lib.Host.Web
             //开启Swagger
             if (hostOptions.Swagger || env.IsDevelopment())
             {
-                app.UseCustomSwagger();
+                app.UseCustomSwagger(pathBase);
             }
 
             //加载模块

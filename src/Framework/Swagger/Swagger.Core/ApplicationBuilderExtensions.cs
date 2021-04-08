@@ -12,8 +12,9 @@ namespace NetModular.Lib.Swagger.Core
         /// 自定义Swagger
         /// </summary>
         /// <param name="app"></param>
+        /// <param name="pathBase"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app)
+        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder app, string pathBase = null)
         {
             var modules = app.ApplicationServices.GetService<IModuleCollection>();
             app.UseSwagger();
@@ -28,7 +29,8 @@ namespace NetModular.Lib.Swagger.Core
 
                     foreach (var g in module.GetGroups())
                     {
-                        c.SwaggerEndpoint($"/swagger/{g.Key}/swagger.json", g.Value);
+                        var url = $"/swagger/{g.Key}/swagger.json";
+                        c.SwaggerEndpoint(pathBase.NotNull() ? $"{pathBase}{url}" : url, g.Value);
                     }
                 }
             });
