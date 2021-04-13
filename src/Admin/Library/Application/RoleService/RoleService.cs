@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -172,51 +173,60 @@ namespace NetModular.Module.Admin.Application.RoleService
             if (await deletePagesTask && await deleteButtonsTask && await deletePermissionsTask)
             {
                 if (model.Pages != null && model.Pages.Any())
+            {
+                var pages = new List<RolePageEntity>();
+                var buttons = new List<RoleButtonEntity>();
+                var permissions = new List<RolePermissionEntity>();
+                foreach (var page in model.Pages)
                 {
-                    foreach (var page in model.Pages)
+                    //插入绑定页面
+                    pages.Add(new RolePageEntity
                     {
-                        //插入绑定页面
-                        await _pageRepository.AddAsync(new RolePageEntity
-                        {
-                            PageCode = page.Code,
-                            RoleId = model.RoleId
-                        }, uow);
+                        PageCode = page.Code,
+                        RoleId = model.RoleId
+                    });
 
-                        //插入绑定按钮
-                        if (page.Buttons != null && page.Buttons.Any())
+                    //插入绑定按钮
+                    if (page.Buttons != null && page.Buttons.Any())
+                    {
+                        buttons.AddRange(page.Buttons.Select(button => new RoleButtonEntity
                         {
-                            foreach (var button in page.Buttons)
-                            {
-                                await _buttonRepository.AddAsync(new RoleButtonEntity
-                                {
-                                    RoleId = model.RoleId,
-                                    ButtonCode = button,
-                                    PageCode = page.Code
-                                }, uow);
-                            }
-                        }
+                            RoleId = model.RoleId,
+                            ButtonCode = button,
+                            PageCode = page.Code
+                        }));
+                    }
 
-                        //插入绑定权限
-                        if (page.Permissions != null && page.Permissions.Any())
+                    //插入绑定权限
+                    if (page.Permissions != null && page.Permissions.Any())
+                    {
+                        permissions.AddRange(page.Permissions.Select(permission => new RolePermissionEntity
                         {
-                            foreach (var permission in page.Permissions)
-                            {
-                                await _permissionRepository.AddAsync(new RolePermissionEntity
-                                {
-                                    RoleId = model.RoleId,
-                                    Platform = Platform.Web,
-                                    PermissionCode = permission
-                                }, uow);
-                            }
-                        }
+                            RoleId = model.RoleId,
+                            Platform = Platform.Web,
+                            PermissionCode = permission
+                        }));
                     }
                 }
+                if (pages.Any())
+                {
+                    await _pageRepository.AddAsync(pages, uow);
+                }
+                if (buttons.Any())
+                {
+                    await _buttonRepository.AddAsync(buttons, uow);
+                }
+                if (permissions.Any())
+                {
+                    await _permissionRepository.AddAsync(permissions, uow);
+                }
+            }
 
-                uow.Commit();
+            uow.Commit();
 
-                //清楚缓存
-                await ClearAccountPermissionCache(model.RoleId);
-                return ResultModel.Success();
+            //清除缓存
+            await ClearAccountPermissionCache(model.RoleId);
+            return ResultModel.Success();
             }
 
             return ResultModel.Failed();
@@ -244,17 +254,14 @@ namespace NetModular.Module.Admin.Application.RoleService
             {
                 if (model.Menus != null && model.Menus.Any())
                 {
-                    foreach (var menuId in model.Menus)
-                    {
-                        if (menuId.IsEmpty())
-                            continue;
-
-                        await _roleMenuRepository.AddAsync(new RoleMenuEntity
+                    var menus = model.Menus
+                        .Where(menuId => menuId.NotEmpty())
+                        .Select(menuId => new RoleMenuEntity
                         {
                             RoleId = model.RoleId,
                             MenuId = menuId
-                        }, uow);
-                    }
+                        }).ToList();
+                    await _roleMenuRepository.AddAsync(menus, uow);
                 }
 
                 uow.Commit();

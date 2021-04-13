@@ -75,14 +75,13 @@ namespace NetModular.Module.Admin.Application.FileService
 
                 if (model.AccessMode == FileAccessMode.Auth && model.Accounts != null && model.Accounts.Any())
                 {
-                    foreach (var accountId in model.Accounts.Split(','))
-                    {
-                        await _ownerRepository.AddAsync(new FileOwnerEntity
+                    var owners = model.Accounts.Split(',')
+                        .Select(accountId => new FileOwnerEntity
                         {
                             SaveId = entity.SaveId,
                             AccountId = Guid.Parse(accountId)
-                        }, uow);
-                    }
+                        }).ToList();
+                    await _ownerRepository.AddAsync(owners, uow);
                 }
 
                 #endregion
@@ -201,7 +200,7 @@ namespace NetModular.Module.Admin.Application.FileService
         private string FullPath2SaveId(string fullPath)
         {
             var arr = fullPath.Split('/', '.');
-            return arr[arr.Length-2];
+            return arr[arr.Length - 2];
         }
     }
 }
