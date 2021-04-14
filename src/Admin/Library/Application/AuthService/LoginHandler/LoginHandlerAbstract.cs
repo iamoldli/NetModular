@@ -86,19 +86,19 @@ namespace NetModular.Module.Admin.Application.AuthService.LoginHandler
                 authInfo.RefreshTokenExpiredTime = DateTime.Now.AddDays(config.Jwt.RefreshTokenExpires);
             }
 
-            Task<bool> task;
+            bool result;
             var entity = await _authInfoRepository.Get(resultModel.AccountId, resultModel.Platform);
             if (entity != null)
             {
                 authInfo.Id = entity.Id;
-                task = _authInfoRepository.UpdateAsync(authInfo);
+                result = await _authInfoRepository.UpdateAsync(authInfo);
             }
             else
             {
-                task = _authInfoRepository.AddAsync(authInfo);
+                result = await _authInfoRepository.AddAsync(authInfo);
             }
 
-            if (await task)
+            if (result)
             {
                 //判断是否开启验证码功能，删除验证码缓存
                 if (config.VerifyCode)

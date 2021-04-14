@@ -48,7 +48,8 @@ namespace NetModular.Lib.Data.PostgreSQL
                 Database = tableName.NotNull() ? tableName : Options.Database,
                 Username = DbOptions.UserId,
                 Password = DbOptions.Password,
-                Multiplexing = true,
+                //启用后不能使用同步命令
+                //Multiplexing = true,
                 MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
                 MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
             };

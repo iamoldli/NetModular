@@ -137,11 +137,8 @@ namespace NetModular.Module.Admin.Application.RoleService
                 RoleId = roleId
             };
 
-            var pageCodesTask = _pageRepository.QueryPageCodesByRole(roleId);
-            var buttonsTask = _buttonRepository.QueryButtonCodes(roleId);
-
-            var pageCodes = await pageCodesTask;
-            var buttons = await buttonsTask;
+            var pageCodes = await _pageRepository.QueryPageCodesByRole(roleId);
+            var buttons = await _buttonRepository.QueryButtonCodes(roleId);
 
             if (pageCodes.Any())
             {
@@ -166,13 +163,21 @@ namespace NetModular.Module.Admin.Application.RoleService
                 return ResultModel.NotExists;
 
             using var uow = _dbContext.NewUnitOfWork();
-            var deletePagesTask = _pageRepository.DeleteByRole(model.RoleId, uow);
-            var deleteButtonsTask = _buttonRepository.DeleteByRole(model.RoleId, uow);
-            var deletePermissionsTask = _permissionRepository.DeleteByRole(model.RoleId, Platform.Web, uow);
 
-            if (await deletePagesTask && await deleteButtonsTask && await deletePermissionsTask)
+            if (!await _pageRepository.DeleteByRole(model.RoleId, uow))
             {
-                if (model.Pages != null && model.Pages.Any())
+                return ResultModel.Failed();
+            }
+            if (!await _buttonRepository.DeleteByRole(model.RoleId, uow))
+            {
+                return ResultModel.Failed();
+            }
+            if (!await _permissionRepository.DeleteByRole(model.RoleId, Platform.Web, uow))
+            {
+                return ResultModel.Failed();
+            }
+
+            if (model.Pages != null && model.Pages.Any())
             {
                 var pages = new List<RolePageEntity>();
                 var buttons = new List<RoleButtonEntity>();
@@ -227,9 +232,6 @@ namespace NetModular.Module.Admin.Application.RoleService
             //清除缓存
             await ClearAccountPermissionCache(model.RoleId);
             return ResultModel.Success();
-            }
-
-            return ResultModel.Failed();
         }
 
         public async Task<IResultModel> QueryBindMenus(Guid id)
