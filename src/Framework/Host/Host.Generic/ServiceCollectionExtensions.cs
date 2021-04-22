@@ -41,6 +41,9 @@ namespace NetModular.Lib.Host.Generic
             //添加实体观察者
             services.AddEntityObservers(modules);
 
+            //添加实体观察者处理器
+            services.AddEntityObserversHandler(modules);
+
             //添加配置管理
             services.AddConfig();
 

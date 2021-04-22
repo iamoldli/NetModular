@@ -238,15 +238,12 @@ namespace NetModular.Lib.Data.Integration
         /// <param name="modules"></param>
         public static void AddEntityObservers(this IServiceCollection services, IModuleCollection modules)
         {
-            List<Type> dbContextTypes = new List<Type>();
             var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
             foreach (var options in dbOptions.Modules)
             {
                 var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
                 if (module != null)
                 {
-                    dbContextTypes.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => t.IsInterface && typeof(DbContext).IsImplementType(t)));
-
                     var observers = module.AssemblyDescriptor.Application.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList();
                     observers.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
                     observers.AddRange(module.AssemblyDescriptor.Domain.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
@@ -260,14 +257,36 @@ namespace NetModular.Lib.Data.Integration
                     });
                 }
             }
+        }
+
+        /// <summary>
+        /// 注入实体观察者处理器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="modules"></param>
+        public static void AddEntityObserversHandler(this IServiceCollection services, IModuleCollection modules)
+        {
+            List<Type> dbContextTypes = new List<Type>();
+            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
+            foreach (var options in dbOptions.Modules)
+            {
+                var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
+                if (module != null)
+                {
+                    dbContextTypes.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(DbContext).IsImplementType(t)));
+                }
+            }
             var sp = services.BuildServiceProvider();
             var observerHandler = new EntityObserverHandler(sp);
-            foreach(var dbContextType in dbContextTypes)
+            if (dbOptions.Monitoring)
             {
-                var dbContext = sp.GetService(dbContextType);
-                if (dbContext != null)
+                foreach (var dbContextType in dbContextTypes)
                 {
-                    ((DbContext)dbContext).ObserverHandler = observerHandler;
+                    var dbContext = sp.GetService(dbContextType);
+                    if (dbContext != null)
+                    {
+                        ((DbContext)dbContext).ObserverHandler = observerHandler;
+                    }
                 }
             }
             services.AddSingleton<IEntityObserverHandler>(observerHandler);
