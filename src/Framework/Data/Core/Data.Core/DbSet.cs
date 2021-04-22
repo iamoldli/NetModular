@@ -72,6 +72,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
                     return true;
                 }
 
@@ -89,6 +90,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
                     return true;
                 }
                 return false;
@@ -102,7 +104,12 @@ namespace NetModular.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return Execute(sql, entity, uow) > 0;
+                var result = Execute(sql, entity, uow) > 0;
+                if (result)
+                {
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
+                }
+                return result;
             }
 
             _logger?.LogDebug("Insert:({0})", sql);
@@ -131,6 +138,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
+                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
                     return true;
                 }
 
@@ -146,6 +154,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
+                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
                     return true;
                 }
                 return false;
@@ -158,7 +167,12 @@ namespace NetModular.Lib.Data.Core
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                return await ExecuteAsync(sql, entity, uow) > 0;
+                var result = await ExecuteAsync(sql, entity, uow) > 0;
+                if (result)
+                {
+                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
+                }
+                return result;
             }
 
             _logger?.LogDebug("Insert:({0})", sql);
@@ -409,7 +423,12 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetDeleteParameters(id);
             var sql = _sql.DeleteSingle(tableName);
             _logger?.LogDebug("Delete:{@sql}", sql);
-            return Execute(sql, dynParams, uow) > 0;
+            var result = Execute(sql, dynParams, uow) > 0;
+            if (result)
+            {
+                DbContext.ObserverHandler?.Delete<TEntity>(id, uow).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
         public async Task<bool> DeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
@@ -417,7 +436,12 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetDeleteParameters(id);
             var sql = _sql.DeleteSingle(tableName);
             _logger?.LogDebug("DeleteAsync:{@sql}", sql);
-            return await ExecuteAsync(sql, dynParams, uow) > 0;
+            var result = await ExecuteAsync(sql, dynParams, uow) > 0;
+            if (result)
+            {
+                await DbContext.ObserverHandler?.Delete<TEntity>(id, uow);
+            }
+            return result;
         }
 
         #endregion
@@ -450,7 +474,12 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetSoftDeleteParameters(id);
             var sql = _sql.SoftDeleteSingle(tableName);
             _logger?.LogDebug("SoftDelete:{@sql}", sql);
-            return Execute(sql, dynParams, uow) > 0;
+            var result = Execute(sql, dynParams, uow) > 0;
+            if (result)
+            {
+                DbContext.ObserverHandler?.Delete<TEntity>(id, uow).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
         public async Task<bool> SoftDeleteAsync(dynamic id, IUnitOfWork uow = null, string tableName = null)
@@ -461,7 +490,12 @@ namespace NetModular.Lib.Data.Core
             var dynParams = GetSoftDeleteParameters(id);
             var sql = _sql.SoftDeleteSingle(tableName);
             _logger?.LogDebug("SoftDeleteAsync:{@sql}", sql);
-            return await ExecuteAsync(sql, dynParams, uow) > 0;
+            var result = await ExecuteAsync(sql, dynParams, uow) > 0;
+            if (result)
+            {
+                await DbContext.ObserverHandler?.Delete<TEntity>(id, uow);
+            }
+            return result;
         }
 
         #endregion
@@ -483,7 +517,13 @@ namespace NetModular.Lib.Data.Core
             UpdateCheck(entity);
             var sql = _sql.UpdateSingle(tableName);
             _logger?.LogDebug("Update:{@sql}", sql);
-            return Execute(sql, entity, uow) > 0;
+            var result = Execute(sql, entity, uow) > 0;
+            if (result)
+            {
+                var id = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
+                DbContext.ObserverHandler?.Update<TEntity>(id, uow).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
         public async Task<bool> UpdateAsync(TEntity entity, IUnitOfWork uow = null, string tableName = null)
@@ -491,7 +531,13 @@ namespace NetModular.Lib.Data.Core
             UpdateCheck(entity);
             var sql = _sql.UpdateSingle(tableName);
             _logger?.LogDebug("UpdateAsync:{@sql}", sql);
-            return await ExecuteAsync(sql, entity, uow) > 0;
+            var result = await ExecuteAsync(sql, entity, uow) > 0;
+            if (result)
+            {
+                var id = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
+                await DbContext.ObserverHandler?.Update<TEntity>(id, uow);
+            }
+            return result;
         }
 
         #endregion

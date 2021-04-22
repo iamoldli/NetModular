@@ -38,6 +38,9 @@ namespace NetModular.Lib.Host.Generic
             //添加模块的自定义服务
             services.AddModuleServices(modules, env, cfg);
 
+            //添加实体观察者
+            services.AddEntityObservers(modules);
+
             //添加配置管理
             services.AddConfig();
 
