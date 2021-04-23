@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Cache.Integration;
@@ -10,6 +9,7 @@ using NetModular.Lib.Mapper.AutoMapper;
 using NetModular.Lib.Module.GenericHost;
 using NetModular.Lib.OSS.Integration;
 using NetModular.Lib.Utils.Core;
+using System;
 
 namespace NetModular.Lib.Host.Generic
 {
@@ -38,17 +38,14 @@ namespace NetModular.Lib.Host.Generic
             //添加模块的自定义服务
             services.AddModuleServices(modules, env, cfg);
 
-            //添加实体观察者
-            services.AddEntityObservers(modules);
-
-            //添加实体观察者处理器
-            services.AddEntityObserversHandler(modules);
-
             //添加配置管理
             services.AddConfig();
 
             //自定义服务
             configureServices?.Invoke(services, env, cfg);
+
+            //添加实体观察者处理器
+            services.AddEntityObserversHandler(modules);
 
             //添加Excel相关功能
             services.AddExcel(cfg);

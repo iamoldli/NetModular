@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Module.Abstractions;
+using System.Collections.Generic;
 
 namespace NetModular.Lib.Module.GenericHost
 {
@@ -49,6 +50,11 @@ namespace NetModular.Lib.Module.GenericHost
         /// 数据库初始化脚本路径信息
         /// </summary>
         public ModuleInitDataScriptDescriptor InitDataScriptDescriptor { get; set; }
+
+        /// <summary>
+        /// 数据库上下文
+        /// </summary>
+        public IDbContext DbContext { get; set; }
 
         /// <summary>
         /// 枚举信息

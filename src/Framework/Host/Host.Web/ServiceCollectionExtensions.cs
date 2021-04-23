@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http.Features;
+﻿using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +15,7 @@ using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Swagger.Core.Conventions;
 using NetModular.Lib.Utils.Core;
 using NetModular.Lib.Validation.FluentValidation;
+using System;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
 namespace NetModular.Lib.Host.Web
@@ -108,12 +108,6 @@ namespace NetModular.Lib.Host.Web
             //添加模块的自定义服务
             services.AddModuleServices(modules, env, cfg);
 
-            //添加实体观察者
-            services.AddEntityObservers(modules);
-
-            //添加实体观察者处理器
-            services.AddEntityObserversHandler(modules);
-
             //添加配置管理
             services.AddConfig();
 
@@ -122,6 +116,9 @@ namespace NetModular.Lib.Host.Web
 
             //添加模块初始化服务
             services.AddModuleInitializerServices(modules, env, cfg);
+
+            //添加实体观察者处理器
+            services.AddEntityObserversHandler(modules);
 
             //添加Excel相关功能
             services.AddExcel(cfg);

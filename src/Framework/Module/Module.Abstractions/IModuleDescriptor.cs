@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NetModular.Lib.Data.Abstractions;
+using System.Collections.Generic;
 
 namespace NetModular.Lib.Module.Abstractions
 {
@@ -56,5 +57,10 @@ namespace NetModular.Lib.Module.Abstractions
         /// 枚举描述器列表
         /// </summary>
         List<ModuleEnumDescriptor> EnumDescriptors { get; set; }
+
+        /// <summary>
+        /// 数据库上下文
+        /// </summary>
+        IDbContext DbContext { get; set; }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Loader;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,6 +11,12 @@ using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Helpers;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace NetModular.Lib.Data.Integration
 {
@@ -57,6 +57,8 @@ namespace NetModular.Lib.Data.Integration
                 if (module != null)
                 {
                     services.AddDbContext(module, options, dbOptions);
+
+                    services.AddEntityObserver(module);
                 }
             }
         }
@@ -182,7 +184,7 @@ namespace NetModular.Lib.Data.Integration
                             using var sr = new StreamReader(jsonFile);
                             var json = sr.ReadToEnd();
                             var list = JsonConvert.DeserializeObject(json, typeof(List<>).MakeGenericType(entityType));
-                            
+
                             var dbSetType = genericType.MakeGenericType(entityType);
                             var db = Activator.CreateInstance(dbSetType, new object[] { dbContext });
                             dbSetType.GetMethod("BatchInsert").Invoke(db, new object[] { list, 10000, null, null });
@@ -191,6 +193,9 @@ namespace NetModular.Lib.Data.Integration
                 }
 
                 #endregion
+
+                //模块描述设置数据库上下文
+                module.DbContext = dbContext;
 
                 //注入数据库上下文
                 services.AddSingleton(dbContextType, dbContext);
@@ -235,28 +240,22 @@ namespace NetModular.Lib.Data.Integration
         /// 注入实体观察者
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="modules"></param>
-        public static void AddEntityObservers(this IServiceCollection services, IModuleCollection modules)
+        /// <param name="module"></param>
+        private static void AddEntityObserver(this IServiceCollection services, IModuleDescriptor module)
         {
-            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
-            foreach (var options in dbOptions.Modules)
+            var observers = module.AssemblyDescriptor.Application.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList();
+            observers.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
+            observers.AddRange(module.AssemblyDescriptor.Domain.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
+            observers.ForEach(m =>
             {
-                var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
-                if (module != null)
+                var interfaceType = m.GetInterfaces().FirstOrDefault();
+                if (interfaceType != null)
                 {
-                    var observers = module.AssemblyDescriptor.Application.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList();
-                    observers.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
-                    observers.AddRange(module.AssemblyDescriptor.Domain.GetTypes().Where(t => typeof(IEntityObserver<>).IsImplementType(t)).ToList());
-                    observers.ForEach(m =>
-                    {
-                        var interfaceType = m.GetInterfaces().FirstOrDefault();
-                        if (interfaceType != null)
-                        {
-                            services.AddSingleton(interfaceType, m);
-                        }
-                    });
+                    services.AddSingleton(interfaceType, m);
                 }
-            }
+            });
+
+            services.AddSingleton<IEntityObserverHandler, EntityObserverHandler>();
         }
 
         /// <summary>
@@ -266,30 +265,21 @@ namespace NetModular.Lib.Data.Integration
         /// <param name="modules"></param>
         public static void AddEntityObserversHandler(this IServiceCollection services, IModuleCollection modules)
         {
-            List<Type> dbContextTypes = new List<Type>();
-            var dbOptions = services.BuildServiceProvider().GetService<DbOptions>();
-            foreach (var options in dbOptions.Modules)
-            {
-                var module = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name));
-                if (module != null)
-                {
-                    dbContextTypes.AddRange(module.AssemblyDescriptor.Infrastructure.GetTypes().Where(t => typeof(DbContext).IsImplementType(t)));
-                }
-            }
             var sp = services.BuildServiceProvider();
-            var observerHandler = new EntityObserverHandler(sp);
+            var dbOptions = sp.GetService<DbOptions>();
             if (dbOptions.Monitoring)
             {
-                foreach (var dbContextType in dbContextTypes)
+                var observerHandler = new EntityObserverHandler(sp);
+                foreach (var options in dbOptions.Modules)
                 {
-                    var dbContext = sp.GetService(dbContextType);
+                    var dbContext = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name))?.DbContext;
                     if (dbContext != null)
                     {
                         ((DbContext)dbContext).ObserverHandler = observerHandler;
                     }
                 }
+                services.AddSingleton<IEntityObserverHandler>(observerHandler);
             }
-            services.AddSingleton<IEntityObserverHandler>(observerHandler);
         }
     }
 }

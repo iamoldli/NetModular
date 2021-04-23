@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Extensions.Logging;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
 using NetModular.Lib.Data.Abstractions.SqlQueryable;
 using NetModular.Lib.Data.Core.SqlQueryable;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NetModular.Lib.Data.Core
 {
@@ -138,7 +138,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
                     return true;
                 }
 
@@ -154,7 +154,7 @@ namespace NetModular.Lib.Data.Core
 
                     _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
-                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
                     return true;
                 }
                 return false;
@@ -170,7 +170,7 @@ namespace NetModular.Lib.Data.Core
                 var result = await ExecuteAsync(sql, entity, uow) > 0;
                 if (result)
                 {
-                    await DbContext.ObserverHandler?.Add<TEntity>(id, uow);
+                    DbContext.ObserverHandler?.Add<TEntity>(id, uow).GetAwaiter().GetResult();
                 }
                 return result;
             }
@@ -439,7 +439,7 @@ namespace NetModular.Lib.Data.Core
             var result = await ExecuteAsync(sql, dynParams, uow) > 0;
             if (result)
             {
-                await DbContext.ObserverHandler?.Delete<TEntity>(id, uow);
+                DbContext.ObserverHandler?.Delete<TEntity>(id, uow).GetAwaiter().GetResult();
             }
             return result;
         }
@@ -493,7 +493,7 @@ namespace NetModular.Lib.Data.Core
             var result = await ExecuteAsync(sql, dynParams, uow) > 0;
             if (result)
             {
-                await DbContext.ObserverHandler?.Delete<TEntity>(id, uow);
+                DbContext.ObserverHandler?.Delete<TEntity>(id, uow).GetAwaiter().GetResult();
             }
             return result;
         }
@@ -535,7 +535,7 @@ namespace NetModular.Lib.Data.Core
             if (result)
             {
                 var id = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
-                await DbContext.ObserverHandler?.Update<TEntity>(id, uow);
+                DbContext.ObserverHandler?.Update<TEntity>(id, uow).GetAwaiter().GetResult();
             }
             return result;
         }
