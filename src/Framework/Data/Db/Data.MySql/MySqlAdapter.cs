@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 using NetModular.Lib.Data.Abstractions.Enums;
@@ -49,20 +49,6 @@ namespace NetModular.Lib.Data.MySql
 
             Options.Version = DbOptions.Version;
 
-            #region ==字符编码==
-
-            var characterSet = "utf8";
-            if (Options.MySqlCharacterSet.NotNull())
-            {
-                characterSet = Options.MySqlCharacterSet;
-            }
-            else if (DbOptions.MySqlCharacterSet.NotNull())
-            {
-                characterSet = DbOptions.MySqlCharacterSet;
-            }
-
-            #endregion
-
             #region ==SslMode==
 
             var sslModeStr = "None";
@@ -87,7 +73,6 @@ namespace NetModular.Lib.Data.MySql
                 UserID = DbOptions.UserId,
                 Password = DbOptions.Password,
                 AllowUserVariables = true,
-                CharacterSet = characterSet,
                 SslMode = sslModel,
                 AllowPublicKeyRetrieval = true,
                 MinimumPoolSize = DbOptions.MinPoolSize < 1 ? 0u : DbOptions.MinPoolSize.ToByte(),
