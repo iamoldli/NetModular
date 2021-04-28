@@ -488,7 +488,9 @@ namespace NetModular.Lib.Cache.Redis
                 }
                 else
                 {
-                    await _db.KeyDeleteAsync(keys.ToArray());
+                    var tasks = new List<Task<bool>>();
+                    keys.ToList().ForEach(m => tasks.Add(_db.KeyDeleteAsync(m)));
+                    await Task.WhenAll(tasks);
                 }
             }
         }
