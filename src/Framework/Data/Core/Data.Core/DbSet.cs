@@ -295,8 +295,12 @@ namespace NetModular.Lib.Data.Core
             }
         }
 
-        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 10000, IUnitOfWork uow = null, string tableName = null)
+        public async Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 0, IUnitOfWork uow = null, string tableName = null)
         {
+            if (flushSize <= 0)
+            {
+                flushSize = DbContext.Options.DbOptions.Dialect == SqlDialect.SqlServer ? 1000 : 10000;
+            }
             if (entityList == null || !entityList.Any())
                 return false;
 
