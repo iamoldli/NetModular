@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace NetModular.Lib.OSS.Abstractions
+﻿namespace NetModular.Lib.OSS.Abstractions
 {
     /// <summary>
     /// Mino使用： http://docs.minio.org.cn/docs/master/minio-monitoring-guide
@@ -10,7 +8,7 @@ namespace NetModular.Lib.OSS.Abstractions
         /// <summary>
         /// 对象存储服务的URL：localhost:9000
         /// </summary>
-        public string Endpoint { get; set; }
+        public string EndPoint { get; set; }
 
         /// <summary>
         /// Access key是唯一标识你的账户的用户ID。
@@ -30,12 +28,12 @@ namespace NetModular.Lib.OSS.Abstractions
         /// <summary>
         /// 存储桶
         /// </summary>
-        public string Bucketname  { get; set; }
+        public string BucketName { get; set; }
 
         /// <summary>
         /// 临时过期秒
         /// 最大值7*24*3600
         /// </summary>
-        public int ExpireInt { get; set; } = 3600*24;
+        public int ExpireInt { get; set; } = 3600;
     }
 }

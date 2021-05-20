@@ -10,12 +10,27 @@ namespace NetModular.Lib.OSS.Minio
     {
 
         private readonly MinioHelper _helper;
-        private readonly MinioConfig _minoConfig;
-        public MinioFileStorageProvider(MinioHelper helper, OSSConfig config)
+        public MinioFileStorageProvider(MinioHelper helper)
         {
             _helper = helper;
-            _minoConfig = config.Minio;
         }
+
+        /// <summary>
+        /// 上传
+        /// </summary>
+        /// <param name="fileObject"></param>
+        /// <returns></returns>
+        public async ValueTask<bool> Upload(FileObject fileObject)
+        {
+            var result = await _helper.PutObjectAsync(fileObject.FileInfo.SaveName, fileObject.PhysicalPath);
+            if (result)
+            {
+                fileObject.FileInfo.Url = GetUrl(fileObject.FileInfo.FullPath, fileObject.AccessMode);
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -23,8 +38,8 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async ValueTask<bool> Delete(FileObject fileObject)
         {
-            await _helper.RemoveObjectAsync(_minoConfig.Bucketname, fileObject.FileInfo.SaveName);
-            return await new ValueTask<bool>(true);
+            var result = await _helper.RemoveObjectAsync(fileObject.FileInfo.SaveName);
+            return await new ValueTask<bool>(result);
         }
 
         /// <summary>
@@ -35,19 +50,14 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public string GetUrl(string fullPath, FileAccessMode accessMode = FileAccessMode.Open)
         {
+            if (fullPath.IsNull())
+                return string.Empty;
+            if (fullPath.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || fullPath.StartsWith("https:", StringComparison.OrdinalIgnoreCase))
+                return fullPath;
+
             var filename = Path.GetFileName(fullPath);
-            var url= _helper.PresignedGetObjectAsync(_minoConfig.Bucketname, filename,1000).Result;
+            var url = _helper.PresignedGetObjectAsync(filename, accessMode).Result;
             return url;
-        }
-        /// <summary>
-        /// 上传
-        /// </summary>
-        /// <param name="fileObject"></param>
-        /// <returns></returns>
-        public async ValueTask<bool> Upload(FileObject fileObject)
-        {
-            await _helper.PutObjectAsync(_minoConfig.Bucketname, fileObject.FileInfo.SaveName, fileObject.PhysicalPath);
-            return await new ValueTask<bool>(true);
         }
     }
 }

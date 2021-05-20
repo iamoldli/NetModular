@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Minio;
-using Minio.DataModel;
-using Minio.Exceptions;
 using NetModular.Lib.OSS.Abstractions;
-using NetModular.Lib.OSS.Minio.Models;
 using NetModular.Lib.Utils.Core.Attributes;
+using NetModular.Lib.Utils.Core.Enums;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,35 +16,28 @@ namespace NetModular.Lib.OSS.Minio
     /// Minio 是一个非常轻量好用的私有文件服务，部署方便，文档齐全
     /// </summary>
     [Singleton]
-    public  class MinioHelper
+    public class MinioHelper
     {
-        private static MinioClient _client = null;
-        public MinioHelper(OSSConfig config)
+        private const int _maxExpireInt = 7 * 24 * 3600;
+        private readonly ILogger<MinioHelper> _logger;
+        private readonly MinioConfig _config;
+        public MinioHelper(OSSConfig config, ILogger<MinioHelper> logger)
         {
-            _client = new MinioClient(config.Minio.Endpoint,
-                config.Minio.AccessKey,
-                config.Minio.SecretKey
-                );
+            _logger = logger;
+            _config = config.Minio;
         }
+
         /// <summary>
         /// 上传
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <param name="data"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string bucketName, string objectName, Stream data, CancellationToken cancellationToken = default)
+        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(bucketName))
-            {
-                throw new ArgumentNullException(nameof(bucketName));
-            }
-            if (string.IsNullOrEmpty(objectName))
-            {
-                throw new ArgumentNullException(nameof(objectName));
-            }
-            string contentType = "application/octet-stream";
+            CheckParams(_config.BucketName, objectName);
+            string contentType = null;
             if (data is FileStream fileStream)
             {
                 string fileName = fileStream.Name;
@@ -61,28 +50,30 @@ namespace NetModular.Lib.OSS.Minio
             {
                 contentType = "application/octet-stream";
             }
-            await _client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, null, null, cancellationToken);
-            return true;
+            try
+            {
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                await client.PutObjectAsync(_config.BucketName, objectName, data, data.Length, contentType, null, null, cancellationToken);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("MinIO OSS文件上传异常：{@ex}", ex);
+            }
+            return false;
         }
 
         /// <summary>
         /// 上传
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName">objectName存在，自动替换为新的</param>
         /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string bucketName, string objectName, string filePath, CancellationToken cancellationToken = default)
+        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(bucketName))
-            {
-                throw new ArgumentNullException(nameof(bucketName));
-            }
-            if (string.IsNullOrEmpty(objectName))
-            {
-                throw new ArgumentNullException(nameof(objectName));
-            }
+            CheckParams(_config.BucketName, objectName);
             if (!File.Exists(filePath))
             {
                 throw new Exception("File not exist.");
@@ -93,119 +84,133 @@ namespace NetModular.Lib.OSS.Minio
             {
                 contentType = "application/octet-stream";
             }
-            await _client.PutObjectAsync(bucketName, objectName, filePath, contentType, null, null, cancellationToken);
-            return true;
+            try
+            {
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                await client.PutObjectAsync(_config.BucketName, objectName, filePath, contentType, null, null, cancellationToken);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("MinIO OSS文件上传异常：{@ex}", ex);
+            }
+            return false;
         }
+
         /// <summary>
         /// 获取文件
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <param name="callback"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string bucketName, string objectName, Action<Stream> callback, CancellationToken cancellationToken = default)
+        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(bucketName))
+            CheckParams(_config.BucketName, objectName);
+            try
             {
-                throw new ArgumentNullException(nameof(bucketName));
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                await client.GetObjectAsync(_config.BucketName, objectName, (stream) =>
+                {
+                    callback(stream);
+                }, null, cancellationToken);
             }
-            if (string.IsNullOrEmpty(objectName))
+            catch (Exception ex)
             {
-                throw new ArgumentNullException(nameof(objectName));
+                _logger.LogError("MinIO OSS获取文件异常：{@ex}", ex);
+                throw ex;
             }
-            await _client.GetObjectAsync(bucketName, objectName, (stream) =>
-            {
-                callback(stream);
-            }, null, cancellationToken);
         }
+
         /// <summary>
         /// 获取文件
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
-        /// <param name="fileName"></param>
+        /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string bucketName, string objectName, string fileName, CancellationToken cancellationToken = default)
+        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(bucketName))
+            CheckParams(_config.BucketName, objectName);
+            string dir = Path.GetDirectoryName(filePath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
-                throw new ArgumentNullException(nameof(bucketName));
+                Directory.CreateDirectory(dir);
             }
-            if (string.IsNullOrEmpty(objectName))
+            try
             {
-                throw new ArgumentNullException(nameof(objectName));
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                await client.GetObjectAsync(_config.BucketName, objectName, filePath, null, cancellationToken);
             }
-            string path = Path.GetDirectoryName(fileName);
-            if (!string.IsNullOrEmpty(path) && !Directory.Exists(path))
+            catch (Exception ex)
             {
-                Directory.CreateDirectory(path);
+                _logger.LogError("MinIO OSS获取文件异常：{@ex}", ex);
+                throw ex;
             }
-            await _client.GetObjectAsync(bucketName, objectName, fileName, null, cancellationToken);
         }
 
-        public async Task<string> PresignedGetObjectAsync(string bucketName, string objectName, int expiresInt)
-        {
-            return await PresignedObjectAsync(bucketName, objectName, expiresInt, PresignedObjectType.Get);
-        }
 
         /// <summary>
         /// 获取文件临时url
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <param name="expiresInt"></param>
-        /// <param name="type"></param>
+        /// <param name="accessMode"></param>
         /// <returns></returns>
-        private async Task<string> PresignedObjectAsync(string bucketName, string objectName, int expiresInt, PresignedObjectType type)
+        public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0)
         {
+            CheckParams(_config.BucketName, objectName);
+            if (expiresInt <= 0 || expiresInt > _maxExpireInt)
+            {
+                expiresInt = accessMode == FileAccessMode.Open ? _maxExpireInt : _config.ExpireInt;
+            }
             try
             {
-                if (string.IsNullOrEmpty(bucketName))
-                {
-                    throw new ArgumentNullException(nameof(bucketName));
-                }
-                if (string.IsNullOrEmpty(objectName))
-                {
-                    throw new ArgumentNullException(nameof(objectName));
-                }
-                if (expiresInt <= 0)
-                {
-                    throw new Exception("ExpiresIn time can not less than 0.");
-                }
-                if (expiresInt > 7 * 24 * 3600)
-                {
-                    throw new Exception("ExpiresIn time no more than 7 days.");
-                }
-                string presignedUrl = await _client.PresignedGetObjectAsync(bucketName, objectName, expiresInt);
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                string presignedUrl = await client.PresignedGetObjectAsync(_config.BucketName, objectName, expiresInt);
                 return presignedUrl;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Presigned {(type == PresignedObjectType.Get ? "get" : "put")} url for object '{objectName}' from {bucketName} failed. {ex.Message}", ex);
+                _logger.LogError("MinIO OSS获取URL异常：{@ex}", ex);
+                throw new Exception($"Presigned get url for {(accessMode == FileAccessMode.Open ? "open" : "private")} object '{objectName}' from {_config.BucketName} failed. {ex.Message}", ex);
             }
         }
 
         /// <summary>
         /// 删除文件
         /// </summary>
-        /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveObjectAsync(string bucketName, string objectName)
+        public async Task<bool> RemoveObjectAsync(string objectName)
         {
-            if (string.IsNullOrEmpty(bucketName))
+            CheckParams(_config.BucketName, objectName);
+            try
             {
-                throw new ArgumentNullException(nameof(bucketName));
+                // 创建OssClient实例。
+                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                await client.RemoveObjectAsync(_config.BucketName, objectName);
+                return true;
             }
-            if (string.IsNullOrEmpty(objectName))
+            catch (Exception ex)
             {
-                throw new ArgumentNullException(nameof(objectName));
+                _logger.LogError("MinIO OSS文件删除异常：{@ex}", ex);
             }
+            return false;
+        }
 
-            await _client.RemoveObjectAsync(bucketName, objectName);
-            return true;
+        private void CheckParams(string bucketName, string objectName)
+        {
+            Check.NotNull(bucketName, nameof(bucketName));
+            if (bucketName.Length < 3)
+            {
+                throw new ArgumentException("MinIO BucketName长度不得小于3位");
+            }
+            Check.NotNull(objectName, nameof(objectName));
         }
     }
 }
