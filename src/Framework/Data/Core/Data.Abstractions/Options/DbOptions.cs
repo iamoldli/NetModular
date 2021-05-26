@@ -54,6 +54,11 @@ namespace NetModular.Lib.Data.Abstractions.Options
         public bool InitData { get; set; }
 
         /// <summary>
+        /// 是否开启观察者
+        /// </summary>
+        public bool Monitoring { get; set; }
+
+        /// <summary>
         /// PostgreSQL的数据库名称
         /// </summary>
         public string NpgsqlDatabaseName { get; set; }

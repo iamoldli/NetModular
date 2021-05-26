@@ -30,6 +30,11 @@ namespace NetModular.Lib.Data.Core
         public IDbContextOptions Options { get; }
 
         /// <summary>
+        /// 实体观察者处理器
+        /// </summary>
+        public IEntityObserverHandler ObserverHandler { get; set; }
+
+        /// <summary>
         /// 数据库是否已存在
         /// </summary>
         public bool DatabaseExists { get; private set; }

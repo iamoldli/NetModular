@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Loader;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,6 +11,12 @@ using NetModular.Lib.Data.Core;
 using NetModular.Lib.Module.Abstractions;
 using NetModular.Lib.Utils.Core.Helpers;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace NetModular.Lib.Data.Integration
 {
@@ -184,7 +184,7 @@ namespace NetModular.Lib.Data.Integration
                             using var sr = new StreamReader(jsonFile);
                             var json = sr.ReadToEnd();
                             var list = JsonConvert.DeserializeObject(json, typeof(List<>).MakeGenericType(entityType));
-                            
+
                             var dbSetType = genericType.MakeGenericType(entityType);
                             var db = Activator.CreateInstance(dbSetType, new object[] { dbContext });
                             dbSetType.GetMethod("BatchInsert").Invoke(db, new object[] { list, 10000, null, null });
@@ -193,6 +193,9 @@ namespace NetModular.Lib.Data.Integration
                 }
 
                 #endregion
+
+                //模块描述设置数据库上下文
+                module.DbContext = dbContext;
 
                 //注入数据库上下文
                 services.AddSingleton(dbContextType, dbContext);
@@ -253,6 +256,30 @@ namespace NetModular.Lib.Data.Integration
             });
 
             services.AddSingleton<IEntityObserverHandler, EntityObserverHandler>();
+        }
+
+        /// <summary>
+        /// 注入实体观察者处理器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="modules"></param>
+        public static void AddEntityObserversHandler(this IServiceCollection services, IModuleCollection modules)
+        {
+            var sp = services.BuildServiceProvider();
+            var dbOptions = sp.GetService<DbOptions>();
+            if (dbOptions.Monitoring)
+            {
+                var observerHandler = new EntityObserverHandler(sp);
+                foreach (var options in dbOptions.Modules)
+                {
+                    var dbContext = modules.FirstOrDefault(m => m.Code.EqualsIgnoreCase(options.Name))?.DbContext;
+                    if (dbContext != null)
+                    {
+                        ((DbContext)dbContext).ObserverHandler = observerHandler;
+                    }
+                }
+                services.AddSingleton<IEntityObserverHandler>(observerHandler);
+            }
         }
     }
 }

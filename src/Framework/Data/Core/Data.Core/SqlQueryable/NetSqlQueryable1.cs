@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NetModular.Lib.Data.Abstractions;
@@ -283,16 +284,54 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         public int DeleteWithAffectedNum()
         {
+            IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = Db.Query<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
+            var result = Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Delete<TEntity>(id));
+                Task.WhenAll(tasks).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
-        public Task<int> DeleteWithAffectedNumAsync()
+        public async Task<int> DeleteWithAffectedNumAsync()
         {
+            IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = await Db.QueryAsync<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             var sql = QueryBuilder.DeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
+            var result = await Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Delete<TEntity>(id));
+                await Task.WhenAll(tasks);
+            }
+            return result;
         }
 
         #endregion
@@ -313,16 +352,54 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         public int SoftDeleteWithAffectedNum()
         {
+            IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = Db.Query<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
+            var result = Db.Execute(sql, parameters.Parse(), QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Delete<TEntity>(id));
+                Task.WhenAll(tasks).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
-        public Task<int> SoftDeleteWithAffectedNumAsync()
+        public async Task<int> SoftDeleteWithAffectedNumAsync()
         {
+            IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = await Db.QueryAsync<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             var sql = QueryBuilder.SoftDeleteSqlBuild(out IQueryParameters parameters);
 
-            return Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
+            var result = await Db.ExecuteAsync(sql, parameters.Parse(), QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Delete<TEntity>(id));
+                await Task.WhenAll(tasks);
+            }
+            return result;
         }
 
         #endregion
@@ -355,6 +432,19 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
 
         public int UpdateWithAffectedNum(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true, string updateSql = null, object parameterObject = null)
         {
+            IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = Db.Query<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             if (updateSql.IsNull())
             {
                 QueryBody.Update = expression;
@@ -371,11 +461,30 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             {
                 param.AddDynamicParams(parameterObject);
             }
-            return Db.Execute(sql, param, QueryBody.Uow);
+            var result = Db.Execute(sql, param, QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Update<TEntity>(id));
+                Task.WhenAll(tasks).GetAwaiter().GetResult();
+            }
+            return result;
         }
 
-        public Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true, string updateSql = null, object parameterObject = null)
+        public async Task<int> UpdateWithAffectedNumAsync(Expression<Func<TEntity, TEntity>> expression, bool setModifiedBy = true, string updateSql = null, object parameterObject = null)
         {
+           IList<object> ids = new List<object>();
+            var pk = Db.EntityDescriptor.PrimaryKey;
+            if (Db.DbContext.ObserverHandler != null && !pk.IsNo())
+            {
+                var queryBody = QueryBody.Copy();
+                var queryBuilder = new QueryBuilder(queryBody, SqlAdapter, Logger, Db.DbContext);
+                var querySql = queryBuilder.QuerySqlBuild(out IQueryParameters queryParameters);
+                var list = await Db.QueryAsync<TEntity>(querySql, queryParameters.Parse(), QueryBody.Uow);
+                if (list != null && list.Any())
+                {
+                    ids = list.Select(m => pk.PropertyInfo.GetValue(m)).Distinct().ToList();
+                }
+            }
             if (updateSql.IsNull())
             {
                 QueryBody.Update = expression;
@@ -392,7 +501,13 @@ namespace NetModular.Lib.Data.Core.SqlQueryable
             {
                 param.AddDynamicParams(parameterObject);
             }
-            return Db.ExecuteAsync(sql, param, QueryBody.Uow);
+            var result = await Db.ExecuteAsync(sql, param, QueryBody.Uow);
+            if (result > 0 && ids.Any())
+            {
+                var tasks = ids.Select(id => Db.DbContext.ObserverHandler.Update<TEntity>(id));
+                await Task.WhenAll(tasks);
+            }
+            return result;
         }
 
         #endregion

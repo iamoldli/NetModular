@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NetModular.Lib.Data.Abstractions;
 using NetModular.Lib.Module.Abstractions;
+using System.Collections.Generic;
 
 namespace NetModular.Lib.Module.AspNetCore
 {
@@ -54,6 +55,11 @@ namespace NetModular.Lib.Module.AspNetCore
         /// 枚举信息
         /// </summary>
         public List<ModuleEnumDescriptor> EnumDescriptors { get; set; } = new List<ModuleEnumDescriptor>();
+
+        /// <summary>
+        /// 数据库上下文
+        /// </summary>
+        public IDbContext DbContext { get; set; }
 
         /// <summary>
         /// 初始化

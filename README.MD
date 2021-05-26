@@ -8,6 +8,10 @@ NetModular
   <a href="https://github.com/iamoldli/NetModular/blob/master/LICENSE"><img src="https://img.shields.io/github/license/iamoldli/NetModular"></a>
 </p>
 
+## 广告
+
+最近使用Vue3+Vite+Element Plus写了一个新的前端业务模块化框架[https://github.com/17MKH/Mkh.UI](https://github.com/17MKH/Mkh.UI)，有兴趣的欢迎star~
+
 ## NetModular 是什么
 
 NetModular 是一款为中小型企业而生的基于.Net Core 3.1 开发的业务模块化快速开发解决方案，最终目的是能够让中小团队快速搭建公司内部开发平台。

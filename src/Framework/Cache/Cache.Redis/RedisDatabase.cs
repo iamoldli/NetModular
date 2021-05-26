@@ -443,6 +443,38 @@ namespace NetModular.Lib.Cache.Redis
 
         #region ==Other==
 
+        private IList<RedisKey> GetKeys(string prefix = null, int pageSize = 10, int pageOffset = 0)
+        {
+            var pat = prefix.IsNull() ? null : $"{GetKey(prefix)}*";
+            var endPoints = _redis.GetEndPoints();
+            if (endPoints.Length > 1)
+            {
+                var skipNum = pageOffset * pageSize;
+                var leftNum = skipNum + pageSize;
+                var keys = new List<RedisKey>();
+                foreach (var endPoint in endPoints)
+                {
+                    if (leftNum > 0)
+                    {
+                        foreach (var key in _redis.GetServer(endPoint).Keys(_dbIndex, pat, pageSize: leftNum))
+                        {
+                            if (keys.Any(m => m == key))
+                            {
+                                continue;
+                            }
+                            keys.Add(key);
+                            leftNum--;
+                        }
+                    }
+                }
+                return keys.Skip(pageSize * pageOffset).Take(pageSize).ToList();
+            }
+            else
+            {
+                return _redis.GetServer(_redis.GetEndPoints().FirstOrDefault()).Keys(_dbIndex, pat, pageSize: pageSize, pageOffset: pageOffset).ToList();
+            }
+        }
+
         /// <summary>
         /// 分页获取所有Keys
         /// </summary>
@@ -451,7 +483,7 @@ namespace NetModular.Lib.Cache.Redis
         /// <returns></returns>
         public IList<RedisKey> GetAllKeys(int pageSize = 10, int pageOffset = 0)
         {
-            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(_dbIndex, pageSize: pageSize, pageOffset: pageOffset).ToList();
+            return GetKeys(pageSize: pageSize, pageOffset: pageOffset);
         }
 
         /// <summary>
@@ -464,9 +496,9 @@ namespace NetModular.Lib.Cache.Redis
         public IList<RedisKey> GetKeysByPrefix(string prefix, int pageSize = 10, int pageOffset = 0)
         {
             if (prefix.IsNull())
-                return null;
+                return new List<RedisKey>();
 
-            return _redis.GetServer(_redis.GetEndPoints()[0]).Keys(_dbIndex, $"{GetKey(prefix)}*", pageSize, pageOffset).ToList();
+            return GetKeys(prefix, pageSize, pageOffset);
         }
 
         /// <summary>
@@ -488,7 +520,21 @@ namespace NetModular.Lib.Cache.Redis
                 }
                 else
                 {
-                    await _db.KeyDeleteAsync(keys.ToArray());
+                    try
+                    {
+                        await _db.KeyDeleteAsync(keys.ToArray());
+                    }
+                    catch (RedisCommandException ex)
+                    {
+                        if (ex.Message.StartsWith("Multi-key operations must involve a single slot;"))
+                        {
+                            await Task.WhenAll(keys.Select(m => _db.KeyDeleteAsync(m)));
+                        }
+                        else
+                        {
+                            throw ex;
+                        }
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -136,11 +137,8 @@ namespace NetModular.Module.Admin.Application.RoleService
                 RoleId = roleId
             };
 
-            var pageCodesTask = _pageRepository.QueryPageCodesByRole(roleId);
-            var buttonsTask = _buttonRepository.QueryButtonCodes(roleId);
-
-            var pageCodes = await pageCodesTask;
-            var buttons = await buttonsTask;
+            var pageCodes = await _pageRepository.QueryPageCodesByRole(roleId);
+            var buttons = await _buttonRepository.QueryButtonCodes(roleId);
 
             if (pageCodes.Any())
             {
@@ -165,61 +163,75 @@ namespace NetModular.Module.Admin.Application.RoleService
                 return ResultModel.NotExists;
 
             using var uow = _dbContext.NewUnitOfWork();
-            var deletePagesTask = _pageRepository.DeleteByRole(model.RoleId, uow);
-            var deleteButtonsTask = _buttonRepository.DeleteByRole(model.RoleId, uow);
-            var deletePermissionsTask = _permissionRepository.DeleteByRole(model.RoleId, Platform.Web, uow);
 
-            if (await deletePagesTask && await deleteButtonsTask && await deletePermissionsTask)
+            if (!await _pageRepository.DeleteByRole(model.RoleId, uow))
             {
-                if (model.Pages != null && model.Pages.Any())
-                {
-                    foreach (var page in model.Pages)
-                    {
-                        //插入绑定页面
-                        await _pageRepository.AddAsync(new RolePageEntity
-                        {
-                            PageCode = page.Code,
-                            RoleId = model.RoleId
-                        }, uow);
-
-                        //插入绑定按钮
-                        if (page.Buttons != null && page.Buttons.Any())
-                        {
-                            foreach (var button in page.Buttons)
-                            {
-                                await _buttonRepository.AddAsync(new RoleButtonEntity
-                                {
-                                    RoleId = model.RoleId,
-                                    ButtonCode = button,
-                                    PageCode = page.Code
-                                }, uow);
-                            }
-                        }
-
-                        //插入绑定权限
-                        if (page.Permissions != null && page.Permissions.Any())
-                        {
-                            foreach (var permission in page.Permissions)
-                            {
-                                await _permissionRepository.AddAsync(new RolePermissionEntity
-                                {
-                                    RoleId = model.RoleId,
-                                    Platform = Platform.Web,
-                                    PermissionCode = permission
-                                }, uow);
-                            }
-                        }
-                    }
-                }
-
-                uow.Commit();
-
-                //清楚缓存
-                await ClearAccountPermissionCache(model.RoleId);
-                return ResultModel.Success();
+                return ResultModel.Failed();
+            }
+            if (!await _buttonRepository.DeleteByRole(model.RoleId, uow))
+            {
+                return ResultModel.Failed();
+            }
+            if (!await _permissionRepository.DeleteByRole(model.RoleId, Platform.Web, uow))
+            {
+                return ResultModel.Failed();
             }
 
-            return ResultModel.Failed();
+            if (model.Pages != null && model.Pages.Any())
+            {
+                var pages = new List<RolePageEntity>();
+                var buttons = new List<RoleButtonEntity>();
+                var permissions = new List<RolePermissionEntity>();
+                foreach (var page in model.Pages)
+                {
+                    //插入绑定页面
+                    pages.Add(new RolePageEntity
+                    {
+                        PageCode = page.Code,
+                        RoleId = model.RoleId
+                    });
+
+                    //插入绑定按钮
+                    if (page.Buttons != null && page.Buttons.Any())
+                    {
+                        buttons.AddRange(page.Buttons.Select(button => new RoleButtonEntity
+                        {
+                            RoleId = model.RoleId,
+                            ButtonCode = button,
+                            PageCode = page.Code
+                        }));
+                    }
+
+                    //插入绑定权限
+                    if (page.Permissions != null && page.Permissions.Any())
+                    {
+                        permissions.AddRange(page.Permissions.Select(permission => new RolePermissionEntity
+                        {
+                            RoleId = model.RoleId,
+                            Platform = Platform.Web,
+                            PermissionCode = permission
+                        }));
+                    }
+                }
+                if (pages.Any())
+                {
+                    await _pageRepository.AddAsync(pages, uow);
+                }
+                if (buttons.Any())
+                {
+                    await _buttonRepository.AddAsync(buttons, uow);
+                }
+                if (permissions.Any())
+                {
+                    await _permissionRepository.AddAsync(permissions, uow);
+                }
+            }
+
+            uow.Commit();
+
+            //清除缓存
+            await ClearAccountPermissionCache(model.RoleId);
+            return ResultModel.Success();
         }
 
         public async Task<IResultModel> QueryBindMenus(Guid id)
@@ -244,17 +256,14 @@ namespace NetModular.Module.Admin.Application.RoleService
             {
                 if (model.Menus != null && model.Menus.Any())
                 {
-                    foreach (var menuId in model.Menus)
-                    {
-                        if (menuId.IsEmpty())
-                            continue;
-
-                        await _roleMenuRepository.AddAsync(new RoleMenuEntity
+                    var menus = model.Menus
+                        .Where(menuId => menuId.NotEmpty())
+                        .Select(menuId => new RoleMenuEntity
                         {
                             RoleId = model.RoleId,
                             MenuId = menuId
-                        }, uow);
-                    }
+                        }).ToList();
+                    await _roleMenuRepository.AddAsync(menus, uow);
                 }
 
                 uow.Commit();

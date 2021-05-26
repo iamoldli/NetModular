@@ -20,6 +20,11 @@ namespace NetModular.Lib.Data.Abstractions
         ILoginInfo LoginInfo { get; }
 
         /// <summary>
+        /// 实体观察者处理器
+        /// </summary>
+        IEntityObserverHandler ObserverHandler { get; set; }
+
+        /// <summary>
         /// 数据库是否已存在
         /// </summary>
         bool DatabaseExists { get; }

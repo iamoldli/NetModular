@@ -47,7 +47,11 @@ namespace NetModular.Lib.Data.PostgreSQL
                 Port = DbOptions.Port > 0 ? DbOptions.Port : 5432,
                 Database = tableName.NotNull() ? tableName : Options.Database,
                 Username = DbOptions.UserId,
-                Password = DbOptions.Password
+                Password = DbOptions.Password,
+                //启用后不能使用同步命令
+                //Multiplexing = true,
+                MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
+                MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
             };
             if (DbOptions.NpgsqlDatabaseName.NotNull())
             {
