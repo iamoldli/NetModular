@@ -85,10 +85,11 @@ namespace NetModular.Lib.Host.Web
                 var preflightMaxAge = hostOptions.PreflightMaxAge < 0 ? new TimeSpan(0, 30, 0) : new TimeSpan(0, 0, hostOptions.PreflightMaxAge);
 
                 options.AddPolicy("Default",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.SetIsOriginAllowed(origin => true)
                         .SetPreflightMaxAge(preflightMaxAge)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        .AllowCredentials()
                         .WithExposedHeaders("Content-Disposition"));//下载文件时，文件名称会保存在headers的Content-Disposition属性里面
             });
 
