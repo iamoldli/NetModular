@@ -163,7 +163,10 @@ namespace NetModular.Lib.Data.Core
             {
                 var id = (Guid)EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
                 if (id == Guid.Empty)
-                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, _sqlAdapter.GenerateSequentialGuid());
+                {
+                    id = _sqlAdapter.GenerateSequentialGuid();
+                    EntityDescriptor.PrimaryKey.PropertyInfo.SetValue(entity, id);
+                }
 
                 _logger?.LogDebug("Insert:({0}),NewID({1})", sql, id);
 
