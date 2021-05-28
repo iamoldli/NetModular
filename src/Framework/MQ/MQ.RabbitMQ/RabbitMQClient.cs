@@ -139,6 +139,47 @@ namespace NetModular.Lib.MQ.RabbitMQ
             };
         }
 
+        /// <summary>
+        /// 使用事件接收消息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queue">队列名称</param>
+        /// <param name="func">回调函数</param>
+        /// <param name="settings">定义设置</param>
+        public Consumer Receive<T>(string queue, Func<T, string, bool> func, RabbitMQDeclareSettings settings = null)
+        {
+            Check.NotNull(queue, nameof(queue), "queue is null");
+            Check.NotNull(func, nameof(func), "func is null");
+
+            queue = GetQueueName(queue);
+
+            var channel = _receiveConnection.CreateModel();
+            channel.BasicQos(0, 1, false);
+            settings = GetSettings(settings);
+            channel.QueueDeclare(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
+
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (sender, eventArgs) =>
+            {
+                var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eventArgs.Body.ToArray()));
+                if (func(message, queue))
+                {
+                    channel.BasicAck(eventArgs.DeliveryTag, false);
+                }
+                else
+                {
+                    channel.BasicNack(eventArgs.DeliveryTag, false, true);
+                }
+            };
+
+            var tag = channel.BasicConsume(queue, false, consumer);
+            return new Consumer
+            {
+                Channel = channel,
+                Tag = tag
+            };
+        }
+
         public void Dispose()
         {
             _sendConnection?.Dispose();
