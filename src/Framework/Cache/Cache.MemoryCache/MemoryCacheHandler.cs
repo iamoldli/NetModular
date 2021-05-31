@@ -88,12 +88,12 @@ namespace NetModular.Lib.Cache.MemoryCache
 
         public bool Exists(string key)
         {
-            return TryGetValue(key, out _);
+            return TryGetValue(key, out object _);
         }
 
         public Task<bool> ExistsAsync(string key)
         {
-            return Task.FromResult(TryGetValue(key, out _));
+            return Task.FromResult(TryGetValue(key, out object _));
         }
 
         public async Task RemoveByPrefixAsync(string prefix)
