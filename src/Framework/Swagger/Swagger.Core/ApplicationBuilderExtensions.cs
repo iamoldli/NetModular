@@ -29,8 +29,10 @@ namespace NetModular.Lib.Swagger.Core
 
                     foreach (var g in module.GetGroups())
                     {
-                        var url = $"/swagger/{g.Key}/swagger.json";
-                        c.SwaggerEndpoint(pathBase.NotNull() ? $"{pathBase}{url}" : url, g.Value);
+                        //var url = $"/swagger/{g.Key}/swagger.json";
+                        //c.SwaggerEndpoint(pathBase.NotNull() ? $"{pathBase}{url}" : url, g.Value);
+                        var url = $"{g.Key}/swagger.json";
+                        c.SwaggerEndpoint(url, g.Value);
                     }
                 }
             });

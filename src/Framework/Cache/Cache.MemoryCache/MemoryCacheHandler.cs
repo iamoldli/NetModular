@@ -58,7 +58,13 @@ namespace NetModular.Lib.Cache.MemoryCache
 
         public bool Set<T>(string key, T value, int expires)
         {
-            _cache.Set(key, value, new TimeSpan(0, 0, expires, 0));
+            Set(key, value, new TimeSpan(0, 0, expires, 0));
+            return true;
+        }
+
+        public bool Set<T>(string key, T value, TimeSpan expiry)
+        {
+            _cache.Set(key, value, expiry);
             return true;
         }
 
@@ -71,6 +77,12 @@ namespace NetModular.Lib.Cache.MemoryCache
         public Task<bool> SetAsync<T>(string key, T value, int expires)
         {
             Set(key, value, expires);
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> SetAsync<T>(string key, T value, TimeSpan expiry)
+        {
+            Set(key, value, expiry);
             return Task.FromResult(true);
         }
 
@@ -88,12 +100,12 @@ namespace NetModular.Lib.Cache.MemoryCache
 
         public bool Exists(string key)
         {
-            return TryGetValue(key, out object _);
+            return _cache.TryGetValue(key, out _);
         }
 
         public Task<bool> ExistsAsync(string key)
         {
-            return Task.FromResult(TryGetValue(key, out object _));
+            return Task.FromResult(_cache.TryGetValue(key, out _));
         }
 
         public async Task RemoveByPrefixAsync(string prefix)

@@ -64,7 +64,12 @@ namespace NetModular.Lib.Cache.Redis
 
         public bool Set<T>(string key, T value, int expires)
         {
-            return _helper.StringSetAsync(key, value, new TimeSpan(0, 0, expires, 0)).GetAwaiter().GetResult();
+            return SetAsync(key, value, expires).GetAwaiter().GetResult();
+        }
+
+        public bool Set<T>(string key, T value, TimeSpan expiry)
+        {
+            return SetAsync(key, value, expiry).GetAwaiter().GetResult();
         }
 
         public Task<bool> SetAsync<T>(string key, T value)
@@ -74,7 +79,12 @@ namespace NetModular.Lib.Cache.Redis
 
         public Task<bool> SetAsync<T>(string key, T value, int expires)
         {
-            return _helper.StringSetAsync(key, value, new TimeSpan(0, 0, expires, 0));
+            return SetAsync(key, value, new TimeSpan(0, 0, expires, 0));
+        }
+
+        public Task<bool> SetAsync<T>(string key, T value, TimeSpan expiry)
+        {
+            return _helper.StringSetAsync(key, value, expiry);
         }
 
         public bool Remove(string key)

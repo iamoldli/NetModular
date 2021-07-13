@@ -152,7 +152,6 @@ namespace NetModular.Lib.OSS.Minio
             }
         }
 
-
         /// <summary>
         /// 获取文件临时url
         /// </summary>

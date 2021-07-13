@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace NetModular.Lib.Cache.Abstractions
 {
@@ -77,6 +78,15 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <typeparam name="T"></typeparam>
         /// <param name="key">键</param>
         /// <param name="value">值</param>
+        /// <param name="expiry">时间间隔</param>
+        bool Set<T>(string key, T value, TimeSpan expiry);
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
         /// <returns></returns>
         Task<bool> SetAsync<T>(string key, T value);
 
@@ -89,6 +99,16 @@ namespace NetModular.Lib.Cache.Abstractions
         /// <param name="expires">有效期(分钟)</param>
         /// <returns></returns>
         Task<bool> SetAsync<T>(string key, T value, int expires);
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">时间间隔</param>
+        /// <returns></returns>
+        Task<bool> SetAsync<T>(string key, T value, TimeSpan expiry);
 
         /// <summary>
         /// 删除
