@@ -33,10 +33,12 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName"></param>
         /// <param name="data"></param>
         /// <param name="cancellationToken"></param>
+
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default)
+        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             string contentType = null;
             if (data is FileStream fileStream)
             {
@@ -54,7 +56,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.PutObjectAsync(_config.BucketName, objectName, data, data.Length, contentType, null, null, cancellationToken);
+                await client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, null, null, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -70,10 +72,11 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName">objectName存在，自动替换为新的</param>
         /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default)
+        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             if (!File.Exists(filePath))
             {
                 throw new Exception("File not exist.");
@@ -88,7 +91,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.PutObjectAsync(_config.BucketName, objectName, filePath, contentType, null, null, cancellationToken);
+                await client.PutObjectAsync(bucketName, objectName, filePath, contentType, null, null, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -104,15 +107,16 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName"></param>
         /// <param name="callback"></param>
         /// <param name="cancellationToken"></param>
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default)
+        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             try
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.GetObjectAsync(_config.BucketName, objectName, (stream) =>
+                await client.GetObjectAsync(bucketName, objectName, (stream) =>
                 {
                     callback(stream);
                 }, null, cancellationToken);
@@ -130,10 +134,11 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName"></param>
         /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default)
+        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             string dir = Path.GetDirectoryName(filePath);
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
@@ -143,7 +148,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.GetObjectAsync(_config.BucketName, objectName, filePath, null, cancellationToken);
+                await client.GetObjectAsync(bucketName, objectName, filePath, null, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -158,10 +163,11 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName"></param>
         /// <param name="expiresInt"></param>
         /// <param name="accessMode"></param>
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0)
+        public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             if (expiresInt <= 0 || expiresInt > _maxExpireInt)
             {
                 expiresInt = accessMode == FileAccessMode.Open ? _maxExpireInt : _config.ExpireInt;
@@ -170,13 +176,13 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                string presignedUrl = await client.PresignedGetObjectAsync(_config.BucketName, objectName, expiresInt);
+                string presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt);
                 return presignedUrl;
             }
             catch (Exception ex)
             {
                 _logger.LogError("MinIO OSS获取URL异常：{@ex}", ex);
-                throw new Exception($"Presigned get url for {(accessMode == FileAccessMode.Open ? "open" : "private")} object '{objectName}' from {_config.BucketName} failed. {ex.Message}", ex);
+                throw new Exception($"Presigned get url for {(accessMode == FileAccessMode.Open ? "open" : "private")} object '{objectName}' from {bucketName} failed. {ex.Message}", ex);
             }
         }
 
@@ -184,15 +190,16 @@ namespace NetModular.Lib.OSS.Minio
         /// 删除文件
         /// </summary>
         /// <param name="objectName"></param>
+        /// <param name="bucketName"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveObjectAsync(string objectName)
+        public async Task<bool> RemoveObjectAsync(string objectName, string bucketName = default)
         {
-            CheckParams(_config.BucketName, objectName);
+            CheckParams(bucketName, objectName);
             try
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.RemoveObjectAsync(_config.BucketName, objectName);
+                await client.RemoveObjectAsync(bucketName, objectName);
                 return true;
             }
             catch (Exception ex)
@@ -204,6 +211,10 @@ namespace NetModular.Lib.OSS.Minio
 
         private void CheckParams(string bucketName, string objectName)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             Check.NotNull(bucketName, nameof(bucketName));
             if (bucketName.Length < 3)
             {
