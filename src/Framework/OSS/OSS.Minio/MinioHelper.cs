@@ -38,6 +38,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             string contentType = null;
             if (data is FileStream fileStream)
@@ -76,6 +80,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             if (!File.Exists(filePath))
             {
@@ -111,6 +119,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             try
             {
@@ -138,6 +150,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             string dir = Path.GetDirectoryName(filePath);
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
@@ -167,6 +183,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             if (expiresInt <= 0 || expiresInt > _maxExpireInt)
             {
@@ -194,6 +214,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <returns></returns>
         public async Task<bool> RemoveObjectAsync(string objectName, string bucketName = default)
         {
+            if (bucketName.IsNull())
+            {
+                bucketName = _config.BucketName;
+            }
             CheckParams(bucketName, objectName);
             try
             {
@@ -211,10 +235,6 @@ namespace NetModular.Lib.OSS.Minio
 
         private void CheckParams(string bucketName, string objectName)
         {
-            if (bucketName.IsNull())
-            {
-                bucketName = _config.BucketName;
-            }
             Check.NotNull(bucketName, nameof(bucketName));
             if (bucketName.Length < 3)
             {
