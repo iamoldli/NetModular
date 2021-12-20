@@ -112,7 +112,7 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
             var fullPath = Path.Combine(fullDir, fileInfo.SaveName);
 
             if (calcMd5)
-                fileInfo.Md5 = await SaveWidthMd5(formFile, fullPath, cancellationToken);
+                fileInfo.Md5 = await SaveWithMd5(formFile, fullPath, cancellationToken);
             else
                 await Save(formFile, fullPath, cancellationToken);
 
@@ -140,15 +140,17 @@ namespace NetModular.Lib.Utils.Mvc.Helpers
         /// <param name="savePath">保存路径</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
-        public async Task<string> SaveWidthMd5(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
+        public async Task<string> SaveWithMd5(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
         {
-            //写入
             await using var stream = new FileStream(savePath, FileMode.Create);
-            var md5 = Md5Encrypt.Encrypt(stream);
             await formFile.CopyToAsync(stream, cancellationToken);
-
-            return md5;
+            stream.Seek(0, SeekOrigin.Begin);
+            return Md5Encrypt.Encrypt(stream);
         }
+
+        [Obsolete("弃用方法，请及时更替为SaveWithMd5")]
+        public Task<string> SaveWidthMd5(IFormFile formFile, string savePath, CancellationToken cancellationToken = default)
+            => SaveWithMd5(formFile, savePath, cancellationToken);
     }
 
     /// <summary>
