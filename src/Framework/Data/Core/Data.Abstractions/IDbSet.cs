@@ -307,7 +307,7 @@ namespace NetModular.Lib.Data.Abstractions
         /// <param name="uow">工作单元</param>
         /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 1000, IUnitOfWork uow = null, string tableName = null);
+        Task<bool> BatchInsertAsync(List<TEntity> entityList, int flushSize = 0, IUnitOfWork uow = null, string tableName = null);
 
         #endregion
 
