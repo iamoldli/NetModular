@@ -6,7 +6,7 @@ namespace NetModular.Lib.Quartz.Abstractions
     {
         [Description("SqlServer")]
         SqlServer,
-        [Description("MySql")]
+        [Description("MySqlConnector")]
         MySql,
         [Description("SQLite-Microsoft")]
         SQLite,
