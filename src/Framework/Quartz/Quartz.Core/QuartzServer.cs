@@ -37,7 +37,15 @@ namespace NetModular.Lib.Quartz.Core
             var factory = new StdSchedulerFactory(config.ToProps());
 
             //创建一个调度器
-            _scheduler = await factory.GetScheduler(cancellation);
+            try
+            {
+                _scheduler = await factory.GetScheduler(cancellation);
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("创建一个调度器:{@ex}", ex);
+            }
 
             //绑定自定义任务工厂
             _scheduler.JobFactory = new JobFactory(_container);
