@@ -19,6 +19,7 @@ namespace NetModular.Lib.OSS.Minio
     public class MinioHelper
     {
         private const int _maxExpireInt = 7 * 24 * 3600;
+        private const string _defaultMime = "application/octet-stream";
         private readonly ILogger<MinioHelper> _logger;
         private readonly MinioConfig _config;
         public MinioHelper(OSSConfig config, ILogger<MinioHelper> logger)
@@ -33,28 +34,26 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="objectName"></param>
         /// <param name="data"></param>
         /// <param name="cancellationToken"></param>
-
         /// <param name="bucketName"></param>
+        /// <param name="contentType"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default)
+        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default)
         {
             if (bucketName.IsNull())
             {
                 bucketName = _config.BucketName;
             }
             CheckParams(bucketName, objectName);
-            string contentType = null;
-            if (data is FileStream fileStream)
+            if (contentType.IsNull())
             {
-                string fileName = fileStream.Name;
-                if (!string.IsNullOrEmpty(fileName))
+                var ctp = new FileExtensionContentTypeProvider();
+                if (data is not FileStream fileStream || fileStream.Name.IsNull() || !ctp.TryGetContentType(fileStream.Name, out contentType))
                 {
-                    new FileExtensionContentTypeProvider().TryGetContentType(fileName, out contentType);
+                    if (!ctp.TryGetContentType(objectName, out contentType))
+                    {
+                        contentType = _defaultMime;
+                    }
                 }
-            }
-            if (string.IsNullOrEmpty(contentType))
-            {
-                contentType = "application/octet-stream";
             }
             try
             {
@@ -77,8 +76,9 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="bucketName"></param>
+        /// <param name="contentType"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
+        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default)
         {
             if (bucketName.IsNull())
             {
@@ -87,13 +87,18 @@ namespace NetModular.Lib.OSS.Minio
             CheckParams(bucketName, objectName);
             if (!File.Exists(filePath))
             {
-                throw new Exception("File not exist.");
+                throw new FileNotFoundException("File not exist.");
             }
-            string fileName = Path.GetFileName(filePath);
-            string contentType = null;
-            if (!new FileExtensionContentTypeProvider().TryGetContentType(fileName, out contentType))
+            if (contentType.IsNull())
             {
-                contentType = "application/octet-stream";
+                var ctp = new FileExtensionContentTypeProvider();
+                if (!ctp.TryGetContentType(Path.GetFileName(filePath), out contentType))
+                {
+                    if (!ctp.TryGetContentType(objectName, out contentType))
+                    {
+                        contentType = _defaultMime;
+                    }
+                }
             }
             try
             {
@@ -156,7 +161,7 @@ namespace NetModular.Lib.OSS.Minio
             }
             CheckParams(bucketName, objectName);
             string dir = Path.GetDirectoryName(filePath);
-            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            if (dir.NotNull() && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
@@ -238,7 +243,7 @@ namespace NetModular.Lib.OSS.Minio
             Check.NotNull(bucketName, nameof(bucketName));
             if (bucketName.Length < 3)
             {
-                throw new ArgumentException("MinIO BucketName长度不得小于3位");
+                throw new ArgumentOutOfRangeException("MinIO BucketName长度不得小于3位");
             }
             Check.NotNull(objectName, nameof(objectName));
         }

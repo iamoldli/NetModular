@@ -51,9 +51,13 @@ namespace NetModular.Lib.OSS.Minio
         public string GetUrl(string fullPath, FileAccessMode accessMode = FileAccessMode.Open)
         {
             if (fullPath.IsNull())
+            {
                 return string.Empty;
+            }
             if (fullPath.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || fullPath.StartsWith("https:", StringComparison.OrdinalIgnoreCase))
+            {
                 return fullPath;
+            }
 
             var filename = Path.GetFileName(fullPath);
             var url = _helper.PresignedGetObjectAsync(filename, accessMode).Result;
