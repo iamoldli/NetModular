@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Minio;
+using Minio.DataModel;
 using NetModular.Lib.OSS.Abstractions;
 using NetModular.Lib.Utils.Core.Attributes;
 using NetModular.Lib.Utils.Core.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,8 +22,8 @@ namespace NetModular.Lib.OSS.Minio
     {
         private const int _maxExpireInt = 7 * 24 * 3600;
         private const string _defaultMime = "application/octet-stream";
-        private readonly ILogger<MinioHelper> _logger;
         private readonly MinioConfig _config;
+        private readonly ILogger<MinioHelper> _logger;
         public MinioHelper(OSSConfig config, ILogger<MinioHelper> logger)
         {
             _logger = logger;
@@ -36,8 +38,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="cancellationToken"></param>
         /// <param name="bucketName"></param>
         /// <param name="contentType"></param>
+        /// <param name="metaData"></param>
+        /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default)
+        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, ServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -59,7 +63,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, null, null, cancellationToken);
+                await client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, metaData, sse, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -77,8 +81,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="cancellationToken"></param>
         /// <param name="bucketName"></param>
         /// <param name="contentType"></param>
+        /// <param name="metaData"></param>
+        /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default)
+        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, ServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -104,7 +110,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.PutObjectAsync(bucketName, objectName, filePath, contentType, null, null, cancellationToken);
+                await client.PutObjectAsync(bucketName, objectName, filePath, contentType, metaData, sse, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -121,8 +127,9 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="callback"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="bucketName"></param>
+        /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default)
+        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default, ServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -136,7 +143,7 @@ namespace NetModular.Lib.OSS.Minio
                 await client.GetObjectAsync(bucketName, objectName, (stream) =>
                 {
                     callback(stream);
-                }, null, cancellationToken);
+                }, sse, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -152,8 +159,9 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="filePath"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="bucketName"></param>
+        /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default)
+        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, ServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -169,7 +177,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.GetObjectAsync(bucketName, objectName, filePath, null, cancellationToken);
+                await client.GetObjectAsync(bucketName, objectName, filePath, sse, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -185,8 +193,10 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="expiresInt"></param>
         /// <param name="accessMode"></param>
         /// <param name="bucketName"></param>
+        /// <param name="reqParams"></param>
+        /// <param name="reqDate"></param>
         /// <returns></returns>
-        public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0, string bucketName = default)
+        public async Task<string> PresignedGetObjectAsync(string objectName, FileAccessMode accessMode = FileAccessMode.Open, int expiresInt = 0, string bucketName = default, Dictionary<string, string> reqParams = default, DateTime? reqDate = default)
         {
             if (bucketName.IsNull())
             {
@@ -201,7 +211,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                string presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt);
+                string presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt, reqParams, reqDate);
                 return presignedUrl;
             }
             catch (Exception ex)
@@ -216,8 +226,9 @@ namespace NetModular.Lib.OSS.Minio
         /// </summary>
         /// <param name="objectName"></param>
         /// <param name="bucketName"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveObjectAsync(string objectName, string bucketName = default)
+        public async Task<bool> RemoveObjectAsync(string objectName, string bucketName = default, CancellationToken cancellationToken = default)
         {
             if (bucketName.IsNull())
             {
@@ -228,7 +239,7 @@ namespace NetModular.Lib.OSS.Minio
             {
                 // 创建OssClient实例。
                 var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                await client.RemoveObjectAsync(bucketName, objectName);
+                await client.RemoveObjectAsync(bucketName, objectName, cancellationToken);
                 return true;
             }
             catch (Exception ex)
