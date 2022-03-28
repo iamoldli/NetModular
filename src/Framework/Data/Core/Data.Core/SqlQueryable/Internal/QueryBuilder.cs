@@ -444,7 +444,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
                 if (_queryBody.FilterTenant && descriptor.EntityDescriptor.IsTenant)
                 {
                     var x1 = _sqlAdapter.AppendQuote(DbConstants.TENANT_COLUMN_NAME);
-                    var tenantId = _dbContext.LoginInfo.TenantId;
+                    var tenantId = _dbContext.LoginInfo?.TenantId;
                     if (tenantId == null)
                     {
                         sqlBuilder.AppendFormat(" AND {0}.{1} IS NULL ", alias, x1);
@@ -515,7 +515,7 @@ namespace NetModular.Lib.Data.Core.SqlQueryable.Internal
 
             if (_queryBody.FilterTenant)
             {
-                var tenantId = _dbContext.LoginInfo.TenantId;
+                var tenantId = _dbContext.LoginInfo?.TenantId;
                 var sb = new StringBuilder();
 
                 if (_queryBody.JoinDescriptors.Count == 1)

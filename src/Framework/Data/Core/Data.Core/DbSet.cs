@@ -37,12 +37,10 @@ namespace NetModular.Lib.Data.Core
 
         #region ==构造函数==
 
-        public DbSet(IDbContext context) : this(context, EntityDescriptorCollection.Get<TEntity>()) { }
-
-        public DbSet(IDbContext context, IEntityDescriptor descriptor)
+        public DbSet(IDbContext context)
         {
             DbContext = context;
-            EntityDescriptor = descriptor;
+            EntityDescriptor = EntityDescriptorCollection.Get<TEntity>();
             _sqlAdapter = context.Options.SqlAdapter;
             _sql = EntityDescriptor.Sql;
             _logger = context.Options.LoggerFactory?.CreateLogger("DbSet-" + EntityDescriptor.TableName);
