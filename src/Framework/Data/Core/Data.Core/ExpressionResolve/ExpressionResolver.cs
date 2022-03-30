@@ -775,7 +775,8 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
             if (operand is MemberExpression)
             {
                 Resolve(operand);
-                _sqlBuilder.Append(" = 0");
+                _sqlBuilder.Append(" = ");
+                _sqlBuilder.Append(_sqlAdapter.SqlDialect == SqlDialect.PostgreSQL ? "FALSE" : "0");
             }
             else
             {
