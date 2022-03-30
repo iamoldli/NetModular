@@ -765,14 +765,25 @@ namespace NetModular.Lib.Data.Core.ExpressionResolve
 
         private void NotResolve(Expression exp)
         {
-            if (exp == null)
+            if (exp == null || !(exp is UnaryExpression unaryExp))
                 return;
+
+            var operand = unaryExp.Operand;
 
             _sqlBuilder.Append("(");
 
-            UnaryResolve(exp);
+            if (operand is MemberExpression)
+            {
+                Resolve(operand);
+                _sqlBuilder.Append(" = 0");
+            }
+            else
+            {
+                _sqlBuilder.Append("NOT ");
+                Resolve(operand);
+            }
 
-            _sqlBuilder.Append(" = 0)");
+            _sqlBuilder.Append(")");
         }
 
         private void MemberInitResolve(Expression exp)
