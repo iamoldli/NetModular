@@ -98,6 +98,20 @@ namespace NetModular.Lib.Cache.MemoryCache
             return Task.FromResult(true);
         }
 
+        public long Remove(string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                _cache.Remove(key);
+            }
+            return keys.LongLength;
+        }
+
+        public Task<long> RemoveAsync(string[] keys)
+        {
+            return Task.FromResult(Remove(keys));
+        }
+
         public bool Exists(string key)
         {
             return _cache.TryGetValue(key, out _);

@@ -367,6 +367,26 @@ namespace NetModular.Lib.Cache.Redis
             return _db.KeyDeleteAsync(GetKey(key));
         }
 
+        /// <summary>
+        /// 删除键
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public long KeyDelete(string[] keys)
+        {
+            return _db.KeyDelete(keys.Select(key => (RedisKey)GetKey(key)).ToArray());
+        }
+
+        /// <summary>
+        /// 删除键
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public Task<long> KeyDeleteAsync(string[] keys)
+        {
+            return _db.KeyDeleteAsync(keys.Select(key => (RedisKey)GetKey(key)).ToArray());
+        }
+
         #endregion
 
         #region ==KeyExists==

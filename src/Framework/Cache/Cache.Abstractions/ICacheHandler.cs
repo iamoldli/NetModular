@@ -124,6 +124,19 @@ namespace NetModular.Lib.Cache.Abstractions
         Task<bool> RemoveAsync(string key);
 
         /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="keys"></param>
+        long Remove(string[] keys);
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        Task<long> RemoveAsync(string[] keys);
+
+        /// <summary>
         /// 指定键是否存在
         /// </summary>
         /// <param name="key"></param>

@@ -97,6 +97,16 @@ namespace NetModular.Lib.Cache.Redis
             return _helper.KeyDeleteAsync(key);
         }
 
+        public long Remove(string[] keys)
+        {
+            return _helper.KeyDelete(keys);
+        }
+
+        public Task<long> RemoveAsync(string[] keys)
+        {
+            return _helper.KeyDeleteAsync(keys);
+        }
+
         public bool Exists(string key)
         {
             return _helper.KeyExists(key);
