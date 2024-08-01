@@ -61,8 +61,7 @@ namespace NetModular.Lib.OSS.Minio
             }
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                var client = GetClient();
                 await client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, metaData, sse, cancellationToken);
                 return true;
             }
@@ -108,8 +107,7 @@ namespace NetModular.Lib.OSS.Minio
             }
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                var client = GetClient();
                 await client.PutObjectAsync(bucketName, objectName, filePath, contentType, metaData, sse, cancellationToken);
                 return true;
             }
@@ -138,11 +136,10 @@ namespace NetModular.Lib.OSS.Minio
             CheckParams(bucketName, objectName);
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                var client = GetClient();
                 await client.GetObjectAsync(bucketName, objectName, (stream) =>
                 {
-                    callback(stream);
+                    callback?.Invoke(stream);
                 }, sse, cancellationToken);
             }
             catch (Exception ex)
@@ -168,15 +165,14 @@ namespace NetModular.Lib.OSS.Minio
                 bucketName = _config.BucketName;
             }
             CheckParams(bucketName, objectName);
-            string dir = Path.GetDirectoryName(filePath);
+            var dir = Path.GetDirectoryName(filePath);
             if (dir.NotNull() && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                var client = GetClient();
                 await client.GetObjectAsync(bucketName, objectName, filePath, sse, cancellationToken);
             }
             catch (Exception ex)
@@ -209,9 +205,8 @@ namespace NetModular.Lib.OSS.Minio
             }
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
-                string presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt, reqParams, reqDate);
+                var client = GetClient();
+                var presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt, reqParams, reqDate);
                 return presignedUrl;
             }
             catch (Exception ex)
@@ -237,8 +232,7 @@ namespace NetModular.Lib.OSS.Minio
             CheckParams(bucketName, objectName);
             try
             {
-                // 创建OssClient实例。
-                var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+                var client = GetClient();
                 await client.RemoveObjectAsync(bucketName, objectName, cancellationToken);
                 return true;
             }
@@ -247,6 +241,17 @@ namespace NetModular.Lib.OSS.Minio
                 _logger.LogError("MinIO OSS文件删除异常：{@ex}", ex);
             }
             return false;
+        }
+
+        private MinioClient GetClient()
+        {
+            var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+            if (_config.Secure)
+            {
+                client.WithSSL();
+            }
+
+            return client;
         }
 
         private void CheckParams(string bucketName, string objectName)
