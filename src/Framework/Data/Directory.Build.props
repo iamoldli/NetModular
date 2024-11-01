@@ -1,7 +1,0 @@
-﻿<Project>
-	<PropertyGroup>
-		<Version>2.2.3</Version>
-	</PropertyGroup>
-
-	<Import Project="..\Directory.Build.props" />
-</Project>

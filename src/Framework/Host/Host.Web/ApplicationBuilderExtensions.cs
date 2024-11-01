@@ -11,6 +11,7 @@ using NetModular.Lib.Swagger.Core;
 using NetModular.Lib.Utils.Core.Interfaces;
 using System.IO;
 using System.Linq;
+using NetModular.Lib.Utils.Core;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
 namespace NetModular.Lib.Host.Web
@@ -26,6 +27,8 @@ namespace NetModular.Lib.Host.Web
         /// <returns></returns>
         public static IApplicationBuilder UseWebHost(this IApplicationBuilder app, HostOptions hostOptions, IHostEnvironment env)
         {
+            GlobalServiceProvider.Set(app.ApplicationServices);
+
             //异常处理
             app.UseExceptionHandle();
 

@@ -1,46 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35417.141 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{74E4E16D-C616-4441-B1BF-8FA564B0FE03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{0A0A14BC-4569-4C5C-A100-63E5413698DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Utils", "01_Utils", "{8BE92EFE-A776-4E3F-897A-B97180814738}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Utils\Directory.Build.props = src\Framework\Utils\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils.Core", "src\Framework\Utils\Utils.Core\Utils.Core.csproj", "{CA84CAEF-2356-4B52-B5C4-907594DABB81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09_Module", "09_Module", "{266D1247-0402-4AD7-820D-67AF9B7C7D69}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Module\Directory.Build.props = src\Framework\Module\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Abstractions", "src\Framework\Module\Module.Abstractions\Module.Abstractions.csproj", "{40019587-B5FD-40CC-BB47-D34CE67C5329}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08_Auth", "08_Auth", "{CBEB17BA-C3A4-451C-95D5-6FA4EDF17F7E}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Auth\Directory.Build.props = src\Framework\Auth\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Abstractions", "src\Framework\Auth\Auth.Abstractions\Auth.Abstractions.csproj", "{13AABF68-669B-4DBE-8E40-5F1F2DB5B4DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07_Validation", "07_Validation", "{AC1D477C-D9A9-4195-BD8A-381ED53F33C5}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Validation\Directory.Build.props = src\Framework\Validation\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validation.Abstractions", "src\Framework\Validation\Validation.Abstractions\Validation.Abstractions.csproj", "{D00DAAAD-550E-45C6-9B31-8C65B04B85B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Jwt", "src\Framework\Auth\Auth.Jwt\Auth.Jwt.csproj", "{BAD4DE6D-7D1D-4555-B545-E9BE80F07BEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Data", "02_Data", "{8A20B488-093E-4BE0-BACA-75CB49D74827}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Data\Directory.Build.props = src\Framework\Data\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B14A62EF-3160-4D69-8892-1D4A85D30A7E}"
 EndProject
@@ -61,21 +46,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Query", "src\Framework\Data\Extend\Data.Query\Data.Query.csproj", "{4BA9907B-DD65-4A12-BD25-B774DC76C8B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Logging", "03_Logging", "{60FAC15D-B417-4B85-A123-C87C8BBC4D2E}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Logging\Directory.Build.props = src\Framework\Logging\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Serilog", "src\Framework\Logging\Logging.Serilog\Logging.Serilog.csproj", "{71288A34-CCFA-4A66-9B37-A0CE4598DB32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Mapper", "04_Mapper", "{893A4F30-E9FE-4E41-AAA0-4EDAAA1F5188}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Mapper\Directory.Build.props = src\Framework\Mapper\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05_Swagger", "05_Swagger", "{81097B80-B458-48E5-8302-A02850147D5B}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Swagger\Directory.Build.props = src\Framework\Swagger\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validation.FluentValidation", "src\Framework\Validation\Validation.FluentValidation\Validation.FluentValidation.csproj", "{C9F8FEF5-0016-403C-B615-3FAC2AC7582A}"
 EndProject
@@ -90,9 +66,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Serilog.GenericHost", "src\Framework\Logging\Logging.Serilog.GenericHost\Logging.Serilog.GenericHost.csproj", "{ADB6B804-063C-4718-B20A-A38D086B30C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06_Cache", "06_Cache", "{07DFF9AB-0250-43B6-8B10-5C3F3F504C04}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Cache\Directory.Build.props = src\Framework\Cache\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache.Abstractions", "src\Framework\Cache\Cache.Abstractions\Cache.Abstractions.csproj", "{A744B226-4D21-423C-ABD6-1DBD79D2A3E5}"
 EndProject
@@ -103,9 +76,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.AutoMapper", "src\Framework\Mapper\Mapper.AutoMapper\Mapper.AutoMapper.csproj", "{6CC2E7D3-41B6-4975-B8D3-869BB9A8834C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_MQ", "10_MQ", "{930AF546-D112-4019-9E36-E39ED2B2EBCB}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\MQ\Directory.Build.props = src\Framework\MQ\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQ.RabbitMQ", "src\Framework\MQ\MQ.RabbitMQ\MQ.RabbitMQ.csproj", "{5FF1A6D4-EFC7-41FD-8FD4-677A2B62CEB3}"
 EndProject
@@ -114,9 +84,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.AspNetCore", "src\Framework\Module\Module.AspNetCore\Module.AspNetCore.csproj", "{90376973-0290-4209-A1BE-A2EC4D2CF84E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Host", "00_Host", "{44B1DD79-0157-4263-B5A7-AF2B4D625AC5}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Host\Directory.Build.props = src\Framework\Host\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host.Generic", "src\Framework\Host\Host.Generic\Host.Generic.csproj", "{80531AD3-EE4A-402A-BD84-DD978DCB8E41}"
 EndProject
@@ -131,9 +98,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Integration", "src\Framework\Data\Extend\Data.Integration\Data.Integration.csproj", "{86CA8459-0652-4B7F-8F21-EDDBFBB3E433}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11_Quartz", "11_Quartz", "{9C848046-459D-41B4-B479-13E406B97C4A}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Quartz\Directory.Build.props = src\Framework\Quartz\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.Abstractions", "src\Framework\Quartz\Quartz.Abstractions\Quartz.Abstractions.csproj", "{CE0C27E7-3CC4-4004-8E97-58209478FC28}"
 EndProject
@@ -165,9 +129,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Common", "test\Data\Data.Common\Data.Common.csproj", "{7FA478CA-BB87-453D-93CB-A8786FBD797B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12_Excel", "12_Excel", "{1648E152-6907-4B52-A887-6F6102A12D50}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Excel\Directory.Build.props = src\Framework\Excel\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel.Abstractions", "src\Framework\Excel\Excel.Abstractions\Excel.Abstractions.csproj", "{6DC057DE-134E-480B-8715-DE36B1E0AA02}"
 EndProject
@@ -176,9 +137,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz", "src\Admin\Library\Quartz\Quartz.csproj", "{063A9A46-0D53-46F7-882D-CBEE79571F68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "14_Pdf", "14_Pdf", "{5CF9881B-A6C4-4746-807E-7E1CB8D0AC58}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Pdf\Directory.Build.props = src\Framework\Pdf\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf.Abstractions", "src\Framework\Pdf\Pdf.Abstractions\Pdf.Abstractions.csproj", "{6D1CE2AB-E47C-4DAC-9521-A392634A7B9C}"
 EndProject
@@ -211,18 +169,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host.Generic.Tests", "test\Host\Host.Generic.Tests\Host.Generic.Tests.csproj", "{78999E69-D667-4384-B906-F2F4459F1E47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13_Config", "13_Config", "{84F5A7ED-CE1E-4E68-A703-0785FB5AEADC}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\Config\Directory.Build.props = src\Framework\Config\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Abstractions", "src\Framework\Config\Config.Abstractions\Config.Abstractions.csproj", "{721318F9-84E5-4A6B-8AFD-327CD41F92A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Core", "src\Framework\Config\Config.Core\Config.Core.csproj", "{E9C774A9-BD87-45D6-90D0-6F5E23C89CFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "16_OSS", "16_OSS", "{E063CF6C-C069-4E83-971E-0C10E00DE7F0}"
-	ProjectSection(SolutionItems) = preProject
-		src\Framework\OSS\Directory.Build.props = src\Framework\OSS\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSS.Abstractions", "src\Framework\OSS\OSS.Abstractions\OSS.Abstractions.csproj", "{03759FE3-9489-410B-ADE8-9DF2E992716D}"
 EndProject

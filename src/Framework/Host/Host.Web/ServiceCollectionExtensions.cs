@@ -53,27 +53,26 @@ namespace NetModular.Lib.Host.Web
 
             //添加MVC功能
             services.AddMvc(c =>
-            {
-                if (hostOptions.Swagger || env.IsDevelopment())
                 {
-                    //API分组约定
-                    c.Conventions.Add(new ApiExplorerGroupConvention());
-                }
+                    if (hostOptions.Swagger || env.IsDevelopment())
+                    {
+                        //API分组约定
+                        c.Conventions.Add(new ApiExplorerGroupConvention());
+                    }
 
-                //模块中的MVC配置
-                foreach (var module in modules)
+                    //模块中的MVC配置
+                    foreach (var module in modules)
+                    {
+                        ((ModuleDescriptor)module).Initializer?.ConfigureMvc(c);
+                    }
+
+                })
+                .AddNewtonsoftJson(options =>
                 {
-                    ((ModuleDescriptor)module).Initializer?.ConfigureMvc(c);
-                }
-
-            })
-            .AddNewtonsoftJson(options =>
-            {
-                //设置日期格式化格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            })
-            .AddValidators(services)//添加验证器
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                    //设置日期格式化格式
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                })
+                .AddValidators(services);//添加验证器
 
             //CORS
             services.AddCors(options =>

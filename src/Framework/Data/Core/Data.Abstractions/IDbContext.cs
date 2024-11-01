@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using NetModular.Lib.Auth.Abstractions;
 using NetModular.Lib.Data.Abstractions.Entities;
 

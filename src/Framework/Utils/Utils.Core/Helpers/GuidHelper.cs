@@ -28,7 +28,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
     /// </summary>
     public class GuidHelper
     {
-        private static readonly RNGCryptoServiceProvider Rng = new RNGCryptoServiceProvider();
+        private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
 
         /*
          * Database 	GUID Column 	  SequentialGuidType  Value 

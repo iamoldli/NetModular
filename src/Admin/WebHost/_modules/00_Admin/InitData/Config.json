@@ -12,7 +12,7 @@
   {
     "Type": 0,
     "Code": "Auth",
-    "Value": "{\"verifyCode\":false,\"validate\":true,\"button\":true,\"singleAccount\":false,\"auditing\":false,\"jwt\":{\"key\":\"twAJ$j5##pVc5*y&\",\"issuer\":\"http://127.0.0.1:6220\",\"audience\":\"http://127.0.0.1:6220\",\"expires\":120,\"refreshTokenExpires\":7},\"loginMode\":{\"userName\":true,\"email\":true,\"userNameOrEmail\":true,\"phone\":true,\"weChatScanCode\":false,\"qq\":false,\"gitHub\":false}}"
+    "Value": "{\"verifyCode\":false,\"validate\":true,\"button\":true,\"singleAccount\":false,\"auditing\":false,\"jwt\":{\"key\":\"twAJ$j5##pVc5*y&*#&@$OEeq*13OvnM\",\"issuer\":\"http://127.0.0.1:6220\",\"audience\":\"http://127.0.0.1:6220\",\"expires\":120,\"refreshTokenExpires\":7},\"loginMode\":{\"userName\":true,\"email\":true,\"userNameOrEmail\":true,\"phone\":true,\"weChatScanCode\":false,\"qq\":false,\"gitHub\":false}}"
   },
   {
     "Type": 0,

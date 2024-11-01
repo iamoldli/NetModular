@@ -548,7 +548,8 @@ namespace NetModular.Lib.Data.Core
             if (result)
             {
                 var id = EntityDescriptor.PrimaryKey.PropertyInfo.GetValue(entity);
-                DbContext.ObserverHandler?.Update<TEntity>(id, uow).GetAwaiter().GetResult();
+                if (DbContext.ObserverHandler != null)
+                    await DbContext.ObserverHandler.Update<TEntity>(id, uow)!;
             }
             return result;
         }
@@ -634,13 +635,19 @@ namespace NetModular.Lib.Data.Core
         public int Execute(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).Execute(sql, param, tran, commandTimeout: 100, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var count = con.Execute(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return count;
         }
 
         public Task<int> ExecuteAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var count = con.ExecuteAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return count;
         }
 
         #endregion
@@ -650,13 +657,19 @@ namespace NetModular.Lib.Data.Core
         public T ExecuteScalar<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteScalar<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.ExecuteScalar<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<T> ExecuteScalarAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteScalarAsync<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.ExecuteScalarAsync<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         #endregion
@@ -666,13 +679,19 @@ namespace NetModular.Lib.Data.Core
         public IDataReader ExecuteReader(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteReader(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.ExecuteReader(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).ExecuteReaderAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.ExecuteReaderAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         #endregion
@@ -682,25 +701,37 @@ namespace NetModular.Lib.Data.Core
         public dynamic QueryFirstOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryFirstOrDefault(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryFirstOrDefault(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public T QueryFirstOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryFirstOrDefault<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryFirstOrDefault<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryFirstOrDefaultAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryFirstOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryFirstOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         #endregion
@@ -710,25 +741,37 @@ namespace NetModular.Lib.Data.Core
         public dynamic QuerySingleOrDefault(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QuerySingleOrDefault(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QuerySingleOrDefault(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public T QuerySingleOrDefault<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QuerySingleOrDefault<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QuerySingleOrDefault<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QuerySingleOrDefaultAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QuerySingleOrDefaultAsync<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
 
@@ -739,13 +782,19 @@ namespace NetModular.Lib.Data.Core
         public SqlMapper.GridReader QueryMultiple(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryMultiple(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryMultiple(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryMultipleAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryMultipleAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         #endregion
@@ -755,25 +804,37 @@ namespace NetModular.Lib.Data.Core
         public IEnumerable<dynamic> Query(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).Query(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.Query(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public IEnumerable<T> Query<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).Query<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.Query<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryAsync(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryAsync(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).QueryAsync<T>(sql, param, tran, commandType: commandType);
+            var con = DbContext.NewConnection(tran);
+            var result = con.QueryAsync<T>(sql, param, tran, commandType: commandType);
+            TryCloseSqlite(con);
+            return result;
         }
 
         public INetSqlQueryable<TEntity> Find(bool noLock = true)
@@ -1016,6 +1077,19 @@ namespace NetModular.Lib.Data.Core
         private IDbTransaction GetTransaction(IUnitOfWork uow)
         {
             return uow?.Transaction;
+        }
+
+        private void TryCloseSqlite(IDbConnection con)
+        {
+            if (DbContext.Options.DbOptions.Dialect == SqlDialect.SQLite)
+            {
+                foreach (var m in DbContext.Options.DbOptions.Modules)
+                {
+                    con.Execute("DETACH DATABASE " + m.Database);
+                }
+
+                con.Close();
+            }
         }
 
         #endregion

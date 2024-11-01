@@ -51,7 +51,7 @@ namespace NetModular.Lib.Auth.Abstractions
         /// <summary>
         /// Key
         /// </summary>
-        public string Key { get; set; } = "twAJ$j5##pVc5*y&";
+        public string Key { get; set; } = "twAJ$j5##pVc5*y&*#&@$OEeq*13OvnM";
 
         /// <summary>
         /// 发行人

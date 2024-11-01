@@ -8,6 +8,7 @@ namespace NetModular.Lib.Utils.Core.Encrypt
     /// <summary>
     /// Des加解密
     /// </summary>
+    [Obsolete("该算法已过时，请使用AES")]
     public class DesEncrypt
     {
         private const string Key = "oldli!@#";
