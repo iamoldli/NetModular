@@ -1,5 +1,6 @@
 ﻿<Project>
 	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
 		<Authors>Oldli</Authors>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 		<LangVersion>Latest</LangVersion>

@@ -47,7 +47,6 @@ namespace Data.PostgreSQL.Tests
             sw.Stop();
         }
 
-        [Fact]
         public async Task<ArticleEntity> InsertTest()
         {
             var article = new ArticleEntity

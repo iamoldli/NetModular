@@ -634,7 +634,7 @@ namespace NetModular.Lib.Data.Core
         public int Execute(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)
         {
             var tran = GetTransaction(uow);
-            return DbContext.NewConnection(tran).Execute(sql, param, tran, commandType: commandType);
+            return DbContext.NewConnection(tran).Execute(sql, param, tran, commandTimeout: 100, commandType: commandType);
         }
 
         public Task<int> ExecuteAsync(string sql, object param = null, IUnitOfWork uow = null, CommandType? commandType = null)

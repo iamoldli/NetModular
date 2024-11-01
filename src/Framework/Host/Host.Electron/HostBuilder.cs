@@ -44,11 +44,11 @@ namespace NetModular.Lib.Host.Electron
                 hostOptions.Urls = "http://*:5000";
 
             return Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+                .UseLogging()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
                         .UseElectron(args)
-                        .UseLogging()
                         .UseStartup<TStartup>()
                         .UseUrls(hostOptions.Urls);
                 });

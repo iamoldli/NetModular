@@ -51,7 +51,7 @@ namespace NetModular.Lib.Utils.Core.Helpers
                     int y1 = r.Next(img.Height);
                     int x2 = r.Next(img.Width);
                     int y2 = r.Next(img.Height);
-                    x.DrawLines(new Pen(_colors.RandomGet(), 1L), new PointF(x1, y1), new PointF(x2, y2));
+                    x.DrawLine(new SolidPen(_colors.RandomGet(), 1L), new PointF(x1, y1), new PointF(x2, y2));
                 }
 
                 //画验证码字符串 

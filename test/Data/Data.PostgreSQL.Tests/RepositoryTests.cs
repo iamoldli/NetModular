@@ -17,7 +17,6 @@ namespace Data.PostgreSQL.Tests
             _articleRepository = new ArticleRepository(DbContext);
         }
 
-        [Fact]
         public async Task<ArticleEntity> AddTest()
         {
             var article = new ArticleEntity

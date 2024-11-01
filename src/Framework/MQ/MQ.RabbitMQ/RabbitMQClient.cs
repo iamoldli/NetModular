@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -24,10 +25,10 @@ namespace NetModular.Lib.MQ.RabbitMQ
         {
             _config = config;
 
-            CreateConnection();
+            CreateConnectionAsync().GetAwaiter().GetResult();
         }
 
-        internal void CreateConnection()
+        internal async Task CreateConnectionAsync()
         {
             Check.NotNull(_config.UserName, nameof(_config.UserName), "用户名不能为空");
             Check.NotNull(_config.Password, nameof(_config.Password), "密码不能为空");
@@ -51,9 +52,9 @@ namespace NetModular.Lib.MQ.RabbitMQ
             if (_config.VirtualHost.NotNull())
                 factory.VirtualHost = _config.VirtualHost;
 
-            _sendConnection = factory.CreateConnection();
+            _sendConnection = await factory.CreateConnectionAsync();
 
-            _receiveConnection = factory.CreateConnection();
+            _receiveConnection = await factory.CreateConnectionAsync();
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace NetModular.Lib.MQ.RabbitMQ
         /// <param name="routingKey">路由建</param>
         /// <param name="message">消息体</param>
         /// <param name="settings">配置</param>
-        public void Send<T>(string queue, T message, string routingKey = "", RabbitMQDeclareSettings settings = null)
+        public async Task SendAsync<T>(string queue, T message, string routingKey = "", RabbitMQDeclareSettings settings = null)
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
 
@@ -83,19 +84,21 @@ namespace NetModular.Lib.MQ.RabbitMQ
             if (routingKey.IsNull())
                 routingKey = queue;
 
-            using var channel = _sendConnection.CreateModel();
+            await using var channel = await _sendConnection.CreateChannelAsync();
 
             settings = GetSettings(settings);
             var exchange = settings.Exchange;
-            channel.ExchangeDeclare(exchange.Name, exchange.Type, exchange.Durable, exchange.AutoDelete, exchange.Arguments);
-            channel.QueueDeclare(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
-            channel.QueueBind(queue, exchange.Name, routingKey);
+            await channel.ExchangeDeclareAsync(exchange.Name, exchange.Type, exchange.Durable, exchange.AutoDelete, exchange.Arguments);
+            await channel.QueueDeclareAsync(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
+            await channel.QueueBindAsync(queue, exchange.Name, routingKey);
 
             var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = true;
+            var properties = new BasicProperties
+            {
+                Persistent = true
+            };
 
-            channel.BasicPublish(exchange.Name, routingKey, properties, body);
+            await channel.BasicPublishAsync(exchange.Name, routingKey: routingKey, true, basicProperties: properties, body: body);
         }
 
         /// <summary>
@@ -105,33 +108,33 @@ namespace NetModular.Lib.MQ.RabbitMQ
         /// <param name="queue">队列名称</param>
         /// <param name="func">回调函数</param>
         /// <param name="settings">定义设置</param>
-        public Consumer Receive<T>(string queue, Func<T, bool> func, RabbitMQDeclareSettings settings = null)
+        public async Task<Consumer> Receive<T>(string queue, Func<T, bool> func, RabbitMQDeclareSettings settings = null)
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
             Check.NotNull(func, nameof(func), "func is null");
 
             queue = GetQueueName(queue);
 
-            var channel = _receiveConnection.CreateModel();
-            channel.BasicQos(0, 1, false);
+            var channel = await _receiveConnection.CreateChannelAsync();
+            await channel.BasicQosAsync(0, 1, false);
             settings = GetSettings(settings);
-            channel.QueueDeclare(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
+            await channel.QueueDeclareAsync(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (sender, eventArgs) =>
+            var consumer = new AsyncEventingBasicConsumer(channel);
+            consumer.ReceivedAsync += async (sender, eventArgs) =>
             {
                 var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eventArgs.Body.ToArray()));
                 if (func(message))
                 {
-                    channel.BasicAck(eventArgs.DeliveryTag, false);
+                    await channel.BasicAckAsync(eventArgs.DeliveryTag, false);
                 }
                 else
                 {
-                    channel.BasicNack(eventArgs.DeliveryTag, false, true);
+                    await channel.BasicNackAsync(eventArgs.DeliveryTag, false, true);
                 }
             };
 
-            var tag = channel.BasicConsume(queue, false, consumer);
+            var tag = await channel.BasicConsumeAsync(queue, false, consumer);
             return new Consumer
             {
                 Channel = channel,
@@ -146,33 +149,33 @@ namespace NetModular.Lib.MQ.RabbitMQ
         /// <param name="queue">队列名称</param>
         /// <param name="func">回调函数</param>
         /// <param name="settings">定义设置</param>
-        public Consumer Receive<T>(string queue, Func<T, string, bool> func, RabbitMQDeclareSettings settings = null)
+        public async Task<Consumer> Receive<T>(string queue, Func<T, string, bool> func, RabbitMQDeclareSettings settings = null)
         {
             Check.NotNull(queue, nameof(queue), "queue is null");
             Check.NotNull(func, nameof(func), "func is null");
 
             queue = GetQueueName(queue);
 
-            var channel = _receiveConnection.CreateModel();
-            channel.BasicQos(0, 1, false);
+            var channel = await _receiveConnection.CreateChannelAsync();
+            await channel.BasicQosAsync(0, 1, false);
             settings = GetSettings(settings);
-            channel.QueueDeclare(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
+            await channel.QueueDeclareAsync(queue, settings.Queue.Durable, settings.Queue.Exclusive, settings.Queue.AutoDelete, settings.Queue.Arguments);
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (sender, eventArgs) =>
+            var consumer = new AsyncEventingBasicConsumer(channel);
+            consumer.ReceivedAsync += async (sender, eventArgs) =>
             {
                 var message = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eventArgs.Body.ToArray()));
                 if (func(message, queue))
                 {
-                    channel.BasicAck(eventArgs.DeliveryTag, false);
+                    await channel.BasicAckAsync(eventArgs.DeliveryTag, false);
                 }
                 else
                 {
-                    channel.BasicNack(eventArgs.DeliveryTag, false, true);
+                    await channel.BasicNackAsync(eventArgs.DeliveryTag, false, true);
                 }
             };
 
-            var tag = channel.BasicConsume(queue, false, consumer);
+            var tag = await channel.BasicConsumeAsync(queue, false, consumer);
             return new Consumer
             {
                 Channel = channel,

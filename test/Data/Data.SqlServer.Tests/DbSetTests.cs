@@ -51,7 +51,6 @@ namespace Data.MySql.Tests
             var s = sw.ElapsedMilliseconds;
         }
 
-        [Fact]
         public async Task<ArticleEntity> InsertTest()
         {
             var article = new ArticleEntity

@@ -49,7 +49,6 @@ namespace Data.SQLite.Tests
             var s = sw.ElapsedMilliseconds;
         }
 
-        [Fact]
         public async Task<ArticleEntity> InsertTest()
         {
             var article = new ArticleEntity

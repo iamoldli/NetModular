@@ -96,7 +96,7 @@ namespace NetModular.Lib.Data.Core
                     sql.AppendFormat("ATTACH DATABASE '{0}' as '{1}';", dbFilePath, c.Database);
                 }
 
-                conn.ExecuteAsync(sql.ToString()).Wait();
+                conn.Execute(sql.ToString());
             }
 
             return conn;

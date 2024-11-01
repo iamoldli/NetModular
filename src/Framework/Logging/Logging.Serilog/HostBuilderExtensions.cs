@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace NetModular.Lib.Logging.Serilog
 {
-    public static class WebHostBuilderExtensions
+    public static class HostBuilderExtensions
     {
-        public static IWebHostBuilder UseLogging(this IWebHostBuilder builder)
+        public static IHostBuilder UseLogging(this IHostBuilder builder)
         {
             builder.UseSerilog((hostingContext, loggerConfiguration) =>
             {

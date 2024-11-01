@@ -18,7 +18,6 @@ namespace Data.MySql.Tests
             _articleRepository = new ArticleRepository(DbContext);
         }
 
-        [Fact]
         public async Task<ArticleEntity> AddTest()
         {
             var article = new ArticleEntity

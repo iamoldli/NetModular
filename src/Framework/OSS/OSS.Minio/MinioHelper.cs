@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Minio;
 using Minio.DataModel;
 using NetModular.Lib.OSS.Abstractions;
@@ -10,6 +9,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.StaticFiles;
+using Minio.DataModel.Args;
+using Minio.DataModel.Encryption;
+using MinioConfig = NetModular.Lib.OSS.Abstractions.MinioConfig;
 
 namespace NetModular.Lib.OSS.Minio
 {
@@ -41,7 +44,7 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="metaData"></param>
         /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, ServerSideEncryption sse = default)
+        public async Task<bool> PutObjectAsync(string objectName, Stream data, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, IServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -62,7 +65,8 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                await client.PutObjectAsync(bucketName, objectName, data, data.Length, contentType, metaData, sse, cancellationToken);
+                var arg = new PutObjectArgs().WithBucket(bucketName).WithObject(objectName).WithStreamData(data).WithContentType(contentType).WithHeaders(metaData).WithServerSideEncryption(sse);
+                await client.PutObjectAsync(arg, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -83,7 +87,7 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="metaData"></param>
         /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, ServerSideEncryption sse = default)
+        public async Task<bool> PutObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, string contentType = default, Dictionary<string, string> metaData = default, IServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -108,7 +112,8 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                await client.PutObjectAsync(bucketName, objectName, filePath, contentType, metaData, sse, cancellationToken);
+                var arg = new PutObjectArgs().WithBucket(bucketName).WithObject(objectName).WithFileName(filePath).WithContentType(contentType).WithHeaders(metaData).WithServerSideEncryption(sse);
+                await client.PutObjectAsync(arg, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -127,7 +132,7 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="bucketName"></param>
         /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default, ServerSideEncryption sse = default)
+        public async Task GetObjectAsync(string objectName, Action<Stream> callback, CancellationToken cancellationToken = default, string bucketName = default, IServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -137,10 +142,11 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                await client.GetObjectAsync(bucketName, objectName, (stream) =>
+                var arg = new GetObjectArgs().WithBucket(bucketName).WithObject(objectName).WithServerSideEncryption(sse).WithCallbackStream((stream) =>
                 {
                     callback?.Invoke(stream);
-                }, sse, cancellationToken);
+                });
+                await client.GetObjectAsync(arg, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -158,7 +164,7 @@ namespace NetModular.Lib.OSS.Minio
         /// <param name="bucketName"></param>
         /// <param name="sse"></param>
         /// <returns></returns>
-        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, ServerSideEncryption sse = default)
+        public async Task GetObjectAsync(string objectName, string filePath, CancellationToken cancellationToken = default, string bucketName = default, IServerSideEncryption sse = default)
         {
             if (bucketName.IsNull())
             {
@@ -173,7 +179,8 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                await client.GetObjectAsync(bucketName, objectName, filePath, sse, cancellationToken);
+                var arg = new GetObjectArgs().WithBucket(bucketName).WithObject(objectName).WithFile(filePath).WithServerSideEncryption(sse);
+                await client.GetObjectAsync(arg, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -206,7 +213,8 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                var presignedUrl = await client.PresignedGetObjectAsync(bucketName, objectName, expiresInt, reqParams, reqDate);
+                var arg = new PresignedGetObjectArgs().WithBucket(bucketName).WithObject(objectName).WithExpiry(expiresInt).WithRequestDate(reqDate);
+                var presignedUrl = await client.PresignedGetObjectAsync(arg);
                 return presignedUrl;
             }
             catch (Exception ex)
@@ -233,7 +241,8 @@ namespace NetModular.Lib.OSS.Minio
             try
             {
                 var client = GetClient();
-                await client.RemoveObjectAsync(bucketName, objectName, cancellationToken);
+                var arg = new RemoveObjectArgs().WithBucket(bucketName).WithObject(objectName);
+                await client.RemoveObjectAsync(arg, cancellationToken);
                 return true;
             }
             catch (Exception ex)
@@ -245,7 +254,8 @@ namespace NetModular.Lib.OSS.Minio
 
         private MinioClient GetClient()
         {
-            var client = new MinioClient(_config.EndPoint, _config.AccessKey, _config.SecretKey);
+            var client = new MinioClient();
+            client.WithEndpoint(_config.EndPoint).WithCredentials(_config.AccessKey, _config.SecretKey);
             if (_config.Secure)
             {
                 client.WithSSL();

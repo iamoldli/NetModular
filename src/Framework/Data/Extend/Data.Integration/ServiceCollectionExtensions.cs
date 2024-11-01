@@ -187,7 +187,7 @@ namespace NetModular.Lib.Data.Integration
 
                             var dbSetType = genericType.MakeGenericType(entityType);
                             var db = Activator.CreateInstance(dbSetType, new object[] { dbContext });
-                            dbSetType.GetMethod("BatchInsert").Invoke(db, new object[] { list, 10000, null, null });
+                            dbSetType.GetMethod("BatchInsert")!.Invoke(db, new object[] { list, 10000, null, null });
                         }
                     }
                 }

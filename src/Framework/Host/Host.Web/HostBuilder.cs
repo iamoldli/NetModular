@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NetModular.Lib.Logging.Serilog;
-using NetModular.Lib.Utils.Core.Helpers;
+using Serilog;
 using HostOptions = NetModular.Lib.Host.Web.Options.HostOptions;
 
 namespace NetModular.Lib.Host.Web
@@ -51,9 +51,10 @@ namespace NetModular.Lib.Host.Web
 
             return Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
                     .UseDefaultServiceProvider(options => { options.ValidateOnBuild = false; })
+                    .UseLogging()
                     .ConfigureWebHostDefaults(webBuilder =>
                     {
-                        webBuilder.UseLogging()
+                        webBuilder
                             .UseStartup<TStartup>()
                             .UseUrls(hostOptions.Urls);
                     });
