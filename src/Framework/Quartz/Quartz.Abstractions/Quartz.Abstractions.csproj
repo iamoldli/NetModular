@@ -8,13 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<PackageReference Include="Quartz" Version="3.3.3" />
-		<PackageReference Include="Quartz.Serialization.Json" Version="3.3.3" />
+		<PackageReference Include="Quartz" Version="3.13.0" />
+		<PackageReference Include="Quartz.Serialization.Json" Version="3.13.0" />
 	</ItemGroup>
 
 	<ItemGroup>

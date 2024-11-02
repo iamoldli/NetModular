@@ -53,18 +53,19 @@ namespace NetModular.Lib.Data.PostgreSQL
                 MaxPoolSize = DbOptions.MaxPoolSize < 1 ? 100 : DbOptions.MaxPoolSize,
                 MinPoolSize = DbOptions.MinPoolSize < 1 ? 0 : DbOptions.MinPoolSize
             };
-            if (DbOptions.NpgsqlDatabaseName.NotNull())
-            {
-                connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
-            }
-
-            var connStr = connStrBuilder.ToString();
 
             //该参数为null表示使用的是当前模块的数据库
             if (tableName.IsNull())
-                Options.ConnectionString = connStr;
+            {
+                if (DbOptions.NpgsqlDatabaseName.NotNull())
+                {
+                    connStrBuilder.Database = DbOptions.NpgsqlDatabaseName;
+                }
 
-            return connStr;
+                Options.ConnectionString = connStrBuilder.ToString();
+            }
+
+            return connStrBuilder.ToString();
         }
 
         public override string GeneratePagingSql(string select, string table, string where, string sort, int skip, int take, string groupBy = null, string having = null)
