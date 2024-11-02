@@ -335,3 +335,4 @@ ASALocalRun/
 /src/Admin/WebHost/wwwroot/app
 /_packages
 /publish_local.ps1
+/publish.ps1
