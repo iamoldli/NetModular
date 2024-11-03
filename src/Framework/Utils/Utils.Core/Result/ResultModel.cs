@@ -65,7 +65,7 @@ namespace NetModular
         /// </summary>
         /// <param name="data">返回数据</param>
         /// <returns></returns>
-        public static IResultModel Success<T>(T data = default(T))
+        public static IResultModel<T> Success<T>(T data = default)
         {
             return new ResultModel<T>().Success(data);
         }
@@ -84,7 +84,7 @@ namespace NetModular
         /// </summary>
         /// <param name="error">错误信息</param>
         /// <returns></returns>
-        public static IResultModel Failed<T>(string error = null)
+        public static IResultModel<T> Failed<T>(string error = null)
         {
             return new ResultModel<T>().Failed(error ?? "failed");
         }
@@ -103,7 +103,7 @@ namespace NetModular
         /// </summary>
         /// <param name="success"></param>
         /// <returns></returns>
-        public static IResultModel Result<T>(bool success)
+        public static IResultModel<T> Result<T>(bool success)
         {
             return success ? Success<T>() : Failed<T>();
         }
