@@ -35,6 +35,8 @@ namespace NetModular.Lib.OSS.Aliyun
             var client = new OssClient(_config.Endpoint, _config.AccessKeyId, _config.AccessKeySecret);
             try
             {
+                key = key.Replace("\\", "/");
+
                 // 上传文件。
                 client.PutObject(_config.BucketName, key, physicalPath);
 
