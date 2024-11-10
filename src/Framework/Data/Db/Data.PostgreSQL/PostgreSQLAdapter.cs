@@ -17,6 +17,7 @@ namespace NetModular.Lib.Data.PostgreSQL
     {
         public PostgreSQLAdapter(DbOptions dbOptions, DbModuleOptions options, ILoggerFactory loggerFactory) : base(dbOptions, options, loggerFactory?.CreateLogger<PostgreSQLAdapter>())
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         public override string Database => AppendQuote(Options.Database) + ".";
