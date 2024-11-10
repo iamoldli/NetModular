@@ -43,10 +43,12 @@ namespace NetModular.Lib.OSS.Aliyun
             if (fullPath.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || fullPath.StartsWith("https:", StringComparison.OrdinalIgnoreCase))
                 return fullPath;
 
+            fullPath = fullPath.Replace("\\", "/");
+
             //公开
             if (accessMode == FileAccessMode.Open)
             {
-                return $"{_config.Domain}{HttpUtility.UrlEncode(fullPath, Encoding.UTF8)}";
+                return $"{_config.Domain}{fullPath}";
             }
 
             //私有
