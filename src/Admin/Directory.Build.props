@@ -5,7 +5,7 @@
 		<Name>权限管理</Name>
 		<Authors>Oldli</Authors>
 		<Icon>permission</Icon>
-		<Version>9.0.1</Version>
+		<Version>9.0.6</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<Description>NetModular Module Admin($(Name)) - $(MSBuildProjectName)</Description>
 		<NoWarn>$(NoWarn);1591</NoWarn>

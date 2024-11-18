@@ -248,14 +248,24 @@ namespace NetModular.Lib.Data.PostgreSQL
                     }
 
                     return "TIMESTAMP";
-                case TypeCode.Decimal:
                 case TypeCode.Double:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
+                    return "double precision";
+                case TypeCode.Decimal:
+                    if (!isNullable)
+                    {
+                        defaultValue = "DEFAULT 0";
+                    }
+                    return "numeric";
                 case TypeCode.Single:
                     if (!isNullable)
                     {
                         defaultValue = "DEFAULT 0";
                     }
-                    return "MONEY";
+                    return "real";
             }
 
             return string.Empty;

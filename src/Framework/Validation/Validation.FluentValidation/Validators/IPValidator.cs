@@ -1,27 +1,31 @@
 ﻿using System.Text.RegularExpressions;
+using FluentValidation;
 using FluentValidation.Validators;
 
-namespace NetModular.Lib.Validation.FluentValidation.Validators
+namespace NetModular.Lib.Validation.FluentValidation.Validators;
+
+/// <summary>
+/// IP验证
+/// </summary>
+public class IPValidator<T> : PropertyValidator<T, string>
 {
-    /// <summary>
-    /// IP验证
-    /// </summary>
-    public class IPValidator : PropertyValidator
+    private const string Pattern = @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9][01]?[0-9][0-9]?)$";
+    private static readonly Regex _regex = new Regex(Pattern);
+
+    public override string Name => "IPValidator";
+
+    public IPValidator() : base()
     {
-        private const string Pattern = @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-        private static Regex _regex;
-
-        public IPValidator() : base("IP地址无效")
-        {
-            _regex = new Regex(Pattern);
-        }
-
-        protected override bool IsValid(PropertyValidatorContext context)
-        {
-            if (context.PropertyValue == null)
-                return false;
-
-            return _regex.IsMatch(context.PropertyValue.ToString());
-        }
     }
+
+    public override bool IsValid(ValidationContext<T> context, string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return false;
+
+        return _regex.IsMatch(value);
+    }
+
+    protected override string GetDefaultMessageTemplate(string errorCode)
+        => "IP地址无效";
 }

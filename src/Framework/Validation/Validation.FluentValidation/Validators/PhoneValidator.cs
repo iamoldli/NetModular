@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using FluentValidation;
 using FluentValidation.Validators;
 
 namespace NetModular.Lib.Validation.FluentValidation.Validators
@@ -6,22 +7,26 @@ namespace NetModular.Lib.Validation.FluentValidation.Validators
     /// <summary>
     /// 手机号简单验证
     /// </summary>
-    public class PhoneValidator : PropertyValidator
+    public class PhoneValidator<T> : PropertyValidator<T, string>
     {
         private const string Pattern = @"^1[345789]\d{9}$";
-        private static Regex _regex;
+        private static readonly Regex _regex = new Regex(Pattern);
 
-        public PhoneValidator() : base("手机号无效")
+        public override string Name => "PhoneValidator";
+
+        public PhoneValidator() : base()
         {
-            _regex=new Regex(Pattern);
         }
 
-        protected override bool IsValid(PropertyValidatorContext context)
+        public override bool IsValid(ValidationContext<T> context, string value)
         {
-            if (context.PropertyValue == null)
+            if (string.IsNullOrEmpty(value))
                 return false;
 
-            return _regex.IsMatch(context.PropertyValue.ToString());
+            return _regex.IsMatch(value);
         }
+
+        protected override string GetDefaultMessageTemplate(string errorCode)
+            => "手机号无效";
     }
 }

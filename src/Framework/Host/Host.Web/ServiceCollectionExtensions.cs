@@ -112,7 +112,8 @@ namespace NetModular.Lib.Host.Web
             services.AddConfig();
 
             //Jwt身份认证(需要从配置中读取jwt相关配置，所以要放在配置管理后面)
-            services.AddJwtAuth();
+            if (!hostOptions.DisableAuth)
+                services.AddJwtAuth();
 
             //添加模块初始化服务
             services.AddModuleInitializerServices(modules, env, cfg);
