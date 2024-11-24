@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetModular.Lib.Logging.Serilog;
@@ -41,7 +42,9 @@ namespace NetModular.Lib.Host.Web
 
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.UseUrls(hostOptions.Urls);
             builder.Host.UseLogging();
+
             builder.Services.AddSingleton(hostOptions);
             builder.Services.AddWebHost(hostOptions, builder.Environment, builder.Configuration);
 
